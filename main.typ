@@ -1,30 +1,31 @@
-#import "_misc/template/_index.typ": template, front-matter, main-matter, back-matter
-#import "/utils.typ": *
+#import "template.typ": *
+#import "@preview/acrostiche:0.3.1": *
+#import "@preview/drafting:0.2.0": *
 
-#show: template.with(
-  title: "From Sound to Action: Deep Learning for Audio-Based Localization and Navigation in Robotics",
-  author: "Gaétan Lepage",
-  include-outlines-in-contents: false,
-  boxed-refs: true, // TODO check if we want that
+
+#show: project.with(
+  title: "Deep Learning for Dynamic Acoustic Robot Interactions",
+  authors: (
+    (name: "Gaétan Lepage", affiliation: "RobotLearn Team, Inria Grenoble Alpes"),
+  ),
+  // date: "March 27, 2024",
 )
+#set-page-properties()
 
-#set page(numbering: none)
+#init-acronyms((
+  "ASR": ("Automatic Speech Recognition"),
+  "RL": ("Reinforcement Learning"),
+  "SSL": ("Sound Source Localization"),
+  "IPD": ("Interaural Phase Difference"),
+  "ILD": ("Interaural Level Difference"),
+  "DOA": ("Direction of Arrival"),
+  "STFT": ("Short Term Fourier Transform"),
+))
 
-#include "_misc/acronyms.typ"
+#set math.equation(numbering: "(1)")
 
+#outline(title: "Table of Contents", indent: true, depth: 2)
 
-/*---------*/
-/* CONTENT */
-/*---------*/
-
-// FRONT
-#show: front-matter
-#include "head/index.typ"
-
-// MAIN
-#show: main-matter
+// TODO
 #include "sections/index.typ"
-
-// TAIL
-#show: back-matter
-#include "tail/index.typ"
+#bibliography("bibliography.bib")
