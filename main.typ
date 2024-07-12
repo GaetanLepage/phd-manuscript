@@ -14,12 +14,14 @@
 
 #init-acronyms((
   "ASR": ("Automatic Speech Recognition"),
+  "DOA": ("Direction of Arrival"),
+  "ILD": ("Interaural Level Difference"),
+  "IPD": ("Interaural Phase Difference"),
+  "RIR": ("Room Impulse Response"),
   "RL": ("Reinforcement Learning"),
   "SSL": ("Sound Source Localization"),
-  "IPD": ("Interaural Phase Difference"),
-  "ILD": ("Interaural Level Difference"),
-  "DOA": ("Direction of Arrival"),
   "STFT": ("Short Term Fourier Transform"),
+  "WER": ("Word Error Rate"),
 ))
 
 #set math.equation(numbering: "(1)")
@@ -28,4 +30,4 @@
 
 // TODO
 #include "sections/index.typ"
-#bibliography("bibliography.bib")
+#include "bibliography/main.typ"

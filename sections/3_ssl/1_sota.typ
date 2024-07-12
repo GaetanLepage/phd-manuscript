@@ -5,10 +5,11 @@
 
 === Original problem
 // Very broad introduction
-Sound Source Localization (#acr("SSL")) is part of the classic challenges in artificial speech processing.
-#chris("Example")
-This challenge #chris("too causal, use for example requires") boils down to identifying the relative position of one or several sound sources leveraging an audition device.
+#acr("SSL") is part of the classic challenges in artificial speech processing.
+This challenge requires to identify the relative position of one or several sound sources leveraging an audition device.
 A broad range of specific settings and methods have been investigated in the audio processing literature.
+
+// TODO cite Sharon's survey paper
 
 
 === Classical approaches
