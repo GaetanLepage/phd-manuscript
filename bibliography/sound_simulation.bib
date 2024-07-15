@@ -1,0 +1,192 @@
+##########################################################
+# ISM
+##########################################################
+# OG paper of ISM method
+@article{allen_image_nodate,
+	title = {Image Method for Efficiently Simulating Small-room Acoustics},
+	pages = {8},
+	author = {Allen, J B and Berkley, D A},
+	langid = {english},
+	keywords = {room\_impulse\_response},
+	file = {Allen and Berkley - Image Method for Efficiently Simulating Small-room.pdf:/home/gaetan/.local/share/Zotero/storage/6LB7QU3D/Allen and Berkley - Image Method for Efficiently Simulating Small-room.pdf:application/pdf;Room Impulse Response Generator:/home/gaetan/.local/share/Zotero/storage/JH7R6KNZ/rir_generator.pdf:application/pdf},
+}
+
+
+##########################################################
+# Path/ray tracing
+##########################################################
+@article{cao_interactive_2016,
+	title = {Interactive sound propagation with bidirectional path tracing},
+	volume = {35},
+	issn = {0730-0301, 1557-7368},
+	url = {https://dl.acm.org/doi/10.1145/2980179.2982431},
+	doi = {10.1145/2980179.2982431},
+	abstract = {We introduce Bidirectional Sound Transport ({BST}), a new algorithm that simulates sound propagation by bidirectional path tracing using multiple importance sampling. Our approach can handle multiple sources in large virtual environments with complex occlusion, and can produce plausible acoustic effects at an interactive rate on a desktop {PC}. We introduce a new metric based on the signalto-noise ratio ({SNR}) of the energy response and use this metric to evaluate the performance of ray-tracing-based acoustic simulation methods. Our formulation exploits temporal coherence in terms of using the resulting sample distribution of the previous frame to guide the sample distribution of the current one. We show that our sample redistribution algorithm converges and better balances between early and late reﬂections. We evaluate our approach on different benchmarks and demonstrate signiﬁcant speedup over prior geometric acoustic algorithms.},
+	pages = {1--11},
+	number = {6},
+	journaltitle = {{ACM} Transactions on Graphics},
+	shortjournal = {{ACM} Trans. Graph.},
+	author = {Cao, Chunxiao and Ren, Zhong and Schissler, Carl and Manocha, Dinesh and Zhou, Kun},
+	urldate = {2021-01-13},
+	date = {2016-11-11},
+	langid = {english},
+	file = {Cao et al. - 2016 - Interactive sound propagation with bidirectional p.pdf:/home/gaetan/.local/share/Zotero/storage/QN6PYSC8/Cao et al. - 2016 - Interactive sound propagation with bidirectional p.pdf:application/pdf},
+}
+
+
+@article{schissler_interactive_2017,
+	title = {Interactive Sound Propagation and Rendering for Large Multi-Source Scenes},
+	volume = {36},
+	issn = {0730-0301},
+	url = {https://dl.acm.org/doi/10.1145/3072959.2943779},
+	doi = {10.1145/3072959.2943779},
+	abstract = {We present an approach to generate plausible acoustic effects at interactive rates in large dynamic environments containing many sound sources. Our formulation combines listener-based backward ray tracing with sound source clustering and hybrid audio rendering to handle complex scenes. We present a new algorithm for dynamic late reverberation that performs high-order ray tracing from the listener against spherical sound sources. We achieve sublinear scaling with the number of sources by clustering distant sound sources and taking relative visibility into account. We also describe a hybrid convolution-based audio rendering technique that can process hundreds of thousands of sound paths at interactive rates. We demonstrate the performance on many indoor and outdoor scenes with up to 200 sound sources. In practice, our algorithm can compute more than 50 reflection orders at interactive rates on a multicore {PC}, and we observe a 5x speedup over prior geometric sound propagation algorithms.},
+	pages = {114c:1},
+	number = {4},
+	journaltitle = {{ACM} Transactions on Graphics},
+	shortjournal = {{ACM} Trans. Graph.},
+	author = {Schissler, Carl and Manocha, Dinesh},
+	urldate = {2023-05-31},
+	date = {2017-07-16},
+	keywords = {ray tracing, Sound propagation, source clustering},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/XPTPAK3M/Schissler and Manocha - 2017 - Interactive Sound Propagation and Rendering for La.pdf:application/pdf},
+}
+
+
+
+##########################################################
+# Learning
+##########################################################
+@article{tang_learning_2020,
+	title = {Learning Acoustic Scattering Fields for Dynamic Interactive Sound Propagation},
+	url = {http://arxiv.org/abs/2010.04865},
+	abstract = {We present a novel hybrid sound propagation algorithm for interactive applications. Our approach is designed for dynamic scenes and uses a neural network-based learned scattered ﬁeld representation along with ray tracing to generate specular, diffuse, diffraction, and occlusion effects efﬁciently. We use geometric deep learning to approximate the acoustic scattering ﬁeld using spherical harmonics. We use a large 3D dataset for training, and compare its accuracy with the ground truth generated using an accurate wave-based solver. The additional overhead of computing the learned scattered ﬁeld at runtime is small and we demonstrate its interactive performance by generating plausible sound effects in dynamic scenes with diffraction and occlusion effects. We demonstrate the perceptual beneﬁts of our approach based on an audio-visual user study.},
+	journaltitle = {{arXiv}:2010.04865 [cs, eess]},
+	author = {Tang, Zhenyu and Meng, Hsien-Yu and Manocha, Dinesh},
+	urldate = {2021-05-17},
+	date = {2020-12-07},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {2010.04865},
+	file = {Tang et al. - 2020 - Learning Acoustic Scattering Fields for Dynamic In.pdf:/home/gaetan/.local/share/Zotero/storage/N87NX5DA/Tang et al. - 2020 - Learning Acoustic Scattering Fields for Dynamic In.pdf:application/pdf},
+}
+
+
+##########################################################
+# Numerical simulation
+##########################################################
+@article{raghuvanshi_efficient_2016,
+	title = {Efficient and Accurate Sound Propagation Using Adaptive Rectangular Decomposition},
+	volume = {15},
+	url = {https://www.microsoft.com/en-us/research/publication/efficient-accurate-sound-propagation-using-adaptive-rectangular-decomposition/},
+	abstract = {Accurate sound rendering can add significant realism to complement visual display in interactive applications, as well as facilitate acoustic predictions for many engineering applications, like accurate acoustic analysis for architectural design. Numerical simulation can provide this realism most naturally by modeling the underlying physics of wave propagation. However, wave simulation has traditionally posed a tough […]},
+	journaltitle = {{IEEE} Transactions on Visualization and Computer Graphics},
+	author = {Raghuvanshi, Nikunj and Narain, Rahul and Lin, Ming C.},
+	urldate = {2020-12-09},
+	date = {2016-10-19},
+	langid = {american},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/4BPEFS7C/Raghuvanshi et al. - 2016 - Efficient and Accurate Sound Propagation Using Ada.pdf:application/pdf},
+}
+
+@article{rosen_interactive_2020,
+	title = {Interactive sound propagation for dynamic scenes using 2D wave simulation},
+	abstract = {We present a technique to model wave-based sound propagation to complement visual animation in fully dynamic scenes. We employ 2D wave simulation that captures geometry-based diffraction effects such as obstruction, reverberation, and directivity of perceptually-salient initial sound at the source and listener. We show real-time performance on a single {CPU} core on modestly-sized scenes that are nevertheless topologically complex. Our key ideas are to exploit reciprocity and use a perceptual encoding and rendering framework. These allow the use of low-frequency ﬁnite-difference simulations on static scene snapshots. Our results show plausible audio variation that remains robust to motion and geometry changes. We suggest that wave solvers can be a practical approach to real-time dynamic acoustics. We share the complete C++ code of our “Planeverb” system.},
+	pages = {8},
+	author = {Rosen, M and Godin, K W and Raghuvanshi, N},
+	date = {2020},
+	langid = {english},
+	file = {GitHub - Planeverb:/home/gaetan/.local/share/Zotero/storage/LC9UU3H4/Planeverb.html:text/html;Rosen et al. - 2020 - Interactive sound propagation for dynamic scenes  .pdf:/home/gaetan/.local/share/Zotero/storage/K8F563C4/Rosen et al. - 2020 - Interactive sound propagation for dynamic scenes  .pdf:application/pdf},
+}
+
+@article{benhamou_numerical_2023,
+	title = {Numerical simulation study of acoustic waves propagation and streaming using {MRT}-lattice Boltzmann method},
+	volume = {24},
+	issn = {1550-2287, 1550-2295},
+	url = {https://www.tandfonline.com/doi/full/10.1080/15502287.2022.2050844},
+	doi = {10.1080/15502287.2022.2050844},
+	abstract = {This paper presents a numerical investigation of the propagation of acoustic waves generated by a linear acoustic source using the lattice Boltzmann method ({LBM}). The main objective of this study is to compute the sound pressure and acoustic force produced by a rectangular sound source located at the center of the west wall of a rectangular cavity, filled with water. The sound source is discretized into a set of point sources emitting waves according to the acoustic point source method. The interference between the generated cylindrical waves creates an acoustic beam in the cavity. An analytical study is carried out to validate these numerical results. The error between the numerical and analytical calculations of the wave propagation is also discussed to confirm the validity of the numerical approach. In a second step, the acoustic streaming is calculated by introducing the acoustic force into the {LBM} code. A characteristic flow structure with two recirculating cells is thus obtained.},
+	pages = {62--75},
+	number = {1},
+	journaltitle = {International Journal for Computational Methods in Engineering Science and Mechanics},
+	shortjournal = {International Journal for Computational Methods in Engineering Science and Mechanics},
+	author = {Benhamou, Jaouad and Jami, Mohammed and Mezrhab, Ahmed and Henry, Daniel and Botton, Valéry},
+	urldate = {2024-07-12},
+	date = {2023-01-02},
+	langid = {english},
+	file = {Benhamou et al. - 2023 - Numerical simulation study of acoustic waves propa.pdf:/home/gaetan/.local/share/Zotero/storage/WG4IY9IX/Benhamou et al. - 2023 - Numerical simulation study of acoustic waves propa.pdf:application/pdf},
+}
+
+
+
+##########################################################
+# LIBRARIES
+##########################################################
+# ISM Matlab (Roomsim)
+@article{campbell_roomsim_nodate,
+	title = {Roomsim, a {MATLAB} Simulation of “Shoebox” Room Acoustics for use in Teaching and Research},
+	abstract = {A simulation of the acoustics of a simple rectangular prism room has been constructed using the {MATLAB} m-code programming language. The aim in creating the program Roomsim was to provide a signal generation tool for the speech and hearing research community, and a teaching tool for illustrating the image method of simulating room acoustics and some acoustical effects. The program is menu driven, has a user guide and example data files, and will be made freely available over the Internet under a {GNU} General Public Licence.},
+	pages = {4},
+	author = {Campbell, Douglas R and Palomäki, Kalle J and Brown, Guy J},
+	langid = {english},
+	keywords = {{RIR}},
+	file = {Campbell et al. - Roomsim, a MATLAB Simulation of “Shoebox” Room Aco.pdf:/home/gaetan/.local/share/Zotero/storage/AC4DW7RK/Campbell et al. - Roomsim, a MATLAB Simulation of “Shoebox” Room Aco.pdf:application/pdf},
+}
+
+
+# PyroomAcoustics
+@article{scheibler_pyroomacoustics_2018,
+	title = {Pyroomacoustics: A Python package for audio room simulations and array processing algorithms},
+	url = {http://arxiv.org/abs/1710.04196},
+	doi = {10.1109/ICASSP.2018.8461310},
+	shorttitle = {Pyroomacoustics},
+	abstract = {We present pyroomacoustics, a software package aimed at the rapid development and testing of audio array processing algorithms. The content of the package can be divided into three main components: an intuitive Python object-oriented interface to quickly construct different simulation scenarios involving multiple sound sources and microphones in 2D and 3D rooms; a fast C implementation of the image source model for general polyhedral rooms to efficiently generate room impulse responses and simulate the propagation between sources and receivers; and finally, reference implementations of popular algorithms for beamforming, direction finding, and adaptive filtering. Together, they form a package with the potential to speed up the time to market of new algorithms by significantly reducing the implementation overhead in the performance evaluation step.},
+	pages = {351--355},
+	journaltitle = {2018 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+	author = {Scheibler, Robin and Bezzam, Eric and Dokmanić, Ivan},
+	urldate = {2020-12-15},
+	date = {2018-04},
+	eprinttype = {arxiv},
+	eprint = {1710.04196},
+	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/U29IUP9B/Scheibler et al. - 2018 - Pyroomacoustics A Python package for audio room s.pdf:application/pdf},
+}
+
+# GPU based RIR (2015)
+@article{fu_gpu-based_2016,
+	title = {{GPU}-based image method for room impulse response calculation},
+	volume = {75},
+	issn = {1573-7721},
+	url = {https://doi.org/10.1007/s11042-015-2943-4},
+	doi = {10.1007/s11042-015-2943-4},
+	abstract = {Room impulse response ({RIR}) simulation based on the image-source method is widely used in room acoustic research. The calculation of the {RIR} in computer has to digitalize sound propagation delay into discrete samples. To carefully consider the digitalization error greatly increases the massive computational load of the image-source method. Therefore many real-time audio applications simply round-off the propagation delay to its nearest sample. This approximation, however, especially when the sampling frequency is low, degrades the phase precision that is required by applications such as microphone array. In this paper, by involving a Hanning-windowed ideal low-pass filter to reduce the digitalization error, a more precise image-source model is studied. We analyze its parallel calculation procedure and propose to use Graphics Processing Unit ({GPU}) to accelerate the calculation speed. The calculation procedure is divided into many parallel threads and arranged according the {GPU} architecture and its optimization criteria. We evaluate the calculation speeds of different {RIRs} using a general 5-core {CPU}, an ordinary {GPU} ({GTX}750) and an advanced {GPU} (K20C). The results show that, with similar precise {RIR} results, the speedup ratios of {GTX}750 and K20C over the general {CPU} can achieve 20 and 120 respectively.},
+	pages = {5205--5221},
+	number = {9},
+	journaltitle = {Multimedia Tools and Applications},
+	shortjournal = {Multimed Tools Appl},
+	author = {Fu, Zhong-hua and Li, Jian-wei},
+	urldate = {2021-01-12},
+	date = {2016-05-01},
+	langid = {english},
+	keywords = {room\_impulse\_response},
+	file = {Springer Full Text PDF:/home/gaetan/.local/share/Zotero/storage/78LKBA9F/Fu and Li - 2016 - GPU-based image method for room impulse response c.pdf:application/pdf},
+}
+
+# gpuRIR (2020)
+@article{diaz-guerra_gpurir_2021,
+	title = {{gpuRIR}: A python library for room impulse response simulation with {GPU} acceleration},
+	volume = {80},
+	issn = {1380-7501, 1573-7721},
+	url = {http://link.springer.com/10.1007/s11042-020-09905-3},
+	doi = {10.1007/s11042-020-09905-3},
+	shorttitle = {{gpuRIR}},
+	pages = {5653--5671},
+	number = {4},
+	journaltitle = {Multimedia Tools and Applications},
+	shortjournal = {Multimed Tools Appl},
+	author = {Diaz-Guerra, David and Miguel, Antonio and Beltran, Jose R.},
+	urldate = {2021-02-16},
+	date = {2021-02},
+	langid = {english},
+	keywords = {audio, {RIR}},
+	file = {diaz-guerra2020.pdf:/home/gaetan/.local/share/Zotero/storage/RH2S4WNC/diaz-guerra2020.pdf:application/pdf},
+}
+
