@@ -9,6 +9,8 @@
 
 ==== Neural Network
 
+// TODO: figure of the architecture
+
 ==== Impact of features
 
 === Method

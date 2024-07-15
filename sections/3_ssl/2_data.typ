@@ -27,6 +27,8 @@ The capable simulator presented in the previous chapter has let us put up differ
 
 ==== Data representations
 
+// TODO: Nice stuff about ILD/IPD in "Binaural Hearing for Robots - Methodological Foundations" (see zotero)
+
 // TODO schemas
 - #acr("ILD")
 $ "ILD"(S_1, S_2) = 20 log_10 abs(S_1/S_2) $

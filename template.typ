@@ -39,5 +39,8 @@
   set par(justify: true)
   set heading(numbering: "1.")
 
+  // Sections start on a new page
+  show heading.where(level: 1): it => {pagebreak(weak: false);it}
+
   body
 }
