@@ -1,6 +1,10 @@
 #bibliography(
   (
-    "rl.bib",
-    "ssl.bib"
+    "misc.bib",
+    "rl_general.bib",
+    "rl_robotics.bib",
+    "sound_simulation.bib",
+    "ssl_methods.bib",
+    "ssl_misc.bib",
   )
 )
