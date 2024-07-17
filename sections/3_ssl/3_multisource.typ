@@ -124,10 +124,56 @@ The choice of the normalization scheme ended up being crucial to achieving good 
 // Parallel with vision detection classes
 
 // Known sources (MAE, Acc)
-// TODO: formulas
+// TODO: check notation consistency
+#gaet[Not sure if $sum_(i=1)^n$ or $limits(sum)_(i=1)^n$ is better here.]
+$ "MAE" = (
+  limits(sum)_i
+  limits(sum)_(j=1)^(z_i)
+  d(
+    hat(phi.alt)_(i j),
+    phi.alt_(i j)
+  )
+)/(
+  limits(sum)_i z_i
+) $ <eq:ssl:ms:mae>
+
+$ "ACC" = (
+  limits(sum)_i
+  limits(sum)_(j=1)^(z_i)
+  bb(1)_(
+    d(
+      hat(phi.alt)_(i j),
+      phi.alt_(i j)
+    ) < E_a
+  )
+)/(
+  limits(sum)_i z_i
+) $ <eq:ssl:ms:acc>
 
 // Unknown sources (Prec, Recall)
-// TODO: formulas
+$ "Precision" = (
+  limits(sum)_i
+  limits(sum)_(j=1)^(z_i)
+  limits(sum)_(k=1)^(hat(z)_i)
+  m(
+    hat(phi.alt)_(i k),
+    phi.alt_(i j)
+  )
+)/(
+  limits(sum)_i hat(z)_i
+) $ <eq:ssl:ms:prec>
+
+$ "Recall" = (
+  limits(sum)_i
+  limits(sum)_(j=1)^(z_i)
+  limits(sum)_(k=1)^(hat(z)_i)
+  m(
+    hat(phi.alt)_(i k),
+    phi.alt_(i j)
+  )
+)/(
+  limits(sum)_i z_i
+) $ <eq:ssl:ms:recall>
 
 === Training strategy
 
