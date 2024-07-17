@@ -1,0 +1,144 @@
+##########################################################
+# Datasets
+##########################################################
+@inproceedings{lincoln_multi-channel_2005,
+	location = {San Juan, Puerto Rico},
+	title = {The multi-channel Wall Street Journal audio visual corpus ({MC}-{WSJ}-{AV}): specification and initial experiments},
+	isbn = {978-0-7803-9479-7},
+	url = {http://ieeexplore.ieee.org/document/1566470/},
+	doi = {10.1109/ASRU.2005.1566470},
+	shorttitle = {The multi-channel Wall Street Journal audio visual corpus ({MC}-{WSJ}-{AV})},
+	abstract = {The recognition of speech in meetings poses a number of challenges to current Automatic Speech Recognition ({ASR}) techniques. Meetings typically take place in rooms with non-ideal acoustic conditions and signiﬁcant background noise, and may contain large sections of overlapping speech. In such circumstances, headset microphones have to date provided the best recognition performance, however participants are often reluctant to wear them. Microphone arrays provide an alternative to close-talking microphones by providing speech enhancement through directional discrimination. Unfortunately, however, development of array front-end systems for state-of-the-art large vocabulary continuous speech recognition suffers from a lack of necessary resources, as most available speech corpora consist only of single-channel recordings. This paper describes the collection of an audio-visual corpus of read speech from a number of instrumented meeting rooms. The corpus, based on the {WSJCAM}0 database, is suitable for use in continuous speech recognition experiments and is captured using a variety of microphones, including arrays, as well as close-up and wider angle cameras. The paper also describes some initial {ASR} experiments on the corpus comparing the use of close-talking microphones with both a ﬁxed and a blind array beamforming technique.},
+	eventtitle = {{IEEE} Workshop on Automatic Speech Recognition and Understanding, 2005.},
+	pages = {357--362},
+	booktitle = {{IEEE} Workshop on Automatic Speech Recognition and Understanding, 2005.},
+	publisher = {{IEEE}},
+	author = {Lincoln, M. and {McCowan}, I. and Vepa, J. and Maganti, H.K.},
+	urldate = {2021-06-01},
+	date = {2005},
+	langid = {english},
+	file = {Lincoln et al. - 2005 - The multi-channel Wall Street Journal audio visual.pdf:/home/gaetan/.local/share/Zotero/storage/M5UJ9NPE/Lincoln et al. - 2005 - The multi-channel Wall Street Journal audio visual.pdf:application/pdf},
+}
+
+@online{noauthor_vosk_nodate,
+	title = {{VOSK} Offline Speech Recognition {API}},
+	url = {https://alphacephei.com/vosk/},
+	abstract = {Accurate speech recognition for Android, {iOS}, Raspberry Pi and servers with Python, Java, C\#, Swift and Node.},
+	titleaddon = {{VOSK} Offline Speech Recognition {API}},
+	urldate = {2021-08-25},
+	langid = {english},
+	file = {Snapshot:/home/gaetan/.local/share/Zotero/storage/X6MZ5LMB/vosk.html:text/html},
+}
+
+@online{noauthor_librispeech_nodate,
+	title = {Librispeech: An {ASR} corpus based on public domain audio books},
+	url = {https://ieeexplore.ieee.org/document/7178964},
+	shorttitle = {Librispeech},
+	abstract = {This paper introduces a new corpus of read English speech, suitable for training and evaluating speech recognition systems. The {LibriSpeech} corpus is derived from audiobooks that are part of the {LibriVox} project, and contains 1000 hours of speech sampled at 16 {kHz}. We have made the corpus freely available for download, along with separately prepared language-model training data and pre-built language models. We show that acoustic models trained on {LibriSpeech} give lower error rate on the Wall Street Journal ({WSJ}) test sets than models trained on {WSJ} itself. We are also releasing Kaldi scripts that make it easy to build these systems.},
+	urldate = {2021-08-25},
+	langid = {american},
+	file = {Librispeech An ASR corpus based on public domain .pdf:/home/gaetan/.local/share/Zotero/storage/ICAHKKTI/Librispeech An ASR corpus based on public domain .pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/PZGJHSXY/7178964.html:text/html},
+}
+
+##########################################################
+# Methods
+##########################################################
+@article{sivasankaran_combined_2017,
+	title = {A combined evaluation of established and new approaches for speech recognition in varied reverberation conditions},
+	volume = {46},
+	issn = {0885-2308},
+	url = {https://www.sciencedirect.com/science/article/pii/S0885230816300997},
+	doi = {10.1016/j.csl.2017.02.003},
+	abstract = {Robustness to reverberation is a key concern for distant-microphone {ASR}. Various approaches have been proposed, including single-channel or multichannel dereverberation, robust feature extraction, alternative acoustic models, and acoustic model adaptation. However, to the best of our knowledge, a detailed study of these techniques in varied reverberation conditions is still missing in the literature. In this paper, we conduct a series of experiments to assess the impact of various dereverberation and acoustic model adaptation approaches on the {ASR} performance in the range of reverberation conditions found in real domestic environments. We consider both established approaches such as {WPE} and newer approaches such as learning hidden unit contribution ({LHUC}) adaptations, whose performance has not been reported before in this context, and we employ them in combination. Our results indicate that performing weighted prediction error ({WPE}) dereverberation on a reverberated test speech utterance and decoding using a deep neural network ({DNN}) acoustic model trained with multi-condition reverberated speech with feature-space maximum likelihood linear regression ({fMLLR}) transformed features, outperforms more recent approaches and helps significantly reduce the word error rate ({WER}).},
+	pages = {444--460},
+	journaltitle = {Computer Speech \& Language},
+	shortjournal = {Computer Speech \& Language},
+	author = {Sivasankaran, Sunit and Vincent, Emmanuel and Illina, Irina},
+	urldate = {2021-02-24},
+	date = {2017-11-01},
+	langid = {english},
+	keywords = {Dereverberation, Acoustic model adaptation, Evaluation, Robust {ASR}},
+	file = {ScienceDirect Snapshot:/home/gaetan/.local/share/Zotero/storage/DWI7EWCM/S0885230816300997.html:text/html;Sivasankaran et al_2017_A combined evaluation of established and new approaches for speech recognition.pdf:/home/gaetan/.local/share/Zotero/storage/U43W7A5I/Sivasankaran et al_2017_A combined evaluation of established and new approaches for speech recognition.pdf:application/pdf},
+}
+
+##########################################################
+# Software
+##########################################################
+@article{povey_kaldi_nodate,
+	title = {The Kaldi Speech Recognition Toolkit},
+	abstract = {We describe the design of Kaldi, a free, open-source toolkit for speech recognition research. Kaldi provides a speech recognition system based on ﬁnite-state transducers (using the freely available {OpenFst}), together with detailed documentation and scripts for building complete recognition systems. Kaldi is written is C++, and the core library supports modeling of arbitrary phonetic-context sizes, acoustic modeling with subspace Gaussian mixture models ({SGMM}) as well as standard Gaussian mixture models, together with all commonly used linear and afﬁne transforms. Kaldi is released under the Apache License v2.0, which is highly nonrestrictive, making it suitable for a wide community of users.},
+	pages = {4},
+	author = {Povey, Daniel and Ghoshal, Arnab and Boulianne, Gilles and Burget, Lukasˇ and Glembek, Ondˇrej and Goel, Nagendra and Hannemann, Mirko and Motlıcˇek, Petr and Qian, Yanmin and Schwarz, Petr and Silovsky, Jan and Stemmer, Georg and Vesely, Karel},
+	langid = {english},
+	file = {Povey et al. - The Kaldi Speech Recognition Toolkit.pdf:/home/gaetan/.local/share/Zotero/storage/3Y6AN8M3/Povey et al. - The Kaldi Speech Recognition Toolkit.pdf:application/pdf},
+}
+
+@inproceedings{can_pykaldi_2018,
+	title = {Pykaldi: A Python Wrapper for Kaldi},
+	doi = {10.1109/ICASSP.2018.8462463},
+	shorttitle = {Pykaldi},
+	abstract = {We present {PyKaldi}, a free and open-source Python wrapper for the widely-used Kaldi speech recognition toolkit. {PyKaldi} is more than a collection of Python bindings into Kaldi libraries. It is an extensible scripting layer that allows users to work with Kaldi and {OpenFst} types interactively in Python. It tightly integrates Kaldi vector and matrix types with {NumPy} arrays. We believe Py Kaldi will significantly improve the user experience and simplify the integration of Kaldi into Python workflows. {PyKaldi} comes with extensive documentation and tests. It is released under the Apache License v2.0 with support for both Python 2.7 and 3.5+.},
+	eventtitle = {2018 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+	pages = {5889--5893},
+	booktitle = {2018 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+	author = {Can, D. and Martinez, V. R. and Papadopoulos, P. and Narayanan, S. S.},
+	date = {2018-04},
+	note = {{ISSN}: 2379-190X},
+	keywords = {asr, software, speech\_recognition},
+	file = {Can et al_2018_Pykaldi.pdf:/home/gaetan/.local/share/Zotero/storage/WGZTD2AU/Can et al_2018_Pykaldi.pdf:application/pdf;IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/Q6DDFIH7/8462463.html:text/html},
+}
+
+@article{ravanelli_speechbrain_2021,
+	title = {{SpeechBrain}: A General-Purpose Speech Toolkit},
+	url = {http://arxiv.org/abs/2106.04624},
+	shorttitle = {{SpeechBrain}},
+	abstract = {{SpeechBrain} is an open-source and all-in-one speech toolkit. It is designed to facilitate the research and development of neural speech processing technologies by being simple, ﬂexible, user-friendly, and well-documented. This paper describes the core architecture designed to support several tasks of common interest, allowing users to naturally conceive, compare and share novel speech processing pipelines. {SpeechBrain} achieves competitive or state-of-the-art performance in a wide range of speech benchmarks. It also provides training recipes, pretrained models, and inference scripts for popular speech datasets, as well as tutorials which allow anyone with basic Python proﬁciency to familiarize themselves with speech technologies.},
+	journaltitle = {{arXiv}:2106.04624 [cs, eess]},
+	author = {Ravanelli, Mirco and Parcollet, Titouan and Plantinga, Peter and Rouhe, Aku and Cornell, Samuele and Lugosch, Loren and Subakan, Cem and Dawalatabad, Nauman and Heba, Abdelwahab and Zhong, Jianyuan and Chou, Ju-Chieh and Yeh, Sung-Lin and Fu, Szu-Wei and Liao, Chien-Feng and Rastorgueva, Elena and Grondin, François and Aris, William and Na, Hwidong and Gao, Yan and De Mori, Renato and Bengio, Yoshua},
+	urldate = {2021-09-02},
+	date = {2021-06-08},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {2106.04624},
+	keywords = {Computer Science - Machine Learning, Computer Science - Artificial Intelligence, Computer Science - Sound, Electrical Engineering and Systems Science - Audio and Speech Processing},
+	file = {Ravanelli et al. - 2021 - SpeechBrain A General-Purpose Speech Toolkit.pdf:/home/gaetan/.local/share/Zotero/storage/VSJTRBP3/Ravanelli et al. - 2021 - SpeechBrain A General-Purpose Speech Toolkit.pdf:application/pdf},
+}
+
+
+##########################################################
+# Misc
+##########################################################
+@article{noauthor_analysis_2017,
+	title = {An analysis of environment, microphone and data simulation mismatches in robust speech recognition},
+	volume = {46},
+	issn = {0885-2308},
+	url = {https://www.sciencedirect.com/science/article/pii/S0885230816301231},
+	doi = {10.1016/j.csl.2016.11.005},
+	abstract = {Speech enhancement and automatic speech recognition ({ASR}) are most often evaluated in matched (or multi-condition) settings where the acoustic conditi…},
+	pages = {535--557},
+	journaltitle = {Computer Speech \& Language},
+	urldate = {2021-02-23},
+	date = {2017-11-01},
+	langid = {english},
+	note = {Publisher: Academic Press},
+	file = {2017_An analysis of environment, microphone and data simulation mismatches in robust.pdf:/home/gaetan/.local/share/Zotero/storage/E9WBABQ7/2017_An analysis of environment, microphone and data simulation mismatches in robust.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/QQ58H8HH/S0885230816301231.html:text/html},
+}
+
+@inproceedings{kennedy_child_2017,
+	location = {Vienna Austria},
+	title = {Child Speech Recognition in Human-Robot Interaction: Evaluations and Recommendations},
+	isbn = {978-1-4503-4336-7},
+	url = {https://dl.acm.org/doi/10.1145/2909824.3020229},
+	doi = {10.1145/2909824.3020229},
+	shorttitle = {Child Speech Recognition in Human-Robot Interaction},
+	abstract = {An increasing number of human-robot interaction ({HRI}) studies are now taking place in applied settings with children. These interactions often hinge on verbal interaction to eﬀectively achieve their goals. Great advances have been made in adult speech recognition and it is often assumed that these advances will carry over to the {HRI} domain and to interactions with children. In this paper, we evaluate a number of automatic speech recognition ({ASR}) engines under a variety of conditions, inspired by real-world social {HRI} conditions. Using the data collected we demonstrate that there is still much work to be done in {ASR} for child speech, with interactions relying solely on this modality still out of reach. However, we also make recommendations for childrobot interaction design in order to maximise the capability that does currently exist.},
+	eventtitle = {{HRI} '17: {ACM}/{IEEE} International Conference on Human-Robot Interaction},
+	pages = {82--90},
+	booktitle = {Proceedings of the 2017 {ACM}/{IEEE} International Conference on Human-Robot Interaction},
+	publisher = {{ACM}},
+	author = {Kennedy, James and Lemaignan, Séverin and Montassier, Caroline and Lavalade, Pauline and Irfan, Bahar and Papadopoulos, Fotios and Senft, Emmanuel and Belpaeme, Tony},
+	urldate = {2022-01-27},
+	date = {2017-03-06},
+	langid = {english},
+	file = {Kennedy et al. - 2017 - Child Speech Recognition in Human-Robot Interactio.pdf:/home/gaetan/.local/share/Zotero/storage/HW87X3ST/Kennedy et al. - 2017 - Child Speech Recognition in Human-Robot Interactio.pdf:application/pdf},
+}

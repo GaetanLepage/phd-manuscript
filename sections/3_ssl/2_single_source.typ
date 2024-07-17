@@ -4,6 +4,9 @@
 
 === Problem statement
 
+A robotic agent is evolving in a reverberant room.
+A single speech source is also present in the environment.
+
 
 === Method
 

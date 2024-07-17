@@ -9,14 +9,13 @@
 This challenge requires to identify the relative position of one or several sound sources leveraging an audition device.
 A broad range of specific settings and methods have been investigated in the audio processing literature.
 
-// TODO cite Sharon's survey paper
-
 
 === Classical approaches
 
 // Handcrafted features
 
 // Statistical methods
+@alameda-pineda_geometric_2014
 
 // Sharon's paper on estimators and their performance
 
@@ -42,6 +41,9 @@ One of the motivation of using multiple microphones to perform Sound Source Loca
 In the case of a binaural microphone system,
 
 
-=== Deep Learning for audio processing
+=== Deep Learning methods for #acr("SSL")
+
+// Survey paper
+@grumiaux_survey_2021
 
 === Sound Source localization in robotics
