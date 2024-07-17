@@ -1,4 +1,4 @@
-= Reinforcement Learning
+= Reinforcement Learning <chap:rl>
 
 #include "1_rl_intro.typ"
 #include "2_sound_driven_robot_navigation.typ"

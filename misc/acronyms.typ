@@ -1,0 +1,22 @@
+#import "/utils.typ": *
+
+#init-acronyms((
+  // ASR
+  "ASR": ("Automatic Speech Recognition"),
+  "WER": ("Word Error Rate"),
+
+  // SSL
+  "DOA": ("Direction of Arrival"),
+  "SSL": ("Sound Source Localization"),
+
+  // Audio
+  "GCC-PHAT": ("Generalized Cross-Correlation function with Phase Transform"),
+  "ILD": ("Interaural Level Difference"),
+  "IPD": ("Interaural Phase Difference"),
+  "RIR": ("Room Impulse Response"),
+  "STFT": ("Short Term Fourier Transform"),
+  
+  // RL
+  "RL": ("Reinforcement Learning"),
+  "DRL": ("Deep Reinforcement Learning"),
+))
