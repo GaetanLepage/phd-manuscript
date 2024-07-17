@@ -10,3 +10,5 @@
 === #acr("ASR") pipeline in the simulator
 
 === #acr("WER") maps
+
+// TODO: insert figures

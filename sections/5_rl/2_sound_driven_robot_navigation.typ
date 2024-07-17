@@ -10,6 +10,8 @@
 
 === Method
 
+==== The Proximal Policy Optimization algorithm
+
 ==== #acr("WER") maps as a reward
 
 // Explain the different reward schemes
