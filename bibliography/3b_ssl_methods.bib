@@ -1,0 +1,55 @@
+##########################################################
+# Odobez
+##########################################################
+
+
+# He at al (SSLR dataset + SSL with heatmap, GCC-phat features)
+@inproceedings{he_deep_2018,
+	title = {Deep Neural Networks for Multiple Speaker Detection and Localization},
+	url = {http://arxiv.org/abs/1711.11565},
+	doi = {10.1109/ICRA.2018.8461267},
+	abstract = {We propose to use neural networks for simultaneous detection and localization of multiple sound sources in human-robot interaction. In contrast to conventional signal processing techniques, neural network-based sound source localization methods require fewer strong assumptions about the environment. Previous neural network-based methods have been focusing on localizing a single sound source, which do not extend to multiple sources in terms of detection and localization. In this paper, we thus propose a likelihood-based encoding of the network output, which naturally allows the detection of an arbitrary number of sources. In addition, we investigate the use of sub-band cross-correlation information as features for better localization in sound mixtures, as well as three different network architectures based on different motivations. Experiments on real data recorded from a robot show that our proposed methods significantly outperform the popular spatial spectrum-based approaches.},
+	pages = {74--79},
+	booktitle = {2018 {IEEE} International Conference on Robotics and Automation ({ICRA})},
+	author = {He, Weipeng and Motlicek, Petr and Odobez, Jean-Marc},
+	urldate = {2024-07-12},
+	date = {2018-05},
+	eprinttype = {arxiv},
+	eprint = {1711.11565 [cs, eess]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Robotics, Computer Science - Sound, Electrical Engineering and Systems Science - Audio and Speech Processing, Computer Science - Multimedia},
+	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/RCCG84M9/He et al. - 2018 - Deep Neural Networks for Multiple Speaker Detectio.pdf:application/pdf;arXiv.org Snapshot:/home/gaetan/.local/share/Zotero/storage/42QUTVDL/1711.html:text/html},
+}
+
+
+# Multi-source SSL v1
+@inproceedings{he_joint_2018,
+	title = {Joint Localization and Classification of Multiple Sound Sources Using a Multi-task Neural Network},
+	url = {https://www.isca-speech.org/archive/interspeech_2018/he18b_interspeech.html},
+	doi = {10.21437/Interspeech.2018-1269},
+	abstract = {We propose a novel multi-task neural network-based approach for joint sound source localization and speech/non-speech classiﬁcation in noisy environments. The network takes raw short time Fourier transform as input and outputs the likelihood values for the two tasks, which are used for the simultaneous detection, localization and classiﬁcation of an unknown number of overlapping sound sources, Tested with real recorded data, our method achieves signiﬁcantly better performance in terms of speech/non-speech classiﬁcation and localization of speech sources, compared to method that performs localization and classiﬁcation separately. In addition, we demonstrate that incorporating the temporal context can further improve the performance.},
+	eventtitle = {Interspeech 2018},
+	pages = {312--316},
+	booktitle = {Interspeech 2018},
+	publisher = {{ISCA}},
+	author = {He, Weipeng and Motlicek, Petr and Odobez, Jean-Marc},
+	urldate = {2023-06-28},
+	date = {2018-09-02},
+	langid = {english},
+	file = {He et al. - 2018 - Joint Localization and Classification of Multiple .pdf:/home/gaetan/.local/share/Zotero/storage/XB5KY26Z/He et al. - 2018 - Joint Localization and Classification of Multiple .pdf:application/pdf},
+}
+
+# Multi-source SSL v2
+@article{he_neural_2021,
+	title = {Neural Network Adaptation and Data Augmentation for Multi-Speaker Direction-of-Arrival Estimation},
+	volume = {29},
+	issn = {2329-9304},
+	doi = {10.1109/TASLP.2021.3060257},
+	abstract = {Deep neural networks have been successfully applied to sound direction-of-arrival estimation under challenging conditions. However, such a learning-based approach requires a large amount of labeled training data, which is difficult to acquire. To address this problem, we propose a novel approach for multi-speaker direction-of-arrival estimation with data augmentation and weakly-supervised domain adaptation. We generate source domain data with simulation, and collect real data annotated with the number of sound sources as the weak labels. The real data are further augmented by mixing single-source segments. Then, weakly-supervised domain adaptation is applied to models pre-trained on the simulated data. We define a loss function for the adaptation process which exploits the weak labels and the mixture component information in the augmented data. Experiments with real robot audio data show that our proposed approach achieves similar performance as if the fully-labeled real data are used. This paper suggests an effective development procedure for {DOA} estimation models applied to new types of microphone arrays with minimal data collection efforts.},
+	pages = {1303--1317},
+	journaltitle = {{IEEE}/{ACM} Transactions on Audio, Speech, and Language Processing},
+	author = {He, Weipeng and Motlicek, Petr and Odobez, Jean-Marc},
+	date = {2021},
+	note = {Conference Name: {IEEE}/{ACM} Transactions on Audio, Speech, and Language Processing},
+	keywords = {Neural networks, Direction-of-arrival estimation, sound source localization, Adaptation models, data augmentation, Data collection, Data models, {DOA} estimation, Location awareness, Robots, weakly-supervised learning},
+	file = {He et al. - 2021 - Neural Network Adaptation and Data Augmentation fo.pdf:/home/gaetan/.local/share/Zotero/storage/HNLFY6TT/He et al. - 2021 - Neural Network Adaptation and Data Augmentation fo.pdf:application/pdf;IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/ZL4S26UB/9357962.html:text/html},
+}

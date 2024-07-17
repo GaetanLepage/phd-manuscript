@@ -1,0 +1,78 @@
+##########################################################
+# Audio
+##########################################################
+# Move 2 Hear
+@article{majumder_move2hear_2021,
+	title = {Move2Hear: Active Audio-Visual Source Separation},
+	url = {http://arxiv.org/abs/2105.07142},
+	shorttitle = {Move2Hear},
+	abstract = {We introduce the active audio-visual source separation problem, where an agent must move intelligently in order to better isolate the sounds coming from an object of interest in its environment. The agent hears multiple audio sources simultaneously (e.g., a person speaking down the hall in a noisy household) and must use its eyes and ears to automatically separate out the sounds originating from the target object within a limited time budget. Towards this goal, we introduce a reinforcement learning approach that trains movement policies controlling the agent’s camera and microphone placement over time, guided by the improvement in predicted audio separation quality. We demonstrate our approach in scenarios motivated by both augmented reality (system is already co-located with the target object) and mobile robotics (agent begins arbitrarily far from the target object). Using state-of-the-art realistic audio-visual simulations in 3D environments, we demonstrate our model’s ability to ﬁnd minimal movement sequences with maximal payoff for audio source separation. Project: http://vision. cs.utexas.edu/projects/move2hear.},
+	journaltitle = {{arXiv}:2105.07142 [cs, eess]},
+	author = {Majumder, Sagnik and Al-Halah, Ziad and Grauman, Kristen},
+	urldate = {2021-05-19},
+	date = {2021-05-15},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {2105.07142},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning, Computer Science - Robotics, Computer Science - Sound, Electrical Engineering and Systems Science - Audio and Speech Processing},
+	file = {Majumder et al. - 2021 - Move2Hear Active Audio-Visual Source Separation.pdf:/home/gaetan/.local/share/Zotero/storage/Q63ACNFK/Majumder et al. - 2021 - Move2Hear Active Audio-Visual Source Separation.pdf:application/pdf},
+}
+
+# Aural Servo (not RL, but motivation for our task)
+@article{magassouba_aural_2018,
+	title = {Aural Servo: Sensor-Based Control From Robot Audition},
+	volume = {34},
+	issn = {1552-3098, 1941-0468},
+	url = {https://ieeexplore.ieee.org/document/8320543/},
+	doi = {10.1109/TRO.2018.2805310},
+	shorttitle = {Aural Servo},
+	abstract = {This paper proposes a control framework based on auditory perception. Generally, in robot audition, the motion control of a robot from the sense of hearing relies on sound source localization. We propose in this paper an alternative approach, aural servo, that is derived from the sensor-based control framework. In this approach, robot motions are directly connected to the aural perception: the variation of low-level auditory features dictates the motions applied to the robot through a feedback loop. It has the advantage of being robust to spurious measurements and modeling approximations for a low computational cost. This paper presents the theoretical concept of the aural servo framework. Besides a theoretical analysis, the aural servo framework is validated through several experiments on different robotic platforms and under real-world conditions.},
+	pages = {572--585},
+	number = {3},
+	journaltitle = {{IEEE} Transactions on Robotics},
+	shortjournal = {{IEEE} Trans. Robot.},
+	author = {Magassouba, Aly and Bertin, Nancy and Chaumette, Francois},
+	urldate = {2021-10-22},
+	date = {2018-06},
+	langid = {english},
+	file = {Magassouba et al. - 2018 - Aural Servo Sensor-Based Control From Robot Audit.pdf:/home/gaetan/.local/share/Zotero/storage/87ZN45SU/2018_magassouba_tro.pdf:application/pdf},
+}
+
+
+##########################################################
+# Map-based navigation
+##########################################################
+@inproceedings{chen_robot_2020,
+	title = {Robot Navigation with Map-Based Deep Reinforcement Learning},
+	doi = {10.1109/ICNSC48988.2020.9238090},
+	abstract = {This paper proposes an end-to-end deep reinforcement learning approach for mobile robot navigation with dynamic obstacles avoidance. Using experience collected in a simulation environment, a convolutional neural network ({CNN}) is trained to predict proper steering actions of a robot from its egocentric local occupancy maps, which accommodate various sensors and fusion algorithms. The trained neural network is then transferred and executed on a real-world mobile robot to guide its local path planning. The new approach is evaluated both qualitatively and quantitatively in simulation and realworld robot experiments. The results show that the map-based end-to-end navigation model is easy to be deployed to a robotic platform, robust to sensor noise and outperforms other existing {DRL}-based models in many indicators.},
+	eventtitle = {2020 {IEEE} International Conference on Networking, Sensing and Control ({ICNSC})},
+	pages = {1--6},
+	booktitle = {2020 {IEEE} International Conference on Networking, Sensing and Control ({ICNSC})},
+	author = {Chen, Guangda and Pan, Lifan and Chen, Yu'an and Xu, Pei and Wang, Zhiqiang and Wu, Peichen and Ji, Jianmin and Chen, Xiaoping},
+	date = {2020-10},
+	keywords = {Mobile robots, Navigation, obstacle avoidance, occupancy map, Predictive models, printed, reinforcement learning, Reinforcement learning, robot navigation, Robot sensing systems, Sensor fusion, Sensors},
+	file = {IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/D9FSP3UU/9238090.html:text/html;Submitted Version:/home/gaetan/.local/share/Zotero/storage/G4AQNHZ6/Chen et al. - 2020 - Robot Navigation with Map-Based Deep Reinforcement.pdf:application/pdf},
+}
+
+
+@article{chen_distributed_2020,
+	title = {Distributed Non-Communicating Multi-Robot Collision Avoidance via Map-Based Deep Reinforcement Learning},
+	volume = {20},
+	rights = {http://creativecommons.org/licenses/by/3.0/},
+	issn = {1424-8220},
+	url = {https://www.mdpi.com/1424-8220/20/17/4836},
+	doi = {10.3390/s20174836},
+	abstract = {It is challenging to avoid obstacles safely and efficiently for multiple robots of different shapes in distributed and communication-free scenarios, where robots do not communicate with each other and only sense other robots’ positions and obstacles around them. Most existing multi-robot collision avoidance systems either require communication between robots or require expensive movement data of other robots, like velocities, accelerations and paths. In this paper, we propose a map-based deep reinforcement learning approach for multi-robot collision avoidance in a distributed and communication-free environment. We use the egocentric local grid map of a robot to represent the environmental information around it including its shape and observable appearances of other robots and obstacles, which can be easily generated by using multiple sensors or sensor fusion. Then we apply the distributed proximal policy optimization ({DPPO}) algorithm to train a convolutional neural network that directly maps three frames of egocentric local grid maps and the robot’s relative local goal positions into low-level robot control commands. Compared to other methods, the map-based approach is more robust to noisy sensor data, does not require robots’ movement data and considers sizes and shapes of related robots, which make it to be more efficient and easier to be deployed to real robots. We first train the neural network in a specified simulator of multiple mobile robots using {DPPO}, where a multi-stage curriculum learning strategy for multiple scenarios is used to improve the performance. Then we deploy the trained model to real robots to perform collision avoidance in their navigation without tedious parameter tuning. We evaluate the approach with multiple scenarios both in the simulator and on four differential-drive mobile robots in the real world. Both qualitative and quantitative experiments show that our approach is efficient and outperforms existing {DRL}-based approaches in many indicators. We also conduct ablation studies showing the positive effects of using egocentric grid maps and multi-stage curriculum learning.},
+	pages = {4836},
+	number = {17},
+	journaltitle = {Sensors},
+	author = {Chen, Guangda and Yao, Shunyi and Ma, Jun and Pan, Lifan and Chen, Yu’an and Xu, Pei and Ji, Jianmin and Chen, Xiaoping},
+	urldate = {2024-07-15},
+	date = {2020-01},
+	langid = {english},
+	note = {Number: 17
+Publisher: Multidisciplinary Digital Publishing Institute},
+	keywords = {deep reinforcement learning, distributed collision avoidance, multi-robot navigation, printed},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/Q6NL8ERA/Chen et al. - 2020 - Distributed Non-Communicating Multi-Robot Collisio.pdf:application/pdf},
+}
