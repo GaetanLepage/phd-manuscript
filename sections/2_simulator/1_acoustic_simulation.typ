@@ -42,10 +42,24 @@ Libraries:
 
 // TODO insert diagram of the architecture
 
+// Room
+// AudioSimulator
+
+
 ==== Sound sources
 
 - Speech: Librispeech
 - Noise: Music + white noise
+
+==== Room
+
+===== #acr("RIR") simulation
+
+// Two backends:
+// - GPU RIR
+// - PyroomAcoustics
+
+===== Generation of listened signals
 
 ==== Microphone arrays
 
@@ -62,3 +76,15 @@ Libraries:
 ==== Simulation of dynamic scenarios
 
 Movement
+
+// Discrete step process
+// Objects are static in the room
+
+
+===== #acr("RIR") filtering in dynamic simulation
+
+// The caution we take with the RIR filter stabilization when simulating short consecutive samples
+// TODO: diagram of the superposition of speech samples
+// [-----------]
+//     [------------]
+//          [------------]

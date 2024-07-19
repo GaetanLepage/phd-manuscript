@@ -13,7 +13,7 @@
     - [ ] Chapter 3: #acr("SSL") - Single source
   - *Week 2 (Jul. 22-28):*
     - [ ] Chapter 3: #acr("SSL") - Multi source
-  - *Week 3 (Jul. 28-Aug. 4):*
+  - *Week 3 (Jul. 29-Aug. 4):*
     - [ ] Chapter 2: Audio Simulator
   - *Week 4 (Aug. 5-11):*
     - [ ] Chapter 4: Active #acr("SSL")
@@ -26,4 +26,4 @@
     - [ ] Chapter 6: Conclusion
 ]
 
-#gaet[I have added 'local TOCs at the beginning of each chapter to help me, but I plan to remove them later.]
+#gaet[I have added _local_ TOCs at the beginning of each chapter to help me, but I plan to remove them later.]

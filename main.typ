@@ -16,6 +16,13 @@
 #outline(title: "Table of Contents", indent: true, depth: 2)
 
 #include "misc/planning.typ"
+// Figures table
+#outline(
+  title: "Table of figures",
+  target: figure.where(kind: image)
+)
+
+
 
 // TODO
 #print-index(numbering: none)

@@ -59,8 +59,6 @@ A first solution to this problem could be placing a pseudo Dirac at the exact lo
 // TODO: introduce Theta being the vector of DOA angles
 // TODO: introduce o(i)
 
-#chris[Do you use this? If not, concentrate at the moment only to introduce what you have done. In case you have enough time you can elaborate.]
-
 $ Phi(Theta)_i = sum_(k=1)^n_s bb(1)_(alpha(i) = theta_k) $
 
 $ Phi(Theta)_i := cases(
@@ -126,6 +124,7 @@ The choice of the normalization scheme ended up being crucial to achieving good 
 // Known sources (MAE, Acc)
 // TODO: check notation consistency
 #gaet[Not sure if $sum_(i=1)^n$ or $limits(sum)_(i=1)^n$ is better here.]
+#chris[the first, but do not bother too much with such details, just go on]
 $ "MAE" = (
   limits(sum)_i
   limits(sum)_(j=1)^(z_i)

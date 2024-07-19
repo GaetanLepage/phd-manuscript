@@ -24,14 +24,30 @@ Several pre-processing methods exist to ease the extraction of geometric informa
 
 ==== Waveform
 
+// TODO cite waveToVec
+
 ==== Time-frequency representations
 
-===== Short Term Fourier Transform
+Although the waveform rendering of an audio signal is a raw and natural representation of the information, several alternative higher-level transforms have been studied in the acoustic literature.
+// TODO: Fourier 'Transfom' or 'transform'
+A popular way of representing audio signals is to project the temporal signal in the Fourier domain.
+The Fourier transform stands as the core concept of this category of encoding.
+#gaet[Should we go as far as giving the definition of the Fourier Transform ?]
+#chris[It is a well-known process and you do not really modify it, so only reference it. Only in case you have more time then you could think about explaining it in detail.]
+As acoustic signals are stored and processed numerically, the continuous framing of the Fourier transform cannot be directly employed.
+Instead, the Short Term Fourier Transform algorithm allows to convert the temporal real-valued signal into a two-dimensional complex form.
+
+// TODO Introduce the notations. Maybe x(t) is defined in the above section
+$ "STFT"(x) in CC^(F times T) $
+//TODO: give the actual definition
+
+This target domain is often referenced as the time-frequency plan.
+
 
 ===== Interaural representation
 
+// TODO: rephrase the following as this was originally written in the SSL chapter
 As explained before, one want to leverage the delays between the signals listened by each microphone.
-
 One of the motivation of using multiple microphones to perform Sound Source Localization is leveraging the delay at which the signal is listened 
 In the case of a binaural microphone system,
 
@@ -47,7 +63,7 @@ $ "ILD"(S_1, S_2) = 20 log_10 abs(S_1/S_2) $
 $ "IPD"(S_1, S_2) = arg(S_1/S_2) $
 
 #reset-acronym("GCC-PHAT")
-===== #display-def("GCC-PHAT")
+===== #acr("GCC-PHAT")
 
 // https://dsp.stackexchange.com/questions/74574/understanding-gcc-phat-as-a-feature
 

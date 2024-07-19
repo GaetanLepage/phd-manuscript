@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 
 == Single-source localization
-#minitoc()
+#minitoc(indent: true)
 
 === Problem statement
 
@@ -40,11 +40,12 @@ The capable simulator presented in the previous chapter has let us put up differ
 
 // TODO: figure of the architecture
 
-==== Impact of features
+=== Experiments
+
+==== Impact of input signal representation
 
 // Compare ILD/IPD performances
 
-=== Experiments
 
 ==== Sound Source Localization in noisy environments
 

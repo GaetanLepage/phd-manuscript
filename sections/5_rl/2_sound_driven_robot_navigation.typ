@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-== Sound-driven robot navigation
+== Sound-driven robot navigation <sec:rl:method>
 
 === Motivation
 

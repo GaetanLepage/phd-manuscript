@@ -1,4 +1,7 @@
+#import "/utils.typ": *
+
 = Reinforcement Learning <chap:rl>
+#minitoc(indent: true)
 
 #include "1_rl_intro.typ"
 #include "2_sound_driven_robot_navigation.typ"
