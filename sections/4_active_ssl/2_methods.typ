@@ -2,9 +2,13 @@
 
 === Problem formulation
 
+=== Pipeline overview
+
 === Aggregation strategies
 
-==== Naive approach
+==== Deterministic averaging
+
+// TODO: naive simulation strategy
 
 ==== Deep Neural Network
 
@@ -18,4 +22,4 @@
 
 ===== Training strategy
 
-=== Deterministic
+=== Clustering for detection extraction
