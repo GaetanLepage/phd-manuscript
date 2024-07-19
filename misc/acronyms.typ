@@ -6,7 +6,7 @@
   "WER": ("Word Error Rate"),
 
   // SSL
-  "DOA": ("Direction of Arrival"),
+  "DoA": ("Direction of Arrival"),
   "SSL": ("Sound Source Localization"),
 
   // Audio
