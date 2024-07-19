@@ -1,6 +1,11 @@
 #import "@preview/acrostiche:0.3.2": *
 #import "@preview/minitoc:0.1.0": *
 
+#let draft(body) = {
+  set text(fill: maroon)
+  [\ _#body _ ]
+}
+
 #let comment(name, body, color: red) = {
   set text(color)
   [\ *>>> #name:* #body\ ]

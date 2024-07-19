@@ -1,7 +1,8 @@
 #import "/utils.typ": *
 
-== Sound source localization, State of the Art
+== Sound source localization, State of the Art <sec:ssl:sota>
 
+#reset-acronym("SSL")
 
 === Original problem
 // Very broad introduction
@@ -10,11 +11,19 @@ This challenge requires to identify the relative position of one or several soun
 
 // TODO: motivate this problem: why is it relevant, give examples in robotics
 
-// 
+// DoA - only vs dist + DoA
+The exhaustivity of the
+Importantly, one may attempt at determining both the angle
+
 A broad range of specific settings and methods have been investigated in the audio processing literature.
 
 
-=== Acoustic data representation <seq:ssl:sota:data_repr>
+// TODO: not sure that this "motivation" paragraph belongs here. Maybe more in the chapter intro ?
+Our intent at exploring #acr("SSL") was initially motivated by our exploratory work in Deep Reinforcement Learning (see @chap:rl).
+
+
+
+=== Acoustic data representation <sec:ssl:sota:data_repr>
 
 #chris[Do you use all of them? Concentrate at the the moment only on the methods you use. If you have later more time, then you can give others more place in a related work section.]
 #gaet[No, but as this is the SotA section, I thought important to be more exhaustive.]
@@ -68,7 +77,7 @@ $ "IPD"(S_1, S_2) = arg(S_1/S_2) $
 // https://dsp.stackexchange.com/questions/74574/understanding-gcc-phat-as-a-feature
 
 
-=== Classical approaches <seq:ssl:sota:classical_approaches>
+=== Classical approaches <sec:ssl:sota:classical_approaches>
 
 // Handcrafted features
 
@@ -79,13 +88,13 @@ $ "IPD"(S_1, S_2) = arg(S_1/S_2) $
 
 
 
-=== Deep Learning methods for #acr("SSL") <seq:ssl:sota:deep_learning>
+=== Deep Learning methods for #acr("SSL") <sec:ssl:sota:deep_learning>
 
 // Survey paper
 @grumiaux_survey_2021
 
 
-=== Sound Source localization in robotics <seq:ssl:sota:ssl_in_robotics>
+=== Sound Source localization in robotics <sec:ssl:sota:ssl_in_robotics>
 
 Although, as demonstrated above, #acr("SSL") has been studied as a self-contained problem, it certainly have an important number of downstream applications.
 Among those, robotics is a major use case of #acr("SSL") algorithms.
@@ -121,3 +130,6 @@ Back in ..., researchers have intended to localize ...
 
 // Deep Learning
 Deep learning methods have been used as well to perform #("SSL") in robotics.
+
+// Using multi-modal information (audio-visual SSL)
+// -> Not directly related to our topic though
