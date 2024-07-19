@@ -7,7 +7,7 @@
 === Data pre-processing
 
 // multi-channel STFT
-As discussed in @seq:ssl:sota:data_repr, several choices can be made when it comes to data representation.
+As discussed in @sec:ssl:sota:data_repr, several choices can be made when it comes to data representation.
 Although we have generated different datasets, the format used in majority consisted in the Short Term Fourier Transform.
 
 
