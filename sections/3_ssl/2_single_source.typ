@@ -1,16 +1,22 @@
 #import "/utils.typ": *
 
-== Single-source localization
+== Single-source localization <sec:ssl:single_source>
 #minitoc(indent: true)
 
 === Problem statement
 
 A robotic agent is evolving in a reverberant room.
 A single speech source is also present in the environment.
-The task consists in determining the relative angle between the agent position and the speech source.
-This value is referred as the #acr("DoA"). // TODO, this could be introduced in the SotA section
-// Only angular localization
-// TODO add a figure to illustrate the DOA.
+The task consists in determining the relative position a unique sound source.
+Although the focus will be directed towards methods predicting solely the #acr("DoA"), solutions that also estimate the distance to the source have been evaluated.
+// TODO add a figure to illustrate the DOA + distance, basically a scheme of the problem
+#figure(
+  square(size: 10em, stroke: 2pt),
+  caption: [
+    Illustration of the #acr("SSL") problem setting
+  ],
+) <fig:ssl:single_source:ssl_schema>
+
 As seen in @sec:ssl:sota:ssl_in_robotics, multi-modal information can be leveraged to perform #acr("SSL") in a robotics context. // TODO: remove if we end up not talking about A/V SSL
 However, in this chapter, we will focus on the exclusive use of audio information.
 This choice is more representative of the classical formulation of the #acr("SSL") problem and although simpler to formulate constitutes a challenging task.
@@ -29,7 +35,10 @@ As a consequence, only a short recording should suffice to accomplish an accurat
 The objective of this study was to adapt State of the Art #acr("SSL") methods to diverse challenging setups.
 The capable simulator presented in <chap:simulator> has let us put up different datasets to experiment with.
 The speech source present in the room is considered to be omnidirectional and simulated as such.
-// TODO: should we already warn about the limitations of this choice ? i.e. not very realistic
+#draft[
+  Should we already warn about the limitations of this choice ? i.e. not very realistic
+]
+
 
 
 // Each training sample is a one second long audio recorded by the microphone array in the presence of a speech source.
@@ -44,9 +53,39 @@ The speech source present in the room is considered to be omnidirectional and si
 
 ==== Microphone arrays <sec:ssl:single_source:method:mic_arrays>
 
+Several microphone arrays have been experimented in this study.
+Leveraging multiple microphones forming an array is essential.
+Geometric information is extracted from the differences between the signals received by each sensor.
+Acoustic reverberation and the spatial configuration of the array lead to the apparition of exploitable patterns in the overall collected data.
+
+We present the following microphone array configurations that have been tested.
+Their implementation enriches the possibilities provided by our simulator.
+
+- A *binaural* array comprises two microphones placed a few centimeters apart from each other.
+ This setup certainly constitutes the most studied robotic #acr("SSL") framework in the literature.
+ A humanoid robotic head equipped with two microphones on each side has been the motivation to primarily consider this layout.
+- We have also proposed a *three microphone* design disposed in a V-shaped arrangement.
+- Finally, a *square* array of four microphones has been implemented too.
+
+// TODO figure wih the three possible arrays
+
+The number of microphones plays an important role in the #("SSL") performance.
+As an illustrative example, when having a binaural microphone in the free field, i.e. where the effects of reverberation can be neglected, there exist a fundamental limit:
+It is theoretically impossible to distinguish the two possible locations of the source.
+This phenomenon is known as the front-back ambiguity.
+// TODO cite papers
+The latter can be cleared up by introducing relative movement or by introducing an additional microphone in the array.
+
+
+
 // Binaural
 // Triangle
 // Square
+
+Importantly, all our microphone arrays are deprived from any physical incarnation.
+No real material constitutes the actual array.
+In a more realistic setup, the presence of a robotic head between two microphones can be modeled using a #acr("HRTF").
+
 
 // Number of microphones
 // Directionality / Pattern
@@ -74,10 +113,23 @@ On the other end, those networks are trained to infer the #acr("DoA") value $the
 Our networks are trained in a supervised fashion using some custom datasets presented in @sec:ssl:single_source:method:dataset.
 
 // TODO: first simple architecture
+#figure(
+  square(size: 10em, stroke: 2pt),
+  caption: [
+    Simple convolutional architecture for #acr("SSL")
+  ],
+) <fig:ssl:single_source:ssl_nn_simple>
 
 The second architecture draws inspiration from the work of @krause_comparison_2021.
 It shares some similarities with the first architecture as being built around 2D convolution filters in the time-frequency plan.
 The two-dimensional representations of audio signals have the sensible
+
+#figure(
+ square(size: 10em, stroke: 2pt),
+  caption: [
+    Simple convolutional architecture for #acr("SSL")
+  ],
+) <fig:ssl:single_source:ssl_nn_krause>
 
 // TODO: figure of the architecture
 
@@ -92,22 +144,74 @@ We will now present the loss function used during training.\
 First, consider the following angular distance.
 Let $theta_1, theta_2 in RR$ two angle values expressed in radians.
 $
-d:  RR^2 &arrow.r.long [-pi, pi]\
+d: #h(1cm) RR^2 &arrow.r.long [-pi, pi]\
  (theta_1, theta_2) &arrow.r.long.bar  (theta_1 - theta_2 + pi)[2pi] - pi
 $ <eq:ssl:single_source:angle_dist>
+The angular distance, defined as such, yields values wrapped in the $[-pi, pi]$ interval.
 
-One should note that $d$ is antisymmetric, i.e.
-$ d(theta_1, theta_2) = -d(theta_2, theta_1) $
+#block(breakable: false)[
+  Also, one should note that $d$ is antisymmetric, i.e. $forall (theta_1, theta_2) in RR^2$,
+  $
+    d(theta_1, theta_2) = -d(theta_2, theta_1)
+  $
+]
+
+#draft[
+  Shouldn't we simply formulate the loss for a single sample and not bother with the summation over all elements of the dataset ?\
+  Or maybe simply adding it at the end of the paragraph.
+]
+
+#draft[
 $
-  cal(L)(
+  cal(L)_"DoA"(
+    theta, hat(theta)
+  ) =
+  d(theta_i, hat(theta)_i) ^ 2.
+$
+]
+
+Let $theta = (theta_1, dots, theta_n)$  be the set of #acr("DoA") angles predicted by the network and $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ the corresponding ground truth values.
+The loss function expresses as
+$
+  cal(L)_"DoA"(
     theta, hat(theta)
   ) = 1 / n
     sum_(i=1)^n
-    d(theta_i, hat(theta)_i) ^ 2
+    d(theta_i, hat(theta)_i) ^ 2. // TODO should their be a period here ?
 $ <eq:ssl:single_source:doa_loss>
+
+The neural network is trained to minimize this objective.
+
+When the model additionally estimates the distance to the source, the natural $l_2$ distance is used
+$
+  cal(L)_"dist" (d, hat(d)) = norm(d - hat(d))_2^2
+$ <eq:ssl:single_source:dist_loss>
+and the total loss then becomes
+$
+  cal(L) (
+    (theta, hat(theta)), (d, hat(d))
+  ) =
+  cal(L)_"DoA" (theta, hat(theta))
+  + cal(L)_"dist" (d, hat(d))
+$ <eq:ssl:single_source:total_loss>
+// $
+//   cal(L) (
+//     (d, hat(d)), (theta, hat(theta))
+//   ) = 1 / n
+//   sum_(i=1)^n
+//   [
+//     cal(L)_"DoA" (theta_i, hat(theta)_i)
+//     + norm(d_i - hat(d)_i)_2^2
+//   ]
+// $
+//where $d = (d_1, dots, d_n)$ is the set of predicted distances and $hat(d) = (hat(d)_1, dots, hat(d)_n)$ the ground truth data.
 
 ==== Impact of input signal representation
 
+The the neural network is expected to extract the relevant localization information from the audio signal provided as input.
+Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
+
+In this work, we focus on time-frequency representations.
 // TODO: for STFT, we use |z| and Arg(z) as real tensors, not Re(z), Im(z)
 
 // Compare ILD/IPD performances

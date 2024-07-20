@@ -23,7 +23,6 @@
 )
 
 
-
 // TODO
 #print-index(numbering: none)
 #include "sections/index.typ"
