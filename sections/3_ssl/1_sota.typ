@@ -35,6 +35,13 @@ Several pre-processing methods exist to ease the extraction of geometric informa
 
 // TODO cite waveToVec
 
+#figure(
+  square(size: 10em, stroke: 2pt),
+  caption: [
+    An example of a waveform acoustic signal
+  ],
+) <fig:ssl:sota:waveform>
+
 ==== Time-frequency representations
 
 Although the waveform rendering of an audio signal is a raw and natural representation of the information, several alternative higher-level transforms have been studied in the acoustic literature.
@@ -43,13 +50,27 @@ A popular way of representing audio signals is to project the temporal signal in
 The Fourier transform stands as the core concept of this category of encoding.
 #gaet[Should we go as far as giving the definition of the Fourier Transform ?]
 #chris[It is a well-known process and you do not really modify it, so only reference it. Only in case you have more time then you could think about explaining it in detail.]
+// TODO FT -> STFT (continuous) -> STFT (discrete)
 As acoustic signals are stored and processed numerically, the continuous framing of the Fourier transform cannot be directly employed.
-Instead, the Short Term Fourier Transform algorithm allows to convert the temporal real-valued signal into a two-dimensional complex form.
+Instead, the #acr("STFT") algorithm allows to convert the temporal real-valued signal into a two-dimensional complex form.
+$ "STFT"(x) in CC^(F times T) $
+
+$
+  X[n, f] = sum_(m=-infinity)^(infinity) w[n-m] x[m] e^(-2i pi f m)
+$ <eq:ssl:sota:stft_inf>
+
+$
+  X[n, f] &= sum_(m=n-(N_w - 1))^n w[n-m] x[m] e^(-2i pi f_k m)\
+   &= sum_(m=n-(N_w - 1))^n w[n-m] x[m] e^((-2i pi m k) / N)
+$ <eq:ssl:sota:stft_inf>
 
 // TODO Introduce the notations. Maybe x(t) is defined in the above section
-$ "STFT"(x) in CC^(F times T) $
 //TODO: give the actual definition
-
+// #figure(
+//   square(size: 10em, stroke: 2pt),
+//   caption: [
+//   ],
+// ) <fig:ssl:sota:spectrogram>
 This target domain is often referenced as the time-frequency plan.
 
 
@@ -70,6 +91,36 @@ $ "ILD"(S_1, S_2) = 20 log_10 abs(S_1/S_2) $
 
 - #acr("IPD")
 $ "IPD"(S_1, S_2) = arg(S_1/S_2) $
+
+#subpar.grid(
+  figure(
+    //image("/assets/andromeda.jpg"),
+    square(size: 10em, stroke: 2pt),
+    caption: [
+      Spectrogram
+    ]
+  ), <fig:ssl:sota:tf_representations:spectrogram>,
+  figure(
+    square(size: 10em, stroke: 2pt),
+    //image("/assets/mountains.jpg"),
+    caption: [
+      #reset-acronym("ILD")
+      #acr("ILD")
+    ]
+  ), <fig:ssl:sota:tf_representations:ild>,
+  figure(
+    square(size: 10em, stroke: 2pt),
+    //image("/assets/mountains.jpg"),
+    caption: [
+      #reset-acronym("IPD")
+      #acr("IPD")
+    ]
+  ), <fig:ssl:sota:tf_representations:ipd>,
+  columns: (1fr, 1fr, 1fr),
+  align: top,
+  caption: [Illustration of time-frequency representations of a speech signal],
+  label: <seq:ssl:sota:tf_representations>,
+)
 
 #reset-acronym("GCC-PHAT")
 ===== #acr("GCC-PHAT")
@@ -116,14 +167,16 @@ However, identifying the position of currently speaking humans requires some sor
 // Constraint related to robotics
 Robotics also brings additional challenges to the #acr("SSL") task.
 Indeed, a robotic platform implies to deal wit several constraints mainly caused by interacting with the real world.
+#draft[
 // TODO:
 - Reverberation
 - Moving objects
 - Intermittent sources
 - Noise (motor noise, music, multiple concurrent sources)
+]
 
 // Classical approaches
-Back in ..., researchers have intended to localize ...
+#draft[Back in ..., researchers have intended to localize ...]
 // TODO: cite some works
 // - Xavi+Radu's paper
 // - older perception work ?
