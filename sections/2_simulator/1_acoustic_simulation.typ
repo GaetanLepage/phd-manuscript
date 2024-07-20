@@ -38,6 +38,9 @@ Libraries:
 
 === Overview of the simulator features
 
+
+#gaet[Should we mention that the simulator (along with the entire code base for this PhD) is available as open source ?]
+
 ==== Global architecture
 
 // TODO insert diagram of the architecture
