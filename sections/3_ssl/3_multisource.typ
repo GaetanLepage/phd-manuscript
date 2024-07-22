@@ -143,12 +143,30 @@ where
 - $epsilon$ is a constant ensuring numerical stability
 - $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters
 
-To be able to perform inference on single samples ()
+To be able to perform inference on single samples, i.e. without disposing of an entire mini-batch, substitution statistics are used in place of $colMath(mu_cal(B), #maroon)$ and $colMath(sigma_cal(B)^2, #olive)$.
+Indeed, during training, the Batch Normalization layer will keep updating a running mean and variance to be used at evaluation time.
 
-_Layer Normalization_ follows the same principle but chooses to normalize each sample individually by computing statistics across the features dimensions.
+_Layer Normalization_ (Ba et al. @ba_layer_2016) follows the same principle but chooses to normalize each sample individually by computing statistics across the features dimensions.
 @fig:ssl:multi_source:normalization displays the differences of both schemes.
-Historically, Layer Normalization has been most commonly used within the Natural Language Processing field.
-However,
+Historically, Layer Normalization has been most commonly employed within the Natural Language Processing field.
+
+$
+  y_i = colMath(gamma, #blue) [
+    (
+      x_i
+      - colMath(mu_l, #maroon)
+    )
+    /sqrt(
+      colMath(sigma_l^2, #olive) + epsilon
+    )
+  ] + colMath(beta, #blue)
+$ <eq:ssl:multi_source:batch_norm>
+where
+- $x_i$ is an individual hidden unit in the layer's inputs $X = {a_(l, 1), dots, a_(l, H)}$,
+- $colMath(mu_l = 1 / H sum_(i=1)^H a_(l, i), #maroon)$ is the mean,
+- $colMath(sigma_l^2 = 1 / H sum_(i=1)^H (a_(l, i) - mu_l)^2, #olive)$ is the variance,
+- $epsilon$ is a constant ensuring numerical stability,
+- $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters
 
 #figure(
   image("./figures/normalization.png", height: 4cm),
