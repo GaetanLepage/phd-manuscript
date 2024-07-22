@@ -103,7 +103,44 @@ Its shape is noted $(C, F, T)$ where $C$ is the number of channels, i.e. twice t
 
 ==== Normalization
 
+Various schemes of normalization have been used in Deep Neural Networks.
+They address the phenomenon of _internal covariate shift_ which appears as architectures get deeper.
+This problem comes from the distribution of each layer's inputs changing during training.
+Such a drift causes the non-linear activation functions to saturate and harms the learning process.
+
+_Batch Normalization_, proposed by Ioffe et al. in @ioffe_batch_2015 has gathered significant success, especially in the computer vision community.
+It consists in normalizing each mini-batch input with respect to its own statistics.
+Acting as a form of regularizer, this process stabilizes learning by ensuring that the values entering all layers do not deviate too significantly.
+The _Batch Normalization Transform_ algorithm expresses as such:
+$
+  y_i = colMath(gamma, #blue) [
+    (
+      x_i
+      - colMath(mu_cal(B), #olive)
+    )
+    /sqrt(sigma_cal(B)^2 + epsilon)
+  ] + colMath(beta, #blue)
+$ <eq:ssl:multi_source:batch_norm>
+where
+- $x_i$ is an individual entry in the mini-batch $cal(B) = {x_1, dots, x_m}$
+- $mu_cal(B) = 1 / m sum_(i=1)^m x_i$ is the mini-batch mean
+- $sigma_cal(B)^2 = 1 / m sum_(i=1)^m (x_i - mu_cal(B))^2$ is the mini-batch variance
+- $epsilon$ is a constant ensuring numerical stability
+- $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters
+
+_Layer Normalization_ follows the same principle but chooses to normalize each sample individually by computing statistics across the features dimensions.
+@fig:ssl:multi_source:normalization displays the differences of both schemes.
+
+#figure(
+  image("./figures/normalization.png", height: 4cm),
+  caption: [
+    A visual comparison of Batch and Layer normalizations
+    (adapted from @wu_group_2018)
+  ]
+) <fig:ssl:multi_source:normalization>
+
 Although He et al. chose to use Batch Normalization in their work, our final architecture makes use of the more flexible Layer Normalization.
+Those two methods have been proven to be effective in the training deep neural network architectures.
 
 The choice of the normalization scheme ended up being crucial to achieving good performance.
 

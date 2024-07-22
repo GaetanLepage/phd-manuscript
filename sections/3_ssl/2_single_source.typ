@@ -94,10 +94,17 @@ This property describes which incoming capture directions will be favored by the
 Each use of a microphone can benefit from an appropriate directionality.
 For instance, when recording the voice of a singer or speaker, one can afford to point the receiver towards the source and have it ignoring the unwanted sounds coming from other directions.
 
-The omnidirectional pattern is the simpler one to think of.
+The _omnidirectional_ pattern is the simpler one to think of.
 All directions are given equal importance.
+In contrast, the cardioid, and its variants (super-cardioid, hyper-cardioid, ultra-cardioid, ...)
 // TODO cardioid, supercardioid, figure 8
 // TODO: insert figure of different patterns
+#figure(
+  image("figures/polar_patterns.jpg", height: 8cm),
+  caption: [
+    Illustration of the most common microphone polar patterns @stoddart_beginners_2016
+  ],
+) <fig:ssl:single_source:polar_patterns>
 
 // TODO: is this the right term ?
 In the context of #acr("SSL"), an non-homogeneous pattern brings extra angular information which a neural network might be able to exploit.
@@ -111,6 +118,10 @@ We focused in this work on simple architectures that take some representation of
 On the other end, those networks are trained to infer the #acr("DoA") value $theta$ of the single speech source present in the room.
 
 Our networks are trained in a supervised fashion using some custom datasets presented in @sec:ssl:single_source:method:dataset.
+
+#gaet[
+  Should we present both architectures or focus on the one we used the most ?
+]
 
 // TODO: first simple architecture
 #figure(
@@ -132,6 +143,9 @@ The two-dimensional representations of audio signals have the sensible
 ) <fig:ssl:single_source:ssl_nn_krause>
 
 // TODO: figure of the architecture
+
+Also, as a specialization for the #acr("SSL") task, we have enforced the output values to sit in the $[-pi, pi]$ range.
+The final layer consists in a sigmoid which result gets multiplied by $pi$.
 
 === Experiments <sec:ssl:single_source:experiments>
 
@@ -194,6 +208,13 @@ $
   cal(L)_"DoA" (theta, hat(theta))
   + cal(L)_"dist" (d, hat(d))
 $ <eq:ssl:single_source:total_loss>
+#gaet[
+ Wouldn't the follwoing be even easier to read (although less accurate)
+ 
+$cal(L) =
+  cal(L)_"DoA" (theta, hat(theta))
+  + cal(L)_"dist" (d, hat(d))$
+]
 // $
 //   cal(L) (
 //     (d, hat(d)), (theta, hat(theta))
@@ -213,6 +234,10 @@ Hence, the choice of the encoding method for the acoustic data has a substantial
 
 In this work, we focus on time-frequency representations.
 // TODO: for STFT, we use |z| and Arg(z) as real tensors, not Re(z), Im(z)
+When using #acr("STFT") features directly, they get converted to real values as following.
+Each complex matrix translates to two real ones by splitting the modulus and the phase of each entry.
+Thus, a $N$-channel #acr("STFT") $N times F times T$ complex tensor ends up as a $2N times F times T$ real array.
+This choice allows the use for conventional real-valued 2D convolutions.
 
 // Compare ILD/IPD performances
 

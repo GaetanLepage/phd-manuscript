@@ -1,3 +1,35 @@
+# Polar patterns illustration
+@online{stoddart_beginners_2016,
+	title = {A Beginner's Buying Guide to Microphones},
+	url = {http://www.homestudioarchive.com/blog/2016/12/15/a-beginners-buying-guide-to-microphones},
+	abstract = {No matter what style of music you make or what you plan to record, you will almost certainly need some form of microphone. With so many different models and manufacturers, choosing the best microphone for the job can be difficult if you’re new to the world of recording. Check out this handy buying g},
+	titleaddon = {The Home Studio Archive},
+	author = {Stoddart, Travis},
+	urldate = {2024-07-22},
+	date = {2016-12-15},
+	langid = {american},
+}
+
+
+# BatchNorm
+@misc{ioffe_batch_2015,
+	title = {Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift},
+	url = {http://arxiv.org/abs/1502.03167},
+	doi = {10.48550/arXiv.1502.03167},
+	shorttitle = {Batch Normalization},
+	abstract = {Training Deep Neural Networks is complicated by the fact that the distribution of each layer's inputs changes during training, as the parameters of the previous layers change. This slows down the training by requiring lower learning rates and careful parameter initialization, and makes it notoriously hard to train models with saturating nonlinearities. We refer to this phenomenon as internal covariate shift, and address the problem by normalizing layer inputs. Our method draws its strength from making normalization a part of the model architecture and performing the normalization for each training mini-batch. Batch Normalization allows us to use much higher learning rates and be less careful about initialization. It also acts as a regularizer, in some cases eliminating the need for Dropout. Applied to a state-of-the-art image classification model, Batch Normalization achieves the same accuracy with 14 times fewer training steps, and beats the original model by a significant margin. Using an ensemble of batch-normalized networks, we improve upon the best published result on {ImageNet} classification: reaching 4.9\% top-5 validation error (and 4.8\% test error), exceeding the accuracy of human raters.},
+	number = {{arXiv}:1502.03167},
+	publisher = {{arXiv}},
+	author = {Ioffe, Sergey and Szegedy, Christian},
+	urldate = {2024-07-22},
+	date = {2015-03-02},
+	eprinttype = {arxiv},
+	eprint = {1502.03167 [cs]},
+	keywords = {Computer Science - Machine Learning},
+	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/RMQ6GTT7/Ioffe and Szegedy - 2015 - Batch Normalization Accelerating Deep Network Tra.pdf:application/pdf;arXiv.org Snapshot:/home/gaetan/.local/share/Zotero/storage/BDNFQXV8/1502.html:text/html},
+}
+
+
 # LayerNorm
 @misc{ba_layer_2016,
 	title = {Layer {Normalization}},
@@ -13,6 +45,24 @@
 	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
 	file = {Ba et al. - 2016 - Layer Normalization.pdf:/home/gaetan/.local/share/Zotero/storage/33Y9VJL4/Ba et al. - 2016 - Layer Normalization.pdf:application/pdf},
 }
+
+# Group Norm
+@misc{wu_group_2018,
+	title = {Group Normalization},
+	url = {http://arxiv.org/abs/1803.08494},
+	doi = {10.48550/arXiv.1803.08494},
+	abstract = {Batch Normalization ({BN}) is a milestone technique in the development of deep learning, enabling various networks to train. However, normalizing along the batch dimension introduces problems --- {BN}'s error increases rapidly when the batch size becomes smaller, caused by inaccurate batch statistics estimation. This limits {BN}'s usage for training larger models and transferring features to computer vision tasks including detection, segmentation, and video, which require small batches constrained by memory consumption. In this paper, we present Group Normalization ({GN}) as a simple alternative to {BN}. {GN} divides the channels into groups and computes within each group the mean and variance for normalization. {GN}'s computation is independent of batch sizes, and its accuracy is stable in a wide range of batch sizes. On {ResNet}-50 trained in {ImageNet}, {GN} has 10.6\% lower error than its {BN} counterpart when using a batch size of 2; when using typical batch sizes, {GN} is comparably good with {BN} and outperforms other normalization variants. Moreover, {GN} can be naturally transferred from pre-training to fine-tuning. {GN} can outperform its {BN}-based counterparts for object detection and segmentation in {COCO}, and for video classification in Kinetics, showing that {GN} can effectively replace the powerful {BN} in a variety of tasks. {GN} can be easily implemented by a few lines of code in modern libraries.},
+	number = {{arXiv}:1803.08494},
+	publisher = {{arXiv}},
+	author = {Wu, Yuxin and He, Kaiming},
+	urldate = {2024-07-22},
+	date = {2018-06-11},
+	eprinttype = {arxiv},
+	eprint = {1803.08494 [cs]},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning, man},
+	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/8VMS39CG/Wu and He - 2018 - Group Normalization.pdf:application/pdf;arXiv.org Snapshot:/home/gaetan/.local/share/Zotero/storage/83343UV5/1803.html:text/html},
+}
+
 
 
 # Large batch
