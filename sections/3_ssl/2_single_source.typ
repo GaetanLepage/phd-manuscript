@@ -33,7 +33,7 @@ As a consequence, only a short recording should suffice to accomplish an accurat
 ==== Custom dataset for #acr("SSL") <sec:ssl:single_source:method:dataset>
 
 The objective of this study was to adapt State of the Art #acr("SSL") methods to diverse challenging setups.
-The capable simulator presented in <chap:simulator> has let us put up different datasets to experiment with.
+The capable simulator presented in @chap:simulator has let us put up different datasets to experiment with.
 The speech source present in the room is considered to be omnidirectional and simulated as such.
 #draft[
   Should we already warn about the limitations of this choice ? i.e. not very realistic
