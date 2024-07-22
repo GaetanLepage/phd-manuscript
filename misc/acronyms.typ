@@ -1,6 +1,9 @@
 #import "/utils.typ": *
 
 #init-acronyms((
+  // Misc
+  "HRI": ("Human Robot Interaction"),
+  
   // Deep Learning
   "MSE": ("Mean Squared Error"),
   

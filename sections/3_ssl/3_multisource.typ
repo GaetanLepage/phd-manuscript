@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
 == Multi-source localization
+#minitoc(indent: true)
 
 Complex human-robot interaction environments often imply a varying number of sound sources.
 Hence, at a given time, the room might be completely silent.
@@ -8,20 +9,95 @@ On the other hand, multiple concurrent sources of different kinds could be activ
 The following section will present our investigation of a multi-source localization framework that will bring additional flexibility to our acoustic agent.
 We will showcase a deep neural network that has been implemented and trained on a challenging customized dataset, collected thanks to our simulator.
 
-// TODO, maybe do not talk about them this soon.
+#gaet[
+  Maybe do not talk about them this soon.\
+  However, it might be important to clearly state that this paper was the main inspiration for that part of our work.
+]
 Weipeng He et al. have proposed and explored an interesting framework for multi-source localization.
+#draft[
+  - @he_deep_2018
+  - @he_joint_2018
+  - @he_neural_2021
+]
 // flexible
 
-=== Microphone array
+=== Method
 
-=== Data pre-processing
+==== Microphone array <sec:ssl:multi_source:mic_array>
+
+#gaet[
+  Is a scheme of the array necessary here ?
+  According to me, it would not help a lot with understanding.
+]
+
+==== Dataset generation and pre-processing
+
+The audio simulator presented in @chap:simulator has been leveraged to generate synthetic datasets of a substantial size.
+Although public #acr("SSL") datasets have been shared publicly by the community, we have chosen to work within our artificial #acr("HRI") environment for later reuse of this method.
+// TODO: cite datasets
+
+The generation process starts by randomly selecting a number of sources between zero and four according to the following distribution:
+- 0 sources: 20%,
+- 1 source: 40%,
+- 2 sources: 30%,
+- 3 sources: 5%,
+- 4 sources: 5%.
+#gaet[
+  How do we motivate this choice ? By simply saying that we did the same as in the paper ?
+]
+
+The microphone array described in @sec:ssl:multi_source:mic_array and the speech sources get randomly positioned in the room.
+Such a choice has lead to challenging samples were multiple targets share very similar #acr("DoA") angles from the agent's point of view. #gaet[is this the right word ?]
+The resulting #acr("RIR") filters get computed to account for the reverberation properties of the room.
+Then, each source outputs a clean speech signal randomly chosen from the LibriSpeech @noauthor_librispeech_nodate dataset.
+The simulator computes the resulting listened signals at each microphone of the array.
+Such signals last around 10 seconds.
+The #acr("STFT") of the entire signal is then computed, for each of the four microphones.
+
+*Audio chunking.*
+We finally extract at most five short chunks of 400ms of audio from the global #acr("STFT")s.
+This duration constitutes a tradeoff between detection latency and performance.
+The longest the method is offered to listen, the better more accurate the results will be.
+However, in a dynamic robotics context, which we ultimately target, we cannot afford having long audio sequences for inferring the source positions.
+
+#gaet[I definitely have to double check this with Laurent.]
+*Minimal energy criteria.*
+We aim at preventing the inclusion of samples were one of the target sources is not active enough for the duration of the recording.\
+Given its #acr("STFT") $S in CC^(T times F)$, the energy of a real-valued signal, expressed in decibels (dB), is defined as
+$
+  E(S)_"dB" =
+    1 / (T F)
+    sum_(t=1)^T
+    sum_(f=1)^F
+    20 log_10
+    lr(abs(S[t, f]), size: #150%)
+$
+We reject the chunks of the simulated samples where, for at least one microphone, the energy of the selected fragment is too low compared to the average energy of the entire simulated signal.
+Let
+- $S_k$ the #acr("STFT") of the signal received by microphone $k$.
+- $tilde(S)_k$ the #acr("STFT") of the considered chunk, i.e. a slide of $S_k$.
+$
+  limits(and)_(k=1)^4
+  [E(tilde(S)_k)_"dB" > E(S_k)_"dB" - 10]
+$
+
+*Sampling frequency.*
+The method was designed to operate with audio signals sampled at 48kHz, which does not match the 16kHz sample rate of the LibriSpeech @noauthor_librispeech_nodate dataset that provides the clean speech utterances in the simulator.
+To account for this, the simulation of the audio signaled listened by each microphone of the array is operated at the native 16kHz frequency.
+The generated signals are then up-sampled to 48kHz.
+
 
 // multi-channel STFT
 As discussed in @sec:ssl:sota:data_repr, several choices can be made when it comes to data representation.
 Although we have generated different datasets, the format used in majority consisted in the Short Term Fourier Transform.
 
+The #acr("STFT") of each segment provides the final training samples of the dataset.
+Besides each input sample, the relevant ground truth information gets saved for supervising the learning process and computing performance metrics.
+It comprises all the necessary geometric information about the microphone array and sources (positions, orientations, relative distance and angle of incidence).
+One million of such sample pairs constitute the core training data set.
 
-=== Direction of Arrival representation
+
+==== Direction of Arrival representation
 
 The objective of the #acr("SSL") task is to predict the Direction of Arrival (DOA) of the sound sources.
 Hence, the number of prediction outputted by an #acr("SSL") method can differ from situation to situation.
@@ -33,7 +109,7 @@ The set of DOA values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
 ==== Angular heat maps
 
-The solution in question has been introduced by He et al. @he_neural_2021 and consists in a discretized heat map defined over the interval $[-pi, pi]$.
+The solution in question has been introduced by He et al. @he_deep_2018 and consists in a discretized heat map defined over the interval $[-pi, pi]$.
 In practice, the source locations is encoded in a $d$ dimensional real vector $Phi$.
 $ Phi in [0, 1]^d $
 
@@ -59,7 +135,7 @@ A peak at $0°$ designates the presence of a source in front of the microphones.
 
 // TODO: insert figure
 
-==== Encoding of ground truth DOA values
+==== Multi source #acr("DoA") encoding
 
 The dataset contains the DOA values for each sample.
 We need to convert this list of scalar angular values to our heat map encoding format.
@@ -95,13 +171,17 @@ $
   caption: [DOA encoding of two sources]
 ) <fig:ssl:multi_source:doa_gt_encoding>
 
+#gaet[
+  Should we plot it with discrete points (scatter) instead of continuous lines ? It would be more relatable to the given definition.
+]
 
 
-=== Neural Network architecture
+
+==== Neural Network architecture
 
 
 #gaet[should we note tensor shapes (X, Y, Z) or XxYxZ ?]
-The implemented neural network is borrowed from He et al. @he_neural_2021.
+The implemented neural network inspires from the one proposed by He et al. in @he_neural_2021.
 
 The aim of the Neural Network is to process multi-channel audio data and to extract the angular positions of the speech sources.
 The input of the model is the #acr("STFT") representation of the multi-channel signal.
@@ -110,7 +190,8 @@ We then split the real and imaginary values to form two distinct matrices.
 Each one of the $M$ microphones leads to a $(2, F, T)$-shape real-valued tensor.
 Its shape is noted $(C, F, T)$ where $C$ is the number of channels, i.e. twice the number of microphones in the array.
 
-==== Multi source DOA encoding
+The architecture draws inspiration from vision models by employing 2D convolution.
+As discussed in @sec:ssl:sota:deep_learning, using the image-like time-frequency representation of audio signals allows applying techniques proven to perform well on conventional image data.
 
 ==== Normalization
 
@@ -137,11 +218,11 @@ $
   ] + colMath(beta, #blue)
 $ <eq:ssl:multi_source:batch_norm>
 where
-- $x_i$ is an individual entry in the mini-batch $cal(B) = {x_1, dots, x_m}$
-- $colMath(mu_cal(B) = 1 / m sum_(i=1)^m x_i, #maroon)$ is the mini-batch mean
-- $colMath(sigma_cal(B)^2 = 1 / m sum_(i=1)^m (x_i - mu_cal(B))^2, #olive)$ is the mini-batch variance
-- $epsilon$ is a constant ensuring numerical stability
-- $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters
+- $x_i$ is an individual entry in the mini-batch $cal(B) = {x_1, dots, x_m}$,
+- $colMath(mu_cal(B) = 1 / m sum_(i=1)^m x_i, #maroon)$ is the mini-batch mean,
+- $colMath(sigma_cal(B)^2 = 1 / m sum_(i=1)^m (x_i - mu_cal(B))^2, #olive)$ is the mini-batch variance,
+- $epsilon$ is a constant ensuring numerical stability,
+- $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters.
 
 To be able to perform inference on single samples, i.e. without disposing of an entire mini-batch, substitution statistics are used in place of $colMath(mu_cal(B), #maroon)$ and $colMath(sigma_cal(B)^2, #olive)$.
 Indeed, during training, the Batch Normalization layer will keep updating a running mean and variance to be used at evaluation time.
@@ -151,9 +232,9 @@ _Layer Normalization_ (Ba et al. @ba_layer_2016) follows the same principle but 
 Historically, Layer Normalization has been most commonly employed within the Natural Language Processing field.
 
 $
-  y_i = colMath(gamma, #blue) [
+  y_(l, i) = colMath(gamma, #blue) [
     (
-      x_i
+      x_(l, i)
       - colMath(mu_l, #maroon)
     )
     /sqrt(
@@ -162,11 +243,11 @@ $
   ] + colMath(beta, #blue)
 $ <eq:ssl:multi_source:batch_norm>
 where
-- $x_i$ is an individual hidden unit in the layer's inputs $X = {a_(l, 1), dots, a_(l, H)}$,
-- $colMath(mu_l = 1 / H sum_(i=1)^H a_(l, i), #maroon)$ is the mean,
-- $colMath(sigma_l^2 = 1 / H sum_(i=1)^H (a_(l, i) - mu_l)^2, #olive)$ is the variance,
+- $x_(l, i)$ is an individual hidden unit in the $l$-th layer's inputs $X = {x_(l, 1), dots, x_(l, H)}$,
+- $colMath(mu_l = 1 / H sum_(i=1)^H x_(l, i), #maroon)$ is the mean,
+- $colMath(sigma_l^2 = 1 / H sum_(i=1)^H (x_(l, i) - mu_l)^2, #olive)$ is the variance,
 - $epsilon$ is a constant ensuring numerical stability,
-- $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters
+- $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters.
 
 #figure(
   image("./figures/normalization.png", height: 4cm),
@@ -176,22 +257,31 @@ where
   ]
 ) <fig:ssl:multi_source:normalization>
 
-Although He et al. chose to use Batch Normalization in their work, our final architecture makes use of the more flexible Layer Normalization.
 Those two methods have been proven to be effective in the training deep neural network architectures.
 
+Although He et al. chose to use Batch Normalization in their work, our final architecture makes use of the more flexible Layer Normalization.
 The choice of the normalization scheme ended up being crucial to achieving good performance.
+We observed that the latter was yielding the same stabilization benefits during training while removing the dependence on the batch size.
 
 ==== Two stage training
 
 // TODO: doesn't seem to work well...
+#gaet[
+  As we have not seriously tried it and anyway haven't obtained any significant results, maybe we should entirely omit 2-stage training.
+]
 
-== Experiments
+==== Training strategy
+
+// Batch size
+@keskar_large-batch_2017
+
+=== Experiments and results
 
 // QUESTION: Should we mention the experiments made on the ILD/IPD binaural setup ?
 
-=== Static Sound Source Localization
-
 ==== Metrics
+
+To evaluate the performance of our method
 
 // Parallel with vision detection classes
 
@@ -248,11 +338,9 @@ $ "Recall" = (
   limits(sum)_i z_i
 ) $ <eq:ssl:ms:recall>
 
-=== Training strategy
 
-// Batch size
 
-=== Results
+// TODO: we can not really compare with them as they evaluated on real data.
 
 ==== Performance evaluation
 
@@ -260,5 +348,18 @@ $ "Recall" = (
 
 ==== Sequence processing
 
-Impact of window length
+In order to overcome the weaknesses of our model, we have proposed to use our method on longer recordings.
+Like so, we are able to account for the missed detections and achieve a higher robustness in the detections.
+
+The main idea resides in splitting the longer input audio in $M$ chunks sized appropriately to be processed by the neural network.
+$M$ output #acr("DoA") heat maps are thus obtained and need to be aggregated.
+We simply average those signals to obtain a single vector:
+$
+  hat(o) = 1/M sum_(i=1)^M o_i #h(1em) in [0, 1]^d
+$ <eq:ssl:multi_source:sequence_averaging>
+
+The flexibility of the #acr("DoA") encoding permits the former combination without the need of additional steps.
+Our detection algorithm can
+
+#draft[Impact of window length]
 // TODO: insert table of results
