@@ -25,6 +25,8 @@ Weipeng He et al. have proposed and explored an interesting framework for multi-
 
 ==== Microphone array <sec:ssl:multi_source:mic_array>
 
+For this investigation, a four microphone array is used.
+The sensors form a square TODO
 #gaet[
   Is a scheme of the array necessary here ?
   According to me, it would not help a lot with understanding.
@@ -32,9 +34,16 @@ Weipeng He et al. have proposed and explored an interesting framework for multi-
 
 ==== Dataset generation and pre-processing
 
+#gaet[
+  "4-microphone array", "four-microphone array" or "four microphone array" ?
+]
+
 The audio simulator presented in @chap:simulator has been leveraged to generate synthetic datasets of a substantial size.
 Although public #acr("SSL") datasets have been shared publicly by the community, we have chosen to work within our artificial #acr("HRI") environment for later reuse of this method.
-// TODO: cite datasets
+For the sake of exhaustivity, here are some examples of other relevant datasets.
+He et al. @he_deep_2018 have proposed the #acr("SSLR") dataset using the Pepper robot equipped with a four-microphone array.
+Furthermore, the third task of the #acr("DCASE") challenge proposes a yearly competition around designing the best #acr("SSL") system.
+For the 2024 edition of #acr("DCASE"), the target dataset was STARSS23 @shimada_starss23_nodate, introduced at NeurIPS 2023.
 
 The generation process starts by randomly selecting a number of sources between zero and four according to the following distribution:
 - 0 sources: 20%,
@@ -52,15 +61,31 @@ The resulting #acr("RIR") filters get computed to account for the reverberation 
 Then, each source outputs a clean speech signal randomly chosen from the LibriSpeech @noauthor_librispeech_nodate dataset.
 The simulator computes the resulting listened signals at each microphone of the array.
 Such signals last around 10 seconds.
-The #acr("STFT") of the entire signal is then computed, for each of the four microphones.
+
+*Sampling frequency.*
+The method was designed to operate with audio signals sampled at 48kHz, which does not match the 16kHz sample rate of the LibriSpeech @noauthor_librispeech_nodate dataset that provides the clean speech utterances to the simulator.
+To account for this, the simulation of the audio signaled listened by each microphone of the array is operated at the native 16kHz frequency.
+The generated signals are then up-sampled to 48kHz.
+
+*#acr("STFT") representation of audio signals.*
+// multi-channel STFT
+As discussed in @sec:ssl:sota:data_repr, several choices can be made when it comes to data representation.
+Although we have generated different datasets, the format used in majority consisted in the Short Term Fourier Transform.
+The #acr("STFT") is thus computed from the complete up-sampled simulated signal listened by each of the four microphones. #gaet[TODO: check the plurality of this last sentence.]
+For this, we employ a Hann window of length 2048, with a 50% overlap. We also apply a band-pass filtering by removing frequencies lower than 100Hz and higher than 48kHz.
+The consequent #acr("STFT") counts 337 frequency bins.
+
 
 *Audio chunking.*
-We finally extract at most five short chunks of 400ms of audio from the global #acr("STFT")s.
+We finally extract at most five short chunks of 400ms (i.e. 16 frames) from the global #acr("STFT")s.
 This duration constitutes a tradeoff between detection latency and performance.
 The longest the method is offered to listen, the better more accurate the results will be.
 However, in a dynamic robotics context, which we ultimately target, we cannot afford having long audio sequences for inferring the source positions.
 
-#gaet[I definitely have to double check this with Laurent.]
+#gaet[
+  I definitely have to double check this with Laurent.
+  But at least, this is how I have implemented it.
+]
 *Minimal energy criteria.*
 We aim at preventing the inclusion of samples were one of the target sources is not active enough for the duration of the recording.\
 Given its #acr("STFT") $S in CC^(T times F)$, the energy of a real-valued signal, expressed in decibels (dB), is defined as
@@ -74,24 +99,22 @@ $
 $
 We reject the chunks of the simulated samples where, for at least one microphone, the energy of the selected fragment is too low compared to the average energy of the entire simulated signal.
 Let
-- $S_k$ the #acr("STFT") of the signal received by microphone $k$.
-- $tilde(S)_k$ the #acr("STFT") of the considered chunk, i.e. a slide of $S_k$.
+- $colMath(S_k, #olive)$ the #acr("STFT") of the signal received by microphone $k$.
+- $colMath(tilde(S)_k, #maroon)$ the #acr("STFT") of the considered chunk, i.e. a slice of $S_k$.
+The energy criteria defining a valid sample expresses as
 $
-  limits(and)_(k=1)^4
-  [E(tilde(S)_k)_"dB" > E(S_k)_"dB" - 10]
+  delta_"energy" = limits(and)_(k=1)^4
+  [
+    E(colMath(tilde(S)_k, #maroon))_"dB" 
+    > E(colMath(S_k, #olive))_"dB"
+      - 10]
 $
+The average energy of a given chunk can be at most 10dB lower than the one of the entire signal.
+In practice, around 40% of the generated chunks are rejected.
 
-*Sampling frequency.*
-The method was designed to operate with audio signals sampled at 48kHz, which does not match the 16kHz sample rate of the LibriSpeech @noauthor_librispeech_nodate dataset that provides the clean speech utterances in the simulator.
-To account for this, the simulation of the audio signaled listened by each microphone of the array is operated at the native 16kHz frequency.
-The generated signals are then up-sampled to 48kHz.
+#gaet[Maybe a scheme of this process could bring additional clarity.]
 
-
-// multi-channel STFT
-As discussed in @sec:ssl:sota:data_repr, several choices can be made when it comes to data representation.
-Although we have generated different datasets, the format used in majority consisted in the Short Term Fourier Transform.
-
-The #acr("STFT") of each segment provides the final training samples of the dataset.
+The #acr("STFT") of each multi-channel 400ms segment provides the final training samples of the dataset.
 Besides each input sample, the relevant ground truth information gets saved for supervising the learning process and computing performance metrics.
 It comprises all the necessary geometric information about the microphone array and sources (positions, orientations, relative distance and angle of incidence).
 One million of such sample pairs constitute the core training data set.
@@ -139,7 +162,7 @@ A peak at $0°$ designates the presence of a source in front of the microphones.
 
 The dataset contains the DOA values for each sample.
 We need to convert this list of scalar angular values to our heat map encoding format.
-There is not a unique w
+There is not a unique w TODO
 A first solution to this problem could be placing a pseudo Dirac at the exact location of the source:
 
 // TODO: introduce Theta being the vector of DOA angles
@@ -163,7 +186,9 @@ $
   )
 $
 
-> @fig:ssl:multi_source:doa_gt_encoding shows an example of the DOA encoding scheme for a situation with two sources.
+The result is a mixture of $abs(Theta)$ gaussians centered at the actual #acr("DoA") angles.
+We chosen to set $sigma = 5°$.
+@fig:ssl:multi_source:doa_gt_encoding shows an example of the DOA encoding scheme for a situation with two sources.
 
 
 #figure(
@@ -343,6 +368,15 @@ $ "Recall" = (
 // TODO: we can not really compare with them as they evaluated on real data.
 
 ==== Performance evaluation
+
+==== $epsilon$-loss
+
+$
+  cal(L)_epsilon (y_i, hat(y)_u) =
+    1/d sum_(i=1)^d
+    colMath((y_i + epsilon), #maroon)
+    (y_i - hat(y)_i)^2
+$ <eq:ssl:multi_source:epsilon_loss>
 
 ==== Limitations
 
