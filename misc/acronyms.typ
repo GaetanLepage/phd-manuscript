@@ -12,8 +12,10 @@
   "WER": ("Word Error Rate"),
 
   // SSL
+  "DCASE": ("Detection and Classification of Acoustic Scenes and Events"),
   "DoA": ("Direction of Arrival"),
   "SSL": ("Sound Source Localization"),
+  "SSLR": ("Sound Source Localization for Robots"), // dataset by He et al.
 
   // Audio
   "GCC-PHAT": ("Generalized Cross-Correlation function with Phase Transform"),
