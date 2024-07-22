@@ -2,6 +2,16 @@
 
 == Multi-source localization
 
+Complex human-robot interaction environments often imply a varying number of sound sources.
+Hence, at a given time, the room might be completely silent.
+On the other hand, multiple concurrent sources of different kinds could be active simultaneously.
+The following section will present our investigation of a multi-source localization framework that will bring additional flexibility to our acoustic agent.
+We will showcase a deep neural network that has been implemented and trained on a challenging customized dataset, collected thanks to our simulator.
+
+// TODO, maybe do not talk about them this soon.
+Weipeng He et al. have proposed and explored an interesting framework for multi-source localization.
+// flexible
+
 === Microphone array
 
 === Data pre-processing
@@ -77,13 +87,14 @@ $
   )
 $
 
-@fig:ssl:doa_gt_encoding shows an example of the DOA encoding scheme for a situation with two sources.
+> @fig:ssl:multi_source:doa_gt_encoding shows an example of the DOA encoding scheme for a situation with two sources.
 
 
 #figure(
   image("./figures/doa_encoding.svg"),
   caption: [DOA encoding of two sources]
-) <fig:ssl:doa_gt_encoding>
+) <fig:ssl:multi_source:doa_gt_encoding>
+
 
 
 === Neural Network architecture
@@ -107,29 +118,37 @@ Various schemes of normalization have been used in Deep Neural Networks.
 They address the phenomenon of _internal covariate shift_ which appears as architectures get deeper.
 This problem comes from the distribution of each layer's inputs changing during training.
 Such a drift causes the non-linear activation functions to saturate and harms the learning process.
+Normalization also attempts at reducing the effects of mismatch between the training and test data set distributions.
 
 _Batch Normalization_, proposed by Ioffe et al. in @ioffe_batch_2015 has gathered significant success, especially in the computer vision community.
 It consists in normalizing each mini-batch input with respect to its own statistics.
 Acting as a form of regularizer, this process stabilizes learning by ensuring that the values entering all layers do not deviate too significantly.
+The data will get distributed according to a standard normal distribution.
 The _Batch Normalization Transform_ algorithm expresses as such:
 $
   y_i = colMath(gamma, #blue) [
     (
       x_i
-      - colMath(mu_cal(B), #olive)
+      - colMath(mu_cal(B), #maroon)
     )
-    /sqrt(sigma_cal(B)^2 + epsilon)
+    /sqrt(
+      colMath(sigma_cal(B)^2, #olive) + epsilon
+    )
   ] + colMath(beta, #blue)
 $ <eq:ssl:multi_source:batch_norm>
 where
 - $x_i$ is an individual entry in the mini-batch $cal(B) = {x_1, dots, x_m}$
-- $mu_cal(B) = 1 / m sum_(i=1)^m x_i$ is the mini-batch mean
-- $sigma_cal(B)^2 = 1 / m sum_(i=1)^m (x_i - mu_cal(B))^2$ is the mini-batch variance
+- $colMath(mu_cal(B) = 1 / m sum_(i=1)^m x_i, #maroon)$ is the mini-batch mean
+- $colMath(sigma_cal(B)^2 = 1 / m sum_(i=1)^m (x_i - mu_cal(B))^2, #olive)$ is the mini-batch variance
 - $epsilon$ is a constant ensuring numerical stability
 - $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters
 
+To be able to perform inference on single samples ()
+
 _Layer Normalization_ follows the same principle but chooses to normalize each sample individually by computing statistics across the features dimensions.
 @fig:ssl:multi_source:normalization displays the differences of both schemes.
+Historically, Layer Normalization has been most commonly used within the Natural Language Processing field.
+However,
 
 #figure(
   image("./figures/normalization.png", height: 4cm),
