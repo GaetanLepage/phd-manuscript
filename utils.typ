@@ -2,6 +2,8 @@
 #import "@preview/minitoc:0.1.0": *
 #import "@preview/subpar:0.1.1"
 
+#let colMath(x, color) = text(fill: color)[$#x$]
+
 #let draft(body) = {
   set text(fill: maroon)
   [\ _#body _ ]
