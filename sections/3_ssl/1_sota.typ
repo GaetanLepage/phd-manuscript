@@ -119,7 +119,7 @@ $ "IPD"(S_1, S_2) = arg(S_1/S_2) $
   columns: (1fr, 1fr, 1fr),
   align: top,
   caption: [Illustration of time-frequency representations of a speech signal],
-  label: <seq:ssl:sota:tf_representations>,
+  label: <fig:ssl:sota:tf_representations>,
 )
 
 #reset-acronym("GCC-PHAT")
