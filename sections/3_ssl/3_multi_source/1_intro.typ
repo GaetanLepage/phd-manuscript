@@ -8,7 +8,8 @@ We will showcase a deep neural network that has been implemented and trained on 
 
 #gaet[
   Maybe do not talk about them this soon.\
-  However, it might be important to clearly state that this paper was the main inspiration for that part of our work.
+  However, it might be important to clearly state that this paper was the main inspiration for that part of our work.\
+  Also, precise that we will mostly adopt the same notations as them on purpose.
 ]
 Weipeng He et al. have proposed and explored an interesting framework for multi-source localization.
 #draft[
