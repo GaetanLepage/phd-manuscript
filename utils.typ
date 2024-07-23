@@ -2,6 +2,9 @@
 #import "@preview/minitoc:0.1.0": *
 #import "@preview/subpar:0.1.1"
 
+#import "@preview/algorithmic:0.1.0"
+#import algorithmic: algorithm
+
 #let colMath(x, color) = text(fill: color)[$#x$]
 
 #let draft(body) = {
