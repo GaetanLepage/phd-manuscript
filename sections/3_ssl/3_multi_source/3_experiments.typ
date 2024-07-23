@@ -8,28 +8,30 @@
 
 ==== Metrics
 
-To evaluate the performance of our method
+To evaluate the performance of the proposed #acr("SSL") method, a total of four metrics are computed.
+They provide from two distinct setups.
 
-// Parallel with vision detection classes
+*Known number of sources.*
+In this first task, the number of active sources is assumed to be known.
+@eq:ssl:multi_source:decoding_known_sources is then used to perform the decoding of the neural network output.
+This process ensures to output as many detections as there are ground truth sources and allows to compute the two following metrics:
 
-// Known sources (MAE, Acc)
+- The _#acr("MAE")_ measures the difference
 // TODO: check notation consistency
-#gaet[Not sure if $sum_(i=1)^n$ or $limits(sum)_(i=1)^n$ is better here.]
-#chris[the first, but do not bother too much with such details, just go on]
 $ "MAE" = (
-  limits(sum)_i
-  limits(sum)_(j=1)^(z_i)
+  sum_i
+  sum_(j=1)^(z_i)
   d(
     hat(phi.alt)_(i j),
     phi.alt_(i j)
   )
 )/(
-  limits(sum)_i z_i
+  sum_i z_i
 ) $ <eq:ssl:multi_source:mae>
 
 $ "ACC" = (
-  limits(sum)_i
-  limits(sum)_(j=1)^(z_i)
+  sum_i
+  sum_(j=1)^(z_i)
   bb(1)_(
     d(
       hat(phi.alt)_(i j),
@@ -37,32 +39,37 @@ $ "ACC" = (
     ) < E_a
   )
 )/(
-  limits(sum)_i z_i
+  sum_i z_i
 ) $ <eq:ssl:multi_source:acc>
+
+*Unknown number of sources.*
+
+// Parallel with vision detection classes
+
 
 // Unknown sources (Prec, Recall)
 $ "Precision" = (
-  limits(sum)_i
-  limits(sum)_(j=1)^(z_i)
-  limits(sum)_(k=1)^(hat(z)_i)
+  sum_i
+  sum_(j=1)^(z_i)
+  sum_(k=1)^(hat(z)_i)
   m(
     hat(phi.alt)_(i k),
     phi.alt_(i j)
   )
 )/(
-  limits(sum)_i hat(z)_i
+  sum_i hat(z)_i
 ) $ <eq:ssl:multi_source:prec>
 
 $ "Recall" = (
-  limits(sum)_i
-  limits(sum)_(j=1)^(z_i)
-  limits(sum)_(k=1)^(hat(z)_i)
+  sum_i
+  sum_(j=1)^(z_i)
+  sum_(k=1)^(hat(z)_i)
   m(
     hat(phi.alt)_(i k),
     phi.alt_(i j)
   )
 )/(
-  limits(sum)_i z_i
+  sum_i z_i
 ) $ <eq:ssl:multi_source:recall>
 
 
