@@ -129,9 +129,8 @@ The set of DOA values will noted $Theta = (theta_1, ..., theta_n_s)$.
 ==== Spatial spectrum
 
 The solution in question has been introduced by He et al. @he_deep_2018 and consists in estimating the spatial spectrum.
-The latter is a real-valued function of the #acr("DoA") ($o: [-pi, pi] -> RR$).
-We discretize the 
-In practice, the source locations is encoded in a $d$ dimensional real vector $o$.
+The latter is a real-valued function of the #acr("DoA") ($cal(o): [-pi, pi] -> RR$).
+We discretize this continuous function by encoding the spectra in a $d$ dimensional real vector $o$.
 $ o in [0, 1]^d $
 
 We denote $phi.alt_i$ the angle value corresponding to the $i$-th index of $o$.
@@ -159,7 +158,7 @@ A peak at $0°$ designates the presence of a source in front of the microphones.
 ==== Multi source #acr("DoA") encoding
 
 The dataset contains the DOA values for each sample.
-We need to convert this list of scalar angular values to our heat map encoding format.
+We need to convert this list of scalar angular values to our spatial spectrum encoding format in order to allow its use as a regression target.
 Numerous methods could be employed to achieve this.
 A first solution to this problem could be placing a pseudo Dirac at the exact location of the source:
 
@@ -186,16 +185,21 @@ $
     display(max_(theta in Theta))
       {
         e^(
-          -d(
+          -(colMath(d, #maroon)(
             phi.alt_i,
             theta
-          )
+          )^2)
           / sigma^2
         )
       } &"if" abs(Theta) > 0,
     0 &"otherwise"
   )
-$ <eq:ssl:multi_source:doa_encoding>
+$ <eq:ssl:multi_source:doa_encoding>,
+where $colMath(d, #maroon)$ is the following symmetric angle distance,
+$
+  colMath(d, #maroon): [-pi, pi]^2 & --> [0, pi]\
+  (theta_1, theta_2) & arrow.r.long.bar pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)
+$ <eq:ssl:multi_source:symmetric_angular_dist>
 
 The result is a mixture of $abs(Theta)$ gaussians centered at the actual #acr("DoA") angles.
 We chose to set $sigma = 5°$.
@@ -333,7 +337,7 @@ $ <eq:ssl:multi_source:loss_function>
 The employed #acr("DoA") encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
 Namely, thanks to its flexibility, it allows for representing an arbitrary number of sources.
 Also, it enables to formulate the multi-source #acr("SSL") problem as a simple regression task.
-However, to extract of set of actual #acr("DoA") values, one has to explicitly process the obtained heat map.
+However, to extract of set of actual #acr("DoA") values, one has to explicitly process the obtained spatial spectra.
 #gaet[Do we have to, once more, cite the Odobez paper here ?]
 This is achieved by detecting the peaks in the network output.
 The index of local maxima higher than a threshold $colMath(xi, #maroon)$ serve as the #acr("DoA") predictions:
@@ -358,13 +362,13 @@ $
   }
 $ <eq:ssl:multi_source:decoding_unknown_sources>
 The neighborhood threshold $colMath(sigma_n, #olive)$ must be defined carefully for this process to succeed.
-If too low, some high frequency noise in the heat map could lead to several false positive angle detections.
+If too low, some high frequency noise in the spatial spectrum could lead to several false positive angle detections.
 On the other hand, a too high value for $sigma_n$ might cause two close peaks to be wrongly identified as a single one, thus missing a positive detection.
 We have found $sigma_n = 8°$ to be a satisfying value.
 
 #gaet[
   Is it interesting to describe the local maximum extraction process ?
-  According to me, there is obviously no novelty here, but it can eat up some space...
+  According to me, there is obviously no novelty here (as for the entire section...), but it can eat up some space.
 ]
 
 When the number $colMath(z, #eastern)$ of active sources is known, @eq:ssl:multi_source:decoding_unknown_sources can be adapted as:

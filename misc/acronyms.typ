@@ -17,6 +17,7 @@
   "SSL": ("Sound Source Localization"),
   "SSLR": ("Sound Source Localization for Robots"), // dataset by He et al.
   // Metrics
+  "ACC": ("Accuracy"),
   "MAE": ("Mean Absolute Error"),
 
   // Audio
