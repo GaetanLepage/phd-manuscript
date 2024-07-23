@@ -1,26 +1,5 @@
 #import "/utils.typ": *
 
-== Multi-source localization
-#minitoc(indent: true)
-
-Complex human-robot interaction environments often imply a varying number of sound sources.
-Hence, at a given time, the room might be completely silent.
-On the other hand, multiple concurrent sources of different kinds could be active simultaneously.
-The following section will present our investigation of a multi-source localization framework that will bring additional flexibility to our acoustic agent.
-We will showcase a deep neural network that has been implemented and trained on a challenging customized dataset, collected thanks to our simulator.
-
-#gaet[
-  Maybe do not talk about them this soon.\
-  However, it might be important to clearly state that this paper was the main inspiration for that part of our work.
-]
-Weipeng He et al. have proposed and explored an interesting framework for multi-source localization.
-#draft[
-  - @he_deep_2018
-  - @he_joint_2018
-  - @he_neural_2021
-]
-// flexible
-
 === Method
 
 ==== Microphone array <sec:ssl:multi_source:mic_array>
@@ -43,7 +22,7 @@ Although public #acr("SSL") datasets have been shared publicly by the community,
 For the sake of exhaustivity, here are some examples of other relevant datasets.
 He et al. @he_deep_2018 have proposed the #acr("SSLR") dataset using the Pepper robot equipped with a four-microphone array.
 Furthermore, the third task of the #acr("DCASE") challenge proposes a yearly competition around designing the best #acr("SSL") system.
-For the 2024 edition of #acr("DCASE"), the target dataset was STARSS23 @shimada_starss23_nodate, introduced at NeurIPS 2023.
+For the 2024 edition of #acr("DCASE"), the target dataset was STARSS23 @shimada_starss23_nodate, introduced at the NeurIPS 2023 conference.
 
 The generation process starts by randomly selecting a number of sources between zero and four according to the following distribution:
 - 0 sources: 20%,
@@ -118,6 +97,7 @@ The #acr("STFT") of each multi-channel 400ms segment provides the final training
 Besides each input sample, the relevant ground truth information gets saved for supervising the learning process and computing performance metrics.
 It comprises all the necessary geometric information about the microphone array and sources (positions, orientations, relative distance and angle of incidence).
 One million of such sample pairs constitute the core training data set.
+The total audio duration of the data approximates 47 hours.
 
 
 ==== Direction of Arrival representation
@@ -162,18 +142,22 @@ A peak at $0°$ designates the presence of a source in front of the microphones.
 
 The dataset contains the DOA values for each sample.
 We need to convert this list of scalar angular values to our heat map encoding format.
-There is not a unique w TODO
+Numerous methods could be employed to achieve this.
 A first solution to this problem could be placing a pseudo Dirac at the exact location of the source:
 
 // TODO: introduce Theta being the vector of DOA angles
 // TODO: introduce o(i)
 
-$ Phi(Theta)_i = sum_(k=1)^n_s bb(1)_(alpha(i) = theta_k) $
+$
+  Phi(Theta)_i = sum_(k=1)^n_s bb(1)_(alpha(i) = theta_k)
+$
 
-$ Phi(Theta)_i := cases(
-  1 #h(1cm) &"if" exists theta in Theta | alpha(i) = theta,
-  0 &"otherwise"
-) $
+$
+  Phi(Theta)_i := cases(
+    1 #h(1cm) &"if" exists theta in Theta | alpha(i) = theta,
+    0 &"otherwise"
+  )
+$
 
 // TODO: insert figure for this case
 
@@ -181,10 +165,19 @@ This approach can be enhanced to allow for a more consistent regression target.
 
 $
   Phi(Theta)_i = cases(
-    display(max_(theta in Theta)) {e^(-d(alpha(i), theta)/ sigma^2)} &"if" abs(Theta) > 0,
+    display(max_(theta in Theta))
+      {
+        e^(
+          -d(
+            alpha(i),
+            theta
+          )
+          / sigma^2
+        )
+      } &"if" abs(Theta) > 0,
     0 &"otherwise"
   )
-$
+$ <eq:ssl:multi_source:doa_encoding>
 
 The result is a mixture of $abs(Theta)$ gaussians centered at the actual #acr("DoA") angles.
 We chosen to set $sigma = 5°$.
@@ -192,7 +185,7 @@ We chosen to set $sigma = 5°$.
 
 
 #figure(
-  image("./figures/doa_encoding.svg"),
+  image("figures/doa_encoding.svg"),
   caption: [DOA encoding of two sources]
 ) <fig:ssl:multi_source:doa_gt_encoding>
 
@@ -288,6 +281,13 @@ Although He et al. chose to use Batch Normalization in their work, our final arc
 The choice of the normalization scheme ended up being crucial to achieving good performance.
 We observed that the latter was yielding the same stabilization benefits during training while removing the dependence on the batch size.
 
+#gaet[
+  Basically, there are two parts in the "Normalization" discussion:
+  - SotA/Methodology, described above
+  - My results with plots and numbers.
+-> Should I split this across two distinct paragraphs (i.e. put another one in the )
+]
+
 ==== Two stage training
 
 // TODO: doesn't seem to work well...
@@ -295,10 +295,17 @@ We observed that the latter was yielding the same stabilization benefits during 
   As we have not seriously tried it and anyway haven't obtained any significant results, maybe we should entirely omit 2-stage training.
 ]
 
-==== Training strategy
+==== Training strategy <sec:ssl:multi_source:method:training_strategy>
+
+*Loss function.*
+The objective used by He et al. in @he_deep_2018 along their #acr("DoA") encoding is a simple #acr("MSE") loss between the ground truth #acr("DoA") representation and the output vector provided by the neural network:
+$
+  cal(L) (hat(y), y) = norm(hat(y) - y)_2^2
+$ <eq:ssl:multi_source:loss_function>
 
 // Batch size
 @keskar_large-batch_2017
+
 
 === Experiments and results
 
@@ -371,14 +378,29 @@ $ "Recall" = (
 
 ==== $epsilon$-loss
 
+We propose an original modification of the loss function.
+The motivation comes from the observation that the target #acr("DoA") heat map is sparse.
+As seen in @sec:ssl:multi_source:method:training_strategy, we use a simple #acr("MSE") loss (@eq:ssl:multi_source:loss_function) for the cost function.
+
+We have made an attempt at adjusting the latter to more aggressively penalize the sections of the #acr("DoA") heat maps where sources are actually present.
+
 $
-  cal(L)_epsilon (y_i, hat(y)_u) =
+  cal(L)_epsilon (hat(y)_i, y_i) =
     1/d sum_(i=1)^d
     colMath((y_i + epsilon), #maroon)
-    (y_i - hat(y)_i)^2
+    (hat(y)_i - y_i)^2
 $ <eq:ssl:multi_source:epsilon_loss>
 
+#gaet[Should we do a plot to show the multiplicative factor across the DoA spectrum ?]
+
+//TODO: add the results (ablation study)
+
 ==== Limitations
+
+#draft[
+  - Performance is far from being perfect (SotA)
+  - No noise handling
+]
 
 ==== Sequence processing
 
