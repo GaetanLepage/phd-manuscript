@@ -126,21 +126,23 @@ The latter can then have a fixed output while still being able to handle a vario
 The latter will be further denoted $n_s$.\
 The set of DOA values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
-==== Angular heat maps
+==== Spatial spectrum
 
-The solution in question has been introduced by He et al. @he_deep_2018 and consists in a discretized heat map defined over the interval $[-pi, pi]$.
+The solution in question has been introduced by He et al. @he_deep_2018 and consists in estimating the spatial spectrum.
+The latter is a real-valued function of the #acr("DoA") ($o: [-pi, pi] -> RR$).
+We discretize the 
 In practice, the source locations is encoded in a $d$ dimensional real vector $o$.
 $ o in [0, 1]^d $
 
-We denote $alpha(i)$ the angle value corresponding to the $i$-th index of $o$.
+We denote $phi.alt_i$ the angle value corresponding to the $i$-th index of $o$.
 $
-  alpha : bracket.l.double 1, d bracket.r.double & arrow.r [-pi, pi] \
-   i & |-> alpha(i)
+  phi.alt : bracket.l.double 1, d bracket.r.double & arrow.r [-pi, pi] \
+   i & |-> phi.alt_i
 $
 We naturally have 
-- $alpha(1) = - pi$
-- $alpha(floor(d/2)) tilde.eq 0$
-- $alpha(d) = pi$
+- $phi.alt_1 = - pi$
+- $phi.alt_(floor(d/2)) tilde.eq 0$
+- $phi.alt_d = pi$
 #chris[This is already visible from eq. 2. Or is this information very important?]
 #gaet[This was to make it even clearer, but with some plots it could be enough.]
 
@@ -165,12 +167,12 @@ A first solution to this problem could be placing a pseudo Dirac at the exact lo
 // TODO: introduce o(i)
 
 $
-  o(Theta)_i = sum_(k=1)^n_s bb(1)_(alpha(i) = theta_k)
+  o(Theta)_i = sum_(k=1)^n_s bb(1)_(phi.alt_i = theta_k)
 $
 
 $
   o(Theta)_i := cases(
-    1 #h(1cm) &"if" exists theta in Theta | alpha(i) = theta,
+    1 #h(1cm) &"if" exists theta in Theta | phi.alt_i = theta,
     0 &"otherwise"
   )
 $
@@ -185,7 +187,7 @@ $
       {
         e^(
           -d(
-            alpha(i),
+            phi.alt_i,
             theta
           )
           / sigma^2
@@ -196,7 +198,7 @@ $
 $ <eq:ssl:multi_source:doa_encoding>
 
 The result is a mixture of $abs(Theta)$ gaussians centered at the actual #acr("DoA") angles.
-We chosen to set $sigma = 5°$.
+We chose to set $sigma = 5°$.
 @fig:ssl:multi_source:doa_gt_encoding shows an example of the DOA encoding scheme for a situation with two sources.
 
 
@@ -334,25 +336,60 @@ Also, it enables to formulate the multi-source #acr("SSL") problem as a simple r
 However, to extract of set of actual #acr("DoA") values, one has to explicitly process the obtained heat map.
 #gaet[Do we have to, once more, cite the Odobez paper here ?]
 This is achieved by detecting the peaks in the network output.
-The index of local maxima higher than a threshold $xi$ serve as the #acr("DoA") predictions:
+The index of local maxima higher than a threshold $colMath(xi, #maroon)$ serve as the #acr("DoA") predictions:
 $
-  hat(y) (hat(o), xi) = {
-    phi.alt_i: o_i > xi "and" o_i = max_(
-      j in [|1, d|],\
-      d(
-        phi.alt_i, phi.alt_j
-      ) < sigma_n
-    ) o_j
+  hat(y) (hat(o), colMath(xi, #maroon)) = {
+    phi.alt_i:
+      // heat threshold
+      colMath(hat(o)_i > xi, #maroon)
+      "and"
+      // Local maximum
+      colMath(
+        hat(o)_i = max_(
+          j in [|1, d|],\
+          d(
+            phi.alt_i, phi.alt_j
+          ) < sigma_n
+        ) hat(o)_j,
+        #olive
+      ),
+      #h(2em)
+      i in [|1, n|]
   }
 $ <eq:ssl:multi_source:decoding_unknown_sources>
-The neighborhood threshold $sigma_n$ must be defined carefully for this process to succeed.
+The neighborhood threshold $colMath(sigma_n, #olive)$ must be defined carefully for this process to succeed.
 If too low, some high frequency noise in the heat map could lead to several false positive angle detections.
 On the other hand, a too high value for $sigma_n$ might cause two close peaks to be wrongly identified as a single one, thus missing a positive detection.
 We have found $sigma_n = 8°$ to be a satisfying value.
 
 #gaet[
   Is it interesting to describe the local maximum extraction process ?
+  According to me, there is obviously no novelty here, but it can eat up some space...
 ]
+
+When the number $colMath(z, #eastern)$ of active sources is known, @eq:ssl:multi_source:decoding_unknown_sources can be adapted as:
+$
+  hat(y) (hat(o); colMath(z, #eastern)) = {
+    phi.alt_i:
+
+      "among the" colMath(z, #eastern) "greatest"
+      colMath(
+        hat(o)_i = max_(
+          j in [|1, d|],\
+          d(
+            phi.alt_i, phi.alt_j
+          ) < sigma_n
+        )
+        hat(o)_j,
+        #olive
+      )
+      // heat threshold
+      ,
+      #h(2em)
+      i in [|1, n|]
+  }
+$ <eq:ssl:multi_source:decoding_known_sources>
+The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
 
 // #algorithm({
 //   import algorithmic: *

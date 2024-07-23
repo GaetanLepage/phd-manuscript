@@ -16,6 +16,8 @@
   "DoA": ("Direction of Arrival"),
   "SSL": ("Sound Source Localization"),
   "SSLR": ("Sound Source Localization for Robots"), // dataset by He et al.
+  // Metrics
+  "MAE": ("Mean Absolute Error"),
 
   // Audio
   "GCC-PHAT": ("Generalized Cross-Correlation function with Phase Transform"),
