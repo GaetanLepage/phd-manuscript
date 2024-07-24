@@ -27,4 +27,4 @@
 ]
 
 #gaet[I have added _local_ TOCs at the beginning of each chapter to help me, but I plan to remove them later.]
-#gaet[Should we go to a new page for each section (i.e. sub-chapter) 1.1, 1.2, ... ?]
+#gaet[Should we go to a new page for each section (i.e. sub-chapter) 1.1, 1.2, ... ?] #chris[up to you, but I would say No, only chapters]
