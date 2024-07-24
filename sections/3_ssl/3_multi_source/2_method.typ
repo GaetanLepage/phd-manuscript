@@ -11,7 +11,7 @@ The sensors form a square TODO
   According to me, it would not help a lot with understanding.
 ]
 
-==== Dataset generation and pre-processing
+==== Dataset generation and pre-processing <sec:ssl:multi_source:method:dataset>
 
 #gaet[
   "4-microphone array", "four-microphone array" or "four microphone array" ?
@@ -77,13 +77,13 @@ This duration constitutes a tradeoff between detection latency and performance.
 The longest the method is offered to listen, the better more accurate the results will be.
 However, in a dynamic robotics context, which we ultimately target, we cannot afford having long audio sequences for inferring the source positions.
 
-#gaet[
-  I definitely have to double check this with Laurent.
-  But at least, this is how I have implemented it.
-]
+// TODO add the footnote
+#let tau-e = $colMath(tau_E, #orange)$
+#let global-spec = $colMath(S_k, #olive)$
+#let chunk-spec = $colMath(tilde(S)_k, #maroon)$
 *Minimal energy criteria.*
 We aim at preventing the inclusion of samples were one of the target sources is not active enough for the duration of the recording.\
-Given its #acr("STFT") $S in CC^(T times F)$, the energy of a real-valued signal, expressed in decibels (dB), is defined as
+Given its #acr("STFT") $S in CC^(T times F)$, the average energy of a real-valued signal, expressed in decibels (dB), is defined as
 $
   E(S)_"dB" =
     1 / (T F)
@@ -94,20 +94,27 @@ $
 $
 We reject the chunks of the simulated samples where, for at least one microphone, the energy of the selected fragment is too low compared to the average energy of the entire simulated signal.
 Let
-- $colMath(S_k, #olive)$ the #acr("STFT") of the signal received by microphone $k$.
-- $colMath(tilde(S)_k, #maroon)$ the #acr("STFT") of the considered chunk, i.e. a slice of $S_k$.
-The energy criteria defining a valid sample expresses as
+- #global-spec the #acr("STFT") of the signal received by microphone $k$.
+- #chunk-spec the #acr("STFT") of the considered chunk, i.e. a slice of #global-spec.
+The energy criteria $delta_"energy"$ defining a valid sample expresses as
 $
-  delta_"energy" = limits(and)_(k=1)^4
+  delta_"energy" (
+    #tau-e
+  ) = limits(and)_(k=1)^4
   [
-    E(colMath(tilde(S)_k, #maroon))_"dB" 
-    > E(colMath(S_k, #olive))_"dB"
-      - 10]
+    E(#chunk-spec)_"dB" 
+    > E(#global-spec)_"dB"
+      - #tau-e
+  ]
 $
+where $colMath(tau_E, #orange)$ has been set to 10dB in our main dataset.
 The average energy of a given chunk can be at most 10dB lower than the one of the entire signal.
 In practice, around 40% of the generated chunks are rejected.
 
-#gaet[Maybe a scheme of this process could bring additional clarity.]
+#gaet[
+  - Maybe a scheme of this process could bring additional clarity.
+  - We might want to acknowledge that a rejection rate of 40% is quite high.
+]
 
 The #acr("STFT") of each multi-channel 400ms segment provides the final training samples of the dataset.
 Besides each input sample, the relevant ground truth information gets saved for supervising the learning process and computing performance metrics.
@@ -311,14 +318,12 @@ We observed that the latter was yielding the same stabilization benefits during 
 -> Should I split this across two distinct paragraphs (i.e. put another one in the )
 ]
 
-==== Two stage training
-
-Similarly to our single-source methodology, we train our deep neural network in a supervised fashion.
-
-// TODO: doesn't seem to work well...
-#gaet[
-  As we have not seriously tried it and anyway haven't obtained any significant results, maybe we should entirely omit 2-stage training.
-]
+// As we have not seriously tried 2-stage training and anyway haven't obtained any significant results, maybe we should entirely omit 2-stage training.
+// ==== Two stage training
+// 
+// Similarly to our single-source methodology, we train our deep neural network in a supervised fashion.
+// 
+// // TODO: doesn't seem to work well...
 
 ==== Training strategy <sec:ssl:multi_source:method:training_strategy>
 
