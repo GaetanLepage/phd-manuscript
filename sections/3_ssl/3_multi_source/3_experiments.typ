@@ -1,6 +1,5 @@
 #import "/utils.typ": *
-
-#import "/utils.typ": *
+#import "2_method.typ": tau-e
 
 === Experiments and results
 
@@ -166,17 +165,9 @@ $ <eq:ssl:multi_source:epsilon_loss>
 
 //TODO: add the results (ablation study)
 
-==== Limitations
-
-#gaet[Maybe this paragraph should go at the very end of the MS-SSL section]
-
-#draft[
-  - Performance is far from being perfect (SotA)
-  - No noise handling
-]
-
 ==== Sequence processing
 
+#gaet[This sounds very pessimistic and might not be necessary]
 In order to overcome the weaknesses of our model, we have proposed to use our method on longer recordings.
 Like so, we are able to account for the missed detections and achieve a higher robustness in the detections.
 
@@ -196,10 +187,10 @@ To generate each sample, each active source outputs one recorded sentence from t
 #acr("STFT")s of the multi-channel signals received by the microphone array coming from each source are saved independently.
 Disposing of features corresponding to several seconds of simulation allows for performing #acr("SSL") on context windows of varying lengths.
 
-
-
-#gaet[check with Laurent that the length of the input signal is $H(F+1) / (48 000)$]
-#gaet[Which precision for the numbers in the tables ?]
+#gaet[
+  - Which precision for the numbers in the tables ?
+  - Should I put in bold the best values ?
+]
 
 // TODO: align
 #show table.cell.where(x: 0): strong
@@ -216,15 +207,21 @@ Disposing of features corresponding to several seconds of simulation allows for 
       [512 frames (10.9s)],
       [full samples],
     ),
-    [MAE (°) #sym.arrow.b],       [12.66],  [6.99],  [5.25],  [], [],
-    [Accuracy (%) #sym.arrow.t],  [68.71],  [78.84], [86.99], [], [],
-    [Precision (%) #sym.arrow.t], [82.01],  [88.14], [93.77], [], [],
-    [Recall (%) #sym.arrow.t],    [66.51],  [75.84], [83.95], [], [],
+    [MAE (°) #sym.arrow.b],       [8.85],  [6.26],  [5.41],  [3.94],  [3.90],
+    [Accuracy (%) #sym.arrow.t],  [72.80], [80.93], [84.41], [87.80], [88.00],
+    [Precision (%) #sym.arrow.t], [83.20], [89.93], [94.33], [96.26], [96.26],
+    [Recall (%) #sym.arrow.t],    [70.96], [78.70], [82.09], [84.61], [84.80],
   ),
   caption: [
     #acr("SSL") performance for different context lengths
   ]
 ) <table:ssl:multi_source:experiments:sequence_processing>
+
+@table:ssl:multi_source:experiments:sequence_processing exposes the results of the trained model for various context windows.
+It appears clearly that the longest the agent is able to hear for, the better its localization performance will be.
+The base context window of 16 #acr("STFT") frames amounts to approximately 363 milliseconds, which is a fairly short time period.
+During this interval, one or more speech sources could be inactive as the energy criteria $delta_"energy" (#tau-e)$ is not enforced on this specific data set.
+This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:number_of_sources.
 
 #draft[Impact of window length]
 // TODO: insert table of results

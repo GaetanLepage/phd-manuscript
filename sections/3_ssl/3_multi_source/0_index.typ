@@ -6,3 +6,4 @@
 #include "1_intro.typ"
 #include "2_method.typ"
 #include "3_experiments.typ"
+#include "4_discussion.typ"
