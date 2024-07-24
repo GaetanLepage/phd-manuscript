@@ -328,7 +328,10 @@ $
   cal(L) (hat(o), o) = norm(hat(o) - o)_2^2
 $ <eq:ssl:multi_source:loss_function>
 
-// Batch size
+#gaet[This should go in the _Results_ section]
+*Batch size.*
+Several experiments were conducted to identify TODO
+
 @keskar_large-batch_2017
 
 
