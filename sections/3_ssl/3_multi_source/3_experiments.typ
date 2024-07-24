@@ -63,11 +63,12 @@ $
       &"if"
         d(hat(phi.alt)_(i k), phi.alt_(i j)) < E_a
         "and"\
-        & k = "argmin"_(k=1) ^ hat(z_i) d(hat(phi.alt)_(i k), phi.alt_(i j)),
+        & k = limits("argmin")_(k in {1, dots, hat(z_i)})  d(hat(phi.alt)_(i k), phi.alt_(i j)),
     0 "otherwise"
   )
 $
 
+We may then introduce the two metrics used in this framework: _Precision_ and _Recall_:
 $ "Precision" = (
   sum_i
   sum_(j=1)^(z_i)
@@ -95,7 +96,9 @@ $ "Recall" = (
 As an important note, those two scenarios are used to grasp the overall performance of a given model.
 The method stays the same in both cases as solely the extraction of the prediction employs either @eq:ssl:multi_source:decoding_unknown_sources or @eq:ssl:multi_source:decoding_known_sources.
 
-====== Matching algorithms
+#gaet[
+  Again, should I go as far as explaining the GT-predictions matching algorithm ?
+]
 
 ==== Performance evaluation
 // TODO: we can not really compare with the original authors as they evaluated on real data.
@@ -134,10 +137,10 @@ The generation process starts by randomly selecting a number of sources between 
       [3 sources],
       [4 sources],
     ),
-    [MAE (°) #sym.arrow.b],       [0.0],        [0.0],         [0.0],         [0.0],
-    [Accuracy (%) #sym.arrow.t],  [0.0],        [0.0],         [0.0],         [0.0],
-    [Precision (%) #sym.arrow.t], [0.0],        [0.0],         [0.0],         [0.0],
-    [Recall (%) #sym.arrow.t],    [0.0],        [0.0],         [0.0],         [0.0],
+    [MAE (°) #sym.arrow.b],       [0.0], [0.0], [0.0], [0.0],
+    [Accuracy (%) #sym.arrow.t],  [0.0], [0.0], [0.0], [0.0],
+    [Precision (%) #sym.arrow.t], [0.0], [0.0], [0.0], [0.0],
+    [Recall (%) #sym.arrow.t],    [0.0], [0.0], [0.0], [0.0],
   ),
   caption: [
     #acr("SSL") performance depending on the number of active sources
@@ -189,17 +192,22 @@ Our detection algorithm can then be applied on the average output.
 
 To evaluate the performance of this method, a new dataset is generated.
 Instead of saving 16 frames long individual #acr("STFT") chunks, we record the features for recordings of several seconds.
-Each sample corresponds to TODO entire sentences
+To generate each sample, each active source outputs one recorded sentence from the LibriSpeech @noauthor_librispeech_nodate dataset.
+#acr("STFT")s of the multi-channel signals received by the microphone array coming from each source are saved independently.
+Disposing of features corresponding to several seconds of simulation allows for performing #acr("SSL") on context windows of varying lengths.
+
+
 
 #gaet[check with Laurent that the length of the input signal is $H(F+1) / (48 000)$]
+#gaet[Which precision for the numbers in the tables ?]
 
+// TODO: align
 #show table.cell.where(x: 0): strong
 #show table.cell.where(y: 0): strong
 #set text(size: 0.8em)
 #figure(
   table(
     columns: 6,
-    align: left,
     table.header(
       [],
       [16 frames (363ms)],
@@ -208,15 +216,15 @@ Each sample corresponds to TODO entire sentences
       [512 frames (10.9s)],
       [full samples],
     ),
-    [MAE (°) #sym.arrow.b],       [0.0], [0.0], [0.0], [0.0], [0.0],
-    [Accuracy (%) #sym.arrow.t],  [0.0], [0.0], [0.0], [0.0], [0.0],
-    [Precision (%) #sym.arrow.t], [0.0], [0.0], [0.0], [0.0], [0.0],
-    [Recall (%) #sym.arrow.t],    [0.0], [0.0], [0.0], [0.0], [0.0],
+    [MAE (°) #sym.arrow.b],       [12.66],  [6.99],  [5.25],  [], [],
+    [Accuracy (%) #sym.arrow.t],  [68.71],  [78.84], [86.99], [], [],
+    [Precision (%) #sym.arrow.t], [82.01],  [88.14], [93.77], [], [],
+    [Recall (%) #sym.arrow.t],    [66.51],  [75.84], [83.95], [], [],
   ),
   caption: [
-    #acr("SSL") performance depending on the number of active sources
+    #acr("SSL") performance for different context lengths
   ]
-)
+) <table:ssl:multi_source:experiments:sequence_processing>
 
 #draft[Impact of window length]
 // TODO: insert table of results
