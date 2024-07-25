@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-== Sound source localization, State of the Art <sec:ssl:sota>
+== Sound source localization background <sec:ssl:sota>
 
 #reset-acronym("SSL")
 
