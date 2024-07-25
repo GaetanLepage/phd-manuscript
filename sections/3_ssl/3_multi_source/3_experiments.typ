@@ -108,7 +108,15 @@ The method stays the same in both cases as solely the extraction of the predicti
 
 ===== Impact of the number of sources <sec:ssl:multi_source:experiments:number_of_sources>
 
-Although the raw dataset contains TODO
+#gaet[Should _zero_ and _four_ be written using the digit directly ?]
+As explained in @sec:ssl:multi_source:method:dataset, the dataset allows for dynamically selecting a subset of zero to four sources at runtime.
+This features has allowed us to experiment with the impact of how many sources are present in the room simultaneously.
+// TODO
+
+// Two different trainings
+
+// Same training with different number of sources
+
 The generation process starts by randomly selecting a number of sources between zero and four according to the following distribution:
 - 0 sources: 20%,
 - 1 source: 40%,
@@ -164,6 +172,29 @@ $ <eq:ssl:multi_source:epsilon_loss>
 #gaet[Should we do a plot to show the multiplicative factor across the DoA spectrum ?]
 
 //TODO: add the results (ablation study)
+#show table.cell.where(x: 0): strong
+#show table.cell.where(y: 0): strong
+#figure(
+  table(
+    columns: 7,
+    table.header(
+      [],
+      [$diameter$],
+      [$epsilon=0.1$],
+      [$epsilon=0.2$],
+      [$epsilon=0.4$],
+      [$epsilon=0.6$],
+      [$epsilon=1.0$],
+    ),
+    [MAE (°) #sym.arrow.b],       [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
+    [Accuracy (%) #sym.arrow.t],  [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
+    [Precision (%) #sym.arrow.t], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
+    [Recall (%) #sym.arrow.t],    [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
+  ),
+  caption: [
+    Performance of the #acr("SSL") model trained with the $epsilon$-loss
+  ]
+)
 
 ==== Sequence processing
 

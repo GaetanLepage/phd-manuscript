@@ -32,16 +32,17 @@ The simulator computes the resulting listened signals at each microphone of the 
 Such signals last around 10 seconds.
 
 *Source-wise simulation and late mixing.*
-Actually, in practice, the sources are not placed simultaneously in the room.
-Instead, they only get enabled individually to perform $n_s$ distinct simulations.
-The #acr("STFT") signals
+In practice, the sources are not placed simultaneously in the room.
+Instead, they only get enabled individually to perform $n_s$ distinct single-source simulations.
+This offers more possibilities as explained below.
 
+First, let us start from leveraging the following property.
 The signal $s_k$ recorded by the $k$-th microphone expresses simply as the sum of the signals $s_(i, k)$ providing from each source:
 #gaet[Laurent, should we adopt discrete or continuous notation here ($s_k (t)$ or $s_k [t]$) ?]
 $
   s_k [t] = sum_(i=1)^n_s s_(i,k)[t]
 $
-where $s_(i, k)$ denotes the signal coming from the $i$-th as received by microphone $k$.
+where $s_(i, k)$ denotes the signal coming from the $i$-th source as received by microphone $k$.
 The #acr("STFT") being a linear operator, this equality holds in the feature space:
 $
   S_k [t, f] = sum_(i=1)^n S_(i, k)[t, f]
@@ -51,7 +52,7 @@ Hence, instead of saving the final features $S = (S_1, dots, S_(n_m))$, we save 
 
 This overhead brings complexity to the data collection process but allows for a significant increase in flexibility.
 Indeed, the number of sources plays a great role in performance and quantifying this influence has required experimenting with this parameter.
-Having the audio features relating to each individual source allows for choosing how many sources should be active when loading each data sample from the disk.
+Disposing of the audio features relating to each individual source allows for choosing how many sources should be active when loading each data sample from the disk.
 One solely has to sample a set ${i_1, i_2, dots, i_n}$ of sources to enable and sum the relevant source-specific features $S_i_1, dots, S_i_n$.
 The impact of the number of active sources is further studied in @sec:ssl:multi_source:experiments:number_of_sources.
 
@@ -66,7 +67,7 @@ The generated signals are then up-sampled to 48kHz.
 // multi-channel STFT
 As discussed in @sec:ssl:sota:data_repr, several choices can be made when it comes to data representation.
 Although we have generated different datasets, the format used in majority consisted in the Short Term Fourier Transform.
-The #acr("STFT") is thus computed from the complete up-sampled simulated signal listened by each of the four microphones. #gaet[TODO: check the plurality of this last sentence.]
+The #acr("STFT") is thus computed from the complete up-sampled simulated signal captured by each of the four microphones.
 For this, we employ a Hann window of length 2048, with a 50% overlap. We also apply a band-pass filtering by removing frequencies lower than 100Hz and higher than 48kHz.
 The consequent #acr("STFT") counts 337 frequency bins.
 
@@ -83,7 +84,12 @@ However, in a dynamic robotics context, which we ultimately target, we cannot af
 #let chunk-spec = $colMath(tilde(S)_k, #maroon)$
 *Minimal energy criteria.*
 We aim at preventing the inclusion of samples were one of the target sources is not active enough for the duration of the recording.\
-Given its #acr("STFT") $S in CC^(T times F)$, the average energy of a real-valued signal, expressed in decibels (dB), is defined as
+Given its #acr("STFT") $S in CC^(T times F)$, the average energy
+#footnote[
+  Strictly speaking, this quantity is homogeneous to a spectral energy density.
+  We will further simply refer to it as _energy_ for the sake of clarity.
+]
+of a real-valued signal, expressed in decibels (dB), is defined as
 $
   E(S)_"dB" =
     1 / (T F)
@@ -332,10 +338,32 @@ The objective used by He et al. in @he_deep_2018 along their #acr("DoA") encodin
 $
   cal(L) (hat(o), o) = norm(hat(o) - o)_2^2
 $ <eq:ssl:multi_source:loss_function>
+#gaet[
+  Technically, this equation does not illustrate the _mean_ aspect of the MSE.
+  If we want to add the $sum_(i=1)^n 1/n dots$ in front, then we should do it consistently everywhere.\
+  I personally think that it is more readable to concentrate on the core formula for the loss between two samples. Of course it will be reduced using an average.
+]
 
-#gaet[This should go in the _Results_ section]
-*Batch size.*
-Several experiments were conducted to identify TODO
+#gaet[This should go in the _Results_ section... maybe as well as this entire _Training strategy_ section]
+// Impact of BS and LR
+*Local minimum.*
+#draft[TODO: this is the motivation for trying the $epsilon$-loss initially].
+Several experiments were conducted to identify working hyperparameters for the proposed #acr("SSL") method.
+An interesting observation has been the impact of the learning rate batch size combination.
+Theoretically, a larger batch size leads to more accurate gradients and thus, more sensible parameter updates.
+This also allows for increasing the learning rate and reducing the number of overall training steps.
+In most cases, the acceleration hardware and its inherently finite memory capacity dictates the limit for the maximum usable batch size.
+However, in our situation, a different restraining factor has been observed.
+There exists a trivial local optimum for the #acr("SSL") task defined as a #acr("DoA") spatial spectrum regression.
+Indeed, because of the relative sparsity of the ground truth encoding, a method outputting a plain zero spectrum achieves a comparatively low loss.
+More precisely, the loss for the samples would be bounded by:
+$
+  4 times integral_RR 1
+$
+
+#draft[TODO: this is why we introduced the *energy* quantity. We should probably talk about that.]
+
+#gaet[Ideally, this would benefit from more exhaustive experiments, especially regarding the use of LR scheduling...]
 
 @keskar_large-batch_2017
 
