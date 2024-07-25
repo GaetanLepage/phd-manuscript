@@ -9,7 +9,7 @@
 
 #let draft(body) = {
   set text(fill: maroon)
-  [\ _#body _ ]
+  [_#body _]
 }
 
 #let comment(name, body, color: red) = {

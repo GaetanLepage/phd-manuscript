@@ -331,41 +331,6 @@ We observed that the latter was yielding the same stabilization benefits during 
 // 
 // // TODO: doesn't seem to work well...
 
-==== Training strategy <sec:ssl:multi_source:method:training_strategy>
-
-*Loss function.*
-The objective used by He et al. in @he_deep_2018 along their #acr("DoA") encoding is a simple #acr("MSE") loss between the ground truth #acr("DoA") representation and the output vector provided by the neural network:
-$
-  cal(L) (hat(o), o) = norm(hat(o) - o)_2^2
-$ <eq:ssl:multi_source:loss_function>
-#gaet[
-  Technically, this equation does not illustrate the _mean_ aspect of the MSE.
-  If we want to add the $sum_(i=1)^n 1/n dots$ in front, then we should do it consistently everywhere.\
-  I personally think that it is more readable to concentrate on the core formula for the loss between two samples. Of course it will be reduced using an average.
-]
-
-#gaet[This should go in the _Results_ section... maybe as well as this entire _Training strategy_ section]
-// Impact of BS and LR
-*Local minimum.*
-#draft[TODO: this is the motivation for trying the $epsilon$-loss initially].
-Several experiments were conducted to identify working hyperparameters for the proposed #acr("SSL") method.
-An interesting observation has been the impact of the learning rate batch size combination.
-Theoretically, a larger batch size leads to more accurate gradients and thus, more sensible parameter updates.
-This also allows for increasing the learning rate and reducing the number of overall training steps.
-In most cases, the acceleration hardware and its inherently finite memory capacity dictates the limit for the maximum usable batch size.
-However, in our situation, a different restraining factor has been observed.
-There exists a trivial local optimum for the #acr("SSL") task defined as a #acr("DoA") spatial spectrum regression.
-Indeed, because of the relative sparsity of the ground truth encoding, a method outputting a plain zero spectrum achieves a comparatively low loss.
-More precisely, the loss for the samples would be bounded by:
-$
-  4 times integral_RR 1
-$
-
-#draft[TODO: this is why we introduced the *energy* quantity. We should probably talk about that.]
-
-#gaet[Ideally, this would benefit from more exhaustive experiments, especially regarding the use of LR scheduling...]
-
-@keskar_large-batch_2017
 
 
 ==== Detection decoding
