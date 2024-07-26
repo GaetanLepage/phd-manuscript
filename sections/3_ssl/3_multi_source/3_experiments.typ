@@ -143,23 +143,24 @@ $
 
 From this observation, the strategy of enforcing $#pred = 0$, ensures the loss will never exceed $cal(L) (#gt, 0)$.
 A careful choice of both the batch size and the learning rate were necessary to prevent this phenomenon for happening.
-To empirically illustrate this behavior, we monitor in @fig:ssl:multi_source:energy_plot the norm $norm(o)_2^2$, defined by 
+To empirically illustrate this behavior, we monitor in @fig:ssl:multi_source:output_norm_plot the norm $norm(o)_2^2$ of the network output, defined by 
+
 $
   norm(o)_2^2 = 1 / d sum_(i=1) ^d o_i^2
 $
 along a successful training process.
 
 #figure(
-  square(size: 10em, stroke: 2pt),
+  image("figures/301_energy-loss.svg"),
   caption: [
-    Evolution of the norm of the network output $norm(o)_2^2$ (purple) and loss (green) during training.
+    Evolution of the norm of the network output $norm(o)_2^2$ (orange) and loss (blue) during training.
   ],
-) <fig:ssl:multi_source:energy_plot>
+) <fig:ssl:multi_source:output_norm_plot>
 
 We can distinguish two distinct phases.
 - First, the network exploits the trivial local optima consisting in predicting a null output.
-  Both the loss and the output norm reach stable values. #draft[TODO: check network value.]
-- Subsequently, from the #draft[TODO]-th step, the model escapes from this plateau and learns to successfully solve the regression task.
+  Both the loss and the output norm reach stable values.
+- Subsequently, from the 50k-th step, the model escapes from this plateau and learns to successfully solve the regression task.
 
 Using too important batch sizes or too aggressive learning rates, the model indefinitely stagnates, keeping predicting zeros.
 Keskar et al. @keskar_large-batch_2017 have documented the negative effects that large batch sizes could have on generalization performance.
