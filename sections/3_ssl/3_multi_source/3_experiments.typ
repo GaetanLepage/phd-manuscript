@@ -231,6 +231,7 @@ The generation process starts by randomly selecting a number of sources between 
 
 We propose an original modification of the loss function.
 The motivation comes from the observation that the target #acr("DoA") spatial spectrum is sparse (see @fig:ssl:multi_source:doa_gt_encoding for instance).
+This causes TODO
 As seen in @sec:ssl:multi_source:experiments:loss, we use a simple #acr("MSE") loss (@eq:ssl:multi_source:loss_function) for the cost function.
 
 We have made an attempt at adjusting the latter to more aggressively penalize the sections of the spatial spectrum where sources are actually present.
@@ -268,6 +269,15 @@ $ <eq:ssl:multi_source:epsilon_loss>
     Performance of the #acr("SSL") model trained with the $epsilon$-loss
   ]
 )
+
+#gaet[
+  This requires to run more repetitions for each experiment so that the gaps in performance can be confirmed.
+]
+#draft[
+  - Better MAE, Recall and Accuracy at the expense of precision (with $epsilon=0.1$).
+    I am not too sure  about how to analyze this...
+  - The epsilon loss shortens the "stagnating" phase at the beginning of the training (16-18k steps instead of 50-60k with the normal loss)
+]
 
 ==== Sequence processing
 
@@ -311,10 +321,10 @@ Disposing of features corresponding to several seconds of simulation allows for 
       [512 frames (10.9s)],
       [full samples],
     ),
-    [MAE (°) #sym.arrow.b],       [8.85],  [6.26],  [5.41],  [3.94],  [3.90],
-    [Accuracy (%) #sym.arrow.t],  [72.80], [80.93], [84.41], [87.80], [88.00],
-    [Precision (%) #sym.arrow.t], [83.20], [89.93], [94.33], [96.26], [96.26],
-    [Recall (%) #sym.arrow.t],    [70.96], [78.70], [82.09], [84.61], [84.80],
+    [MAE (°) #sym.arrow.b],       [8.85],  [6.26],  [5.41],  [3.94],  [*3.90*],
+    [Accuracy (%) #sym.arrow.t],  [72.80], [80.93], [84.41], [87.80], [*88.00*],
+    [Precision (%) #sym.arrow.t], [83.20], [89.93], [94.33], [96.26], [*96.26*],
+    [Recall (%) #sym.arrow.t],    [70.96], [78.70], [82.09], [84.61], [*84.80*],
   ),
   caption: [
     #acr("SSL") performance for different context lengths
@@ -326,6 +336,8 @@ It appears clearly that the longest the agent is able to hear for, the better it
 The base context window of 16 #acr("STFT") frames amounts to approximately 363 milliseconds, which is a fairly short time period.
 During this interval, one or more speech sources could be inactive as the energy criteria $delta_"energy" (#tau-e)$ is not enforced on this specific data set.
 This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:number_of_sources.
+
+Longer 
 
 #draft[Impact of window length]
 // TODO: insert table of results
