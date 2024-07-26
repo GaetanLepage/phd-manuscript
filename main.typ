@@ -13,7 +13,11 @@
 #include "misc/acronyms.typ"
 #set math.equation(numbering: "(1)")
 
-#outline(title: "Table of Contents", indent: true, depth: 2)
+#outline(
+  title: "Table of Contents",
+  indent: true,
+  depth: 2
+)
 
 #include "misc/planning.typ"
 // Figures table

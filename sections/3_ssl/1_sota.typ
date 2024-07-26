@@ -51,6 +51,7 @@ The Fourier transform stands as the core concept of this category of encoding.
 #gaet[Should we go as far as giving the definition of the Fourier Transform ?]
 #chris[It is a well-known process and you do not really modify it, so only reference it. Only in case you have more time then you could think about explaining it in detail.]
 // TODO FT -> STFT (continuous) -> STFT (discrete)
+#draft[TODO cite @smith_scientist_1997]
 As acoustic signals are stored and processed numerically, the continuous framing of the Fourier transform cannot be directly employed.
 Instead, the #acr("STFT") algorithm allows to convert the temporal real-valued signal into a two-dimensional complex form.
 $ "STFT"(x) in CC^(F times T) $
