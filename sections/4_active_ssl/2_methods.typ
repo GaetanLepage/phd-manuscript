@@ -5,6 +5,15 @@
 
 === Pipeline overview
 
+#draft[
+  - Trajectory
+  - SSL running at each step
+  - map generation
+  - map shifting
+  - blending
+  - prediction extraction (clustering with DBSCAN)
+]
+
 === Aggregation strategies
 
 ==== Deterministic averaging
