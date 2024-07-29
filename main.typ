@@ -10,6 +10,8 @@
   // date: "March 27, 2024",
 )
 
+#set table(align: left)
+
 #include "misc/acronyms.typ"
 #set math.equation(numbering: "(1)")
 
