@@ -32,8 +32,9 @@ The angular distance, defined as such, yields values wrapped in the $[-pi, pi]$ 
 $
   cal(L)_"DoA"(
     hat(theta), theta
-  ) =
-  d(hat(theta)_i, theta_i) ^ 2.
+  ) = 1 / n
+    sum_(i=1)^n
+    d(hat(theta)_i, theta_i) ^ 2. // TODO should their be a period here ?
 $
 ]
 
@@ -42,9 +43,8 @@ The loss function expresses as
 $
   cal(L)_"DoA"(
     hat(theta), theta
-  ) = 1 / n
-    sum_(i=1)^n
-    d(hat(theta)_i, theta_i) ^ 2. // TODO should their be a period here ?
+  ) =
+  d(hat(theta), theta) ^ 2.
 $ <eq:ssl:single_source:doa_loss>
 
 The neural network is trained to minimize this objective.
@@ -59,7 +59,7 @@ $
     (hat(theta), theta), (hat(d), d)
   ) =
   cal(L)_"DoA" (hat(theta), theta)
-  + cal(L)_"dist" (hat(d), d)
+  + cal(L)_"dist" (hat(d), d).
 $ <eq:ssl:single_source:total_loss>
 #gaet[
  Wouldn't the following be even easier to read (although less accurate)
