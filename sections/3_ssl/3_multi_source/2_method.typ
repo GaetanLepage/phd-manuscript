@@ -253,7 +253,9 @@ Its shape is noted $(C, F, T)$ where $C$ is the number of channels, i.e. twice t
 The architecture draws inspiration from vision models by employing 2D convolution.
 As discussed in @sec:ssl:sota:deep_learning, using the image-like time-frequency representation of audio signals allows applying techniques proven to perform well on conventional image data.
 
-==== Normalization
+==== Normalization <sec:ssl:multi_source:experiments:normalization>
+
+===== Background <sec:ssl:multi_source:experiments:normalization:background>
 
 Various schemes of normalization have been used in Deep Neural Networks.
 They address the phenomenon of _internal covariate shift_ which appears as architectures get deeper.
@@ -285,7 +287,7 @@ where
 - $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters.
 
 To be able to perform inference on single samples, i.e. without disposing of an entire mini-batch, substitution statistics are used in place of $colMath(mu_cal(B), #maroon)$ and $colMath(sigma_cal(B)^2, #olive)$.
-Indeed, during training, the Batch Normalization layer will keep updating a running mean and variance to be used at evaluation time.
+Indeed, during training, the #acr("BN") layer will keep updating a running mean and variance to be used at evaluation time.
 
 _#acr("LN")_ (Ba et al. @ba_layer_2016) follows the same principle but chooses to normalize each sample individually by computing statistics across the features dimensions.
 @fig:ssl:multi_source:normalization displays the differences of both schemes.
@@ -319,6 +321,8 @@ where
 
 Those two methods have been proven to be effective in the training deep neural network architectures.
 
+===== Experiments
+
 Although He et al. chose to use Batch Normalization in their work, our final architecture makes use of the more flexible Layer Normalization.
 The choice of the normalization scheme ended up being crucial to achieving good performance.
 We observed that the latter was yielding the same stabilization benefits during training while removing the dependence on the batch size.
@@ -342,14 +346,13 @@ We observed that the latter was yielding the same stabilization benefits during 
 This particular metric clearly exposes the differences between those three choices but the other metrics behave similarly.
 Overall, both normalization techniques bring additional stability and performance to the training process.
 However, significant differences arise when looking at the validation metrics.
-When ran in evaluation mode, i.e. using the running statistics gathered during training, the network trained with batch normalization performs poorly compared to training.
+When ran in evaluation mode, i.e. using the running statistics gathered during training, the network trained with #acr("BN") performs poorly compared to training.
 This would suggest that the saved means and averages do not properly account for the differences between the training and validation sets.
+
 Interestingly, evaluating this network's performance while forcing the batch normalization to use the training strategy avoids facing this issue.
 Indeed, using the current validation batch statistics instead of the ones gathered at training provides results on par with the training performance.
 This constitutes an important limitation of batch normalization in this case as the evaluation thus needs to be performed in a batched manner.
-@table:ssl:multi_source:experiments:batch_norm displays the influence of the batch size on the performance of the network trained with #acr("BN") batch normalization.
-All models are evaluated on the same test dataset.
-
+@table:ssl:multi_source:experiments:batch_norm displays the influence of the batch size on the performance of the network trained with #acr("BN").
 
 #[
   #show table: set text(size: 10pt)
@@ -357,11 +360,11 @@ All models are evaluated on the same test dataset.
   #show table.cell.where(y: 0): strong
   #figure(
     table(
-      columns: 8,
+      columns: 7,
       table.header(
         [],
         [evaluation mode],
-        table.cell(colspan: 6, "training mode"),
+        table.cell(colspan: 5, "training mode"),
         [Batch size],
         [-],
         [1],
@@ -369,18 +372,26 @@ All models are evaluated on the same test dataset.
         [100],
         [200],
         [500],
-        [1000],
       ),
-      [MAE (°) #sym.arrow.b],       [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
-      [Accuracy (%) #sym.arrow.t],  [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
-      [Precision (%) #sym.arrow.t], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
-      [Recall (%) #sym.arrow.t],    [0.0], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
+      [MAE (°) #sym.arrow.b],       [29.58], [42.10], [9.32],  [9.11],  [9.07],  [*8.95*],
+      [Accuracy (%) #sym.arrow.t],  [53.45], [26.03], [73.00], [73.43], [73.66], [*73.76*],
+      [Precision (%) #sym.arrow.t], [45.37], [12.39], [83.7],  [84.26], [84.71], [*84.78*],
+      [Recall (%) #sym.arrow.t],    [61.00], [51.43], [70.61], [70.96], [71.19], [*71.35*],
     ),
     caption: [
       #acr("SSL") performance depending on the number of active sources
     ]
   ) <table:ssl:multi_source:experiments:batch_norm>
 ]
+
+Those results depicts the positive role played by larger batch sizes for evaluation in _training mode_.
+Although in a purely synthetic benchmark, this does not constitute an important drawback, it will become one as soon as the model will be asked to perform one-shot inference.
+In our robotics context, the developed #acr("SSL") solution would have to be able to be used in real-world scenario where an entire batch of observation is not available at inference.
+
+This is what motivated enhancement of the model using other normalization schemes.
+As explained in @sec:ssl:multi_source:experiments:normalization:background, #acr("LN") does not encompass this behavioral distinction between training and evaluation.
+@table:ssl:multi_source:experiments:norm_comparison compares the final performance of the different normalization approaches.
+All models are evaluated on the same test dataset.
 
 #[
   #show table: set text(size: 10pt)
@@ -392,14 +403,14 @@ All models are evaluated on the same test dataset.
       table.header(
         [],
         [No normalization],
-        [Batch norm\ (training mode)],
+        [Batch norm\ (training mode, BS=500)],
         [Batch norm\ (eval mode)],
         [Layer norm],
       ),
-      [MAE (°) #sym.arrow.b],       [0.0], [0.0], [0.0], [0.0],
-      [Accuracy (%) #sym.arrow.t],  [0.0], [0.0], [0.0], [0.0],
-      [Precision (%) #sym.arrow.t], [0.0], [0.0], [0.0], [0.0],
-      [Recall (%) #sym.arrow.t],    [0.0], [0.0], [0.0], [0.0],
+      [MAE (°) #sym.arrow.b],       [], [*8.95*],  [29.58], [9.37],
+      [Accuracy (%) #sym.arrow.t],  [], [*73.76*], [53.45], [70.35],
+      [Precision (%) #sym.arrow.t], [], [*84.78*], [45.37], [80.21],
+      [Recall (%) #sym.arrow.t],    [], [*71.35*], [61.00], [68.26],
     ),
     caption: [
       #acr("SSL") performance depending on the number of active sources
@@ -407,10 +418,7 @@ All models are evaluated on the same test dataset.
   ) <table:ssl:multi_source:experiments:norm_comparison>
 ]
 
-#draft[
-  Add a table to compare metrics on batch size normalization with eval mode or with train mode but different batch sizes.
-]
-
+Overall, #acr("LN") offers performance approaching
 
 // As we have not seriously tried 2-stage training and anyway haven't obtained any significant results, maybe we should entirely omit 2-stage training.
 // ==== Two stage training
