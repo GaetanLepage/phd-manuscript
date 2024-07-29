@@ -260,15 +260,20 @@ $ <eq:ssl:multi_source:epsilon_loss>
       [$epsilon=0.6$],
       [$epsilon=1.0$],
     ),
-    [MAE (°) #sym.arrow.b],       [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
-    [Accuracy (%) #sym.arrow.t],  [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
-    [Precision (%) #sym.arrow.t], [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
-    [Recall (%) #sym.arrow.t],    [0.0], [0.0], [0.0], [0.0], [0.0], [0.0],
+    [MAE (°) #sym.arrow.b],       [9.36],  [8.17],  [], [8.13],  [], [],
+    [Accuracy (%) #sym.arrow.t],  [70.56], [71.68], [], [71.99], [], [],
+    [Precision (%) #sym.arrow.t], [81.04], [67.86], [], [75.96], [], [],
+    [Recall (%) #sym.arrow.t],    [68.36], [70.62], [], [70.28], [], [],
   ),
   caption: [
     Performance of the #acr("SSL") model trained with the $epsilon$-loss
   ]
 )
+
+#gaet[
+  Should we also show some training curves ?\
+  I guess that I will put some. We might get rid of them afterwards if it they are too much.
+]
 
 #gaet[
   This requires to run more repetitions for each experiment so that the gaps in performance can be confirmed.
@@ -278,6 +283,168 @@ $ <eq:ssl:multi_source:epsilon_loss>
     I am not too sure  about how to analyze this...
   - The epsilon loss shortens the "stagnating" phase at the beginning of the training (16-18k steps instead of 50-60k with the normal loss)
 ]
+
+==== Normalization <sec:ssl:multi_source:experiments:normalization>
+
+===== Background <sec:ssl:multi_source:experiments:normalization:background>
+
+Various schemes of normalization have been used in Deep Neural Networks.
+They address the phenomenon of _internal covariate shift_ which appears as architectures get deeper.
+This problem comes from the distribution of each layer's inputs changing during training.
+Such a drift causes the non-linear activation functions to saturate and harms the learning process.
+Normalization also attempts at reducing the effects of mismatch between the training and test dataset distributions.
+
+_#acr("BN")_, proposed by Ioffe et al. in @ioffe_batch_2015 has gathered significant success, especially in the computer vision community.
+It consists in normalizing each mini-batch input with respect to its own statistics.
+Acting as a form of regularizer, this process stabilizes learning by ensuring that the values entering all layers do not deviate too significantly.
+The data will get distributed according to a standard normal distribution.
+The _Batch Normalization Transform_ algorithm expresses as such:
+$
+  y_i = colMath(gamma, #blue) [
+    (
+      x_i
+      - colMath(mu_cal(B), #maroon)
+    )
+    /sqrt(
+      colMath(sigma_cal(B)^2, #olive) + epsilon
+    )
+  ] + colMath(beta, #blue)
+$ <eq:ssl:multi_source:batch_norm>
+where
+- $x_i$ is an individual entry in the mini-batch $cal(B) = {x_1, dots, x_m}$,
+- $colMath(mu_cal(B) = 1 / m sum_(i=1)^m x_i, #maroon)$ is the mini-batch mean,
+- $colMath(sigma_cal(B)^2 = 1 / m sum_(i=1)^m (x_i - mu_cal(B))^2, #olive)$ is the mini-batch variance,
+- $epsilon$ is a constant ensuring numerical stability,
+- $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters.
+
+To be able to perform inference on single samples, i.e. without disposing of an entire mini-batch, substitution statistics are used in place of $colMath(mu_cal(B), #maroon)$ and $colMath(sigma_cal(B)^2, #olive)$.
+Indeed, during training, the #acr("BN") layer will keep updating a running mean and variance to be used at evaluation time.
+
+_#acr("LN")_ (Ba et al. @ba_layer_2016) follows the same principle but chooses to normalize each sample individually by computing statistics across the features dimensions.
+@fig:ssl:multi_source:normalization displays the differences of both schemes.
+Historically, Layer Normalization has been most commonly employed within the Natural Language Processing field.
+
+$
+  y_(l, i) = colMath(gamma, #blue) [
+    (
+      x_(l, i)
+      - colMath(mu_l, #maroon)
+    )
+    /sqrt(
+      colMath(sigma_l^2, #olive) + epsilon
+    )
+  ] + colMath(beta, #blue)
+$ <eq:ssl:multi_source:batch_norm>
+where
+- $x_(l, i)$ is an individual hidden unit in the $l$-th layer's inputs $X = {x_(l, 1), dots, x_(l, H)}$,
+- $colMath(mu_l = 1 / H sum_(i=1)^H x_(l, i), #maroon)$ is the mean,
+- $colMath(sigma_l^2 = 1 / H sum_(i=1)^H (x_(l, i) - mu_l)^2, #olive)$ is the variance,
+- $epsilon$ is a constant ensuring numerical stability,
+- $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters.
+
+#figure(
+  image("./figures/normalization.png", height: 4cm),
+  caption: [
+    A visual comparison of Batch and Layer normalizations
+    (adapted from @wu_group_2018)
+  ]
+) <fig:ssl:multi_source:normalization>
+
+Those two methods have been proven to be effective in the training deep neural network architectures.
+
+===== Experiments
+
+Although He et al. chose to use Batch Normalization in their work, our final architecture makes use of the more flexible Layer Normalization.
+The choice of the normalization scheme ended up being crucial to achieving good performance.
+We observed that the latter was yielding the same stabilization benefits during training while removing the dependence on the batch size.
+
+@fig:ssl:multi_source:normalization_plots illustrates the evolution of the training and validation accuracy during training for different normalization schemes.
+
+#figure(
+  image("./figures/normalization_exp.svg"),
+  caption: [
+    Training and validation accuracies during training for different normalization schemes
+  ]
+) <fig:ssl:multi_source:normalization_plots>
+
+This particular metric clearly exposes the differences between those three choices but the other metrics behave similarly.
+Overall, both normalization techniques bring additional stability and performance to the training process.
+However, significant differences arise when looking at the validation metrics.
+When ran in evaluation mode, i.e. using the running statistics gathered during training, the network trained with #acr("BN") performs poorly compared to training.
+This would suggest that the saved means and averages do not properly account for the differences between the training and validation sets.
+
+Interestingly, evaluating this network's performance while forcing the batch normalization to use the training strategy avoids facing this issue.
+Indeed, using the current validation batch statistics instead of the ones gathered at training provides results on par with the training performance.
+This constitutes an important limitation of batch normalization in this case as the evaluation thus needs to be performed in a batched manner.
+@table:ssl:multi_source:experiments:batch_norm displays the influence of the batch size on the performance of the network trained with #acr("BN").
+
+#[
+  #show table: set text(size: 10pt)
+  #show table.cell.where(x: 0): strong
+  #show table.cell.where(y: 0): strong
+  #figure(
+    table(
+      columns: 7,
+      table.header(
+        [],
+        [evaluation mode],
+        table.cell(colspan: 5, "training mode"),
+        [Batch size],
+        [-],
+        [1],
+        [50],
+        [100],
+        [200],
+        [500],
+      ),
+      [MAE (°) #sym.arrow.b],       [29.58], [42.10], [9.32],  [9.11],  [9.07],  [*8.95*],
+      [Accuracy (%) #sym.arrow.t],  [53.45], [26.03], [73.00], [73.43], [73.66], [*73.76*],
+      [Precision (%) #sym.arrow.t], [45.37], [12.39], [83.7],  [84.26], [84.71], [*84.78*],
+      [Recall (%) #sym.arrow.t],    [61.00], [51.43], [70.61], [70.96], [71.19], [*71.35*],
+    ),
+    caption: [
+      #acr("SSL") performance depending on the number of active sources
+    ]
+  ) <table:ssl:multi_source:experiments:batch_norm>
+]
+
+Those results depicts the positive role played by larger batch sizes for evaluation in _training mode_.
+Although in a purely synthetic benchmark, this does not constitute an important drawback, it will become one as soon as the model will be asked to perform one-shot inference.
+In our robotics context, the developed #acr("SSL") solution would have to be able to be used in real-world scenario where an entire batch of observation is not available at inference.
+
+This is what motivated enhancement of the model using other normalization schemes.
+As explained in @sec:ssl:multi_source:experiments:normalization:background, #acr("LN") does not encompass this behavioral distinction between training and evaluation.
+@table:ssl:multi_source:experiments:norm_comparison compares the final performance of the different normalization approaches.
+All models are evaluated on the same test dataset.
+
+#[
+  #show table: set text(size: 10pt)
+  #show table.cell.where(x: 0): strong
+  #show table.cell.where(y: 0): strong
+  #figure(
+    table(
+      columns: 5,
+      table.header(
+        [],
+        [No normalization],
+        [Batch norm\ (training mode, BS=500)],
+        [Batch norm\ (eval mode)],
+        [Layer norm],
+      ),
+      [MAE (°) #sym.arrow.b],       [], [*8.95*],  [29.58], [9.37],
+      [Accuracy (%) #sym.arrow.t],  [], [*73.76*], [53.45], [70.35],
+      [Precision (%) #sym.arrow.t], [], [*84.78*], [45.37], [80.21],
+      [Recall (%) #sym.arrow.t],    [], [*71.35*], [61.00], [68.26],
+    ),
+    caption: [
+      #acr("SSL") performance depending on the number of active sources
+    ]
+  ) <table:ssl:multi_source:experiments:norm_comparison>
+]
+
+Overall, #acr("LN") and #acr("BN") offer comparable performance.
+However, the model trained with #acr("LN") behave very consistently when used in evaluation.
+For those reasons, we have preferred this approach over the original one.
 
 ==== Sequence processing
 
@@ -307,29 +474,31 @@ Disposing of features corresponding to several seconds of simulation allows for 
 ]
 
 // TODO: align
-#show table.cell.where(x: 0): strong
-#show table.cell.where(y: 0): strong
-#set text(size: 0.8em)
-#figure(
-  table(
-    columns: 6,
-    table.header(
-      [],
-      [16 frames (363ms)],
-      [32 frames (704ms)],
-      [64 frames (1.39s)],
-      [512 frames (10.9s)],
-      [full samples],
+#[
+  #show table.cell.where(x: 0): strong
+  #show table.cell.where(y: 0): strong
+  #set text(size: 10pt)
+  #figure(
+    table(
+      columns: 6,
+      table.header(
+        [],
+        [16 frames (363ms)],
+        [32 frames (704ms)],
+        [64 frames (1.39s)],
+        [512 frames (10.9s)],
+        [full samples],
+      ),
+      [MAE (°) #sym.arrow.b],       [8.85],  [6.26],  [5.41],  [3.94],  [*3.90*],
+      [Accuracy (%) #sym.arrow.t],  [72.80], [80.93], [84.41], [87.80], [*88.00*],
+      [Precision (%) #sym.arrow.t], [83.20], [89.93], [94.33], [96.26], [*96.26*],
+      [Recall (%) #sym.arrow.t],    [70.96], [78.70], [82.09], [84.61], [*84.80*],
     ),
-    [MAE (°) #sym.arrow.b],       [8.85],  [6.26],  [5.41],  [3.94],  [*3.90*],
-    [Accuracy (%) #sym.arrow.t],  [72.80], [80.93], [84.41], [87.80], [*88.00*],
-    [Precision (%) #sym.arrow.t], [83.20], [89.93], [94.33], [96.26], [*96.26*],
-    [Recall (%) #sym.arrow.t],    [70.96], [78.70], [82.09], [84.61], [*84.80*],
-  ),
-  caption: [
-    #acr("SSL") performance for different context lengths
-  ]
-) <table:ssl:multi_source:experiments:sequence_processing>
+    caption: [
+      #acr("SSL") performance for different context lengths
+    ]
+  ) <table:ssl:multi_source:experiments:sequence_processing>
+]
 
 @table:ssl:multi_source:experiments:sequence_processing exposes the results of the trained model for various context windows.
 It appears clearly that the longest the agent is able to hear for, the better its localization performance will be.

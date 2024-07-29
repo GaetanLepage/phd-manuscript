@@ -10,7 +10,9 @@
   // date: "March 27, 2024",
 )
 
+// Table preferences
 #set table(align: left)
+#show table: set par(justify: false)
 
 #include "misc/acronyms.typ"
 #set math.equation(numbering: "(1)")
