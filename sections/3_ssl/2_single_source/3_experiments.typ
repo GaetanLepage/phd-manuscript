@@ -64,9 +64,12 @@ $ <eq:ssl:single_source:total_loss>
 #gaet[
  Wouldn't the following be even easier to read (although less accurate)
  
-$cal(L) =
+$
+  cal(L) =
   cal(L)_"DoA" (hat(theta), theta)
-  + cal(L)_"dist" (hat(d), d)$
+  + cal(L)_"dist" (hat(d), d)
+$ <eq:dsqkfjsdlkjf>
+
 ]
 // $
 //   cal(L) (
