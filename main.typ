@@ -17,6 +17,13 @@
 #include "misc/acronyms.typ"
 #set math.equation(numbering: "(1)")
 
+#show outline: it => {
+  in-outline.update(true)
+  // This hides the citation in outlines (mostly for the table of figures)
+  show cite: none
+  it
+  in-outline.update(false)
+}
 #outline(
   title: "Table of Contents",
   indent: true,
