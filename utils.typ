@@ -7,6 +7,9 @@
 
 #let colMath(x, color) = text(fill: color)[$#x$]
 
+#let in-outline = state("in-outline", false)
+#let flex-caption(long, short) = context if in-outline.get() { short } else { long }
+
 #let draft(body) = {
   set text(fill: maroon)
   [_#body _]

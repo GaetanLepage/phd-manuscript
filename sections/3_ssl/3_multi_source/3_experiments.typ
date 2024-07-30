@@ -112,6 +112,8 @@ $ <eq:ssl:multi_source:loss_function>
   I personally think that it is more readable to concentrate on the core formula for the loss between two samples. Of course it will be reduced using an average.
 ]
 
+===== Sub-optimal convergence
+
 #gaet[This should go in the _Results_ section... maybe as well as this entire _Training strategy_ section]
 // Impact of BS and LR
 *Local minimum.*
@@ -125,7 +127,7 @@ However, in our situation, a different restraining factor has been observed.
 There exists a trivial local optimum for the #acr("SSL") task defined as a #acr("DoA") spatial spectrum regression.
 Indeed, because of the relative sparsity of the ground truth encoding, a method outputting a plain zero spectrum achieves a comparatively low loss.
 More precisely, the loss for the samples would approximately equal the area under $n_s$ distinct gaussians.
-Some mass placed randomly on the $[-pi, pi]$ interval would likely not be overlapping with the ground-truth gaussians.
+Some limited mass placed randomly on the $[-pi, pi]$ interval would likely not be overlapping with the ground-truth gaussians.
 The loss would most often approach its upper bound:
 #let gt = $colMath(o, #blue)$
 #let pred = $colMath(hat(o), #red)$
@@ -136,7 +138,7 @@ $
 #figure(
   include("figures/loss_illustration.typ"),
   caption: [
-    Fictive example of a network prediction (in red) prediction along with the corresponding ground truth spectrum (in blue)
+    Fictive example of a poor network prediction (in red) prediction along with the corresponding ground truth spectrum (in blue)
   ],
 ) <fig:ssl:multi_source:loss_illustration>
 
@@ -152,9 +154,10 @@ along a successful training process.
 
 #figure(
   image("figures/301_energy-loss.svg"),
-  caption: [
-    Evolution of the norm of the network output $norm(o)_2^2$ (orange) and loss (blue) during training.
-  ],
+  caption: flex-caption(
+    [Evolution of the norm of the network output $norm(o)_2^2$ (orange) and loss (blue) during training],
+    [Evolution of the norm of the network output and loss during training],
+  ),
 ) <fig:ssl:multi_source:output_norm_plot>
 
 We can distinguish two distinct phases.
@@ -162,7 +165,7 @@ We can distinguish two distinct phases.
   Both the loss and the output norm reach stable values.
 - Subsequently, from the 50k-th step, the model escapes from this plateau and learns to successfully solve the regression task.
 
-Using too important batch sizes or too aggressive learning rates, the model indefinitely stagnates, keeping predicting zeros.
+When using too important batch sizes or too aggressive learning rates, the model indefinitely stagnates, keeping predicting zeros.
 Keskar et al. @keskar_large-batch_2017 have documented the negative effects that large batch sizes could have on generalization performance.
 
 #gaet[Ideally, this would benefit from more exhaustive experiments, especially regarding the use of LR scheduling...]
@@ -170,8 +173,10 @@ Keskar et al. @keskar_large-batch_2017 have documented the negative effects that
 Identifying, characterizing and overcoming this shortcoming has been an essential step in the development of this model.
 
 
-
-
+#gaet[
+  I am not really sure on how to layout the whole _Results_ section.\
+  Should we have a dedicated paragraph just to show the (best) results, in the default scenario ?
+]
 ==== Performance evaluation
 // TODO: we can not really compare with the original authors as they evaluated on real data.
 
@@ -184,48 +189,93 @@ Identifying, characterizing and overcoming this shortcoming has been an essentia
 #gaet[Should _zero_ and _four_ be written using the digit directly ?]
 As explained in @sec:ssl:multi_source:method:dataset, the dataset allows for dynamically selecting a subset of zero to four sources at runtime.
 This features has allowed us to experiment with the impact of how many sources are present in the room simultaneously.
-// TODO
+
+*Training frameworks.*
+On the one hand, the two following training setups can be compared:
+- _Scenario A_ is the setup proposed in @he_neural_2021 with the following repartition of samples:
+  - 0 sources: 20%,
+  - 1 source: 40%,
+  - 2 sources: 30%,
+  - 3 sources: 5%,
+  - 4 sources: 5%.
+- _Scenario B_ uniformly chooses a number of sources between 1 and 4 for each sample. Thus, it is more challenging as at least one source is always present in the room, and significantly more samples present 3 or 4 sources.
+
+As no artificial noise is added to the speech sources signal, the training dataset in _scenario A_ brings exactly 160k identical samples which observation tensor is null.
+Once the network successfully learns that it should output a zero-vector for those trivial samples, they will not contribute either to increasing or lowering the detection scores.
+
+Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to properly localize them.
+@table:ssl:multi_source:experiments:n_sources_train displays the final performance of models trained on datasets corresponding to each scenario.
 
 // Two different trainings
+#[
+  #show table.cell.where(x: 0): strong
+  #show table.cell.where(y: 0): strong
+  #figure(
+    table(
+      columns: 3,
+      table.header(
+        [],
+        [Dataset A],
+        [Dataset B],
+      ),
+      [MAE (°) #sym.arrow.b],       [], [],
+      [Accuracy (%) #sym.arrow.t],  [], [],
+      [Precision (%) #sym.arrow.t], [], [],
+      [Recall (%) #sym.arrow.t],    [], [],
+    ),
+    caption: [
+      #acr("SSL") performance when trained with different number of sources
+    ]
+  ) <table:ssl:multi_source:experiments:n_sources_train>
+]
+
+One should note that both training and test datasets are different.
+The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
+The rest of the experiments have been conducted with respect to _Scenario A_, following the same distribution of source numbers as He et al.
+
+*Evaluation frameworks.*
+For understanding the impact of the number of concurrent sources in the room on performance, we have evaluated a given network in various scenarios.
+The network has been trained according to the _scenario A_ presented above.
+
+
+#gaet[
+  Questions on tables:
+  + Should I report the unit along the value in each cell or is it OK like this (to have the unit in the row name) ?
+  + Which precision for the numbers in the tables ?
+  + Should I put in bold the best values ?
+]
 
 // Same training with different number of sources
-
-The generation process starts by randomly selecting a number of sources between zero and four according to the following distribution:
-- 0 sources: 20%,
-- 1 source: 40%,
-- 2 sources: 30%,
-- 3 sources: 5%,
-- 4 sources: 5%.
-#gaet[
-  How do we motivate this choice ? By simply saying that we did the same as in the paper ?
-]
-
-
-#gaet[
-  Should I report the unit along the value in each cell or is it OK like this (to have the unit in the row name) ?
-]
-
-#show table.cell.where(x: 0): strong
-#show table.cell.where(y: 0): strong
-#figure(
-  table(
-    columns: 5,
-    table.header(
-      [],
-      [1 source],
-      [2 sources],
-      [3 sources],
-      [4 sources],
+#[
+  #show table.cell.where(x: 0): strong
+  #show table.cell.where(y: 0): strong
+  #figure(
+    table(
+      columns: 7,
+      table.header(
+        [],
+        [1 source],
+        [2 sources],
+        [3 sources],
+        [4 sources],
+        [Scenario A\ (0-4 sources)],
+        [Scenario B\ (1-4 sources)],
+      ),
+      [MAE (°) #sym.arrow.b],       [2.59],  [7.26],  [15.89], [21.95], [9.13],  [15.24],
+      [Accuracy (%) #sym.arrow.t],  [88.58], [70.78], [58.18], [50.21], [71.36], [60.52],
+      [Precision (%) #sym.arrow.t], [87.70], [79.56], [74.99], [72.08], [80.99], [76.73],
+      [Recall (%) #sym.arrow.t],    [88.70], [68.07], [54.73], [46.22], [69.26], [57.36],
     ),
-    [MAE (°) #sym.arrow.b],       [0.0], [0.0], [0.0], [0.0],
-    [Accuracy (%) #sym.arrow.t],  [0.0], [0.0], [0.0], [0.0],
-    [Precision (%) #sym.arrow.t], [0.0], [0.0], [0.0], [0.0],
-    [Recall (%) #sym.arrow.t],    [0.0], [0.0], [0.0], [0.0],
-  ),
-  caption: [
-    #acr("SSL") performance depending on the number of active sources
-  ]
-)
+    caption: [
+      #acr("SSL") performance depending on the number of active sources
+    ]
+  )
+]
+
+#draft[
+  TODO: make a comparison between performance achieved on single-source SSL.\
+  I guess that this 2° MAE is quite close from what the single-source SSL will give.
+]
 
 ==== $epsilon$-loss
 
@@ -260,10 +310,10 @@ $ <eq:ssl:multi_source:epsilon_loss>
       [$epsilon=0.6$],
       [$epsilon=1.0$],
     ),
-    [MAE (°) #sym.arrow.b],       [9.36],  [8.17],  [], [8.13],  [], [],
-    [Accuracy (%) #sym.arrow.t],  [70.56], [71.68], [], [71.99], [], [],
-    [Precision (%) #sym.arrow.t], [81.04], [67.86], [], [75.96], [], [],
-    [Recall (%) #sym.arrow.t],    [68.36], [70.62], [], [70.28], [], [],
+    [MAE (°) #sym.arrow.b],       [9.36],  [8.17],  [8.29],  [*8.13*],  [8.32],  [8.49],
+    [Accuracy (%) #sym.arrow.t],  [70.56], [71.68], [71.02], [*71.99*], [71.60], [71.38],
+    [Precision (%) #sym.arrow.t], [*81.04*], [67.86], [70.36], [75.96], [76.94], [76.87],
+    [Recall (%) #sym.arrow.t],    [68.36], [*70.62*], [69.86], [70.28], [69.88], [69.61],
   ),
   caption: [
     Performance of the #acr("SSL") model trained with the $epsilon$-loss
@@ -455,8 +505,9 @@ Like so, we are able to account for the missed detections and achieve a higher r
 The main idea resides in splitting the longer input audio in $M$ chunks sized appropriately to be processed by the neural network.
 $M$ output #acr("DoA") spectra are thus obtained and need to be aggregated.
 We simply average those signals to obtain a single vector:
+#let averaged-spectrum = $colMath(hat(o), #maroon)$
 $
-  hat(o) = 1/M sum_(i=1)^M hat(o)_k #h(1em) in [0, 1]^d
+  #averaged-spectrum = 1/M sum_(i=1)^M hat(o)_k #h(1em) in [0, 1]^d
 $ <eq:ssl:multi_source:sequence_averaging>
 
 The flexibility of the #acr("DoA") spatial spectrum encoding permits the former combination without the need of additional steps.
@@ -468,10 +519,34 @@ To generate each sample, each active source outputs one recorded sentence from t
 #acr("STFT")s of the multi-channel signals received by the microphone array coming from each source are saved independently.
 Disposing of features corresponding to several seconds of simulation allows for performing #acr("SSL") on context windows of varying lengths.
 
-#gaet[
-  - Which precision for the numbers in the tables ?
-  - Should I put in bold the best values ?
-]
+#subpar.grid(
+  figure(
+    image("figures/sequence_processing_doa_spectrum.svg", width: 80%),
+    caption: [
+      Averaged #acr("DoA") spectrum #averaged-spectrum
+    ]
+  ),
+  <fig:ssl:multi_source:sequence_processing:doa_spectrum>,
+  
+  figure(
+    image("figures/sequence_processing_result.svg", width: 80%),
+    //image("/assets/mountains.jpg"),
+    caption: [
+      Network output and extracted detections over time (top) and histogram of predictions (bottom)
+    ]
+  ),
+  <fig:ssl:multi_source:sequence_processing:result>,
+  columns: 1,
+  caption: [
+    Example of a sequence processing result
+  ],
+  label: <fig:ssl:multi_source:sequence_processing>,
+)
+
+@fig:ssl:multi_source:sequence_processing illustrates the sequence processing workflow on a single example.
+Here, around 16 seconds of continuous speech is spoken by three distinct static sources.
+The microphone also stands at a fixed position in the room.
+@fig:ssl:multi_source:sequence_processing:doa_spectrum depicts the averaged #acr("DoA") spectrum #averaged-spectrum along with the corresponding overall predictions.
 
 // TODO: align
 #[

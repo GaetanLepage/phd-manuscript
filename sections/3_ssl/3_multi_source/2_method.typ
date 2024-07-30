@@ -145,7 +145,8 @@ The latter can then have a fixed output while still being able to handle a vario
 The latter will be further denoted $n_s$.\
 The set of DOA values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
-==== Spatial spectrum
+
+===== Spatial spectrum
 
 The solution in question has been introduced by He et al. @he_deep_2018 and consists in estimating the spatial spectrum.
 The latter is a real-valued function of the #acr("DoA") ($cal(o): [-pi, pi] -> RR$).
@@ -174,7 +175,7 @@ A peak at $0°$ designates the presence of a source in front of the microphones.
 
 // TODO: insert figure
 
-==== Multi source #acr("DoA") encoding
+===== Multi source #acr("DoA") encoding
 
 The dataset contains the DOA values for each sample.
 We need to convert this list of scalar angular values to our spatial spectrum encoding format in order to allow its use as a regression target.
@@ -236,41 +237,7 @@ We chose to set $sigma = 5°$.
 
 The main benefit of this format, alongside with its ability to encode an arbitrary number of sources, is to frame the #acr("SSL") problem as a simple regression task.
 
-
-==== Neural Network architecture
-
-
-#gaet[should we note tensor shapes (X, Y, Z) or XxYxZ ?]
-The implemented neural network inspires from the one proposed by He et al. in @he_neural_2021.
-
-The aim of the Neural Network is to process multi-channel audio data and to extract the angular positions of the speech sources.
-The input of the model is the #acr("STFT") representation of the multi-channel signal.
-The #acr("STFT") of a signal is a complex-valued matrix of size $F times T$.
-We then split the real and imaginary values to form two distinct matrices.
-Each one of the $M$ microphones leads to a $(2, F, T)$-shape real-valued tensor.
-Its shape is noted $(C, F, T)$ where $C$ is the number of channels, i.e. twice the number of microphones in the array.
-
-The architecture draws inspiration from vision models by employing 2D convolution.
-As discussed in @sec:ssl:sota:deep_learning, using the image-like time-frequency representation of audio signals allows applying techniques proven to perform well on conventional image data.
-
-#figure(
-  square(size: 10em, stroke: 2pt),
-  caption: [
-    Deep neural network architecture for multi-source #acr("SSL")
-  ],
-) <fig:ssl:multi_source:network_architecture>
-
-
-// As we have not seriously tried 2-stage training and anyway haven't obtained any significant results, maybe we should entirely omit 2-stage training.
-// ==== Two stage training
-// 
-// Similarly to our single-source methodology, we train our deep neural network in a supervised fashion.
-// 
-// // TODO: doesn't seem to work well...
-
-
-
-==== Detection decoding
+===== Detection decoding
 
 The employed #acr("DoA") encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
 Namely, thanks to its flexibility, it allows for representing an arbitrary number of sources.
@@ -347,3 +314,38 @@ The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
 // TODO: add figure
 
 // TODO: hyperparameters are important
+
+
+==== Neural Network architecture
+
+
+#gaet[should we note tensor shapes (X, Y, Z) or XxYxZ ?]
+The implemented neural network inspires from the one proposed by He et al. in @he_neural_2021.
+
+The aim of the Neural Network is to process multi-channel audio data and to extract the angular positions of the speech sources.
+The input of the model is the #acr("STFT") representation of the multi-channel signal.
+The #acr("STFT") of a signal is a complex-valued matrix of size $F times T$.
+We then split the real and imaginary values to form two distinct matrices.
+Each one of the $M$ microphones leads to a $(2, F, T)$-shape real-valued tensor.
+Its shape is noted $(C, F, T)$ where $C$ is the number of channels, i.e. twice the number of microphones in the array.
+
+The architecture draws inspiration from vision models by employing 2D convolution.
+As discussed in @sec:ssl:sota:deep_learning, using the image-like time-frequency representation of audio signals allows applying techniques proven to perform well on conventional image data.
+
+#figure(
+  square(size: 10em, stroke: 2pt),
+  caption: [
+    Deep neural network architecture for multi-source #acr("SSL")
+  ],
+) <fig:ssl:multi_source:network_architecture>
+
+
+// As we have not seriously tried 2-stage training and anyway haven't obtained any significant results, maybe we should entirely omit 2-stage training.
+// ==== Two stage training
+// 
+// Similarly to our single-source methodology, we train our deep neural network in a supervised fashion.
+// 
+// // TODO: doesn't seem to work well...
+
+
+
