@@ -131,7 +131,7 @@ In practice, around 40% of the generated chunks are rejected.
 The #acr("STFT") of each multi-channel 400ms segment provides the final training samples of the dataset.
 Besides each input sample, the relevant ground truth information gets saved for supervising the learning process and computing performance metrics.
 It comprises all the necessary geometric information about the microphone array and sources (positions, orientations, relative distance and angle of incidence).
-One million of such sample pairs constitute the core training dataset.
+One million of such sample pairs constitute the core training and test datasets (of 800k and 200k samples respectively).
 The total audio duration of the data approximates 47 hours.
 
 
