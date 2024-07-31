@@ -98,7 +98,7 @@ This choice allows the use for conventional real-valued 2D convolutions.
 // Compare ILD/IPD performances
 
 
-==== Sound Source Localization in noisy environments
+==== Sound Source Localization in noisy environments <sec:ssl:single_source:experiments:noise>
 
 Having succeeded at accurately estimating the #acr("DoA") in a reverberant but noiseless setting, we have attempted to add noise sources.
 The latter has revealed to harden the task significantly.
