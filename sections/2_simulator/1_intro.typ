@@ -11,11 +11,24 @@ Simulation offers an alternative tool to experiment with new techniques.
 They have been widely used in most scientific fields since the first operation of the Monte Carlo algorithm at the end of the 1940s (@goldsman_brief_2009, @metropolis_beginning_nodate).
 #draft[Maybe cite more examples.]
 Since then, computers and simulation have progressed massively and offer accurate representations of the real world in fully virtual environments.
+
 Deep learning techniques have shown impressive results on a variety of tasks ranging from computer vision to natural language processing.
 At their core resides the processing of substantial amounts of data.
 In many concrete applications of deep learning techniques, collecting datasets of sufficient size and quality stands as a major obstacle.
 Simulation provides an alternative way to gather massive amount of data, and often allows for automatic annotation.
 However, building an effective simulator can be hard or even impossible.
-Also, real-world data 
+Also, simulated features frequently deviate from real-world data, which can heavily hinder the final performance.
+Reinforcement learning for instance has an agent interacting with an environment and improving its policy from trial and error.
+Since deep neural networks have been employed in this field, the interest in simulating the targeted environment has grown significantly.
+The success of #acr("DRL") in applications such as board games and video games because simulating them is trivial.
+Large neural network could then be trained on massive amounts of data.
+Nonetheless, the design of realistic simulated environments has opened the field of deployment of #acr("DRL") in more complex and _useful_ scenarios.
+For instance, industrial and academic actors have used simulated environments as a first step towards achieving fully autonomous driving.
+The availability of driving simulators lets more modest research teams contributing to this field without requiring to handle data collection.
+Sallab et al. @sallab_deep_2017 and Osiński et al. @osinski_simulation-based_2020 were able to propose simulation-based #acr("DRL") techniques for autonomous driving.
+Additionally, Google DeepMind have proposed a novel approach for magnetic control of tokamak plasmas using #acr("DRL") (@degrave_magnetic_2022).
+A critical challenge in this work has been the scarcity of access to a real fusion reactor and thus of the training data.
+To get around this, they collaborated with physicists to build a fast and accurate JAX @jax2018github simulator modelling the core of the plasma, TORAX @citrin_torax_2024.
+Those two fields show
 
 #draft[TODO: challenges of Sim2Real, for learning methods]
