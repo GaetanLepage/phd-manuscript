@@ -41,4 +41,4 @@
 // TODO
 #print-index(numbering: none)
 #include "sections/index.typ"
-#include "bibliography/main.typ"
+#include "misc/bibliography.typ"
