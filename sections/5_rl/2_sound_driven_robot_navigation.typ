@@ -4,6 +4,13 @@
 
 === Motivation
 
+Social robotics imply various technical and scientific problems involving computer vision, mechatronics, sociology, natural language processing or speech processing.
+Robot navigation stands as one of such crucial tasks.
+It often requires processing multi-sensory information and
+
+
+#draft[Should we talk about MPC ?]
+
 === Problem formulation
 
 === State of the Art
