@@ -544,9 +544,23 @@ Disposing of features corresponding to several seconds of simulation allows for 
 )
 
 @fig:ssl:multi_source:sequence_processing illustrates the sequence processing workflow on a single example.
-Here, around 16 seconds of continuous speech is spoken by three distinct static sources.
-The microphone also stands at a fixed position in the room.
+Here, around 16 seconds of continuous speech produced by three distinct static sources get recorded by the microphone array.
+The latter also stands at a fixed position in the room.
 @fig:ssl:multi_source:sequence_processing:doa_spectrum depicts the averaged #acr("DoA") spectrum #averaged-spectrum along with the corresponding overall predictions.
+On this specific example, the averaging process successfully aggregates the angular information and allows for an accurate localization of all three sources.
+More precisely, the top part of @fig:ssl:multi_source:sequence_processing:result displays the network output at each time step.
+The gray scale patches represent the individual estimated #acr("DoA") spectrums $hat(o)_k$.
+The resulting predicted angles are highlighted by the red dots.
+Finally, the histogram of predictions characterizes the distribution of detections along the process.
+
+Presenting the #acr("SSL") results as such highlights the strength and weaknesses of the proposed approach.
+Even for a single frame, the estimated #acr("DoA") spectrum allows for precise predictions.
+Very few false positives are observed, as confirmed by the several quantitative experiments conducted.
+However, individual sources are sometimes missed, maybe because they were not active enough at this specific time.
+This drawback gets offset by leveraging the overall consistency of the method over a longer time.
+
+In order to further characterize this behavior, we have executed an exhaustive performance evaluation of the sequence processing workflow.
+
 
 // TODO: align
 #[
@@ -576,12 +590,7 @@ The microphone also stands at a fixed position in the room.
 ]
 
 @table:ssl:multi_source:experiments:sequence_processing exposes the results of the trained model for various context windows.
-It appears clearly that the longest the agent is able to hear for, the better its localization performance will be.
+It appears clearly that the longer the agent is able to hear, the better its localization performance becomes.
 The base context window of 16 #acr("STFT") frames amounts to approximately 363 milliseconds, which is a fairly short time period.
 During this interval, one or more speech sources could be inactive as the energy criteria $delta_"energy" (#tau-e)$ is not enforced on this specific data set.
-This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:number_of_sources.
-
-Longer 
-
-#draft[Impact of window length]
-// TODO: insert table of results
+This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:number_of_sources (see @table:ssl:multi_source:experiments:n_sources_train for example).
