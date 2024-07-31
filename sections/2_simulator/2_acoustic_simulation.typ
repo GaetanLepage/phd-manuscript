@@ -2,14 +2,6 @@
 
 == Acoustic simulation of reverberant environments
 
-An intrinsic aspect of robotics, and especially of #acr("HRI") lays in the physical world.
-Developing novel methods for interacting with humanoid robots encompasses several challenges related to its embodiment dimension.
-Robotics platform suffer from severe limitations that sometimes prevent from applying data-intensive techniques.
-
-Simulation offers an alternative tool to experiment with new techniques.
-Emulating the physical world in a virtual environment has first been tried 
-
-#draft[TODO: challenges of Sim2Real, for learning methods]
 
 === State of the Art
 
