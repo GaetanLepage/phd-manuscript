@@ -138,7 +138,7 @@ $
 #figure(
   include("figures/loss_illustration.typ"),
   caption: [
-    Fictive example of a poor network prediction (in red) prediction along with the corresponding ground truth spectrum (in blue)
+    Fictive example of a poor network prediction (in red) prediction along with the corresponding ground truth spectrum (in violet)
   ],
 ) <fig:ssl:multi_source:loss_illustration>
 
