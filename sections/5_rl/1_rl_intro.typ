@@ -5,7 +5,9 @@
 
 === Reinforcement Learning
 
-@sutton_reinforcement_2018
+#draft[
+  @sutton_reinforcement_2018 (the book)
+]
 
 === Deep Reinforcement Learning
 
