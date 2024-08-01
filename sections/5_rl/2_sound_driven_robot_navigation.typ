@@ -6,12 +6,22 @@
 
 Social robotics imply various technical and scientific problems involving computer vision, mechatronics, sociology, natural language processing or speech processing.
 Robot navigation stands as one of such crucial tasks.
-It often requires processing multi-sensory information and
+Numerous formulations of this question exist and they encompass different goals, sensory information and target robotics platforms.
+Although processing
 
 
 #draft[Should we talk about MPC ?]
 
 === Problem formulation
+
+$
+  cal(A) = {
+    "STAY",
+    "FORWARD",
+    "TURN_LEFT",
+    "TURN_RIGHT"
+  }
+$
 
 === State of the Art
 
@@ -20,7 +30,8 @@ It often requires processing multi-sensory information and
 
 === Method
 
-==== The Proximal Policy Optimization algorithm
+#reset-acronym("PPO")
+==== The #acr("PPO") algorithm
 
 @schulman_proximal_2017
 
