@@ -33,4 +33,5 @@
   // RL
   "RL": ("Reinforcement Learning"),
   "DRL": ("Deep Reinforcement Learning"),
+  "PPO": ("Proximal Policy Optimization"),
 ))

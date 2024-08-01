@@ -19,5 +19,6 @@
     // Chap. 5: RL
     "/sections/5_rl/bibliography/1_rl_general.bib",
     "/sections/5_rl/bibliography/2_rl_robotics.bib",
+    "/sections/5_rl/bibliography/software.bib",
   )
 )
