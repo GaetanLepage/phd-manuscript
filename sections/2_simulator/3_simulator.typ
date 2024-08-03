@@ -3,11 +3,17 @@
 == Presentation of the Acoustic Robot Simulator <sec:simulator:simulator>
 
 The motivation to build a simulator from the ground up was to benefit from a capable yet flexible virtual platform for acoustic-based #acr("HRI") tasks.
+Also, its implementation has evolved along the project and has lead to an organic development process.
+The set of features reflects the various downstream usages that have been made in the course of several years.
+
+In this section, we will provide an overview of the main functionalities offered by our simulator as well as use case examples.
 
 
 #gaet[Should we mention that the simulator (along with the entire code base for this PhD) is available as open source ?]
 
-==== Global architecture
+==== Overview
+
+The acoustic simulator is composed of several blocks that interact with each other.
 
 #figure(
   image("figures/simulator_architecture.svg"),
@@ -18,31 +24,33 @@ The motivation to build a simulator from the ground up was to benefit from a cap
 // AudioSimulator
 
 
-==== Sound sources
+==== Features
+===== Sound sources
 
 - Speech: Librispeech
 - Noise: Music + white noise
 
-==== Room
+===== Room
 
-===== #acr("RIR") simulation
+====== #acr("RIR") simulation
 
 // Two backends:
 // - GPU RIR
 // - PyroomAcoustics
 
-===== Generation of listened signals
+====== Generation of listened signals
 
-==== Microphone arrays
+===== Microphone arrays
 
 // Support for various arrays
 
-==== Feature extraction
+===== Feature extraction
 
 - Geometric information
   - Absolute position of all elements
 - Audio data
-  - 
+  - STFT: Talk about the STFT module
+  - ILD/IPD: we introduce those only in chap.2, but maybe we could do it here.
 
 
 ==== Simulation of dynamic scenarios
