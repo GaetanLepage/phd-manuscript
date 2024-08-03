@@ -17,6 +17,10 @@
 #include "misc/acronyms.typ"
 #set math.equation(numbering: "(1)")
 
+// URL preferences
+#show link: underline
+#show link: set text(blue)
+
 #show outline: it => {
   in-outline.update(true)
   // This hides the citation in outlines (mostly for the table of figures)
