@@ -1,14 +1,14 @@
 #import "/utils.typ": *
 
-== Automatic Speech Recognition
+=== Automatic Speech Recognition
 
 // Introduction
 #acr("ASR"),
 
-=== State of the Art
+==== State of the Art
 
-=== #acr("ASR") pipeline in the simulator
+==== #acr("ASR") pipeline in the simulator
 
-=== #acr("WER") maps
+==== #acr("WER") maps
 
 // TODO: insert figures
