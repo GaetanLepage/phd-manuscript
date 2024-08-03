@@ -4,6 +4,5 @@
 #minitoc(indent: true)
 
 #include "1_intro.typ"
-#include "2_acoustic_simulation.typ"
-#include "3_simulator.typ"
-#include "4_asr.typ"
+#include "2_background/0_index.typ"
+#include "3_simulator/0_index.typ"
