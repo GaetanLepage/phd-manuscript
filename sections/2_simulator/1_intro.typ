@@ -21,10 +21,10 @@ Simulation provides an alternative way to gather massive amount of data, and oft
 However, building an effective simulator can be hard or even impossible.
 Also, simulated features frequently deviate from real-world data, which can heavily hinder the final performance.
 Reinforcement learning for instance has an agent interacting with an environment and improving its policy from trial and error.
-Since deep neural networks have been employed in this field, the interest in simulating the targeted environment has grown significantly.
-The success of #acr("DRL") in applications such as board games and video games because simulating them is trivial.
+Since deep neural networks have been employed in this field, the interest in simulating the targeted environments has grown significantly.
+The success of #acr("DRL") in applications such as board games and video games came early because simulating them is trivial.
 Large neural network could then be trained on massive amounts of data.
-Nonetheless, the design of realistic simulated environments has opened the field of deployment of #acr("DRL") in more complex and _useful_ scenarios.
+Nonetheless, the design of realistic simulated environments has allowed the deployment of #acr("DRL") in more complex and _useful_ scenarios.
 
 // 2 examples of simulation in DRL
 For instance, industrial and academic actors have used simulated environments as a first step towards achieving fully autonomous driving.
@@ -45,5 +45,7 @@ Coming back to the subject of #acr("HRI") and robotics in general, simulators ha
 #draft[TODO: challenges of Sim2Real, for learning methods]
 
 // Audio
+#draft[TODO: audio]
 
 // Our motivation to develop a simulator
+#draft[TODO: Our motivation to develop a simulator]

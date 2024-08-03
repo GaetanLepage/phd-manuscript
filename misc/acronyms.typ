@@ -2,6 +2,7 @@
 
 #init-acronyms((
   // Misc
+  "API": ("Application Programming Interface"),
   "HRI": ("Human Robot Interaction"),
   
   // Deep Learning
@@ -28,6 +29,7 @@
   "ILD": ("Interaural Level Difference"),
   "IPD": ("Interaural Phase Difference"),
   "RIR": ("Room Impulse Response"),
+  "SNR": ("Signal to Noise Ratio"),
   "STFT": ("Short Term Fourier Transform"),
   
   // RL
