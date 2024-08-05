@@ -68,7 +68,7 @@ $
   cal(L) =
   cal(L)_"DoA" (hat(theta), theta)
   + cal(L)_"dist" (hat(d), d)
-$ <eq:dsqkfjsdlkjf>
+$ <eq:ssl:single_source:dist_loss>
 
 ]
 // $
