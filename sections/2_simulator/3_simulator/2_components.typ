@@ -12,7 +12,7 @@ This offers a more in-depth description of the pipeline's inner workings.
 In a first time, the acoustic simulation aspect of the library will be explored.
 This constitutes the starting point of the library and is responsible for its central feature: computing listened signals in a reverberant environment.
 
-===== #acr("RIR") simulation
+===== #acr("RIR") simulation <sec:simulator:simulator:components:low_level:rir_sim>
 
 The core component around which the simulation pipeline revolves is the #acr("RIR") simulation library.
 We have chosen the framework of #acr("RIR") filters for its simplicity and prevalence in the scientific literature.
@@ -48,19 +48,73 @@ This would allow for using other #acr("RIR") simulators while keeping the rest o
 
 To operate those libraries, the positions, patterns and orientations (when appropriate) of each source and microphone are provided.
 Also, the room's dimensions and acoustic properties belong to the necessary parameters.
-Both libraries offer a way to compute the wall's reflection coefficients from a target $T_60$ value by leveraging the inverse-Sabine estimator for the reverberation time (see .
+Both libraries offer a way to compute the wall's reflection coefficients from a target $T_60$ value by leveraging the inverse-Sabine estimator for the reverberation time (see @eq:simulator:background:sabine_inv).
+The image source order in the $i$-th axis $N_i$ counts how many virtual rooms have to be considered in this direction.
+Those reflected rooms, stacked up, form a diamond with the real room in its center.
+One way to approximate $N_i$ measures the distance that sound can travel in $T_60$ seconds:
+$
+  N_i = ceil(
+    (2 T_60 times c)
+    / L_i
+  )
+$ <eq:simulator:simulator:components:rir_library:ism_order>
+where $L_i$ is the length of the room in the $i$-th direction.
+All reflections happening closer than $T_60 times c$ meters
+_GpuRIR_ computes three distinct number of images, according to @eq:simulator:simulator:components:rir_library:ism_order.
 
+On the other hand, _Pyroomacoustics_ settles for a single maximum order $N_max$:
+$
+  N_"max" = ceil(
+    (T_60 times c)
+    / 
+    (R_"min")
+    - 1
+  )
+$
+where
+$
+  R_"min" =
+    min_(i, j in [|1, 3|]\ i != j)
+    
+    (L_i times L_j)
+    /
+    sqrt(L_i^2 + L_j^2)
+$
+is the radius of the largest sphere fitting in the diamond of virtual rooms.
 
-// We can set the frequency and the T60
+The highest the image source order is, the more detailed the simulation will end up being.
+
+Finally, a sampling frequency must be  provided.
+This parameter affects the time resolution of the computed #acr("RIR") and thus its ability to capture high frequency phenomenons.
+A higher sampling frequency will be lead to increasing the computational cost of the simulation.
+In most cases, using the same frequency as the one of the audio signals involved consists in a safe and practical choice.
+
 
 ===== Room, static acoustic simulation
 
+The _Room_ module is a wrapper around the #acr("RIR") simulation library.
+It brings some additional features among which is the computation of listened signals.
+We consider a _shoebox_ room defined by its dimensions ($L_x$, $L_y$ and $L_z$) as well as the desired reflection time $T_60$ and sampling frequency $f_s$.
+
+Individual point-wise sources and microphones can then be positioned in the 3D space.
+Each change in the audio objects localization leads to a new simulation which updates the ($n_m times n_s times L_"RIR"$) #acr("RIR") tensor.
+Our implementation ensures the caching of the #acr("RIR") and solely re-computes it when necessary.
+As stated in previous @sec:simulator:simulator:components:low_level:rir_sim, the Room can use both the _Pyroomacoustics_ and _gpuRIR_ back ends interchangeably.
+
+To actually compute the signal received at each microphone, the input signal from all active sources are gathered.
+Then, the listened signals are estimated by convolving the sources' signals with the corresponding #acr("RIR") vector as described in @eq:simulator:rir_listened_signal.
+
+Additionally the _Room_ module provides a convenient interface for dynamically adding and positioning both sources and microphones.
+It ensures the validity of all locations at any time.
+The different audio objects have the ability to be pinned to a grid of arbitrary resolution.
+Such a feature permits for instance to effortlessly compute the listened signal at all possible positions in the room.
+Contrarily, one could fix the microphone position and collect the received audio for evenly distributed source localizations.
+
+Lastly, a plotting helper has been implemented to handily visualize the state of the room and its content.
+
+
 #draft[
-  - Audio simulation
-  - RIR caching
-  - Individual object movement
   - plotting
-  - Check for validity of the positions 
   - Grid (for #acr("ASR"))
 ]
 

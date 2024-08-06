@@ -12,6 +12,12 @@ Their paper came with a FORTRAN implementation of the proposed algorithm.
 At first, the #acr("ISM") was limited to rectangular _shoebox_ room.
 In 1984, Jeffrey Borish extended the technique to arbitrary polyhedral rooms @borish_extension_1984.
 
+#draft[
+  - Asumptions
+
+  Resources: Waveverb (https://reuk.github.io/wayverb/image_source.html)
+]
+
 // OG paper: 
 
 // @srivastava_how_2023 has some info on ISM ('Method' section)

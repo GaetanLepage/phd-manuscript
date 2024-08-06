@@ -9,7 +9,9 @@
 ]
 
 ==== RoomSim
-- RoomSim @campbell_roomsim_nodate
+- RoomSim @campbell_roomsim_nodate (MatLab)
+- C roomsim: @schimmel_fast_2009
+
 
 ==== Pyroomacoustics <sec:simulator:background:rir_libraries:pyroomacoustics>
 - _Pyroomacoustics_ @scheibler_pyroomacoustics_2018
