@@ -31,6 +31,7 @@
   "IPD": ("Interaural Phase Difference"),
   "ISM": ("Image Source Model"),
   "RIR": ("Room Impulse Response"),
+  "RTF": ("Related Transfer Function"),
   "SNR": ("Signal to Noise Ratio"),
   "STFT": ("Short Term Fourier Transform"),
   
