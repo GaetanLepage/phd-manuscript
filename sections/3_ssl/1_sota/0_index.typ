@@ -33,14 +33,17 @@ Several pre-processing methods exist to ease the extraction of geometric informa
 
 ==== Waveform
 
-// TODO cite waveToVec
-
 #figure(
-  square(size: 10em, stroke: 2pt),
+  image("figures/waveform.svg", height: 5cm),
   caption: [
     An example of a waveform acoustic signal
   ],
 ) <fig:ssl:sota:waveform>
+
+#draft[
+  - Talk about discretization/sampling
+  - Cite wave2vec as a method that directly operates on waveforms
+]
 
 ==== Time-frequency representations
 
@@ -75,7 +78,57 @@ $ <eq:ssl:sota:stft_inf>
 This target domain is often referenced as the time-frequency plan.
 
 
-===== Interaural representation
+===== Binaural cues
+
+When considering a pair of microphones, it becomes possible to define interaural features.
+Those quantities and techniques have been introduced in the context of understanding and modelling binaural hearing.
+
+Let us assume a setting with a single speech source outputting the input signal $s(t)$ and a binaural microphone array.
+The signal received by the left and right microphones can be expressed as:
+$
+  cases(
+    l(t) = s(t - tau_l) * h_l(t),
+    r(t) = s(t - tau_r) * h_r(t)
+  )
+$
+where $s$ is the source signal produce by the sound source and $h_l$ and $h_r$ are the #acr("RIR") relative to the left and right microphones.
+#draft[TODO: ensure that we have introduced the $*$ operator already.]
+
+We may now consider the ratio of the Fourier transforms of those two signals, called the *interaural spectrogram* 
+//We may now consider the ratio of the Fourier transforms of the two #acr("RIR"), called the #acr("RTF"):
+$
+  I(omega, t) = L(omega, t) / R(omega, t)
+  //L(omega, t) / R(omega, t) = alpha(omega, t) e^(j phi.alt(omega, t))
+  //L(omega, t) / R(omega, t) = abs(H(omega, t)) e^(-)
+$
+
+#reset-acronym("ILD")
+#reset-acronym("IPD")
+This complex-valued ratio allows to define two fundamental binaural cues: the *#acr("ILD")* and the *#acr("IPD")*.
+
+- The #acr("ILD") is the magnitude of the interaural spectrogram:
+$
+  "ILD"(omega, t) = 20 log abs(I(omega, t))
+$
+- The #acr("IPD") denotes the phase of $I$:
+$
+  "IPD"(omega, t) = arg(I(omega, t))
+$
+
+#draft[
+  TODO: this might not be useful
+  
+  which can be modelled by the as:
+  $
+    L(omega, t) / R(omega, t) approx abs(H(omega)) e^(-j omega tau(omega))
+  $
+  where $tau(omega) = tau_l - tau_r + angle H(omega)$ is assumed to be smaller than the length of the employed #acr("STFT") window.
+  // $
+  //   H_"rel"(omega, t) = (H_l (omega)) / (H_r (omega)) = abs(L(omega, t)) / abs(R(omega, t)) e^(alpha(omega, t))
+  // $
+]
+
+
 
 // TODO: rephrase the following as this was originally written in the SSL chapter
 As explained before, one want to leverage the delays between the signals listened by each microphone.
@@ -95,7 +148,6 @@ $ "IPD"(S_1, S_2) = arg(S_1/S_2) $
 
 #subpar.grid(
   figure(
-    //image("/assets/andromeda.jpg"),
     square(size: 10em, stroke: 2pt),
     caption: [
       Spectrogram
@@ -103,7 +155,6 @@ $ "IPD"(S_1, S_2) = arg(S_1/S_2) $
   ), <fig:ssl:sota:tf_representations:spectrogram>,
   figure(
     square(size: 10em, stroke: 2pt),
-    //image("/assets/mountains.jpg"),
     caption: [
       #reset-acronym("ILD")
       #acr("ILD")
