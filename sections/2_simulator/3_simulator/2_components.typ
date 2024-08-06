@@ -9,9 +9,19 @@ This offers a more in-depth description of the pipeline's inner workings.
 
 ==== Low level static simulation
 
+In a first time, the acoustic simulation aspect of the library will be explored.
+This constitutes the starting point of the library and is responsible for its central feature: computing listened signals in a reverberant environment.
+
 ===== #acr("RIR") simulation
 
+The core component around which the simulation pipeline revolves is the #acr("RIR") simulation library.
+We have chosen the framework of #acr("RIR") filters for its simplicity and prevalence in the scientific literature.
+@sec:simulator:background introduced the main concepts and fundamental aspects of this approach.
+
 @fig:simulator:simulator:audio_pipeline illustrates how the audio processing takes place within the pipeline.
+The different steps of this procedure will be detailed in the following sections.
+The role of the #acr("RIR") simulation library consists in inferring, given the localization and properties of a set of sound sources and receivers (microphones), the pairwise #acr("RIR") filters.
+
 
 #figure(
   image("figures/audio_pipeline.svg"),
@@ -20,9 +30,26 @@ This offers a more in-depth description of the pipeline's inner workings.
   ]
 ) <fig:simulator:simulator:audio_pipeline>
 
-// Two backends:
-// - GPU RIR
-// - PyroomAcoustics
+
+*Choice of the back end library.*
+Developing such a library was out of the scope of this work.
+Several efforts have been conducted by members of the acoustic simulation community.
+Multiple existing libraries have been enumerated in @sec:simulator:background:rir_libraries.
+Motivated by a seamless operation within our Python code base, we have focused on the libraries providing bindings for this language.
+Two libraries appeared mature and able to satisfy the requirements of the pipeline.
+_Pyroomacoustics_ @scheibler_pyroomacoustics_2018 implements the #acr("ISM") and adds numerous advanced features (see @sec:simulator:background:rir_libraries:pyroomacoustics for more details).
+Its design has been the inspiration for our pipeline's architecture and most specifically its own `Room` object.
+_Pyroomacoustics_ is the original back end library that we have been using for sound propagation simulation.
+As we envisioned more intensive workloads where processing time could limit the usability of the simulator, the recent _gpuRIR_ implementation by Diaz-Guerra et al. @diaz-guerra_gpurir_2021 has been integrated.
+As seen in @sec:simulator:background:rir_libraries:gpurir, the authors of this library have focused on achieving the best performance in #acr("RIR") estimation.
+Our solution offers its users to choose between those two libraries for the backbone of the simulation.
+Allowing this flexibility has required to architect the `Room` module in an abstract manner.
+This would allow for using other #acr("RIR") simulators while keeping the rest of the pipeline working accordingly.
+
+To operate those libraries, the positions, patterns and orientations (when appropriate) of each source and microphone are provided.
+Also, the room's dimensions and acoustic properties belong to the necessary parameters.
+Both libraries offer a way to compute the wall's reflection coefficients from a target $T_60$ value by leveraging the inverse-Sabine estimator for the reverberation time (see .
+
 
 // We can set the frequency and the T60
 
@@ -36,6 +63,8 @@ This offers a more in-depth description of the pipeline's inner workings.
   - Check for validity of the positions 
   - Grid (for #acr("ASR"))
 ]
+
+@scheibler_pyroomacoustics_2018 (we took inspiration for the audio simulation part)
 
 @eq:simulator:rir_listened_signal
 
@@ -121,8 +150,6 @@ A user of this library could easily implement a microphone array of its own and 
 
 ===== The simulator interface
 
-#draft[Note on 2D-3D difference]
-
 The simulator constitutes the center piece of the interactive pipeline.
 It serves as en engine coordinating all the components mentioned above.
 
@@ -133,10 +160,16 @@ Although the room, representing the spatial and acoustic properties of the envir
 Once configured, the simulator may be interacted with.
 This process takes place in discrete time steps that each resemble the following execution:
 - The audio objects (agent and sources) might first be relocated
-- The acoustic simulation is then performed by the Room, itself using the #acr("RIR") simulation library.
+- The acoustic simulation is then performed by the `Room` module, itself using the #acr("RIR") simulation library.
   The simulator ensures to propagate the positions and orientations of all elements as well as setting the right input signal of each source.
 - Finally, acoustic features can be collected in multiple representations: raw multi-channel waveforms, #acr("STFT") or #acr("ILD")/#acr("IPD").
   The user may also access spatial data in convenient formats: distance from the microphone to a specific source, #acr("DoA"), absolute position and orientation of the agent and sources, etc.
+
+*Spatial domain.*
+The sound propagation libraries used for simulation model a three-dimensional scene.
+Thus we have built the rest of the pipeline to allow for full control of audio objects in the 3D space.
+Besides, as the conducted downstream task involved mostly planar problems, most implemented features focus on 2D movements and spatial measures.
+No artificial limitation prevent the use of our library for 3D problems.
 
 ====== Audio objects movement
 
@@ -171,6 +204,7 @@ This facilitates the flexible implementation of numerous acoustic #acr("HRI") us
 ]
 
 *Duration control.*
+#draft[TODO]
 
 ====== Feature extraction
 
@@ -186,36 +220,15 @@ This egocentric information can be used in multiple situations, such as training
 *Audio data.*
 Recording acoustic information is the main purpose of the simulator.
 Following the same principles of flexibility and convenience, audio data has been made accessible in various formats, at the different stages of the simulation.
+@fig:simulator:simulator:audio_pipeline outlines those steps visually.
 First and foremost, each source exposes its current raw signal.
 This is how the simulator fetches the audio from the different sources before forwarding them to the #acr("RIR") simulation library.
 Once the simulation has been conducted, both the #acr("RIR") filters and the audio signal received at each microphone become accessible.
 Additionally to the raw multi-channel listened audio provided by the `Room` module, the simulator proposes further audio processing tools.
-The #acr("STFT") of the received acoustic data can thus be computed and 
+The #acr("STFT") of the received acoustic data can thus be computed and recovered for direct use in a Neural Network or any method operating in the time-frequency plane.
+Finally, another function has been added to calculate the #acr("ILD") and #acr("IPD") of the signal given a pair of microphones.
 
+All those features partly removes the post-processing burden of the downstream user, allowing for the most direct and practical usage possible.
 
-- Geometric information
-  - Absolute position of all elements
-- Audio data
-  - STFT: Talk about the STFT module
-  - ILD/IPD: we introduce those only in chap.2, but maybe we could do it here.
-
-Here is a basic examples
-```python
-# Initialization
-room = GpuRirRoom(size_x=4, size_y=7, rt_60=0.3)
-mic_array = SquareArray(
-  position=np.array([3.0, 3.0, 1.0]),
-  orientation=np.array([-1.0, 1.0, 0.0]),
-)
-audio_simulator = AudioSimulator(room, mic_array, n_speech_sources=3)
-
-audio_simulator.step()
-
-# (4, F, T) complex tensor
-stft = audio_simulator.get_agent_stft()
-
-# Compute the DoA with respect to the "speech_1" source
-doa_source_1 = audio_simulator.get_doa("speech_1")
-```
 
 ====== Visualization

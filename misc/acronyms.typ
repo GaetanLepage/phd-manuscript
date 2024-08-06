@@ -24,10 +24,12 @@
   "MAE": ("Mean Absolute Error"),
 
   // Audio
+  "GA": ("Geometrical Acoustics"),
   "GCC-PHAT": ("Generalized Cross-Correlation function with Phase Transform"),
   "HRTF": ("head-related transfer function"),
   "ILD": ("Interaural Level Difference"),
   "IPD": ("Interaural Phase Difference"),
+  "ISM": ("Image Source Model"),
   "RIR": ("Room Impulse Response"),
   "SNR": ("Signal to Noise Ratio"),
   "STFT": ("Short Term Fourier Transform"),
