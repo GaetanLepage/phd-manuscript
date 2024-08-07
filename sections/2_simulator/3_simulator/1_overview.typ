@@ -31,22 +31,27 @@ The user can then move the different audio objects with convenient movement prim
 // AudioSimulator
 
 Here is a basic example of how our library can be
-```python
-from rl_audio_nav.audio_simulator import GpuRirRoom, SquareArray, AudioSimilator
-
-# Initialization
-room = GpuRirRoom(size_x=4, size_y=7, rt_60=0.3)
-mic_array = SquareArray(
-  position=np.array([3.0, 3.0, 1.0]),
-  orientation=np.array([-1.0, 1.0, 0.0]),
-)
-audio_simulator = AudioSimulator(room, mic_array, n_speech_sources=3)
-
-audio_simulator.step()
-
-# (4, F, T) complex tensor
-stft = audio_simulator.get_agent_stft()
-
-# Compute the DoA with respect to the "speech_1" source
-doa_source_1 = audio_simulator.get_doa("speech_1")
-```
+#figure(
+  ```python
+  from rl_audio_nav.audio_simulator import GpuRirRoom, SquareArray, AudioSimilator
+  
+  # Initialization
+  room = GpuRirRoom(size_x=4, size_y=7, rt_60=0.3)
+  mic_array = SquareArray(
+    position=np.array([3.0, 3.0, 1.0]),
+    orientation=np.array([-1.0, 1.0, 0.0]),
+  )
+  audio_simulator = AudioSimulator(room, mic_array, n_speech_sources=3)
+  
+  audio_simulator.step()
+  
+  # (4, F, T) complex tensor
+  stft = audio_simulator.get_agent_stft()
+  
+  # Compute the DoA with respect to the "speech_1" source
+  doa_source_1 = audio_simulator.get_doa("speech_1")
+  ```,
+  caption: [
+    Example of basic usage of the simulator
+  ]
+) <code:simulator:simulator:basic_usage>

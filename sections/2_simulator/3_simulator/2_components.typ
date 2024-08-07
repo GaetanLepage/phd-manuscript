@@ -94,8 +94,9 @@ In most cases, using the same frequency as the one of the audio signals involved
 
 The _Room_ module is a wrapper around the #acr("RIR") simulation library.
 It brings some additional features among which is the computation of listened signals.
-We consider a _shoebox_ room defined by its dimensions ($L_x$, $L_y$ and $L_z$) as well as the desired reflection time $T_60$ and sampling frequency $f_s$.
+Although originally inspired from _Pyroomacoustics_ @scheibler_pyroomacoustics_2018, our _Room_ module has been grown for improved interoperability with the rest of our pipeline.
 
+We consider a _shoebox_ room defined by its dimensions ($L_x$, $L_y$ and $L_z$) as well as the desired reflection time $T_60$ and sampling frequency $f_s$.
 Individual point-wise sources and microphones can then be positioned in the 3D space.
 Each change in the audio objects localization leads to a new simulation which updates the ($n_m times n_s times L_"RIR"$) #acr("RIR") tensor.
 Our implementation ensures the caching of the #acr("RIR") and solely re-computes it when necessary.
@@ -112,23 +113,12 @@ Contrarily, one could fix the microphone position and collect the received audio
 
 Lastly, a plotting helper has been implemented to handily visualize the state of the room and its content.
 
-
-#draft[
-  - plotting
-  - Grid (for #acr("ASR"))
-]
-
-@scheibler_pyroomacoustics_2018 (we took inspiration for the audio simulation part)
-
-@eq:simulator:rir_listened_signal
-
-
 ==== Ergonomic simulation of complex scenarios
 
 Although our _room_ abstraction extends the capabilities of the core #acr("RIR") simulation library, it still lacks abstraction power to allow for conveniently experimenting complex dynamic scenarios.
 Providing this user experience required introducing more powerful objects.
 
-===== Sound sources
+===== Sound sources <sec:simulator:simulator:components:sound_sources>
 
 The core motivation for developing this acoustic pipeline was to experiment with #acr("HRI") scenarios.
 In this sense, the most important type of sound sources to consider was speech sources, mimicking humans speaking in the room.
@@ -225,7 +215,7 @@ Thus we have built the rest of the pipeline to allow for full control of audio o
 Besides, as the conducted downstream task involved mostly planar problems, most implemented features focus on 2D movements and spatial measures.
 No artificial limitation prevent the use of our library for 3D problems.
 
-====== Audio objects movement
+====== Audio objects movement <sec:simulator:simulator:components:movement>
 
 Audio objects are of two kinds: sound sources and microphone arrays.
 Sound sources are modeled by a point in space, with an orientation.
@@ -252,13 +242,45 @@ This facilitates the flexible implementation of numerous acoustic #acr("HRI") us
 
 ====== Simulation process
 
-#draft[
-  - The `step` function. We should maybe talk about how each source "steps" and yields a new signal
-  - Duration management (we detail that in the "advanced features" section)
-]
+Most downstream tasks leveraging the simulator involved some type of iteration through discrete time step simulation.
+More precisely, the typical workflow when using the simulator includes an initialization phase, where the _Room_, microphone array and _AudioSimulator_ are created.
+@code:simulator:simulator:basic_usage gives an overview of the corresponding code snippet.
+
+Once the different components have been set up, the actual simulation process may take place.
+The procedure involves positioning all audio objects in the room.
+This can be done directly by the simulator in a random fashion.
+Subsequently, each source is individually asked to provide a new sound sample (see @sec:simulator:simulator:components:sound_sources).
+The actual sound propagation simulation can then happen and the embedded _Room_ module returns the multi-channel received audio signal.
+Either the raw waveform or further processed time-frequency features can be produced.
+The user also has the ability to listen to the produced signal directly.
+In practice, those steps are abstracted and automatized by the `step()` method.
+Lastly, the agent might be moved using the exposed displacement helpers presented in @sec:simulator:simulator:components:movement.
+@fig:simulator:simulator:simulator_workflow illustrates this routine.
+
+#figure(
+  image("figures/simulator_workflow.svg", height: 40%),
+  caption: [
+    Typical simulation workflow
+  ]
+) <fig:simulator:simulator:simulator_workflow>
 
 *Duration control.*
-#draft[TODO]
+By default, given $n_s$ input signals of durations $(d_s^1, dots, d_s^(n_s))$, the received signal at each microphone will last
+$
+  d_r = ( max_(i=1 dots n_s) d_s^i ) + T_60
+$
+seconds.
+After $d_r$ seconds, the energy of the received signal becomes negligible.
+In practice, the simulator allows to artificially reduce the time of the simulation.
+This may happen by first shortening the input signals to a given duration $d_s^"lim"$, thus leading to having $d_r = d_s^"lim" + T_60$.
+Alternatively, the resulting audio can be trimmed to any wanted duration.
+The duration control feature gives a fine-grained control on the computational time.
+Indeed, as further demonstrated in later #draft[TODO insert PERFORMANCE SECTION reference] the simulation time is directly proportional to the duration of the signals.
+
+#draft[
+  TODO: maybe add a "performance" section with a flamegraph showing which parts of the process take the most time.
+  - We could compare the two back ends.
+]
 
 ====== Feature extraction
 
@@ -286,3 +308,17 @@ All those features partly removes the post-processing burden of the downstream u
 
 
 ====== Visualization
+
+For development purposes, it may come handy to graphically render the state of the simulator graphically.
+The pipeline includes a basic yet efficient way of visualizing the different objects in the room.
+Each available microphone array comes with its ability to be shown in the room, according to its geometry.
+The orientation of microphones and directional sources is also displayed.
+
+@fig:simulator:simulator:components:simulator_plot provides a demonstration of the renderer.
+
+#figure(
+  image("figures/simulator_plot.svg", height: 20em),
+  caption: [
+    Simulator renderer
+  ]
+) <fig:simulator:simulator:components:simulator_plot>
