@@ -1,6 +1,5 @@
 #import "/utils.typ": *
 
-#pagebreak()  // TODO: remove
 === Components <sec:simulator:simulator:features>
 
 In this part, each component briefly introduced in @sec:simulator:simulator:overview will be detailed and motivated.

@@ -17,4 +17,4 @@
 - _Pyroomacoustics_ @scheibler_pyroomacoustics_2018
 
 ==== gpuRIR <sec:simulator:background:rir_libraries:gpurir>
-- gpuRIR 2020 @diaz-guerra_gpurir_2021
+- _gpuRIR_ 2020 @diaz-guerra_gpurir_2021

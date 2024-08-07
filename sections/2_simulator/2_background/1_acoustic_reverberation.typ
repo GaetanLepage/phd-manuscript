@@ -36,7 +36,7 @@ $
     c times S times T_60
   )
 $ <eq:simulator:background:sabine_inv>
-Here, all surfaces are assumed to behave the same, and the _equivalent absorption surface_ #area may then be written as $#area = S times e_"abs"$.
+Here, all surfaces are assumed to behave the same, and the _equivalent absorption surface_ #area may then be written as $#area = S times e_"abs"$, with $S$ being the total surface area.
 
 #reset-acronym("RIR")
 ==== #acr("RIR")
@@ -44,7 +44,7 @@ Here, all surfaces are assumed to behave the same, and the _equivalent absorptio
 
 
 #figure(
-  image("figures/rir_plot.svg"),
+  image("figures/rir_plot.svg", height: 10em),
   caption: [
     Plot of an #acr("RIR") filter
   ],
