@@ -218,7 +218,7 @@ Furthermore, the more sources are simultaneously present in the room, the more c
         [Dataset A],
         [Dataset B],
       ),
-      [MAE (°) #sym.arrow.b],       [], [],
+      [MAE (°) #sym.arrow.b],       [], [], // TODO
       [Accuracy (%) #sym.arrow.t],  [], [],
       [Precision (%) #sym.arrow.t], [], [],
       [Recall (%) #sym.arrow.t],    [], [],

@@ -1,6 +1,5 @@
 #import "/utils.typ": *
 
-#pagebreak() // TODO remove
 === Advanced features <sec:simulator:simulator:features>
 
 

@@ -5,6 +5,11 @@
 The acoustic simulator is composed of several blocks that interact with each other.
 @fig:simulator:simulator:overview offers a global overview of the pipeline architecture.
 
+#figure(
+  image("figures/simulator_architecture.svg"),
+  caption: [Overview of the simulator architecture]
+) <fig:simulator:simulator:overview>
+
 #let rir-lib = text(fill: rgb("D6B656"))[_#acr("RIR") simulation library_]
 The core of the platform resides in the #rir-lib.
 The latter performs the actual computation of the several required #acr("RIR") filters.
@@ -22,15 +27,9 @@ This block provides the most important external #acr("API") to our pipeline.
 It allows for defining a room, an agent (i.e. microphone array) and a set of sound sources with a very limited amount of code.
 The user can then move the different audio objects with convenient movement primitives and fetching the resulting audio and geometric data in diverse forms.
 
-#figure(
-  image("figures/simulator_architecture.svg"),
-  caption: [Overview of the simulator architecture]
-) <fig:simulator:simulator:overview>
+@code:simulator:simulator:basic_usage demonstrates a basic example of how our library can be operated.
+The following section will present the software blocks required for running this kind of operation.
 
-// Room
-// AudioSimulator
-
-Here is a basic example of how our library can be
 #figure(
   ```python
   from rl_audio_nav.audio_simulator import GpuRirRoom, SquareArray, AudioSimilator
@@ -42,7 +41,8 @@ Here is a basic example of how our library can be
     orientation=np.array([-1.0, 1.0, 0.0]),
   )
   audio_simulator = AudioSimulator(room, mic_array, n_speech_sources=3)
-  
+
+  # Load speech signals and perform simulation
   audio_simulator.step()
   
   # (4, F, T) complex tensor

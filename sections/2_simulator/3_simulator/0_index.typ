@@ -19,6 +19,7 @@ In this section, we will provide an overview of the main functionalities offered
 #include "1_overview.typ"
 #include "2_components.typ"
 #include "3_features.typ"
+#include "4_performance.typ"
 
 == Conclusion
 
