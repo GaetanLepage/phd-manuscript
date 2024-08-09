@@ -13,7 +13,7 @@
 #import algorithmic: algorithm
 
 #let colMath(x, color) = text(fill: color)[$#x$]
-#let abs = math.abs.with(size: 130%)
+#let mabs = math.abs.with(size: 130%)
 
 #let in-outline = state("in-outline", false)
 #let flex-caption(long, short) = context if in-outline.get() { short } else { long }

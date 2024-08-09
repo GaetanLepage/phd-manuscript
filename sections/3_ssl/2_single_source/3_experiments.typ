@@ -5,26 +5,29 @@
 
 ==== Metrics
 
-*#acr("DoA") metric.*
 In this first formulation of the #acr("SSL") problem, each situation includes exactly one source to localize.
+
+*#acr("DoA") metric.*
 Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lays from the real #acr("DoA") value $theta$.
 For this, we compute the $l_1$ angular pseudo-distance #d between $hat(theta)$ and $theta$.
-This measure will be refered to as the *Mean Absolute Error*:
+This measure will be referred to as the #acr("MAE"):
+#let mae-theta = $"MAE"_theta$
 $
-  "MAE"_theta = 1 / n_"test" sum_(i=1) ^  n_"test" #d (hat(theta)_i, theta_i)
+  #mae-theta = 1 / n_"test" sum_(i=1) ^  n_"test" #d (hat(theta)_i, theta_i)
 $ <eq:ssl:single_source:mae>
 where $n_"test"$ counts the number of samples in the test set.
 
 
 *Source-array distance metric.*
-When predicting the source-array distance, the #acr("RMSE") distance between predicted $hat(d)$ and ground truth $d$ serves as the performance criteria:
+When predicting the source-array distance, the #acr("MAE") is also used, here between predicted $hat(d)$ values and ground truth $d$:
+#let mae-dist = $"MAE"_d$
 $
-  "RMSE"_d = sqrt(
-    1 / n_"test"
-    sum_(i=1) ^ n_"test" norm(hat(d)_i - d_i)_2^2
-  )
+  #mae-dist = 1 / n_"test" sum_(i=1) ^ n_"test"
+  abs(hat(d)_i - d_i)
 $ <eq:ssl:single_source:dist_metricc>
-The choice of #acr("RMSE") benefits from being expressed in length units.
+
+
+The choice of the #acr("MAE") as performance criteria from being expressed in length units.
 
 ==== Impact of input signal representation
 
@@ -32,13 +35,59 @@ The the neural network is expected to extract the relevant localization informat
 Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
 
 In this work, we focus on time-frequency representations.
-// TODO: for STFT, we use |z| and Arg(z) as real tensors, not Re(z), Im(z)
+Adaptations of 2D convolutions to complex tensors do exist and have already been used in the #acr("SSL") litterature.
+In @krause_comparison_2021, Krause et al. present this variation along with its benefits (Section II.B).
+In this work though, regular 2D convolutions have been employed and the complex-valued #acr("STFT") were needed to be converted to real values.
+To achieve this, two schemes were compared:
+- On the one hand, both the real and imaginary parts of the complex data can populate the two real resulting matrices:
+$
+  S |-> lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
+$
+- The other method consists in using the polar form of the Fourier representation:
+$
+  S |-> lr((abs(Z), angle Z), size: #140%)
+$
+
 When using #acr("STFT") features directly, they get converted to real values as following.
 Each complex matrix translates to two real ones by splitting the modulus and the phase of each entry.
 Thus, a $N$-channel #acr("STFT") $N times F times T$ complex tensor ends up as a $2N times F times T$ real array.
 This choice allows the use for conventional real-valued 2D convolutions.
 
 // Compare ILD/IPD performances
+
+#let mae-theta-header = mae-theta + " (°) " + sym.arrow.b
+#let mae-dist-header = mae-dist + " (m) " + sym.arrow.b
+#figure(
+  tablex(
+    // SETTINGS
+    columns: 3,
+    header-rows: 1,
+    align: left + horizon,
+    auto-vlines: false,
+    auto-hlines: false,
+    
+    // HEADER
+    toprule,
+    [],
+    [#mae-theta-header],
+    [#mae-dist-header],
+    
+    midrule,
+
+    // ROWS
+    [Interaural (ILD/IPD)],       [0.0], [0.0],
+    [#acr("STFT") (real./imag.)], [0.0], [0.0],
+    [#acr("STFT") (polar)],       [0.0], [0.0],
+    
+    bottomrule
+  ),
+  placement: top,
+  kind: table,
+  caption: [
+    #acr("SSL") performance depending on the input features
+  ]
+)
+
 
 
 ==== Sound Source Localization in noisy environments <sec:ssl:single_source:experiments:noise>
