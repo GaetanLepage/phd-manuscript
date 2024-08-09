@@ -133,16 +133,15 @@ $
   #d: #h(1cm) RR^2 & -->               RR_+\
   (theta_1, theta_2)        & arrow.r.long.bar 
     lr(
-      abs(
+      mabs(
         pi - lr(
-          abs(
-            abs(theta_2 - theta_1)
+          mabs(
+            mabs(theta_2 - theta_1)
             - pi
           )
         )
       )
     )
-  //(theta_1, theta_2)        & arrow.r.long.bar  lr(abs(pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)), size: #150%)
 $ <eq:ssl:single_source:angle_dist>
 
 #d is represented in blue in @fig:ssl:single_source:angular_dist_plot.
@@ -153,41 +152,42 @@ The natural choice would have been to wrap #d in $[0, pi]$ by choosing:
 $
   d(theta_1, theta_2) =
     pi
-    - lr(abs(
-        abs(theta_2 - theta_1)colMath([2pi], #olive)
+    - lr(mabs(
+        mabs(theta_2 - theta_1)colMath([2pi], #olive)
         - pi
       )
     ).
 $
-This discourages the network from predicting high magnitudes values of $theta$ even though it would ensure $theta approx hat(theta)[2pi]$.
+Conversely, this pseudo-distance discourages the network from predicting high magnitudes values of $theta$ even though they would satisfy $theta approx hat(theta)[2pi]$.
 Empirically, this choice has shown no effect on neither the training process nor the final results.
 
-#draft[
-  We have to properly discuss about the angle distances.
-  This one goes to $+infinity$ when $abs(theta_2-theta_1) -> + infinity$.
-  It has the benefit of taking into account the wrap at $abs(theta_2-theta_1) = plus.minus pi$ and $plus.minus 2 pi$, but diverges to enforce that the network predict angles $>> 2pi$
-  $
-    #d: #h(1cm) RR^2 & -->               RR_+\
-    (theta_1, theta_2)        & arrow.r.long.bar  pi - lr(abs(abs(theta_2 - theta_1) - pi))
-  $
-  $
-    #d: #h(1cm) RR^2 & -->               [0, pi]\
-    (theta_1, theta_2)        & arrow.r.long.bar  pi - lr(abs(abs(theta_2 - theta_1)[2pi] - pi))
-  $
-]
-
-
-#draft[
-  *The following should be removed:*
-  #block(breakable: false)[
-    The angular distance, defined as such, yields values wrapped in the $[-pi, pi]$ interval.
-    
-    Also, one should note that $d$ is antisymmetric, i.e. $forall (theta_1, theta_2) in RR^2$,
-    $
-      d(theta_1, theta_2) = -d(theta_2, theta_1)
-    $
-  ]
-]
+// TODO REMOVE
+// #draft[
+//   We have to properly discuss about the angle distances.
+//   This one goes to $+infinity$ when $abs(theta_2-theta_1) -> + infinity$.
+//   It has the benefit of taking into account the wrap at $abs(theta_2-theta_1) = plus.minus pi$ and $plus.minus 2 pi$, but diverges to enforce that the network predict angles $>> 2pi$
+//   $
+//     #d: #h(1cm) RR^2 & -->               RR_+\
+//     (theta_1, theta_2)        & arrow.r.long.bar  pi - lr(abs(abs(theta_2 - theta_1) - pi))
+//   $
+//   $
+//     #d: #h(1cm) RR^2 & -->               [0, pi]\
+//     (theta_1, theta_2)        & arrow.r.long.bar  pi - lr(abs(abs(theta_2 - theta_1)[2pi] - pi))
+//   $
+// ]
+// 
+// 
+// #draft[
+//   *The following should be removed:*
+//   #block(breakable: false)[
+//     The angular distance, defined as such, yields values wrapped in the $[-pi, pi]$ interval.
+//     
+//     Also, one should note that $d$ is antisymmetric, i.e. $forall (theta_1, theta_2) in RR^2$,
+//     $
+//       d(theta_1, theta_2) = -d(theta_2, theta_1)
+//     $
+//   ]
+// ]
 
 *Loss function.*
 Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #acr("DoA") angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
@@ -206,33 +206,42 @@ $
   image("figures/angular_dist_loss.svg"),
   caption: flex-caption( [
     Plot of the angular pseudo-distance $colMath(d(theta_1, theta_2), #d-color)$
-    and the angular $l_2$ loss $colMath(d(theta_1, theta_2)^2, #l-color)$
+    and the angular $cal(l)^2$ loss $colMath(d(theta_1, theta_2)^2, #l-color)$
     against $theta_2 - theta_1$
   ],
   [
     Plot of the angular pseudo-distance
-    and the angular $l_2$ loss
+    and the angular $cal(l)^2$ loss
   ])
 ) <fig:ssl:single_source:angular_dist_plot>
 
 
 The neural network is trained to minimize this objective.
 
-When the model additionally estimates the distance to the source, the natural $l_2$ distance is used to supervised the relevant output neuron:
+When the model additionally estimates the distance to the source, the natural #acr("MSE") loss is used to supervised the relevant output neuron:
+#let l-dist = $colMath(cal(L)_"dist", #maroon)$
 $
-  cal(L)_"dist" (hat(d), d) =
+   #l-dist (hat(d), d) =
     1 / n
     sum_(i=1)^n
   norm(hat(d)_i - d_i)_2^2
 $ <eq:ssl:single_source:dist_loss>
-and the total loss then becomes
-$
-  cal(L) (
-    (hat(theta), theta), (hat(d), d)
-  ) =
-  cal(L)_"DoA" (hat(theta), theta)
-  + cal(L)_"dist" (hat(d), d).
-$ <eq:ssl:single_source:total_loss>
+where $d = (d_1, dots, d_n)$ is the set of predicted distances and $hat(d) = (hat(d)_1, dots, hat(d)_n)$ the ground truth data.
+
+#block(breakable: false)[
+  The total loss then becomes
+  $
+    cal(L)
+    lr(
+      (
+        (hat(theta), theta), (hat(d), d)
+      ),
+      size: #130%
+    ) =
+    #l-doa (hat(theta), theta)
+    + cal(L)_"dist" (hat(d), d).
+  $ <eq:ssl:single_source:total_loss>
+]
 
 
 

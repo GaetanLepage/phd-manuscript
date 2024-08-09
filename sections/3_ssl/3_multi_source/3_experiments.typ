@@ -428,39 +428,6 @@ Indeed, using the current validation batch statistics instead of the ones gather
 This constitutes an important limitation of batch normalization in this case as the evaluation thus needs to be performed in a batched manner.
 @table:ssl:multi_source:experiments:batch_norm displays the influence of the batch size on the performance of the network trained with #acr("BN").
 
-#draft[
-#[
-  #show table: set text(size: 10pt)
-  #show table.cell.where(x: 0): strong
-  #show table.cell.where(y: 0): strong
-  #figure(
-    table(
-      columns: 7,
-      table.header(
-        [],
-        [evaluation mode],
-        table.cell(colspan: 5, "training mode"),
-        [Batch size],
-        [-],
-        [1],
-        [50],
-        [100],
-        [200],
-        [500],
-      ),
-      [MAE (°) #sym.arrow.b],       [29.58], [42.10], [9.32],  [9.11],  [9.07],  [*8.95*],
-      [Accuracy (%) #sym.arrow.t],  [53.45], [26.03], [73.00], [73.43], [73.66], [*73.76*],
-      [Precision (%) #sym.arrow.t], [45.37], [12.39], [83.7],  [84.26], [84.71], [*84.78*],
-      [Recall (%) #sym.arrow.t],    [61.00], [51.43], [70.61], [70.96], [71.19], [*71.35*],
-    ),
-    caption: [
-      #acr("SSL") performance depending on the number of active sources
-    ]
-  )
-]
-]
-
-
 #figure(
   tablex(
     // SETTINGS
