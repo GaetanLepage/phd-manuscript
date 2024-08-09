@@ -4,6 +4,7 @@
   // Misc
   "API": ("Application Programming Interface"),
   "HRI": ("Human Robot Interaction"),
+  "RMSE": ("Root Mean Square Error"),
   
   // Deep Learning
   "MSE": ("Mean Squared Error"),

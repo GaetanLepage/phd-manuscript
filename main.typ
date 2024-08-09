@@ -10,9 +10,23 @@
   // date: "March 27, 2024",
 )
 
+#show figure: set block(breakable: false)
+
 // Table preferences
-#set table(align: left)
-#show table: set par(justify: false)
+//#set table(align: left)
+//#show table: set par(justify: false)
+#show figure.where(kind: table): it => {
+  let body = {
+    v(1em, weak: true)  // Does not work at the block beginning.
+    it.caption
+    v(1em, weak: true)
+    it.body
+    v(20pt, weak: false)
+  }
+  return block(breakable: false)[
+    #body
+  ]
+}
 
 #include "misc/acronyms.typ"
 #set math.equation(numbering: "(1)")
