@@ -88,7 +88,7 @@ We have thus tested different configurations in our single-source #acr("SSL") ex
 
 As demonstrated in @sec:ssl:sota:deep_learning, deep neural networks have shown to be flexible and effective as building blocks for an #acr("SSL") solution.
 We focused in this work on simple architectures that take some representation of the listened audio signal as their only input.
-On the other end, those networks are trained to infer the #acr("DoA") value $theta$ of the single speech source present in the room.
+At the other end, those networks are trained to infer the #acr("DoA") value $theta$ of the single speech source present in the room.
 
 Our networks are trained in a supervised fashion using some custom datasets presented in @sec:ssl:single_source:method:dataset.
 
@@ -117,5 +117,13 @@ The two-dimensional representations of audio signals have the sensible
 
 // TODO: figure of the architecture
 
-Also, as a specialization for the #acr("SSL") task, we have enforced the output values to sit in the $[-pi, pi]$ range.
+#draft[
+Also, as a specialization for the #acr("SSL") task, we have enforced the output values to sit in the $[-pi, pi]$ range:
+
+$
+  theta = pi times tanh(y_theta)
+$
+where $y_theta$ is the output neuron corresponding to the #acr("DoA") estimation.
+
 The final layer consists in a sigmoid which result gets multiplied by $pi$.
+]

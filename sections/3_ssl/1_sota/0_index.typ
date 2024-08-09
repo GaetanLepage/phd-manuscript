@@ -80,6 +80,42 @@ This target domain is often referenced as the time-frequency plan.
 
 ===== Binaural cues
 
+====== Motivation
+
+#draft[Single microphone]
+
+
+Let us first consider the ideal case of a single receiver in the free-field.
+The latter means that the environment can be considered as anechoic.
+Hence, no sound reflections are considered and thus the reverberation phenomenon is ignored.
+
+The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation:
+
+#let d = $colMath(d, #olive)$
+#let c = $colMath(c, #maroon)$
+$
+  x(t) = 1 / (sqrt(4 pi) #d) s (t - #d/#c)
+$ <eq:ssl:background:binaural_cues:single_mic_continuous>
+
+where
+- #d is the source-to-microphone distance (in m)
+- $#c approx 343$ is the speed of sound (in m/s at 20°C)
+- $#d/#c$ is the time of arrival (in s)
+
+When considering digital signals, @eq:ssl:background:binaural_cues:single_mic_continuous becomes
+$
+  x[n] = 1 / (sqrt(4 pi) #d) s [n - #d/#c F_s]
+$ <eq:ssl:background:binaural_cues:single_mic_discrete>
+where Fs ​is the sampling rate (in Hz), neglecting sampling and quantization issues.
+
+The microphone signal can be rewritten as
+$
+  x[n] = (h * s)[n]
+$
+where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c F_s]$ characterizes the acoustic path from the source to the microphone. $delta$ denotes the Dirac delta function.
+
+======= Definition
+
 When considering a pair of microphones, it becomes possible to define interaural features.
 Those quantities and techniques have been introduced in the context of understanding and modelling binaural hearing.
 
@@ -90,7 +126,7 @@ $
     l(t) = s(t - tau_l) * h_l(t),
     r(t) = s(t - tau_r) * h_r(t)
   )
-$
+$ <eq:ssl:background:binaural_cues:binaural_signals>
 where $s$ is the source signal produce by the sound source and $h_l$ and $h_r$ are the #acr("RIR") relative to the left and right microphones.
 #draft[TODO: ensure that we have introduced the $*$ operator already.]
 
@@ -128,11 +164,15 @@ $
   // $
 ]
 
+Interaural features, and especially #acr("IPD") has been successfully used in #acr("SSL") as it directly relates to the #acr("DoA").
+As @eq:ssl:background:binaural_cues:binaural_signals illustrates, the times at which each microphone of the array receives the signal differ by some short delay $tau$.
+Under ideal circumstances, meaning in the absence of reverberation and perturbations such as noise, the phase of the interaural spectrogram explicitly corresponds to the value of $tau$.
+
 
 
 // TODO: rephrase the following as this was originally written in the SSL chapter
 As explained before, one want to leverage the delays between the signals listened by each microphone.
-One of the motivation of using multiple microphones to perform Sound Source Localization is leveraging the delay at which the signal is listened 
+One of the motivation of using multiple microphones to perform #acr("SSL") is leveraging the delay at which the signal is listened
 In the case of a binaural microphone system,
 
 @uragun_discrimination_2013 (About the #acr("ILD") feature)

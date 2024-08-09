@@ -8,19 +8,26 @@ This task of single-source #acr("SSL") boils down to a one-dimensional regressio
 The neural network comprises a single output neuron expected to estimate the value of $theta$.
 
 We will now present the loss function used during training.\
-First, consider the following angular distance.
+First, consider the following $2pi$-periodic angular distance.
 Let $theta_1, theta_2 in RR$ two angle values expressed in radians.
 $
-d: #h(1cm) RR^2 &arrow.r.long [-pi, pi]\
- (theta_1, theta_2) &arrow.r.long.bar  (theta_1 - theta_2 + pi)[2pi] - pi
+  colMath(d, #maroon): #h(1cm) RR^2 & -->               [0, pi]\
+  (theta_1, theta_2)        & arrow.r.long.bar  pi - lr(abs(abs(theta_2 - theta_1)[2pi] - pi), size: #150%)
 $ <eq:ssl:single_source:angle_dist>
-The angular distance, defined as such, yields values wrapped in the $[-pi, pi]$ interval.
 
-#block(breakable: false)[
-  Also, one should note that $d$ is antisymmetric, i.e. $forall (theta_1, theta_2) in RR^2$,
-  $
-    d(theta_1, theta_2) = -d(theta_2, theta_1)
-  $
+It may be easily verified that $d$ is symmetric and maps into the interval $[0, pi]$.
+
+
+#draft[
+  *The following should be removed:*
+  #block(breakable: false)[
+    The angular distance, defined as such, yields values wrapped in the $[-pi, pi]$ interval.
+    
+    Also, one should note that $d$ is antisymmetric, i.e. $forall (theta_1, theta_2) in RR^2$,
+    $
+      d(theta_1, theta_2) = -d(theta_2, theta_1)
+    $
+  ]
 ]
 
 #draft[
