@@ -1,94 +1,30 @@
 #import "/utils.typ": *
+#import "2_method.typ": d
 
 === Experiments <sec:ssl:single_source:experiments>
 
 ==== Metrics
 
-This task of single-source #acr("SSL") boils down to a one-dimensional regression problem.
-The neural network comprises a single output neuron expected to estimate the value of $theta$.
-
-We will now present the loss function used during training.\
-First, consider the following $2pi$-periodic angular distance.
-Let $theta_1, theta_2 in RR$ two angle values expressed in radians.
+*#acr("DoA") metric.*
+In this first formulation of the #acr("SSL") problem, each situation includes exactly one source to localize.
+Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lays from the real #acr("DoA") value $theta$.
+For this, we compute the $l_1$ angular pseudo-distance #d between $hat(theta)$ and $theta$.
+This measure will be refered to as the *Mean Absolute Error*:
 $
-  colMath(d, #maroon): #h(1cm) RR^2 & -->               [0, pi]\
-  (theta_1, theta_2)        & arrow.r.long.bar  pi - lr(abs(abs(theta_2 - theta_1)[2pi] - pi), size: #150%)
-$ <eq:ssl:single_source:angle_dist>
-
-It may be easily verified that $d$ is symmetric and maps into the interval $[0, pi]$.
+  "MAE"_theta = 1 / n_"test" sum_(i=1) ^  n_"test" #d (hat(theta)_i, theta_i)
+$ <eq:ssl:single_source:mae>
+where $n_"test"$ counts the number of samples in the test set.
 
 
-#draft[
-  *The following should be removed:*
-  #block(breakable: false)[
-    The angular distance, defined as such, yields values wrapped in the $[-pi, pi]$ interval.
-    
-    Also, one should note that $d$ is antisymmetric, i.e. $forall (theta_1, theta_2) in RR^2$,
-    $
-      d(theta_1, theta_2) = -d(theta_2, theta_1)
-    $
-  ]
-]
-
-#draft[
-  Shouldn't we simply formulate the loss for a single sample and not bother with the summation over all elements of the dataset ?\
-  Or maybe simply adding it at the end of the paragraph.
-]
-
-#draft[
+*Source-array distance metric.*
+When predicting the source-array distance, the #acr("RMSE") distance between predicted $hat(d)$ and ground truth $d$ serves as the performance criteria:
 $
-  cal(L)_"DoA"(
-    hat(theta), theta
-  ) = 1 / n
-    sum_(i=1)^n
-    d(hat(theta)_i, theta_i) ^ 2. // TODO should their be a period here ?
-$
-]
-
-Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #acr("DoA") angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
-The loss function expresses as
-$
-  cal(L)_"DoA"(
-    hat(theta), theta
-  ) =
-  d(hat(theta), theta) ^ 2.
-$ <eq:ssl:single_source:doa_loss>
-
-The neural network is trained to minimize this objective.
-
-When the model additionally estimates the distance to the source, the natural $l_2$ distance is used
-$
-  cal(L)_"dist" (hat(d), d) = norm(hat(d) - d)_2^2
-$ <eq:ssl:single_source:dist_loss>
-and the total loss then becomes
-$
-  cal(L) (
-    (hat(theta), theta), (hat(d), d)
-  ) =
-  cal(L)_"DoA" (hat(theta), theta)
-  + cal(L)_"dist" (hat(d), d).
-$ <eq:ssl:single_source:total_loss>
-#gaet[
- Wouldn't the following be even easier to read (although less accurate)
- 
-$
-  cal(L) =
-  cal(L)_"DoA" (hat(theta), theta)
-  + cal(L)_"dist" (hat(d), d)
-$ <eq:ssl:single_source:dist_loss>
-
-]
-// $
-//   cal(L) (
-//     (d, hat(d)), (theta, hat(theta))
-//   ) = 1 / n
-//   sum_(i=1)^n
-//   [
-//     cal(L)_"DoA" (theta_i, hat(theta)_i)
-//     + norm(d_i - hat(d)_i)_2^2
-//   ]
-// $
-//where $d = (d_1, dots, d_n)$ is the set of predicted distances and $hat(d) = (hat(d)_1, dots, hat(d)_n)$ the ground truth data.
+  "RMSE"_d = sqrt(
+    1 / n_"test"
+    sum_(i=1) ^ n_"test" norm(hat(d)_i - d_i)_2^2
+  )
+$ <eq:ssl:single_source:dist_metricc>
+The choice of #acr("RMSE") benefits from being expressed in length units.
 
 ==== Impact of input signal representation
 

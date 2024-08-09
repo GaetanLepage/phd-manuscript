@@ -117,13 +117,151 @@ The two-dimensional representations of audio signals have the sensible
 
 // TODO: figure of the architecture
 
+==== Loss function <sec:ssl:single_source:method:loss>
+
+This task of single-source #acr("SSL") boils down to a one-dimensional regression problem.
+The neural network comprises a single output neuron $hat(theta)$ expected to estimate the true value of $theta$.
+We will now present the loss function used during training.
+
+*Angular distance.*
+First, consider the following symmetric angular pseudo-distance.
+Let $theta_1, theta_2 in RR$ two angle values expressed in radians.
+#let d-color = rgb(31,119,180)
+#let d = $colMath(d, #d-color)$
+#let l-color = rgb(255,127,14)
+$
+  #d: #h(1cm) RR^2 & -->               RR_+\
+  (theta_1, theta_2)        & arrow.r.long.bar 
+    lr(
+      abs(
+        pi - lr(
+          abs(
+            abs(theta_2 - theta_1)
+            - pi
+          )
+        )
+      )
+    )
+  //(theta_1, theta_2)        & arrow.r.long.bar  lr(abs(pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)), size: #150%)
+$ <eq:ssl:single_source:angle_dist>
+
+#d is represented in blue in @fig:ssl:single_source:angular_dist_plot.
+
+On the $[-2pi, 2pi]$ interval, #d behaves like the conventional angular periodic distance.
+However, for values of $abs(theta_2 - theta_1) > 2pi$, the distance diverges to $+infinity$.
+The natural choice would have been to wrap #d in $[0, pi]$ by choosing:
+$
+  d(theta_1, theta_2) =
+    pi
+    - lr(abs(
+        abs(theta_2 - theta_1)colMath([2pi], #olive)
+        - pi
+      )
+    ).
+$
+This discourages the network from predicting high magnitudes values of $theta$ even though it would ensure $theta approx hat(theta)[2pi]$.
+Empirically, this choice has shown no effect on neither the training process nor the final results.
+
 #draft[
-Also, as a specialization for the #acr("SSL") task, we have enforced the output values to sit in the $[-pi, pi]$ range:
+  We have to properly discuss about the angle distances.
+  This one goes to $+infinity$ when $abs(theta_2-theta_1) -> + infinity$.
+  It has the benefit of taking into account the wrap at $abs(theta_2-theta_1) = plus.minus pi$ and $plus.minus 2 pi$, but diverges to enforce that the network predict angles $>> 2pi$
+  $
+    #d: #h(1cm) RR^2 & -->               RR_+\
+    (theta_1, theta_2)        & arrow.r.long.bar  pi - lr(abs(abs(theta_2 - theta_1) - pi))
+  $
+  $
+    #d: #h(1cm) RR^2 & -->               [0, pi]\
+    (theta_1, theta_2)        & arrow.r.long.bar  pi - lr(abs(abs(theta_2 - theta_1)[2pi] - pi))
+  $
+]
 
-$
-  theta = pi times tanh(y_theta)
-$
-where $y_theta$ is the output neuron corresponding to the #acr("DoA") estimation.
 
-The final layer consists in a sigmoid which result gets multiplied by $pi$.
+#draft[
+  *The following should be removed:*
+  #block(breakable: false)[
+    The angular distance, defined as such, yields values wrapped in the $[-pi, pi]$ interval.
+    
+    Also, one should note that $d$ is antisymmetric, i.e. $forall (theta_1, theta_2) in RR^2$,
+    $
+      d(theta_1, theta_2) = -d(theta_2, theta_1)
+    $
+  ]
+]
+
+*Loss function.*
+Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #acr("DoA") angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
+The loss function expresses as
+#let l-doa = $colMath(cal(L)_"DoA", #l-color)$
+$
+  #l-doa (
+    hat(theta), theta
+  ) = 1 / n
+    sum_(i=1)^n
+    d(hat(theta)_i, theta_i) ^ 2. // TODO should their be a period here ?
+$
+@fig:ssl:single_source:angular_dist_plot plots the value of #l-doa with respect to the value of $theta_2 - theta_1$.
+
+#figure(
+  image("figures/angular_dist_loss.svg"),
+  caption: flex-caption( [
+    Plot of the angular pseudo-distance $colMath(d(theta_1, theta_2), #d-color)$
+    and the angular $l_2$ loss $colMath(d(theta_1, theta_2)^2, #l-color)$
+    against $theta_2 - theta_1$
+  ],
+  [
+    Plot of the angular pseudo-distance
+    and the angular $l_2$ loss
+  ])
+) <fig:ssl:single_source:angular_dist_plot>
+
+
+The neural network is trained to minimize this objective.
+
+When the model additionally estimates the distance to the source, the natural $l_2$ distance is used to supervised the relevant output neuron:
+$
+  cal(L)_"dist" (hat(d), d) =
+    1 / n
+    sum_(i=1)^n
+  norm(hat(d)_i - d_i)_2^2
+$ <eq:ssl:single_source:dist_loss>
+and the total loss then becomes
+$
+  cal(L) (
+    (hat(theta), theta), (hat(d), d)
+  ) =
+  cal(L)_"DoA" (hat(theta), theta)
+  + cal(L)_"dist" (hat(d), d).
+$ <eq:ssl:single_source:total_loss>
+
+
+
+
+
+
+#gaet[
+ Wouldn't the following be even easier to read (although less accurate)
+  $
+    cal(L) =
+    cal(L)_"DoA" (hat(theta), theta)
+    + cal(L)_"dist" (hat(d), d)
+  $ <eq:ssl:single_source:dist_loss>
+
+  or even
+$
+  cal(L) (
+    (d, hat(d)), (theta, hat(theta))
+  ) = 1 / n
+  sum_(i=1)^n
+  [
+    d(theta_i, hat(theta)_i)^2
+    + norm(d_i - hat(d)_i)_2^2
+  ]
+$
+where $d = (d_1, dots, d_n)$ is the set of predicted distances and $hat(d) = (hat(d)_1, dots, hat(d)_n)$ the ground truth data.
+]
+
+#gaet[
+  Also, do we really need to say "when also predicting the distance".
+  Maybe we can conduct all experiments predicting both the #acr("DoA") and distance.
 ]
