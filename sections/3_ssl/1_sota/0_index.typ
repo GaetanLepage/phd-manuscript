@@ -144,7 +144,7 @@ This complex-valued ratio allows to define two fundamental binaural cues: the *#
 
 - The #acr("ILD") is the magnitude of the interaural spectrogram:
 $
-  "ILD"(omega, t) = 20 log abs(I(omega, t))
+  "ILD"(omega, t) = 20 log mabs(I(omega, t))
 $
 - The #acr("IPD") denotes the phase of $I$:
 $
@@ -180,11 +180,11 @@ In the case of a binaural microphone system,
 // TODO: Nice stuff about ILD/IPD in "Binaural Hearing for Robots - Methodological Foundations" (see zotero)
 
 // TODO schemas
-- #acr("ILD")
-$ "ILD"(S_1, S_2) = 20 log_10 abs(S_1/S_2) $
-
-- #acr("IPD")
-$ "IPD"(S_1, S_2) = arg(S_1/S_2) $
+//- #acr("ILD")
+//$ "ILD"(S_1, S_2) = 20 log_10 abs(S_1/S_2) $
+//
+//- #acr("IPD")
+//$ "IPD"(S_1, S_2) = arg(S_1/S_2) $
 
 #subpar.grid(
   figure(
@@ -213,6 +213,10 @@ $ "IPD"(S_1, S_2) = arg(S_1/S_2) $
   caption: [Illustration of time-frequency representations of a speech signal],
   label: <fig:ssl:sota:tf_representations>,
 )
+
+A binaural array has been placed in a room along with a speech source. 
+@fig:ssl:sota:tf_representations displays different representations of the audio signal received by the array:
+- @fig:ssl:sota:tf_representations:spectrogram shows the spectrogram of the signal received by the left microphone: $20 log abs(L(omega, t))$.
 
 #reset-acronym("GCC-PHAT")
 ===== #acr("GCC-PHAT")
