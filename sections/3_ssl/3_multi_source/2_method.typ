@@ -1,4 +1,5 @@
 #import "/utils.typ": *
+#import "../2_single_source/2_method.typ": d
 
 === Method
 
@@ -200,12 +201,13 @@ $
 
 This approach can be enhanced to allow for a more consistent regression target.
 
+#let d-prime = $colMath(d', #olive)$
 $
   o(Theta)_i = cases(
     display(max_(theta in Theta))
       {
         e^(
-          -(colMath(d, #maroon)(
+          -(#d-prime (
             phi.alt_i,
             theta
           )^2)
@@ -215,9 +217,12 @@ $
     0 &"otherwise"
   )
 $ <eq:ssl:multi_source:doa_encoding>,
-where $colMath(d, #maroon)$ is the following symmetric angle distance,
+where #d-prime is the following symmetric angle distance
+#footnote[
+  #d-prime is a simplified version of #d, introduced for single-source localization in @eq:ssl:single_source:angle_dist.
+],
 $
-  colMath(d, #maroon): [-pi, pi]^2 & --> [0, pi]\
+  #d-prime : [-pi, pi]^2 & --> [0, pi]\
   (theta_1, theta_2) & arrow.r.long.bar pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)
 $ <eq:ssl:multi_source:symmetric_angular_dist>
 
