@@ -6,13 +6,13 @@ A robotic agent is evolving in a reverberant room.
 A single speech source is also present in the environment.
 The task consists in determining the relative position a unique sound source.
 Although the focus will be directed towards methods predicting solely the #acr("DoA"), solutions that also estimate the distance to the source have been evaluated.
-// TODO add a figure to illustrate the DOA + distance, basically a scheme of the problem
+
 #figure(
-  square(size: 10em, stroke: 2pt),
+  image("figures/ssl_task.svg", height: 20em),
   caption: [
-    Illustration of the #acr("SSL") problem setting
-  ],
-) <fig:ssl:single_source:ssl_schema>
+    Schema of the #acr("SSL") task
+  ]
+) <fig:ssl:single_source:task>
 
 As seen in @sec:ssl:sota:ssl_in_robotics, multi-modal information can be leveraged to perform #acr("SSL") in a robotics context. // TODO: remove if we end up not talking about A/V SSL
 However, in this chapter, we will focus on the exclusive use of audio information.

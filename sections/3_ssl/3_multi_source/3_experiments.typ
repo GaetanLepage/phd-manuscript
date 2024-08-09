@@ -218,10 +218,10 @@ Furthermore, the more sources are simultaneously present in the room, the more c
         [Dataset A],
         [Dataset B],
       ),
-      [MAE (°) #sym.arrow.b],       [], [], // TODO
-      [Accuracy (%) #sym.arrow.t],  [], [],
-      [Precision (%) #sym.arrow.t], [], [],
-      [Recall (%) #sym.arrow.t],    [], [],
+      [MAE (°) #sym.arrow.b],       [9.13],  [14.05],
+      [Accuracy (%) #sym.arrow.t],  [71.36], [61.76],
+      [Precision (%) #sym.arrow.t], [80.98], [76.96],
+      [Recall (%) #sym.arrow.t],    [69.26], [58.53],
     ),
     caption: [
       #acr("SSL") performance when trained with different number of sources
@@ -231,7 +231,7 @@ Furthermore, the more sources are simultaneously present in the room, the more c
 
 One should note that both training and test datasets are different.
 The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
-The rest of the experiments have been conducted with respect to _Scenario A_, following the same distribution of source numbers as He et al.
+The rest of the experiments have been conducted with respect to _Scenario A_, following the same distribution of source numbers as He et al used in @he_neural_2021.
 
 *Evaluation frameworks.*
 For understanding the impact of the number of concurrent sources in the room on performance, we have evaluated a given network in various scenarios.

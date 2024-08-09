@@ -274,7 +274,9 @@ In practice, the simulator allows to artificially reduce the time of the simulat
 This may happen by first shortening the input signals to a given duration $d_s^"lim"$, thus leading to having $d_r = d_s^"lim" + T_60$.
 Alternatively, the resulting audio can be trimmed to any wanted duration.
 The duration control feature gives a fine-grained control on the computational time.
-Indeed, as further demonstrated in later #draft[TODO insert PERFORMANCE SECTION reference] the simulation time is directly proportional to the duration of the signals.
+Indeed, as further demonstrated in later @sec:simulator:simulator:performance the simulation time is directly proportional to the duration of the signals.
+
+
 
 #draft[
   TODO: maybe add a "performance" section with a flamegraph showing which parts of the process take the most time.

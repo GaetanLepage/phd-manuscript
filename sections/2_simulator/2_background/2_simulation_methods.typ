@@ -18,7 +18,7 @@ In 1984, Jeffrey Borish extended the technique to arbitrary polyhedral rooms @bo
   Resources: Waveverb (https://reuk.github.io/wayverb/image_source.html)
 ]
 
-// OG paper: 
+// OG paper:
 
 // @srivastava_how_2023 has some info on ISM ('Method' section)
 
