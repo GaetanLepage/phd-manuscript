@@ -41,6 +41,7 @@ Here, all surfaces are assumed to behave the same, and the _equivalent absorptio
 #reset-acronym("RIR")
 ==== #acr("RIR")
 
+#draft[TODO: introduce the concept of #acr("RIR")]
 
 
 #figure(
@@ -53,5 +54,5 @@ Here, all surfaces are assumed to behave the same, and the _equivalent absorptio
 
 Once the pairwise $n_m times n_s$ #acr("RIR") filters have been computed, the resulting signal received at microphone $k$ is obtained by convolving it with the source signal:
 $
-  m_k [t] = sum_(i=1)^(n_s) (H_(i, k) * s_i)[t]  #h(2em) forall k in [|1, n_m|]
+  m_k [t] = sum_(i=1)^(n_s) (h_(i, k) * s_i)[t]  #h(2em) forall k in [|1, n_m|]
 $ <eq:simulator:rir_listened_signal>

@@ -35,18 +35,36 @@ The the neural network is expected to extract the relevant localization informat
 Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
 
 In this work, we focus on time-frequency representations.
-Adaptations of 2D convolutions to complex tensors do exist and have already been used in the #acr("SSL") litterature.
+Adaptations of 2D convolutions to complex tensors do exist and have already been used in the #acr("SSL") literature.
 In @krause_comparison_2021, Krause et al. present this variation along with its benefits (Section II.B).
 In this work though, regular 2D convolutions have been employed and the complex-valued #acr("STFT") were needed to be converted to real values.
 To achieve this, two schemes were compared:
 - On the one hand, both the real and imaginary parts of the complex data can populate the two real resulting matrices:
-$
-  S |-> lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
-$
+  $
+    phi_"cart": #h(1cm) CC^(F times T) & -->               RR^(2 times F times T)\
+    Z        & arrow.r.long.bar 
+    lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
+  $
+  This form will be referred to as the Cartesian projection.
+#gaet[
+  The following is less accurate, but maybe enough and clearer. What do you prefer ?
+  $
+    Z |-> lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
+  $
+]
+
 - The other method consists in using the polar form of the Fourier representation:
 $
-  S |-> lr((abs(Z), angle Z), size: #140%)
+  phi_"pol": #h(1cm) CC^(F times T) & -->               RR^(2 times F times T)\
+  Z        & arrow.r.long.bar 
+  lr((abs(Z), arg(Z)), size: #140%)
 $
+#gaet[
+  Same here,
+  $
+    Z |-> lr((abs(Z), arg(Z)), size: #140%)
+  $
+]
 
 When using #acr("STFT") features directly, they get converted to real values as following.
 Each complex matrix translates to two real ones by splitting the modulus and the phase of each entry.
@@ -75,9 +93,9 @@ This choice allows the use for conventional real-valued 2D convolutions.
     midrule,
 
     // ROWS
-    [Interaural (ILD/IPD)],       [0.0], [0.0],
-    [#acr("STFT") (real./imag.)], [0.0], [0.0],
-    [#acr("STFT") (polar)],       [0.0], [0.0],
+    [Interaural (ILD/IPD)],     [0.0], [0.0],
+    [#acr("STFT") (cartesian)], [0.0], [0.0],
+    [#acr("STFT") (polar)],     [0.0], [0.0],
     
     bottomrule
   ),
