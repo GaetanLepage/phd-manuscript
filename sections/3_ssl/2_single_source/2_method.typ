@@ -257,17 +257,16 @@ where $d = (d_1, dots, d_n)$ is the set of predicted distances and $hat(d) = (ha
   $ <eq:ssl:single_source:dist_loss>
 
   or even
-$
-  cal(L) (
-    (d, hat(d)), (theta, hat(theta))
-  ) = 1 / n
-  sum_(i=1)^n
-  [
-    d(theta_i, hat(theta)_i)^2
-    + norm(d_i - hat(d)_i)_2^2
-  ]
-$
-where $d = (d_1, dots, d_n)$ is the set of predicted distances and $hat(d) = (hat(d)_1, dots, hat(d)_n)$ the ground truth data.
+  $
+    cal(L) (
+      (d, hat(d)), (theta, hat(theta))
+    ) = 1 / n
+    sum_(i=1)^n
+    [
+      d(theta_i, hat(theta)_i)^2
+      + norm(d_i - hat(d)_i)_2^2
+    ]
+  $
 ]
 
 #gaet[

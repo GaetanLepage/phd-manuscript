@@ -239,7 +239,7 @@ In conclusion, the simulator furnishes a convenient and safe interface for movin
 This facilitates the flexible implementation of numerous acoustic #acr("HRI") use cases.
 
 
-====== Simulation process
+====== Simulation process <sec:simulator:simulator:components:sim_process>
 
 Most downstream tasks leveraging the simulator involved some type of iteration through discrete time step simulation.
 More precisely, the typical workflow when using the simulator includes an initialization phase, where the _Room_, microphone array and _AudioSimulator_ are created.
@@ -265,23 +265,18 @@ Lastly, the agent might be moved using the exposed displacement helpers presente
 
 *Duration control.*
 By default, given $n_s$ input signals of durations $(d_s^1, dots, d_s^(n_s))$, the received signal at each microphone will last
+#let d-rec = $d_"rec"$
 $
-  d_r = ( max_(i=1 dots n_s) d_s^i ) + T_60
+  #d-rec = ( max_(i=1 dots n_s) d_s^i ) + T_60
 $
 seconds.
-After $d_r$ seconds, the energy of the received signal becomes negligible.
+After #d-rec seconds, the energy of the received signal becomes negligible.
 In practice, the simulator allows to artificially reduce the time of the simulation.
-This may happen by first shortening the input signals to a given duration $d_s^"lim"$, thus leading to having $d_r = d_s^"lim" + T_60$.
+This may happen by first shortening the input signals to a given duration $d_s^"lim"$, thus leading to having $#d-rec = d_s^"lim" + T_60$.
 Alternatively, the resulting audio can be trimmed to any wanted duration.
 The duration control feature gives a fine-grained control on the computational time.
-Indeed, as further demonstrated in later @sec:simulator:simulator:performance the simulation time is directly proportional to the duration of the signals.
+Indeed, as further demonstrated in later @sec:simulator:simulator:performance the simulation time is directly impacted by the duration of the signals.
 
-
-
-#draft[
-  TODO: maybe add a "performance" section with a flamegraph showing which parts of the process take the most time.
-  - We could compare the two back ends.
-]
 
 ====== Feature extraction
 

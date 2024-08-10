@@ -37,7 +37,8 @@
   "STFT": ("Short Term Fourier Transform"),
   
   // RL
-  "RL": ("Reinforcement Learning"),
   "DRL": ("Deep Reinforcement Learning"),
+  "MDP": ("Markov Decision Process", "Markov Decision Processes"),
   "PPO": ("Proximal Policy Optimization"),
+  "RL": ("Reinforcement Learning"),
 ))

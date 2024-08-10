@@ -47,8 +47,9 @@
   indent: true,
   depth: 2
 )
+#gaet[How deep should the table of content go ?]
 
-#include "misc/planning.typ"
+#include "misc/progress.typ"
 // Figures table
 #outline(
   title: "Table of figures",
