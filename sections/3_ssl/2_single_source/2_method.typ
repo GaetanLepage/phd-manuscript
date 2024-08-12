@@ -235,41 +235,10 @@ where $d = (d_1, dots, d_n)$ is the set of predicted distances and $hat(d) = (ha
   The total loss then becomes
   $
     cal(L)
-    lr(
-      (
-        (hat(theta), theta), (hat(d), d)
-      ),
-      size: #130%
-    ) =
+     =
     #l-doa (hat(theta), theta)
-    + cal(L)_"dist" (hat(d), d).
+    + #l-dist (hat(d), d).
   $ <eq:ssl:single_source:total_loss>
-]
-
-
-
-
-
-
-#gaet[
- Wouldn't the following be even easier to read (although less accurate)
-  $
-    cal(L) =
-    cal(L)_"DoA" (hat(theta), theta)
-    + cal(L)_"dist" (hat(d), d)
-  $ <eq:ssl:single_source:dist_loss>
-
-  or even
-  $
-    cal(L) (
-      (d, hat(d)), (theta, hat(theta))
-    ) = 1 / n
-    sum_(i=1)^n
-    [
-      d(theta_i, hat(theta)_i)^2
-      + norm(d_i - hat(d)_i)_2^2
-    ]
-  $
 ]
 
 #gaet[
