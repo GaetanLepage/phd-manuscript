@@ -37,7 +37,9 @@ To get around this, they collaborated with physicists to build a fast and accura
 
 
 // Simulation in robotics
-Coming back to the subject of #acr("HRI") and robotics in general, simulators have also shown to be essential for developing and testing 
+Coming back to the subject of #acr("HRI") and robotics in general, simulators have also shown to be essential for developing and testing novel algorithms.
+Experimenting with uncertain methods remains cheaper and safer within a virtual environment rather than in the physical world.
+Involving real hardware brings extra cost and the need for sufficient safety measures.
 #draft[
   - In classic robotics, simulator are cheaper and faster (especially for DRL)
   - In HRI, all this is true, but it's even more useful as there are humans involved in the loop (human time is expensive + eventual risks of hurting people)
