@@ -80,7 +80,7 @@ The consequent #acr("STFT") counts 337 frequency bins.
 
 
 *Audio chunking.*
-We finally extract at most five short chunks of 400ms (i.e. 16 frames) from the global #acr("STFT")s.
+We finally extract at most five short chunks of 360ms (i.e. 16 frames) from the global #acr("STFT")s.
 This duration constitutes a tradeoff between detection latency and performance.
 The longest the method is offered to listen, the better more accurate the results will be.
 However, in a dynamic robotics context, which we ultimately target, we cannot afford having long audio sequences for inferring the source positions.

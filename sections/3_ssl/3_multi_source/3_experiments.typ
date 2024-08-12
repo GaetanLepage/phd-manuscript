@@ -1,6 +1,11 @@
 #import "/utils.typ": *
 #import "2_method.typ": tau-e
 
+#let header-mae = [MAE (°) #sym.arrow.b]
+#let header-acc = [Accuracy (%) #sym.arrow.t]
+#let header-prec = [Precision (%) #sym.arrow.t]
+#let header-recall = [Recall (%) #sym.arrow.t]
+
 === Experiments and results
 
 // QUESTION: Should we mention the experiments made on the ILD/IPD binaural setup ?
@@ -145,7 +150,7 @@ $
 
 From this observation, the strategy of enforcing $#pred = 0$, ensures the loss will never exceed $cal(L) (#gt, 0)$.
 A careful choice of both the batch size and the learning rate were necessary to prevent this phenomenon for happening.
-To empirically illustrate this behavior, we monitor in @fig:ssl:multi_source:output_norm_plot the norm $norm(o)_2^2$ of the network output, defined by 
+To empirically illustrate this behavior, we monitor in @fig:ssl:multi_source:output_norm_plot the $cal(l)^2$ norm $norm(o)_2^2$ of the network output, defined by 
 
 $
   norm(o)_2^2 = 1 / d sum_(i=1) ^d o_i^2
@@ -190,6 +195,10 @@ Identifying, characterizing and overcoming this shortcoming has been an essentia
 As explained in @sec:ssl:multi_source:method:dataset, the dataset allows for dynamically selecting a subset of zero to four sources at runtime.
 This features has allowed us to experiment with the impact of how many sources are present in the room simultaneously.
 
+#gaet[
+  According to Chris, this is not that relevant
+]
+#draft[
 *Training frameworks.*
 On the one hand, the two following training setups can be compared:
 - _Scenario A_ is the setup proposed in @he_neural_2021 with the following repartition of samples:
@@ -232,6 +241,7 @@ Furthermore, the more sources are simultaneously present in the room, the more c
 One should note that both training and test datasets are different.
 The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
 The rest of the experiments have been conducted with respect to _Scenario A_, following the same distribution of source numbers as He et al used in @he_neural_2021.
+]
 
 *Evaluation frameworks.*
 For understanding the impact of the number of concurrent sources in the room on performance, we have evaluated a given network in various scenarios.
@@ -261,10 +271,10 @@ The network has been trained according to the _scenario A_ presented above.
         [Scenario A\ (0-4 sources)],
         [Scenario B\ (1-4 sources)],
       ),
-      [MAE (°) #sym.arrow.b],       [2.59],  [7.26],  [15.89], [21.95], [9.13],  [15.24],
-      [Accuracy (%) #sym.arrow.t],  [88.58], [70.78], [58.18], [50.21], [71.36], [60.52],
-      [Precision (%) #sym.arrow.t], [87.70], [79.56], [74.99], [72.08], [80.99], [76.73],
-      [Recall (%) #sym.arrow.t],    [88.70], [68.07], [54.73], [46.22], [69.26], [57.36],
+      header-mae,     [2.59],  [7.26],  [15.89], [21.95], [9.13],  [15.24],
+      header-acc,     [88.58], [70.78], [58.18], [50.21], [71.36], [60.52],
+      header-prec,    [87.70], [79.56], [74.99], [72.08], [80.99], [76.73],
+      header-recall,  [88.70], [68.07], [54.73], [46.22], [69.26], [57.36],
     ),
     caption: [
       #acr("SSL") performance depending on the number of active sources
@@ -295,30 +305,43 @@ $ <eq:ssl:multi_source:epsilon_loss>
 
 #gaet[Should we do a plot to show the multiplicative factor across the DoA spectrum ?]
 
-//TODO: add the results (ablation study)
-#show table.cell.where(x: 0): strong
-#show table.cell.where(y: 0): strong
 #figure(
-  table(
+  tablex(
+    // SETTINGS
     columns: 7,
-    table.header(
-      [],
-      [$diameter$],
-      [$epsilon=0.1$],
-      [$epsilon=0.2$],
-      [$epsilon=0.4$],
-      [$epsilon=0.6$],
-      [$epsilon=1.0$],
-    ),
-    [MAE (°) #sym.arrow.b],       [9.36],  [8.17],  [8.29],  [*8.13*],  [8.32],  [8.49],
-    [Accuracy (%) #sym.arrow.t],  [70.56], [71.68], [71.02], [*71.99*], [71.60], [71.38],
-    [Precision (%) #sym.arrow.t], [*81.04*], [67.86], [70.36], [75.96], [76.94], [76.87],
-    [Recall (%) #sym.arrow.t],    [68.36], [*70.62*], [69.86], [70.28], [69.88], [69.61],
+    header-rows: 1,
+    align: left + horizon,
+    auto-vlines: false,
+    auto-hlines: false,
+    
+    // HEADER
+    toprule,
+
+    [],
+    [$diameter$],
+    [$epsilon=0.1$],
+    [$epsilon=0.2$],
+    [$epsilon=0.4$],
+    [$epsilon=0.6$],
+    [$epsilon=1.0$],
+    
+    midrule,
+
+    // ROWS
+    header-mae,     [9.36],  [8.17],  [8.29],  [*8.13*],  [8.32],  [8.49],
+    header-acc,     [70.56], [71.68], [71.02], [*71.99*], [71.60], [71.38],
+    header-prec,    [*81.04*], [67.86], [70.36], [75.96], [76.94], [76.87],
+    header-recall,  [68.36], [*70.62*], [69.86], [70.28], [69.88], [69.61],
+
+    bottomrule
   ),
+  placement: top,
+  kind: table,
   caption: [
     Performance of the #acr("SSL") model trained with the $epsilon$-loss
   ]
-)
+) <table:ssl:multi_source:experiments:epsilon_loss>
+
 
 #gaet[
   Should we also show some training curves ?\
@@ -432,7 +455,7 @@ This constitutes an important limitation of batch normalization in this case as 
   tablex(
     // SETTINGS
     columns: 7,
-    header-rows: 1,
+    header-rows: 2,
     align: left + horizon,
     auto-vlines: false,
     auto-hlines: false,
@@ -453,17 +476,17 @@ This constitutes an important limitation of batch normalization in this case as 
     midrule,
 
     // ROWS
-    [MAE (°) #sym.arrow.b],       [29.58], [42.10], [9.32],  [9.11],  [9.07],  [*8.95*],
-    [Accuracy (%) #sym.arrow.t],  [53.45], [26.03], [73.00], [73.43], [73.66], [*73.76*],
-    [Precision (%) #sym.arrow.t], [45.37], [12.39], [83.7],  [84.26], [84.71], [*84.78*],
-    [Recall (%) #sym.arrow.t],    [61.00], [51.43], [70.61], [70.96], [71.19], [*71.35*],
+    header-mae,    [29.58], [42.10], [9.32],  [9.11],  [9.07],  [*8.95*],
+    header-acc,    [53.45], [26.03], [73.00], [73.43], [73.66], [*73.76*],
+    header-prec,   [45.37], [12.39], [83.7],  [84.26], [84.71], [*84.78*],
+    header-recall, [61.00], [51.43], [70.61], [70.96], [71.19], [*71.35*],
 
     bottomrule
   ),
   placement: top,
   kind: table,
   caption: [
-    #acr("SSL") performance depending on the number of active sources
+    #acr("SSL") performance of #acr("BN") network w.r.t the evaluation mode
   ]
 ) <table:ssl:multi_source:experiments:batch_norm>
 
@@ -478,6 +501,9 @@ As explained in @sec:ssl:multi_source:experiments:normalization:background, #acr
 @table:ssl:multi_source:experiments:norm_comparison compares the final performance of the different normalization approaches.
 All models are evaluated on the same test dataset.
 
+#draft[
+  TODO empty column
+]
 #figure(
   tablex(
     // SETTINGS
@@ -499,10 +525,10 @@ All models are evaluated on the same test dataset.
     midrule,
 
     // ROWS
-    [MAE (°) #sym.arrow.b],       [], [*8.95*],  [29.58], [9.37],
-    [Accuracy (%) #sym.arrow.t],  [], [*73.76*], [53.45], [70.35],
-    [Precision (%) #sym.arrow.t], [], [*84.78*], [45.37], [80.21],
-    [Recall (%) #sym.arrow.t],    [], [*71.35*], [61.00], [68.26],
+    header-mae,     [], [*8.95*],  [29.58], [9.37],
+    header-acc,     [], [*73.76*], [53.45], [70.35],
+    header-prec,    [], [*84.78*], [45.37], [80.21],
+    header-recall,  [], [*71.35*], [61.00], [68.26],
 
     bottomrule
   ),
@@ -516,6 +542,28 @@ All models are evaluated on the same test dataset.
 Overall, #acr("LN") and #acr("BN") offer comparable performance.
 However, the model trained with #acr("LN") behave very consistently when used in evaluation.
 For those reasons, we have preferred this approach over the original one.
+
+==== Impact of context length
+
+The choice of the signal duration used for training the localizer has some importance.
+A tradeoff has to be made between the reactivity of the system and detection performance.
+Naturally, disposing of longer sequences of input audio is suspected to lead to higher metrics values.
+On the other hand restricting the snippet length even further might hinder the robustness of the results.
+
+To quantitatively evaluate those assumptions, we have trained our neural network on shorter audio recordings.
+As presented in @sec:ssl:multi_source:method:dataset, the baseline duration of used recordings amount to roughly 360ms of audio.
+
+#draft[
+  Should 'Sequence processing' simply be a sub-section of this ?
+]
+
+#draft[
+  TODO: compare trained on Tn vs trained on T and averaged n times
+]
+
+#draft[
+  Transi: "going in the other direction and using longer snippets"
+]
 
 ==== Sequence processing
 
@@ -583,32 +631,45 @@ This drawback gets offset by leveraging the overall consistency of the method ov
 In order to further characterize this behavior, we have executed an exhaustive performance evaluation of the sequence processing workflow.
 
 
-// TODO: align
-#[
-  #show table.cell.where(x: 0): strong
-  #show table.cell.where(y: 0): strong
-  #set text(size: 10pt)
-  #figure(
-    table(
-      columns: 6,
-      table.header(
-        [],
-        [16 frames (363ms)],
-        [32 frames (704ms)],
-        [64 frames (1.39s)],
-        [512 frames (10.9s)],
-        [full samples],
-      ),
-      [MAE (°) #sym.arrow.b],       [8.85],  [6.26],  [5.41],  [3.94],  [*3.90*],
-      [Accuracy (%) #sym.arrow.t],  [72.80], [80.93], [84.41], [87.80], [*88.00*],
-      [Precision (%) #sym.arrow.t], [83.20], [89.93], [94.33], [96.26], [*96.26*],
-      [Recall (%) #sym.arrow.t],    [70.96], [78.70], [82.09], [84.61], [*84.80*],
-    ),
-    caption: [
-      #acr("SSL") performance for different context lengths
-    ]
-  ) <table:ssl:multi_source:experiments:sequence_processing>
-]
+#figure(
+  tablex(
+    // SETTINGS
+    columns: 6,
+    header-rows: 1,
+    align: left + horizon,
+    auto-vlines: false,
+    auto-hlines: false,
+    
+    // HEADER
+    toprule,
+
+    [],
+    [16 frames (363ms)],
+    [32 frames (704ms)],
+    [64 frames (1.39s)],
+    [512 frames (10.9s)],
+    [full samples],
+    
+    midrule,
+
+    // ROWS
+    header-mae,     [8.85],  [6.26],  [5.41],  [3.94],  [*3.90*],
+    header-acc,     [72.80], [80.93], [84.41], [87.80], [*88.00*],
+    header-prec,    [83.20], [89.93], [94.33], [96.26], [*96.26*],
+    header-recall,  [70.96], [78.70], [82.09], [84.61], [*84.80*],
+
+    bottomrule
+  ),
+  placement: top,
+  kind: table,
+  caption: [
+    #acr("SSL") performance for different context lengths
+  ]
+) <table:ssl:multi_source:experiments:sequence_processing>
+
+
+
+
 
 @table:ssl:multi_source:experiments:sequence_processing exposes the results of the trained model for various context windows.
 It appears clearly that the longer the agent is able to hear, the better its localization performance becomes.
