@@ -11,9 +11,10 @@
   centering: true
 )[
   #show: checklist
-  - *Misc:*
-    - [ ] switch to a proper manuscript template
   #line(length: 100%)
+  + *Front:*
+    - [ ] Abstract
+    - [ ] Acknowledgement
   + *Intro*
     - [ ] write
   + *Simulator*
@@ -38,11 +39,23 @@
     - [ ] 2. Methods
     - [ ] 3. Results
   + *RL*
+    - [ ] Intro to RL
+    - [ ] Sound-driven robot navigation
+    - [ ] Experiments and discussions
   + *Conclusion*
   #line(length: 100%)
   - *Final things:*
     - [ ] Grammar check
-    - [ ] figure/table placement check
+    - *Layout:*
+      - [ ] figure/table placement check
+      - [ ] Check that all `subpar.grid` figures have their `numbering` set to `fig-numbering`
+      - [ ] Check margins
 ]
 
-#gaet[I have added _local_ TOCs at the beginning of each chapter to help me, but I plan to remove them later.]
+#gaet[
+  *General questions:*
+  - Aren't the margins too narrow ?
+
+  *Remarks:*
+  - I have added _local_ TOCs at the beginning of each chapter to help me, but I plan to remove them later.
+]

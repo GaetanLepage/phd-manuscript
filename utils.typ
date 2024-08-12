@@ -12,12 +12,23 @@
 #import "@preview/algorithmic:0.1.0"
 #import algorithmic: algorithm
 
+/* MATHS */
 #let colMath(x, color) = text(fill: color)[$#x$]
 #let mabs = math.abs.with(size: 130%)
 
+/* CAPTIONS */
 #let in-outline = state("in-outline", false)
 #let flex-caption(long, short) = context if in-outline.get() { short } else { long }
 
+/* FIGURES numbering */
+#let fig-numbering = fig_num => {
+  let chap_num =  counter(heading).get().first()
+  
+  numbering("1.1", chap_num, fig_num)
+}
+
+
+/* COMMENTING */
 #let draft(body) = {
   set text(fill: maroon)
   [_#body _]

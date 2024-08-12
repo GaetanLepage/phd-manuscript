@@ -21,5 +21,6 @@
     "/sections/5_rl/bibliography/2_rl_robotics.bib",
     "/sections/5_rl/bibliography/ppo.bib",
     "/sections/5_rl/bibliography/software.bib",
-  )
+  ),
+  style: "ieee",
 )
