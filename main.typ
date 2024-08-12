@@ -17,7 +17,7 @@
 //#show table: set par(justify: false)
 #show figure.where(kind: table): it => {
   let body = {
-    v(1em, weak: true)  // Does not work at the block beginning.
+    v(20pt, weak: true)  // Does not work at the block beginning.
     it.caption
     v(1em, weak: true)
     it.body

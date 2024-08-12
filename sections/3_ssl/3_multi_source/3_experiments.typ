@@ -478,30 +478,40 @@ As explained in @sec:ssl:multi_source:experiments:normalization:background, #acr
 @table:ssl:multi_source:experiments:norm_comparison compares the final performance of the different normalization approaches.
 All models are evaluated on the same test dataset.
 
-#[
-  #show table: set text(size: 10pt)
-  #show table.cell.where(x: 0): strong
-  #show table.cell.where(y: 0): strong
-  #figure(
-    table(
-      columns: 5,
-      table.header(
-        [],
-        [No normalization],
-        [Batch norm\ (training mode, BS=500)],
-        [Batch norm\ (eval mode)],
-        [Layer norm],
-      ),
-      [MAE (°) #sym.arrow.b],       [], [*8.95*],  [29.58], [9.37],
-      [Accuracy (%) #sym.arrow.t],  [], [*73.76*], [53.45], [70.35],
-      [Precision (%) #sym.arrow.t], [], [*84.78*], [45.37], [80.21],
-      [Recall (%) #sym.arrow.t],    [], [*71.35*], [61.00], [68.26],
-    ),
-    caption: [
-      #acr("SSL") performance depending on the number of active sources
-    ]
-  ) <table:ssl:multi_source:experiments:norm_comparison>
-]
+#figure(
+  tablex(
+    // SETTINGS
+    columns: 5,
+    header-rows: 1,
+    align: left + horizon,
+    auto-vlines: false,
+    auto-hlines: false,
+    
+    // HEADER
+    toprule,
+
+    [],
+    [No normalization],
+    [Batch norm\ (training mode, BS=500)],
+    [Batch norm\ (eval mode)],
+    [Layer norm],
+    
+    midrule,
+
+    // ROWS
+    [MAE (°) #sym.arrow.b],       [], [*8.95*],  [29.58], [9.37],
+    [Accuracy (%) #sym.arrow.t],  [], [*73.76*], [53.45], [70.35],
+    [Precision (%) #sym.arrow.t], [], [*84.78*], [45.37], [80.21],
+    [Recall (%) #sym.arrow.t],    [], [*71.35*], [61.00], [68.26],
+
+    bottomrule
+  ),
+  placement: top,
+  kind: table,
+  caption: [
+    #acr("SSL") performance depending on the normalization strategy
+  ]
+) <table:ssl:multi_source:experiments:norm_comparison>
 
 Overall, #acr("LN") and #acr("BN") offer comparable performance.
 However, the model trained with #acr("LN") behave very consistently when used in evaluation.

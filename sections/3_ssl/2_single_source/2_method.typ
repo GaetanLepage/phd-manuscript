@@ -84,7 +84,10 @@ In the context of #acr("SSL"), an non-homogeneous pattern brings extra angular i
 We have thus tested different configurations in our single-source #acr("SSL") experiments
 
 
-==== Neural Network Architectures <sec:ssl:single_source:method:nn_architectures>
+==== Audio post-processing <sec:ssl:single_source:method:audio_processing>
+
+
+==== Neural Network Architecture
 
 As demonstrated in @sec:ssl:sota:deep_learning, deep neural networks have shown to be flexible and effective as building blocks for an #acr("SSL") solution.
 We focused in this work on simple architectures that take some representation of the listened audio signal as their only input.
