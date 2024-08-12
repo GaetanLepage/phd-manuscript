@@ -46,6 +46,11 @@ Involving real hardware brings extra cost and the need for sufficient safety mea
 ]
 #draft[TODO: challenges of Sim2Real, for learning methods]
 
+#draft[
+  - @liu_role_2021 The role of physics-based simulators in robotics
+  - @choi_use_2021 On the use of simulation in robotics: Opportunities,challenges, and suggestions for moving forward
+]
+
 // Audio
 #draft[TODO: audio]
 

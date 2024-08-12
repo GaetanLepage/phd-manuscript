@@ -181,6 +181,7 @@ Also, the relative microphones distance and orientation are alterable.
     Examples of microphone arrays available in the simualator
   ],
   align: top,
+  numbering: fig-numbering,
   label: <fig:simulator:simulator:mic_arrays>,
 )
 

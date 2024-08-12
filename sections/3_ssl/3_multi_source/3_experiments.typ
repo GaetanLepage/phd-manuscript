@@ -36,7 +36,7 @@ For convenience, the #acr("MAE") will most often be expressed in degrees:
 $
   "MAE"° = 180 / pi "MAE"
 $
-#gaet[Not sure that this equation is needed at all.]
+#gaet[Not sure that the above equation is needed at all.]
 
 The _#acr("ACC")_ constitutes the second metric for this framework and, given an error threshold $colMath(E_a, #eastern)$, provides the proportion of correctly localized sources:
 $ "ACC" = (
@@ -215,28 +215,38 @@ Once the network successfully learns that it should output a zero-vector for tho
 Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to properly localize them.
 @table:ssl:multi_source:experiments:n_sources_train displays the final performance of models trained on datasets corresponding to each scenario.
 
-// Two different trainings
-#[
-  #show table.cell.where(x: 0): strong
-  #show table.cell.where(y: 0): strong
-  #figure(
-    table(
-      columns: 3,
-      table.header(
-        [],
-        [Dataset A],
-        [Dataset B],
-      ),
-      [MAE (°) #sym.arrow.b],       [9.13],  [14.05],
-      [Accuracy (%) #sym.arrow.t],  [71.36], [61.76],
-      [Precision (%) #sym.arrow.t], [80.98], [76.96],
-      [Recall (%) #sym.arrow.t],    [69.26], [58.53],
-    ),
-    caption: [
-      #acr("SSL") performance when trained with different number of sources
-    ]
-  ) <table:ssl:multi_source:experiments:n_sources_train>
-]
+#figure(
+  tablex(
+    // SETTINGS
+    columns: 3,
+    header-rows: 1,
+    align: left + horizon,
+    auto-vlines: false,
+    auto-hlines: false,
+    
+    // HEADER
+    toprule,
+
+    [],
+    [Dataset A],
+    [Dataset B],
+    
+    midrule,
+
+    // ROWS
+    header-mae,     [9.13],  [14.05],
+    header-acc,     [71.36], [61.76],
+    header-prec,    [80.98], [76.96],
+    header-recall,  [69.26], [58.53],
+
+    bottomrule
+  ),
+  placement: top,
+  kind: table,
+  caption: [
+    #acr("SSL") performance when trained with different number of sources
+  ]
+) <table:ssl:multi_source:experiments:n_sources_train>
 
 One should note that both training and test datasets are different.
 The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
@@ -248,39 +258,43 @@ For understanding the impact of the number of concurrent sources in the room on 
 The network has been trained according to the _scenario A_ presented above.
 
 
-#gaet[
-  Questions on tables:
-  + Should I report the unit along the value in each cell or is it OK like this (to have the unit in the row name) ?
-  + Which precision for the numbers in the tables ?
-  + Should I put in bold the best values ?
-]
-
 // Same training with different number of sources
-#[
-  #show table.cell.where(x: 0): strong
-  #show table.cell.where(y: 0): strong
-  #figure(
-    table(
-      columns: 7,
-      table.header(
-        [],
-        [1 source],
-        [2 sources],
-        [3 sources],
-        [4 sources],
-        [Scenario A\ (0-4 sources)],
-        [Scenario B\ (1-4 sources)],
-      ),
-      header-mae,     [2.59],  [7.26],  [15.89], [21.95], [9.13],  [15.24],
-      header-acc,     [88.58], [70.78], [58.18], [50.21], [71.36], [60.52],
-      header-prec,    [87.70], [79.56], [74.99], [72.08], [80.99], [76.73],
-      header-recall,  [88.70], [68.07], [54.73], [46.22], [69.26], [57.36],
-    ),
-    caption: [
-      #acr("SSL") performance depending on the number of active sources
-    ]
-  )
-]
+#figure(
+  tablex(
+    // SETTINGS
+    columns: 7,
+    header-rows: 1,
+    align: left + horizon,
+    auto-vlines: false,
+    auto-hlines: false,
+    
+    // HEADER
+    toprule,
+
+    [],
+    [1 source],
+    [2 sources],
+    [3 sources],
+    [4 sources],
+    [Scenario A\ (0-4 sources)],
+    [Scenario B\ (1-4 sources)],
+    
+    midrule,
+
+    // ROWS
+    header-mae,     [2.59],  [7.26],  [15.89], [21.95], [9.13],  [15.24],
+    header-acc,     [88.58], [70.78], [58.18], [50.21], [71.36], [60.52],
+    header-prec,    [87.70], [79.56], [74.99], [72.08], [80.99], [76.73],
+    header-recall,  [88.70], [68.07], [54.73], [46.22], [69.26], [57.36],
+
+    bottomrule
+  ),
+  placement: top,
+  kind: table,
+  caption: [
+    #acr("SSL") performance depending on the number of active sources
+  ]
+)
 
 #draft[
   TODO: make a comparison between performance achieved on single-source SSL.\
@@ -543,15 +557,54 @@ Overall, #acr("LN") and #acr("BN") offer comparable performance.
 However, the model trained with #acr("LN") behave very consistently when used in evaluation.
 For those reasons, we have preferred this approach over the original one.
 
+
+
+
 ==== Impact of context length
 
 The choice of the signal duration used for training the localizer has some importance.
-A tradeoff has to be made between the reactivity of the system and detection performance.
+A tradeoff needs to be made between the reactivity of the system and detection performance.
 Naturally, disposing of longer sequences of input audio is suspected to lead to higher metrics values.
 On the other hand restricting the snippet length even further might hinder the robustness of the results.
 
-To quantitatively evaluate those assumptions, we have trained our neural network on shorter audio recordings.
+To quantitatively evaluate those assumptions, we have trained our neural network on audio recordings of different lengths.
 As presented in @sec:ssl:multi_source:method:dataset, the baseline duration of used recordings amount to roughly 360ms of audio.
+Here, lower durations have been tested.
+
+#figure(
+  tablex(
+    // SETTINGS
+    columns: 5,
+    header-rows: 1,
+    align: left + horizon,
+    auto-vlines: false,
+    auto-hlines: false,
+    
+    // HEADER
+    toprule,
+
+    [],
+    [2 frames (64ms)],
+    [4 frames (107ms)],
+    [8 frames (192ms)],
+    [16 frames (341ms)],
+    
+    midrule,
+
+    // ROWS
+    header-mae,     [], [], [], [],
+    header-acc,     [], [], [], [],
+    header-prec,    [], [], [], [],
+    header-recall,  [], [], [], [],
+
+    bottomrule
+  ),
+  placement: top,
+  kind: table,
+  caption: [
+    #acr("SSL") performance depending on the input duration
+  ]
+) <table:ssl:multi_source:experiments:context_len_training>
 
 #draft[
   Should 'Sequence processing' simply be a sub-section of this ?
@@ -565,7 +618,7 @@ As presented in @sec:ssl:multi_source:method:dataset, the baseline duration of u
   Transi: "going in the other direction and using longer snippets"
 ]
 
-==== Sequence processing
+===== Sequence processing
 
 #gaet[This sounds very pessimistic and might not be necessary]
 In order to overcome the weaknesses of our model, we have proposed to use our method on longer recordings.
@@ -609,6 +662,7 @@ Disposing of features corresponding to several seconds of simulation allows for 
   caption: [
     Example of a sequence processing result
   ],
+  numbering: fig-numbering,
   label: <fig:ssl:multi_source:sequence_processing>,
 )
 

@@ -210,6 +210,7 @@ In the case of a binaural microphone system,
   ), <fig:ssl:sota:tf_representations:ipd>,
   columns: (1fr, 1fr, 1fr),
   align: top,
+  numbering: fig-numbering,
   caption: [Illustration of time-frequency representations of a speech signal],
   label: <fig:ssl:sota:tf_representations>,
 )

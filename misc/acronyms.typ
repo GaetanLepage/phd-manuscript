@@ -7,6 +7,7 @@
   "RMSE": ("Root Mean Square Error"),
   
   // Deep Learning
+  "DL": ("Deep Learning"),
   "MSE": ("Mean Squared Error"),
   "BN": ("Batch Normalization"),
   "LN": ("Layer Normalization"),

@@ -24,3 +24,9 @@ As a consequence, only a short recording should suffice to accomplish an accurat
 // TODO Nature of the source
 
 
+#draft[Needs transition]
+
+The objective of this work is not to establish a state of the art solution for #acr("SSL").
+Conversely, a proof of concept for a complete localization pipeline is proposed.
+Our intention consists in studying the various determining factors of performance for a #acr("DL")-based #acr("SSL") system.
+#draft[TODO...]
