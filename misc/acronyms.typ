@@ -11,6 +11,8 @@
   "MSE": ("Mean Squared Error"),
   "BN": ("Batch Normalization"),
   "LN": ("Layer Normalization"),
+  "MLP": ("Multi Layer Perceptron"),
+  "ReLU": ("Rectified Linear Unit"),
   
   // ASR
   "ASR": ("Automatic Speech Recognition"),
