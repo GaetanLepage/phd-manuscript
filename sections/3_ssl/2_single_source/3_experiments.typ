@@ -19,11 +19,11 @@ where $n_"test"$ counts the number of samples in the test set.
 
 
 *Source-array distance metric.*
-When predicting the source-array distance, the #acr("MAE") is also used, here between predicted $hat(d)$ values and ground truth $d$:
-#let mae-dist = $"MAE"_d$
+When predicting the source-array distance, the #acr("MAE") is also used, here between predicted $hat(D)$ values and ground truth $D$:
+#let mae-dist = $"MAE"_D$
 $
   #mae-dist = 1 / n_"test" sum_(i=1) ^ n_"test"
-  abs(hat(d)_i - d_i)
+  abs(hat(D)_i - D_i)
 $ <eq:ssl:single_source:dist_metricc>
 
 

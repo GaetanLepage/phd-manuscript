@@ -90,33 +90,34 @@ We have thus tested different configurations in our single-source #acr("SSL") ex
 ==== Neural Network Architecture
 
 As demonstrated in @sec:ssl:sota:deep_learning, deep neural networks have shown to be flexible and effective as building blocks for an #acr("SSL") solution.
-We focused in this work on simple architectures that take some representation of the listened audio signal as their only input.
-At the other end, those networks are trained to infer the #acr("DoA") value $theta$ of the single speech source present in the room.
+We focused in this work on a simple architecture that takes some representation of the listened audio signal as its only input.
+At the other end, this network is trained to infer the #acr("DoA") value $theta$ and optionally the distance $D$ from the the single speech source present in the room.
 
-Our networks are trained in a supervised fashion using some custom datasets presented in @sec:ssl:single_source:method:dataset.
+Our model is trained in a supervised fashion using some custom datasets presented in @sec:ssl:single_source:method:dataset.
 
 #gaet[
-  Should we present both architectures or focus on the one we used the most ?
+  Should we say that the impact of the architecture (Relu vs ReLU+BN vs BN+ReLU vs ReLU+LN LN+ReLU) is laughingly HIGH ?
 ]
 
-// TODO: first simple architecture
+The architecture, depicted in @fig:ssl:single_source:nn_architecture, consists in three convolutional blocks.
+Each of them encompasses a 2D convolution operator, layer normalization and finally a #acr("ReLU").
+The convolutional filters operate in the time-frequency plane.
+The dimension of the multi-channel image progressively shrinks along the network.
+Ultimately, the data gets flatten into a one-dimensional vector fed into a 4-layers #acr("MLP").
+The number of output neurons can be configured depending on the necessity to predict only the #acr("DoA") value or both #acr("DoA") and source-array distance.
+
+*Architecture impact.*
+Our model architecture has been explicitly designed for the present use case.
+Literature on #acr("SSL") and more broadly computer vision has motivated the structure of this reasonably standard network.
+However, several variations have been regarding the layout of the convolutional blocks.
+Although performance in _easy_ tasks were not significantly impacted by those changes, they have turned out to be crucial for achieving satisfying results in more complex settings.
+
 #figure(
-  square(size: 10em, stroke: 2pt),
+  image("figures/ssl_singlesource_nn_architecture.svg"),
   caption: [
     Simple convolutional architecture for #acr("SSL")
   ],
-) <fig:ssl:single_source:ssl_nn_simple>
-
-The second architecture draws inspiration from the work of @krause_comparison_2021.
-It shares some similarities with the first architecture as being built around 2D convolution filters in the time-frequency plan.
-The two-dimensional representations of audio signals have the sensible
-
-#figure(
- square(size: 10em, stroke: 2pt),
-  caption: [
-    Simple convolutional architecture for #acr("SSL")
-  ],
-) <fig:ssl:single_source:ssl_nn_krause>
+) <fig:ssl:single_source:nn_architecture>
 
 // TODO: figure of the architecture
 
@@ -227,9 +228,9 @@ $
    #l-dist (hat(d), d) =
     1 / n
     sum_(i=1)^n
-  norm(hat(d)_i - d_i)_2^2
+  norm(hat(D)_i - D_i)_2^2
 $ <eq:ssl:single_source:dist_loss>
-where $d = (d_1, dots, d_n)$ is the set of predicted distances and $hat(d) = (hat(d)_1, dots, hat(d)_n)$ the ground truth data.
+where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (hat(D)_1, dots, hat(D)_n)$ the ground truth data.
 
 #block(breakable: false)[
   The total loss then becomes
@@ -237,11 +238,6 @@ where $d = (d_1, dots, d_n)$ is the set of predicted distances and $hat(d) = (ha
     cal(L)
      =
     #l-doa (hat(theta), theta)
-    + #l-dist (hat(d), d).
+    + #l-dist (hat(D), D).
   $ <eq:ssl:single_source:total_loss>
-]
-
-#gaet[
-  Also, do we really need to say "when also predicting the distance".
-  Maybe we can conduct all experiments predicting both the #acr("DoA") and distance.
 ]

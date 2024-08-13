@@ -12,7 +12,9 @@
 #include "abstracts.typ"
 
 
-#outline(title: "Contents")
+#outline(
+  title: "Contents"
+)
 #outline(
   title: "List of Figures",
   target: figure.where(kind: image)
