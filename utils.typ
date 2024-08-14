@@ -27,6 +27,7 @@
   numbering("1.1", chap_num, fig_num)
 }
 
+#let clorem(words) = text(red, lorem(words))
 
 /* COMMENTING */
 #let draft(body) = {
