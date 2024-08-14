@@ -53,8 +53,11 @@
 ]
 
 #gaet[
+  
   *General questions:*
   - Aren't the margins too narrow ?
+  - Should the links (references to sections/papers) be in blue ?
+  - Should we note tensor shapes $(X, Y, Z)$ or $X times Y times Z$ ?
 
   *Remarks:*
   - I have added _local_ TOCs at the beginning of each chapter to help me, but I plan to remove them later.

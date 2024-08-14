@@ -46,6 +46,7 @@ Several pre-processing methods exist to ease the extraction of geometric informa
 ]
 
 ==== Time-frequency representations
+<sec:simulator:background:features>
 
 Although the waveform rendering of an audio signal is a raw and natural representation of the information, several alternative higher-level transforms have been studied in the acoustic literature.
 // TODO: Fourier 'Transfom' or 'transform'
@@ -78,7 +79,7 @@ $ <eq:ssl:sota:stft_inf>
 This target domain is often referenced as the time-frequency plan.
 
 
-===== Binaural cues
+===== Binaural cues <sec:simulator:background:features:binaural>
 
 ====== Motivation
 

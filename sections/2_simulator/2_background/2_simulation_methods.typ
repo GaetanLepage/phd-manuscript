@@ -29,8 +29,7 @@ In 1984, Jeffrey Borish extended the technique to arbitrary polyhedral rooms @bo
 - @rosen_interactive_2020 + Planeverb library
 - @benhamou_numerical_2023
 
-#reset-acronym("GA")
-==== #acr("GA")
+==== Geometrical Acoustics
 
 Path/ray tracing
 - @savioja_overview_2015

@@ -13,7 +13,8 @@
 
 
 #outline(
-  title: "Contents"
+  title: "Contents",
+  //depth: 2,
 )
 #outline(
   title: "List of Figures",
