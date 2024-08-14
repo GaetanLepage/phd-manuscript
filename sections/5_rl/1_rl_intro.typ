@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-== Introduction to Reinforcement Learning <sec:rl:intro>
+== Introduction to Reinforcement Learning
+<sec:rl:intro>
 
 
 === Reinforcement Learning

@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-=== Performance <sec:simulator:simulator:performance>
+=== Performance
+<sec:simulator:simulator:performance>
 
 In this section, a simple ben
 

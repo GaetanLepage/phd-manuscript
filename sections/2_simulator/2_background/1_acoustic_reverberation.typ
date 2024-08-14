@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-=== Background <sec:simulator:background:reverb>
+=== Background
+<sec:simulator:background:reverb>
 
 ==== Problem formulation
 

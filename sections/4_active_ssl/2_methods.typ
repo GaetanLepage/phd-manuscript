@@ -1,5 +1,6 @@
 #import "/utils.typ": *
-== Methods <sec:active_ssl:methods>
+== Methods
+<sec:active_ssl:methods>
 
 === Problem formulation
 

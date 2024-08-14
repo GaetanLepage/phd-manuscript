@@ -3,7 +3,8 @@
 
 === Method
 
-==== Microphone array <sec:ssl:multi_source:mic_array>
+==== Microphone array
+<sec:ssl:multi_source:mic_array>
 
 For this investigation, a four microphone array is used.
 The sensors form a square TODO
@@ -12,7 +13,8 @@ The sensors form a square TODO
   According to me, it would not help a lot with understanding.
 ]
 
-==== Dataset generation and pre-processing <sec:ssl:multi_source:method:dataset>
+==== Dataset generation and pre-processing
+<sec:ssl:multi_source:method:dataset>
 
 #gaet[
   "4-microphone array", "four-microphone array" or "four microphone array" ?
@@ -136,7 +138,8 @@ One million of such sample pairs constitute the core training and test datasets 
 The total audio duration of the data approximates 47 hours.
 
 
-==== Direction of Arrival representation <sec:ssl:multi_source:method:doa_repr>
+==== Direction of Arrival representation
+<sec:ssl:multi_source:method:doa_repr>
 
 The objective of the #acr("SSL") task is to predict the Direction of Arrival (DOA) of the sound sources.
 Hence, the number of prediction outputted by an #acr("SSL") method can differ from situation to situation.
@@ -242,7 +245,8 @@ We chose to set $sigma = 5°$.
 
 The main benefit of this format, alongside with its ability to encode an arbitrary number of sources, is to frame the #acr("SSL") problem as a simple regression task.
 
-===== Detection decoding <sec:ssl:multi_source:method:detection_decoding>
+===== Detection decoding
+<sec:ssl:multi_source:method:detection_decoding>
 
 The employed #acr("DoA") encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
 Namely, thanks to its flexibility, it allows for representing an arbitrary number of sources.
@@ -302,7 +306,8 @@ $
       #h(2em)
       i in [|1, n|]
   }
-$ <eq:ssl:multi_source:decoding_known_sources>
+$
+<eq:ssl:multi_source:decoding_known_sources>
 The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
 
 // #algorithm({
@@ -351,6 +356,3 @@ As discussed in @sec:ssl:sota:deep_learning, using the image-like time-frequency
 // Similarly to our single-source methodology, we train our deep neural network in a supervised fashion.
 // 
 // // TODO: doesn't seem to work well...
-
-
-

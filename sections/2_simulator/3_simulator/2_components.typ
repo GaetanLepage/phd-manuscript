@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-=== Components <sec:simulator:simulator:features>
+=== Components
+<sec:simulator:simulator:components>
 
 In this part, each component briefly introduced in @sec:simulator:simulator:overview will be detailed and motivated.
 This offers a more in-depth description of the pipeline's inner workings.
@@ -11,7 +12,8 @@ This offers a more in-depth description of the pipeline's inner workings.
 In a first time, the acoustic simulation aspect of the library will be explored.
 This constitutes the starting point of the library and is responsible for its central feature: computing listened signals in a reverberant environment.
 
-===== #acr("RIR") simulation <sec:simulator:simulator:components:low_level:rir_sim>
+===== #acr("RIR") simulation
+<sec:simulator:simulator:components:low_level:rir_sim>
 
 The core component around which the simulation pipeline revolves is the #acr("RIR") simulation library.
 We have chosen the framework of #acr("RIR") filters for its simplicity and prevalence in the scientific literature.
@@ -135,7 +137,8 @@ The latter is an #acr("ASR") corpus of 1000 hours worth of audiobooks, sampled a
 Each time a speech source is required to produce a signal, a random sample is pulled from _LibriSpeech_ and outputted.
 
 
-===== Microphone arrays <sec:simulator:simulator:components:mic_arrays>
+===== Microphone arrays
+<sec:simulator:simulator:components:mic_arrays>
 
 // Support for various arrays
 Microphone arrays provide a convenient abstraction to use pre-defined multiple microphone arrays in the environment as well as defining custom ones.
@@ -240,7 +243,8 @@ In conclusion, the simulator furnishes a convenient and safe interface for movin
 This facilitates the flexible implementation of numerous acoustic #acr("HRI") use cases.
 
 
-====== Simulation process <sec:simulator:simulator:components:sim_process>
+====== Simulation process
+<sec:simulator:simulator:components:sim_process>
 
 Most downstream tasks leveraging the simulator involved some type of iteration through discrete time step simulation.
 More precisely, the typical workflow when using the simulator includes an initialization phase, where the _Room_, microphone array and _AudioSimulator_ are created.
@@ -318,4 +322,5 @@ The orientation of microphones and directional sources is also displayed.
   caption: [
     Simulator renderer
   ]
-) <fig:simulator:simulator:components:simulator_plot>
+)
+<fig:simulator:simulator:components:simulator_plot>

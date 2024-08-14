@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-== Results and experiments <sec:active_ssl:results>
+== Results and experiments
+<sec:active_ssl:results>
 
 #draft[
   Insist about the difficulty of certain samples:

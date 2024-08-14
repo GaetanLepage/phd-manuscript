@@ -1,3 +1,4 @@
 #import "/utils.typ": *
 
-== Experiments and discussions <sec:rl:results>
+== Experiments and discussions
+<sec:rl:results>
