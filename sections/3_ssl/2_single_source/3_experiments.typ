@@ -107,6 +107,39 @@ This choice allows the use for conventional real-valued 2D convolutions.
 )
 
 
+==== Reverberation
+
+#figure(
+  tablex(
+    // SETTINGS
+    columns: 3,
+    header-rows: 1,
+    align: left + horizon,
+    auto-vlines: false,
+    auto-hlines: false,
+    
+    // HEADER
+    toprule,
+    [],
+    [#mae-theta-header],
+    [#mae-dist-header],
+    
+    midrule,
+
+    // ROWS
+    [Interaural (ILD/IPD)],     [0.0], [0.0],
+    [#acr("STFT") (cartesian)], [0.0], [0.0],
+    [#acr("STFT") (polar)],     [0.0], [0.0],
+    
+    bottomrule
+  ),
+  placement: top,
+  kind: table,
+  caption: [
+    #acr("SSL") performance depending on the input features
+  ]
+)
+
 
 ==== Sound Source Localization in noisy environments <sec:ssl:single_source:experiments:noise>
 
