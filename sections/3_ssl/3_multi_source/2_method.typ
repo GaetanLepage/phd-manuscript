@@ -242,7 +242,7 @@ We chose to set $sigma = 5°$.
 
 The main benefit of this format, alongside with its ability to encode an arbitrary number of sources, is to frame the #acr("SSL") problem as a simple regression task.
 
-===== Detection decoding
+===== Detection decoding <sec:ssl:multi_source:method:detection_decoding>
 
 The employed #acr("DoA") encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
 Namely, thanks to its flexibility, it allows for representing an arbitrary number of sources.
@@ -324,7 +324,7 @@ The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
 ==== Neural Network architecture
 
 
-#gaet[should we note tensor shapes (X, Y, Z) or XxYxZ ?]
+#gaet[should we note tensor shapes $(X, Y, Z)$ or $X times Y times Z$ ?]
 The implemented neural network inspires from the one proposed by He et al. in @he_neural_2021.
 
 The aim of the Neural Network is to process multi-channel audio data and to extract the angular positions of the speech sources.

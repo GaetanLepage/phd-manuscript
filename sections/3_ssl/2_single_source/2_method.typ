@@ -12,6 +12,11 @@ The speech source present in the room is considered to be omnidirectional and si
   Should we already warn about the limitations of this choice ? i.e. not very realistic
 ]
 
+#draft[
+  Mention that both source and microphones can be anywhere in the room.
+  Many papers restrict those much more (fixed mic. array, sources in a circle...)
+]
+
 
 
 // Each training sample is a one second long audio recorded by the microphone array in the presence of a speech source.

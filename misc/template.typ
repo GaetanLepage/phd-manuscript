@@ -104,11 +104,9 @@ long } }
   }
 
   // Style chapter headings.
+  show heading.where(level: 1): set heading(supplement: [Chapter])
   show heading.where(level: 1): it => {
     set text(size: 22pt)
-
-    // Has no effect, still shows "Section"
-    set heading(supplement: [Chapter])
 
     let black_rectangle = place(
       dx: -page.margin.outside,
@@ -145,6 +143,9 @@ long } }
     rect(
       stroke: none, inset: 0em, black_rectangle + white_heading_number + it.body,
     )
+    
+    // Has no effect, still shows "Section"
+    set heading(supplement: [Chapter])
   }
 
   // Configure heading numbering.

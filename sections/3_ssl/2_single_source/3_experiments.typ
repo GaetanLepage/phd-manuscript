@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 #import "2_method.typ": d
 
+
 === Experiments <sec:ssl:single_source:experiments>
 
 ==== Metrics
@@ -27,12 +28,16 @@ $
 $ <eq:ssl:single_source:dist_metricc>
 
 
-The choice of the #acr("MAE") as performance criteria from being expressed in length units.
+The choice of the #acr("MAE") as performance criteria has the advantage of being expressed in length units.
+For clarity reasons, the values for this metrics will be displayed in centimeters (cm).
+
+/* METRICS HEADERS (for tables) */
+#let mae-theta-header = mae-theta + " (°) " + sym.arrow.b
+#let mae-dist-header = mae-dist + " (cm) " + sym.arrow.b
 
 ==== Impact of input signal representation
 
 The the neural network is expected to extract the relevant localization information from the audio signal provided as input.
-Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
 
 In this work, we focus on time-frequency representations.
 Adaptations of 2D convolutions to complex tensors do exist and have already been used in the #acr("SSL") literature.
@@ -66,6 +71,10 @@ $
   $
 ]
 
+Besides raw #acr("STFT") values, interaural features
+
+// TODO: Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
+
 When using #acr("STFT") features directly, they get converted to real values as following.
 Each complex matrix translates to two real ones by splitting the modulus and the phase of each entry.
 Thus, a $N$-channel #acr("STFT") $N times F times T$ complex tensor ends up as a $2N times F times T$ real array.
@@ -73,8 +82,6 @@ This choice allows the use for conventional real-valued 2D convolutions.
 
 // Compare ILD/IPD performances
 
-#let mae-theta-header = mae-theta + " (°) " + sym.arrow.b
-#let mae-dist-header = mae-dist + " (m) " + sym.arrow.b
 #figure(
   tablex(
     // SETTINGS
@@ -93,9 +100,9 @@ This choice allows the use for conventional real-valued 2D convolutions.
     midrule,
 
     // ROWS
-    [Interaural (ILD/IPD)],     [0.0], [0.0],
-    [#acr("STFT") (cartesian)], [0.0], [0.0],
-    [#acr("STFT") (polar)],     [0.0], [0.0],
+    [Interaural (#acr("ILD")/#acr("IPD"))],     [1.90], [3.87],
+    [#acr("STFT") (Cartesian)],                 [9.90], [18.29],
+    [#acr("STFT") (polar)],                     [0.0], [0.0],
     
     bottomrule
   ),
@@ -120,23 +127,26 @@ This choice allows the use for conventional real-valued 2D convolutions.
     
     // HEADER
     toprule,
-    [],
+    [$T_60$],
     [#mae-theta-header],
     [#mae-dist-header],
     
     midrule,
 
     // ROWS
-    [Interaural (ILD/IPD)],     [0.0], [0.0],
-    [#acr("STFT") (cartesian)], [0.0], [0.0],
-    [#acr("STFT") (polar)],     [0.0], [0.0],
+    [100ms],  [0.0], [0.0],
+    [200ms],  [0.0], [0.0],
+    [300ms],  [0.0], [0.0],
+    [500ms],  [0.0], [0.0],
+    [1s],     [0.0], [0.0],
+    [2s],     [0.0], [0.0],
     
     bottomrule
   ),
   placement: top,
   kind: table,
   caption: [
-    #acr("SSL") performance depending on the input features
+    Reverberation impact on #acr("SSL") performance
   ]
 )
 
