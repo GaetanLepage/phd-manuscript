@@ -1,12 +1,13 @@
-#import "@preview/scholarly-epfl-thesis:0.1.0": fill-line
+#import "/utils.typ": clorem
+#import "/misc/template.typ": fill-line
 
 = Acknowledgements
 
-#lorem(100)
+#clorem(100)
 
-#lorem(50)
+#clorem(50)
 
 #parbreak()
 
 // TODO
-#fill-line([_Grenoble, DD Mmmmmm 2024_], [G. L.])
+#fill-line([_Grenoble, 31 \<MONTH\> 2024_], [G. L.])
