@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-=== Discussion <sec:ssl:multi_source:discussion>
+=== Discussion
+<sec:ssl:multi_source:discussion>
 
 Overall, we have bootstrapped a complete multi-source #acr("SSL") pipeline by drawing crucial inspiration from the work of He et al. in @he_deep_2018, @he_joint_2018 and @he_neural_2021.
 This method was adapted and partly enhanced to provide convincing localization results on a challenging datasets collected thanks to the simulator presented in @chap:simulator.

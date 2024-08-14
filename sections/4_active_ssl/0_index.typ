@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-= Active Sound Source Localization <chap:active_ssl>
+= Active Sound Source Localization
+<chap:active_ssl>
 #minitoc(indent: true)
 
 In @chap:ssl, the problem of #acr("SSL") has been explored.

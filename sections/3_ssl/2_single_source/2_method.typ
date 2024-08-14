@@ -3,7 +3,8 @@
 === Method
 
 
-==== Custom dataset for #acr("SSL") <sec:ssl:single_source:method:dataset>
+==== Custom dataset for #acr("SSL")
+<sec:ssl:single_source:method:dataset>
 
 The objective of this study was to adapt State of the Art #acr("SSL") methods to diverse challenging setups.
 The capable simulator presented in @chap:simulator has let us put up different datasets to experiment with.
@@ -29,7 +30,12 @@ The speech source present in the room is considered to be omnidirectional and si
 // In the context of this work, by obtaining reasonable performance on this supervised task ensures that the chosen convolutional backbone is able to extract spatial cues from the audio signal.
 
 
-==== Microphone arrays <sec:ssl:single_source:method:mic_arrays>
+==== Microphone arrays
+<sec:ssl:single_source:method:mic_arrays>
+
+#gaet[
+  Do we move this in the global "acoustic" chapter/section ?
+]
 
 Several microphone arrays have been experimented in this study.
 Leveraging multiple microphones forming an array is essential.
@@ -89,7 +95,8 @@ In the context of #acr("SSL"), an non-homogeneous pattern brings extra angular i
 We have thus tested different configurations in our single-source #acr("SSL") experiments
 
 
-==== Audio post-processing <sec:ssl:single_source:method:audio_processing>
+==== Audio post-processing
+<sec:ssl:single_source:method:audio_processing>
 
 
 ==== Neural Network Architecture
@@ -126,7 +133,8 @@ Although performance in _easy_ tasks were not significantly impacted by those ch
 
 // TODO: figure of the architecture
 
-==== Loss function <sec:ssl:single_source:method:loss>
+==== Loss function
+<sec:ssl:single_source:method:loss>
 
 This task of single-source #acr("SSL") boils down to a one-dimensional regression problem.
 The neural network comprises a single output neuron $hat(theta)$ expected to estimate the true value of $theta$.
@@ -151,7 +159,8 @@ $
         )
       )
     )
-$ <eq:ssl:single_source:angle_dist>
+$
+<eq:ssl:single_source:angle_dist>
 
 #d is represented in blue in @fig:ssl:single_source:angular_dist_plot.
 
@@ -222,7 +231,8 @@ $
     Plot of the angular pseudo-distance
     and the angular $cal(l)^2$ loss
   ])
-) <fig:ssl:single_source:angular_dist_plot>
+)
+<fig:ssl:single_source:angular_dist_plot>
 
 
 The neural network is trained to minimize this objective.
@@ -244,5 +254,6 @@ where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (ha
      =
     #l-doa (hat(theta), theta)
     + #l-dist (hat(D), D).
-  $ <eq:ssl:single_source:total_loss>
+  $
+  <eq:ssl:single_source:total_loss>
 ]

@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-== Multi-source localization <sec:ssl:multi_source>
+== Multi-source localization
+<sec:ssl:multi_source>
 #minitoc(indent: true)
 
 #include "1_intro.typ"

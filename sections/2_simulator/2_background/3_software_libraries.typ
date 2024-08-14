@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-=== #acr("RIR") simulation libraries <sec:simulator:background:rir_libraries>
+=== #acr("RIR") simulation libraries
+<sec:simulator:background:rir_libraries>
 
 
 #draft[
@@ -13,8 +14,11 @@
 - C roomsim: @schimmel_fast_2009
 
 
-==== Pyroomacoustics <sec:simulator:background:rir_libraries:pyroomacoustics>
+==== Pyroomacoustics
+<sec:simulator:background:rir_libraries:pyroomacoustics>
+
 - _Pyroomacoustics_ @scheibler_pyroomacoustics_2018
 
-==== gpuRIR <sec:simulator:background:rir_libraries:gpurir>
+==== gpuRIR
+<sec:simulator:background:rir_libraries:gpurir>
 - _gpuRIR_ 2020 @diaz-guerra_gpurir_2021
