@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-= Reinforcement Learning <chap:rl>
+= Reinforcement Learning
+<chap:rl>
 #minitoc(indent: true)
 
 #include "1_rl_intro.typ"

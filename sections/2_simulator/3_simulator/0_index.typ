@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-== Custom acoustic simulation pipeline <sec:simulator:simulator>
+== Custom acoustic simulation pipeline
+<sec:simulator:simulator>
 #minitoc(indent: true)
 
 The motivation to build a simulator from the ground up was to benefit from a capable yet flexible virtual platform for acoustic-based #acr("HRI") tasks.

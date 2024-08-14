@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-= Acoustic Robot Simulator <chap:simulator>
+= Acoustic Robot Simulator
+<chap:simulator>
 #minitoc(indent: true)
 
 #include "1_intro/0_index.typ"

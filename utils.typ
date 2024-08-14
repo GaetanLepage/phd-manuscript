@@ -28,6 +28,7 @@
 }
 
 #let clorem(words) = text(maroon, lorem(words))
+#let shape(x, y, z) = $(#str(x), #str(y), #str(z))$
 
 /* COMMENTING */
 #let draft(body) = {

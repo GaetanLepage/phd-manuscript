@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-== Sound source localization background <sec:ssl:sota>
+== Sound source localization background
+<sec:ssl:sota>
 
 #reset-acronym("SSL")
 
@@ -23,7 +24,8 @@ Our intent at exploring #acr("SSL") was initially motivated by our exploratory w
 
 
 
-=== Acoustic data representation <sec:ssl:sota:data_repr>
+=== Acoustic data representation
+<sec:ssl:sota:data_repr>
 
 #chris[Do you use all of them? Concentrate at the the moment only on the methods you use. If you have later more time, then you can give others more place in a related work section.]
 #gaet[No, but as this is the SotA section, I thought important to be more exhaustive.]
@@ -79,7 +81,8 @@ $ <eq:ssl:sota:stft_inf>
 This target domain is often referenced as the time-frequency plan.
 
 
-===== Binaural cues <sec:simulator:background:features:binaural>
+===== Binaural cues
+<sec:simulator:background:features:binaural>
 
 ====== Motivation
 
@@ -226,7 +229,8 @@ A binaural array has been placed in a room along with a speech source.
 // https://dsp.stackexchange.com/questions/74574/understanding-gcc-phat-as-a-feature
 
 
-=== Classical approaches <sec:ssl:sota:classical_approaches>
+=== Classical approachess
+<sec:ssl:sota:classical_approaches>
 
 // Handcrafted features
 
@@ -237,13 +241,15 @@ A binaural array has been placed in a room along with a speech source.
 
 
 
-=== Deep Learning methods for #acr("SSL") <sec:ssl:sota:deep_learning>
+=== Deep Learning methods for #acr("SSL")
+<sec:ssl:sota:deep_learning>
 
 // Survey paper
 @grumiaux_survey_2021
 
 
-=== Sound Source localization in robotics <sec:ssl:sota:ssl_in_robotics>
+=== Sound Source localization in robotics
+<sec:ssl:sota:ssl_in_robotics>
 
 Although, as demonstrated above, #acr("SSL") has been studied as a self-contained problem, it certainly have an important number of downstream applications.
 Among those, robotics is a major use case of #acr("SSL") algorithms.

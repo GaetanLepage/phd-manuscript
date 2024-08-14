@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
-=== Overview <sec:simulator:simulator:overview>
+=== Overview
+<sec:simulator:simulator:overview>
 
 The acoustic simulator is composed of several blocks that interact with each other.
 @fig:simulator:simulator:overview offers a global overview of the pipeline architecture.
@@ -54,4 +55,5 @@ The following section will present the software blocks required for running this
   caption: [
     Example of basic usage of the simulator
   ]
-) <code:simulator:simulator:basic_usage>
+)
+<code:simulator:simulator:basic_usage>

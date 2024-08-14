@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 
 == Introduction
-
+<sec:simulator:intro>
 
 An intrinsic aspect of robotics, and especially of #acr("HRI") lays in the physical world.
 Developing novel methods for interacting with humanoid robots encompasses several challenges related to its embodiment dimension.

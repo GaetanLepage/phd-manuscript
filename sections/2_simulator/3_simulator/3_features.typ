@@ -1,7 +1,8 @@
 #import "/utils.typ": *
 #import "2_components.typ": d-rec
 
-=== Advanced features <sec:simulator:simulator:features>
+=== Advanced features
+<sec:simulator:simulator:features>
 
 
 ==== Simulation of dynamic scenarios

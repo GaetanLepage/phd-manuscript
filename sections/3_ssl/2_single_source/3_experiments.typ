@@ -2,7 +2,8 @@
 #import "2_method.typ": d
 
 
-=== Experiments <sec:ssl:single_source:experiments>
+=== Experiments
+<sec:ssl:single_source:experiments>
 
 ==== Metrics
 
@@ -71,16 +72,17 @@ $
   $
 ]
 
-Besides raw #acr("STFT") values, interaural features
+In both cases, a $C$-channel #acr("STFT") #shape("C","F","T") complex tensor translates to a to #shape("2C", "F", "T") real one.
 
-// TODO: Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
+Besides raw #acr("STFT") values, interaural features, presented in @sec:simulator:background:features:binaural, have been widely used in the #acr("SSL") literature (#draft[TODO add citations]).
+Binaural representations have been explicitly designed to highlight geometric information relevant to localization.
+Hence, and for the sake of exhaustivity, those cues have also been tested.
+This comparison employs a binaural array which allows to trivially compute #acr("ILD") and #acr("IPD") from the two #acr("STFT") arrays.
 
-When using #acr("STFT") features directly, they get converted to real values as following.
-Each complex matrix translates to two real ones by splitting the modulus and the phase of each entry.
-Thus, a $N$-channel #acr("STFT") $N times F times T$ complex tensor ends up as a $2N times F times T$ real array.
-This choice allows the use for conventional real-valued 2D convolutions.
+Importantly, in this case, the number of resulting channels in the processed data remains two.
+Both #acr("ILD") and #acr("IPD") take real values and there thus do not lead to doubling the number of channels.
 
-// Compare ILD/IPD performances
+The final observations fed into the network are $(4, 337, 32)$ for #acr("STFT") features and $(2, 337, 32)$ for interaural features
 
 #figure(
   tablex(
@@ -102,7 +104,7 @@ This choice allows the use for conventional real-valued 2D convolutions.
     // ROWS
     [Interaural (#acr("ILD")/#acr("IPD"))],     [1.90], [3.87],
     [#acr("STFT") (Cartesian)],                 [9.90], [18.29],
-    [#acr("STFT") (polar)],                     [0.0], [0.0],
+    [#acr("STFT") (polar)],                     [2.22], [3.98],
     
     bottomrule
   ),
@@ -111,7 +113,12 @@ This choice allows the use for conventional real-valued 2D convolutions.
   caption: [
     #acr("SSL") performance depending on the input features
   ]
-)
+) <table:ssl:single_source:input_features>
+
+
+// TODO: Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
+@table:ssl:single_source:input_features summarizes the performance of the method when using the different kinds of input features.
+On the one hand, a substantial difference in results arise between both complex-to-real #acr("STFT") mappings $phi_"cart"$
 
 
 ==== Reverberation
@@ -151,7 +158,8 @@ This choice allows the use for conventional real-valued 2D convolutions.
 )
 
 
-==== Sound Source Localization in noisy environments <sec:ssl:single_source:experiments:noise>
+==== Sound Source Localization in noisy environments
+<sec:ssl:single_source:experiments:noise>
 
 Having succeeded at accurately estimating the #acr("DoA") in a reverberant but noiseless setting, we have attempted to add noise sources.
 The latter has revealed to harden the task significantly.

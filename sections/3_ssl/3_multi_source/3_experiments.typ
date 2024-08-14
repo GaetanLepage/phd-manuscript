@@ -21,16 +21,18 @@ In this first task, the number of active sources is assumed to be known.
 This process ensures to output as many detections as there are ground truth sources and allows to compute the two following metrics:
 
 - The _#acr("MAE")_ gives an idea about the angular distance between detected and correct angles:
-$ "MAE" = (
-  sum_i
-  sum_(j=1)^(z_i)
-  colMath(d, #maroon) (
-    hat(phi.alt)_(i j),
-    phi.alt_(i j)
-  )
-)/(
-  sum_i z_i
-) $ <eq:ssl:multi_source:mae>
+$
+  "MAE" = (
+    sum_i
+    sum_(j=1)^(z_i)
+    colMath(d, #maroon) (
+      hat(phi.alt)_(i j),
+      phi.alt_(i j)
+    )
+  ) / (sum_i z_i)
+$
+<eq:ssl:multi_source:mae>
+
 where  $colMath(d, #maroon)$ refers to the symmetric angular distance defined in @eq:ssl:multi_source:symmetric_angular_dist.
 For convenience, the #acr("MAE") will most often be expressed in degrees:
 $
@@ -39,18 +41,19 @@ $
 #gaet[Not sure that the above equation is needed at all.]
 
 The _#acr("ACC")_ constitutes the second metric for this framework and, given an error threshold $colMath(E_a, #eastern)$, provides the proportion of correctly localized sources:
-$ "ACC" = (
-  sum_i
-  sum_(j=1)^(z_i)
-  bb(1)_(
-    colMath(d, #maroon)(
-      hat(phi.alt)_(i j),
-      phi.alt_(i j)
-    ) < colMath(E_a, #eastern)
-  )
-)/(
-  sum_i z_i
-) $ <eq:ssl:multi_source:acc>
+$
+  "ACC" = (
+    sum_i
+    sum_(j=1)^(z_i)
+    bb(1)_(
+      colMath(d, #maroon)(
+        hat(phi.alt)_(i j),
+        phi.alt_(i j)
+      ) < colMath(E_a, #eastern)
+    )
+  ) / (sum_i z_i)
+$
+<eq:ssl:multi_source:acc>
 
 *Unknown number of sources.*
 Besides, the second task evaluates the ability of the model to accurately predict an unknown number of #acr("DoA") values.
@@ -73,29 +76,31 @@ $
 $
 
 We may then introduce the two metrics used in this framework: _Precision_ and _Recall_:
-$ "Precision" = (
-  sum_i
-  sum_(j=1)^(z_i)
-  sum_(k=1)^(hat(z)_i)
-  m(
-    hat(phi.alt)_(i k),
-    phi.alt_(i j)
-  )
-)/(
-  sum_i hat(z)_i
-) $ <eq:ssl:multi_source:prec>
+$
+  "Precision" = (
+    sum_i
+    sum_(j=1)^(z_i)
+    sum_(k=1)^(hat(z)_i)
+    m(
+      hat(phi.alt)_(i k),
+      phi.alt_(i j)
+    )
+  ) / (sum_i hat(z)_i)
+$
+<eq:ssl:multi_source:prec>
 
-$ "Recall" = (
-  sum_i
-  sum_(j=1)^(z_i)
-  sum_(k=1)^(hat(z)_i)
-  m(
-    hat(phi.alt)_(i k),
-    phi.alt_(i j)
-  )
-)/(
-  sum_i z_i
-) $ <eq:ssl:multi_source:recall>
+$
+  "Recall" = (
+    sum_i
+    sum_(j=1)^(z_i)
+    sum_(k=1)^(hat(z)_i)
+    m(
+      hat(phi.alt)_(i k),
+      phi.alt_(i j)
+    )
+  ) / (sum_i z_i)
+$
+<eq:ssl:multi_source:recall>
 
 As an important note, those two scenarios are used to grasp the overall performance of a given model.
 The method stays the same in both cases as solely the extraction of the prediction employs either @eq:ssl:multi_source:decoding_unknown_sources or @eq:ssl:multi_source:decoding_known_sources.
@@ -104,7 +109,8 @@ The method stays the same in both cases as solely the extraction of the predicti
   Again, should I go as far as explaining the GT-predictions matching algorithm ?
 ]
 
-==== Loss and convergence <sec:ssl:multi_source:experiments:loss>
+==== Loss and convergence
+<sec:ssl:multi_source:experiments:loss>
 
 *Loss function.*
 The objective used by He et al. in @he_deep_2018 along their #acr("DoA") encoding is a simple #acr("MSE") loss between the ground truth #acr("DoA") representation and the output vector provided by the neural network:
@@ -189,7 +195,8 @@ Identifying, characterizing and overcoming this shortcoming has been an essentia
 
 // TODO PR-curves
 
-===== Impact of the number of sources <sec:ssl:multi_source:experiments:number_of_sources>
+===== Impact of the number of sources
+<sec:ssl:multi_source:experiments:number_of_sources>
 
 #gaet[Should _zero_ and _four_ be written using the digit directly ?]
 As explained in @sec:ssl:multi_source:method:dataset, the dataset allows for dynamically selecting a subset of zero to four sources at runtime.
@@ -246,7 +253,8 @@ Furthermore, the more sources are simultaneously present in the room, the more c
   caption: [
     #acr("SSL") performance when trained with different number of sources
   ]
-) <table:ssl:multi_source:experiments:n_sources_train>
+)
+<table:ssl:multi_source:experiments:n_sources_train>
 
 One should note that both training and test datasets are different.
 The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
@@ -759,7 +767,6 @@ In order to further characterize this behavior, we have executed an exhaustive p
     #acr("SSL") performance for different context lengths
   ]
 ) <table:ssl:multi_source:experiments:sequence_processing>
-
 
 
 
