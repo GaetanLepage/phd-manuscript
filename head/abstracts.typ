@@ -7,7 +7,7 @@
 
 #clorem(50)
 
-Key words:// put your text here
+Key words: deep learning, robotic auditory perception, sound source localization, reverberation, human-robot interactions
 
 // French abstract
 #heading(outlined: false, [Résumé])
@@ -16,4 +16,4 @@ Key words:// put your text here
 
 #clorem(50)
 
-Mots clefs:
+Mots clefs: apprentissage profond, perception auditive en robotique, localisation de source sonore, reverberation, interaction humain robot

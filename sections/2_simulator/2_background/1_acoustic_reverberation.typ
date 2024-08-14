@@ -38,8 +38,7 @@ $
 $ <eq:simulator:background:sabine_inv>
 Here, all surfaces are assumed to behave the same, and the _equivalent absorption surface_ #area may then be written as $#area = S times e_"abs"$, with $S$ being the total surface area.
 
-#reset-acronym("RIR")
-==== #acr("RIR")
+==== Room Impulse Response
 
 #draft[TODO: introduce the concept of #acr("RIR")]
 

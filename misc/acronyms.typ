@@ -19,6 +19,7 @@
   "WER": ("Word Error Rate"),
 
   // SSL
+  "ASSL": ("Active Sound Source Localization"),
   "DCASE": ("Detection and Classification of Acoustic Scenes and Events"),
   "DoA": ("Direction of Arrival"),
   "SSL": ("Sound Source Localization"),
