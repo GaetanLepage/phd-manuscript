@@ -1,16 +1,16 @@
-#import "misc/template.typ": template, front-matter, main-matter, back-matter
+#import "_misc/template/_index.typ": template, front-matter, main-matter, back-matter
 #import "/utils.typ": *
 
 #show: template.with(author: "Gaétan Lepage")
 
 #set page(numbering: none)
 
-#include "misc/acronyms.typ"
+#include "_misc/acronyms.typ"
 
 
 /*------------------------------------------*/
 // CONTENT
-#include "misc/progress.typ"
+#include "_misc/progress.typ"
 
 // FRONT
 #show: front-matter

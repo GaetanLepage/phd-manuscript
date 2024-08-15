@@ -1,47 +1,10 @@
+#import "matter_functions.typ": front-matter, main-matter, back-matter
+
 #let fill-line(left-text, right-text) = [#left-text #h(1fr) #right-text]
 
 // The `in-outline` mechanism is for showing a short caption in the list of figures
 // See https://sitandr.github.io/typst-examples-book/book/snippets/chapters/outlines.html#long-and-short-captions-for-the-outline
 #let in-outline = state("in-outline", false)
-
-#let flex-caption(long, short) = context { if in-outline.get() { short } else {
-long } }
-
-// ---
-
-#let front-matter(body) = {
-  set page(numbering: "i")
-  counter(page).update(1)
-  set heading(numbering: none)
-  show heading.where(level: 1): it => {
-    it
-    v(6%, weak: true)
-  }
-  body
-}
-
-#let main-matter(body) = {
-  set page(numbering: "1")
-  counter(page).update(1)
-  counter(heading).update(0)
-  set heading(numbering: "1.1")
-  show heading.where(level: 1): it => {
-    it
-    v(12%, weak: true)
-  }
-  body
-}
-
-#let back-matter(body) = {
-  set heading(numbering: "A", supplement: [Appendix])
-  // Without this, the header says "Chapter F"
-  counter(heading.where(level: 1)).update(0)
-  // Without this, the table of contents line says "Chapter F"
-  counter(heading).update(0)
-  body
-}
-
-// ---
 
 // This function gets your whole document as its `body` and formats it
 #let template(
@@ -64,15 +27,21 @@ long } }
 ) = {
   // Set the document's metadata.
   set document(
-    title: title, author: author, date: if date != none { date } else { auto },
+    title: title,
+    author: author,
+    date: if date != none { date } else { auto },
   )
 
   // Set the body font.
-  set text(font: ("Utopia LaTeX"), size: 11pt)
+  set text(
+    font: ("Utopia LaTeX"),
+    size: 11pt
+  )
 
   // Configure page size and margins.
   set page(
-    paper: paper-size, margin: (
+    paper: paper-size,
+    margin: (
       //bottom: 5cm,
       //top: 4cm,
       bottom: 3cm,
@@ -87,6 +56,9 @@ long } }
     number-align: right,
   )
 
+  /* -------------------------------------------------------------------- */
+  /* PARAGRAPHS */
+  
   // Configure paragraph properties.
   // Default leading is 0.65em.
   set par(
@@ -97,6 +69,24 @@ long } }
   // Default spacing is 1.2em.
   show par: set block(spacing: 1.35em)
 
+  /* -------------------------------------------------------------------- */
+  /* URL */
+  show link: underline
+  show link: set text(blue)
+  
+  // Show a small maroon circle next to external links.
+  show link: it => {
+    // Workaround for ctheorems package so that its labels keep the default link styling.
+    if type(it.dest) == label { return it }
+    it
+    h(1.6pt)
+    super(
+      box(height: 3.8pt, circle(radius: 1.2pt, stroke: 0.7pt + rgb("#993333"))),
+    )
+  }
+
+  /* -------------------------------------------------------------------- */
+  /* TITLES */
   show heading: it => {
     v(2.5em, weak: true)
     it
@@ -191,6 +181,9 @@ long } }
       }
     },
   )
+  
+  /* -------------------------------------------------------------------- */
+  /* OUTLINES */
 
   // The `in-outline` is for showing a short caption in the list of figures
   // See https://sitandr.github.io/typst-examples-book/book/snippets/chapters/outlines.html#long-and-short-captions-for-the-outline
@@ -198,6 +191,10 @@ long } }
     in-outline.update(true)
     // Show table of contents, list of figures, list of tables, etc. in the table of contents
     set heading(outlined: true)
+    
+    // This hides the citation in outlines (mostly for the table of figures)
+    show cite: none
+    
     it
     in-outline.update(false)
   }
@@ -242,7 +239,6 @@ long } }
       )
     }
   )
-  
 
   /* @GL: Do not align equations to the left
   show math.equation.where(block: true): it => {
@@ -254,6 +250,9 @@ long } }
 
   // FIXME: Has no effect?
   set place(clearance: 2em)
+  
+  /* -------------------------------------------------------------------- */
+  /* FIGURES */
 
   set figure(
     numbering: fig_num => {
@@ -282,9 +281,15 @@ long } }
     set block(breakable: true)
     it
   }
+  // @GL: prevent figures from being split accross several pages
+  show figure: set block(breakable: false)
+  
   // @GL: Do not remove strokes from table
   //set table(stroke: none)
 
+  /* -------------------------------------------------------------------- */
+  /* RAW (code) */
+  
   // Set raw text font.
   show raw: set text(font: ("Iosevka", "Fira Mono"), size: 9pt)
 
@@ -296,16 +301,6 @@ long } }
   // Display block code with padding.
   show raw.where(block: true): block.with(inset: (x: 5pt))
 
-  // Show a small maroon circle next to external links.
-  show link: it => {
-    // Workaround for ctheorems package so that its labels keep the default link styling.
-    if type(it.dest) == label { return it }
-    it
-    h(1.6pt)
-    super(
-      box(height: 3.8pt, circle(radius: 1.2pt, stroke: 0.7pt + rgb("#993333"))),
-    )
-  }
 
   body
 }

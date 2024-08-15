@@ -3,33 +3,29 @@
 
 === Method
 
-==== Microphone array
-<sec:ssl:multi_source:mic_array>
-
-For this investigation, a four microphone array is used.
-The sensors form a square TODO
-#gaet[
-  Is a scheme of the array necessary here ?
-  According to me, it would not help a lot with understanding.
-]
-
 ==== Dataset generation and pre-processing
 <sec:ssl:multi_source:method:dataset>
 
-#gaet[
-  "4-microphone array", "four-microphone array" or "four microphone array" ?
-]
+Most of the dataset generation process remains identical to the one presented in @sec:ssl:single_source:method:dataset.
+All samples remain fully independent.
+The positions of both sources and the microphone array are randomly samples to generate each one.
+This section will focus on the necessary additions made to support the multi-source setting.
+Also, some choices have been made so as to mostly follow the methodology from He et al. in @he_neural_2021.
 
-The audio simulator presented in @chap:simulator has been leveraged to generate synthetic datasets of a substantial size.
-Although public #acr("SSL") datasets have been shared publicly by the community, we have chosen to work within our artificial #acr("HRI") environment for later reuse of this method.
-For the sake of exhaustivity, here are some examples of other relevant datasets.
-He et al. @he_deep_2018 have proposed the #acr("SSLR") dataset using the Pepper robot equipped with a four-microphone array.
-Furthermore, the third task of the #acr("DCASE") challenge proposes a yearly competition around designing the best #acr("SSL") system.
-For the 2024 edition of #acr("DCASE"), the target dataset was STARSS23 @shimada_starss23_nodate, introduced at the NeurIPS 2023 conference.
+#gaet["4-microphone array", "four-microphone array" or "four microphone array" ?]
+*Microphone array.*
+For effectively localizing multiple sound sources, a four-microphones array is used.
+The $n_m = 4$ omnidirectional sensors are arranged in a 2cm wide square.
+
 
 #gaet[An important difference with the source paper is that I always use the same room ($T_60$, size, ...)]
 
-The microphone array described in @sec:ssl:multi_source:mic_array, comprising $n_m=4$, sensors and $n_s$ speech sources get randomly positioned in the room.
+
+Audio processing has been kept the same, except for the sample duration.
+The latter now amounts to approximately 360ms as 16 #acr("STFT") frames participate to each input of the model.
+
+
+The microphone array and $n_s$ speech sources get randomly positioned in the room.
 Such a choice has lead to challenging samples were multiple targets share very similar #acr("DoA") angles from the agent's point of view. #gaet[is this the right word ?]
 The resulting #acr("RIR") filters get computed to account for the reverberation properties of the room.
 Then, each source outputs a clean speech signal randomly chosen from the LibriSpeech @noauthor_librispeech_nodate dataset.
@@ -37,7 +33,12 @@ The simulator computes the resulting listened signals at each microphone of the 
 Such signals last around 10 seconds.
 
 #gaet[
-  Should we talk about train/val/test splits ? This could also be put in the "training" paragraph of the "method"
+  Should we talk about train/val/test splits ? This could also be put in the "training" paragraph of the "method".\
+  Also, this is the same one as in single-source.
+]
+
+#gaet[
+  No need to explain source-wise simulation here if we have already done it in the single-source section (regarding noise)
 ]
 
 *Source-wise simulation and late mixing.*
@@ -74,7 +75,7 @@ The generated signals are then up-sampled to 48kHz.
 
 *#acr("STFT") representation of audio signals.*
 // multi-channel STFT
-As discussed in @sec:ssl:sota:data_repr, several choices can be made when it comes to data representation.
+As discussed in @sec:simulator:background:spectral-representations, several choices can be made when it comes to data representation.
 Although we have generated different datasets, the format used in majority consisted in the Short Term Fourier Transform.
 The #acr("STFT") is thus computed from the complete up-sampled simulated signal captured by each of the four microphones.
 For this, we employ a Hann window of length 2048, with a 50% overlap. We also apply a band-pass filtering by removing frequencies lower than 100Hz and higher than 48kHz.
@@ -141,13 +142,13 @@ The total audio duration of the data approximates 47 hours.
 ==== Direction of Arrival representation
 <sec:ssl:multi_source:method:doa_repr>
 
-The objective of the #acr("SSL") task is to predict the Direction of Arrival (DOA) of the sound sources.
+The objective of the #acr("SSL") task is to predict the #acr("DoA") of the sound sources.
 Hence, the number of prediction outputted by an #acr("SSL") method can differ from situation to situation.
 We therefore decided to use a representation of this information that is agnostic to the number of sources.
 Having such a property is of great interest when training a Deep Neural Network.
 The latter can then have a fixed output while still being able to handle a various number of sources.
 The latter will be further denoted $n_s$.\
-The set of DOA values will noted $Theta = (theta_1, ..., theta_n_s)$.
+The set of #acr("DoA") values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
 
 ===== Spatial spectrum
@@ -174,14 +175,14 @@ We choose $d = 360$ which corresponds to a $1°$ resolution.
 
 Higher numerical values translate the presence of a source at this location.
 // TODO not sure how to pluralize DoA
-Those angles, being Directions of Arrival are relative to the microphone array's orientation.
+Those angles, being #acrpl("DoA") are relative to the microphone array's orientation.
 A peak at $0°$ designates the presence of a source in front of the microphones.
 
 // TODO: insert figure
 
 ===== Multi source #acr("DoA") encoding
 
-The dataset contains the DOA values for each sample.
+The dataset contains the #acr("DoA") values for each sample.
 We need to convert this list of scalar angular values to our spatial spectrum encoding format in order to allow its use as a regression target.
 Numerous methods could be employed to achieve this.
 A first solution to this problem could be placing a pseudo Dirac at the exact location of the source:

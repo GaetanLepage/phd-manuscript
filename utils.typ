@@ -1,6 +1,11 @@
 #import "@preview/acrostiche:0.3.2": *
 #import "@preview/minitoc:0.1.0": *
 #import "@preview/subpar:0.1.1"
+#import "_misc/template/_index.typ": in-outline, fill-line
+
+
+// Different figure/table caption for ToC and actual caption
+#let flex-caption(long, short) = context { if in-outline.get() { short } else { long } }
 
 /* TABLES */
 #import "@preview/tablex:0.0.8": tablex, colspanx, hlinex
@@ -15,10 +20,6 @@
 /* MATHS */
 #let colMath(x, color) = text(fill: color)[$#x$]
 #let mabs = math.abs.with(size: 130%)
-
-/* CAPTIONS */
-#let in-outline = state("in-outline", false)
-#let flex-caption(long, short) = context if in-outline.get() { short } else { long }
 
 /* FIGURES numbering */
 #let fig-numbering = fig_num => {
@@ -35,6 +36,7 @@
   set text(fill: maroon)
   [_#body _]
 }
+#let todo = draft[TODO]
 
 #let comment(name, body, color: red) = {
   set text(color)

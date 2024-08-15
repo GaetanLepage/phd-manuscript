@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 
 === Related works
+<sec:simulator:reverb:methods>
 
 #reset-acronym("ISM")
 ==== #acr("ISM")

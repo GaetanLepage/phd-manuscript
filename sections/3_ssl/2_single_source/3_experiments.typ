@@ -11,7 +11,7 @@ In this first formulation of the #acr("SSL") problem, each situation includes ex
 
 *#acr("DoA") metric.*
 Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lays from the real #acr("DoA") value $theta$.
-For this, we compute the $l_1$ angular pseudo-distance #d between $hat(theta)$ and $theta$.
+For this, we compute the average $cal(l)^1$ angular pseudo-distance #d between $hat(theta)$ and $theta$.
 This measure will be referred to as the #acr("MAE"):
 #let mae-theta = $"MAE"_theta$
 $
@@ -40,6 +40,8 @@ For clarity reasons, the values for this metrics will be displayed in centimeter
 
 The the neural network is expected to extract the relevant localization information from the audio signal provided as input.
 
+#draft[TODO: say that it is a binaural array]
+
 In this work, we focus on time-frequency representations.
 Adaptations of 2D convolutions to complex tensors do exist and have already been used in the #acr("SSL") literature.
 In @krause_comparison_2021, Krause et al. present this variation along with its benefits (Section II.B).
@@ -61,7 +63,7 @@ To achieve this, two schemes were compared:
 
 - The other method consists in using the polar form of the Fourier representation:
 $
-  phi_"pol": #h(1cm) CC^(F times T) & -->               RR^(2 times F times T)\
+  phi_"polar": #h(1cm) CC^(F times T) & -->               RR^(2 times F times T)\
   Z        & arrow.r.long.bar 
   lr((abs(Z), arg(Z)), size: #140%)
 $
@@ -74,7 +76,7 @@ $
 
 In both cases, a $C$-channel #acr("STFT") #shape("C","F","T") complex tensor translates to a to #shape("2C", "F", "T") real one.
 
-Besides raw #acr("STFT") values, interaural features, presented in @sec:simulator:background:features:binaural, have been widely used in the #acr("SSL") literature (#draft[TODO add citations]).
+Besides raw #acr("STFT") values, interaural features, presented in @sec:simulator:background:spectral-features:binaural, have been widely used in the #acr("SSL") literature (#draft[TODO add citations]).
 Binaural representations have been explicitly designed to highlight geometric information relevant to localization.
 Hence, and for the sake of exhaustivity, those cues have also been tested.
 This comparison employs a binaural array which allows to trivially compute #acr("ILD") and #acr("IPD") from the two #acr("STFT") arrays.
@@ -82,12 +84,12 @@ This comparison employs a binaural array which allows to trivially compute #acr(
 Importantly, in this case, the number of resulting channels in the processed data remains two.
 Both #acr("ILD") and #acr("IPD") take real values and there thus do not lead to doubling the number of channels.
 
-The final observations fed into the network are $(4, 337, 32)$ for #acr("STFT") features and $(2, 337, 32)$ for interaural features
+The final observations fed into the network are #shape(4, 337, 32) for #acr("STFT") features and #shape(2, 337, 32) for interaural features.
 
 #figure(
   tablex(
     // SETTINGS
-    columns: 3,
+    columns: 4,
     header-rows: 1,
     align: left + horizon,
     auto-vlines: false,
@@ -96,15 +98,20 @@ The final observations fed into the network are $(4, 337, 32)$ for #acr("STFT") 
     // HEADER
     toprule,
     [],
+    [Number of channels],
     [#mae-theta-header],
     [#mae-dist-header],
     
     midrule,
 
     // ROWS
-    [Interaural (#acr("ILD")/#acr("IPD"))],     [1.90], [3.87],
-    [#acr("STFT") (Cartesian)],                 [9.90], [18.29],
-    [#acr("STFT") (polar)],                     [2.22], [3.98],
+    [Interaural (#acr("ILD")/#acr("IPD"))],     [2], [1.90],    [3.87],
+    [#acr("STFT") (Cartesian)],                 [4], [9.90],    [18.29],
+    [#acr("STFT") (polar)],                     [4], [2.22],    [3.98],
+    midrule,
+    [#acr("ILD") only],                         [1], [2.39],    [4.91],
+    [#acr("IPD") only],                         [1], [*1.83*],  [*3.81*],
+    [#acr("STFT") phase only],                  [2], [1.91],    [3.90],
     
     bottomrule
   ),
@@ -118,10 +125,36 @@ The final observations fed into the network are $(4, 337, 32)$ for #acr("STFT") 
 
 // TODO: Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
 @table:ssl:single_source:input_features summarizes the performance of the method when using the different kinds of input features.
-On the one hand, a substantial difference in results arise between both complex-to-real #acr("STFT") mappings $phi_"cart"$
+For each set of cues, we report the corresponding number of channels of the resulting tensor.
+On the one hand, a substantial difference in results arises between both complex-to-real #acr("STFT") polar and Cartesian mappings.
+Indeed, despite consisting in the same underlying data, those two representations do not offer the network the same ease to learn from.
+On the other hand, further processing the #acr("STFT") into the binaural features does not seem to bring any performance benefit.
+Unsurprisingly, what seems to matter the most is displaying phase-related information directly rather than indirectly.
+Both the polar #acr("STFT") and interaural features explicitly contain this phase:
+The former as $arg(L)$ and $arg(R)$ on two distinct channels and the latter as the ratio $arg(L) / arg(R)$ on a single one.
+$L$ and $R$ denote the spectrograms from the left and right microphones respectively.
+
+In order to further prove this hypothesis, an ablation study is performed.
+The objective involves showing whether phase-related features alone are sufficient to perform localization efficiently.
+Results are set out in the bottom half of @table:ssl:single_source:input_features.
+They show that limiting the input information to phase information alone suffices to accurately estimate both the #acr("DoA") and distance values.
+Paradoxically, such a filtering of the input data even achieves results slightly better than the ones obtained when using the full features.
+This further confirms that the rest of the features is fully redundant.
+
+Interestingly, solely using the #acr("ILD") matrix yields a promising #mae-theta of 2.39° which shows that our model manages to leverage the difference in amplitude between the two channels for performing the localization.
+Those results are however less consistent across several runs than the ones using #acr("IPD") or the phase of the #acrpl("STFT").
+
+
+#draft[TODO: add experiments with Phases only and IPD only]
+
+// TODO: we settle on ILD/IPD because it gives the best results
+Consider
 
 
 ==== Reverberation
+
+#acr("SSL") methods leverage the inter-channel differences present in the time-frequency input data to infer the source position.
+Those variations, theoretically discussed in
 
 #figure(
   tablex(
@@ -141,12 +174,12 @@ On the one hand, a substantial difference in results arise between both complex-
     midrule,
 
     // ROWS
-    [100ms],  [0.0], [0.0],
-    [200ms],  [0.0], [0.0],
-    [300ms],  [0.0], [0.0],
-    [500ms],  [0.0], [0.0],
-    [1s],     [0.0], [0.0],
-    [2s],     [0.0], [0.0],
+    [100ms],  [1.25], [2.30],
+    [200ms],  [2.21], [3.67],
+    [300ms],  [3.23], [4.83],
+    [500ms],  [1.90], [3.67],
+    [1s],     [2.62], [4.67],
+    [2s],     [2.25], [4.33],
     
     bottomrule
   ),
