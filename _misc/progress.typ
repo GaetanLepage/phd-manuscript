@@ -58,6 +58,15 @@
   - Aren't the margins too narrow ?
   - Should the links (references to sections/papers) be in blue ?
   - Should we note tensor shapes $(X, Y, Z)$ or $X times Y times Z$ ?
+  - Limit the _Table of Contents_ depth ? (currently none)
+
+  *Style-related questions:*
+  - Is passive style OK ? to be encouraged ? discouraged ?\
+    \<SUBJECT\> is/will be/has been \<VERB\>.
+
+  *Questions for Laurent:*
+  - How to compute duration from $F$ (i.e. number of #acr("STFT") frames) ?
+  - How to organize the "audio" sections ?
 
   *Remarks:*
   - I have added _local_ TOCs at the beginning of each chapter to help me, but I plan to remove them later.

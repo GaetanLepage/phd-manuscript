@@ -778,7 +778,7 @@ During this interval, one or more speech sources could be inactive as the energy
 This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:number_of_sources (see @table:ssl:multi_source:experiments:n_sources_train for example).
 
 
-===== Ablation study on source proximity
+==== Ablation study on source proximity
 
 The decoding process, presented in @sec:ssl:multi_source:method:detection_decoding, consists in extracting the local maxima of the predicted #acr("DoA") spectrum.
 The abscissas of the resulting peaks are considered as the final angle values.

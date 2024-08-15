@@ -24,7 +24,7 @@ Once a sentence has been exhausted, the source automatically loads a new one and
 
 *Bootstrapping reverberation.*
 Although the simulator exposes this abstracted pseudo-continuous interaction framework, the actual audio propagation are still performed independently from each other at each step.
-Consequently, as presented in @sec:simulator:background:reverb, the early moments of the received audio correspond to the direct path used by the source signal and the reverberation's effect remain invisible.
+Consequently, as presented in @sec:simulator:reverb:background:reverb, the early moments of the received audio correspond to the direct path used by the source signal and the reverberation's effect remain invisible.
 When considering short steps, where $d_"step"$ might be even lower than $T_60$, naively extracting and returning the first $d_"step"$ seconds of the simulation would completely reduce the consequences of reverberation.
 As such, each source loads longer audio chunks of $d_"input" = tau + d_"step"$ seconds leading to simulated received signals of $#d-rec = tau + d_"step" + T_60$.
 The reverberation time $T_60$ is a sane default value for $tau$.
