@@ -5,9 +5,37 @@
 
 ==== Custom dataset for #acr("SSL")
 <sec:ssl:single_source:method:dataset>
+#gaet[
+  This section is a mess and needs to be properly re-written along with its @sec:ssl:multi_source:method:dataset sibling.
+]
 
 The objective of this study was to adapt State of the Art #acr("SSL") methods to diverse challenging setups.
-The capable simulator presented in @chap:simulator has let us put up different datasets to experiment with.
+The audio simulator presented in @chap:simulator has been leveraged to generate various synthetic datasets to experiment with.
+
+Although public #acr("SSL") datasets have been shared publicly by the community, we have chosen to work within our artificial #acr("HRI") environment for later reuse of this method.
+For the sake of exhaustivity, here are some examples of other relevant datasets.
+He et al. @he_deep_2018 have proposed the #acr("SSLR") dataset using the Pepper robot equipped with a four-microphone array.
+Furthermore, the third task of the #acr("DCASE") challenge proposes a yearly competition around designing the best #acr("SSL") system.
+For the 2024 edition of #acr("DCASE"), the target dataset was STARSS23 @shimada_starss23_nodate, introduced at the NeurIPS 2023 conference.
+
+
+#figure(
+  move(
+    image(
+      "figures/dataset_statistics.svg",
+      height: 10cm,
+    ),
+    dx: 33pt
+  ),
+  caption: [
+    Statistics of ground-truth label pairs ($theta$, $D$) in the generated dataset
+  ]
+)
+<fig:ssl:single_source:dataset_statistics>
+
+
+@fig:ssl:single_source:dataset_statistics outlines the repartition of the generated samples in terms of source-array relative positions.
+
 The speech source present in the room is considered to be omnidirectional and simulated as such.
 #draft[
   Should we already warn about the limitations of this choice ? i.e. not very realistic
@@ -43,7 +71,6 @@ Geometric information is extracted from the differences between the signals rece
 Acoustic reverberation and the spatial configuration of the array lead to the apparition of exploitable patterns in the overall collected data.
 
 We present the following microphone array configurations that have been tested.
-Their implementation enriches the possibilities provided by our simulator.
 
 - A *binaural* array comprises two microphones placed a few centimeters apart from each other.
  This setup certainly constitutes the most studied robotic #acr("SSL") framework in the literature.
@@ -51,14 +78,14 @@ Their implementation enriches the possibilities provided by our simulator.
 - We have also proposed a *three microphone* design disposed in a V-shaped arrangement.
 - Finally, a *square* array of four microphones has been implemented too.
 
-// TODO figure wih the three possible arrays
+Their implementation has been integrated in our simulator (see @sec:simulator:simulator:components:mic_arrays).
 
 The number of microphones plays an important role in the #("SSL") performance.
 As an illustrative example, when having a binaural microphone in the free field, i.e. where the effects of reverberation can be neglected, there exist a fundamental limit:
 It is theoretically impossible to distinguish the two possible locations of the source.
 This phenomenon is known as the front-back ambiguity.
-// TODO cite papers
-The latter can be cleared up by introducing relative movement or by introducing an additional microphone in the array.
+#draft[TODO cite papers]
+The latter can be cleared up by introducing relative movement or an additional microphone in the array.
 
 
 
@@ -98,6 +125,10 @@ We have thus tested different configurations in our single-source #acr("SSL") ex
 ==== Audio post-processing
 <sec:ssl:single_source:method:audio_processing>
 
+The simulator allows to directly extract spectral representations from received signals.
+This section summarizes the explicit choices made regarding audio-processing for performing the #acr("SSL") task.
+Originally, the dataset is constituted by #draft[TODO]
+
 
 ==== Neural Network Architecture
 
@@ -107,22 +138,12 @@ At the other end, this network is trained to infer the #acr("DoA") value $theta$
 
 Our model is trained in a supervised fashion using some custom datasets presented in @sec:ssl:single_source:method:dataset.
 
-#gaet[
-  Should we say that the impact of the architecture (Relu vs ReLU+BN vs BN+ReLU vs ReLU+LN LN+ReLU) is laughingly HIGH ?
-]
-
 The architecture, depicted in @fig:ssl:single_source:nn_architecture, consists in three convolutional blocks.
 Each of them encompasses a 2D convolution operator, layer normalization and finally a #acr("ReLU").
 The convolutional filters operate in the time-frequency plane.
 The dimension of the multi-channel image progressively shrinks along the network.
 Ultimately, the data gets flatten into a one-dimensional vector fed into a 4-layers #acr("MLP").
 The number of output neurons can be configured depending on the necessity to predict only the #acr("DoA") value or both #acr("DoA") and source-array distance.
-
-*Architecture impact.*
-Our model architecture has been explicitly designed for the present use case.
-Literature on #acr("SSL") and more broadly computer vision has motivated the structure of this reasonably standard network.
-However, several variations have been regarding the layout of the convolutional blocks.
-Although performance in _easy_ tasks were not significantly impacted by those changes, they have turned out to be crucial for achieving satisfying results in more complex settings.
 
 #figure(
   image("figures/ssl_singlesource_nn_architecture.svg"),
@@ -131,7 +152,21 @@ Although performance in _easy_ tasks were not significantly impacted by those ch
   ],
 ) <fig:ssl:single_source:nn_architecture>
 
-// TODO: figure of the architecture
+
+*Architecture impact.*
+Our model architecture has been explicitly designed for the present use case.
+Literature on #acr("SSL") and more broadly computer vision has motivated the structure of this reasonably standard network.
+However, several variations have been regarding the layout of the convolutional blocks.
+Although performance in _easy_ tasks were not significantly impacted by those changes, they have turned out to be crucial for achieving satisfying results in more complex settings.
+More specifically, the presence of normalization layers has shown to enhance training stability across our experiments.
+Interestingly, whether to place those normalization before or after the #acr("ReLU") in each convolutional block ended up mattering substantially.
+Albeit in some cases, similarly good performance was achieved #todo
+
+#gaet[
+  Should we say that the impact of the architecture (Relu vs ReLU+BN vs BN+ReLU vs ReLU+LN LN+ReLU) is laughingly HIGH ?
+  Should we include 
+]
+
 
 ==== Loss function
 <sec:ssl:single_source:method:loss>
@@ -168,7 +203,7 @@ On the $[-2pi, 2pi]$ interval, #d behaves like the conventional angular periodic
 However, for values of $abs(theta_2 - theta_1) > 2pi$, the distance diverges to $+infinity$.
 The natural choice would have been to wrap #d in $[0, pi]$ by choosing:
 $
-  d(theta_1, theta_2) =
+  d'(theta_1, theta_2) :=
     pi
     - lr(mabs(
         mabs(theta_2 - theta_1)colMath([2pi], #olive)
@@ -257,3 +292,6 @@ where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (ha
   $
   <eq:ssl:single_source:total_loss>
 ]
+
+
+==== Training strategy

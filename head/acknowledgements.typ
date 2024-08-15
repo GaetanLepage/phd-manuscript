@@ -1,5 +1,4 @@
-#import "/utils.typ": clorem
-#import "/misc/template.typ": fill-line
+#import "/utils.typ": clorem, fill-line
 
 = Acknowledgements
 

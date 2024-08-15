@@ -17,7 +17,7 @@ This constitutes the starting point of the library and is responsible for its ce
 
 The core component around which the simulation pipeline revolves is the #acr("RIR") simulation library.
 We have chosen the framework of #acr("RIR") filters for its simplicity and prevalence in the scientific literature.
-@sec:simulator:background introduced the main concepts and fundamental aspects of this approach.
+@sec:simulator:reverb:methods introduced the main concepts and fundamental aspects of this approach.
 
 @fig:simulator:simulator:audio_pipeline illustrates how the audio processing takes place within the pipeline.
 The different steps of this procedure will be detailed in the following sections.

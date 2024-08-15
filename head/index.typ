@@ -14,6 +14,7 @@
 
 #outline(
   title: "Contents",
+  indent: true,
   //depth: 2,
 )
 #outline(
@@ -33,4 +34,5 @@
 #print-index(
   title: "List of Acronyms",
   outlined: true,
+  numbering: none,
 )

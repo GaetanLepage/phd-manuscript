@@ -38,11 +38,17 @@
   "RIR": ("Room Impulse Response"),
   "RTF": ("Related Transfer Function"),
   "SNR": ("Signal to Noise Ratio"),
-  "STFT": ("Short Term Fourier Transform"),
+  "STFT": (
+    "Short Term Fourier Transform",
+    "Short Term Fourier Transforms"
+  ),
   
   // RL
   "DRL": ("Deep Reinforcement Learning"),
-  "MDP": ("Markov Decision Process", "Markov Decision Processes"),
+  "MDP": (
+    "Markov Decision Process",
+    "Markov Decision Processes"
+  ),
   "PPO": ("Proximal Policy Optimization"),
   "RL": ("Reinforcement Learning"),
 ))
