@@ -152,7 +152,7 @@ Considering their satisfying results, the interaural features will be kept as th
 ==== Reverberation
 
 #acr("SSL") methods leverage the inter-channel differences present in the time-frequency input data to infer the source position.
-Those variations, theoretically discussed in
+Those variations, theoretically discussed in @sec:simulator:background:spectral-features:binaural 
 
 #figure(
   tablex(

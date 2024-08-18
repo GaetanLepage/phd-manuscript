@@ -1,7 +1,6 @@
 #import "/utils.typ": *
 #import "../_notations.typ": *
 
-
 #figure(
   tablex(
     // SETTINGS
@@ -71,7 +70,8 @@
   caption: [
     #acr("SSL") performance depending on the input duration
   ]
-) <table:ssl:multi_source:experiments:context_len_training>
+)
+<table:ssl:multi_source:experiments:context_len_training>
 
 
 /*
