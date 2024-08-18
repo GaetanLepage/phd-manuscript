@@ -46,6 +46,7 @@
   #line(length: 100%)
   - *Final things:*
     - [ ] Grammar check
+    - [ ] Ensure consistency between: BatchNorm / Batch Norm / batch norm
     - *Layout:*
       - [ ] figure/table placement check
       - [ ] Check that all `subpar.grid` figures have their `numbering` set to `fig-numbering`
