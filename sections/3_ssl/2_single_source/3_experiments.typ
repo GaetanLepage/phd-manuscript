@@ -39,13 +39,13 @@ For clarity reasons, the values for this metrics will be displayed in centimeter
 ==== Impact of input signal representation
 
 The the neural network is expected to extract the relevant localization information from the audio signal provided as input.
-
-#draft[TODO: say that it is a binaural array]
+This section explores the importance of the choice of the input features fed into the network.
+Here, the sensors consist in a binaural microphone array of two omnidirectional transducers.
 
 In this work, we focus on time-frequency representations.
 Adaptations of 2D convolutions to complex tensors do exist and have already been used in the #acr("SSL") literature.
 In @krause_comparison_2021, Krause et al. present this variation along with its benefits (Section II.B).
-In this work though, regular 2D convolutions have been employed and the complex-valued #acr("STFT") were needed to be converted to real values.
+Here, however, regular 2D convolutions have been employed and the complex-valued #acr("STFT") were needed to be converted to real values.
 To achieve this, two schemes were compared:
 - On the one hand, both the real and imaginary parts of the complex data can populate the two real resulting matrices:
   $
@@ -111,6 +111,7 @@ The final observations fed into the network are #shape(4, 337, 32) for #acr("STF
     midrule,
     [#acr("ILD") only],                         [1], [2.39],    [4.91],
     [#acr("IPD") only],                         [1], [*1.83*],  [*3.81*],
+    [#acr("STFT") magnitude only],              [2], [14.73],   [22.68],
     [#acr("STFT") phase only],                  [2], [1.91],    [3.90],
     
     bottomrule
@@ -141,14 +142,11 @@ They show that limiting the input information to phase information alone suffice
 Paradoxically, such a filtering of the input data even achieves results slightly better than the ones obtained when using the full features.
 This further confirms that the rest of the features is fully redundant.
 
-Interestingly, solely using the #acr("ILD") matrix yields a promising #mae-theta of 2.39° which shows that our model manages to leverage the difference in amplitude between the two channels for performing the localization.
+Interestingly, solely using the #acr("ILD") matrix yields a promising #mae-theta of 2.39° which shows that our model manages to leverage the difference in amplitude between the two channels for performing localization.
 Those results are however less consistent across several runs than the ones using #acr("IPD") or the phase of the #acrpl("STFT").
+Lastly, providing the only magnitude of the #acrpl("STFT") does not lead to comparable performance with a #mae-theta of 14.73 at best.
 
-
-#draft[TODO: add experiments with Phases only and IPD only]
-
-// TODO: we settle on ILD/IPD because it gives the best results
-Consider
+Considering their satisfying results, the interaural features will be kept as the baseline method for the rest of the study.
 
 
 ==== Reverberation

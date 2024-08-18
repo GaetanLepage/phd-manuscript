@@ -266,15 +266,18 @@
     gap: 1.5em
   )
 
-  set figure.caption(separator: [ -- ])
+  set figure.caption(
+    separator: [ -- ],
+  )
 
-  show figure.caption: it =>{
-    if it.kind == table {
-      align(center, it)
-    } else {
-      align(left, it)
-    }
-  }
+  // @GL: Let's have all captions centered
+  //show figure.caption: it =>{
+  //  if it.kind == table {
+  //    align(center, it)
+  //  } else {
+  //    align(left, it)
+  //  }
+  //}
   show figure.where(kind: table): it => {
     set figure.caption(position: top)
     // Break large tables across pages.
