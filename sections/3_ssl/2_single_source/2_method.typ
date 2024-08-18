@@ -1,4 +1,5 @@
 #import "/utils.typ": *
+#import "_notations.typ": *
 
 === Method
 
@@ -131,6 +132,7 @@ Originally, the dataset is constituted by #draft[TODO]
 
 
 ==== Neural Network Architecture
+<sec:ssl:single_source:method:architecture>
 
 As demonstrated in @sec:ssl:sota:deep_learning, deep neural networks have shown to be flexible and effective as building blocks for an #acr("SSL") solution.
 We focused in this work on a simple architecture that takes some representation of the listened audio signal as its only input.
@@ -178,9 +180,6 @@ We will now present the loss function used during training.
 *Angular distance.*
 First, consider the following symmetric angular pseudo-distance.
 Let $theta_1, theta_2 in RR$ two angle values expressed in radians.
-#let d-color = rgb(31,119,180)
-#let d = $colMath(d, #d-color)$
-#let l-color = rgb(255,127,14)
 $
   #d: #h(1cm) RR^2 & -->               RR_+\
   (theta_1, theta_2)        & arrow.r.long.bar 
@@ -245,7 +244,6 @@ Empirically, this choice has shown no effect on neither the training process nor
 *Loss function.*
 Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #acr("DoA") angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
 The loss function expresses as
-#let l-doa = $colMath(cal(L)_"DoA", #l-color)$
 $
   #l-doa (
     hat(theta), theta
@@ -295,3 +293,10 @@ where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (ha
 
 
 ==== Training strategy
+
+Training deep neural networks involve determining relevant values for multiple hyper parameters.
+The network architecture itself plays a crucial role and has already been discussed in @sec:ssl:single_source:method:architecture
+
+#draft[
+  - BS=
+]
