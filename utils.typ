@@ -1,5 +1,5 @@
 #import "@preview/acrostiche:0.3.2": *
-#import "@preview/minitoc:0.1.0": *
+#import "@preview/minitoc:0.1.0": minitoc as _minitoc
 #import "@preview/subpar:0.1.1"
 #import "_misc/template/_index.typ": in-outline, fill-line
 
@@ -8,7 +8,7 @@
 #let flex-caption(long, short) = context { if in-outline.get() { short } else { long } }
 
 /* TABLES */
-#import "@preview/tablex:0.0.8": tablex, colspanx, hlinex
+#import "@preview/tablex:0.0.8": tablex, colspanx, hlinex, rowspanx
 #let toprule = hlinex(stroke: (thickness: 0.08em))
 #let bottomrule = toprule
 #let midrule = hlinex(stroke: (thickness: 0.05em))
@@ -32,15 +32,29 @@
 #let shape(x, y, z) = $(#str(x), #str(y), #str(z))$
 
 /* COMMENTING */
+#let show-comments = true
+//#let show-comments = false
+
+#let minitoc(indent: true) = {
+  if show-comments {
+    _minitoc(indent: indent)
+  } else {
+    ""
+  }
+}
+}
+#let togglable(body) = {
+  if show-comments { body } else { "" }
+}
 #let draft(body) = {
   set text(fill: maroon)
-  [_#body _]
+  togglable[_#body _]
 }
 #let todo = draft[TODO]
 
 #let comment(name, body, color: red) = {
   set text(color)
-  [\ *>>> #name:* #body\ ]
+  togglable[\ *>>> #name:* #body\ ]
 }
 
 #let chris(body) = {

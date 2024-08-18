@@ -55,17 +55,22 @@
 #gaet[
   
   *General questions:*
+  - Should we note tensor shapes $(X, Y, Z)$ or $X times Y times Z$ ?
+  - DOA or DoA ?
+
+  *Visual/Layout questions:*
   - Aren't the margins too narrow ?
   - Should the links (references to sections/papers) be in blue ?
-  - Should we note tensor shapes $(X, Y, Z)$ or $X times Y times Z$ ?
   - Limit the _Table of Contents_ depth ? (currently none)
+  - Should figure captions be centered or left-align ? (I assume that table captions will them always be centered)
 
   *Style-related questions:*
   - Is passive style OK ? to be encouraged ? discouraged ?\
     \<SUBJECT\> is/will be/has been \<VERB\>.
 
   *Questions for Laurent:*
-  - How to compute duration from $F$ (i.e. number of #acr("STFT") frames) ?
+  - How to compute duration from $F$ (i.e. number of #acr("STFT") frames) ?\
+    $N = H(T - 1) => d = H(T - 1) / f$
   - How to organize the "audio" sections ?
 
   *Remarks:*

@@ -1,10 +1,6 @@
 #import "/utils.typ": *
 #import "2_method.typ": tau-e
-
-#let header-mae = [MAE (°) #sym.arrow.b]
-#let header-acc = [Accuracy (%) #sym.arrow.t]
-#let header-prec = [Precision (%) #sym.arrow.t]
-#let header-recall = [Recall (%) #sym.arrow.t]
+#import "_notations.typ": *
 
 === Experiments and results
 
@@ -206,59 +202,59 @@ This features has allowed us to experiment with the impact of how many sources a
   According to Chris, this is not that relevant
 ]
 #draft[
-*Training frameworks.*
-On the one hand, the two following training setups can be compared:
-- _Scenario A_ is the setup proposed in @he_neural_2021 with the following repartition of samples:
-  - 0 sources: 20%,
-  - 1 source: 40%,
-  - 2 sources: 30%,
-  - 3 sources: 5%,
-  - 4 sources: 5%.
-- _Scenario B_ uniformly chooses a number of sources between 1 and 4 for each sample. Thus, it is more challenging as at least one source is always present in the room, and significantly more samples present 3 or 4 sources.
-
-As no artificial noise is added to the speech sources signal, the training dataset in _scenario A_ brings exactly 160k identical samples which observation tensor is null.
-Once the network successfully learns that it should output a zero-vector for those trivial samples, they will not contribute either to increasing or lowering the detection scores.
-
-Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to properly localize them.
-@table:ssl:multi_source:experiments:n_sources_train displays the final performance of models trained on datasets corresponding to each scenario.
-
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 3,
-    header-rows: 1,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
-
-    [],
-    [Dataset A],
-    [Dataset B],
-    
-    midrule,
-
-    // ROWS
-    header-mae,     [9.13],  [14.05],
-    header-acc,     [71.36], [61.76],
-    header-prec,    [80.98], [76.96],
-    header-recall,  [69.26], [58.53],
-
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    #acr("SSL") performance when trained with different number of sources
-  ]
-)
-<table:ssl:multi_source:experiments:n_sources_train>
-
-One should note that both training and test datasets are different.
-The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
-The rest of the experiments have been conducted with respect to _Scenario A_, following the same distribution of source numbers as He et al used in @he_neural_2021.
+  *Training frameworks.*
+  On the one hand, the two following training setups can be compared:
+  - _Scenario A_ is the setup proposed in @he_neural_2021 with the following repartition of samples:
+    - 0 sources: 20%,
+    - 1 source: 40%,
+    - 2 sources: 30%,
+    - 3 sources: 5%,
+    - 4 sources: 5%.
+  - _Scenario B_ uniformly chooses a number of sources between 1 and 4 for each sample. Thus, it is more challenging as at least one source is always present in the room, and significantly more samples present 3 or 4 sources.
+  
+  As no artificial noise is added to the speech sources signal, the training dataset in _scenario A_ brings exactly 160k identical samples which observation tensor is null.
+  Once the network successfully learns that it should output a zero-vector for those trivial samples, they will not contribute either to increasing or lowering the detection scores.
+  
+  Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to properly localize them.
+  @table:ssl:multi_source:experiments:n_sources_train displays the final performance of models trained on datasets corresponding to each scenario.
+  
+  #figure(
+    tablex(
+      // SETTINGS
+      columns: 3,
+      header-rows: 1,
+      align: left + horizon,
+      auto-vlines: false,
+      auto-hlines: false,
+      
+      // HEADER
+      toprule,
+  
+      [],
+      [Dataset A],
+      [Dataset B],
+      
+      midrule,
+  
+      // ROWS
+      header-mae,     [9.13],  [14.05],
+      header-acc,     [71.36], [61.76],
+      header-prec,    [80.98], [76.96],
+      header-recall,  [69.26], [58.53],
+  
+      bottomrule
+    ),
+    placement: top,
+    kind: table,
+    caption: [
+      #acr("SSL") performance when trained with different number of sources
+    ]
+  )
+  <table:ssl:multi_source:experiments:n_sources_train>
+  
+  One should note that both training and test datasets are different.
+  The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
+  The rest of the experiments have been conducted with respect to _Scenario A_, following the same distribution of source numbers as He et al used in @he_neural_2021.
 ]
 
 *Evaluation frameworks.*
@@ -303,6 +299,7 @@ The network has been trained according to the _scenario A_ presented above.
     #acr("SSL") performance depending on the number of active sources
   ]
 )
+<table:ssl:multi_source:experiments:n_sources>
 
 #draft[
   TODO: make a comparison between performance achieved on single-source SSL.\
@@ -613,57 +610,17 @@ The choice of the signal duration used for training the localizer has some impor
 A tradeoff needs to be made between the reactivity of the system and detection performance.
 Naturally, disposing of longer sequences of input audio is suspected to lead to higher metrics values.
 On the other hand restricting the snippet length even further might hinder the robustness of the results.
+Also, when available, a pre-trained method should be able to leverage longer segments of audio to refine its prediction.
 
-To quantitatively evaluate those assumptions, we have trained our neural network on audio recordings of different lengths.
+To quantitatively evaluate those assumptions, we start by training our neural network on audio recordings of different lengths #F-train.
 As presented in @sec:ssl:multi_source:method:dataset, the baseline duration of used recordings amount to roughly 360ms of audio.
-Here, lower durations have been tested.
+Here, lower durations have also been tested.
+We test the models obtained from each value of #F-train on multiple durations using
 
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 5,
-    header-rows: 1,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
 
-    [],
-    [2 frames (64ms)],
-    [4 frames (107ms)],
-    [8 frames (192ms)],
-    [16 frames (341ms)],
-    
-    midrule,
 
-    // ROWS
-    header-mae,     [], [], [], [],
-    header-acc,     [], [], [], [],
-    header-prec,    [], [], [], [],
-    header-recall,  [], [], [], [],
+#include "figures/table_context_length.typ"
 
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    #acr("SSL") performance depending on the input duration
-  ]
-) <table:ssl:multi_source:experiments:context_len_training>
-
-#draft[
-  Should 'Sequence processing' simply be a sub-section of this ?
-]
-
-#draft[
-  TODO: compare trained on Tn vs trained on T and averaged n times
-]
-
-#draft[
-  Transi: "going in the other direction and using longer snippets"
-]
 
 ===== Sequence processing
 
@@ -732,6 +689,7 @@ This drawback gets offset by leveraging the overall consistency of the method ov
 In order to further characterize this behavior, we have executed an exhaustive performance evaluation of the sequence processing workflow.
 
 
+/*
 #figure(
   tablex(
     // SETTINGS
@@ -767,18 +725,54 @@ In order to further characterize this behavior, we have executed an exhaustive p
     #acr("SSL") performance for different context lengths
   ]
 ) <table:ssl:multi_source:experiments:sequence_processing>
+*/
 
 
 
 
-@table:ssl:multi_source:experiments:sequence_processing exposes the results of the trained model for various context windows.
+#todo exposes the results of the trained model for various context windows.
 It appears clearly that the longer the agent is able to hear, the better its localization performance becomes.
 The base context window of 16 #acr("STFT") frames amounts to approximately 363 milliseconds, which is a fairly short time period.
 During this interval, one or more speech sources could be inactive as the energy criteria $delta_"energy" (#tau-e)$ is not enforced on this specific data set.
-This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:number_of_sources (see @table:ssl:multi_source:experiments:n_sources_train for example).
+This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:number_of_sources (see @table:ssl:multi_source:experiments:n_sources for example).
 
 
-==== Ablation study on source proximity
+==== Ablation study on sources angular proximity
 
 The decoding process, presented in @sec:ssl:multi_source:method:detection_decoding, consists in extracting the local maxima of the predicted #acr("DoA") spectrum.
 The abscissas of the resulting peaks are considered as the final angle values.
+As such, samples involving sources with close #acr("DoA") values are expected to be challenging for our method.
+
+#let delta-t = $Delta theta_"min"$
+Let #delta-t be the angle difference between the two closest sources with respect to #acr("DoA"):
+$
+  #delta-t = min_(i, j in [|1, n_s|]\ i!= j) #d-prime (theta_i, theta_j)
+$
+where $(theta_i)_(i=1dots n_s)$ are the real #acr("DoA") values for this sample and #d-prime is the angle distance introduced in @eq:ssl:multi_source:symmetric_angular_dist.
+It should be noted that this quantity can only be defined for samples encompassing at least two sources.
+
+#figure(
+  image(
+    "figures/doa_min_dist_histogram.svg",
+    height: 10cm,
+  ),
+)
+<fig:ssl:multi_source:experiments:doa_min_dist_hist>
+
+From a single original dataset, generated with $n_s = 4$ sources active in each of the 8000 samples, #delta-t is evaluated in three cases.
+In the first scenario, all four sources remain active and the four corresponding #acr("DoA") values are used to compute #delta-t.
+On the other two, only 2 (respectively 3) random sources are enabled simultaneously in every sample.
+@fig:ssl:multi_source:experiments:doa_min_dist_hist depicts the distribution of #delta-t depending on this number of active sources.
+Naturally, when only 
+
+// Add histogram of Delta-t min
+// Add plot score vs Delta-t min
+
+
+In order to characterize this property, the model trained on the regular dataset has been evaluated on specific test cases.
+Each test dataset ensures to respect a lower bound #tau-doa such that $#delta-t >= #tau-doa$ for all samples
+
+// TO obtain this, on fait par rejet
+
+
+#include "figures/table_min_doa.typ"

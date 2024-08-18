@@ -1,5 +1,5 @@
 #import "/utils.typ": *
-#import "../2_single_source/2_method.typ": d
+#import "_notations.typ": *
 
 === Method
 
@@ -23,6 +23,7 @@ The $n_m = 4$ omnidirectional sensors are arranged in a 2cm wide square.
 
 Audio processing has been kept the same, except for the sample duration.
 The latter now amounts to approximately 360ms as 16 #acr("STFT") frames participate to each input of the model.
+#gaet[This choice is not easy to justify. He uses even less samples (7)].
 
 
 The microphone array and $n_s$ speech sources get randomly positioned in the room.
@@ -163,11 +164,12 @@ $
   phi.alt : bracket.l.double 1, d bracket.r.double & arrow.r [-pi, pi] \
    i & |-> phi.alt_i
 $
+<eq:ssl:multi_source:phi_def>
 We naturally have 
 - $phi.alt_1 = - pi$
 - $phi.alt_(floor(d/2)) tilde.eq 0$
 - $phi.alt_d = pi$
-#chris[This is already visible from eq. 2. Or is this information very important?]
+#chris[This is already visible from @eq:ssl:multi_source:phi_def Or is this information very important?]
 #gaet[This was to make it even clearer, but with some plots it could be enough.]
 
 
@@ -205,7 +207,6 @@ $
 
 This approach can be enhanced to allow for a more consistent regression target.
 
-#let d-prime = $colMath(d', #olive)$
 $
   o(Theta)_i = cases(
     display(max_(theta in Theta))
@@ -224,6 +225,8 @@ $ <eq:ssl:multi_source:doa_encoding>,
 where #d-prime is the following symmetric angle distance
 #footnote[
   #d-prime is a simplified version of #d, introduced for single-source localization in @eq:ssl:single_source:angle_dist.
+  As input values always lay in the $[-pi, pi]$ interval, the outermost absolute value present in #d becomes unnecessary.
+  On this interval, they coincide rigorously.
 ],
 $
   #d-prime : [-pi, pi]^2 & --> [0, pi]\
@@ -237,8 +240,11 @@ We chose to set $sigma = 5°$.
 
 #figure(
   image("figures/doa_encoding.svg"),
-  caption: [DOA encoding of two sources]
-) <fig:ssl:multi_source:doa_gt_encoding>
+  caption: [
+    DOA encoding of three sources
+  ]
+)
+<fig:ssl:multi_source:doa_gt_encoding>
 
 #gaet[
   Should we plot it with discrete points (scatter) instead of continuous lines ? It would be more relatable to the given definition.
