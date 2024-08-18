@@ -261,45 +261,7 @@ This features has allowed us to experiment with the impact of how many sources a
 For understanding the impact of the number of concurrent sources in the room on performance, we have evaluated a given network in various scenarios.
 The network has been trained according to the _scenario A_ presented above.
 
-
-// Same training with different number of sources
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 7,
-    header-rows: 1,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
-
-    [],
-    [1 source],
-    [2 sources],
-    [3 sources],
-    [4 sources],
-    [Scenario A\ (0-4 sources)],
-    [Scenario B\ (1-4 sources)],
-    
-    midrule,
-
-    // ROWS
-    header-mae,     [2.59],  [7.26],  [15.89], [21.95], [9.13],  [15.24],
-    header-acc,     [88.58], [70.78], [58.18], [50.21], [71.36], [60.52],
-    header-prec,    [87.70], [79.56], [74.99], [72.08], [80.99], [76.73],
-    header-recall,  [88.70], [68.07], [54.73], [46.22], [69.26], [57.36],
-
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    #acr("SSL") performance depending on the number of active sources
-  ]
-)
-<table:ssl:multi_source:experiments:n_sources>
+#include "figures/table_n_sources.typ"
 
 #draft[
   TODO: make a comparison between performance achieved on single-source SSL.\
@@ -324,81 +286,7 @@ $ <eq:ssl:multi_source:epsilon_loss>
 
 #gaet[Should we do a plot to show the multiplicative factor across the DoA spectrum ?]
 
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 7,
-    header-rows: 1,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
-
-    [],
-    [$diameter$],
-    [$epsilon=0.1$],
-    [$epsilon=0.2$],
-    [$epsilon=0.4$],
-    [$epsilon=0.6$],
-    [$epsilon=1.0$],
-    
-    midrule,
-
-    // ROWS
-    header-mae,     [9.36],  [8.17],  [8.29],  [*8.13*],  [8.32],  [8.49],
-    header-acc,     [70.56], [71.68], [71.02], [*71.99*], [71.60], [71.38],
-    header-prec,    [*81.04*], [67.86], [70.36], [75.96], [76.94], [76.87],
-    header-recall,  [68.36], [*70.62*], [69.86], [70.28], [69.88], [69.61],
-
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    Performance of the #acr("SSL") model trained with the $epsilon$-loss
-  ]
-) <table:ssl:multi_source:experiments:epsilon_loss>
-#draft[
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 5,
-    header-rows: 1,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
-
-    [],
-    header-mae,     
-    header-acc,     
-    header-prec,        
-    header-recall,  
-    
-    midrule,
-    
-    // ROWS
-    [$diameter$],     [9.36],   [70.56],   [*81.04*], [68.36],
-    [$epsilon=0.1$],  [8.17],   [71.68],   [67.86],   [*70.62*],
-    [$epsilon=0.2$],  [8.29],   [71.02],   [70.36],   [69.86],
-    [$epsilon=0.4$],  [*8.13*], [*71.99*], [75.96],   [70.28],
-    [$epsilon=0.6$],  [8.32],   [71.60],   [76.94],   [69.88],
-    [$epsilon=1.0$],  [8.49],   [71.38],   [76.87],   [69.61],
-
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    TODO: alternative table with metrics as columns
-    Performance of the #acr("SSL") model trained with the $epsilon$-loss
-  ]
-)
-]
+#include "figures/table_epsilon_loss.typ"
 
 
 #gaet[
@@ -509,44 +397,8 @@ Indeed, using the current validation batch statistics instead of the ones gather
 This constitutes an important limitation of batch normalization in this case as the evaluation thus needs to be performed in a batched manner.
 @table:ssl:multi_source:experiments:batch_norm displays the influence of the batch size on the performance of the network trained with #acr("BN").
 
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 7,
-    header-rows: 2,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
-    [],
-    [evaluation mode],
-    colspanx(5, align: center)[training mode],
-    [Batch size],
-    [-],
-    [1],
-    [50],
-    [100],
-    [200],
-    [500],
-    
-    midrule,
 
-    // ROWS
-    header-mae,    [29.58], [42.10], [9.32],  [9.11],  [9.07],  [*8.95*],
-    header-acc,    [53.45], [26.03], [73.00], [73.43], [73.66], [*73.76*],
-    header-prec,   [45.37], [12.39], [83.7],  [84.26], [84.71], [*84.78*],
-    header-recall, [61.00], [51.43], [70.61], [70.96], [71.19], [*71.35*],
-
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    #acr("SSL") performance of #acr("BN") network w.r.t the evaluation mode
-  ]
-) <table:ssl:multi_source:experiments:batch_norm>
+#include "figures/table_batch_norm.typ"
 
 
 
@@ -559,43 +411,7 @@ As explained in @sec:ssl:multi_source:experiments:normalization:background, #acr
 @table:ssl:multi_source:experiments:norm_comparison compares the final performance of the different normalization approaches.
 All models are evaluated on the same test dataset.
 
-#draft[
-  TODO empty column
-]
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 5,
-    header-rows: 1,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
-
-    [],
-    [No normalization],
-    [Batch norm\ (training mode, BS=500)],
-    [Batch norm\ (eval mode)],
-    [Layer norm],
-    
-    midrule,
-
-    // ROWS
-    header-mae,     [], [*8.95*],  [29.58], [9.37],
-    header-acc,     [], [*73.76*], [53.45], [70.35],
-    header-prec,    [], [*84.78*], [45.37], [80.21],
-    header-recall,  [], [*71.35*], [61.00], [68.26],
-
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    #acr("SSL") performance depending on the normalization strategy
-  ]
-) <table:ssl:multi_source:experiments:norm_comparison>
+#include "figures/table_norm_comparison.typ"
 
 Overall, #acr("LN") and #acr("BN") offer comparable performance.
 However, the model trained with #acr("LN") behave very consistently when used in evaluation.
@@ -616,8 +432,6 @@ To quantitatively evaluate those assumptions, we start by training our neural ne
 As presented in @sec:ssl:multi_source:method:dataset, the baseline duration of used recordings amount to roughly 360ms of audio.
 Here, lower durations have also been tested.
 We test the models obtained from each value of #F-train on multiple durations using
-
-
 
 #include "figures/table_context_length.typ"
 
@@ -756,23 +570,41 @@ It should be noted that this quantity can only be defined for samples encompassi
     "figures/doa_min_dist_histogram.svg",
     height: 10cm,
   ),
+  caption: [
+    Distribution of #delta-t for different numbers of active sources
+  ]
 )
 <fig:ssl:multi_source:experiments:doa_min_dist_hist>
 
 From a single original dataset, generated with $n_s = 4$ sources active in each of the 8000 samples, #delta-t is evaluated in three cases.
 In the first scenario, all four sources remain active and the four corresponding #acr("DoA") values are used to compute #delta-t.
-On the other two, only 2 (respectively 3) random sources are enabled simultaneously in every sample.
+On the other two, only two (respectively three) random sources are enabled simultaneously in every sample.
 @fig:ssl:multi_source:experiments:doa_min_dist_hist depicts the distribution of #delta-t depending on this number of active sources.
-Naturally, when only 
+Naturally, when only two sources are present concurrently, high values of #delta-t remain likely.
+Yet, increasing the number of sources tends to decrease their likelihood and the minimum #acr("DoA") gap reaches lower values more often.
+Hence, the correlation between the number of sources and the difficulty of the #acr("SSL") task highlighted in @sec:ssl:multi_source:experiments:number_of_sources might be caused by two underlying reasons.
+On the one hand, the model is expected to extract each speaker's location from the mixture of speech signals that constitute its input.
+An increase in the number of inherently hardens this task.
+On the other hand, low #delta-t samples also get more frequent, which could participate to hinder proper localization by itself.
 
-// Add histogram of Delta-t min
-// Add plot score vs Delta-t min
+In order to empirically study the impact of #delta-t on the #acr("SSL") performance, the model trained on a regular dataset has been evaluated on specific test cases.
+Each test dataset ensures to respect a lower bound #tau-doa such that $#delta-t >= #tau-doa$ for all samples.
+Also, the number of sources is fixed to $n_s = 4$ to best isolate the influence of #delta-t on the results.
+@fig:ssl:multi_source:experiments:doa_min_dist_hist_2 plots the distribution of #delta-t of all four test datasets.
 
+Performances of the pre-trained model on each scenario are summarized in @table:ssl:multi_source:experiments:min_doa.
+Although #acr("MAE") and Precision show to not being meaningfully affected by #delta-t, Accuracy and Recall improve by 6.5 and 11 points respectively across this range of scenarios.
+This observation hence confirms that samples with very low #delta-t constitute hard
 
-In order to characterize this property, the model trained on the regular dataset has been evaluated on specific test cases.
-Each test dataset ensures to respect a lower bound #tau-doa such that $#delta-t >= #tau-doa$ for all samples
-
-// TO obtain this, on fait par rejet
-
+#figure(
+  image(
+    "figures/doa_min_dist_histogram_2.svg",
+    height: 10cm,
+  ),
+  caption: [
+    Distribution of #delta-t for different values of #tau-doa
+  ]
+)
+<fig:ssl:multi_source:experiments:doa_min_dist_hist_2>
 
 #include "figures/table_min_doa.typ"
