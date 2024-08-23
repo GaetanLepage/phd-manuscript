@@ -4,3 +4,5 @@
 #let AM = $cal(M)_t$
 // Target for AM
 #let AM-targ = $AM^*$
+
+#let psi-dnn = $Psi^("DNN"(theta))$

@@ -13,6 +13,7 @@
   "LN": ("Layer Normalization"),
   "MLP": ("Multi Layer Perceptron"),
   "ReLU": ("Rectified Linear Unit"),
+  "DNN": ("Deep Neural Network"),
   
   // ASR
   "ASR": ("Automatic Speech Recognition"),
