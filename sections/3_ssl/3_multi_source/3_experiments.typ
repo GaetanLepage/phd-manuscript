@@ -386,6 +386,11 @@ We observed that the latter was yielding the same stabilization benefits during 
   ]
 ) <fig:ssl:multi_source:normalization_plots>
 
+#gaet[
+  The experiment _without normalization_ is mysterious: I am not able to reproduce it.
+  If I don't solve this, we might have to simply remove it and just compare BN to LN.
+]
+
 This particular metric clearly exposes the differences between those three choices but the other metrics behave similarly.
 Overall, both normalization techniques bring additional stability and performance to the training process.
 However, significant differences arise when looking at the validation metrics.
@@ -393,13 +398,12 @@ When ran in evaluation mode, i.e. using the running statistics gathered during t
 This would suggest that the saved means and averages do not properly account for the differences between the training and validation sets.
 
 Interestingly, evaluating this network's performance while forcing the batch normalization to use the training strategy avoids facing this issue.
-Indeed, using the current validation batch statistics instead of the ones gathered at training provides results on par with the training performance.
+Indeed, using the current validation batch statistics instead of the ones gathered at training time provides results on par with the training performance.
 This constitutes an important limitation of batch normalization in this case as the evaluation thus needs to be performed in a batched manner.
-@table:ssl:multi_source:experiments:batch_norm displays the influence of the batch size on the performance of the network trained with #acr("BN").
+@table:ssl:multi_source:experiments:normalization displays the influence of the batch size on the performance of the network trained with #acr("BN").
 
 
-#include "figures/table_batch_norm.typ"
-
+#include "figures/table_normalization.typ"
 
 
 Those results depicts the positive role played by larger batch sizes for evaluation in _training mode_.
@@ -408,19 +412,14 @@ In our robotics context, the developed #acr("SSL") solution would have to be abl
 
 This is what motivated enhancement of the model using other normalization schemes.
 As explained in @sec:ssl:multi_source:experiments:normalization:background, #acr("LN") does not encompass this behavioral distinction between training and evaluation.
-@table:ssl:multi_source:experiments:norm_comparison compares the final performance of the different normalization approaches.
-All models are evaluated on the same test dataset.
-
-#include "figures/table_norm_comparison.typ"
+@table:ssl:multi_source:experiments:normalization also compares the final performance of the layer normalization strategy.
 
 Overall, #acr("LN") and #acr("BN") offer comparable performance.
-However, the model trained with #acr("LN") behave very consistently when used in evaluation.
+However, the model trained with #acr("LN") behaves very consistently when used in evaluation.
 For those reasons, we have preferred this approach over the original one.
 
 
-
-
-==== Impact of context length
+==== Exploring how context length matters
 
 The choice of the signal duration used for training the localizer has some importance.
 A tradeoff needs to be made between the reactivity of the system and detection performance.
@@ -428,36 +427,33 @@ Naturally, disposing of longer sequences of input audio is suspected to lead to 
 On the other hand restricting the snippet length even further might hinder the robustness of the results.
 Also, when available, a pre-trained method should be able to leverage longer segments of audio to refine its prediction.
 
-To quantitatively evaluate those assumptions, we start by training our neural network on audio recordings of different lengths #F-train.
-As presented in @sec:ssl:multi_source:method:dataset, the baseline duration of used recordings amount to roughly 360ms of audio.
-Here, lower durations have also been tested.
-We test the models obtained from each value of #F-train on multiple durations using
+To quantitatively evaluate those assumptions, we start by training our neural network on different context lengths.
+Each training dataset has been generated from audio recordings of a given fixed duration translating in #acr("STFT") tensors of #T-train frames.
+As presented in @sec:ssl:multi_source:method:dataset, the baseline duration of used recordings amounts to roughly 320ms of audio ($#T-train = 16$).
+Here, trainings on lower durations have also been attempted.
+We test the models obtained from each value of #T-train on samples of equal or larger durations by performing subsequent forward passes.
+This process will be referred as _sequence processing_.
 
-#include "figures/table_context_length.typ"
-
-
-===== Sequence processing
-
-#gaet[This sounds very pessimistic and might not be necessary]
-In order to overcome the weaknesses of our model, we have proposed to use our method on longer recordings.
-Like so, we are able to account for the missed detections and achieve a higher robustness in the detections.
-
-The main idea resides in splitting the longer input audio in $M$ chunks sized appropriately to be processed by the neural network.
+*Sequence processing.*
+The main idea of sequence processing resides in splitting the longer input audio in $M$ chunks of #T-train frames to be processed individually by the neural network.
 $M$ output #acr("DoA") spectra are thus obtained and need to be aggregated.
 We simply average those signals to obtain a single vector:
 #let averaged-spectrum = $colMath(hat(o), #maroon)$
 $
   #averaged-spectrum = 1/M sum_(i=1)^M hat(o)_k #h(1em) in [0, 1]^d
-$ <eq:ssl:multi_source:sequence_averaging>
-
+$
+<eq:ssl:multi_source:sequence_averaging>
 The flexibility of the #acr("DoA") spatial spectrum encoding permits the former combination without the need of additional steps.
-Our detection algorithm can then be applied on the average output.
+The detection algorithm can then be applied on the average output.
 
-To evaluate the performance of this method, a new dataset is generated.
+*Sequence dataset generation.*
+#let D-full = $cal(D)_"full"$
+To evaluate the performance of the obtained models, a new dataset #D-full is generated.
 Instead of saving 16 frames long individual #acr("STFT") chunks, we record the features for recordings of several seconds.
 To generate each sample, each active source outputs one recorded sentence from the LibriSpeech @noauthor_librispeech_nodate dataset.
 #acr("STFT")s of the multi-channel signals received by the microphone array coming from each source are saved independently.
 Disposing of features corresponding to several seconds of simulation allows for performing #acr("SSL") on context windows of varying lengths.
+
 
 #subpar.grid(
   figure(
@@ -484,6 +480,8 @@ Disposing of features corresponding to several seconds of simulation allows for 
   label: <fig:ssl:multi_source:sequence_processing>,
 )
 
+
+
 @fig:ssl:multi_source:sequence_processing illustrates the sequence processing workflow on a single example.
 Here, around 16 seconds of continuous speech produced by three distinct static sources get recorded by the microphone array.
 The latter also stands at a fixed position in the room.
@@ -494,61 +492,33 @@ The gray scale patches represent the individual estimated #acr("DoA") spectrums 
 The resulting predicted angles are highlighted by the red dots.
 Finally, the histogram of predictions characterizes the distribution of detections along the process.
 
-Presenting the #acr("SSL") results as such highlights the strength and weaknesses of the proposed approach.
+Presenting the #acr("SSL") results as such highlights the strengths and weaknesses of the proposed approach.
 Even for a single frame, the estimated #acr("DoA") spectrum allows for precise predictions.
 Very few false positives are observed, as confirmed by the several quantitative experiments conducted.
 However, individual sources are sometimes missed, maybe because they were not active enough at this specific time.
 This drawback gets offset by leveraging the overall consistency of the method over a longer time.
 
+#include "figures/table_context_length.typ"
+
 In order to further characterize this behavior, we have executed an exhaustive performance evaluation of the sequence processing workflow.
+@table:ssl:multi_source:experiments:context_length summarizes the results from the conducted experiments.
+Leveraging the aforementioned generated dataset #D-full containing full audio recordings, it was possible to evaluate multiple models on different context lengths.
 
+For evaluation durations $d_"eval"$ from 21ms to 320ms, we compare models trained on different sub-factors of $T_"eval"$ frames performing _sequence processing_.
+A network trained on #acrpl("STFT") of #T-train frames gets evaluated $N_"pass" = T_"eval" / #T-train$ times using the _sequence processing_ method.
+The results unsurprisingly suggest that training a model on $T_"eval"$ frames directly will always yield better results than averaging inference results of a model trained on fewer frames.
 
-/*
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 6,
-    header-rows: 1,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
-
-    [],
-    [16 frames (363ms)],
-    [32 frames (704ms)],
-    [64 frames (1.39s)],
-    [512 frames (10.9s)],
-    [full samples],
-    
-    midrule,
-
-    // ROWS
-    header-mae,     [8.85],  [6.26],  [5.41],  [3.94],  [*3.90*],
-    header-acc,     [72.80], [80.93], [84.41], [87.80], [*88.00*],
-    header-prec,    [83.20], [89.93], [94.33], [96.26], [*96.26*],
-    header-recall,  [70.96], [78.70], [82.09], [84.61], [*84.80*],
-
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    #acr("SSL") performance for different context lengths
-  ]
-) <table:ssl:multi_source:experiments:sequence_processing>
-*/
-
-
-
-
-#todo exposes the results of the trained model for various context windows.
+However, _sequence processing_ still holds value by allowing a given pre-trained network to leverage lengthier recordings.
+The base model trained on $#T-train = 16$ samples has been evaluated on signals ranging from 320ms, its base context length, up to more than 10s.
+The last row of @table:ssl:multi_source:experiments:context_length comes from an experiment where the entire recordings were provided to the network.
+As many forward passes as needed were performed for each sample to exploit the complete data.
 It appears clearly that the longer the agent is able to hear, the better its localization performance becomes.
-The base context window of 16 #acr("STFT") frames amounts to approximately 363 milliseconds, which is a fairly short time period.
+Like so, we are able to account for the missed detections and achieve a higher robustness in the detections.
+
+The base context window of 16 #acr("STFT") frames amounts to approximately 320ms, which is a fairly short time period.
 During this interval, one or more speech sources could be inactive as the energy criteria $delta_"energy" (#tau-e)$ is not enforced on this specific data set.
 This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:number_of_sources (see @table:ssl:multi_source:experiments:n_sources for example).
+
 
 
 ==== Ablation study on sources angular proximity
@@ -590,11 +560,14 @@ On the other hand, low #delta-t samples also get more frequent, which could part
 In order to empirically study the impact of #delta-t on the #acr("SSL") performance, the model trained on a regular dataset has been evaluated on specific test cases.
 Each test dataset ensures to respect a lower bound #tau-doa such that $#delta-t >= #tau-doa$ for all samples.
 Also, the number of sources is fixed to $n_s = 4$ to best isolate the influence of #delta-t on the results.
+
+#include "figures/table_min_doa.typ"
+
 @fig:ssl:multi_source:experiments:doa_min_dist_hist_2 plots the distribution of #delta-t of all four test datasets.
 
 Performances of the pre-trained model on each scenario are summarized in @table:ssl:multi_source:experiments:min_doa.
 Although #acr("MAE") and Precision show to not being meaningfully affected by #delta-t, Accuracy and Recall improve by 6.5 and 11 points respectively across this range of scenarios.
-This observation hence confirms that samples with very low #delta-t constitute hard
+This observation hence confirms that samples with very low #delta-t constitute harder cases.
 
 #figure(
   image(
@@ -606,5 +579,3 @@ This observation hence confirms that samples with very low #delta-t constitute h
   ]
 )
 <fig:ssl:multi_source:experiments:doa_min_dist_hist_2>
-
-#include "figures/table_min_doa.typ"

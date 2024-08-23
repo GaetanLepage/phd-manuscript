@@ -4,3 +4,4 @@
 #let d = $colMath(d, #d-color)$
 #let l-color = rgb(255,127,14)
 #let l-doa = $colMath(cal(L)_"DoA", #l-color)$
+#let snr = $"SNR"_"dB"$

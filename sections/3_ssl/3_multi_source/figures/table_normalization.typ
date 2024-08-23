@@ -26,6 +26,8 @@
 
     // ROWS
     // Norm                 Eval/Train mode       // BS               # MAE     # Acc       # Prec      # Rec
+    [None],                 [True],               [-],    [],         [],       [],         [],         [],
+    midrule,
     rowspanx(6)[BatchNorm], rowspanx(5)[False],   [1],    [#h(1em)],  [42.10],  [26.03],    [12.39],    [51.43],
     (),                     (),                   [50],   [],         [9.32],   [73.00],    [83.70],    [70.61],
     (),                     (),                   [100],  [],         [9.11],   [73.43],    [84.26],    [70.96],
@@ -40,6 +42,7 @@
   placement: top,
   kind: table,
   caption: [
-    #acr("SSL") performance of different normalization/evaluation schemes
+    Final performance of #acr("SSL") for different normalization/evaluation schemes
   ]
-) <table:ssl:multi_source:experiments:batch_norm>
+)
+<table:ssl:multi_source:experiments:normalization>

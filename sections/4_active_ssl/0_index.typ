@@ -16,5 +16,6 @@ Then, the presentation of the exact task will follow in @sec:active_ssl:methods,
 Finally, various experiments and the corresponding results will be summarized in @sec:active_ssl:results.
 
 #include "1_sota.typ"
-#include "2_methods.typ"
+#include "2_method/0_index.typ"
 #include "3_results.typ"
+#include "4_conclusion.typ"

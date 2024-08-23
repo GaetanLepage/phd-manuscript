@@ -14,12 +14,24 @@
 #let midrule = hlinex(stroke: (thickness: 0.05em))
 
 /* ALGORITHMS */
-#import "@preview/algorithmic:0.1.0"
+//#import "@preview/algorithmic:0.1.0"
+#import "/_misc/algorithmic.typ"
 #import algorithmic: algorithm
 
 /* MATHS */
 #let colMath(x, color) = text(fill: color)[$#x$]
 #let mabs = math.abs.with(size: 130%)
+#let func-decl(
+  symbol,
+  from,
+  to,
+  input,
+  output,
+  spacing: 4em,
+) = $
+   #symbol: #h(spacing) from & -->  #to\
+   input & arrow.r.long.bar output
+$
 
 /* FIGURES numbering */
 #let fig-numbering = fig_num => {

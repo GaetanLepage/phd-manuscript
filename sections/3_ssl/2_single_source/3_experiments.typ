@@ -1,5 +1,5 @@
 #import "/utils.typ": *
-#import "2_method.typ": d
+#import "_notations.typ": *
 
 
 === Experiments
@@ -199,6 +199,15 @@ Both share the property of noticeably differing from a speech signal in its fund
 // Having a parasite speech
 
 // Which kinds of noises
+
+$
+  E(S) = sum_(t=1)^T sum_(f=1)^F
+    abs(S(t, f))^2
+$
+
+$
+  #snr = 10 log_10 (E(S_"speech") / E(S_"noise"))
+$
 
 
 === Conclusion
