@@ -237,7 +237,7 @@ Besides, the ```python move_agent_polar(angle, distance)``` method gives more co
 Finally, the user has the freedom to place both the microphone array and the sources at any arbitrary position.
 
 An additional benefit of operating motions through the simulator is that it guarantees correctness of positions at all time.
-If an arrival position lays at the exterior of the room, an exception is raised and the movement is not performed.
+If an arrival position lies at the exterior of the room, an exception is raised and the movement is not performed.
 
 In conclusion, the simulator furnishes a convenient and safe interface for moving both the microphone arrays and the sound sources in the room.
 This facilitates the flexible implementation of numerous acoustic #acr("HRI") use cases.

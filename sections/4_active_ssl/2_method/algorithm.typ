@@ -20,6 +20,7 @@
     args: (
       prev-maps,
       prev-deltas,
+      $"STFT"_t$
     ),
     {
       // INPUTS
@@ -32,6 +33,17 @@
         $H$ previous relative movements.\
         #h(1em) $delta_t' = (d_t', theta_t')$ is the relative movement performed from $t'$ to $t' + 1$.
       ]
+      Cmt[
+        $"STFT"_t$:
+        The #acr("STFT") of the multi-channel audio received by the microphone array.
+      ]
+      State[]
+
+      
+      Cmt[Run the static #acr("SSL") model on the current received audio]
+      Assign[$o_t$][#smallcaps[SSL]$("STFT"_t)$]
+      Cmt[Compute the #acr("DoA") map from the spectrum]
+      Assign[$M_t$][#smallcaps[DoA-map]$(o_t)$]
       State[]
       
       Cmt[Transpose all maps to current frame]
@@ -56,7 +68,7 @@
       State[]
       Cmt[Aggregate all shifted maps]
       Assign[
-        $MM_t$
+        #AM
       ][
         $Psi(tilde(M)_(t-H), dots, tilde(M)_(t-1))$
       ]

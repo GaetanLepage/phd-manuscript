@@ -9,7 +9,7 @@ This method was adapted and partly enhanced to provide convincing localization r
 The motivation to operate this large implementation effort was not to compete with state of the art #acr("SSL") solutions.
 Conversely, the objective was to develop a flexible and effective platform that could be leveraged for achieving demanding dynamic robotic tasks.
 
-The main advantage of the obtained method lays in its ability to handle a various number of sources.
+The main advantage of the obtained method lies in its ability to handle a various number of sources.
 This contrasts with the approach presented in @sec:ssl:single_source where only a single source can be localized at once.
 Also, the network correctly handles cases where no speech sources are active in the environment.
 An agent, given this module, would be able to act depending on the detected speech activity.

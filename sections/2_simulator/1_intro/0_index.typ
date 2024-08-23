@@ -3,7 +3,7 @@
 == Introduction
 <sec:simulator:intro>
 
-An intrinsic aspect of robotics, and especially of #acr("HRI") lays in the physical world.
+An intrinsic aspect of robotics, and especially of #acr("HRI") lies in the physical world.
 Developing novel methods for interacting with humanoid robots encompasses several challenges related to its embodiment dimension.
 Robotics platform suffer from severe limitations that sometimes prevent from applying data-intensive techniques.
 
