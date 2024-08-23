@@ -10,8 +10,8 @@
 In this first formulation of the #acr("SSL") problem, each situation includes exactly one source to localize.
 
 *#acr("DoA") metric.*
-Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lays from the real #acr("DoA") value $theta$.
-For this, we compute the average $cal(l)^1$ angular pseudo-distance #d between $hat(theta)$ and $theta$.
+Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lies from the real #acr("DoA") value $theta$.
+For this, we compute the average $ell^1$ angular pseudo-distance #d between $hat(theta)$ and $theta$.
 This measure will be referred to as the #acr("MAE"):
 #let mae-theta = $"MAE"_theta$
 $

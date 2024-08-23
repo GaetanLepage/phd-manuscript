@@ -182,9 +182,12 @@ We will now present the loss function used during training.
 *Angular distance.*
 First, consider the following symmetric angular pseudo-distance.
 Let $theta_1, theta_2 in RR$ two angle values expressed in radians.
-$
-  #d: #h(1cm) RR^2 & -->               RR_+\
-  (theta_1, theta_2)        & arrow.r.long.bar 
+#func-def(
+  d,
+  $RR^2$,
+  $RR_+$,
+  $(theta_1, theta_2)$,
+  $
     lr(
       mabs(
         pi - lr(
@@ -195,7 +198,8 @@ $
         )
       )
     )
-$
+  $
+)
 <eq:ssl:single_source:angle_dist>
 
 #d is represented in blue in @fig:ssl:single_source:angular_dist_plot.
@@ -259,12 +263,12 @@ $
   image("figures/angular_dist_loss.svg"),
   caption: flex-caption( [
     Plot of the angular pseudo-distance $colMath(d(theta_1, theta_2), #d-color)$
-    and the angular $cal(l)^2$ loss $colMath(d(theta_1, theta_2)^2, #l-color)$
+    and the angular $ell^2$ loss $colMath(d(theta_1, theta_2)^2, #l-color)$
     against $theta_2 - theta_1$
   ],
   [
     Plot of the angular pseudo-distance
-    and the angular $cal(l)^2$ loss
+    and the angular $ell^2$ loss
   ])
 )
 <fig:ssl:single_source:angular_dist_plot>

@@ -21,16 +21,16 @@
 /* MATHS */
 #let colMath(x, color) = text(fill: color)[$#x$]
 #let mabs = math.abs.with(size: 130%)
-#let func-decl(
+#let func-def(
   symbol,
   from,
   to,
   input,
   output,
-  spacing: 4em,
 ) = $
-   #symbol: #h(spacing) from & -->  #to\
-   input & arrow.r.long.bar output
+   #symbol: && from & --> #to\
+     
+   && input & arrow.r.long.bar  output
 $
 
 /* FIGURES numbering */

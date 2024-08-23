@@ -187,6 +187,7 @@ A peak at $0°$ designates the presence of a source in front of the microphones.
 // TODO: insert figure
 
 ===== Multi source #acr("DoA") encoding
+<sec:ssl:multi_source:method:doa_repr:gt_encoding>
 
 The dataset contains the #acr("DoA") values for each sample.
 We need to convert this list of scalar angular values to our spatial spectrum encoding format in order to allow its use as a regression target.
@@ -232,10 +233,14 @@ where #d-prime is the following symmetric angle distance
   As input values always lay in the $[-pi, pi]$ interval, the outermost absolute value present in #d becomes unnecessary.
   On this interval, they coincide rigorously.
 ],
-$
-  #d-prime : [-pi, pi]^2 & --> [0, pi]\
-  (theta_1, theta_2) & arrow.r.long.bar pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)
-$ <eq:ssl:multi_source:symmetric_angular_dist>
+#func-def(
+  d-prime,
+  $[-pi, pi]^2$,
+  $[0, pi]$,
+  $(theta_1, theta_2)$,
+  $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)$
+)
+<eq:ssl:multi_source:symmetric_angular_dist>
 
 The result is a mixture of $abs(Theta)$ gaussians centered at the actual #acr("DoA") angles.
 We chose to set $sigma = 5°$.
