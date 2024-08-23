@@ -6,6 +6,7 @@
 
 
 ==== Simulation of dynamic scenarios
+<sec:simulator:simulator:features:dynamic_scenarios>
 
 The regular `step()` method of the simulator, presented in 
 @sec:simulator:simulator:components:sim_process allows to update the simulator and to generate new received signals.

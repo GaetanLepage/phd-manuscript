@@ -19,7 +19,6 @@
   "WER": ("Word Error Rate"),
 
   // SSL
-  "ASSL": ("Active Sound Source Localization"),
   "DCASE": ("Detection and Classification of Acoustic Scenes and Events"),
   "DoA": ("Direction of Arrival"),
   "SSL": ("Sound Source Localization"),
@@ -27,6 +26,10 @@
   // Metrics
   "ACC": ("Accuracy"),
   "MAE": ("Mean Absolute Error"),
+
+  // Active SSL
+  "ASSL": ("Active Sound Source Localization"),
+  "FoV": ("Field of View"),
 
   // Audio
   "GA": ("Geometrical Acoustics"),

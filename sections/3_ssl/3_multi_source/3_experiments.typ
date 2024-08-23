@@ -152,7 +152,7 @@ $
 
 From this observation, the strategy of enforcing $#pred = 0$, ensures the loss will never exceed $cal(L) (#gt, 0)$.
 A careful choice of both the batch size and the learning rate were necessary to prevent this phenomenon for happening.
-To empirically illustrate this behavior, we monitor in @fig:ssl:multi_source:output_norm_plot the $cal(l)^2$ norm $norm(o)_2^2$ of the network output, defined by 
+To empirically illustrate this behavior, we monitor in @fig:ssl:multi_source:output_norm_plot the $ell^2$ norm $norm(o)_2^2$ of the network output, defined by 
 
 $
   norm(o)_2^2 = 1 / d sum_(i=1) ^d o_i^2
