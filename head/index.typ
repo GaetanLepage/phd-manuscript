@@ -1,4 +1,4 @@
-#import "/utils.typ": print-index
+#import "/utils.typ": print-index, gaet
 
 //#include "cover-page.typ"
 //#pagebreak()
@@ -15,7 +15,7 @@
 #outline(
   title: "Contents",
   indent: true,
-  //depth: 2,
+  depth: 2,
 )
 #outline(
   title: "List of Figures",
@@ -29,6 +29,9 @@
   title: "List of Listings",
   target: figure.where(kind: raw)
 )
+#gaet[
+  Is this really necessary ?
+]
 
 // List of Acronyms
 #print-index(

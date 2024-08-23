@@ -8,6 +8,6 @@
 #let header-prec = [Precision (%) #sym.arrow.t]
 #let header-recall = [Recall (%) #sym.arrow.t]
 
-#let F-train = $F_"train"$
+#let T-train = $T_"train"$
 
 #let tau-doa = $tau_"DoA"$

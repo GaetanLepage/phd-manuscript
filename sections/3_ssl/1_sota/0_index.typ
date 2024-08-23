@@ -51,6 +51,12 @@ Our intent at exploring #acr("SSL") was initially motivated by our exploratory w
 // Survey paper
 @grumiaux_survey_2021
 
+// How to (virtually) train your speaker localizer
+@srivastava_how_2023
+
+// Sound Source Localization Using Deep Learning Models
+@yalta_sound_2017
+
 
 === Sound Source localization in robotics
 <sec:ssl:sota:ssl_in_robotics>
@@ -89,8 +95,13 @@ Indeed, a robotic platform implies to deal wit several constraints mainly caused
 // - Xavi+Radu's paper
 // - older perception work ?
 
+// Nakadai 2002 AV
+@nakadai_real-time_2002
+
 // Deep Learning
 Deep learning methods have been used as well to perform #("SSL") in robotics.
 
 // Using multi-modal information (audio-visual SSL)
 // -> Not directly related to our topic though
+
+// TODO: talk about HRTF
