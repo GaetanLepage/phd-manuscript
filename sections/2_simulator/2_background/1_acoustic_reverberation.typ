@@ -234,34 +234,7 @@ In the case of a binaural microphone system, #draft[TODO]
 //- #acr("IPD")
 //$ "IPD"(S_1, S_2) = arg(S_1/S_2) $
 
-#subpar.grid(
-  figure(
-    square(size: 10em, stroke: 2pt),
-    caption: [
-      Spectrogram
-    ]
-  ), <fig:ssl:sota:tf_representations:spectrogram>,
-  figure(
-    square(size: 10em, stroke: 2pt),
-    caption: [
-      #reset-acronym("ILD")
-      #acr("ILD")
-    ]
-  ), <fig:ssl:sota:tf_representations:ild>,
-  figure(
-    square(size: 10em, stroke: 2pt),
-    //image("/assets/mountains.jpg"),
-    caption: [
-      #reset-acronym("IPD")
-      #acr("IPD")
-    ]
-  ), <fig:ssl:sota:tf_representations:ipd>,
-  columns: (1fr, 1fr, 1fr),
-  align: top,
-  numbering: fig-numbering,
-  caption: [Illustration of time-frequency representations of a speech signal],
-  label: <fig:ssl:sota:tf_representations>,
-)
+#include "figures/tf_rep.typ"
 
 A binaural array has been placed in a room along with a speech source. 
 @fig:ssl:sota:tf_representations displays different representations of the audio signal received by the array:
