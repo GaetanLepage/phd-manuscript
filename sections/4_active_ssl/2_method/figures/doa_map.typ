@@ -4,7 +4,7 @@
   figure(
     image("doa_map_spectrum.svg", height: 3cm),
     caption: [
-      DoA spectrum
+      DoA spectrum $o_t$
     ]
   ),
   <fig:active_ssl:methods:doa_map_spectrum>,
@@ -13,7 +13,7 @@
     image("doa_map.svg", height: 8cm),
     //image("/assets/mountains.jpg"),
     caption: [
-      Corresponding DoA map
+      Corresponding DoA map $M_t$
     ]
   ),
   //<fig:ssl:multi_source:sequence_processing:result>,
