@@ -34,5 +34,6 @@ In this section, a simple ben
     Profiling results for both available #acr("RIR") simulation back ends
   ],
   align: top,
+  gap: grid-fig-gap,
   label: <fig:simulator:simulator:flamegraphs>,
 )

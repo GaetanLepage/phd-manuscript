@@ -3,11 +3,10 @@
 
 #let d-prime = $colMath(d', #olive)$
 
-#let header-mae = [MAE (°) #sym.arrow.b]
-#let header-acc = [Accuracy (%) #sym.arrow.t]
-#let header-prec = [Precision (%) #sym.arrow.t]
-#let header-recall = [Recall (%) #sym.arrow.t]
+#let xi-doa = $colMath(xi, #maroon)$
 
 #let T-train = $T_"train"$
 
 #let tau-doa = $tau_"DoA"$
+
+#let averaged-spectrum = $colMath(hat(o), #maroon)$

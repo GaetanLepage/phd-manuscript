@@ -64,9 +64,8 @@ $
   ) = cases(
     1
       &"if"
-        d(hat(phi.alt)_(i k), phi.alt_(i j)) < E_a
-        "and"\
-        & k = limits("argmin")_(k in {1, dots, hat(z_i)})  d(hat(phi.alt)_(i k), phi.alt_(i j)),
+        d(hat(phi.alt)_(i k), phi.alt_(i j)) < E_a\
+        & "and" k = limits("argmin")_(k in {1, dots, hat(z_i)})  d(hat(phi.alt)_(i k), phi.alt_(i j)),
     0 "otherwise"
   )
 $
@@ -438,7 +437,6 @@ This process will be referred as _sequence processing_.
 The main idea of sequence processing resides in splitting the longer input audio in $M$ chunks of #T-train frames to be processed individually by the neural network.
 $M$ output #acr("DoA") spectra are thus obtained and need to be aggregated.
 We simply average those signals to obtain a single vector:
-#let averaged-spectrum = $colMath(hat(o), #maroon)$
 $
   #averaged-spectrum = 1/M sum_(i=1)^M hat(o)_k #h(1em) in [0, 1]^d
 $
@@ -455,31 +453,7 @@ To generate each sample, each active source outputs one recorded sentence from t
 Disposing of features corresponding to several seconds of simulation allows for performing #acr("SSL") on context windows of varying lengths.
 
 
-#subpar.grid(
-  figure(
-    image("figures/sequence_processing_doa_spectrum.svg", width: 80%),
-    caption: [
-      Averaged #acr("DoA") spectrum #averaged-spectrum
-    ]
-  ),
-  <fig:ssl:multi_source:sequence_processing:doa_spectrum>,
-  
-  figure(
-    image("figures/sequence_processing_result.svg", width: 80%),
-    //image("/assets/mountains.jpg"),
-    caption: [
-      Network output and extracted detections over time (top) and histogram of predictions (bottom)
-    ]
-  ),
-  <fig:ssl:multi_source:sequence_processing:result>,
-  columns: 1,
-  caption: [
-    Example of a sequence processing result
-  ],
-  numbering: fig-numbering,
-  label: <fig:ssl:multi_source:sequence_processing>,
-)
-
+#include "figures/sequence_processing/figure.typ"
 
 
 @fig:ssl:multi_source:sequence_processing illustrates the sequence processing workflow on a single example.
