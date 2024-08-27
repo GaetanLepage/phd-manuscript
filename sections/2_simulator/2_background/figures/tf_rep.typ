@@ -26,5 +26,6 @@
   align: top,
   numbering: fig-numbering,
   caption: [Illustration of time-frequency representations of a speech signal],
+  gap: grid-fig-gap,
   label: <fig:ssl:sota:tf_representations>,
 )

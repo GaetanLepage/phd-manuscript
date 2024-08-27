@@ -30,7 +30,8 @@
   target: figure.where(kind: raw)
 )
 #gaet[
-  Is this really necessary ?
+  - Is this necessary ?
+  - Is listing the correct word for those ?
 ]
 
 // List of Acronyms

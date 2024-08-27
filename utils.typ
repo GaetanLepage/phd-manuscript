@@ -1,7 +1,9 @@
-#import "@preview/acrostiche:0.3.2": *
 #import "@preview/minitoc:0.1.0": minitoc as _minitoc
 #import "@preview/subpar:0.1.1"
+
+#import "_misc/acrostiche.typ": *
 #import "_misc/template/_index.typ": in-outline, fill-line
+#import "_misc/notations.typ": *
 
 
 // Different figure/table caption for ToC and actual caption
@@ -12,6 +14,12 @@
 #let toprule = hlinex(stroke: (thickness: 0.08em))
 #let bottomrule = toprule
 #let midrule = hlinex(stroke: (thickness: 0.05em))
+
+// Common headers
+#let header-mae = [MAE (°) #sym.arrow.b]
+#let header-acc = [Accuracy (%) #sym.arrow.t]
+#let header-prec = [Precision (%) #sym.arrow.t]
+#let header-recall = [Recall (%) #sym.arrow.t]
 
 /* ALGORITHMS */
 //#import "@preview/algorithmic:0.1.0"
@@ -33,12 +41,29 @@
    && input & arrow.r.long.bar  output
 $
 
-/* FIGURES numbering */
+/* FIGURES */
+// Numbering
 #let fig-numbering = fig_num => {
   let chap_num =  counter(heading).get().first()
   
-  numbering("1.1", chap_num, fig_num)
+  numbering(
+    "1.1",
+    chap_num,
+    fig_num
+  )
 }
+#let fig-numbering-sub-ref = (super_num, sub_num) => {
+  let chap_num =  counter(heading).get().first()
+  
+  numbering(
+    "1.1a",
+    chap_num,
+    super_num,
+    sub_num
+  )
+}
+// Grid figures
+#let grid-fig-gap = 3em
 
 #let clorem(words) = text(maroon, lorem(words))
 #let shape(x, y, z) = $(#str(x), #str(y), #str(z))$

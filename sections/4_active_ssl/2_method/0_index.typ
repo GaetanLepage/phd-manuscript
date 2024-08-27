@@ -6,10 +6,10 @@
 
 === Problem formulation
 
-As presented in @sec:active_ssl:sota, there exist several different problems related to #acr("SSL") in a dynamic robotic context.
+As presented in @sec:active_ssl:background, there exist several different problems related to #acr("SSL") in a dynamic robotic context.
 In this work, a simple task is explored, motivated by the extension of the static #acr("SSL") methods developed in @chap:ssl to more realistic situations.
 // TODO: if so, mentioned that we have tried to estimate the distance in single-source and that it was hard
-Indeed, estimating both distance and #acr("DoA") from a single recording has shown to be challenging version of the #acr("SSL") problem.
+Indeed, estimating both distance and #doa from a single recording has shown to be challenging version of the #acr("SSL") problem.
 #draft[
   Maybe, this is expressed in @grumiaux_survey_2021.
 ]
@@ -42,8 +42,8 @@ To tackle the #acr("ASSL") problem formulated above, we explore ways of leveragi
 The central concept of the method consists in building and refining a 2D egocentric map encoding the relative positions of each source.
 They are built to model the likelihood of the sources presence in the surroundings of the robot.
 
-To build such a map, we start by running the #acr("SSL") model which provides the estimated #acr("DoA") spectrum.
-This detection is then transformed into a _#acr("DoA") map_ projecting the one dimensional localization result to an egocentric 2D map containing the same information.
+To build such a map, we start by running the #acr("SSL") model which provides the estimated #doa spectrum.
+This detection is then transformed into a _#doa map_ projecting the one dimensional localization result to an egocentric 2D map containing the same information.
 Then, this map is combined to the ones from previous steps after the latter have been transposed to the current robot frame.
 Different ways of operating this aggregation have been proposed.
 Finally, the 2D relative position of the sources are extracted from this estimated egocentric map.
@@ -59,44 +59,45 @@ The individual steps of the process will be detailed in the following sections.
     width: 100%,
   ),
   caption: [
-    Active Sound Source Localization Pipeline
+    Active-#acr("SSL") pipeline
   ]
 )
 <fig:active_ssl:method:pipeline>
 
 === Egocentric #acr("SSL") maps
 
-At each step, a _#acr("DoA") map_ $M_t$ is built from the #acr("DoA") spectrum for the corresponding audio recording (line 9 in @algo:active_ssl:algo).
+At each step, a _#doa map_ $M_t$ is built from the #doa spectrum for the corresponding audio recording (line 9 in @algo:active_ssl:algo).
 The latter solely provides angular information.
 At this stage, no distance knowledge has been gathered yet.
 The choice was made to not explicitly extract a set of detections from the spectrum but rather to preserve the raw 360 long vector.
-Generating the #acr("DoA") map $M_t$ consists in projecting this spectrum on the egocentric 2D space.
+Generating the #doa map $M_t$ consists in projecting this spectrum on the egocentric 2D space.
 
 All maps have a resolution of $p$ pixels and are thus represented by $p times p$ matrices.
 They represent an area of $L times L$ square area around the robot.
 
 // TODO: illustration ?
-First, each point $bold(p) = (x, y) in [-L/2, L/2]^2$ in the robot frame is mapped to the corresponding #acr("DoA") value $theta(bold(p)) in [-pi, pi]$.\
+First, each point $bold(p) = (x, y) in [-L/2, L/2]^2$ in the robot frame is mapped to the corresponding #doa value $theta(bold(p)) in [-pi, pi]$.\
 This allows to associate all pixels $(i, j) in [|1, p|]^2$ of the map to the corresponding angle $theta_(i, j)$.\
-Finally, the associated #acr("DoA") spectrum value can be recovered by computing the index $k_(i, j) in [|1, d|]$ corresponding to the angle $theta_(i, j)$:
+Finally, the associated #doa spectrum value can be recovered by computing the index $k_(i, j) in [|1, d|]$ corresponding to the angle $theta_(i, j)$:
 $
   M_(t(i, j)) = o[k_(i, j)] #h(2em) forall (i, j) in [|1, p|]^2
 $
 Hence, the intensity of a pixel simply equals the value of the spectrogram at the corresponding angle.
 
-@fig:active_ssl:doa_map presents an example of such a #acr("DoA") map along with the originating spectrum.
+@fig:active_ssl:doa_map presents an example of such a #doa map along with the originating spectrum.
 By construction, the value of this 2D function remains constant along lines where $theta = arctan(x/y)$ is constant.
 This leads to a mixture of cone shapes originating at the center of the egocentric map.
 
 #include "figures/doa_map.typ"
 
 *Shifting.*
-At each step, the method gets the #acr("DoA") maps $(M_(t-H+1), dots, M_(t-1))$ from the $H-1$ previous steps.
-All of those maps need to be _shifted_ from their original frame $cal(F)_t'$ to the current robot frame $cal(F)_t$ in order to be combined together along with the current #acr("DoA") map $M_t$.
+At each step, the method gets the #doa maps $(M_(t-H+1), dots, M_(t-1))$ from the $H-1$ previous steps.
+All of those maps need to be _shifted_ from their original frame $cal(F)_t'$ to the current robot frame $cal(F)_t$ in order to be combined together along with the current #doa map $M_t$.
 This operation makes use of the relative movement $Delta_(t_1 -> t_2)$ between two steps $t_1$ and $t_2$.
 It encodes the position and orientation of the previous map in the current frame $cal(F)_t$.
 This movement is computed from the robot movement at each step $delta_t'$ with $t' in [|t_1, t_2|]$.
 The result of this operation will be denoted as $tilde(M)_t'$.
+@fig:active_ssl:method:shift provides an example of a #doa map along with its shifted version.
 
 This correspond to the lines 12-16 of @algo:active_ssl:algo.
 Of course the #acr("FoV") parameter $L$ has to be chosen relevantly with respect to the maximum distance $d_"max"$ travelled by the robot at each step and the horizon $H$.
@@ -108,8 +109,9 @@ Of course, we have $tilde(M)_t = M_t$ as the current map does not need to be shi
 
 
 === Aggregation strategies
+<sec:active_ssl:methods:blending_methods>
 
-Once the collection of $H-1$ previous #acr("DoA") maps has been correctly shifted to $cal(F)_t$, they will be _combined_ altogether, along with the current map $M_t$.
+Once the collection of $H-1$ previous #doa maps has been correctly shifted to $cal(F)_t$, they will be _combined_ altogether, along with the current map $M_t$.
 The intuition behind this approach for #acr("ASSL") lies in the idea of combining those step-maps into a single aggregate which models a 2D likelihood for source presence around the robot.
 
 Such a mapping defines as:
@@ -140,7 +142,7 @@ In this section, two methods are proposed to perform map blending.
 On the one hand, a naive approach has been attempted.
 It simply consists in averaging the maps:
 $
-  Psi^"avg" (
+  #psi-avg (
     tilde(M)_(t-H+1),
     dots,
     tilde(M_t)
@@ -148,7 +150,7 @@ $
 $
 
 As all maps are correctly expressed in the same local frame $cal(F)_t$, a given pixel in each one correspond to the same position.
-The idea of averaging #acr("DoA") maps translates that each time step brings equal information about the presence of sources.
+The idea of averaging #doa maps translates that each time step brings equal information about the presence of sources.
 Thus, the intersection of the different cones will have the highest scores which appears reasonable.
 
 However, in certain trajectories, averaging leads to artifacts that harden the clustering task performed to extract the final detection results.
@@ -159,16 +161,10 @@ The performance of this blending approach is discussed in later @sec:active_ssl:
 
 ===== Motivation
 
-Although averaging #acr("DoA") maps stands as a simple and explainable method for blending, we have developed a more advanced technique involving a Deep Neural Network.
+Although averaging #doa maps stands as a simple and explainable method for blending, we have developed a more advanced technique involving a Deep Neural Network.
 
 Indeed, an oracle knowing the absolute positions of each source could be used to generate an ideal version of the 2D likelihood estimate #AM-targ,
-This statement leads to the definition of the blending task as a regression task where a neural network $Psi^("DNN"(theta))$ is trained to blend real #acr("DoA") maps in the ideal estimate #AM-targ,
-
-#draft[
-  >>> This should go into the section about the dataset, maybe in the "experiments" part.
-  
-  The ability of our simulator to model _dynamic_ discrete-time environments (see @sec:simulator:simulator:features:dynamic_scenarios) allows us to generate datasets for this #acr("ASSL") task.
-]
+This statement leads to the definition of the blending process as a regression task where a neural network $Psi^("DNN"(theta))$ is trained to blend real #doa maps in the ideal estimate #AM-targ,
 
 ===== Ground truth encoding
 
@@ -215,20 +211,31 @@ The network should get rid of all noise in the input maps and underline the regi
 
 ===== Architecture
 
-The neural network #psi-dnn takes the $H$ shifted #acr("DoA") maps $(tilde(M)_(t-H+1), dots, tilde(M)_(t))$ as a single $H$-channel image $bold(tilde(M))_t$.
+The neural network #psi-dnn takes the $H$ shifted #doa maps $(tilde(M)_(t-H+1), dots, tilde(M)_(t))$ as a single $H$-channel image $bold(tilde(M))_t$.
 It outputs a single-channel image #AM expected to approximate the target map #AM-targ.
 
 To design a model aimed at processing image-like information, conventional architectures from the computer vision literature are considered.
 Although several solutions could probably fit this problem successfully, one has to pay attention to the receptive field of the network.
 Indeed, designs purely based on small convolutional kernels would not be able to capture global information.
-In this specific task, the intersecting rays present in each #acr("DoA") map has to be considered from a sufficiently large scale.
+In this specific task, the intersecting rays present in each #doa map have to be considered from a sufficiently large scale.
 What could appear locally as an intersection of rays, therefore indicating the presence of a source, could actually be noisy artifacts caused by an earlier crossing.
 This hypothesis may explain the failure of experimented networks with too small receptive fields.
 
-To account for this problem, we propose a custom U-Net architecture adapted from the original paper by Ronneberger et al. @ronneberger_u-net_2015.
+To account for this problem, we propose a custom U-net architecture adapted from the original paper by Ronneberger et al. @ronneberger_u-net_2015.
 This type of designs suits well our task of image-to-image mapping.
 More specifically, it allows for a multi-scale processing, thus allowing larger patterns to be leveraged.
 We opt for a four stage layout (@fig:active_ssl:methods:nn_architecture) within which the #shape(8, 256, 256) input gets progressively downscaled to a #shape(512, 32, 32) latent representation.
+The second half of the network scales the data back to the $p times p$ resolution, outputting a single-channel map.
+Skip-connections permit to incorporate data from various stages of the downscaling step into the upsampling process.
+They explain the interesting multi-scale properties offered by the U-net architecture.
+
+Each encoder block is composed of two convolutional layers followed by a #acr("ReLU").
+The first 2D convolution doubles the number of channel while the second one preserves its input dimension.
+Those layers are followed by a 2D max-pooling operation (corresponding to downward arrows in @fig:active_ssl:methods:nn_architecture).
+The latter downscales the images by a factor of two.
+Regarding the decoding stage, data gets upsampled by transpose convolutions, also known as deconvolutions @zeiler_deconvolutional_2010 (upward arrows).
+The resulting higher resolution images are concatenated with the corresponding descending tensor from the downsampling stage before being fed into two more consecutive convolutional layers.
+The process is repeated until the original dimension of the image is recovered.
 
 #figure(
   image(
@@ -241,9 +248,21 @@ We opt for a four stage layout (@fig:active_ssl:methods:nn_architecture) within 
 )
 <fig:active_ssl:methods:nn_architecture>
 
+No architectural element explicitly bounds the network output to a given numerical range.
+Thus, when using the network at inference, the output is normalized to ensure that all pixel values lies in the $[0, 1]$ interval.
 
 
-where $#AM = Psi^("DNN"(theta))(bold(tilde(M))_t)$ is the output of the network and #AM-targ is the target map.
+===== Training strategy
+
+The network is trained in a supervised manner on a synthetic dataset.
+The latter was generated by simulating $H$-step long random trajectories in the simulator.
+The static #acr("SSL") model is called at each step and output an estimation of the #doa spectrum $o_t$.
+The latter are converted to #doa maps $M_t$ which finally get shifted to the frame $cal(F)_H$ corresponding to the last robot position.
+10 thousands such trajectories arise from this processing totalling 80 thousands individual positions.
+Each trajectory represents a training sample corresponding to the last position of the agent.
+The dataset generation process will be detailed in @sec:active_ssl:results:dataset.
+
+The loss function used is the #acr("MSE") between the predicted and expected likelihood maps.
 $
   cal(L) (
     #AM,
@@ -252,21 +271,13 @@ $
     #AM - #AM-targ,
   )_2 ^2
 $
+where $#AM = Psi^("DNN"(theta))(bold(tilde(M))_t)$ is the output of the network and #AM-targ is the target map.
 
-
-===== Training strategy
-
-The network is trained in a supervised manner on a synthetic dataset.
-The latter was generated by simulating $H$-step long random trajectories in the simulator.
-The static #acr("SSL") model is called at each step and output an estimation of the #acr("DoA") spectrum $o_t$.
-The latter are converted to #acr("DoA") maps $M_t$ which finally get shifted to the frame $cal(F)_H$ corresponding to the last robot position.
-10 thousands such trajectories arise from this processing totalling 80 thousands individual positions.
-Each trajectory represents a training sample corresponding to the last position of the agent.
 
 We train the network using the Adam @kingma_adam_2017 optimizer with a learning rate of $10^(-4)$.
 The training process uses mini-batches of 100 samples and lasts for 20 epochs.
+20% of the full training set is reserved as a validation set to ensure that the model generalizes correctly to unseen samples.
 
-// TODO both GT and real SSL spectrums
 
 === Clustering for detection extraction
 
@@ -274,7 +285,7 @@ Once the aggregation function $Psi$ has been used to generate single-channel 2D 
 The core principle of this step lies in extracting a set of source positions out of the likelihood map.
 Naturally, the detection performance is highly correlated to the quality of provided maps.
 
-This task resembles the #acr("DoA") spectrum post-processing performed for multi-source #acr("SSL") (@sec:ssl:multi_source:method:detection_decoding).
+This task resembles the #doa spectrum post-processing performed for multi-source #acr("SSL") (@sec:ssl:multi_source:method:detection_decoding).
 Indeed, local maxima in the likelihood 2D maps are expected to encode potential sources positions.
 The simple algorithm implemented there remains however impractical in the current case as the data is two-dimensional.
 
@@ -286,8 +297,15 @@ A distance compatible with the input samples also has to be specified.
 In this case, as we are dealing with points in the plane, we use the conventional euclidean distance.
 DBSCAN consists in categorizing all input points into three groups: _core_ points, reachable points and outliers.
 The latter are considered as noise and do not belong to any cluster while the other form connected groups of samples, the clusters.
+Among its several benefits, DBSCAN does not require to specify an apriori number of clusters.
+This limitation features amid other clustering algorithms such as $k$-means for instance.
 DBSCAN by itself does not define a notion of center for clusters.
 Here, the point with the highest value in the aggregated likelihood map constitutes the cluster center.
 Each cluster is interpreted as one source.
 
 One of the advantages of such a clustering formulation lies in the ability of the proposed method to detect an arbitrary number of sources.
+
+#gaet[
+  Also, maybe elaborate more on why we have chosen DBSCAN.
+  It has several important benefits that we could list out.
+]
