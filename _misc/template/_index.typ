@@ -39,22 +39,14 @@
   )
 
   // Configure page size and margins.
+  let margin = 2.5cm
   set page(
     paper: paper-size,
-    margin: (
-      //bottom: 5cm,
-      //top: 4cm,
-      bottom: 3cm,
-      top: 3cm,
-      // The original LaTeX template references something called "hoffset", not sure what that is yet
-      //inside: 26.2mm,
-      //outside: 37mm,
-      inside: 20mm,
-      outside: 20mm,
-    ),
+    margin: margin,
     numbering: "1",
     number-align: right,
   )
+  let outside-margin = margin
 
   /* -------------------------------------------------------------------- */
   /* PARAGRAPHS */
@@ -99,11 +91,12 @@
     set text(size: 22pt)
 
     let black_rectangle = place(
-      dx: -page.margin.outside,
+      //dx: -page.margin.outside,
+      dx: -outside-margin,
       dy: -1em,
       rect(
         fill: black,
-        width: page.margin.outside - 5pt,
+        width: outside-margin - 5pt,
         height: 2em
       ),
     )

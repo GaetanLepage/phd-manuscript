@@ -154,39 +154,7 @@ They all offer a degree of configurability.
 Especially, the pattern of the microphones can be adjusted.
 Also, the relative microphones distance and orientation are alterable.
 
-#subpar.grid(
-  figure(
-    image("figures/mic_array_binaural.svg", width: 100%),
-    caption: [
-      Binaural array
-    ]
-  ),
-  <fig:simulator:simulator:mic_arrays:binaural>,
-  
-  figure(
-    image("figures/mic_array_triangle.svg", width: 100%),
-    caption: [
-      Triangle array
-    ]
-  ),
-  <fig:simulator:simulator:mic_arrays:triangle>,
-  
-  figure(
-    image("figures/mic_array_square.svg", width: 100%),
-    //image("/assets/mountains.jpg"),
-    caption: [
-      Square array
-    ]
-  ),
-  <fig:simulator:simulator:mic_arrays:square>,
-  columns: 3,
-  caption: [
-    Examples of microphone arrays available in the simualator
-  ],
-  align: top,
-  numbering: fig-numbering,
-  label: <fig:simulator:simulator:mic_arrays>,
-)
+#include "figures/mic_arrays/figure.typ"
 
 The arrows depict each microphone's orientation.
 The position of the array, although virtual, is represented by a diamond ($colMath(diamond.filled, #rgb(128, 0, 128))$).

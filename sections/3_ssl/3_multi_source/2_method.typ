@@ -270,9 +270,9 @@ Also, it enables to formulate the multi-source #acr("SSL") problem as a simple r
 However, to extract of set of actual #acr("DoA") values, one has to explicitly process the obtained spatial spectra.
 #gaet[Do we have to, once more, cite the Odobez paper here ?]
 This is achieved by detecting the peaks in the network output.
-The index of local maxima higher than a threshold $colMath(xi, #maroon)$ serve as the #acr("DoA") predictions:
+The index of local maxima higher than a threshold #xi-doa serve as the #acr("DoA") predictions:
 $
-  hat(y) (hat(o), colMath(xi, #maroon)) = {
+  hat(y) (hat(o), #xi-doa) = {
     phi.alt_i:
       // heat threshold
       colMath(hat(o)_i > xi, #maroon)
@@ -294,7 +294,7 @@ $ <eq:ssl:multi_source:decoding_unknown_sources>
 The neighborhood threshold $colMath(sigma_n, #olive)$ must be defined carefully for this process to succeed.
 If too low, some high frequency noise in the spatial spectrum could lead to several false positive angle detections.
 On the other hand, a too high value for $sigma_n$ might cause two close peaks to be wrongly identified as a single one, thus missing a positive detection.
-We have found $sigma_n = 8°$ to be a satisfying value.
+We have found $sigma_n = 8 degree$ to be a satisfying value.
 
 #gaet[
   Is it interesting to describe the local maximum extraction process ?

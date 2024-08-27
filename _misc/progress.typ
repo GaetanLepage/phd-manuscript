@@ -11,56 +11,72 @@
   centering: true
 )[
   #show: checklist
-  #line(length: 100%)
-  + *Front:*
-    - [ ] Abstract
-    - [ ] Acknowledgement
+  //#line(length: 100%)
+
+  *>>> This list shows what sections are ready to be reviewed. <<<*
+  
+  - [ ] Abstract
+  - [ ] Acknowledgement
   + *Intro*
-    - [ ] write
+    - [ ] #link(<chap:intro>)[Intro]
   + *Simulator*
-    + Intro
-      - [ ] writting (incomplete)
-    + Background
-      - [ ] writting
-    + Simulator implementation
-      - [x] 1. Overview
-      - [x] 2. Components
-      - [ ] 3. Features
-        - [x] 1. Dynamic scenarios
-        - [ ] 2. ASR / WER maps
-      - [ ] 4. Performance
-    + Conclusion
+    - [ ] #link(<sec:simulator:intro>)[1. Intro]
+    - [ ] #link(<sec:simulator:reverb>)[2. Background]
+    - [ ] #link(<sec:simulator:simulator>)[3. Simulator]
+      - [x] #link(<sec:simulator:simulator:overview>)[1. Overview]
+      - [x] #link(<sec:simulator:simulator:components>)[2. Components]
+      - [ ] #link(<sec:simulator:simulator:features>)[3. Features]
+      - [ ] #link(<sec:simulator:simulator:performance>)[4. Performance]
+    - [ ] #link(<sec:simulator:conclusion>)[4. Conclusion]
   + *SSL*
-    - [ ] 1. Background
-    - [ ] 2. Single-source
-    - [ ] 3. Multi-source
+    - [ ] #link(<sec:ssl:sota>)[1. Background]
+    - [ ] #link(<sec:ssl:single_source>)[2. Single-source]
+    - [ ] #link(<sec:ssl:multi_source>)[2. Multi-source]
   + *Active SSL*
-    - [ ] 1. SotA
-    - [ ] 2. Methods
-    - [ ] 3. Results
+    - [ ] #link(<sec:active_ssl:background>)[1. Background]
+    - [x] #link(<sec:active_ssl:methods>)[2. Methods]
+    - [ ] #link(<sec:active_ssl:methods>)[3. Results]
   + *RL*
-    - [ ] Intro to RL
-    - [ ] Sound-driven robot navigation
-    - [ ] Experiments and discussions
+    - [ ] #link(<sec:rl:intro>)[1. Intro to RL]
+    - [ ] #link(<sec:rl:method>)[2. Sound-driven robot navigation]
+    - [ ] #link(<sec:rl:results>)[3. Experiments and discussions]
   + *Conclusion*
-  #line(length: 100%)
-  - *Final things:*
-    - [ ] Grammar check
-    - [ ] Ensure consistency between: BatchNorm / Batch Norm / batch norm
-    - *Layout:*
-      - [ ] figure/table placement check
-      - [ ] Check that all `subpar.grid` figures have their `numbering` set to `fig-numbering`
-      - [ ] Check margins
+    - [ ] #link(<chap:conclusion>)[Conclusion]
 ]
 
-#gaet[
-  
+#pagebreak()
+#outline-colorbox(
+  title: "Final checklist",
+  color: "blue",
+  width: auto,
+  radius: 2pt,
+  centering: true
+)[
+  #show: checklist
+  - [ ] Grammar check
+  - [ ] Ensure consistency between: BatchNorm / Batch Norm / batch norm
+  - *Layout:*
+    - [ ] figure/table placement check
+    - [ ] Check that all `subpar.grid` figures have their `numbering` set to `fig-numbering`
+    - [ ] Check margins
+    - [ ] Check all page breaks\
+      $=>$ i.e. that nothing is incorrectly split across two subsequent pages.
+]
+
+#outline-colorbox(
+  title: "My questions to you, reviewers",
+  color: "red",
+  width: auto,
+  radius: 2pt,
+  centering: true
+)[
   *General questions:*
   - Should we note tensor shapes $(X, Y, Z)$ or $X times Y times Z$ ?
-  - DOA or DoA ?
+  - DOA or DoA ? FOV or FoV ?
 
   *Visual/Layout questions:*
-  - Aren't the margins too narrow ?
+  - Aren't the margins OK ?\
+    -> I am currently using 2.5cm everywhere.
   - Should the links (references to sections/papers) be in blue ?
   - Limit the _Table of Contents_ depth ? (currently none)
   - Should figure captions be centered or left-align ? (I assume that table captions will them always be centered)
@@ -70,8 +86,10 @@
     \<SUBJECT\> is/will be/has been \<VERB\>.
 
   *Questions for Laurent:*
-  - How to compute duration from $F$ (i.e. number of #acr("STFT") frames) ?\
-    $N = H(T - 1) => d = H(T - 1) / f$
+  #strike[
+    - How to compute duration from $F$ (i.e. number of #acr("STFT") frames) ?\
+      $N = H(T - 1) => d = H(T - 1) / f$
+  ]
   - How to organize the "audio" sections ?
 
   *Remarks:*

@@ -3,6 +3,9 @@
 // Aggregated Map
 #let AM = $cal(M)_t$
 // Target for AM
-#let AM-targ = $AM^*$
+#let AM-targ = $cal(M)_t^*$
+// Predicted sources locations
+#let predictions = $hat(X)_t$
 
-#let psi-dnn = $Psi^("DNN"(theta))$
+#let psi-avg = $Psi_"avg"$
+#let psi-dnn = $Psi_("DNN"(theta))$

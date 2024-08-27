@@ -76,7 +76,7 @@
       State[]
       Cmt[Extract detections]
       Assign[
-        $X = lr(
+        $predictions = lr(
           [
             (x_1, y_1),
             dots,
@@ -85,11 +85,11 @@
           size: #150%
         )$
       ][
-        #smallcaps[Cluster]$(MM_t)$
+        #smallcaps[Cluster]$(#AM)$
       ]
 
       State[]
-      Return[$X$]
+      Return[#predictions]
     }
   )
 })

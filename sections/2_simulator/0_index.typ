@@ -7,3 +7,6 @@
 #include "1_intro/0_index.typ"
 #include "2_background/0_index.typ"
 #include "3_simulator/0_index.typ"
+
+== Conclusion
+<sec:simulator:conclusion>

@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 
-== State of the Art
-<sec:active_ssl:sota>
+== Background
+<sec:active_ssl:background>
 
 In the original #acr("SSL") task, as defined by the signal processing community, every source in the room are assumed to be static.
 However, the robotics field gave birth to original acoustic problems with different motivations and specificities.
