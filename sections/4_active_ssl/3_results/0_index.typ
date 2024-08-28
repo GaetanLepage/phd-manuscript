@@ -158,15 +158,18 @@ $
   hat(o)' = max(hat(o), bb(1)_(hat(o) > tau_o))
 $
 
-@fig:ssl:multi_source:sequence_processing:doa_spectrum
+@fig:active_ssl:results:doa_spectrum_amplif displays the amplification behavior on an arbitrary example.
 
 #figure(
   image(
     "figures/doa_spectrum_amplif.svg"
   ),
-  caption: [
-    Example of 
-  ]
+  caption: flex-caption(
+    [
+      #doa spectrum amplification: All values of $hat(o)$ above the threshold $tau_o$ get pushed to 1.
+    ],
+    [#doa spectrum amplification]
+  )
 )
 <fig:active_ssl:results:doa_spectrum_amplif>
 

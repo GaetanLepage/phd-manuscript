@@ -88,7 +88,7 @@ Hence, the intensity of a pixel simply equals the value of the spectrogram at th
 By construction, the value of this 2D function remains constant along lines where $theta = arctan(x/y)$ is constant.
 This leads to a mixture of cone shapes originating at the center of the egocentric map.
 
-#include "figures/doa_map.typ"
+#include "figures/doa_map/figure.typ"
 
 *Shifting.*
 At each step, the method gets the #doa maps $(M_(t-H+1), dots, M_(t-1))$ from the $H-1$ previous steps.
@@ -105,7 +105,7 @@ If the characteristic value $H times d_"max"$ significantly overpasses $L/2$, in
 In practice, there are no strong reason to keep $L$ and choosing it greater than the dimensions of the room ensures to capture most available knowledge in the shifted maps $tilde(M)_t'$.
 Of course, we have $tilde(M)_t = M_t$ as the current map does not need to be shifted.
 
-#include "figures/shift.typ"
+#include "figures/shift/figure.typ"
 
 
 === Aggregation strategies

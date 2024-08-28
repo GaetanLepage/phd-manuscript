@@ -31,6 +31,7 @@
   ],
   align: top,
   numbering: fig-numbering,
+  numbering-sub-ref: fig-numbering-sub-ref,
   gap: grid-fig-gap,
   label: <fig:simulator:simulator:mic_arrays>,
 )
