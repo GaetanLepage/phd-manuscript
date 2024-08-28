@@ -36,4 +36,6 @@ In this section, a simple ben
   align: top,
   gap: grid-fig-gap,
   label: <fig:simulator:simulator:flamegraphs>,
+  numbering: fig-numbering,
+  numbering-sub-ref: fig-numbering-sub-ref,
 )

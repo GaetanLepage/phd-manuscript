@@ -22,5 +22,6 @@
     Example of a DoA map
   ],
   numbering: fig-numbering,
+  numbering-sub-ref: fig-numbering-sub-ref,
   label: <fig:active_ssl:doa_map>,
 )
