@@ -22,6 +22,7 @@
   columns: (1fr, 1fr,),
   align: top,
   numbering: fig-numbering,
+  numbering-sub-ref: fig-numbering-sub-ref,
   caption: [Shifting process for local #acr("DoA") maps],
   label: <fig:active_ssl:method:shift>,
 )

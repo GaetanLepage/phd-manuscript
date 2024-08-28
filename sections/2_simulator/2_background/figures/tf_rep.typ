@@ -25,6 +25,7 @@
   columns: (1fr, 1fr, 1fr),
   align: top,
   numbering: fig-numbering,
+  numbering-sub-ref: fig-numbering-sub-ref,
   caption: [Illustration of time-frequency representations of a speech signal],
   gap: grid-fig-gap,
   label: <fig:ssl:sota:tf_representations>,
