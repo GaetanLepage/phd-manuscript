@@ -214,7 +214,7 @@ This approach can be enhanced to allow for a more consistent regression target.
 
 $
   o(Theta)_i = cases(
-    display(max_(theta in Theta))
+    //display(max_(theta in Theta))
       {
         e^(
           -(#d-prime (

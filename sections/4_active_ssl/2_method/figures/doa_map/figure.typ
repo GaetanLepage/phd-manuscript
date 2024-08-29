@@ -4,7 +4,7 @@
   figure(
     image("doa_map_spectrum.svg", height: 3cm),
     caption: [
-      DoA spectrum $o_t$
+      #acr("DoA") spectrum $o_t$
     ]
   ),
   <fig:active_ssl:methods:doa_map_spectrum>,
