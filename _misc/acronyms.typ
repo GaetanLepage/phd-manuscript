@@ -1,4 +1,4 @@
-#import "/utils.typ": *
+#import "acrostiche.typ": init-acronyms
 
 #init-acronyms((
   // Misc

@@ -98,12 +98,11 @@ It encodes the position and orientation of the previous map in the current frame
 This movement is computed from the robot movement at each step $delta_t'$ with $t' in [|t_1, t_2|]$.
 The result of this operation will be denoted as $tilde(M)_t'$.
 @fig:active_ssl:method:shift provides an example of a #doa map along with its shifted version.
+Of course, we have $tilde(M)_t = M_t$ as the current map does not need to be shifted.
 
 This correspond to the lines 12-16 of @algo:active_ssl:algo.
-Of course the #acr("FoV") parameter $L$ has to be chosen relevantly with respect to the maximum distance $d_"max"$ travelled by the robot at each step and the horizon $H$.
-If the characteristic value $H times d_"max"$ significantly overpasses $L/2$, information from the oldest steps will at least partly be out of scope and thus useless.
-In practice, there are no strong reason to keep $L$ and choosing it greater than the dimensions of the room ensures to capture most available knowledge in the shifted maps $tilde(M)_t'$.
-Of course, we have $tilde(M)_t = M_t$ as the current map does not need to be shifted.
+The #fov parameter $L$ has to be chosen carefully.
+Its impact will be studied in a later section.
 
 #include "figures/shift/figure.typ"
 
@@ -301,6 +300,8 @@ Among its several benefits, DBSCAN does not require to specify an apriori number
 This limitation features amid other clustering algorithms such as $k$-means for instance.
 DBSCAN by itself does not define a notion of center for clusters.
 Here, the point with the highest value in the aggregated likelihood map constitutes the cluster center.
+One should note that the actual values of each point in the heat map only impacts the center search.
+The prior clustering happens without access to the estimated likelihood values and solely operates on the points proximity to determine the clusters.
 Each cluster is interpreted as one source.
 
 One of the advantages of such a clustering formulation lies in the ability of the proposed method to detect an arbitrary number of sources.

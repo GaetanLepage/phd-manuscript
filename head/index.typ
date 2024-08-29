@@ -1,4 +1,5 @@
-#import "/utils.typ": print-index, gaet
+#import "/utils.typ": gaet
+#import "/_misc/acrostiche.typ": print-index
 
 //#include "cover-page.typ"
 //#pagebreak()
@@ -38,5 +39,5 @@
 #print-index(
   title: "List of Acronyms",
   outlined: true,
-  numbering: none,
+  //numbering: none,
 )
