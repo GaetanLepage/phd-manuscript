@@ -4,7 +4,7 @@
 #figure(
   tablex(
     // SETTINGS
-    columns: 6,
+    columns: 5,
     header-rows: 2,
     align: left + horizon,
     auto-vlines: false,
@@ -13,8 +13,6 @@
     // HEADER
     toprule,
 
-    rowspanx(2)[FoV (m)],
-    //colspanx(2)[#align(center)[$hat(o)_t$]],
     header-pred-spectrum,
     [#h(1em)],
     header-gt-spectrum,
@@ -28,18 +26,15 @@
     midrule,
 
     // ROWS
-    // FoV    Prec Recall ||  Prec  Recall
-    [2],      [], [],     [], [],   [],
-    [4],      [], [],     [], [],   [],
-    [8],      [], [],     [], [],   [],
-    [16],     [], [],     [], [],   [],
+    // Prec Recall ||  Prec  Recall
+       [], [],     [], [],   [],
 
     bottomrule
   ),
   placement: top,
   kind: table,
   caption: [
-    Comparison of the ASSL performance for different FoV
+    Comparison of the #acr("ASSL") performance for two sources of #doa spectrum
   ]
 )
-<table:active_ssl:results:test>
+<table:active_ssl:results:ssl_model>
