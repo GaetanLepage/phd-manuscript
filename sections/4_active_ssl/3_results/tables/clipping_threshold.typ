@@ -15,7 +15,7 @@
     toprule,
 
     rowspanx(2)[Aggregation method],
-    rowspanx(2)[$delta_min$],
+    rowspanx(2)[#clip-t],
     header-pred-spectrum,
     [#h(1em)],
     header-gt-spectrum,
@@ -49,7 +49,7 @@
   placement: top,
   kind: table,
   caption: [
-    Comparison of the ASSL performance for different clipping threshold ($delta_min$) values
+    Comparison of the ASSL performance for different clipping threshold (#clip-t) values
   ]
 )
 <table:active_ssl:results:clipping_threshold>
