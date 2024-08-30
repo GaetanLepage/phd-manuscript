@@ -189,6 +189,8 @@ However, decreasing this parameter causes larger, oversaturated cones that loose
 )
 <fig:active_ssl:results:doa_spectrum_amplif_maps>
 
+#include "tables/doa_threshold.typ"
+
 #draft[
   TODO: add quantitative study + analysis
 ]
