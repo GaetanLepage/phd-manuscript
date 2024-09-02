@@ -5,6 +5,7 @@
   "API": ("Application Programming Interface"),
   "HRI": ("Human Robot Interaction"),
   "RMSE": ("Root Mean Square Error"),
+  "GT": ("Ground Truth"),
   
   // Deep Learning
   "DL": ("Deep Learning"),
