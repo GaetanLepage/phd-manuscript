@@ -107,6 +107,79 @@ This choice allows for experimenting with the relevant hyperparameters such as t
   - straight trajectories with source aligned with the trajectory (no real triangulation possible)
 ]
 
+=== Performance study
+
+
+==== Likelihood cutoff
+
+In order to feed the aggregated heatmaps to the clustering algorithm, it is first needed to extract a set of points from the final 2D map #AM.
+DBSCAN does not take the pixel values into account for building its clusters and only relies on the distance between the provided points.
+The set of filtered coordinates should thus be carefully chosen.
+
+We adopt a simple thresholding approach that consists in selecting all points which value is greater than a given target #clip-t.
+This parameter should be high enough to let the clusters surface.
+If too low, the resulting point cloud ends up fully connected leading to DBSCAN finding a single cluster.
+Conversely, increasing #clip-t too significantly will result in local peaks being completely filtered out which would produce a missed detection.
+
+@fig:active_ssl:results:clipping_threshold shows a given aggregated map after having been filtered with different values of #clip-t.
+The top row depicts the map obtained from the averaging aggregation (#psi-avg) while the bottom one exposes the output of the neural network (#psi-dnn).
+In this example, both blending strategies have provided a solid result which are not particularly challenging to cluster.
+While the neural network was able to directly yield distinct blobs, the obtained averaged map shows to be more impacted by the thresholding.
+Indeed, too low values of #clip-t do not manage to disconnect the various clusters and would link to a single prediction from the detection pipeline.
+On the contrary, the network output suffers from too aggressive filtering as the blob with the lowest intensity eventually disappears for $#clip-t >= 0.8$.
+
+#gaet[
+  Maybe PR curves will be more visual for illustrating this.\
+  The issue is that the four curves cannot really be plotted altogether.
+  Each one needs to be nicely scaled to distinguish its shape.
+]
+
+
+#figure(
+  image(
+    "figures/clipping_threshold.svg",
+  ),
+  caption: [
+    Effect of the clipping threshold on the aggregated maps
+  ],
+)
+<fig:active_ssl:results:clipping_threshold>
+
+@table:active_ssl:results:clipping_threshold gathers the result of an experimental campaign on the impact of this parameter on the final #acr("ASSL") performance.
+For the sake of completeness, all four combinations of blending methods and #doa spectrum provider have been tested.
+It shows that there doesn't exist a single optimal value for #clip-t.
+As both the aggregation process and the source #doa data significantly impact #AM, the threshold needs to be chosen accordingly.
+Thus, for each scenario, we identify the best precision-recall tradeoff and select the corresponding #clip-t value.
+Those pairs are underlined in @table:active_ssl:results:clipping_threshold and do not always coincide with the highest values of individual metrics (highlighted in bold).
+For later experiments, those optimal #clip-t values will be used to extract the best performance out of each method.
+
+#include "tables/clipping_threshold.typ"
+
+Finally, another factor might be brought into consideration: computational cost.
+DBSCAN's time complexity is $O(n log n)$ when the data layout is favorable and $O(n^2)$ in the worst-case @ester_density-based_1996 ($n$ denotes the number of points).
+In the use made of this algorithm here, the number of provided points is highly impacted by the choice of #clip-t.
+For instance, the value of 0 is not tested.
+This case indeed often translates in none of the pixels getting filtered.
+For a resolution of $p=256$, the number of points forwarded to DBSCAN amounts to $p^2 = 65,536$.
+Also, the algorithm output consists in a single cluster containing all points.
+
+@fig:active_ssl:results:n_points_cluster plots the number of points remaining after the filtering process.
+Blue lines correspond to using the naive averaging strategy to aggregate the maps and orange lines relate to the use of the neural network.
+Also, dashed plots allow to differentiate which #doa spectra have been employed from the start.
+This shows that the inferred likelihood map should be as sparse as possible with peak values approaching 1.
+Those properties allow for better separability and fewer points being fed into the clustering algorithm.
+
+#figure(
+  image(
+    "figures/n_points_cluster.svg",
+    width: 80%,
+  ),
+  caption: [
+    Number of points remaining after the filtering operation with respect to #clip-t
+  ]
+)
+<fig:active_ssl:results:n_points_cluster>
+
 
 === Impact of the upstream #acr("SSL") model
 <sec:active_ssl:results:impact_of_ssl_model>
@@ -126,22 +199,66 @@ This scenario is the more realistic and unites all the developed blocks into a s
 On the other hand, the #acr("ASSL") framework is also evaluated directly using the ground truth spectra $o_t$ at each step.
 Here, the potential of our method can be explored under ideal conditions.
 
-// TODO: image of prediction VS GT spectrum
+#figure(
+  image(
+    "figures/doa_spectra.svg",
+  ),
+  caption: [
+    Comparison of ground-truth and predicted #doa spectra
+  ],
+)
+<fig:active_ssl:results:doa_spectra>
 
-// Basically, gap caused by detections going missing.
-// -> Final map value at intersection is lower
-// Also, peaks in the sptrum are often lower than 1.0 and thus also contribute to lower values in the likelihood map.
+@fig:active_ssl:results:doa_spectra shows instances of #doa spectra.
+Although most peaks are properly inferred by the #acr("SSL") model, failed detections can still be observed across the trajectory dataset.
+Most of the detection failures consist in false negatives where the network outputs either a too low peak, or no activation at all.
+In those cases, the averaged maps might still include local maxima in the correct locations, but those often get filtered when thresholding the final map.
+Samples where several sources stand really close with respect to #doa also represent challenging cases.
+
+From a performance point of view, @table:active_ssl:results:clipping_threshold for instance highlights an important gap between using ground-truth spectra and predicted ones.
+For instance, obtained recall on real data, peaking at around 55%, clearly appears as a weakness of the proposed pipeline.
+The main cause lies in the shortcomings of the angular localization method.
+
+Nonetheless, leveraging the static model across multiple distinct positions still allows to recover from partial misses and provide precise 2D localization.
 
 
 === Comparison of blending methods
 <sec:active_ssl:results:blending_methods>
 
 Two alternatives have been compared for the map blending operation: naive averaging $Psi_"avg"$ and learnt #psi-dnn (see @sec:active_ssl:methods:blending_methods).
-The former was introduced as a baseline, offering an explainable advantage while the second aims at offering the best performance.
+The former was introduced as a baseline, offering the advantage of being explainable while the second aims at offering the best performance.
 
-#include "figures/blending_comparison/figure.typ"
+#figure(
+  image(
+    "figures/blending_comparison.svg",
+  ),
+  caption: [
+    Visual comparison of the two aggregation methods (#psi-avg top and #psi-dnn bottom)
+  ],
+)
+<fig:active_ssl:results:blending_comparison>
 
-Qualitatively,
+Naturally, when significantly precise #doa spectra are extracted at each step, even the naive averaging method suffices for accurately estimating the 2D heatmap.
+However, when, more imperfect and challenging #doa maps are considered, the neural network shows a greater capacity at ignoring the noise and providing a sharp likelihood estimation.
+
+Also, as #psi-dnn has been trained with localized 2D gaussian blobs as targets, it has learnt to properly filter the unnecessary parts of the original cones.
+Its output successfully concentrates on the actual position of the sources.
+By precisely separating and isolating the different local peaks in the map, the network allows for an easier clustering process.
+This decreases the sensitivity on the hyperparameters of DBSCAN.
+
+#include "tables/blending_methods.typ"
+
+@table:active_ssl:results:blending_methods summarizes the best performance achieved by each aggregation strategy.
+In particular, the most efficient value of the #clip-t parameter has been used.
+Unsurprisingly, employing the neural network offers a tangible advantage compared to simply averaging the #doa maps.
+Those results confirm the qualitative observations made above.
+When provided with the ground-truth #doa spectra, #psi-dnn allows to achieve an almost perfect precision.
+However, the recall score slightly lags behind with a value of 90.54%.
+The few missed detections consist in situations where at least one of the sources remain strictly in front of or behind the agent during the entire trajectory.
+The indirect triangulation phenomenon leveraged by our method then becomes almost infeasible and the distance cannot be accurately estimated.
+Nonetheless, even in challenging cases where no clear cone intersection can be visually distinguished, the network sometimes manages to perform correct detections by relying on the prior it has learned during training.
+
+All in all, the proposed deep neural architecture has shown to be a robust and powerful methods for performing the aggregation step of the #acr("ASSL") pipeline.
 
 // NN rightfully infers the presence of a source in the front, but predicts an inacurrate distance leading to missing the detection in the end.
 
@@ -195,82 +312,6 @@ However, decreasing this parameter causes larger, oversaturated cones that loose
   TODO: add quantitative study + analysis
 ]
 
-
-==== Likelihood cutoff
-
-In order to feed the aggregated heatmaps to the clustering algorithm, it is first needed to extract a set of points from the 2D map.
-DBSCAN does not take the pixel values into account for building its clusters and only relies on the distance between two provided points.
-The set of filtered coordinates should thus be carefully chosen.
-
-We adopt a simple thresholding approach that consists in selecting all points which value is greater than a given target #clip-t.
-This parameter should be high enough to let the clusters surface.
-If too low, the resulting point cloud ends up fully connected leading to DBSCAN finding a single cluster.
-Conversely, increasing #clip-t too significantly will result in local peaks being completely filtered out which would produce a missed detection.
-
-@fig:active_ssl:results:clipping_threshold shows a given aggregated map after having been filtered with different values of #clip-t.
-The top row depicts the map obtained from the averaging aggregation (#psi-avg) while the bottom one exposes the output of the neural network (#psi-dnn).
-In this example, both blending strategies have provided a solid result which are not particularly challenging to cluster.
-While the neural network was able to directly yield distinct blobs, the obtained averaged map shows to be more impacted by the thresholding.
-Indeed, too low values of #clip-t do not manage to disconnect the various clusters and would link to a single prediction from the detection pipeline.
-On the contrary, the network output suffers from too aggressive filtering as the blob with the lowest intensity eventually disappears for $#clip-t >= 0.8$.
-
-#gaet[
-  Maybe PR curves will be more visual for illustrating this.
-  Also, if we keep a table, do we include more values of $delta_min$ ? I feel like we can miss the trend/evolution of the perf with a too wide grid.
-]
-
-
-#figure(
-  image(
-    "figures/clipping_threshold.svg",
-  ),
-  caption: [
-    Effect of the clipping threshold on the aggregated maps
-  ],
-)
-<fig:active_ssl:results:clipping_threshold>
-
-@table:active_ssl:results:clipping_threshold gathers the result of an experimental campaign on the impact of this parameter on the final #acr("ASSL") performance.
-#draft[
-  TODO analyze results
-]
-
-#include "tables/clipping_threshold.typ"
-
-Finally, another factor might be brought into consideration: computational cost.
-DBSCAN's time complexity is $O(n log n)$ when the data layout is favorable and $O(n^2)$ in the worst-case @ester_density-based_1996 ($n$ denotes the number of points).
-In the use made of this algorithm here, the number of provided points is highly impacted by the choice of #clip-t.
-More precisely, the case where $#clip-t = 0$ leads to a very high number of points included in the final 
-
-The value of $#clip-t = 0$ is not tested.
-This case indeed often translates in none of the pixels getting filtered.
-For a resolution of $p=256$, the number of points forwarded to DBSCAN amounts to $p^2 = 65,536$.
-Also, the algorithm output consists in a single cluster containing all points.
-@fig:active_ssl:results:n_points_cluster plots the number of points remaining after the filtering process.
-Blue lines correspond to using the naive averaging strategy to aggregate the maps and orange lines relate to the use of the neural network.
-Also, dashed plots allow to differentiate which #doa spectra have been employed from the start.
-#draft[
-  Deepen the analysis ?
-]
-
-#figure(
-  image(
-    "figures/n_points_cluster.svg",
-    width: 80%,
-  ),
-  caption: [
-    Number of points remaining after the filtering operation with respect to #clip-t
-  ]
-)
-<fig:active_ssl:results:n_points_cluster>
-
-
-
-#draft[
-  Show the importance of the clipping threshold:
-  - PR curve
-  - Qualitative comparison
-]
 
 ==== Visual encoding
 
