@@ -28,11 +28,11 @@ $
     hat(X)_(i k),
     X_(i j)
   ) = cases(
-    1
-      &"if"
-        #dist < delta\
-        &"and" k = limits("argmin")_(k in {1, dots, hat(z_i)}) #dist,
-    0 "otherwise"
+    1  
+      &&"if" #dist < delta\
+      &&"and" k = limits("argmin")_(k in {1, dots, hat(z_i)}) #dist,
+    0
+       "otherwise"
   )
 $
 where $hat(X)_(i k) = (hat(x)_(i k), hat(y)_(i k))$ is the estimated position of the $j$-th detected source in sample $i$ and $X_(i k)$ is the ground truth position of the $k$-th real source in this sample.
@@ -109,8 +109,22 @@ This choice allows for experimenting with the relevant hyperparameters such as t
 
 === Performance study
 
+Both the #acr("ASSL") task and the proposed method admit variants and parameters.
+In this section, an in-depth exploration of certain settings is conducted.
+
+#gaet[
+  This section is quite tricky to organize because there are several cross-dependencies:
+  - All experiments were made with the optimal clipping threshold which has been presented in @sec:active_ssl:results:likelihood_threshold
+  - At the same time, the latter compares ground-truth SSL to using our multi-source SSL model which is presented in @sec:active_ssl:results:impact_of_ssl_model.
+  - #psi-avg vs #psi-dnn is present in all sub-sections but clearly introduced in @sec:active_ssl:methods:blending_methods
+
+  Anyway, we can re-order those as we like and properly reference other sub-sections when needed.
+]
+
+// Ablation studies / sensitivity analysis
 
 ==== Likelihood cutoff
+<sec:active_ssl:results:likelihood_threshold>
 
 In order to feed the aggregated heatmaps to the clustering algorithm, it is first needed to extract a set of points from the final 2D map #AM.
 DBSCAN does not take the pixel values into account for building its clusters and only relies on the distance between the provided points.
@@ -181,18 +195,11 @@ Those properties allow for better separability and fewer points being fed into t
 <fig:active_ssl:results:n_points_cluster>
 
 
-=== Impact of the upstream #acr("SSL") model
+==== Impact of the upstream #acr("SSL") model
 <sec:active_ssl:results:impact_of_ssl_model>
 
 The upstream static #acr("SSL") model features as a core part of the #acr("ASSL") pipeline.
 The quality of #doa spectra it provides plays a significant impact role in the final performance of the method.
-
-#include "tables/ssl_model.typ"
-
-#todo
-
-
-The upstream static #acr("SSL") model used to infer the #doa spectrum at each step plays a significant role in the final performance.
 Hence, to isolate the behavior of the #acr("ASSL") method itself, two scenarios are compared.
 On the one hand, the neural network implemented and trained in @sec:ssl:multi_source predicts the #doa spectra $hat(o)_t$ from the listened audio.
 This scenario is the more realistic and unites all the developed blocks into a single end-to-end pipeline.
@@ -222,7 +229,7 @@ The main cause lies in the shortcomings of the angular localization method.
 Nonetheless, leveraging the static model across multiple distinct positions still allows to recover from partial misses and provide precise 2D localization.
 
 
-=== Comparison of blending methods
+==== Comparison of blending methods
 <sec:active_ssl:results:blending_methods>
 
 Two alternatives have been compared for the map blending operation: naive averaging $Psi_"avg"$ and learnt #psi-dnn (see @sec:active_ssl:methods:blending_methods).
@@ -262,12 +269,7 @@ All in all, the proposed deep neural architecture has shown to be a robust and p
 
 // NN rightfully infers the presence of a source in the front, but predicts an inacurrate distance leading to missing the detection in the end.
 
-=== Performance optimization
 
-Both the #acr("ASSL") task and the proposed method admit variants and parameters.
-In this section, an in-depth exploration of certain settings is conducted.
-
-// Ablation studies / sensitivity analysis
 
 ==== #doa spectrum amplification
 
@@ -308,9 +310,22 @@ However, decreasing this parameter causes larger, oversaturated cones that loose
 
 #include "tables/doa_threshold.typ"
 
-#draft[
-  TODO: add quantitative study + analysis
-]
+In practice, our experiments show that #doa spectrum thresholding fails at bringing tangible benefits (see @table:active_ssl:results:doa_threshold).
+To obtain those results, our #psi-dnn network has been retrained on a dataset of maps corresponding to each #doa-t values.
+Certainly, the #psi-avg technique does not require any form of training.
+Performance is often best for $#doa-t = 1.0$.
+Employing this process when using the ground truth #doa spectra was not expected to bring any additional performance as all peaks maximize exactly at $1.0$ and thus do not need to be any further amplified.
+
+When using the #doa spectra estimated by te #acr("SSL") model combined with the neural network for map blending, #doa thresholding slightly boosts the overall performance.
+Conversely, the naive averaging approach does not seem to benefit from more saturated spectra.
+
+At last, the marginal and situational advantages provided by clipping #doa spectra do not suffice to be included in the final method.
+However, this study further illustrates the sensitivity of the pipeline to the quality and processing of the input #doa information.
+
+==== Horizon
+<sec:active_ssl:results:horizon>
+
+#include "tables/horizon.typ"
 
 
 ==== Visual encoding
@@ -327,10 +342,10 @@ Its value must be chosen diligently as it bounds the information available once 
 One has to consider the maximum distance $d_"max"$ travelled by the robot at each step and the horizon $H$.
 If the characteristic value $H times d_"max"$ significantly overpasses $L/2$, information from the oldest steps might be at least partly out of scope and thus useless.
 In practice, there are no strong reason to keep $L$ small and choosing it greater than the dimensions of the room ensures to capture most available knowledge in the shifted maps $tilde(M)_t'$.
-#draft[
-  Well, a small $L$ could make smaller details "bigger" and help with the detection.
-  Let us see what the experiments give.
-]
+In order to quantify the impact of this parameter, the neural network is trained on various #fov ranging from 2 to 16 meters.
+Results are summarized in @table:active_ssl:results:fov and overall confirm the aforementioned expectation.
+Performance indeed suffers from a reduction of the #fov.
+The value of 16 meters is used in the rest of our experiments as it provides the most favorable conditions.
 
 #include "tables/fov.typ"
 
@@ -338,6 +353,15 @@ In practice, there are no strong reason to keep $L$ small and choosing it greate
 As opposed to the #fov, pixel resolution stands solely as a representation hyperparameter and does not fundamentally change the informative content of the maps.
 Naturally, a higher resolution would limit any loss caused by the spatial discretization process.
 We have noticed during our experiments that when using too low resolutions, imprecisions would arise within the map shifting process.
-In fact, the latter consists in a 
+In fact, the latter is performed directly on the discrete heatmap thanks to the OpenCV @opencv_library software library.
+On the other hand, increasing the resolution induces a larger image fed into the neural network.
+As our U-net architecture is fully convolutional, the number of parameters remains identical when changing the input size.
+However, the computational cost still gets impacted by such modifications.
+We have once more trained the neural network on maps of different resolutions between 64 and 256 pixels.
+Results, presented in @table:active_ssl:results:pixel_res, suggest that a finer resolution indeed helps with the localization process.
+Although precision is not strongly impacted by this parameter, the recall shows to be sensitive to pixel resolution.
+Training time grows from 5 minutes when using $p=64$ to 30 minutes for $p=256$.
+Inference time scales similarly, ranging from 30s to 2min 15s for the biggest maps.
+As those constraints remain acceptable for real world use case, the most favorable resolution ($p=256$) is used in the rest of our experiments.
 
 #include "tables/pixel_res.typ"

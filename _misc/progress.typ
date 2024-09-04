@@ -70,9 +70,13 @@
   radius: 2pt,
   centering: true
 )[
+  #show: checklist
+  
   *General questions:*
-  - Should we note tensor shapes $(X, Y, Z)$ or $X times Y times Z$ ?
-  - DOA or DoA ? FOV or FoV ?
+  - [ ] Should we note tensor shapes $(X, Y, Z)$ or $X times Y times Z$ ?
+  - [x] DOA or DoA ? FOV or FoV ?
+    - Xavi: I prefer DoA, FoV.
+    - This is what has been done.
 
   *Visual/Layout questions:*
   - Aren't the margins OK ?\
@@ -82,15 +86,15 @@
   - Should figure captions be centered or left-align ? (I assume that table captions will them always be centered)
 
   *Style-related questions:*
-  - Is passive style OK ? to be encouraged ? discouraged ?\
+  - Is passive style OK ? to be encouraged ? discouraged ?\ Xavi: Use it when you need to.
     \<SUBJECT\> is/will be/has been \<VERB\>.
 
   *Questions for Laurent:*
   #strike[
-    - How to compute duration from $F$ (i.e. number of #acr("STFT") frames) ?\
+    - [x] How to compute duration from $F$ (i.e. number of #acr("STFT") frames) ?\
       $N = H(T - 1) => d = H(T - 1) / f$
   ]
-  - How to organize the "audio" sections ?
+  - [ ] How to organize the "audio" sections ?
 
   *Remarks:*
   - I have added _local_ TOCs at the beginning of each chapter to help me, but I plan to remove them later.
