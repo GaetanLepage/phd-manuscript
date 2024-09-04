@@ -6,6 +6,7 @@
   "HRI": ("Human Robot Interaction"),
   "RMSE": ("Root Mean Square Error"),
   "GT": ("Ground Truth"),
+  "MKF": ("mixture Kalman filter"),
   
   // Deep Learning
   "DL": ("Deep Learning"),

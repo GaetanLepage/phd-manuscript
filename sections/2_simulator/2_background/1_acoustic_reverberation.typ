@@ -97,6 +97,7 @@ Although the waveform rendering of an audio signal is a raw and natural represen
 A popular way of representing audio signals is to project the temporal signal in the Fourier domain.
 The Fourier transform stands as the core concept of this category of encoding.
 #gaet[Should we go as far as giving the definition of the Fourier Transform ?]
+#xavi[In my opinion no.]
 #chris[It is a well-known process and you do not really modify it, so only reference it. Only in case you have more time then you could think about explaining it in detail.]
 // TODO FT -> STFT (continuous) -> STFT (discrete)
 #draft[TODO cite @smith_scientist_1997]

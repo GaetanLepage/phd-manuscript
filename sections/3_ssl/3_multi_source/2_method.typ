@@ -8,22 +8,22 @@
 
 Most of the dataset generation process remains identical to the one presented in @sec:ssl:single_source:method:dataset.
 All samples remain fully independent.
-The positions of both sources and the microphone array are randomly samples to generate each one.
-This section will focus on the necessary additions made to support the multi-source setting.
+The positions of both the microphone array and the sources are randomly sampled.
+This section will focus on the necessary additions taken to support the multi-source setting.
 Also, some choices have been made so as to mostly follow the methodology from He et al. in @he_neural_2021.
 
-#gaet["4-microphone array", "four-microphone array" or "four microphone array" ?]
 *Microphone array.*
-For effectively localizing multiple sound sources, a four-microphones array is used.
+For effectively localizing multiple sound sources, a four-microphone array is used.
 The $n_m = 4$ omnidirectional sensors are arranged in a 2cm wide square.
 
 
 #gaet[An important difference with the source paper is that I always use the same room ($T_60$, size, ...)]
+#xavi[This is an implementation detail that you can mention when relevant.]
 
 
 Audio processing has been kept the same, except for the sample duration.
 The latter now amounts to approximately 360ms as 16 #acr("STFT") frames participate to each input of the model.
-#gaet[This choice is not easy to justify. He uses even less samples (7)].
+#gaet[This choice is not easy to justify. He uses even less samples (7)]
 
 
 The microphone array and $n_s$ speech sources get randomly positioned in the room.
@@ -41,6 +41,7 @@ Such signals last around 10 seconds.
   
   Talk about the size (in GB) of the dataset
 ]
+#xavi[Talk about train/val/test when describe training and evaluation]
 
 #gaet[
   No need to explain source-wise simulation here if we have already done it in the single-source section (regarding noise)
@@ -53,7 +54,6 @@ This offers more possibilities as explained below.
 
 First, let us start from leveraging the following property.
 The signal $s_k$ recorded by the $k$-th microphone expresses simply as the sum of the signals $s_(i, k)$ providing from each source:
-#gaet[Laurent, should we adopt discrete or continuous notation here ($s_k (t)$ or $s_k [t]$) ?]
 $
   s_k [t] = sum_(i=1)^n_s s_(i,k)[t]
 $
@@ -136,6 +136,7 @@ In practice, around 40% of the generated chunks are rejected.
   - Maybe a scheme of this process could bring additional clarity.
   - We might want to acknowledge that a rejection rate of 40% is quite high.
 ]
+#xavi[In my opinion no need for diagram. It's OK. No need to emphasise about 40% rejections, as you do it only in generation]
 
 The #acr("STFT") of each multi-channel 400ms segment provides the final training samples of the dataset.
 Besides each input sample, the relevant ground truth information gets saved for supervising the learning process and computing performance metrics.
@@ -258,6 +259,7 @@ We chose to set $sigma = 5°$.
 #gaet[
   Should we plot it with discrete points (scatter) instead of continuous lines ? It would be more relatable to the given definition.
 ]
+#xavi[Not necessay[]]
 
 The main benefit of this format, alongside with its ability to encode an arbitrary number of sources, is to frame the #acr("SSL") problem as a simple regression task.
 
@@ -268,7 +270,7 @@ The employed #acr("DoA") encoding presented in @sec:ssl:multi_source:method:doa_
 Namely, thanks to its flexibility, it allows for representing an arbitrary number of sources.
 Also, it enables to formulate the multi-source #acr("SSL") problem as a simple regression task.
 However, to extract of set of actual #acr("DoA") values, one has to explicitly process the obtained spatial spectra.
-#gaet[Do we have to, once more, cite the Odobez paper here ?]
+#gaet[Do we have to, once more, cite the Odobez paper here ?]#xavi[Nope]
 This is achieved by detecting the peaks in the network output.
 The index of local maxima higher than a threshold #xi-doa serve as the #acr("DoA") predictions:
 $
@@ -293,11 +295,11 @@ $
 $ <eq:ssl:multi_source:decoding_unknown_sources>
 The neighborhood threshold $colMath(sigma_n, #olive)$ must be defined carefully for this process to succeed.
 If too low, some high frequency noise in the spatial spectrum could lead to several false positive angle detections.
-On the other hand, a too high value for $sigma_n$ might cause two close peaks to be wrongly identified as a single one, thus missing a positive detection.
+On the other hand, a large value of $sigma_n$ might cause two close peaks to be wrongly identified as a single one, thus missing a positive detection.
 We have found $sigma_n = 8 degree$ to be a satisfying value.
 
 #gaet[
-  Is it interesting to describe the local maximum extraction process ?
+  Is it interesting to describe the local maximum extraction process?
   According to me, there is obviously no novelty here (as for the entire section...), but it can eat up some space.
 ]
 
@@ -352,8 +354,8 @@ The aim of the Neural Network is to process multi-channel audio data and to extr
 The input of the model is the #acr("STFT") representation of the multi-channel signal.
 The #acr("STFT") of a signal is a complex-valued matrix of size $F times T$.
 We then split the real and imaginary values to form two distinct matrices.
-Each one of the $M$ microphones leads to a $(2, F, T)$-shape real-valued tensor.
-Its shape is noted $(C, F, T)$ where $C$ is the number of channels, i.e. twice the number of microphones in the array.
+Each one of the $M$ microphones leads to a #shape(2, "F", "T")-shape real-valued tensor.
+Its shape is noted #shape("C", "F", "T") where $C$ is the number of channels, i.e. twice the number of microphones in the array.
 
 The architecture draws inspiration from vision models by employing 2D convolution.
 As discussed in @sec:ssl:sota:deep_learning, using the image-like time-frequency representation of audio signals allows applying techniques proven to perform well on conventional image data.
