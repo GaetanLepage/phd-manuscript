@@ -30,11 +30,7 @@ $
 <eq:ssl:multi_source:mae>
 
 where  $colMath(d, #maroon)$ refers to the symmetric angular distance defined in @eq:ssl:multi_source:symmetric_angular_dist.
-For convenience, the #acr("MAE") will most often be expressed in degrees:
-$
-  "MAE"° = 180 / pi "MAE"
-$
-#gaet[Not sure that the above equation is needed at all.]
+For convenience, the #acr("MAE") will most often be expressed in degrees.
 
 The _#acr("ACC")_ constitutes the second metric for this framework and, given an error threshold $colMath(E_a, #eastern)$, provides the proportion of correctly localized sources:
 $
@@ -525,7 +521,7 @@ In the first scenario, all four sources remain active and the four corresponding
 On the other two, only two (respectively three) random sources are enabled simultaneously in every sample.
 @fig:ssl:multi_source:experiments:doa_min_dist_hist depicts the distribution of #delta-t depending on this number of active sources.
 Naturally, when only two sources are present concurrently, high values of #delta-t remain likely.
-Yet, increasing the number of sources tends to decrease their likelihood and the minimum #acr("DoA") gap reaches lower values more often.
+Yet, increasing the number of sources tends to decrease their likelihood and the minimum #acr("DoA") gap more often reaches lower values.
 Hence, the correlation between the number of sources and the difficulty of the #acr("SSL") task highlighted in @sec:ssl:multi_source:experiments:number_of_sources might be caused by two underlying reasons.
 On the one hand, the model is expected to extract each speaker's location from the mixture of speech signals that constitute its input.
 An increase in the number of inherently hardens this task.

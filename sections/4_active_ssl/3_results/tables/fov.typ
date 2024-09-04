@@ -1,5 +1,6 @@
 #import "/utils.typ": *
 #import "utils.typ": *
+#import "../../_notations.typ": *
 
 #figure(
   tablex(
@@ -13,7 +14,7 @@
     // HEADER
     toprule,
 
-    rowspanx(2)[FoV (m)],
+    rowspanx(2)[#fov (m)],
     //colspanx(2)[#align(center)[$hat(o)_t$]],
     header-pred-spectrum,
     [#h(1em)],
@@ -29,11 +30,11 @@
     midrule,
 
     // ROWS
-    // FoV    Prec Recall ||  Prec  Recall
-    [2],      [], [],     [], [],   [],
-    [4],      [], [],     [], [],   [],
-    [8],      [], [],     [], [],   [],
-    [16],     [], [],     [], [],   [],
+    // FoV    Prec        Recall      ||  Prec        Recall
+    [2],      [38.99],    [19.12],    [], [49.43],    [22.30],
+    [4],      [72.26],    [36.51],    [], [91.10],    [49.43],
+    [8],      [*85.84*],  [49.98],    [], [98.94],    [84.02],
+    [16],     [85.36],    [*52.65*],  [], [*99.74*],  [*90.50*],
 
     bottomrule,
   ),

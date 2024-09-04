@@ -8,8 +8,10 @@
 #include "_misc/acronyms.typ"
 
 
-/*------------------------------------------*/
-// CONTENT
+/*---------*/
+/* CONTENT */
+/*---------*/
+
 #include "_misc/progress.typ"
 
 // FRONT
