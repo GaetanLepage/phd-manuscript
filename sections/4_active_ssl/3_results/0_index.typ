@@ -94,18 +94,12 @@ When the robot happens to be less than 50cm from a wall, the orientation is inst
 *Data gathering.*
 The collected datasets will find two distinct uses: the evaluation of the global #acr("ASSL") pipeline as well as the training of the #psi-dnn combination operator.
 Hence, exhaustive geometric and acoustic data is gathered.
-For each step, the audio signal received by the agent is fed to the #acr("SSL") network so as to collect the estimated #doa spectrum $hat(o)_t$.
+For each step, the audio signal received by the agent is fed to the #acr("SSL") network to collect the estimated #doa spectrum $hat(o)_t$.
 The oracle spectrum $o_t$ also gets saved for further comparisons.
-Also, the absolute positions of the agent as well as the relative sources locations are saved at every step.
+Also, the absolute positions of the agent as well as the relative source locations are saved at every step.
 Finally, the relative movements performed by the robot are recorded in order to later perform the map shifting operation.
-Local #doa maps do not get generated yet but all the necessary information for their creation is made available.
+Local #doa maps have not been generated yet but all the necessary information for their creation is made available.
 This choice allows for experimenting with the relevant hyperparameters such as the #fov $L$ and pixel resolution $p$.
-
-#draft[
-  Insist about the difficulty of certain samples:
-  - Very close sources
-  - straight trajectories with source aligned with the trajectory (no real triangulation possible)
-]
 
 === Performance study
 
@@ -121,7 +115,12 @@ In this section, an in-depth exploration of certain settings is conducted.
   Anyway, we can re-order those as we like and properly reference other sub-sections when needed.
 ]
 
-// Ablation studies / sensitivity analysis
+#gaet[
+  There are a lot of tables.
+  Maybe using more visual representations could bring more diversity.
+
+  Unfortunately _PR curves_ (made by changing #clip-t) do not look very good as they are not really PR curves.
+]
 
 ==== Likelihood cutoff
 <sec:active_ssl:results:likelihood_threshold>
@@ -218,9 +217,9 @@ Here, the potential of our method can be explored under ideal conditions.
 
 @fig:active_ssl:results:doa_spectra shows instances of #doa spectra.
 Although most peaks are properly inferred by the #acr("SSL") model, failed detections can still be observed across the trajectory dataset.
-Most of the detection failures consist in false negatives where the network outputs either a too low peak, or no activation at all.
+Most of the detection failures consist of false negatives where the network outputs either a too low peak, or no activation at all.
 In those cases, the averaged maps might still include local maxima in the correct locations, but those often get filtered when thresholding the final map.
-Samples where several sources stand really close with respect to #doa also represent challenging cases.
+Samples where several sources stand particularly close with respect to #doa also represent challenging cases.
 
 From a performance point of view, @table:active_ssl:results:clipping_threshold for instance highlights an important gap between using ground-truth spectra and predicted ones.
 For instance, obtained recall on real data, peaking at around 55%, clearly appears as a weakness of the proposed pipeline.
@@ -311,12 +310,12 @@ However, decreasing this parameter causes larger, oversaturated cones that loose
 #include "tables/doa_threshold.typ"
 
 In practice, our experiments show that #doa spectrum thresholding fails at bringing tangible benefits (see @table:active_ssl:results:doa_threshold).
-To obtain those results, our #psi-dnn network has been retrained on a dataset of maps corresponding to each #doa-t values.
+To obtain those results, our #psi-dnn network has been retrained on a dataset of maps corresponding to each #doa-t value.
 Certainly, the #psi-avg technique does not require any form of training.
-Performance is often best for $#doa-t = 1.0$.
+Performance is often best for $#doa-t = 1$.
 Employing this process when using the ground truth #doa spectra was not expected to bring any additional performance as all peaks maximize exactly at $1.0$ and thus do not need to be any further amplified.
 
-When using the #doa spectra estimated by te #acr("SSL") model combined with the neural network for map blending, #doa thresholding slightly boosts the overall performance.
+When using the #doa spectra estimated by the #acr("SSL") model combined with the neural network for map blending, #doa thresholding slightly boosts the overall performance.
 Conversely, the naive averaging approach does not seem to benefit from more saturated spectra.
 
 At last, the marginal and situational advantages provided by clipping #doa spectra do not suffice to be included in the final method.
@@ -325,23 +324,37 @@ However, this study further illustrates the sensitivity of the pipeline to the q
 ==== Horizon
 <sec:active_ssl:results:horizon>
 
+The #acr("ASSL") task, as defined in this work, requires the agent to provide an estimate of the sources' locations after a fixed number of $H$ steps.
+The proposed method shows promising performance when $H=8$ consecutive maps can be combined and analyzed.
+To further explore the informative content of each step, we perform an ablation study on the horizon parameter.
+The base dataset gathers trajectories of $H_0=8$ steps and is the only one used in this experiment.
+To train or evaluate our method on a shorter horizon $H'$, we ignore the first $H-H'$ steps.
+Like so, the final frame remains the same across all the experiments.
+
 #include "tables/horizon.typ"
+
+@table:active_ssl:results:horizon shows the final performance of the pipeline for different horizons.
+The neural network #psi-dnn is retrained from scratch for each horizon to get the best possible performance.
+As anticipated, the highest detection scores are achieved when using all the 8 steps.
+Besides granting better absolute performance, the neural network demonstrates a greater robustness to lower horizons.
+The performance drop shows to be less pronounced than when using the averaging approach.
+
 
 
 ==== Visual encoding
 
 The choice to model the 2D localization problem with heatmaps involves exploring hyperparameters related to this visual encoding.
 As #doa maps are generated from the projection of #doa spectra, we are free to define the output domain without prior constraints.
-Two parameters influence the synthetised maps: the #fov $L$ and the pixel resolution $p$.
+Two parameters influence the synthesised maps: the #fov $L$ and the pixel resolution $p$.
 
 *Field of View.*
 The #fov ($L$) determines how wide is the range covered by the egocentric map.
 The latter is a $L times L$ square centered around the robot agent.
 
 Its value must be chosen diligently as it bounds the information available once the shifting and aggregation have occurred at the final position.
-One has to consider the maximum distance $d_"max"$ travelled by the robot at each step and the horizon $H$.
+One has to consider the maximum distance $d_"max"$ traveled by the robot at each step and the horizon $H$.
 If the characteristic value $H times d_"max"$ significantly overpasses $L/2$, information from the oldest steps might be at least partly out of scope and thus useless.
-In practice, there are no strong reason to keep $L$ small and choosing it greater than the dimensions of the room ensures to capture most available knowledge in the shifted maps $tilde(M)_t'$.
+In practice, there is no strong reason to keep $L$ small, and choosing it greater than the dimensions of the room ensures capturing most of available knowledge in the shifted maps $tilde(M)_t'$.
 In order to quantify the impact of this parameter, the neural network is trained on various #fov ranging from 2 to 16 meters.
 Results are summarized in @table:active_ssl:results:fov and overall confirm the aforementioned expectation.
 Performance indeed suffers from a reduction of the #fov.
@@ -362,6 +375,6 @@ Results, presented in @table:active_ssl:results:pixel_res, suggest that a finer 
 Although precision is not strongly impacted by this parameter, the recall shows to be sensitive to pixel resolution.
 Training time grows from 5 minutes when using $p=64$ to 30 minutes for $p=256$.
 Inference time scales similarly, ranging from 30s to 2min 15s for the biggest maps.
-As those constraints remain acceptable for real world use case, the most favorable resolution ($p=256$) is used in the rest of our experiments.
+As those constraints remain acceptable for real-world use-cases, the most favorable resolution ($p=256$) is used in the rest of our experiments.
 
 #include "tables/pixel_res.typ"

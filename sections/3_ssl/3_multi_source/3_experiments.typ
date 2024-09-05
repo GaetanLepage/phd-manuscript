@@ -334,7 +334,7 @@ where
 To be able to perform inference on single samples, i.e. without disposing of an entire mini-batch, substitution statistics are used in place of $colMath(mu_cal(B), #maroon)$ and $colMath(sigma_cal(B)^2, #olive)$.
 Indeed, during training, the #acr("BN") layer will keep updating a running mean and variance to be used at evaluation time.
 
-_#acr("LN")_ (Ba et al. @ba_layer_2016) follows the same principle but chooses to normalize each sample individually by computing statistics across the features dimensions.
+_#acr("LN")_ (Ba et al. @ba_layer_2016) follows the same principle but chooses to normalize each sample individually by computing statistics across the features' dimensions.
 @fig:ssl:multi_source:normalization displays the differences of both schemes.
 Historically, Layer Normalization has been most commonly employed within the Natural Language Processing field.
 

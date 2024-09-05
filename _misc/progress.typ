@@ -35,7 +35,8 @@
   + *Active SSL*
     - [ ] #link(<sec:active_ssl:background>)[1. Background]
     - [x] #link(<sec:active_ssl:methods>)[2. Methods]
-    - [ ] #link(<sec:active_ssl:methods>)[3. Results]
+    - [x] #link(<sec:active_ssl:results>)[3. Results]
+    - [ ] #link(<sec:active_ssl:conclusion>)[4. Conclusion]
   + *RL*
     - [ ] #link(<sec:rl:intro>)[1. Intro to RL]
     - [ ] #link(<sec:rl:method>)[2. Sound-driven robot navigation]
