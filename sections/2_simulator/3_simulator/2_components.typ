@@ -234,7 +234,8 @@ Lastly, the agent might be moved using the exposed displacement helpers presente
   caption: [
     Typical simulation workflow
   ]
-) <fig:simulator:simulator:simulator_workflow>
+)
+<fig:simulator:simulator:simulator_workflow>
 
 *Duration control.*
 By default, given $n_s$ input signals of durations $(d_s^1, dots, d_s^(n_s))$, the received signal at each microphone will last
@@ -247,7 +248,7 @@ After #d-rec seconds, the energy of the received signal becomes negligible.
 In practice, the simulator allows to artificially reduce the time of the simulation.
 This may happen by first shortening the input signals to a given duration $d_s^"lim"$, thus leading to having $#d-rec = d_s^"lim" + T_60$.
 Alternatively, the resulting audio can be trimmed to any wanted duration.
-The duration control feature gives a fine-grained control on the computational time.
+The duration control feature gives a fine-grained control of the computational time.
 Indeed, as further demonstrated in later @sec:simulator:simulator:performance the simulation time is directly impacted by the duration of the signals.
 
 
@@ -273,14 +274,14 @@ Additionally to the raw multi-channel listened audio provided by the `Room` modu
 The #acr("STFT") of the received acoustic data can thus be computed and recovered for direct use in a Neural Network or any method operating in the time-frequency plane.
 Finally, another function has been added to calculate the #acr("ILD") and #acr("IPD") of the signal given a pair of microphones.
 
-All those features partly removes the post-processing burden of the downstream user, allowing for the most direct and practical usage possible.
+All those features partly remove the post-processing burden of the downstream user, allowing for the most direct and practical usage possible.
 
 
 ====== Visualization
 
-For development purposes, it may come handy to graphically render the state of the simulator graphically.
+For development purposes, it may come in handy to graphically render the state of the simulator.
 The pipeline includes a basic yet efficient way of visualizing the different objects in the room.
-Each available microphone array comes with its ability to be shown in the room, according to its geometry.
+Each available microphone array comes with the ability to be shown in the room, according to its geometry.
 The orientation of microphones and directional sources is also displayed.
 
 @fig:simulator:simulator:components:simulator_plot provides a demonstration of the renderer.
