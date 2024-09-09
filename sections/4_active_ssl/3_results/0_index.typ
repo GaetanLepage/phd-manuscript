@@ -13,7 +13,7 @@ This section summarizes the main experiments conducted to assess the performance
 
 === Metrics
 
-Overall, the goal of the #acr("ASSL") task as defined in this chapter consists in extracting sound sources positions after $H$ arbitrary steps in the environment.
+Overall, the goal of the #acr("ASSL") task as defined in this chapter consists in extracting positions of sound sources after $H$ arbitrary steps in the environment.
 The actual detection is performed at step $H$ where the method outputs a list of coordinates relative to the robot's position.
 In this aspect, the #acr("ASSL") problem corresponds to a single-class detection task.
 Precision and recall hence come as natural metrics to evaluate our method's performance.
@@ -70,13 +70,13 @@ $
 
 In order to design, run and evaluate our method on the #acr("ASSL") task, the simulator is used to generate a synthetic dataset.
 Specifically, we leverage the ability of our simulator to model _dynamic_ discrete-time environments (see @sec:simulator:simulator:features:dynamic_scenarios).
-The latter consists in a repository of independent $H$-steps trajectories.
+The latter consists of a repository of independent $H$-steps trajectories.
 
 *Acoustic objects and movement policy.*
 First, a random number of speech sources $z_i$ is sampled uniformly between one and four.
 Those $z_i$ sources get randomly positioned in the reverberant room.
 The reverberation time $T_60$ has been set to 0.5s and the room measures $4 times 7$ meters.
-We pick a random starting side (top, bottom, left or right) and randomly place the agent equipped with a four-microphone array in a 50cm strip along the corresponding wall.
+We pick a random starting side (top, bottom, left, or right) and randomly place the agent equipped with a four-microphone array in a 50cm strip along the corresponding wall.
 The agent aims at a random direction, yet ensuring that it turns its back to the wall it starts against.
 The range of possible initial orientations can be observed on @fig:active_ssl:results:dataset_init.
 
@@ -89,7 +89,7 @@ $
 In practice, we use a value of radians for $sigma_theta$.
 The agent then moves forward in this new direction by a distance of 50cm.
 
-When the robot happens to be less than 50cm from a wall, the orientation is instead sampled according to the initialization process so as to turn its back to this wall.
+When the robot happens to be less than 50cm from a wall, the orientation is instead sampled according to the initialization process to turn its back to this wall.
 
 *Data gathering.*
 The collected datasets will find two distinct uses: the evaluation of the global #acr("ASSL") pipeline as well as the training of the #psi-dnn combination operator.
@@ -136,14 +136,14 @@ Conversely, increasing #clip-t too significantly will result in local peaks bein
 
 @fig:active_ssl:results:clipping_threshold shows a given aggregated map after having been filtered with different values of #clip-t.
 The top row depicts the map obtained from the averaging aggregation (#psi-avg) while the bottom one exposes the output of the neural network (#psi-dnn).
-In this example, both blending strategies have provided a solid result which are not particularly challenging to cluster.
+In this example, both blending strategies have provided a solid result that is not particularly challenging to cluster.
 While the neural network was able to directly yield distinct blobs, the obtained averaged map shows to be more impacted by the thresholding.
 Indeed, too low values of #clip-t do not manage to disconnect the various clusters and would link to a single prediction from the detection pipeline.
 On the contrary, the network output suffers from too aggressive filtering as the blob with the lowest intensity eventually disappears for $#clip-t >= 0.8$.
 
 #gaet[
   Maybe PR curves will be more visual for illustrating this.\
-  The issue is that the four curves cannot really be plotted altogether.
+  The issue is that the four curves cannot really be plotted together.
   Each one needs to be nicely scaled to distinguish its shape.
 ]
 
@@ -231,7 +231,7 @@ Nonetheless, leveraging the static model across multiple distinct positions stil
 ==== Comparison of blending methods
 <sec:active_ssl:results:blending_methods>
 
-Two alternatives have been compared for the map blending operation: naive averaging $Psi_"avg"$ and learnt #psi-dnn (see @sec:active_ssl:methods:blending_methods).
+Two alternatives have been compared for the map blending operation: naive averaging $Psi_"avg"$ and learned #psi-dnn (see @sec:active_ssl:methods:blending_methods).
 The former was introduced as a baseline, offering the advantage of being explainable while the second aims at offering the best performance.
 
 #figure(
@@ -245,12 +245,12 @@ The former was introduced as a baseline, offering the advantage of being explain
 <fig:active_ssl:results:blending_comparison>
 
 Naturally, when significantly precise #doa spectra are extracted at each step, even the naive averaging method suffices for accurately estimating the 2D heatmap.
-However, when, more imperfect and challenging #doa maps are considered, the neural network shows a greater capacity at ignoring the noise and providing a sharp likelihood estimation.
+However, when, more imperfect and challenging #doa maps are considered, the neural network shows a greater capacity to ignore the noise and provide a sharp likelihood estimation.
 
-Also, as #psi-dnn has been trained with localized 2D gaussian blobs as targets, it has learnt to properly filter the unnecessary parts of the original cones.
+Also, as #psi-dnn has been trained with localized 2D Gaussian blobs as targets, it has learned to properly filter the unnecessary parts of the original cones.
 Its output successfully concentrates on the actual position of the sources.
 By precisely separating and isolating the different local peaks in the map, the network allows for an easier clustering process.
-This decreases the sensitivity on the hyperparameters of DBSCAN.
+This decreases the sensitivity to the hyperparameters of DBSCAN.
 
 #include "tables/blending_methods.typ"
 
@@ -258,9 +258,9 @@ This decreases the sensitivity on the hyperparameters of DBSCAN.
 In particular, the most efficient value of the #clip-t parameter has been used.
 Unsurprisingly, employing the neural network offers a tangible advantage compared to simply averaging the #doa maps.
 Those results confirm the qualitative observations made above.
-When provided with the ground-truth #doa spectra, #psi-dnn allows to achieve an almost perfect precision.
+When provided with the ground-truth #doa spectra, #psi-dnn allows achieving an almost perfect precision.
 However, the recall score slightly lags behind with a value of 90.54%.
-The few missed detections consist in situations where at least one of the sources remain strictly in front of or behind the agent during the entire trajectory.
+The few missed detections consist of situations where at least one of the sources remains strictly in front of or behind the agent during the entire trajectory.
 The indirect triangulation phenomenon leveraged by our method then becomes almost infeasible and the distance cannot be accurately estimated.
 Nonetheless, even in challenging cases where no clear cone intersection can be visually distinguished, the network sometimes manages to perform correct detections by relying on the prior it has learned during training.
 
@@ -292,9 +292,9 @@ $
 
 
 In @fig:active_ssl:results:doa_spectrum_amplif_maps, one can see the consequence of this process on the #doa maps.
-Each row corresponds to a different value for threshold.
-Qualitatively, a too high #doa-t will lead to lower peaks being left unamplified.
-However, decreasing this parameter causes larger, oversaturated cones that loose their localization information.
+Each row corresponds to a different value for the threshold.
+Qualitatively, a too-high #doa-t will lead to lower peaks being left unamplified.
+However, decreasing this parameter causes larger, oversaturated cones that lose their localization information.
 
 #figure(
   image(
@@ -335,7 +335,7 @@ Like so, the final frame remains the same across all the experiments.
 
 @table:active_ssl:results:horizon shows the final performance of the pipeline for different horizons.
 The neural network #psi-dnn is retrained from scratch for each horizon to get the best possible performance.
-As anticipated, the highest detection scores are achieved when using all the 8 steps.
+As anticipated, the highest detection scores are achieved when using all 8 steps.
 Besides granting better absolute performance, the neural network demonstrates a greater robustness to lower horizons.
 The performance drop shows to be less pronounced than when using the averaging approach.
 
@@ -345,7 +345,7 @@ The performance drop shows to be less pronounced than when using the averaging a
 
 The choice to model the 2D localization problem with heatmaps involves exploring hyperparameters related to this visual encoding.
 As #doa maps are generated from the projection of #doa spectra, we are free to define the output domain without prior constraints.
-Two parameters influence the synthesised maps: the #fov $L$ and the pixel resolution $p$.
+Two parameters influence the synthesized maps: the #fov $L$ and the pixel resolution $p$.
 
 *Field of View.*
 The #fov ($L$) determines how wide is the range covered by the egocentric map.
@@ -365,16 +365,16 @@ The value of 16 meters is used in the rest of our experiments as it provides the
 *Pixel resolution.*
 As opposed to the #fov, pixel resolution stands solely as a representation hyperparameter and does not fundamentally change the informative content of the maps.
 Naturally, a higher resolution would limit any loss caused by the spatial discretization process.
-We have noticed during our experiments that when using too low resolutions, imprecisions would arise within the map shifting process.
-In fact, the latter is performed directly on the discrete heatmap thanks to the OpenCV @opencv_library software library.
+We have noticed during our experiments that when using too low resolutions, imprecisions would arise within the map-shifting process.
+The latter is performed directly on the discrete heatmap thanks to the OpenCV @opencv_library software library.
 On the other hand, increasing the resolution induces a larger image fed into the neural network.
 As our U-net architecture is fully convolutional, the number of parameters remains identical when changing the input size.
 However, the computational cost still gets impacted by such modifications.
 We have once more trained the neural network on maps of different resolutions between 64 and 256 pixels.
-Results, presented in @table:active_ssl:results:pixel_res, suggest that a finer resolution indeed helps with the localization process.
-Although precision is not strongly impacted by this parameter, the recall shows to be sensitive to pixel resolution.
+The results, presented in @table:active_ssl:results:pixel_res, suggest that a finer resolution indeed helps with the localization process.
+Although this parameter does not strongly impact precision, the recall shows to be sensitive to pixel resolution.
 Training time grows from 5 minutes when using $p=64$ to 30 minutes for $p=256$.
 Inference time scales similarly, ranging from 30s to 2min 15s for the biggest maps.
-As those constraints remain acceptable for real-world use-cases, the most favorable resolution ($p=256$) is used in the rest of our experiments.
+As those constraints remain acceptable for real-world use cases, the most favorable resolution ($p=256$) is used in the rest of our experiments.
 
 #include "tables/pixel_res.typ"

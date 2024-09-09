@@ -2,6 +2,9 @@
 
 #let fill-line(left-text, right-text) = [#left-text #h(1fr) #right-text]
 
+// Changes the figure placement across the entire document
+#let fig-placement = top
+
 // The `in-outline` mechanism is for showing a short caption in the list of figures
 // See https://sitandr.github.io/typst-examples-book/book/snippets/chapters/outlines.html#long-and-short-captions-for-the-outline
 #let in-outline = state("in-outline", false)
@@ -279,6 +282,7 @@
   }
   // @GL: prevent figures from being split accross several pages
   show figure: set block(breakable: false)
+  set figure(placement: fig-placement)
   
   // @GL: Do not remove strokes from table
   //set table(stroke: none)

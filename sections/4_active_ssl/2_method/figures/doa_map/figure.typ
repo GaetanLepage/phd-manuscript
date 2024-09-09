@@ -10,7 +10,7 @@
   <fig:active_ssl:methods:doa_map_spectrum>,
   
   figure(
-    image("doa_map.svg", height: 8cm),
+    image("doa_map.svg", height: 5cm),
     //image("/assets/mountains.jpg"),
     caption: [
       Corresponding DoA map $M_t$
@@ -21,6 +21,8 @@
   caption: [
     Example of a DoA map
   ],
+  align: top,
+  placement: fig-placement,
   numbering: fig-numbering,
   numbering-sub-ref: fig-numbering-sub-ref,
   label: <fig:active_ssl:doa_map>,
