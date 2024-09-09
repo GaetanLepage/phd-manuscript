@@ -2,7 +2,7 @@
 #import "@preview/subpar:0.1.1"
 
 #import "_misc/acrostiche.typ": acr, acrpl, reset-acronym
-#import "_misc/template/_index.typ": in-outline, fill-line
+#import "_misc/template/_index.typ": in-outline, fill-line, fig-placement
 #import "_misc/notations.typ": *
 
 
