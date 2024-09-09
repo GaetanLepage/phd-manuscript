@@ -1,5 +1,5 @@
 #import "@preview/colorful-boxes:1.3.1": *
-#import "@preview/cheq:0.1.0": checklist
+#import "@preview/cheq:0.2.0": checklist
 #import "/utils.typ": *
 
 #pagebreak()
@@ -25,7 +25,7 @@
     - [ ] #link(<sec:simulator:simulator>)[3. Simulator]
       - [x] #link(<sec:simulator:simulator:overview>)[1. Overview]
       - [x] #link(<sec:simulator:simulator:components>)[2. Components]
-      - [ ] #link(<sec:simulator:simulator:features>)[3. Features]
+      - [-] #link(<sec:simulator:simulator:features>)[3. Features]
       - [ ] #link(<sec:simulator:simulator:performance>)[4. Performance]
     - [ ] #link(<sec:simulator:conclusion>)[4. Conclusion]
   + *SSL*
@@ -33,7 +33,7 @@
     - [ ] #link(<sec:ssl:single_source>)[2. Single-source]
     - [ ] #link(<sec:ssl:multi_source>)[2. Multi-source]
   + *Active SSL*
-    - [ ] #link(<sec:active_ssl:background>)[1. Background]
+    - [-] #link(<sec:active_ssl:background>)[1. Background]
     - [x] #link(<sec:active_ssl:methods>)[2. Methods]
     - [x] #link(<sec:active_ssl:results>)[3. Results]
     - [ ] #link(<sec:active_ssl:conclusion>)[4. Conclusion]
@@ -58,7 +58,11 @@
   - [ ] Ensure consistency between: BatchNorm / Batch Norm / batch norm
   - *Layout:*
     - [ ] figure/table placement check
-    - [ ] Check that all `subpar.grid` figures have their `numbering` set to `fig-numbering`
+    - [ ] Check that all `subpar.grid` figures have their:
+      - [ ] `numbering` set to `fig-numbering`,
+      - [ ] `numbering-sub-ref` set to `fig-numbering-sub-ref`,
+      - [ ] `align` set to `top`,
+      - [ ] `placement` set to `fig-placement`,
     - [ ] Check margins
     - [ ] Check all page breaks\
       $=>$ i.e. that nothing is incorrectly split across two subsequent pages.
@@ -80,14 +84,15 @@
     - This is what has been done.
 
   *Visual/Layout questions:*
-  - Aren't the margins OK ?\
+  - [ ] Aren't the margins OK ?\
     -> I am currently using 2.5cm everywhere.
-  - Should the links (references to sections/papers) be in blue ?
-  - Limit the _Table of Contents_ depth ? (currently none)
-  - Should figure captions be centered or left-align ? (I assume that table captions will them always be centered)
+  - [ ] Should the links (references to sections/papers) be in blue ?
+  - [ ] Limit the _Table of Contents_ depth ? (currently none)
+  - [ ] Should figure captions be centered or left-align ? (I assume that table captions will them always be centered)
 
   *Style-related questions:*
-  - Is passive style OK ? to be encouraged ? discouraged ?\ Xavi: Use it when you need to.
+  - [x] Is passive style OK ? to be encouraged ? discouraged ?\
+    Xavi: Use it when you need to.
     \<SUBJECT\> is/will be/has been \<VERB\>.
 
   *Questions for Laurent:*

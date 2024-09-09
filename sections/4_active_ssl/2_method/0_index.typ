@@ -8,7 +8,7 @@
 
 As presented in @sec:active_ssl:background, there exist several different problems related to #acr("SSL") in a dynamic robotic context.
 In this work, we introduce and explore an #acr("ASSL") problem, motivated by the extension of the static #acr("SSL") methods developed in @chap:ssl to more realistic situations.
-// TODO: if so, mentioned that we have tried to estimate the distance in single-source and that it was hard
+// TODO: if so, mention that we have tried to estimate the distance in single-source and that it was hard
 Indeed, estimating both distance and #doa from a single recording has shown to be challenging version of the #acr("SSL") problem.
 #draft[
   Maybe, this is expressed in @grumiaux_survey_2021.
@@ -17,14 +17,14 @@ Theoretically, though, aggregating purely angular information accumulated over t
 
 
 Specifically, a robotic agent moves in a room where one or several human speakers are present.
-We adopt a step based representation in which the robot performs discrete movements denoted as $delta_t = (d_t, theta_t)$.
+We adopt a step-based representation in which the robot performs discrete movements denoted as $delta_t = (d_t, theta_t)$.
 Its trajectory is assumed to be determined by an external policy which should not be affected.
 The goal of the developed method is thus to localize, in real time and as accurately as possible, the relative position of each source.
 To enforce the real-time constraint in this modeling, the duration of each step is limited to a few hundred milliseconds.
 The method is provided with the recorded signal at each microphone of the agent corresponding to this time frame.
 
 *Horizon.*
-This framework, until now, appears to be similar to the static formulation of #acr("SSL") used previously.
+This framework appears to be similar to the static formulation of #acr("SSL") used previously.
 However, the input data also encompasses information about the last relative movement of the robot.
 Although the movement policy should not be dictated by the #acr("ASSL") solution, its output is made available.
 This data allows the model to accumulate knowledge along several consecutive steps to refine its prediction for the current sources' positions.
@@ -40,13 +40,13 @@ Their positions are assumed to be static for an entire episode of $H$ steps.
 
 To tackle the #acr("ASSL") problem, we explore ways of leveraging the previously developed multi-source static localizer.
 The central concept of the method consists in building and refining a 2D egocentric map encoding the relative positions of each source.
-They are built to model the likelihood of the sources presence in the surroundings of the robot.
+They are built to model the likelihood of the sources' presence in the surroundings of the robot.
 
 To build such a map, we start by running the #acr("SSL") model which provides an estimated #doa spectrum.
 This detection is then transformed into a _#doa map_ projecting the one dimensional localization result to an egocentric 2D map containing the same information.
-Then, this map is combined to the ones from previous steps after the latter have been transposed to the current robot frame.
+Then, this map is combined with the ones from previous steps after they have been transposed to the current robot frame.
 Different ways of operating this aggregation have been proposed.
-Finally, the 2D relative position of the sources are extracted from this estimated egocentric map.
+Finally, the 2D relative positions of the sources are extracted from this estimated egocentric map.
 
 The overall procedure for performing one step of active-#acr("SSL") is illustrated in @fig:active_ssl:method:pipeline and described in @algo:active_ssl:algo.
 The individual steps of the process will be detailed in the following sections.
@@ -161,7 +161,6 @@ The performance of this blending approach is discussed further in @sec:active_ss
 ===== Motivation
 
 Although averaging #doa maps stands as a simple and explainable method for blending, we have developed a more advanced technique involving a Deep Neural Network.
-
 Indeed, an oracle knowing the absolute positions of each source could be used to generate an ideal version of the 2D likelihood estimate #AM-targ,
 This statement leads to the definition of the blending process as a regression task where a neural network $Psi^("DNN"(theta))$ is trained to blend real #doa maps in the ideal estimate #AM-targ,
 
@@ -261,7 +260,7 @@ The latter are converted to #doa maps $M_t$ which finally get shifted to the fra
 Each trajectory represents a training sample corresponding to the last position of the agent.
 The dataset generation process will be detailed in @sec:active_ssl:results:dataset.
 
-The loss function used is the #acr("MSE") between the predicted and expected likelihood maps.
+The loss function used is the #acr("MSE") between the predicted and expected likelihood maps is given by
 $
   cal(L) (
     #AM,
@@ -290,11 +289,11 @@ The simple algorithm implemented there remains however impractical in the curren
 
 Therefore, we choose to formulate this decoding task as a clustering problem.
 First, the coordinates of all pixels with a value higher than a pre-determined threshold $tau$ are extracted.
-This set of 2D points is fed into the DBSCAN algorithm, introduced by Ester et al. in @ester_density-based_1996).
+This set of 2D points is fed into the DBSCAN algorithm, introduced by Ester et al. @ester_density-based_1996.
 The latter takes two parameters: $epsilon$ defining the radius of a neighborhood and $m_p$ the minimum number of samples in a neighborhood for a point to be considered as a _core_ point.
 A distance compatible with the input samples also has to be specified.
 In this case, as we are dealing with points in the plane, we use the conventional Euclidean distance.
-DBSCAN consists in categorizing all input points into three groups: _core_ points, reachable points, and outliers.
+DBSCAN categorizes all input points into three groups: _core_ points, reachable points, and outliers.
 The latter are considered as noise and do not belong to any cluster while the other form connected groups of samples, the clusters.
 Among its several benefits, DBSCAN does not require to specify an apriori number of clusters.
 This limitation features amid other clustering algorithms such as $k$-means for instance.
@@ -303,7 +302,6 @@ Here, the point with the highest value in the aggregated likelihood map constitu
 One should note that the actual values of each point in the heat map only impact the center search.
 The prior clustering happens without access to the estimated likelihood values and solely operates on the points' proximity to determine the clusters.
 Each cluster is interpreted as one source.
-
 One of the advantages of such a clustering formulation lies in the ability of the proposed method to detect an arbitrary number of sources.
 
 #gaet[
