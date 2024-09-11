@@ -115,6 +115,11 @@ In this section, an in-depth exploration of certain settings is conducted.
   Anyway, we can re-order those as we like and properly reference other sub-sections when needed.
 ]
 
+#chris[
+  I recommend to first explain 4.3.3.2 (ground-truth vs SSL model) and then discuss and show results of the cut-off (4.3.3.1). You can remove table 4.2 as it has the same information as 4.1.
+  Just explain that you compare ground-truth vs SSL model in all upcoming results. You can disucss the ultimate outcome of the results between both in your discussion. But it is obvious, the ground truth is better than the SSL model.   
+]
+
 #gaet[
   There are a lot of tables.
   Maybe using more visual representations could bring more diversity.
@@ -145,6 +150,9 @@ On the contrary, the network output suffers from too aggressive filtering as the
   Maybe PR curves will be more visual for illustrating this.\
   The issue is that the four curves cannot really be plotted together.
   Each one needs to be nicely scaled to distinguish its shape.
+]
+#chris[
+  the table is fine
 ]
 
 
@@ -274,7 +282,7 @@ All in all, the proposed deep neural architecture has shown to be a robust and p
 
 As seen in @sec:active_ssl:results:impact_of_ssl_model, the #acr("ASSL") process works significantly better when provided with the ground truth #doa spectra instead of using the pre-trained #acr("SSL") model.
 One of the reasons leading to poorer performance lies in the peaks present in those heatmaps being lower.
-This does not necessarily impact static the #acr("SSL") metrics as any local maximum above the detection threshold #xi-doa would be counted as a #doa prediction (see @sec:ssl:multi_source:method:detection_decoding).
+This does not necessarily impact the static #acr("SSL") metrics as any local maximum above the detection threshold #xi-doa would be counted as a #doa prediction (see @sec:ssl:multi_source:method:detection_decoding).
 However, this threshold does not intervene in the #acr("ASSL") pipeline and the #doa spectrum is directly converted into a 2D #doa map.
 When using the deep neural network #psi-dnn for combining the maps, the output is normalized to the $[0, 1]$ range.
 Although this would help amplifying too dim localization heatmaps, it cannot compensate for a relative differences coming from uneven peaks in the #doa spectra.
@@ -311,7 +319,7 @@ However, decreasing this parameter causes larger, oversaturated cones that lose 
 
 In practice, our experiments show that #doa spectrum thresholding fails at bringing tangible benefits (see @table:active_ssl:results:doa_threshold).
 To obtain those results, our #psi-dnn network has been retrained on a dataset of maps corresponding to each #doa-t value.
-Certainly, the #psi-avg technique does not require any form of training.
+The #psi-avg technique does not require any form of training.
 Performance is often best for $#doa-t = 1$.
 Employing this process when using the ground truth #doa spectra was not expected to bring any additional performance as all peaks maximize exactly at $1.0$ and thus do not need to be any further amplified.
 
@@ -329,15 +337,15 @@ The proposed method shows promising performance when $H=8$ consecutive maps can 
 To further explore the informative content of each step, we perform an ablation study on the horizon parameter.
 The base dataset gathers trajectories of $H_0=8$ steps and is the only one used in this experiment.
 To train or evaluate our method on a shorter horizon $H'$, we ignore the first $H-H'$ steps.
-Like so, the final frame remains the same across all the experiments.
+The final frame remains the same across all the experiments.
 
 #include "tables/horizon.typ"
 
 @table:active_ssl:results:horizon shows the final performance of the pipeline for different horizons.
-The neural network #psi-dnn is retrained from scratch for each horizon to get the best possible performance.
+The neural network #psi-dnn is retrained for each horizon to get the best possible performance.
 As anticipated, the highest detection scores are achieved when using all 8 steps.
 Besides granting better absolute performance, the neural network demonstrates a greater robustness to lower horizons.
-The performance drop shows to be less pronounced than when using the averaging approach.
+The performance drop shows to be less pronounced than for the averaging approach.
 
 
 
@@ -348,8 +356,7 @@ As #doa maps are generated from the projection of #doa spectra, we are free to d
 Two parameters influence the synthesized maps: the #fov $L$ and the pixel resolution $p$.
 
 *Field of View.*
-The #fov ($L$) determines how wide is the range covered by the egocentric map.
-The latter is a $L times L$ square centered around the robot agent.
+The #fov ($L$) determines how wide is the range covered by the egocentric map which is a $L times L$ square centered around the robot agent.
 
 Its value must be chosen diligently as it bounds the information available once the shifting and aggregation have occurred at the final position.
 One has to consider the maximum distance $d_"max"$ traveled by the robot at each step and the horizon $H$.
