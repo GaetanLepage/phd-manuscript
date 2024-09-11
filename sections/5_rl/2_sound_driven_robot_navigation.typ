@@ -7,7 +7,7 @@
 
 Social robotics imply various technical and scientific problems involving computer vision, mechatronics, sociology, natural language processing or speech processing.
 Robot navigation stands as one of such crucial tasks.
-Numerous formulations of this question exist and they encompass different goals, sensory information and target robotics platforms.
+Numerous formulations of this question exist and they encompass different goals, sensory information, and target robotics platforms.
 Although processing
 
 
@@ -24,7 +24,7 @@ $
   }
 $
 
-=== State of the Art
+=== Background
 
 - _SoundSpaces_ @chen_soundspaces_2020
 - _Move2Hear_ @majumder_move2hear_2021

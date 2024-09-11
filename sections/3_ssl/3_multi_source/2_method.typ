@@ -10,7 +10,7 @@ Most of the dataset generation process remains identical to the one presented in
 All samples remain fully independent.
 The positions of both the microphone array and the sources are randomly sampled.
 This section will focus on the necessary additions taken to support the multi-source setting.
-Also, some choices have been made so as to mostly follow the methodology from He et al. in @he_neural_2021.
+Also, some choices have been made so as to mostly follow the methodology from He et al. @he_neural_2021.
 
 *Microphone array.*
 For effectively localizing multiple sound sources, a four-microphone array is used.
@@ -52,7 +52,7 @@ In practice, the sources are not placed simultaneously in the room.
 Instead, they only get enabled individually to perform $n_s$ distinct single-source simulations.
 This offers more possibilities as explained below.
 
-First, let us start from leveraging the following property.
+First, let us start by leveraging the following property.
 The signal $s_k$ recorded by the $k$-th microphone expresses simply as the sum of the signals $s_(i, k)$ providing from each source:
 $
   s_k [t] = sum_(i=1)^n_s s_(i,k)[t]
@@ -81,7 +81,7 @@ The generated signals are then up-sampled to 48kHz.
 *#acr("STFT") representation of audio signals.*
 // multi-channel STFT
 As discussed in @sec:simulator:background:spectral-representations, several choices can be made when it comes to data representation.
-Although we have generated different datasets, the format used in majority consisted in the Short Term Fourier Transform.
+Although we have generated different datasets, the format used in the majority consisted of the Short Term Fourier Transform.
 The #acr("STFT") is thus computed from the complete up-sampled simulated signal captured by each of the four microphones.
 For this, we employ a Hann window of length 2048, with a 50% overlap. We also apply a band-pass filtering by removing frequencies lower than 100Hz and higher than 48kHz.
 The consequent #acr("STFT") counts 337 frequency bins.
@@ -90,7 +90,7 @@ The consequent #acr("STFT") counts 337 frequency bins.
 *Audio chunking.*
 We finally extract at most five short chunks of 320ms (i.e. 16 frames) from the global #acr("STFT")s.
 This duration constitutes a tradeoff between detection latency and performance.
-The longest the method is offered to listen, the better more accurate the results will be.
+The longer the method is offered to listen, the better more accurate the results will be.
 However, in a dynamic robotics context, which we ultimately target, we cannot afford having long audio sequences for inferring the source positions.
 
 // TODO add the footnote
@@ -136,7 +136,7 @@ In practice, around 40% of the generated chunks are rejected.
   - Maybe a scheme of this process could bring additional clarity.
   - We might want to acknowledge that a rejection rate of 40% is quite high.
 ]
-#xavi[In my opinion no need for diagram. It's OK. No need to emphasise about 40% rejections, as you do it only in generation]
+#xavi[In my opinion no need for a diagram. It's OK. No need to emphasize about 40% rejections, as you do it only in generation]
 
 The #acr("STFT") of each multi-channel 400ms segment provides the final training samples of the dataset.
 Besides each input sample, the relevant ground truth information gets saved for supervising the learning process and computing performance metrics.
@@ -149,7 +149,7 @@ The total audio duration of the data approximates 47 hours.
 <sec:ssl:multi_source:method:doa_repr>
 
 The objective of the #acr("SSL") task is to predict the #acr("DoA") of the sound sources.
-Hence, the number of prediction outputted by an #acr("SSL") method can differ from situation to situation.
+Hence, the number of predictions outputted by an #acr("SSL") method can differ from situation to situation.
 We therefore decided to use a representation of this information that is agnostic to the number of sources.
 Having such a property is of great interest when training a Deep Neural Network.
 The latter can then have a fixed output while still being able to handle a various number of sources.
@@ -175,7 +175,7 @@ We naturally have
 - $phi.alt_(floor(d/2)) tilde.eq 0$
 - $phi.alt_d = pi$
 #chris[This is already visible from @eq:ssl:multi_source:phi_def Or is this information very important?]
-#gaet[This was to make it even clearer, but with some plots it could be enough.]
+#gaet[This was to make it even clearer, but with some plots, it could be enough.]
 
 
 We choose $d = 360$ which corresponds to a $1°$ resolution.
@@ -193,7 +193,7 @@ A peak at $0°$ designates the presence of a source in front of the microphones.
 The dataset contains the #acr("DoA") values for each sample.
 We need to convert this list of scalar angular values to our spatial spectrum encoding format in order to allow its use as a regression target.
 Numerous methods could be employed to achieve this.
-A first solution to this problem could be placing a pseudo Dirac at the exact location of the source:
+A first solution to this problem could be placing a pseudo-Dirac at the exact location of the source:
 
 // TODO: introduce Theta being the vector of DOA angles
 // TODO: introduce o(i)
@@ -243,7 +243,7 @@ where #d-prime is the following symmetric angle distance
 )
 <eq:ssl:multi_source:symmetric_angular_dist>
 
-The result is a mixture of $abs(Theta)$ gaussians centered at the actual #acr("DoA") angles.
+The result is a mixture of $abs(Theta)$ Gaussians centered at the actual #acr("DoA") angles.
 We chose to set $sigma = 5°$.
 @fig:ssl:multi_source:doa_gt_encoding shows an example of the DOA encoding scheme for a situation with two sources.
 
@@ -348,7 +348,7 @@ The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
 
 
 #gaet[should we note tensor shapes $(X, Y, Z)$ or $X times Y times Z$ ?]
-The implemented neural network inspires from the one proposed by He et al. in @he_neural_2021.
+The implemented neural network inspires from the one proposed by He et al. @he_neural_2021.
 
 The aim of the Neural Network is to process multi-channel audio data and to extract the angular positions of the speech sources.
 The input of the model is the #acr("STFT") representation of the multi-channel signal.

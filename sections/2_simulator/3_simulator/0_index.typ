@@ -8,7 +8,7 @@ The motivation to build a simulator from the ground up was to benefit from a cap
 Indeed, although audio simulation libraries offer a wide range of possibilities, they are mostly proof of concepts (see @sec:simulator:background:rir_libraries).
 Their goal is rightfully limited to the sole sound simulation and are used as building blocks of larger software or ecosystems like video games for example.
 The conception of a custom and extensible interaction platform represents a core contribution of this work.
-Its goal is to allow for simulating various interaction scenarios involving a diverse array of audio sensors and acoustic representations.
+Its goal is to allow the simulation of various interaction scenarios involving a diverse array of audio sensors and acoustic representations.
 
 Also, its implementation has evolved along the project and has lead to an organic development process.
 The set of features reflects the various downstream usages that have been made in the course of several years.

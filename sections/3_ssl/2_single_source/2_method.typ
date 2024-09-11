@@ -276,7 +276,7 @@ $
 
 The neural network is trained to minimize this objective.
 
-When the model additionally estimates the distance to the source, the natural #acr("MSE") loss is used to supervised the relevant output neuron:
+When the model additionally estimates the distance to the source, the natural #acr("MSE") loss is used to supervise the relevant output neuron:
 #let l-dist = $colMath(cal(L)_"dist", #maroon)$
 $
    #l-dist (hat(d), d) =
@@ -311,7 +311,7 @@ Besides, a 20k samples test dataset serves for evaluating the model's performanc
 
 The training employs a batch size of 200 items for $T_"max" = 60$ epochs.
 A learning rate scheduler helps stabilizing the training and further improving the final results.
-Cosine annealing, proposed by Loshchilov and Hutter in @loshchilov_sgdr_2017, decays the learning rate according to the following scheme:
+Cosine annealing, proposed by Loshchilov and Hutter @loshchilov_sgdr_2017, decays the learning rate according to the following scheme:
 $
   eta_t = eta_0/2 (1 + cos(T_"cur" / T_"max" pi))
 $

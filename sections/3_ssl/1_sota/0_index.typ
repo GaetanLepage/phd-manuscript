@@ -65,7 +65,7 @@ Although, as demonstrated above, #acr("SSL") has been studied as a self-containe
 Among those, robotics is a major use case of #acr("SSL") algorithms.
 Perception is an essential building block of a social robotics platform.
 Besides the exploitation of visual features which falls under the computer vision domain, leveraging the audio cues may provide valuable information for a social robot.
-Naturally, such an agent will use language as the primary mean of communication with humans and will thus need to extract the meaning of the speech of its interlocutors.
+Naturally, such an agent will use language as the primary means of communication with humans and will thus need to extract the meaning of the speech of its interlocutors.
 Besides #("ASR"), sound information may have additional use cases.
 
 // Other uses of audio in robotics
@@ -80,7 +80,7 @@ However, identifying the position of currently speaking humans requires some sor
 
 // Constraint related to robotics
 Robotics also brings additional challenges to the #acr("SSL") task.
-Indeed, a robotic platform implies to deal wit several constraints mainly caused by interacting with the real world.
+Indeed, a robotic platform implies dealing with several constraints mainly caused by interacting with the real world.
 #draft[
 // TODO:
 - Reverberation
