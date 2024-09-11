@@ -6,6 +6,10 @@
 
 === Problem formulation
 
+#gaet[
+  Mention that distance estimation was a missing feature from the static SSL framework
+]
+
 As presented in @sec:active_ssl:background, there exist several different problems related to #acr("SSL") in a dynamic robotic context.
 In this work, we introduce and explore an #acr("ASSL") problem, motivated by the extension of the static #acr("SSL") methods developed in @chap:ssl to more realistic situations.
 // TODO: if so, mention that we have tried to estimate the distance in single-source and that it was hard
@@ -42,7 +46,7 @@ To tackle the #acr("ASSL") problem, we explore ways of leveraging the previously
 The central concept of the method consists in building and refining a 2D egocentric map encoding the relative positions of each source.
 They are built to model the likelihood of the sources' presence in the surroundings of the robot.
 
-To build such a map, we start by running the #acr("SSL") model which provides an estimated #doa spectrum.
+To build such a map, we start by running the #acr("SSL") model @sec:ssl:multi_source which provides an estimated #doa spectrum.
 This detection is then transformed into a _#doa map_ projecting the one dimensional localization result to an egocentric 2D map containing the same information.
 Then, this map is combined with the ones from previous steps after they have been transposed to the current robot frame.
 Different ways of operating this aggregation have been proposed.

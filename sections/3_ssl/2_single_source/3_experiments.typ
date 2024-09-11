@@ -38,14 +38,14 @@ For clarity reasons, the values for this metrics will be displayed in centimeter
 
 ==== Impact of input signal representation
 
-The the neural network is expected to extract the relevant localization information from the audio signal provided as input.
+The neural network is expected to extract the relevant localization information from the audio signal provided as input.
 This section explores the importance of the choice of the input features fed into the network.
 Here, the sensors consist in a binaural microphone array of two omnidirectional transducers.
 
 In this work, we focus on time-frequency representations.
 Adaptations of 2D convolutions to complex tensors do exist and have already been used in the #acr("SSL") literature.
-In @krause_comparison_2021, Krause et al. present this variation along with its benefits (Section II.B).
-Here, however, regular 2D convolutions have been employed and the complex-valued #acr("STFT") were needed to be converted to real values.
+Krause et al. @krause_comparison_2021 present this variation along with its benefits (Section II.B).
+Here, however, regular 2D convolutions have been employed and the complex-valued #acr("STFT") needed to be converted to real values.
 To achieve this, two schemes were compared:
 - On the one hand, both the real and imaginary parts of the complex data can populate the two real resulting matrices:
   $
@@ -55,7 +55,7 @@ To achieve this, two schemes were compared:
   $
   This form will be referred to as the Cartesian projection.
 #gaet[
-  The following is less accurate, but maybe enough and clearer. What do you prefer ?
+  The following is less accurate, but maybe enough and clearer. What do you prefer?
   $
     Z |-> lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
   $

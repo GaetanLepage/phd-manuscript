@@ -308,7 +308,7 @@ This problem comes from the distribution of each layer's inputs changing during 
 Such a drift causes the non-linear activation functions to saturate and harms the learning process.
 Normalization also attempts at reducing the effects of mismatch between the training and test dataset distributions.
 
-_#acr("BN")_, proposed by Ioffe et al. in @ioffe_batch_2015 has gathered significant success, especially in the computer vision community.
+_#acr("BN")_, proposed by Ioffe et al. @ioffe_batch_2015 has gathered significant success, especially in the computer vision community.
 It consists in normalizing each mini-batch input with respect to its own statistics.
 Acting as a form of regularizer, this process stabilizes learning by ensuring that the values entering all layers do not deviate too significantly.
 The data will get distributed according to a standard normal distribution.
