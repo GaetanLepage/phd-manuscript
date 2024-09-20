@@ -50,11 +50,15 @@
   ),
   
   // RL
+  "DQN": ("Deep Q Learning"),
   "DRL": ("Deep Reinforcement Learning"),
+  "GAE": ("Generalized Advantage Estimation"),
   "MDP": (
     "Markov Decision Process",
     "Markov Decision Processes"
   ),
+  "POMDP": ("Partially Observable Markov Decision Process"),
   "PPO": ("Proximal Policy Optimization"),
   "RL": ("Reinforcement Learning"),
+  "TRPO": ("Trust Region Policy Optimization")
 ))

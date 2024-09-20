@@ -205,12 +205,12 @@ Those properties allow for better separability and fewer points being fed into t
 ==== Impact of the upstream #acr("SSL") model
 <sec:active_ssl:results:impact_of_ssl_model>
 
-The upstream static #acr("SSL") model features as a core part of the #acr("ASSL") pipeline.
+The upstream static #acr("SSL") model features is a core part of the #acr("ASSL") pipeline.
 The quality of #doa spectra it provides plays a significant impact role in the final performance of the method.
 Hence, to isolate the behavior of the #acr("ASSL") method itself, two scenarios are compared.
 On the one hand, the neural network implemented and trained in @sec:ssl:multi_source predicts the #doa spectra $hat(o)_t$ from the listened audio.
 This scenario is the more realistic and unites all the developed blocks into a single end-to-end pipeline.
-On the other hand, the #acr("ASSL") framework is also evaluated directly using the ground truth spectra $o_t$ at each step.
+On the other hand, the #acr("ASSL") framework is also evaluated directly using the ground truth spectra $o_t$.
 Here, the potential of our method can be explored under ideal conditions.
 
 #figure(
