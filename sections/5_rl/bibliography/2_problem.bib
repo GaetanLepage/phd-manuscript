@@ -1,0 +1,57 @@
+#######################################
+# POMDP
+#######################################
+
+@misc{azizzadenesheli_policy_2020,
+	title = {Policy Gradient in Partially Observable Environments: Approximation and Convergence},
+	url = {http://arxiv.org/abs/1810.07900},
+	shorttitle = {Policy Gradient in Partially Observable Environments},
+	abstract = {Policy gradient is a generic and ﬂexible reinforcement learning approach that generally enjoys simplicity in analysis, implementation, and deployment. In the last few decades, this approach has been extensively advanced for fully observable environments. In this paper, we generalize a variety of these advances to partially observable settings, and similar to the fully observable case, we keep our focus on the class of Markovian policies. We propose a series of technical tools, including a novel notion of advantage function, to develop policy gradient algorithms and study their convergence properties in such environments. Deploying these tools, we generalize a variety of existing theoretical guarantees, such as policy gradient and convergence theorems, to partially observable domains, those which also could be carried to more settings of interest. This study also sheds light on the understanding of policy gradient approaches in real-world applications which tend to be partially observable.},
+	number = {{arXiv}:1810.07900},
+	publisher = {{arXiv}},
+	author = {Azizzadenesheli, Kamyar and Yue, Yisong and Anandkumar, Animashree},
+	urldate = {2024-09-19},
+	date = {2020-05-24},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {1810.07900 [cs, stat]},
+	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
+	file = {PDF:/home/gaetan/.local/share/Zotero/storage/BPRFBPG4/Azizzadenesheli et al. - 2020 - Policy Gradient in Partially Observable Environments Approximation and Convergence.pdf:application/pdf},
+}
+
+@article{kaelbling_planning_1998,
+	title = {Planning and acting in partially observable stochastic domains},
+	volume = {101},
+	rights = {https://www.elsevier.com/tdm/userlicense/1.0/},
+	issn = {00043702},
+	url = {https://linkinghub.elsevier.com/retrieve/pii/S000437029800023X},
+	doi = {10.1016/S0004-3702(98)00023-X},
+	abstract = {In this paper, we bring techniques from operations research to bear on the problem of choosing optimal actions in partially observable stochastic domains. We begin by introducing the theory of Markov decision processes ({MDPs}) and partially observable {MDPs} ({POMDPs}). We then outline a novel algorithm for solving {POMDPs} off line and show how, in some cases, a ﬁnite-memory controller can be extracted from the solution to a {POMDP}. We conclude with a discussion of how our approach relates to previous work, the complexity of ﬁnding exact solutions to {POMDPs}, and of some possibilities for ﬁnding approximate solutions.  1998 Elsevier Science B.V. All rights reserved.},
+	pages = {99--134},
+	number = {1},
+	journaltitle = {Artificial Intelligence},
+	shortjournal = {Artificial Intelligence},
+	author = {Kaelbling, Leslie Pack and Littman, Michael L. and Cassandra, Anthony R.},
+	urldate = {2024-09-19},
+	date = {1998-05},
+	langid = {english},
+	file = {PDF:/home/gaetan/.local/share/Zotero/storage/AYLK8MYG/Kaelbling et al. - 1998 - Planning and acting in partially observable stochastic domains.pdf:application/pdf},
+}
+
+
+# PPO + Bounded continuous action spaces
+@misc{petrazzini_proximal_2021,
+	title = {Proximal Policy Optimization with Continuous Bounded Action Space via the Beta Distribution},
+	url = {http://arxiv.org/abs/2111.02202},
+	abstract = {Reinforcement learning methods for continuous control tasks have evolved in recent years generating a family of policy gradient methods that rely primarily on a Gaussian distribution for modeling a stochastic policy. However, the Gaussian distribution has an inﬁnite support, whereas real world applications usually have a bounded action space. This dissonance causes an estimation bias that can be eliminated if the Beta distribution is used for the policy instead, as it presents a ﬁnite support. In this work, we investigate how this Beta policy performs when it is trained by the Proximal Policy Optimization ({PPO}) algorithm on two continuous control tasks from {OpenAI} gym. For both tasks, the Beta policy is superior to the Gaussian policy in terms of agent’s ﬁnal expected reward, also showing more stability and faster convergence of the training process. For the {CarRacing} environment with high-dimensional image input, the agent’s success rate was improved by 63\% over the Gaussian policy.},
+	number = {{arXiv}:2111.02202},
+	publisher = {{arXiv}},
+	author = {Petrazzini, Irving G. B. and Antonelo, Eric A.},
+	urldate = {2024-09-20},
+	date = {2021-11-03},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {2111.02202 [cs]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Machine Learning, man},
+	file = {PDF:/home/gaetan/.local/share/Zotero/storage/6R3LIV9M/Petrazzini and Antonelo - 2021 - Proximal Policy Optimization with Continuous Bounded Action Space via the Beta Distribution.pdf:application/pdf},
+}

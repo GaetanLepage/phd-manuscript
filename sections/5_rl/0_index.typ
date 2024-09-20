@@ -11,20 +11,12 @@ While supervised learning has shown to be very efficient for solving many roboti
 Its fundamental formulation targets interactive environments where an agent learns through trial and error.
 We will explore the use of the modern #acr("DRL") paradigm for training an agent to navigate autonomously from auditory cues.
 At first, the general framework of #acr("RL") will be introduced as well as how deep neural networks are leveraged as function approximators in this context.
-#todo
+Secondly, we will present a problem of perceptually motivated acoustic-based robot navigation and relevant literature.
+This chapter also exposes a proof of concept of a complete pipeline to address this challenging task.
+Finally, experimental results will demonstrate the capacity of the former solution.
 
 
 #include "1_rl_intro.typ"
-#include "2_sound_driven_robot_navigation.typ"
-#include "3_results.typ"
-
-// === State of the Art
-// 
-// ==== Deep Reinforcement Learning
-// 
-// ==== Reinforcement Learning for Robot Navigation
-// 
-// // Move 2 Hear
-// 
-// === Method
-// 
+#include "2_problem.typ"
+#include "3_method.typ"
+#include "4_results.typ"
