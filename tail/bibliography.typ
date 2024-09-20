@@ -18,8 +18,9 @@
     "/sections/4_active_ssl/2_method/bibliography.bib",
 
     // Chap. 5: RL
-    "/sections/5_rl/bibliography/1_rl_general.bib",
-    "/sections/5_rl/bibliography/2_rl_robotics.bib",
+    "/sections/5_rl/bibliography/1a_rl_general.bib",
+    "/sections/5_rl/bibliography/1b_rl_robotics.bib",
+    "/sections/5_rl/bibliography/2_problem.bib",
     "/sections/5_rl/bibliography/ppo.bib",
     "/sections/5_rl/bibliography/software.bib",
   ),

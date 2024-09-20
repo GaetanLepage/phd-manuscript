@@ -22,7 +22,7 @@ with other works.
 Indeed, although precise, as reaching more than 83% precision scores, sources get sometimes missed by the network.
 Such a shortcoming motivated our investigation of sequence processing where we leverage multiple consecutive observations to enhance the performance of the method.
 The addition of adversarial noise sources in the room, employing white noise and more realistically music instruments or the sound coming from a television would constitute an interesting extension of this work.
-The presence of noise had appreciable effect on the performance of our single source #acr("SSL") study (see @sec:ssl:single_source:experiments:noise).
+The presence of noise had an appreciable effect on the performance of our single source #acr("SSL") study (see @sec:ssl:single_source:experiments:noise).
 
 
 #gaet[
