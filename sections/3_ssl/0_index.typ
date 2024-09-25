@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-= Sound source localization
+= Sound Source Localization
 <chap:ssl>
 #minitoc(indent: true)
 

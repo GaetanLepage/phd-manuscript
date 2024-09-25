@@ -7,6 +7,7 @@
   "RMSE": ("Root Mean Square Error"),
   "GT": ("Ground Truth"),
   "MKF": ("mixture Kalman filter"),
+  "HMM": ("Hidden Markov Model", "Hidden Markov Models"),
   
   // Deep Learning
   "DL": ("Deep Learning"),
