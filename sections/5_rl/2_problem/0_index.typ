@@ -1,5 +1,5 @@
 #import "/utils.typ": *
-#import "_notations.typ": *
+#import "../_notations.typ": *
 
 == Sound-driven robot navigation
 <sec:rl:problem>
@@ -28,33 +28,37 @@ Numerous formulations of this question exist and they encompass different goals,
 === Problem formulation
 
 #draft[
-  - We solve is using RL -> need for an environment
+  - We solve is using RL -> need for an environment\
+    TODO: justify why we use RL. Isn't that weird to talk about RL in 5.1 and then to justify using it after in 5.2 ?
   - discrete step-based stochastic process.
   - Agent moves, listens to audio, and decides where to go next.
 ]
-// TODO: justify why we use RL. Isn't that weird to talk about RL in 5.1 and then to justify using it after in 5.2 ?
 
 #reset-acronym("WER")
 *#acr("WER") metric for #acr("ASR").*
-The #acr("ASR") task consists in recognizing the words pronounced by a speaker from an audio record.
+The #acr("ASR") task consists of recognizing the words pronounced by a speaker from an audio record.
 The performance of #acr("ASR") systems is evaluated by the #acr("WER") metric.
 It is computed as follows:
 $
   "WER" = (s + d + i) / n
 $
-where $s$ is the number of substitutions, $d$ of deletions, and $i$ of insertions needed to transform the predicted text into the true sentence.
+where $s$ is the number of substitutions, $d$ of deletions, and $i$ of insertions needed to transform the true sentence into the predicted text.
 $n$ counts the total number of words of the ground truth.
+Hence, the #acr("WER") quantifies the difference between the original and transcribed text.
+The total number of errors $s + d + i$ is also called the Levenshtein or edit distance, proposed by Vladimir Levenshtein in 1965 @levenshtein_binary_1965.
+Its default formulation considers comparing two strings at the character level.
+Besides, the #acr("WER") score uses words as the fundamental tokens.
+As its definition is recursive, most implementations leverage dynamic computing.
 
-An episode starts #todo
+*Running of an episode.*
+An episode starts with the agent and one or several sources randomly placed in the room.
+#todo #draft[the running of an episode]
 
 ==== Environment definition
 <sec:rl:problem:formulation:environment>
 
-#draft[
-  The environment denotes the practical specification and implementation of the #acr("MDP") for the RL problem.
-]
 The #acr("RL") environment corresponds to the #acr("MDP") formulation and implementation for the task.
-In this section, we present those characteristics along with the motivations that have led to this final specification.
+In this section, we present those characteristics and the motivations that led to this final specification.
 
 *#acr("POMDP").*
 The original #acr("MDP") model is not sufficient to represent our environment.
@@ -66,6 +70,7 @@ A #acr("POMDP") can be described as a tuple $lr(angle.l cal(S), cal(A), P, cal(R
 - $O: cal(S) times cal(A) -> Pi (Omega)$ is the _observability function_ which maps all state-action pairs to a probability distribution over the observation space $Omega$.
   $O(s', a, o)$ denotes the probability of making observation $o$ given that the agent took action $a$ and landed in state $s'$.
 This definition along with its notations have been borrowed from Kaelbling et al. @kaelbling_planning_1998.
+Leslie Kaelbling has conducted groundbreaking work related to the comprehension and use of #acr("POMDP"), in particular in robotics.
 
 *State and action spaces.*
 We chose a spatially discrete setting for modeling the environment.
@@ -183,9 +188,6 @@ The collisions are detected before their execution so that the action can be den
 
 ==== Alternative continuous formulation
 
-#draft[
-  Challenge: reward estimation.
-]
 A spatially discrete solution has been proposed, where both the state and action spaces were finite.
 Such a choice grants various benefits, such as an easier implementation and the possibility to use #acr("RL") methods unable to handle continuous spaces.
 
@@ -206,7 +208,7 @@ The distinctions exposed here only impact the spatial properties of the #acr("MD
 Audio aspects of the environment may remain the same.
 
 *Reward computation.*
-The only serious obstacle to handling the continuous form of the problem lies in the reward computation.
+An additional obstacle to handling the continuous form of the problem lies in the reward computation.
 Currently, it is fully pre-computed and cached using the #acr("WER") maps solution.
 Keeping this paradigm is possible by interpolating the grid-evaluated reward function to compute the reward for arbitrary positions.
 
@@ -224,4 +226,4 @@ Petrazzini et al. @petrazzini_proximal_2021 alternatively propose to use the Bet
 Its main benefit compared to a Gaussian distribution is having a finite support that naturally fits bounded action spaces.
 They also found the Beta distribution to outperform the Gaussian one.
 
-In conclusion, the simple discrete formulation of the sound-driven navigation problem can be generalized to better represent real-world robotic scenarios.
+In conclusion, the simple discrete formulation of the sound-driven navigation problem can be generalized to represent real-world robotic scenarios better.
