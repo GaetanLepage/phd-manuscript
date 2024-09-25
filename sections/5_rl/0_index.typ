@@ -16,7 +16,7 @@ This chapter also exposes a proof of concept of a complete pipeline to address t
 Finally, experimental results will demonstrate the capacity of the former solution.
 
 
-#include "1_rl_intro.typ"
-#include "2_problem.typ"
-#include "3_method.typ"
-#include "4_results.typ"
+#include "1_rl_intro/0_index.typ"
+#include "2_problem/0_index.typ"
+#include "3_method/0_index.typ"
+#include "4_results/0_index.typ"

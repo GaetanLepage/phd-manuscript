@@ -26,5 +26,9 @@
   Limitations:
   - The solution struggles with too high reverberation levels (TODO: include ablation study to show this)
 
+  - We only handled the single-source case in our experiments
+  - The sources are static during an episode
+  - As we pre-compute the WER, the set of initial source positions is finite.
+
   - Extension to multi-source
 ]

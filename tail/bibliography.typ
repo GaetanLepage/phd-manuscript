@@ -18,11 +18,11 @@
     "/sections/4_active_ssl/2_method/bibliography.bib",
 
     // Chap. 5: RL
-    "/sections/5_rl/bibliography/1a_rl_general.bib",
-    "/sections/5_rl/bibliography/1b_rl_robotics.bib",
-    "/sections/5_rl/bibliography/2_problem.bib",
-    "/sections/5_rl/bibliography/ppo.bib",
-    "/sections/5_rl/bibliography/software.bib",
+    "/sections/5_rl/1_rl_intro/bibliography/rl_general.bib",
+    "/sections/5_rl/1_rl_intro/bibliography/rl_robotics.bib",
+    "/sections/5_rl/1_rl_intro/bibliography/ppo.bib",
+    "/sections/5_rl/2_problem/bibliography.bib",
+    "/sections/5_rl/3_method/bibliography.bib",
   ),
   style: "ieee",
 )

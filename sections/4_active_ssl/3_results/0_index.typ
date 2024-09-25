@@ -5,8 +5,6 @@
 == Experiments and results
 <sec:active_ssl:results>
 
-#minitoc(indent: true)
-
 This section summarizes the main experiments conducted to assess the performance of the proposed solution for #acr("ASSL").
 
 
