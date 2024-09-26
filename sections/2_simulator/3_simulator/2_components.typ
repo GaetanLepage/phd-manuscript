@@ -132,7 +132,7 @@ For white noise sources, the waveform is randomly generated from a standard norm
 To adjust the gain relevantly, some speech signal as well as a target #acr("SNR") value can be provided.
 This allowed for conducting experiments in the presence of adversarial noise sources and controlling precisely the #acr("SNR") parameter.
 
-Speech sources pull their signal from the _LibriSpeech_ @noauthor_librispeech_nodate dataset.
+Speech sources pull their signal from the _LibriSpeech_ @panayotov_librispeech_2015 dataset.
 The latter is an #acr("ASR") corpus of 1000 hours worth of audiobooks, sampled at 16kHz.
 Each time a speech source is required to produce a signal, a random sample is pulled from _LibriSpeech_ and outputted.
 

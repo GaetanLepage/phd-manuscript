@@ -29,7 +29,7 @@ The latter now amounts to approximately 360ms as 16 #acr("STFT") frames particip
 The microphone array and $n_s$ speech sources get randomly positioned in the room.
 Such a choice has lead to challenging samples were multiple targets share very similar #acr("DoA") angles from the agent's point of view. #gaet[is this the right word ?]
 The resulting #acr("RIR") filters get computed to account for the reverberation properties of the room.
-Then, each source outputs a clean speech signal randomly chosen from the LibriSpeech @noauthor_librispeech_nodate dataset.
+Then, each source outputs a clean speech signal randomly chosen from the #librispeech @panayotov_librispeech_2015 dataset.
 The simulator computes the resulting listened signals at each microphone of the array.
 Such signals last around 10 seconds.
 
@@ -73,7 +73,7 @@ The impact of the number of active sources is further studied in @sec:ssl:multi_
 
 
 *Sampling frequency.*
-The method was designed to operate with audio signals sampled at 48kHz, which does not match the 16kHz sample rate of the LibriSpeech @noauthor_librispeech_nodate dataset that provides the clean speech utterances to the simulator.
+The method was designed to operate with audio signals sampled at 48kHz, which does not match the 16kHz sample rate of the LibriSpeech @panayotov_librispeech_2015 dataset that provides the clean speech utterances to the simulator.
 To account for this, the simulation of the audio signaled listened by each microphone of the array is operated at the native 16kHz frequency.
 The generated signals are then up-sampled to 48kHz.
 

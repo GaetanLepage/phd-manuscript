@@ -86,6 +86,7 @@
   *Visual/Layout questions:*
   - [ ] Aren't the margins OK ?\
     -> I am currently using 2.5cm everywhere.
+  - [ ] Should library names (SpeechBrain, gpuRIR...) be emphasized ? (italics ?)
   - [ ] Should the links (references to sections/papers) be in blue ?
   - [ ] Limit the _Table of Contents_ depth ? (currently none)
   - [ ] Should figure captions be centered or left-align ? (I assume that table captions will them always be centered)

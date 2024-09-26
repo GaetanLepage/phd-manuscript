@@ -444,7 +444,7 @@ The detection algorithm can then be applied on the average output.
 #let D-full = $cal(D)_"full"$
 To evaluate the performance of the obtained models, a new dataset #D-full is generated.
 Instead of saving 16 frames long individual #acr("STFT") chunks, we record the features for recordings of several seconds.
-To generate each sample, each active source outputs one recorded sentence from the LibriSpeech @noauthor_librispeech_nodate dataset.
+To generate each sample, each active source outputs one recorded sentence from the #librispeech @panayotov_librispeech_2015 dataset.
 #acr("STFT")s of the multi-channel signals received by the microphone array coming from each source are saved independently.
 Disposing of features corresponding to several seconds of simulation allows for performing #acr("SSL") on context windows of varying lengths.
 

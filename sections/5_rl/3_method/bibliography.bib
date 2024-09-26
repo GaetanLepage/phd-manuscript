@@ -67,3 +67,59 @@ title = {{PyTorch 2: Faster Machine Learning Through Dynamic Python Bytecode Tra
 url = {https://pytorch.org/assets/pytorch2-2.pdf},
 year = {2024}
 }
+
+
+# CTC (for ASR)
+@inproceedings{graves_towards_2014,
+	title = {Towards End-To-End Speech Recognition with Recurrent Neural Networks},
+	url = {https://proceedings.mlr.press/v32/graves14.html},
+	abstract = {This paper presents a speech recognition system that directly transcribes audio data with text, without requiring an intermediate phonetic representation. The system is based on a combination of the deep bidirectional {LSTM} recurrent neural network architecture and the Connectionist Temporal Classification objective function. A modification to the objective function is introduced that trains the network to minimise the expectation of an arbitrary transcription loss function. This allows a direct optimisation of the word error rate, even in the absence of a lexicon or language model. The system achieves a word error rate of 27.3\% on the Wall Street Journal corpus with no prior linguistic information, 21.9\% with only a lexicon of allowed words, and 8.2\% with a trigram language model. Combining the network with a baseline system further reduces the error rate to 6.7\%.},
+	eventtitle = {International Conference on Machine Learning},
+	pages = {1764--1772},
+	booktitle = {Proceedings of the 31st International Conference on Machine Learning},
+	publisher = {{PMLR}},
+	author = {Graves, Alex and Jaitly, Navdeep},
+	urldate = {2024-09-26},
+	date = {2014-06-18},
+	langid = {english},
+	note = {{ISSN}: 1938-7228},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/FABXAUUP/Graves and Jaitly - 2014 - Towards End-To-End Speech Recognition with Recurrent Neural Networks.pdf:application/pdf},
+}
+
+# RNNLM
+@inproceedings{mikolov_recurrent_2010,
+	title = {Recurrent neural network based language model},
+	url = {https://www.isca-archive.org/interspeech_2010/mikolov10_interspeech.html},
+	doi = {10.21437/Interspeech.2010-343},
+	eventtitle = {Proc. Interspeech 2010},
+	pages = {1045--1048},
+	author = {Mikolov, Tomáš and Karafiát, Martin and Burget, Lukáš and Černocký, Jan and Khudanpur, Sanjeev},
+	urldate = {2024-09-25},
+	date = {2010},
+	file = {PDF:/home/gaetan/.local/share/Zotero/storage/7GRFLUR7/Mikolov et al. - 2010 - Recurrent neural network based language model.pdf:application/pdf},
+}
+
+
+@software{vaessen_jitsijiwer_2024,
+	title = {jitsi/jiwer},
+	rights = {Apache-2.0},
+	url = {https://github.com/jitsi/jiwer},
+	abstract = {Evaluate your speech-to-text system with similarity measures such as word error rate ({WER})},
+	publisher = {Jitsi},
+	author = {Vaessen, Nik},
+	urldate = {2024-09-26},
+	date = {2024-09-25},
+	note = {original-date: 2018-06-19T00:38:38Z},
+	keywords = {automatic-speech-recognition, evaluation-metrics, python3, speech-to-text, wer, word-error-rate},
+}
+
+@software{max_bachmann_2024_10938887,
+  author       = {Max Bachmann},
+  title        = {rapidfuzz/RapidFuzz: Release 3.8.1},
+  month        = apr,
+  year         = 2024,
+  publisher    = {Zenodo},
+  version      = {v3.8.1},
+  doi          = {10.5281/zenodo.10938887},
+  url          = {https://doi.org/10.5281/zenodo.10938887}
+}
