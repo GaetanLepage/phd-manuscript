@@ -69,8 +69,16 @@ A #acr("POMDP") can be described as a tuple $lr(angle.l cal(S), cal(A), P, cal(R
 - $Omega$ is the observation space; and
 - $O: cal(S) times cal(A) -> Pi (Omega)$ is the _observability function_ which maps all state-action pairs to a probability distribution over the observation space $Omega$.
   $O(s', a, o)$ denotes the probability of making observation $o$ given that the agent took action $a$ and landed in state $s'$.
-This definition along with its notations have been borrowed from Kaelbling et al. @kaelbling_planning_1998.
-Leslie Kaelbling has conducted groundbreaking work related to the comprehension and use of #acr("POMDP"), in particular in robotics.
+This definition along with its notations have been borrowed from Leslie Kaelbling et al. @kaelbling_planning_1998.
+She, along with her research group, has conducted groundbreaking work related to the comprehension and use of #acr("POMDP"), in particular in robotics.
+From her original work on this topic, _Acting Optimally in Partially Observable Stochastic Domains_ @cassandra_acting_1994 in 1994 Kaelbling has published several papers exploring how to efficiently solve partially observable environments problems
+@cassandra_acting_1996
+@theocharous_approximate_2003
+@brunskill_continuous-state_2008
+@meuleau_learning_2013
+@meuleau_solving_2013.
+Those works are not strictly limited to the #acr("RL") domain.
+More recently, Azizzadenesheli et al. @azizzadenesheli_policy_2020 investigated how policy gradient algorithms could be adapted to #acrpl("POMDP").
 
 *State and action spaces.*
 We chose a spatially discrete setting for modeling the environment.
@@ -214,8 +222,8 @@ Keeping this paradigm is possible by interpolating the grid-evaluated reward fun
 
 *Continuous audio simulation.*
 Besides, the proposed framework makes the strong assumption that movements are instantaneous and that listening happens strictly statically.
-Accounting for a continuously moving agent would participate to further improve the model's realism.
-As the #acr("MDP") model remains fundamentally sequential, the agent would still be performing step-base decisions.
+Accounting for a continuously moving agent would participate to improve the model's realism further.
+As the #acr("MDP") model remains fundamentally sequential, the agent would still make step-based decisions.
 A hybrid solution consists of performing the audio simulation along a trajectory instead of assuming the position to be fixed.
 Although such a feature is not supported by our simulator, the underlying _gpuRIR_ authors explain how it could be implemented (see section 3.4 @diaz-guerra_gpurir_2021).
 
@@ -223,7 +231,7 @@ Although such a feature is not supported by our simulator, the underlying _gpuRI
 The #acr("PPO") algorithm employed in this work is fully compatible with continuous state and action spaces.
 Instead of predicting the probability $p_a$ of each discrete action, the actor neural network outputs the parameters $(bold(mu), bold(sigma) I)$ of a $dim(cal(A))$-dimensional normal distribution.
 Petrazzini et al. @petrazzini_proximal_2021 alternatively propose to use the Beta distribution.
-Its main benefit compared to a Gaussian distribution is having a finite support that naturally fits bounded action spaces.
+Compared to a Gaussian distribution, its main benefit is having a finite support that naturally fits bounded action spaces.
 They also found the Beta distribution to outperform the Gaussian one.
 
 In conclusion, the simple discrete formulation of the sound-driven navigation problem can be generalized to represent real-world robotic scenarios better.

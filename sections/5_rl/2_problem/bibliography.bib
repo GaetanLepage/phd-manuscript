@@ -19,6 +19,16 @@
 	file = {PDF:/home/gaetan/.local/share/Zotero/storage/BPRFBPG4/Azizzadenesheli et al. - 2020 - Policy Gradient in Partially Observable Environments Approximation and Convergence.pdf:application/pdf},
 }
 
+
+@article{cassandra_acting_1994,
+	title = {Acting Optimally in Partially Observable Stochastic Domains},
+	abstract = {In this paper, we describe the partially observable Markov decision process ({POMDP}) approach to finding optimal or near-optimal control strategies for partially observable stochastic environments, given a complete model of the environment. The {POMDP} approach was originally developed in the operations research community and provides a formal basis for planning problems that have been of interest to the {AI} community.},
+	author = {Cassandra, R and Kaelblingt, Leslie Pack and Littmant, L},
+	date = {1994},
+	langid = {english},
+	file = {PDF:/home/gaetan/.local/share/Zotero/storage/R68G7DHE/Cassandra et al. - Acting Optimally in Part ially servable Stoc ains.pdf:application/pdf},
+}
+
 @article{kaelbling_planning_1998,
 	title = {Planning and acting in partially observable stochastic domains},
 	volume = {101},
@@ -38,6 +48,50 @@
 	file = {PDF:/home/gaetan/.local/share/Zotero/storage/AYLK8MYG/Kaelbling et al. - 1998 - Planning and acting in partially observable stochastic domains.pdf:application/pdf},
 }
 
+@article{brunskill_continuous-state_2008,
+	title = {Continuous-State {POMDPs} with Hybrid Dynamics},
+	abstract = {Continuous-state {POMDPs} provide a natural representation for a variety of tasks, including many in robotics. However, existing continuous-state {POMDP} approaches are limited by their reliance on a single linear model to represent the world dynamics. We introduce a new switching-state (hybrid) dynamics model that can represent multi-modal state-dependent dynamics. We present a new point-based {POMDP} planning algorithm for solving continuous-state {POMDPs} using this dynamics model. We also provide a constrained optimization approach for approximating the value function as a mixture of a bounded number of Gaussians. We present results on a set of example problems and demonstrate that when different degrees of state accuracy are needed to accomplish a task, our hybrid continuous-state approach outperforms a standard discrete state technique.},
+	author = {Brunskill, Emma and Kaelbling, Leslie and Lozano-Perez, Tomas and Roy, Nicholas},
+	date = {2008},
+	langid = {english},
+	file = {PDF:/home/gaetan/.local/share/Zotero/storage/LZXBJHKP/Brunskill et al. - Continuous-State POMDPs with Hybrid Dynamics.pdf:application/pdf},
+}
+
+
+
+@inproceedings{theocharous_approximate_2003,
+	title = {Approximate Planning in {POMDPs} with Macro-Actions},
+	volume = {16},
+	url = {https://papers.nips.cc/paper_files/paper/2003/hash/ea4eb49329550caaa1d2044105223721-Abstract.html},
+	abstract = {Leslie Pack Kaelbling},
+	booktitle = {Advances in Neural Information Processing Systems},
+	publisher = {{MIT} Press},
+	author = {Theocharous, Georgios and Kaelbling, Leslie},
+	urldate = {2024-09-25},
+	date = {2003},
+	keywords = {man},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/P7NSWWHK/Theocharous and Kaelbling - 2003 - Approximate Planning in POMDPs with Macro-Actions.pdf:application/pdf},
+}
+
+
+@inproceedings{cassandra_acting_1996,
+	title = {Acting under uncertainty: discrete Bayesian models for mobile-robot navigation},
+	volume = {2},
+	url = {https://ieeexplore.ieee.org/document/571080},
+	doi = {10.1109/IROS.1996.571080},
+	shorttitle = {Acting under uncertainty},
+	abstract = {Discrete Bayesian models have been used to model uncertainty for mobile-robot navigation, but the question of how actions should be chosen remains largely unexplored. This paper presents the optimal solution to the problem, formulated as a partially observable Markov decision process. Since solving for the optimal control policy is intractable, in general, it goes on to explore a variety of heuristic control strategies. The control strategies are compared experimentally, both in simulation and in runs on a robot.},
+	eventtitle = {Proceedings of {IEEE}/{RSJ} International Conference on Intelligent Robots and Systems. {IROS} '96},
+	pages = {963--972 vol.2},
+	booktitle = {Proceedings of {IEEE}/{RSJ} International Conference on Intelligent Robots and Systems. {IROS} '96},
+	author = {Cassandra, A.R. and Kaelbling, L.P. and Kurien, J.A.},
+	urldate = {2024-09-25},
+	date = {1996-11},
+	keywords = {man},
+	file = {IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/X4QCLDQ7/571080.html:text/html},
+}
+
+
 
 # PPO + Bounded continuous action spaces
 @misc{petrazzini_proximal_2021,
@@ -55,6 +109,47 @@
 	keywords = {Computer Science - Artificial Intelligence, Computer Science - Machine Learning, man},
 	file = {PDF:/home/gaetan/.local/share/Zotero/storage/6R3LIV9M/Petrazzini and Antonelo - 2021 - Proximal Policy Optimization with Continuous Bounded Action Space via the Beta Distribution.pdf:application/pdf},
 }
+
+
+@misc{meuleau_solving_2013,
+	title = {Solving {POMDPs} by Searching the Space of Finite Policies},
+	url = {http://arxiv.org/abs/1301.6720},
+	doi = {10.48550/arXiv.1301.6720},
+	abstract = {Solving partially observable Markov decision processes ({POMDPs}) is highly intractable in general, at least in part because the optimal policy may be infinitely large. In this paper, we explore the problem of finding the optimal policy from a restricted set of policies, represented as finite state automata of a given size. This problem is also intractable, but we show that the complexity can be greatly reduced when the {POMDP} and/or policy are further constrained. We demonstrate good empirical results with a branch-and-bound method for finding globally optimal deterministic policies, and a gradient-ascent method for finding locally optimal stochastic policies.},
+	number = {{arXiv}:1301.6720},
+	publisher = {{arXiv}},
+	author = {Meuleau, Nicolas and Kim, Kee-Eung and Kaelbling, Leslie Pack and Cassandra, Anthony R.},
+	urldate = {2024-09-26},
+	date = {2013-01-23},
+	eprinttype = {arxiv},
+	eprint = {1301.6720 [cs]},
+	keywords = {man},
+	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/FLYLXTWH/Meuleau et al. - 2013 - Solving POMDPs by Searching the Space of Finite Policies.pdf:application/pdf;arXiv.org Snapshot:/home/gaetan/.local/share/Zotero/storage/XT3VH5MM/1301.html:text/html},
+}
+
+
+@misc{meuleau_learning_2013,
+	title = {Learning Finite-State Controllers for Partially Observable Environments},
+	url = {http://arxiv.org/abs/1301.6721},
+	doi = {10.48550/arXiv.1301.6721},
+	abstract = {Reactive (memoryless) policies are sufficient in completely observable Markov decision processes ({MDPs}), but some kind of memory is usually necessary for optimal control of a partially observable {MDP}. Policies with finite memory can be represented as finite-state automata. In this paper, we extend Baird and Moore's {VAPS} algorithm to the problem of learning general finite-state automata. Because it performs stochastic gradient descent, this algorithm can be shown to converge to a locally optimal finite-state controller. We provide the details of the algorithm and then consider the question of under what conditions stochastic gradient descent will outperform exact gradient descent. We conclude with empirical results comparing the performance of stochastic and exact gradient descent, and showing the ability of our algorithm to extract the useful information contained in the sequence of past observations to compensate for the lack of observability at each time-step.},
+	number = {{arXiv}:1301.6721},
+	publisher = {{arXiv}},
+	author = {Meuleau, Nicolas and Peshkin, Leonid and Kim, Kee-Eung and Kaelbling, Leslie Pack},
+	urldate = {2024-09-26},
+	date = {2013-01-23},
+	eprinttype = {arxiv},
+	eprint = {1301.6721 [cs]},
+	keywords = {Computer Science - Artificial Intelligence, Electrical Engineering and Systems Science - Systems and Control},
+	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/AVQWEEG5/Meuleau et al. - 2013 - Learning Finite-State Controllers for Partially Observable Environments.pdf:application/pdf},
+}
+
+
+
+#######################################
+# Misc
+#######################################
+
 
 # Levenshtein distance
 @article{levenshtein_binary_1965,
