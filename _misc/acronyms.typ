@@ -3,24 +3,28 @@
 #init-acronyms((
   // Misc
   "API": ("Application Programming Interface"),
-  "HRI": ("Human Robot Interaction"),
+  "HRI": ("Human-Robot Interaction"),
   "RMSE": ("Root Mean Square Error"),
   "GT": ("Ground Truth"),
   "MKF": ("mixture Kalman filter"),
   "HMM": ("Hidden Markov Model", "Hidden Markov Models"),
   
   // Deep Learning
-  "DL": ("Deep Learning"),
-  "MSE": ("Mean Squared Error"),
   "BN": ("Batch Normalization"),
-  "LN": ("Layer Normalization"),
-  "MLP": ("Multi Layer Perceptron"),
-  "ReLU": ("Rectified Linear Unit"),
+  "CRDNN": ("Convolutional Recurrent Deep Neural Network"),
+  "DL": ("Deep Learning"),
   "DNN": ("Deep Neural Network"),
+  "LN": ("Layer Normalization"),
+  "RNNLM": ("Recurrent Neural Network Language Model"),
+  "MSE": ("Mean Squared Error"),
+  "MLP": ("Multi-Layer Perceptron"),
+  "ReLU": ("Rectified Linear Unit"),
+  "RNN": ("Recurrent Neural Network"),
   
   // ASR
   "ASR": ("Automatic Speech Recognition"),
   "WER": ("Word Error Rate"),
+  "CTC": ("Connectionist Temporal Classification"),
 
   // SSL
   "DCASE": ("Detection and Classification of Acoustic Scenes and Events"),
@@ -42,12 +46,13 @@
   "ILD": ("Interaural Level Difference"),
   "IPD": ("Interaural Phase Difference"),
   "ISM": ("Image Source Model"),
+  "MFCC": ("Mel-Frequency Cepstral Coefficients"),
   "RIR": ("Room Impulse Response"),
   "RTF": ("Related Transfer Function"),
   "SNR": ("Signal to Noise Ratio"),
   "STFT": (
-    "Short Term Fourier Transform",
-    "Short Term Fourier Transforms"
+    "Short-Term Fourier Transform",
+    "Short-Term Fourier Transforms"
   ),
   
   // RL
