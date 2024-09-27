@@ -20,6 +20,8 @@ The abstract environment defined previously in @sec:rl:problem:formulation:envir
 #draft[
   - Present how we implement the WER oracle $w$
   - Motivation: Computation challenges: pre-compute maps instead of live computation
+
+  - Say that even though our environment is theoretically a POMDP, we have used a normal RL method and not accounted for the PO aspect of it.
   
   - Also, WER does not make sense for a single position ?
   
@@ -32,6 +34,8 @@ The abstract environment defined previously in @sec:rl:problem:formulation:envir
 The reward signal introduced previously expects an oracle $w$ to provide an estimate of the #acr("WER") score for each possible state.
 This is achieved by pre-computing an average #acr("WER") for every position on the grid.
 Although the array might include several microphones, only one of them is used to provide the mono-channel signal required by the #acr("ASR") system.
+This section details the reward implementation as well as the relevant technical choices made.
+
 
 ==== #acr("ASR") frameworks
 
@@ -77,17 +81,43 @@ Thus, our #acr("ASR") module can be fed with the listened signal computed by the
 ==== Computing of #acr("WER")-maps
 <sec:rl:method:wer_maps:computing>
 
-*Motivation.*
+*ASR setup.*
 We compute the #acr("WER") score using the _jiwer_ @vaessen_jitsijiwer_2024 library.
 It itself wraps the fast C++ matching library _RapidFuzz_ @max_bachmann_2024_10938887 to compute the minimum-edit distance.
 The calculation of the metric has no significant impact on performance.
 However, running the #speechbrain #acr("ASR") model is highly computationally expensive.
 When the model is run in inference mode to evaluate its performance on 100 samples from the #librispeech dataset, 96% of the time is spent on the speech recognition process.
 On the contrary, less than 1% is spent computing the #acr("WER") score.
-We perform this test on a RTX A6000 Nvidia GPU that gets fully utilized by this decoding task.
+We perform this test on an RTX A6000 NVIDIA GPU that gets fully utilized by this decoding task.
 The _RapidFuzz_ library runs directly on the CPU.
+Importantly, the decoding process remains slow: It takes approximately 2s to process a single 16s sentence at 16kHz.
+#draft[
+  Maybe add WER score on simulated/listened data.
+]
 
-Importantly, the decoding process remains slow as it takes approximately 2s to process 
+*Motivation.*
+The aforementioned setup allows the computation of #acr("WER") scores on full simulated audio recordings.
+However, the proposed #acr("RL") environment involves short steps of 1s, during which the agent is assumed to be immobile and gathers audio data.
+Computing the #acr("WER") on such a small snippet would not make sense.
+A complete sentence is the minimum necessary for the #acr("WER") to have meaning.
+Additionally, as with every metric, this indicator is supposed to be averaged over a significant number of samples to purposefully assess the performance of the evaluated method.
+Here, the oracle $w(s)$ is expected to provide an estimate for the average #acr("ASR") performance for a given state $s$.
+For those reasons, the oracle cannot work in real-time and needs to rely on prior information.
+
+*#acr("WER") maps.*
+We introduce the _#acr("WER") map_ abstraction to solve the aforementioned issue.
+The core idea of #acr("WER") maps is to pre-compute an average #acr("WER") score for each attainable state of the #acr("MDP").
+More precisely, a microphone will be positioned sequentially in each cell of the 2D grid spanning the room.
+If the microphone is not omnidirectional, the agent orientation will impact the received signal and, eventually, the recognition performance too.
+In this case, all four cardinal directions must be evaluated.
+The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphone and as a 3D tensor otherwise.
+
+#include "wer_map_algorithm.typ"
+
+@algo:rl:wer_map describes the algorithm used to compute those #acr("WER") maps.
+#draft[
+  give numbers on compute time
+]
 
 
 ==== WER on clean speech
