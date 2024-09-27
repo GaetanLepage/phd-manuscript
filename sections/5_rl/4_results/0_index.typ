@@ -3,6 +3,12 @@
 == Experiments and discussions
 <sec:rl:results>
 
+=== #acr("ASR") performance in a reverberant room
+
+#draft[
+  - Show how #acr("WER") decreases when adding reverb
+]
+
 === Training with analytical maps
 
 === Real #acr("WER") maps
