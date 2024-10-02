@@ -23,8 +23,9 @@
   
   // ASR
   "ASR": ("Automatic Speech Recognition"),
-  "WER": ("Word Error Rate"),
+  "LM": ("Language Model"),
   "CTC": ("Connectionist Temporal Classification"),
+  "WER": ("Word Error Rate"),
 
   // SSL
   "DCASE": ("Detection and Classification of Acoustic Scenes and Events"),
@@ -66,5 +67,6 @@
   "POMDP": ("Partially Observable Markov Decision Process"),
   "PPO": ("Proximal Policy Optimization"),
   "RL": ("Reinforcement Learning"),
+  "TD": ("Temporal-difference"),
   "TRPO": ("Trust Region Policy Optimization")
 ))
