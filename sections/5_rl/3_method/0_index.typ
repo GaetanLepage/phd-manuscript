@@ -186,7 +186,7 @@ This feature extractor is followed by two heads implemented as #acr("MLP").
     "figures/rl_agent_architecture.svg"
   ),
   caption: [
-    Hello
+    Neural network architecture for the #acr("DRL") agent
   ],
 )
 <fig:rl:method:agent_architecture>

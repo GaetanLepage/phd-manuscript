@@ -5,6 +5,8 @@
 
 === Reinforcement Learning
 
+==== Brief history
+
 Reinforcement Learning draws its origins in two formerly distinct fields.
 On the one hand, psychology researchers have attempted to understand how humans and animals could learn.
 The American psychologist Edward Lee Thorndike laid out foundational work on animal learning and behavior.
@@ -55,11 +57,58 @@ Both new ideas and computational advances have allowed its use in more and more 
 The book _Reinforcement Learning: An Introduction_ @sutton_reinforcement_2018 by Sutton and Barto is one of the most complete and recognized resources about the field.
 It provides both a deep look at the theoretical grounds of #acr("RL") and a wide overview of modern algorithms.
 The original 1998 edition was revisited in 2018 to reflect the important progress made during this period.
+The present section draws substantial inspiration from this resource.
+
+
+==== Core notions
+
+#acr("RL") encompasses various techniques for solving stochastic sequential decision problems.
+This framework leverages trial-and-error learning by making an agent evolve in its environment while rewarding it according to its performance.
+This feedback loop constitutes the reinforcement aspect and permits the agent to self-improve.
+At each time step $t$, the agent is offered to observe the environment's state $s_t$.
+It then has to select an action so as to maximize the future accumulated rewards.
+In response to this action, the environment communicates the reward signal $r_t$ to the agent and transitions to a new state $s_(t+1)$ (@fig:rl:rl_intro:rl_schema).
+In this section, we briefly introduce the main concepts and notations required to further formalize this process and the relevant #acr("RL") algorithms.
+
+#reset-acronym("MDP")
+*#acr("MDP")*
+The stochastic sequential decision problems are modeled using the #acr("MDP") framework.
+It is based on the work of Andrey Markov in the early 20th century about stochastic processes.
+Notably, the Markov process defines a process in which future states only depend on the current state but not on the sequence that preceded it.
+Bellman later extended Markov processes to add a decision aspect, leading to the introduction of the #acr("MDP") @bellman_dynamic_1957.
+An #acr("MDP") consist of a tuple $<cal(S), cal(A), P, cal(R), gamma>$.
+- $cal(S)$: The state space defines the set of all attainable states for the problem.
+  Both discrete (finite or not) and continuous spaces are valid in this context.
+- $cal(A)$: 
+- $P$ defines the one-step dynamics of the environment.
+  It denotes the probability that the agent will transition to state $s'$ while in state $s$ and taking action $a$.
+  $P(s_(t+1) = s' mid(|) s_t = s, a_t = a)$ denotes the _transition probabilities_.
+  
+- $cal(R)$
+- $gamma$ describe the underlying #acr("MDP");
+
 
 
 #draft[
-  @sutton_reinforcement_2018 (the book)
+- diagram
 ]
+#figure(
+  image(
+    "figures/rl_schema.svg",
+    width: 50%,
+  ),
+  caption: [
+    Reinforcement Learning framework
+  ]
+)
+<fig:rl:rl_intro:rl_schema>
+
+$
+  V_pi (s) &:= EE[R_t | s_t = s]\
+    &= EE[sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s]
+$
+
+
 
 #acr("MDP")
 
@@ -75,6 +124,12 @@ The original 1998 edition was revisited in 2018 to reflect the important progres
 
 === Policy gradient algorithms
 
+The first widely used #acr("RL") algorithms consisted of learning to approximate a value function.
+For instance, the notable Q-value algorithm @watkins_learning_1989:
+$
+  Q_pi (s_t, a_t) := EE[r_t]
+$
+
 #draft[
   Introduce PG algorithms:
   The concept, the theorem and give a few examples
@@ -82,14 +137,14 @@ The original 1998 edition was revisited in 2018 to reflect the important progres
 
 ==== Policy Gradient Theorem
 
-Sutton & Barto @sutton_reinforcement_2018
 Lilian Weng @noauthor_policy_2018
+Presented by Sutton & Barto @sutton_reinforcement_2018, the Policy Gradient theorem is a fundamental result enabling policy gradient algorithms.
 
 $
-  nabla_theta J(theta) &=
-    nabla_theta
-      sum_(s in cal(S)) d^pi (s)
-      sum_(a in cal(A)) Q^pi (s, a) pi_theta (a | s)\
+  nabla_theta J(theta)
+    //&= nabla_theta
+    //  sum_(s in cal(S)) d^pi (s)
+    //  sum_(a in cal(A)) Q^pi (s, a) pi_theta (a | s)\
     &prop
       sum_(s in cal(S)) d^pi (s)
       sum_(a in cal(A)) Q^pi (s, a) nabla_theta pi_theta (a | s)\
