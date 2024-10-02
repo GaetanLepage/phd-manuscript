@@ -23,7 +23,7 @@ The abstract environment defined previously in @sec:rl:problem:formulation:envir
 
   - Say that even though our environment is theoretically a POMDP, we have used a normal RL method and not accounted for the PO aspect of it.
   
-  - Also, WER does not make sense for a single position ?
+  - Also, WER does not make sense for a single position?
   
   - Explain the different reward schemes
   
@@ -34,7 +34,7 @@ The abstract environment defined previously in @sec:rl:problem:formulation:envir
 The reward signal introduced previously expects an oracle $w$ to provide an estimate of the #acr("WER") score for each possible state.
 This is achieved by pre-computing an average #acr("WER") for every position on the grid.
 Although the array might include several microphones, only one of them is used to provide the mono-channel signal required by the #acr("ASR") system.
-This section details the reward implementation as well as the relevant technical choices made.
+This section details the reward implementation and the relevant technical choices made.
 
 
 ==== #acr("ASR") frameworks
@@ -50,7 +50,6 @@ It aims to be a user-friendly product, employed in real-world use cases.
 Bindings for several programming languages (Rust, Java, Go...).
 Besides its open-source programs, professional licenses for Vosk can be purchased and provide additional features.
 
-#let speechbrain = text[_SpeechBrain_]
 #speechbrain @ravanelli_speechbrain_2021 is a more recent library based on the widely used PyTorch @Ansel_PyTorch_2_Faster_2024 #acr("DL") framework.
 It grants convenient implementations of novel deep neural networks for speech recognition.
 Its objective is to grant research and industrial actors an all-in-one speech toolkit.
@@ -72,10 +71,24 @@ The specific pipeline that was used in this work involves three components:
   #speechbrain applies an additional #acr("CTC") @graves_towards_2014 loss to the encoder.
   The #acr("CTC") cost function allows the training of recurrent architectures to perform speech recognition without requiring prior alignment between the input and target sequences.
 
+We have also explored a more powerful model relying on transformers 
+#draft[
+  - citation
+  - explain methodo ?
+  - benchmark -> finish current experiment (warning: takes a long time to run)
+]
+
+#include "asr_models_comparison.typ"
+
 We have integrated the #speechbrain #acr("ASR") library into the simulator.
 The input signals used for each source are drawn from the #librispeech @panayotov_librispeech_2015 (@sec:simulator:simulator:components:sound_sources).
 The simulator loads the ground truth transcripts along with the clean signal.
 Thus, our #acr("ASR") module can be fed with the listened signal computed by the simulator, and the obtained transcription can then be compared with the ground-truth one.
+
+#draft[
+  We should compare the two ASR models.\
+  I think that we have kept the light model...
+]
 
 
 ==== Computing of #acr("WER")-maps
@@ -123,7 +136,22 @@ The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphon
 ==== WER on clean speech
 
 As a sanity check for the #acr("ASR") module, we run the complete recognition pipeline on the clean speech signals from the #librispeech dataset.
-The `ASR-CRDNN-RNNLM-LibriSpeech` model from #speechbrain that we have chosen yields an average #acr("WER") of #todo%.
+The `ASR-CRDNN-RNNLM-LibriSpeech` model from #speechbrain that we have chosen yields an average #acr("WER") of 1.82% on this clean dataset.
+
+@table:rl:method:asr_models shows the result of our benchmarking of three models provided by the #speechbrain library.
+It highlights the performance-speed trade-off of each model.
+`ASR-CRDNN-RNNLM-LibriSpeech` is the fastest model #todo
+All three models share the same tokenizer, trained on #librispeech.
+
+#draft[
+  Ideally, we could compare three models:
+  - `asr-transformer-transformerlm-librispeech`
+  - `asr-crdnn-transformerlm-librispeech`
+  - `asr-crdnn-rnnlm-librispeech`
+
+  However, the second one is broken
+
+]
 
 ==== Reward shaping
 
@@ -139,16 +167,29 @@ $
 
 === Deep Neural Agent
 
-The multiple recent successes of #acr("DRL") in solving various tasks (Atari games @mnih_playing_2013, controlling plasma in fusion reactors @degrave_magnetic_2022, 
+The multiple recent successes of #acr("DRL") in solving various tasks (Atari games @mnih_playing_2013, controlling plasma in fusion reactors @degrave_magnetic_2022, #todo) originates consequently in the use of #acr("DNN") as function approximators (@sec:rl:intro:deep_reinforcement_learning).
 
-// TODO: add figure
-
-==== Neural network architecture
+We propose a custom design for the neural network implementing the #acr("RL") agent.
+The choice of #acr("PPO") as a training algorithm requires defining two models: the actor and the critic (@sec:rl:intro: PPO).
+We have designed a common backbone between those two systems, allowing to share a significant share of the model parameters.
+This feature extractor is followed by two heads implemented as #acr("MLP").
 
 #draft[
   - Backbone + 2 heads
   - talk about different strats for BB (fine-tuning, no pre-training, frozen)
 ]
+
+// TODO: add figure
+
+#figure(
+  image(
+    "figures/rl_agent_architecture.svg"
+  ),
+  caption: [
+    Hello
+  ],
+)
+<fig:rl:method:agent_architecture>
 
 ==== Pre-trained acoustic feature extractor
 
@@ -160,3 +201,12 @@ The multiple recent successes of #acr("DRL") in solving various tasks (Atari gam
 
 The main difficulty of the sound-driven navigation problem lies in the agent's ability to map sound cues to spatial information.
 The partial observability aspect of the environment prevents the agent from directly and transparently observing neither its own nor the sources' positions.
+
+
+
+=== #acr("PPO") implementation and training strategy
+
+*Backbone pretraining.*
+The feature extractor maps the audio spectral observations into a lower 16-dimensional embedding vector.
+We hypothesize that while learning the #acr("RL") navigation task, the agent will implicitly acquire localization capabilities.
+To improve performance and bootstrap the learning process, we train the feature extractor in a supervised fashion to perform the #acr("SSL") task.

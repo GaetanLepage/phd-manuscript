@@ -62,7 +62,7 @@
       
       State[]
       //Assign[#wer-map][$bold(0)_(cal(M)_(abs(cal(Z)))(RR))$]
-      Cmt[Initialize the #acr("WER") map tensor]
+      Cmt[Initialize the 2D/3D #acr("WER") map tensor]
       Assign[#wer-map][
         $bold(0)_(
           RR^(
