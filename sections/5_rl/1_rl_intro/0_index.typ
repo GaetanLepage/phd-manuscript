@@ -70,6 +70,18 @@ It then has to select an action so as to maximize the future accumulated rewards
 In response to this action, the environment communicates the reward signal $r_t$ to the agent and transitions to a new state $s_(t+1)$ (@fig:rl:rl_intro:rl_schema).
 In this section, we briefly introduce the main concepts and notations required to further formalize this process and the relevant #acr("RL") algorithms.
 
+#figure(
+  image(
+    "figures/rl_schema.svg",
+    width: 50%,
+  ),
+  caption: [
+    Reinforcement Learning framework
+  ]
+)
+<fig:rl:rl_intro:rl_schema>
+
+
 #reset-acronym("MDP")
 *#acr("MDP")*
 The stochastic sequential decision problems are modeled using the #acr("MDP") framework.
@@ -83,25 +95,50 @@ An #acr("MDP") consist of a tuple $<cal(S), cal(A), P, cal(R), gamma>$.
 - $P$ defines the one-step dynamics of the environment.
   It denotes the probability that the agent will transition to state $s'$ while in state $s$ and taking action $a$.
   $P(s_(t+1) = s' mid(|) s_t = s, a_t = a)$ denotes the _transition probabilities_.
-  
-- $cal(R)$
-- $gamma$ describe the underlying #acr("MDP");
+- $r$: The reward real-valued function $r: cal(S) times cal(A) -> cal(R)$ maps each state-action pair to its reward $r(s, a) in cal(R) subset RR$.
+  When this reward is non-deterministic, we write $R_t$ its expectation:
+  $
+    R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s']
+  $
+- $gamma$: The discount factor in $[0, 1[$ dampens the impact of future rewards and ensures that the gain $G_t = sum_(k=0)^(infinity) gamma^k R_(t+k)$ remains bounded as long as $abs(R_t)$ is bounded as well.
 
 
-
-#draft[
-- diagram
-]
-#figure(
-  image(
-    "figures/rl_schema.svg",
-    width: 50%,
-  ),
-  caption: [
-    Reinforcement Learning framework
-  ]
+*Policy.*
+The problem of Reinforcement Learning is to design a policy that maximizes the average expected return in a given #acr("MDP").
+A policy denotes a function or algorithm that maps each state to a probability distribution over the action space.
+#func-def(
+  $pi(dot|dot)$,
+  $cal(A) times cal(S)$,
+  $[0, 1]$,
+  $(a, s)$,
+  $P(a_t = a | s_t = s)$,
 )
-<fig:rl:rl_intro:rl_schema>
+
+The policy, being a distribution over the action space, can take various forms.
+For finite #acrpl("MDP"), i.e. when both the action and state spaces are finite, the policy is a $abs(cal(S)) times abs(cal(A))$ matrix:
+$
+  lr(
+    (
+      P(a_t = a_i | s_t = s_j)
+    ),
+    size: #150%
+  )_(
+    1 <= i <= abs(cal(A)),\
+    1 <= j <= abs(cal(S))
+  )
+$
+When dealing with continuous action spaces, most methods use a canonical distribution for which they learn the parameters.
+Finding a policy amounts to learning a mapping from the state space to the parameter space of the distribution.
+For instance, the Gaussian distribution is often used in modern reinforcement learning for this purpose.
+Then, the method would associate a mean vector and, eventually, a covariance matrix to each state.
+A probabilistic policy can be used in two ways.
+During the training of reinforcement learning algorithms, the action is often selected by sampling the policy $a tilde pi (dot | s)$.
+At test time, the most common choice is to pick the optimal action, i.e. the mode of the distribution $a^* = "argmax"_(a in cal(A)) pi (a | s)$
+
+
+*Value function.*
+The value function is a fundamental quantity in #acr("RL").
+Given a policy $pi$, it measures the _quality_ of being in a certain state.
 
 $
   V_pi (s) &:= EE[R_t | s_t = s]\
@@ -109,13 +146,12 @@ $
 $
 
 
-
-#acr("MDP")
-
 === Deep Reinforcement Learning
 <sec:rl:intro:deep_reinforcement_learning>
 
 @li_deep_2018 (#acr("DRL"), An overview)
+
+@mnih_playing_2013 (Deep Q-networks)
 
 === #acr("RL") for robotics
 
@@ -125,19 +161,21 @@ $
 === Policy gradient algorithms
 
 The first widely used #acr("RL") algorithms consisted of learning to approximate a value function.
-For instance, the notable Q-value algorithm @watkins_learning_1989:
+For instance, the notable Q-value algorithm @watkins_learning_1989 introduced the $Q$ function which gives a score to each state-action pair:
 $
-  Q_pi (s_t, a_t) := EE[r_t]
+  Q_pi (s, a) := EE[r_t | s_t = s, a_t = a]
 $
+
 
 #draft[
   Introduce PG algorithms:
-  The concept, the theorem and give a few examples
+  - Handles both discrete and continuous spaces
+  - The concept, the theorem and give a few examples
 ]
 
 ==== Policy Gradient Theorem
 
-Lilian Weng @noauthor_policy_2018
+#draft[Lilian Weng @noauthor_policy_2018]
 Presented by Sutton & Barto @sutton_reinforcement_2018, the Policy Gradient theorem is a fundamental result enabling policy gradient algorithms.
 
 $
