@@ -132,14 +132,17 @@ Finding a policy amounts to learning a mapping from the state space to the param
 For instance, the Gaussian distribution is often used in modern reinforcement learning for this purpose.
 Then, the method would associate a mean vector and, eventually, a covariance matrix to each state.
 A probabilistic policy can be used in two ways.
-During the training of reinforcement learning algorithms, the action is often selected by sampling the policy $a tilde pi (dot | s)$.
-At test time, the most common choice is to pick the optimal action, i.e. the mode of the distribution $a^* = "argmax"_(a in cal(A)) pi (a | s)$
+During reinforcement learning algorithms' training, the action is often selected by sampling the policy #box($a tilde pi (dot | s)$).
+At test time, the most common choice is to pick the optimal action, i.e. the mode of the distribution:
+$
+  a^* = op("argmax", limits: #true)_(a in cal(A)) pi (a | s)
+$
 
 
 *Value function.*
 The value function is a fundamental quantity in #acr("RL").
 Given a policy $pi$, it measures the _quality_ of being in a certain state.
-
+It is defined as the expectation of future gains when starting from the state $s$.
 $
   V_pi (s) &:= EE[R_t | s_t = s]\
     &= EE[sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s]
@@ -156,6 +159,8 @@ $
 === #acr("RL") for robotics
 
 // TODO Cite Jordan&Dimiter's survey paper
+// "Navigating the Practical Pitfalls of Reinforcement Learning for Social Robot Navigation"
+@pikuli_navigating_2024
 
 
 === Policy gradient algorithms
@@ -165,6 +170,9 @@ For instance, the notable Q-value algorithm @watkins_learning_1989 introduced th
 $
   Q_pi (s, a) := EE[r_t | s_t = s, a_t = a]
 $
+On the contrary, policy gradient algorithms directly optimize the policy itself through a differentiable objective function depending on its parameters.
+#todo
+
 
 
 #draft[
@@ -236,12 +244,65 @@ where,
 
 
 *Estimation.*
+Estimation of the advantage function has been discussed by Schulman et al. @schulman_high-dimensional_2018.
+To estimate the advantage function, we may consider the following class of estimators $hat(A)_t^((k))$:
+$
+  &hat(A)_t^((1))
+    &&:= delta_t^V
+    &&= r_t + gamma   V(s_(t+1)) - V(s_t)\
+  
+  &hat(A)_t^((2))
+    &&:= delta_t^V + gamma delta_(t+1)^V
+    &&= r_t + gamma r_(t+1) + gamma^2 V(s_(t+2)) - V(s_t)\
+  
+  & dots
+    &&:= dots
+    &&= dots\
+  
+  &hat(A)_t^((infinity)) &&:= sum_(l=0)^(infinity) gamma^l delta_(t+l)^V &&= r_t + gamma r_(t+1) + gamma^2 r_(t+2) + dots - V(s_t)\
+$
+where $delta_t^V$ estimates the #acr("TD") error.
+While all of those quantities do approximate $A_t$, they offer different tradeoffs.
+Indeed, as $V(s_t)$ is not the exact value function $V^(pi, gamma)$ for this policy, the estimator is biased.
+However, this bias decreases when $k -> + infinity$ as the term $V(s_(t+k))$ becomes increasingly dampened.
+$V(s_t)$ remains constant among the class of estimators and thus does not affect the relative bias of $hat(A)_t^((k))$.
+Although being asymptotically unbiased, $hat(A)_t^((infinity))$ has a high variance.
+The estimator's variance is an increasing function of $k$ as more and more terms $r_(t+k)$ are summed as $k$ grows.
 
 *#acr("GAE").*
+Schulman et al. @schulman_high-dimensional_2018 proposed a novel estimation method by combining all the estimators $hat(A)_t^((k))$ into a single one.
+More precisely, the #acr("GAE") is an exponentially weighted average of the aforementioned $k$-step estimators.
+$
+  hat(A)_t^("GAE"(gamma, lambda)) :=
+  (1 - lambda) (
+    hat(A)_t^((1))
+    + hat(A)_t^((2))
+    + hat(A)_t^((3))
+    + dots
+  )
+$
+It can be shown that this expression simplifies as:
+$
+  hat(A)_t^("GAE"(gamma, lambda))
+    = sum_(k=0)^(infinity)
+    (lambda gamma)^k delta_(t + k) ^V
+$
+#todo
+
+
 
 #reset-acronym("PPO")
 ==== The #acr("PPO") algorithm
 <sec:rl:intro:ppo>
+
+The #acr("PPO") algorithm has been used extensively in the #acr("RL") field since its invention in 2017 @schulman_proximal_2017.
+#draft[give examples]
+Its main advantages are its _apparent_ simplicity and efficiency.
+Although it has been successful at solving many complex #acr("RL") problems, #acr("PPO") remains highly sensitive to implementation details.
+Engstrom et al. @engstrom_implementation_2020 explicitly studied the "code-level optimizations" of the #acr("TRPO") and #acr("PPO") algorithms.
+This work formalized the shared impression among the community #draft[insert refs] that #acr("PPO")'s promised performance was subject to subtle implementation details.
+Huang et al. have also contributed to this practical investigation by publishing _The 37 Implementation Details of Proximal Policy Optimization_ @shengyi2022the37implementation.
+#draft[Maybe this should go in the results/discussion section.]
 
 *#acr("TRPO").*
 Schulman et al. @schulman_trust_2017
