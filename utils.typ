@@ -69,29 +69,32 @@ $
 #let shape(x, y, z) = $(#str(x), #str(y), #str(z))$
 
 /* COMMENTING */
-#let show-comments = true
-//#let show-comments = false
+#let show-comments = false
+#let show-drafts = true
+#let show-chapter-tocs = false
 
 #let minitoc(indent: true) = {
-  if show-comments {
+  if show-chapter-tocs {
     _minitoc(indent: indent)
   } else {
     ""
   }
 }
 }
-#let togglable(body) = {
+#let comment-toggle(body) = {
   if show-comments { body } else { "" }
 }
 #let draft(body) = {
   set text(fill: maroon)
-  togglable[_#body _]
+  
+  if show-drafts { [_#body _] }
+  else { "" }
 }
 #let todo = draft[TODO]
 
 #let comment(name, body, color: red) = {
   set text(color)
-  togglable[\ *>>> #name:* #body\ ]
+  comment-toggle[\ *>>> #name:* #body\ ]
 }
 
 #let chris(body) = {

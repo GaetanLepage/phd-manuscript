@@ -69,19 +69,20 @@ This overhead brings complexity to the data collection process but allows for a 
 Indeed, the number of sources plays a great role in performance and quantifying this influence has required experimenting with this parameter.
 Disposing of the audio features relating to each individual source allows for choosing how many sources should be active when loading each data sample from the disk.
 One solely has to sample a set ${i_1, i_2, dots, i_n}$ of sources to enable and sum the relevant source-specific features $S_i_1, dots, S_i_n$.
-The impact of the number of active sources is further studied in @sec:ssl:multi_source:experiments:number_of_sources.
+The impact of the number of active sources is further studied in @sec:ssl:multi_source:experiments.
+// TODO: replace with @sec:ssl:multi_source:experiments:number_of_sources if it has became its own section again.
 
 
 *Sampling frequency.*
-The method was designed to operate with audio signals sampled at 48kHz, which does not match the 16kHz sample rate of the LibriSpeech @panayotov_librispeech_2015 dataset that provides the clean speech utterances to the simulator.
+The method was designed to operate with audio signals sampled at 48kHz, which does not match the 16kHz sample rate of the LibriSpeech @panayotov_librispeech_2015 dataset, which provides the simulator with clean speech utterances.
 To account for this, the simulation of the audio signaled listened by each microphone of the array is operated at the native 16kHz frequency.
 The generated signals are then up-sampled to 48kHz.
 
 
 *#acr("STFT") representation of audio signals.*
 // multi-channel STFT
-As discussed in @sec:simulator:background:spectral-representations, several choices can be made when it comes to data representation.
-Although we have generated different datasets, the format used in the majority consisted of the Short Term Fourier Transform.
+As discussed in @sec:simulator:background:spectral-features, several choices can be made when it comes to data representation.
+Although we have generated different datasets, the format used in the majority was the Short-Term Fourier Transform.
 The #acr("STFT") is thus computed from the complete up-sampled simulated signal captured by each of the four microphones.
 For this, we employ a Hann window of length 2048, with a 50% overlap. We also apply a band-pass filtering by removing frequencies lower than 100Hz and higher than 48kHz.
 The consequent #acr("STFT") counts 337 frequency bins.
@@ -91,7 +92,7 @@ The consequent #acr("STFT") counts 337 frequency bins.
 We finally extract at most five short chunks of 320ms (i.e. 16 frames) from the global #acr("STFT")s.
 This duration constitutes a tradeoff between detection latency and performance.
 The longer the method is offered to listen, the better more accurate the results will be.
-However, in a dynamic robotics context, which we ultimately target, we cannot afford having long audio sequences for inferring the source positions.
+However, in a dynamic robotics context, which we ultimately target, we cannot afford to have long audio sequences for inferring the source positions.
 
 // TODO add the footnote
 #let tau-e = $colMath(tau_E, #orange)$
@@ -157,7 +158,7 @@ The latter will be further denoted $n_s$.\
 The set of #acr("DoA") values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
 
-===== Spatial spectrum
+*Spatial spectrum*
 
 The solution in question has been introduced by He et al. @he_deep_2018 and consists in estimating the spatial spectrum.
 The latter is a real-valued function of the #acr("DoA") ($cal(o): [-pi, pi] -> RR$).
@@ -191,7 +192,7 @@ A peak at $0°$ designates the presence of a source in front of the microphones.
 <sec:ssl:multi_source:method:doa_repr:gt_encoding>
 
 The dataset contains the #acr("DoA") values for each sample.
-We need to convert this list of scalar angular values to our spatial spectrum encoding format in order to allow its use as a regression target.
+We need to convert this list of scalar angular values to our spatial spectrum encoding format so that we can use it as a regression target.
 Numerous methods could be employed to achieve this.
 A first solution to this problem could be placing a pseudo-Dirac at the exact location of the source:
 

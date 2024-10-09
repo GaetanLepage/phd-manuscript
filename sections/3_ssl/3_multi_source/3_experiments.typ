@@ -3,6 +3,7 @@
 #import "_notations.typ": *
 
 === Experiments and results
+<sec:ssl:multi_source:experiments>
 
 // QUESTION: Should we mention the experiments made on the ILD/IPD binaural setup ?
 
@@ -114,7 +115,7 @@ $ <eq:ssl:multi_source:loss_function>
   I personally think that it is more readable to concentrate on the core formula for the loss between two samples. Of course it will be reduced using an average.
 ]
 
-===== Sub-optimal convergence
+*Sub-optimal convergence*
 
 #gaet[This should go in the _Results_ section... maybe as well as this entire _Training strategy_ section]
 // Impact of BS and LR
@@ -165,7 +166,7 @@ along a successful training process.
 We can distinguish two distinct phases.
 - First, the network exploits the trivial local optima consisting in predicting a null output.
   Both the loss and the output norm reach stable values.
-- Subsequently, from the 50k-th step, the model escapes from this plateau and learns to successfully solve the regression task.
+- Subsequently, from the 50kth step, the model escapes from this plateau and learns to solve the regression task successfully.
 
 When using too important batch sizes or too aggressive learning rates, the model indefinitely stagnates, keeping predicting zeros.
 Keskar et al. @keskar_large-batch_2017 have documented the negative effects that large batch sizes could have on generalization performance.
@@ -180,18 +181,19 @@ Identifying, characterizing and overcoming this shortcoming has been an essentia
   Should we have a dedicated paragraph just to show the (best) results, in the default scenario ?
 ]
 ==== Performance evaluation
+<sec:ssl:multi_source:experiments:performance_eval>
+
 // TODO: we can not really compare with the original authors as they evaluated on real data.
 
 // TODO give the value we have chosen for E_a
 
 // TODO PR-curves
 
-===== Impact of the number of sources
-<sec:ssl:multi_source:experiments:number_of_sources>
+*Impact of the number of sources*
 
 #gaet[Should _zero_ and _four_ be written using the digit directly ?]
 As explained in @sec:ssl:multi_source:method:dataset, the dataset allows for dynamically selecting a subset of zero to four sources at runtime.
-This features has allowed us to experiment with the impact of how many sources are present in the room simultaneously.
+This feature has allowed us to experiment with the impact of how many sources are present in the room simultaneously.
 
 #gaet[
   According to Chris, this is not that relevant
@@ -207,7 +209,7 @@ This features has allowed us to experiment with the impact of how many sources a
     - 4 sources: 5%.
   - _Scenario B_ uniformly chooses a number of sources between 1 and 4 for each sample. Thus, it is more challenging as at least one source is always present in the room, and significantly more samples present 3 or 4 sources.
   
-  As no artificial noise is added to the speech sources signal, the training dataset in _scenario A_ brings exactly 160k identical samples which observation tensor is null.
+  As no artificial noise is added to the speech sources' signals, the training dataset in _scenario A_ brings exactly 160k identical samples which observation tensor is null.
   Once the network successfully learns that it should output a zero-vector for those trivial samples, they will not contribute either to increasing or lowering the detection scores.
   
   Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to properly localize them.
@@ -300,7 +302,9 @@ $ <eq:ssl:multi_source:epsilon_loss>
 
 ==== Normalization <sec:ssl:multi_source:experiments:normalization>
 
-===== Background <sec:ssl:multi_source:experiments:normalization:background>
+// TODO: Convert this back to subsections if it has been moved to an upper level in the meantime (i.e. 'Background' can be a level-4 heading)
+//===== Background <sec:ssl:multi_source:experiments:normalization:background>
+*Background*
 
 Various schemes of normalization have been used in Deep Neural Networks.
 They address the phenomenon of _internal covariate shift_ which appears as architectures get deeper.
@@ -406,7 +410,7 @@ Although in a purely synthetic benchmark, this does not constitute an important 
 In our robotics context, the developed #acr("SSL") solution would have to be able to be used in real-world scenario where an entire batch of observation is not available at inference.
 
 This is what motivated enhancement of the model using other normalization schemes.
-As explained in @sec:ssl:multi_source:experiments:normalization:background, #acr("LN") does not encompass this behavioral distinction between training and evaluation.
+As explained in @sec:ssl:multi_source:experiments:normalization, #acr("LN") does not encompass this behavioral distinction between training and evaluation.
 @table:ssl:multi_source:experiments:normalization also compares the final performance of the layer normalization strategy.
 
 Overall, #acr("LN") and #acr("BN") offer comparable performance.
@@ -487,7 +491,7 @@ Like so, we are able to account for the missed detections and achieve a higher r
 
 The base context window of 16 #acr("STFT") frames amounts to approximately 320ms, which is a fairly short time period.
 During this interval, one or more speech sources could be inactive as the energy criteria $delta_"energy" (#tau-e)$ is not enforced on this specific data set.
-This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:number_of_sources (see @table:ssl:multi_source:experiments:n_sources for example).
+This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:performance_eval (see @table:ssl:multi_source:experiments:n_sources for example).
 
 
 
@@ -522,7 +526,7 @@ On the other two, only two (respectively three) random sources are enabled simul
 @fig:ssl:multi_source:experiments:doa_min_dist_hist depicts the distribution of #delta-t depending on this number of active sources.
 Naturally, when only two sources are present concurrently, high values of #delta-t remain likely.
 Yet, increasing the number of sources tends to decrease their likelihood and the minimum #acr("DoA") gap more often reaches lower values.
-Hence, the correlation between the number of sources and the difficulty of the #acr("SSL") task highlighted in @sec:ssl:multi_source:experiments:number_of_sources might be caused by two underlying reasons.
+Hence, the correlation between the number of sources and the difficulty of the #acr("SSL") task highlighted in @sec:ssl:multi_source:experiments:performance_eval might be caused by two underlying reasons.
 On the one hand, the model is expected to extract each speaker's location from the mixture of speech signals that constitute its input.
 An increase in the number of inherently hardens this task.
 On the other hand, low #delta-t samples also get more frequent, which could participate to hinder proper localization by itself.

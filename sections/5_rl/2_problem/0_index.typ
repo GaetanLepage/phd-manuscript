@@ -102,12 +102,7 @@ $
 where $x_i$ and $y_j$ denote the 2D position of the agent and $alpha$ its orientation with respect to the room global frame.
 The position and orientation restrictions are enforced by the following action space $cal(A)$:
 $
-  cal(A) = {
-    #stay,
-    #forward,
-    #left,
-    #right
-  }
+  cal(A) = {#stay, #forward, #left, #right}
 $
 <eq:rl:action_space>
 - #stay is the neutral action where the agent does not move away from its current location.
