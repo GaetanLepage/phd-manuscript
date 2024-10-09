@@ -65,7 +65,7 @@ $ <eq:simulator:rir_listened_signal>
 
 
 ==== Spectral representations of audio signals
-<sec:simulator:background:spectral-representations>
+<sec:simulator:background:spectral-features>
 
 #gaet[
   Not sure that this section will actually end up in *Simulator\/Background*.\
@@ -90,7 +90,7 @@ $ <eq:simulator:rir_listened_signal>
   ]
 ]
 
-===== Fourier transform, from continuous to discrete
+*Fourier transform, from continuous to discrete*
 
 Although the waveform rendering of an audio signal is a raw and natural representation of the information, several alternative higher-level transforms have been studied in the acoustic literature.
 // TODO: Fourier 'Transfom' or 'transform'
@@ -124,7 +124,7 @@ $ <eq:ssl:sota:stft_inf>
 This target domain is often referenced as the time-frequency plan.
 
 
-===== Binaural cues #draft[(Interaural ?)]
+*Binaural cues #draft[(Interaural ?)]*
 <sec:simulator:background:spectral-features:binaural>
 
 ====== Motivation
@@ -164,7 +164,7 @@ where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c F_s]$ characterizes the acou
 ====== Definition
 
 When considering a pair of microphones, it becomes possible to define interaural features.
-Those quantities and techniques have been introduced in the context of understanding and modelling binaural hearing.
+Those quantities and techniques have been introduced in the context of understanding and modeling binaural hearing.
 
 Let us assume a setting with a single speech source outputting the input signal $s(t)$ and a binaural microphone array.
 The signal received by the left and right microphones can be expressed as:

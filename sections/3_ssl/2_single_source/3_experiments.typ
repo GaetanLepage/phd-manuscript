@@ -76,7 +76,7 @@ $
 
 In both cases, a $C$-channel #acr("STFT") #shape("C","F","T") complex tensor translates to a to #shape("2C", "F", "T") real one.
 
-Besides raw #acr("STFT") values, interaural features, presented in @sec:simulator:background:spectral-features:binaural, have been widely used in the #acr("SSL") literature (#draft[TODO add citations]).
+Besides raw #acr("STFT") values, interaural features, presented in @sec:simulator:background:spectral-features, have been widely used in the #acr("SSL") literature (#draft[TODO add citations]).
 Binaural representations have been explicitly designed to highlight geometric information relevant to localization.
 Hence, and for the sake of exhaustivity, those cues have also been tested.
 This comparison employs a binaural array which allows to trivially compute #acr("ILD") and #acr("IPD") from the two #acr("STFT") arrays.
@@ -152,7 +152,7 @@ Considering their satisfying results, the interaural features will be kept as th
 ==== Reverberation
 
 #acr("SSL") methods leverage the inter-channel differences present in the time-frequency input data to infer the source position.
-Those variations, theoretically discussed in @sec:simulator:background:spectral-features:binaural 
+Those variations, theoretically discussed in @sec:simulator:background:spectral-features
 
 #figure(
   tablex(

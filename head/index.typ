@@ -16,7 +16,7 @@
 #outline(
   title: "Contents",
   indent: true,
-  depth: 2,
+  //depth: 2, // TODO
 )
 #outline(
   title: "List of Figures",
