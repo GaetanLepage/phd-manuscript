@@ -9,7 +9,7 @@
 <sec:simulator:simulator:features:dynamic_scenarios>
 
 The regular `step()` method of the simulator, presented in 
-@sec:simulator:simulator:components:sim_process allows to update the simulator and to generate new received signals.
+@sec:simulator:simulator:components allows to update the simulator and to generate new received signals.
 At each call of this function, each audio source reloads an entirely new signal and the simulation is performed subsequently.
 Regular speech sources, when asked to refresh their signal, draw a distinct sample from the clean speech corpus and outputs the corresponding signal.
 The latter usually consists in a full sentence pronounced by a speaker and lasts several seconds.
@@ -44,16 +44,16 @@ Thanks to our bootstrapping technic for reverberation, one may employ short simu
 #acr("RL") environments represent discrete-time phenomenons with #acrpl("MDP") and figure as possible use cases for this framework.
 
 
-#reset-acronym("ASR")
-==== #acr("ASR") integration
-
-// Introduction
-#acr("ASR"),
-
-===== State of the Art
-
-===== #acr("ASR") pipeline in the simulator
-
-===== #acr("WER") maps
-
-// TODO: insert figures
+//#reset-acronym("ASR")
+//==== #acr("ASR") integration
+//
+//// Introduction
+//#acr("ASR"),
+//
+//===== State of the Art
+//
+//===== #acr("ASR") pipeline in the simulator
+//
+//===== #acr("WER") maps
+//
+//// TODO: insert figures
