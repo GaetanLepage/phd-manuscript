@@ -81,7 +81,7 @@ We present the following microphone array configurations that have been tested.
 - We have also proposed a *three microphone* design disposed in a V-shaped arrangement.
 - Finally, a *square* array of four microphones has been implemented too.
 
-Their implementation has been integrated in our simulator (see @sec:simulator:simulator:components:mic_arrays).
+Their implementation has been integrated in our simulator (see @sec:simulator:simulator:components:sim_scenarios).
 
 The number of microphones plays an important role in the #("SSL") performance.
 As an illustrative example, when having a binaural microphone in the free field, i.e. where the effects of reverberation can be neglected, there exist a fundamental limit:

@@ -27,7 +27,7 @@ Our intent at exploring #acr("SSL") was initially motivated by our exploratory w
 #draft[
 #reset-acronym("GCC-PHAT")
   TODO: remove ?
-  ===== #acr("GCC-PHAT")
+  //===== #acr("GCC-PHAT")
   
   // https://dsp.stackexchange.com/questions/74574/understanding-gcc-phat-as-a-feature
 ]
