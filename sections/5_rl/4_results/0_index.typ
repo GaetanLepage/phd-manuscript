@@ -11,6 +11,9 @@
 
 === Training with analytical maps
 
+Before using real #acr("WER") maps, we have conducted experiments on synthetic cost maps.
+To validate the concept of training an agent with our custom #acr("WER") maps, we have used synthetic data.
+
 #draft[
   Objective: sanity check\
   Lossless encoding of the distance
@@ -22,6 +25,8 @@
   - Show how #acr("WER") decreases when adding reverb
   - Show examples of #acr("WER") maps on different settings
 ]
+
+#include "figures/wer_maps/figure.typ"
 
 === Reward shaping
 

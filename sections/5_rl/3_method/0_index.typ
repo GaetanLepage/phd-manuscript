@@ -58,6 +58,8 @@ It has been used as a building block in various research works #draft[insert exa
 Our final implementation uses the #speechbrain library, which has allowed us to choose from a substantial pool of state-of-the-art pre-trained models.
 The specific pipeline that was used in this work involves three components:
 //https://huggingface.co/speechbrain/asr-crdnn-rnnlm-librispeech
+//https://huggingface.co/speechbrain/asr-crdnn-transformerlm-librispeech
+//https://huggingface.co/speechbrain/asr-transformer-transformerlm-librispeech
 - The *tokenizer* that transforms each word into one or more tokens.
   This model has been trained on the #librispeech dataset @panayotov_librispeech_2015.
 - The *neural language model* represents the dynamics of language.
@@ -66,29 +68,23 @@ The specific pipeline that was used in this work involves three components:
   In this case, the recurrent units act on word sequences
   It comprises an embedding layer that maps individual words to 128-dimensional vectors.
   Those vectors are then fed to the #acr("RNN"), which is followed by fully connected layers.
-- Finally, the *acoustic model* performs the actual task of speech recognition.
+  Other architectures are also provided by #speechbrain such as a _TransformerLM_, based on the famous Transformer architecture @vaswani_attention_nodate.
+- Finally, the *acoustic model* performs the actual task of speech recognition by mapping audio features to tokens.
   It employs a #acr("CRDNN") architecture for the encoder, which maps audio features (#acr("STFT"), #acr("MFCC")...) to tokens.
   #speechbrain applies an additional #acr("CTC") @graves_towards_2014 loss to the encoder.
   The #acr("CTC") cost function allows the training of recurrent architectures to perform speech recognition without requiring prior alignment between the input and target sequences.
+  Alternatively, #speechbrain ships a Transformer-based encoder-decoder also using the #acr("CTC") training strategy.
 
-We have also explored a more powerful model relying on transformers 
-#draft[
-  - citation
-  - explain methodo ?
-  - benchmark -> finish current experiment (warning: takes a long time to run)
-]
-
-#include "asr_models_comparison.typ"
+To choose the best model for our use case, we empirically compared three models provided in #speechbrain.
+We evaluated them on the #librispeech training set which contains 25,539 samples ranging from 3 to 16 seconds.
 
 We have integrated the #speechbrain #acr("ASR") library into the simulator.
 The input signals used for each source are drawn from the #librispeech @panayotov_librispeech_2015 (@sec:simulator:simulator:components:sound_sources).
 The simulator loads the ground truth transcripts along with the clean signal.
 Thus, our #acr("ASR") module can be fed with the listened signal computed by the simulator, and the obtained transcription can then be compared with the ground-truth one.
 
-#draft[
-  We should compare the two ASR models.\
-  I think that we have kept the light model...
-]
+
+#include "asr_models_comparison.typ"
 
 
 ==== Computing of #acr("WER")-maps
