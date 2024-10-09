@@ -79,7 +79,7 @@ To choose the best model for our use case, we empirically compared three models 
 We evaluated them on the #librispeech training set which contains 25,539 samples ranging from 3 to 16 seconds.
 
 We have integrated the #speechbrain #acr("ASR") library into the simulator.
-The input signals used for each source are drawn from the #librispeech @panayotov_librispeech_2015 (@sec:simulator:simulator:components:sound_sources).
+The input signals used for each source are drawn from the #librispeech @panayotov_librispeech_2015 (@sec:simulator:simulator:components:sim_scenarios).
 The simulator loads the ground truth transcripts along with the clean signal.
 Thus, our #acr("ASR") module can be fed with the listened signal computed by the simulator, and the obtained transcription can then be compared with the ground-truth one.
 

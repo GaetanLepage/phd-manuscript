@@ -172,7 +172,7 @@ This statement leads to the definition of the blending process as a regression t
 
 The target map $cal(M)_t^*$ is computed from a set of ground truth sources positions $cal(X)_s = lr(((x_1, y_1), dots, (x_n_s, y_n_s)), size: #150%)$ expressed in the current robot frame $cal(F)_t$.
 
-A strategy similar to the spectrum encoding introduced for multi-source #acr("SSL") presented in @sec:ssl:multi_source:method:doa_repr:gt_encoding has been chosen.
+A strategy similar to the spectrum encoding introduced for multi-source #acr("SSL") presented in @sec:ssl:multi_source:method:doa_repr has been chosen.
 Each source is modeled by a 2D Gaussian blob centered at its position.
 The envelope of those Gaussians leads to the continuous target map:
 #func-def(
@@ -287,7 +287,7 @@ Once the aggregation function $Psi$ has been used to generate a single-channel 2
 The core principle of this step lies in extracting a set of source positions out of the likelihood map.
 Naturally, the detection performance is highly correlated to the quality of the provided maps.
 
-This task resembles the #doa spectrum post-processing performed for multi-source #acr("SSL") (@sec:ssl:multi_source:method:detection_decoding).
+This task resembles the #doa spectrum post-processing performed for multi-source #acr("SSL") (@sec:ssl:multi_source:method:doa_repr).
 Indeed, local maxima in the likelihood 2D maps are expected to encode potential sources' positions.
 The simple algorithm implemented there remains however impractical in the current case as the data is two-dimensional.
 

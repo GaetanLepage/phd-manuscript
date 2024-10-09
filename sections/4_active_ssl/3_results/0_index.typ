@@ -280,7 +280,7 @@ All in all, the proposed deep neural architecture has shown to be a robust and p
 
 As seen in @sec:active_ssl:results:impact_of_ssl_model, the #acr("ASSL") process works significantly better when provided with the ground truth #doa spectra instead of using the pre-trained #acr("SSL") model.
 One of the reasons leading to poorer performance lies in the peaks present in those heatmaps being lower.
-This does not necessarily impact the static #acr("SSL") metrics as any local maximum above the detection threshold #xi-doa would be counted as a #doa prediction (see @sec:ssl:multi_source:method:detection_decoding).
+This does not necessarily impact the static #acr("SSL") metrics as any local maximum above the detection threshold #xi-doa would be counted as a #doa prediction (see @sec:ssl:multi_source:method:doa_repr).
 However, this threshold does not intervene in the #acr("ASSL") pipeline and the #doa spectrum is directly converted into a 2D #doa map.
 When using the deep neural network #psi-dnn for combining the maps, the output is normalized to the $[0, 1]$ range.
 Although this would help amplifying too dim localization heatmaps, it cannot compensate for a relative differences coming from uneven peaks in the #doa spectra.

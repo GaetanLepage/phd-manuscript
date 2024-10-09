@@ -370,7 +370,8 @@ where
 
 Those two methods have been proven to be effective in the training deep neural network architectures.
 
-===== Experiments
+//===== Experiments
+*Experiments*
 
 Although He et al. chose to use Batch Normalization in their work, our final architecture makes use of the more flexible Layer Normalization.
 The choice of the normalization scheme ended up being crucial to achieving good performance.
@@ -497,7 +498,7 @@ This sole difference in the data generation process explains the gap in performa
 
 ==== Ablation study on sources angular proximity
 
-The decoding process, presented in @sec:ssl:multi_source:method:detection_decoding, consists in extracting the local maxima of the predicted #acr("DoA") spectrum.
+The decoding process, presented in @sec:ssl:multi_source:method:doa_repr, consists in extracting the local maxima of the predicted #acr("DoA") spectrum.
 The abscissas of the resulting peaks are considered as the final angle values.
 As such, samples involving sources with close #acr("DoA") values are expected to be challenging for our method.
 

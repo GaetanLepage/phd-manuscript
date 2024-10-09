@@ -8,12 +8,14 @@ This offers a more in-depth description of the pipeline's inner workings.
 
 
 ==== Low level static simulation
+<sec:simulator:simulator:components:low_level>
 
 In a first time, the acoustic simulation aspect of the library will be explored.
 This constitutes the starting point of the library and is responsible for its central feature: computing listened signals in a reverberant environment.
 
-===== #acr("RIR") simulation
-<sec:simulator:simulator:components:low_level:rir_sim>
+*#acr("RIR") simulation*
+//===== #acr("RIR") simulation
+//<sec:simulator:simulator:components:low_level:rir_sim>
 
 The core component around which the simulation pipeline revolves is the #acr("RIR") simulation library.
 We have chosen the framework of #acr("RIR") filters for its simplicity and prevalence in the scientific literature.
@@ -91,7 +93,8 @@ A higher sampling frequency will be lead to increasing the computational cost of
 In most cases, using the same frequency as the one of the audio signals involved consists in a safe and practical choice.
 
 
-===== Room, static acoustic simulation
+//===== Room, static acoustic simulation
+*Room, static acoustic simulation*
 
 The _Room_ module is a wrapper around the #acr("RIR") simulation library.
 It brings some additional features among which is the computation of listened signals.
@@ -101,7 +104,7 @@ We consider a _shoebox_ room defined by its dimensions ($L_x$, $L_y$ and $L_z$) 
 Individual point-wise sources and microphones can then be positioned in the 3D space.
 Each change in the audio objects localization leads to a new simulation which updates the ($n_m times n_s times L_"RIR"$) #acr("RIR") tensor.
 Our implementation ensures the caching of the #acr("RIR") and solely re-computes it when necessary.
-As stated in previous @sec:simulator:simulator:components:low_level:rir_sim, the Room can use both the _Pyroomacoustics_ and _gpuRIR_ back ends interchangeably.
+As stated in previous @sec:simulator:simulator:components:low_level, the Room can use both the _Pyroomacoustics_ and _gpuRIR_ back ends interchangeably.
 
 To actually compute the signal received at each microphone, the input signal from all active sources are gathered.
 Then, the listened signals are estimated by convolving the sources' signals with the corresponding #acr("RIR") vector as described in @eq:simulator:rir_listened_signal.
@@ -115,11 +118,14 @@ Contrarily, one could fix the microphone position and collect the received audio
 Lastly, a plotting helper has been implemented to handily visualize the state of the room and its content.
 
 ==== Ergonomic simulation of complex scenarios
+<sec:simulator:simulator:components:sim_scenarios>
 
 Although our _room_ abstraction extends the capabilities of the core #acr("RIR") simulation library, it still lacks abstraction power to allow for conveniently experimenting complex dynamic scenarios.
 Providing this user experience required introducing more powerful objects.
 
-===== Sound sources <sec:simulator:simulator:components:sound_sources>
+*Sound sources*
+//===== Sound sources
+//<sec:simulator:simulator:components:sound_sources>
 
 The core motivation for developing this acoustic pipeline was to experiment with #acr("HRI") scenarios.
 In this sense, the most important type of sound sources to consider was speech sources, mimicking humans speaking in the room.
@@ -137,8 +143,9 @@ The latter is an #acr("ASR") corpus of 1000 hours worth of audiobooks, sampled a
 Each time a speech source is required to produce a signal, a random sample is pulled from _LibriSpeech_ and outputted.
 
 
-===== Microphone arrays
-<sec:simulator:simulator:components:mic_arrays>
+*Microphone arrays*
+//===== Microphone arrays
+//<sec:simulator:simulator:components:mic_arrays>
 
 // Support for various arrays
 Microphone arrays provide a convenient abstraction to use pre-defined multiple microphone arrays in the environment as well as defining custom ones.
@@ -163,7 +170,9 @@ Naturally, a single-microphone array is also provided.
 A user of this library could easily implement a microphone array of its own and benefit from all the features of the simulator.
 
 
-===== The simulator interface
+
+//===== The simulator interface
+*The simulator interface*
 
 The simulator constitutes the center piece of the interactive pipeline.
 It serves as en engine coordinating all the components mentioned above.
@@ -186,7 +195,10 @@ Thus we have built the rest of the pipeline to allow for full control of audio o
 Besides, as the conducted downstream task involved mostly planar problems, most implemented features focus on 2D movements and spatial measures.
 No artificial limitation prevent the use of our library for 3D problems.
 
-====== Audio objects movement <sec:simulator:simulator:components:movement>
+#pagebreak()
+*Audio objects movement*
+//====== Audio objects movement
+//<sec:simulator:simulator:components:movement>
 
 Audio objects are of two kinds: sound sources and microphone arrays.
 Sound sources are modeled by a point in space, with an orientation.
@@ -211,8 +223,9 @@ In conclusion, the simulator furnishes a convenient and safe interface for movin
 This facilitates the flexible implementation of numerous acoustic #acr("HRI") use cases.
 
 
-====== Simulation process
-<sec:simulator:simulator:components:sim_process>
+*Simulation process*
+//====== Simulation process
+//<sec:simulator:simulator:components:sim_process>
 
 Most downstream tasks leveraging the simulator involved some type of iteration through discrete time step simulation.
 More precisely, the typical workflow when using the simulator includes an initialization phase, where the _Room_, microphone array and _AudioSimulator_ are created.
@@ -221,12 +234,12 @@ More precisely, the typical workflow when using the simulator includes an initia
 Once the different components have been set up, the actual simulation process may take place.
 The procedure involves positioning all audio objects in the room.
 This can be done directly by the simulator in a random fashion.
-Subsequently, each source is individually asked to provide a new sound sample (see @sec:simulator:simulator:components:sound_sources).
+Subsequently, each source is individually asked to provide a new sound sample (see @sec:simulator:simulator:components:sim_scenarios).
 The actual sound propagation simulation can then happen and the embedded _Room_ module returns the multi-channel received audio signal.
 Either the raw waveform or further processed time-frequency features can be produced.
 The user also has the ability to listen to the produced signal directly.
 In practice, those steps are abstracted and automatized by the `step()` method.
-Lastly, the agent might be moved using the exposed displacement helpers presented in @sec:simulator:simulator:components:movement.
+Lastly, the agent might be moved using the exposed displacement helpers presented in @sec:simulator:simulator:components:sim_scenarios.
 @fig:simulator:simulator:simulator_workflow illustrates this routine.
 
 #figure(
@@ -252,7 +265,8 @@ The duration control feature gives a fine-grained control of the computational t
 Indeed, as further demonstrated in later @sec:simulator:simulator:performance the simulation time is directly impacted by the duration of the signals.
 
 
-====== Feature extraction
+//====== Feature extraction
+*Feature extraction*
 
 Observing the state of the simulator represents an essential feature set of our library.
 Potential downstream usages may require different kinds of monitoring.
@@ -277,7 +291,8 @@ Finally, another function has been added to calculate the #acr("ILD") and #acr("
 All those features partly remove the post-processing burden of the downstream user, allowing for the most direct and practical usage possible.
 
 
-====== Visualization
+*Visualization*
+//====== Visualization
 
 For development purposes, it may come in handy to graphically render the state of the simulator.
 The pipeline includes a basic yet efficient way of visualizing the different objects in the room.

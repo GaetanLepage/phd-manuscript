@@ -127,7 +127,7 @@ This target domain is often referenced as the time-frequency plan.
 *Binaural cues #draft[(Interaural ?)]*
 <sec:simulator:background:spectral-features:binaural>
 
-====== Motivation
+*Motivation*
 
 #draft[Single microphone]
 
@@ -161,7 +161,7 @@ $
 $
 where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c F_s]$ characterizes the acoustic path from the source to the microphone. $delta$ denotes the Dirac delta function.
 
-====== Definition
+*Definition*
 
 When considering a pair of microphones, it becomes possible to define interaural features.
 Those quantities and techniques have been introduced in the context of understanding and modeling binaural hearing.

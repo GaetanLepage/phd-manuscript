@@ -188,8 +188,9 @@ A peak at $0°$ designates the presence of a source in front of the microphones.
 
 // TODO: insert figure
 
-===== Multi source #acr("DoA") encoding
-<sec:ssl:multi_source:method:doa_repr:gt_encoding>
+*Multi source #acr("DoA") encoding*
+//===== Multi source #acr("DoA") encoding
+//<sec:ssl:multi_source:method:doa_repr:gt_encoding>
 
 The dataset contains the #acr("DoA") values for each sample.
 We need to convert this list of scalar angular values to our spatial spectrum encoding format so that we can use it as a regression target.
@@ -264,8 +265,9 @@ We chose to set $sigma = 5°$.
 
 The main benefit of this format, alongside with its ability to encode an arbitrary number of sources, is to frame the #acr("SSL") problem as a simple regression task.
 
-===== Detection decoding
-<sec:ssl:multi_source:method:detection_decoding>
+*Detection decoding*
+//===== Detection decoding
+//<sec:ssl:multi_source:method:detection_decoding>
 
 The employed #acr("DoA") encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
 Namely, thanks to its flexibility, it allows for representing an arbitrary number of sources.
