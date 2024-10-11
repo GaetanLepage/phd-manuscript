@@ -12,7 +12,7 @@
 /* CONTENT */
 /*---------*/
 
-//#include "_misc/progress.typ"
+#include "_misc/progress.typ"
 
 // FRONT
 #show: front-matter

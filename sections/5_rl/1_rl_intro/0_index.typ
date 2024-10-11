@@ -148,13 +148,31 @@ $
     &= EE[sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s]
 $
 
+#todo
+
 
 === Deep Reinforcement Learning
 <sec:rl:intro:deep_reinforcement_learning>
 
-@li_deep_2018 (#acr("DRL"), An overview)
+Although #acr("RL") has existed since the 1970s, it has known a more recent and considerable surge in popularity @arulkumaran_deep_2017.
+As supervised learning and the machine learning field in general, #acr("RL") has benefitted from the possibilities offered by Deep Neural Networks.
+Traditionally, #acr("RL") leveraged simpler methods such as tabular methods @watkins_learning_1989 @sutton_learning_1988, linear function approximators, or shallow neural networks @barto_neuronlike_1983 @tesauro_temporal_nodate.
+The main problem of those approaches for policy modeling is their limited capacity to handle larger state and action spaces.
+Hence, #acr("RL") has been mainly limited to low-dimensional problems @arulkumaran_deep_2017.
+As #acrpl("MDP") become more intricate, the memory, computation, and, more importantly, sample complexities grow significantly.
+#acrpl("DNN") offered a capable scaling method and have been used successfully as function approximators @arulkumaran_deep_2017 @wang_deep_2024.
 
 @mnih_playing_2013 (Deep Q-networks)
+
+
+REINFORCE @williams_simple_1992
+#acrpl("DNN") have been used as powerful function approximations.
+They made tackling more complex decision problems possible.
+
+
+
+@li_deep_2018 (#acr("DRL"), An overview)
+
 
 === #acr("RL") for robotics
 
@@ -281,12 +299,14 @@ $
     + dots
   )
 $
-It can be shown that this expression simplifies as:
-$
-  hat(A)_t^("GAE"(gamma, lambda))
-    = sum_(k=0)^(infinity)
-    (lambda gamma)^k delta_(t + k) ^V
-$
+#block(breakable: false)[
+  It can be shown that this expression simplifies as:
+  $
+    hat(A)_t^("GAE"(gamma, lambda))
+      = sum_(k=0)^(infinity)
+      (lambda gamma)^k delta_(t + k) ^V
+  $
+]
 #todo
 
 
