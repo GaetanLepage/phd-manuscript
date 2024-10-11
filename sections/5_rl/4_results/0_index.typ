@@ -19,6 +19,28 @@ To validate the concept of training an agent with our custom #acr("WER") maps, w
   Lossless encoding of the distance
 ]
 
+The adopted proxy for the #acr("WER") is defined as:
+$
+  hat("WER") = d + theta
+$
+where:
+- $d$ is the source-microphone distance
+- $theta$ is the #doa between the source and the microphone
+
+This formulation is motivated by our previous observations of real #acr("WER") maps.
+
+
+#figure(
+  image(
+    "figures/synthetic_wer_map.svg",
+    width: 80%,
+  ),
+  caption: flex-caption(
+    [Directional (east orientation) synthetic #acr("WER") map],
+    [Directional synthetic WER map]),
+)
+
+
 === Real #acr("WER") maps
 
 #draft[
