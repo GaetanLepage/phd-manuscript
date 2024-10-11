@@ -69,9 +69,9 @@ $
 #let shape(x, y, z) = $(#str(x), #str(y), #str(z))$
 
 /* COMMENTING */
-#let show-comments = false
+#let show-comments = true
 #let show-drafts = true
-#let show-chapter-tocs = false
+#let show-chapter-tocs = true
 
 #let minitoc(indent: true) = {
   if show-chapter-tocs {
