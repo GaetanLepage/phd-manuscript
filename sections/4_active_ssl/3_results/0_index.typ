@@ -144,16 +144,6 @@ While the neural network was able to directly yield distinct blobs, the obtained
 Indeed, too low values of #clip-t do not manage to disconnect the various clusters and would link to a single prediction from the detection pipeline.
 On the contrary, the network output suffers from too aggressive filtering as the blob with the lowest intensity eventually disappears for $#clip-t >= 0.8$.
 
-#gaet[
-  Maybe PR curves will be more visual for illustrating this.\
-  The issue is that the four curves cannot really be plotted together.
-  Each one needs to be nicely scaled to distinguish its shape.
-]
-#chris[
-  the table is fine
-]
-
-
 #figure(
   image(
     "figures/clipping_threshold.svg",

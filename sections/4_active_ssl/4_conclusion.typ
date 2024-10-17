@@ -16,12 +16,12 @@ In this chapter, we have presented a custom approach for performing a simple tas
   Both of those tracks might allow pushing detection performance by eliminating hand-crafting middle steps.
   However, they would necessitate additional adaptations, inter alia, being able to localize an arbitrary number of sources.
   
-  More generally, the chosen formulation for the #acr("ASSL") problem itself remains quite simplistic.
+  More generally, the chosen formulation for the #acr("ASSL") problem remains simplistic.
   Several works have addressed more complex variations of this task.
-  Performing both the source localization as well as providing an optimized movement policy constitutes a more complete and relevant problem.
+  Performing both the source localization and providing an optimized movement policy constitutes a more complete and relevant problem.
   Also, including a multimodal approach to this framework would constitute an obvious improvement to this audio-based solution.
   Indeed, most social robots incorporate both audio and vision sensors to allow for broader perceptual capabilities.
-  Exploiting visual information could certainly strengthen the ability of the agent to localize speakers even in the presence of imperfect observations.
+  Exploiting visual information could certainly strengthen the agent's ability to localize speakers even in the presence of imperfect observations.
 ]
 
 #draft[
