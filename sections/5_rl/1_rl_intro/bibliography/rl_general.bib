@@ -370,3 +370,95 @@ DRL survey
 	keywords = {man},
 	file = {IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/GA2KWMQ7/9904958.html:text/html;PDF:/home/gaetan/.local/share/Zotero/storage/VUHLGPBC/Wang et al. - 2024 - Deep Reinforcement Learning A Survey.pdf:application/pdf},
 }
+
+
+@article{bellemare_arcade_2013,
+	title = {The Arcade Learning Environment: An Evaluation Platform for General Agents},
+	volume = {47},
+	issn = {1076-9757},
+	url = {http://arxiv.org/abs/1207.4708},
+	doi = {10.1613/jair.3912},
+	shorttitle = {The Arcade Learning Environment},
+	abstract = {In this article we introduce the Arcade Learning Environment ({ALE}): both a challenge problem and a platform and methodology for evaluating the development of general, domain-independent {AI} technology. {ALE} provides an interface to hundreds of Atari 2600 game environments, each one diﬀerent, interesting, and designed to be a challenge for human players. {ALE} presents signiﬁcant research challenges for reinforcement learning, model learning, model-based planning, imitation learning, transfer learning, and intrinsic motivation. Most importantly, it provides a rigorous testbed for evaluating and comparing approaches to these problems. We illustrate the promise of {ALE} by developing and benchmarking domain-independent agents designed using well-established {AI} techniques for both reinforcement learning and planning. In doing so, we also propose an evaluation methodology made possible by {ALE}, reporting empirical results on over 55 diﬀerent games. All of the software, including the benchmark agents, is publicly available.},
+	pages = {253--279},
+	journaltitle = {Journal of Artificial Intelligence Research},
+	shortjournal = {jair},
+	author = {Bellemare, Marc G. and Naddaf, Yavar and Veness, Joel and Bowling, Michael},
+	urldate = {2024-10-14},
+	date = {2013-06-14},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {1207.4708 [cs]},
+	keywords = {man},
+	file = {PDF:/home/gaetan/.local/share/Zotero/storage/P3AYJC53/Bellemare et al. - 2013 - The Arcade Learning Environment An Evaluation Platform for General Agents.pdf:application/pdf},
+}
+
+
+# A Natural Policy Gradient
+@inproceedings{kakade_natural_2001,
+	title = {A Natural Policy Gradient},
+	volume = {14},
+	url = {https://papers.nips.cc/paper_files/paper/2001/hash/4b86abe48d358ecf194c56c69108433e-Abstract.html},
+	abstract = {We provide a  natural gradient method that represents the steepest  descent  direction based on the underlying structure of the param(cid:173) eter space.  Although gradient methods cannot make large changes  in  the  values  of the  parameters,  we  show  that  the  natural  gradi(cid:173) ent is moving toward choosing a greedy optimal action rather than  just a  better action.  These greedy optimal  actions  are those  that  would  be  chosen  under  one  improvement  step  of  policy  iteration  with  approximate,  compatible  value  functions,  as  defined  by  Sut(cid:173) ton  et al.  [9].  We  then show drastic performance improvements in  simple {MDPs} and in the more challenging {MDP} of Tetris.},
+	booktitle = {Advances in Neural Information Processing Systems},
+	publisher = {{MIT} Press},
+	author = {Kakade, Sham M},
+	urldate = {2024-10-17},
+	date = {2001},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/WHT67IWQ/Kakade - 2001 - A Natural Policy Gradient.pdf:application/pdf},
+}
+
+
+######################################################################
+# RLHF
+@misc{ouyang_training_2022,
+	title = {Training language models to follow instructions with human feedback},
+	url = {http://arxiv.org/abs/2203.02155},
+	doi = {10.48550/arXiv.2203.02155},
+	abstract = {Making language models bigger does not inherently make them better at following a user's intent. For example, large language models can generate outputs that are untruthful, toxic, or simply not helpful to the user. In other words, these models are not aligned with their users. In this paper, we show an avenue for aligning language models with user intent on a wide range of tasks by fine-tuning with human feedback. Starting with a set of labeler-written prompts and prompts submitted through the {OpenAI} {API}, we collect a dataset of labeler demonstrations of the desired model behavior, which we use to fine-tune {GPT}-3 using supervised learning. We then collect a dataset of rankings of model outputs, which we use to further fine-tune this supervised model using reinforcement learning from human feedback. We call the resulting models {InstructGPT}. In human evaluations on our prompt distribution, outputs from the 1.3B parameter {InstructGPT} model are preferred to outputs from the 175B {GPT}-3, despite having 100x fewer parameters. Moreover, {InstructGPT} models show improvements in truthfulness and reductions in toxic output generation while having minimal performance regressions on public {NLP} datasets. Even though {InstructGPT} still makes simple mistakes, our results show that fine-tuning with human feedback is a promising direction for aligning language models with human intent.},
+	number = {{arXiv}:2203.02155},
+	publisher = {{arXiv}},
+	author = {Ouyang, Long and Wu, Jeff and Jiang, Xu and Almeida, Diogo and Wainwright, Carroll L. and Mishkin, Pamela and Zhang, Chong and Agarwal, Sandhini and Slama, Katarina and Ray, Alex and Schulman, John and Hilton, Jacob and Kelton, Fraser and Miller, Luke and Simens, Maddie and Askell, Amanda and Welinder, Peter and Christiano, Paul and Leike, Jan and Lowe, Ryan},
+	urldate = {2024-10-17},
+	date = {2022-03-04},
+	eprinttype = {arxiv},
+	eprint = {2203.02155},
+	keywords = {man},
+	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/ZNH3XLN6/Ouyang et al. - 2022 - Training language models to follow instructions with human feedback.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/LJAMNMIZ/2203.html:text/html},
+}
+
+@misc{bai_training_2022,
+	title = {Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback},
+	url = {http://arxiv.org/abs/2204.05862},
+	doi = {10.48550/arXiv.2204.05862},
+	abstract = {We apply preference modeling and reinforcement learning from human feedback ({RLHF}) to finetune language models to act as helpful and harmless assistants. We find this alignment training improves performance on almost all {NLP} evaluations, and is fully compatible with training for specialized skills such as python coding and summarization. We explore an iterated online mode of training, where preference models and {RL} policies are updated on a weekly cadence with fresh human feedback data, efficiently improving our datasets and models. Finally, we investigate the robustness of {RLHF} training, and identify a roughly linear relation between the {RL} reward and the square root of the {KL} divergence between the policy and its initialization. Alongside our main results, we perform peripheral analyses on calibration, competing objectives, and the use of {OOD} detection, compare our models with human writers, and provide samples from our models using prompts appearing in recent related work.},
+	number = {{arXiv}:2204.05862},
+	publisher = {{arXiv}},
+	author = {Bai, Yuntao and Jones, Andy and Ndousse, Kamal and Askell, Amanda and Chen, Anna and {DasSarma}, Nova and Drain, Dawn and Fort, Stanislav and Ganguli, Deep and Henighan, Tom and Joseph, Nicholas and Kadavath, Saurav and Kernion, Jackson and Conerly, Tom and El-Showk, Sheer and Elhage, Nelson and Hatfield-Dodds, Zac and Hernandez, Danny and Hume, Tristan and Johnston, Scott and Kravec, Shauna and Lovitt, Liane and Nanda, Neel and Olsson, Catherine and Amodei, Dario and Brown, Tom and Clark, Jack and {McCandlish}, Sam and Olah, Chris and Mann, Ben and Kaplan, Jared},
+	urldate = {2024-10-17},
+	date = {2022-04-12},
+	eprinttype = {arxiv},
+	eprint = {2204.05862},
+	keywords = {man},
+	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/NSVZEQS8/Bai et al. - 2022 - Training a Helpful and Harmless Assistant with Reinforcement Learning from Human Feedback.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/4YT2FYCA/2204.html:text/html},
+}
+
+# GPT3
+@misc{brown_language_2020,
+	title = {Language Models are Few-Shot Learners},
+	url = {http://arxiv.org/abs/2005.14165},
+	doi = {10.48550/arXiv.2005.14165},
+	abstract = {Recent work has demonstrated substantial gains on many {NLP} tasks and benchmarks by pre-training on a large corpus of text followed by fine-tuning on a specific task. While typically task-agnostic in architecture, this method still requires task-specific fine-tuning datasets of thousands or tens of thousands of examples. By contrast, humans can generally perform a new language task from only a few examples or from simple instructions - something which current {NLP} systems still largely struggle to do. Here we show that scaling up language models greatly improves task-agnostic, few-shot performance, sometimes even reaching competitiveness with prior state-of-the-art fine-tuning approaches. Specifically, we train {GPT}-3, an autoregressive language model with 175 billion parameters, 10x more than any previous non-sparse language model, and test its performance in the few-shot setting. For all tasks, {GPT}-3 is applied without any gradient updates or fine-tuning, with tasks and few-shot demonstrations specified purely via text interaction with the model. {GPT}-3 achieves strong performance on many {NLP} datasets, including translation, question-answering, and cloze tasks, as well as several tasks that require on-the-fly reasoning or domain adaptation, such as unscrambling words, using a novel word in a sentence, or performing 3-digit arithmetic. At the same time, we also identify some datasets where {GPT}-3's few-shot learning still struggles, as well as some datasets where {GPT}-3 faces methodological issues related to training on large web corpora. Finally, we find that {GPT}-3 can generate samples of news articles which human evaluators have difficulty distinguishing from articles written by humans. We discuss broader societal impacts of this finding and of {GPT}-3 in general.},
+	number = {{arXiv}:2005.14165},
+	publisher = {{arXiv}},
+	author = {Brown, Tom B. and Mann, Benjamin and Ryder, Nick and Subbiah, Melanie and Kaplan, Jared and Dhariwal, Prafulla and Neelakantan, Arvind and Shyam, Pranav and Sastry, Girish and Askell, Amanda and Agarwal, Sandhini and Herbert-Voss, Ariel and Krueger, Gretchen and Henighan, Tom and Child, Rewon and Ramesh, Aditya and Ziegler, Daniel M. and Wu, Jeffrey and Winter, Clemens and Hesse, Christopher and Chen, Mark and Sigler, Eric and Litwin, Mateusz and Gray, Scott and Chess, Benjamin and Clark, Jack and Berner, Christopher and {McCandlish}, Sam and Radford, Alec and Sutskever, Ilya and Amodei, Dario},
+	urldate = {2024-10-17},
+	date = {2020-07-22},
+	eprinttype = {arxiv},
+	eprint = {2005.14165},
+	keywords = {man},
+	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/MYAMUE7U/Brown et al. - 2020 - Language Models are Few-Shot Learners.pdf:application/pdf},
+}
+
+#
+######################################################################

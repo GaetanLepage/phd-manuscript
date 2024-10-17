@@ -14,6 +14,7 @@
   "CRDNN": ("Convolutional Recurrent Deep Neural Network"),
   "DL": ("Deep Learning"),
   "DNN": ("Deep Neural Network"),
+  "LLM": ("Large Language Model", "Large Language Models"),
   "LN": ("Layer Normalization"),
   "RNNLM": ("Recurrent Neural Network Language Model"),
   "MSE": ("Mean Squared Error"),
@@ -67,6 +68,7 @@
   "POMDP": ("Partially Observable Markov Decision Process"),
   "PPO": ("Proximal Policy Optimization"),
   "RL": ("Reinforcement Learning"),
+  "RLHF": ("Reinforcement Learning from Human Feedback"),
   "TD": ("Temporal-difference"),
   "TRPO": ("Trust Region Policy Optimization")
 ))

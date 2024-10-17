@@ -160,25 +160,59 @@ Traditionally, #acr("RL") leveraged simpler methods such as tabular methods @wat
 The main problem of those approaches for policy modeling is their limited capacity to handle larger state and action spaces.
 Hence, #acr("RL") has been mainly limited to low-dimensional problems @arulkumaran_deep_2017.
 As #acrpl("MDP") become more intricate, the memory, computation, and, more importantly, sample complexities grow significantly.
-#acrpl("DNN") offered a capable scaling method and have been used successfully as function approximators @arulkumaran_deep_2017 @wang_deep_2024.
+#acrpl("DNN") offered a capable scaling method and have been successfully used as function approximators @arulkumaran_deep_2017 @wang_deep_2024.
 
-@mnih_playing_2013 (Deep Q-networks)
+The first applications of artificial neural networks to #acr("RL") occurred in the 1990s.
+For instance, the popular REINFORCE algorithm by Williams @williams_simple_1992 employed a shallow network that is optimized using gradient descent.
+However, the major success awaited Deep Learning's boom pf the 2010s.
+Mnih et al. @mnih_playing_2013 have famously demonstrated the capacity of those more modern models.
+They combined Watkin's Q-value algorithm @watkins_learning_1989 to a deep convolutional neural network.
+To showcase the capabilities of their method, the authors tackled seven Atari 2600 games from the Arcade Learning Environment @bellemare_arcade_2013.
+Performance surpassed existing benchmarks and, notably, human performance in six of those games.
+This work acted as a foundation for the entire #acr("RL") domain and started the highly dynamic era of #acr("DRL").
+Since then, larger and larger networks have been combined with advances made on the algorithmic aspects.
+#draft[
+  Cite more papers (if possible that I have not yet cited in the intro)
+]
 
+*#acr("RLHF").*
+Finally, #acr("RLHF") helps turning #acrpl("LLM") into conversational agents @ouyang_training_2022 @bai_training_2022.
+At first, large-scale auto-regressive models such as GPT-3 @brown_language_2020 on massive datasets in a supervised manner.
+Then, human agents interact with the resulting _chatbot_ and grade their exchanges to generate a reward signal.
+The initial model then gets fine-tuned using a #acr("DRL") algorithm such as #acr("PPO") @schulman_proximal_2017 #todo
 
-REINFORCE @williams_simple_1992
-#acrpl("DNN") have been used as powerful function approximations.
-They made tackling more complex decision problems possible.
-
-
-
-@li_deep_2018 (#acr("DRL"), An overview)
 
 
 === #acr("RL") for robotics
 
-// TODO Cite Jordan&Dimiter's survey paper
+By its very nature, robotics has always been one of the main applications of #acr("RL").
+Robots are fundamentally incarnated as they interact with the real physical world.
+As such, trial-and-error learning strategies have been a logical, human-inspired approach for robotics.
+
+*Earlier works.*
+Historically, robotics has been studied from the perspective of control theory.
+This area of research involves designing a controller for a given system.
+This involves formally modeling the said system first.
+
+Before #acr("RL") to 
+
+Robotics has been one of the domains targetted by A.I. researchers to apply Deep Reinforcement Learning
+
 // "Navigating the Practical Pitfalls of Reinforcement Learning for Social Robot Navigation"
 @pikuli_navigating_2024
+
+
+Ibarz et al. @ibarz_how_2021
+
+Sünderhauf et al. @sunderhauf_limits_2018
+
+#draft[
+  Benchmarks on real-world robotics tasks
+  @mahmood_benchmarking_2018
+
+  How to Train Your Robot with Deep Reinforcement Learning – Lessons We’ve Learned
+  @ibarz_how_2021
+]
 
 
 === Policy gradient algorithms
@@ -190,6 +224,12 @@ $
 $
 On the contrary, policy gradient algorithms directly optimize the policy itself through a differentiable objective function depending on its parameters.
 #todo
+
+In 2001, Kakade et al. @kakade_natural_2001 improved the traditional policy gradient framework by introducing the concept of _Natural Gradient_.
+It uses the Fisher information matrix in the policy update rule.
+This choice is supposed to take into account the curvature of the parameter space and thus allow more efficient training.
+In addition to the theoretical arguments advanced by the authors, this schema has been shown to be empirically superior to the more conventional gradient optimization 
+It has shown to be 
 
 
 
@@ -323,6 +363,7 @@ Engstrom et al. @engstrom_implementation_2020 explicitly studied the "code-level
 This work formalized the shared impression among the community #draft[insert refs] that #acr("PPO")'s promised performance was subject to subtle implementation details.
 Huang et al. have also contributed to this practical investigation by publishing _The 37 Implementation Details of Proximal Policy Optimization_ @shengyi2022the37implementation.
 #draft[Maybe this should go in the results/discussion section.]
+#draft[@mahmood_benchmarking_2018 talk about the sensitivity of #acr("RL") algorithms to their HP]
 
 *#acr("TRPO").*
 Schulman et al. @schulman_trust_2017
