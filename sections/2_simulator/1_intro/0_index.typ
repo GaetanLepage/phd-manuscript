@@ -3,7 +3,7 @@
 == Introduction
 <sec:simulator:intro>
 
-An intrinsic aspect of robotics, and especially of #acr("HRI") lies in the physical world.
+The physical world is an intrinsic aspect of robotics, especially of #acr("HRI").
 Developing novel methods for interacting with humanoid robots encompasses several challenges related to its embodiment dimension.
 Robotics platform suffer from severe limitations that sometimes prevent from applying data-intensive techniques.
 
@@ -16,24 +16,24 @@ Since then, computers and simulation have progressed massively and offer accurat
 // Simulation in DL and DRL
 Deep learning techniques have shown impressive results on a variety of tasks ranging from computer vision to natural language processing.
 At their core resides the processing of substantial amounts of data.
-In many concrete applications of deep learning techniques, collecting datasets of sufficient size and quality stands as a major obstacle.
-Simulation provides an alternative way to gather massive amount of data, and often allows for automatic annotation.
+Collecting datasets of sufficient size and quality is a major obstacle in many concrete applications of deep learning techniques.
+Simulation provides an alternative way to gather massive amounts of data and often allows for automatic annotation.
 However, building an effective simulator can be hard or even impossible.
 Also, simulated features frequently deviate from real-world data, which can heavily hinder the final performance.
-Reinforcement learning for instance has an agent interacting with an environment and improving its policy from trial and error.
+Reinforcement learning, for instance, has an agent interacting with an environment and improving its policy from trial and error.
 Since deep neural networks have been employed in this field, the interest in simulating the targeted environments has grown significantly.
 The success of #acr("DRL") in applications such as board games and video games came early because simulating them is trivial.
-Large neural network could then be trained on massive amounts of data.
+Large artificial neural networks could then be trained on massive amounts of data.
 Nonetheless, the design of realistic simulated environments has allowed the deployment of #acr("DRL") in more complex and _useful_ scenarios.
 
 // 2 examples of simulation in DRL
 For instance, industrial and academic actors have used simulated environments as a first step towards achieving fully autonomous driving.
 The availability of driving simulators lets more modest research teams contributing to this field without requiring to handle data collection.
 Sallab et al. @sallab_deep_2017 and Osiński et al. @osinski_simulation-based_2020 were able to propose simulation-based #acr("DRL") techniques for autonomous driving.
-@kiran_deep_2022 and @rosique_systematic_2019 further survey the landscape of available techniques, datasets and simulators in this topic
+@kiran_deep_2022 and @rosique_systematic_2019 further survey the landscape of available techniques, datasets, and simulators in this topic
 Additionally, Google DeepMind have proposed a novel approach for magnetic control of tokamak plasmas using #acr("DRL") (@degrave_magnetic_2022).
 A critical challenge in this work has been the scarcity of access to a real fusion reactor and thus of the training data.
-To get around this, they collaborated with physicists to build a fast and accurate JAX @jax2018github simulator modelling the core of the plasma, TORAX @citrin_torax_2024.
+To get around this, they collaborated with physicists to build a fast and accurate JAX @jax2018github simulator modeling the core of the plasma, TORAX @citrin_torax_2024.
 
 
 // Simulation in robotics
@@ -48,7 +48,7 @@ Involving real hardware brings extra cost and the need for sufficient safety mea
 
 #draft[
   - @liu_role_2021 The role of physics-based simulators in robotics
-  - @choi_use_2021 On the use of simulation in robotics: Opportunities,challenges, and suggestions for moving forward
+  - @choi_use_2021 On the use of simulation in robotics: Opportunities, challenges, and suggestions for moving forward
 ]
 
 // Audio
