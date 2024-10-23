@@ -61,7 +61,7 @@ The #acr("RL") environment corresponds to the #acr("MDP") formulation and implem
 In this section, we present those characteristics and the motivations that led to this final specification.
 
 *#acr("POMDP").*
-The original #acr("MDP") model is not sufficient to represent our environment.
+The original #acr("MDP") model is insufficient to represent our environment.
 Instead, we rely on the #acr("POMDP") framework where the entirety of the state cannot be observed directly.
 This choice allows the decoupling of the environment logic from the sensory observation available to the agent.
 A #acr("POMDP") can be described as a tuple $lr(angle.l cal(S), cal(A), P, cal(R), Omega, O, gamma angle.r)$ where:
@@ -69,7 +69,7 @@ A #acr("POMDP") can be described as a tuple $lr(angle.l cal(S), cal(A), P, cal(R
 - $Omega$ is the observation space; and
 - $O: cal(S) times cal(A) -> Pi (Omega)$ is the _observability function_ which maps all state-action pairs to a probability distribution over the observation space $Omega$.
   $O(s', a, o)$ denotes the probability of making observation $o$ given that the agent took action $a$ and landed in state $s'$.
-This definition along with its notations have been borrowed from Leslie Kaelbling et al. @kaelbling_planning_1998.
+This definition and its notations have been borrowed from Leslie Kaelbling et al. @kaelbling_planning_1998.
 She, along with her research group, has conducted groundbreaking work related to the comprehension and use of #acr("POMDP"), in particular in robotics.
 From her original work on this topic, _Acting Optimally in Partially Observable Stochastic Domains_ @cassandra_acting_1994 in 1994 Kaelbling has published several papers exploring how to efficiently solve partially observable environments problems
 @cassandra_acting_1996
@@ -108,7 +108,7 @@ $
 - #stay is the neutral action where the agent does not move away from its current location.
 - #forward means moving by a distance of $d$ meters in the current direction $alpha$.
 The step size $d$ must correspond to the distance between two adjacent grid points.
-- `TURN_LEFT` and `TURN_RIGHT` correspond to a quarter-turn rotation. In this case, only the orientation of the agent changes but not its position.
+- `TURN_LEFT` and `TURN_RIGHT` correspond to a quarter-turn rotation. In this case, only the orientation of the agent changes, not its position.
 A learned policy for this problem will be a probabilistic distribution $pi(dot | dot): cal(A) times Omega -> [0, 1]$ over this finite set of four actions.
 
 Although a continuous formulation would have been permitted by our audio simulator, choosing a discrete setting provides important benefits.

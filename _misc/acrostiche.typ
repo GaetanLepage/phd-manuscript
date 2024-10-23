@@ -1,4 +1,4 @@
-#import "@preview/acrostiche:0.3.2": *
+#import "@preview/acrostiche:0.3.4": *
 
 //#import "@preview/acrotastic:0.1.0": *
 // Acronym package for Typst
