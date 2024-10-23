@@ -100,7 +100,7 @@ An #acr("MDP") consist of a tuple $<cal(S), cal(A), P, cal(R), gamma>$.
   $
     R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s']
   $
-- $gamma$: The discount factor in $[0, 1[$ dampens the impact of future rewards and ensures that the gain $G_t = sum_(k=0)^(infinity) gamma^k R_(t+k)$ remains bounded as long as $abs(R_t)$ is bounded as well.
+- $gamma$: The discount factor in $[0, 1[$ dampens the impact of future rewards and ensures that the gain #box($G_t = sum_(k=0)^(infinity) gamma^k R_(t+k)$) remains bounded as long as $abs(R_t)$ is bounded as well.
 
 
 *Policy.*
@@ -151,6 +151,8 @@ $
 #todo
 
 
+
+
 === Deep Reinforcement Learning
 <sec:rl:intro:deep_reinforcement_learning>
 
@@ -171,15 +173,29 @@ To showcase the capabilities of their method, the authors tackled seven Atari 26
 Performance surpassed existing benchmarks and, notably, human performance in six of those games.
 This work acted as a foundation for the entire #acr("RL") domain and started the highly dynamic era of #acr("DRL").
 Since then, larger and larger networks have been combined with advances made on the algorithmic aspects.
+
+Nevertheless, scaling #acr("DRL") models up requires significant amounts of training data.
+This translates into the need for environments that can provide several tens of thousands of interactions at a tractable cost.
+For training their Deep Q-Network, Mnih et al. used around 10 million frames of each game to train their agents.
+The OpenAI Five @berner_dota_nodate project consists in training an agent to play the game Dota 2.
+In total, their agent has played for an approximate duration of 180 years.
+#draft[TODO: give an example in autonomous driving]
+Sample efficiency has been 
+
 #draft[
   Cite more papers (if possible that I have not yet cited in the intro)
 ]
 
+*Games.*
+
+
+*Protein folding.*
+
 *#acr("RLHF").*
 Finally, #acr("RLHF") helps turning #acrpl("LLM") into conversational agents @ouyang_training_2022 @bai_training_2022.
 At first, large-scale auto-regressive models such as GPT-3 @brown_language_2020 on massive datasets in a supervised manner.
-Then, human agents interact with the resulting _chatbot_ and grade their exchanges to generate a reward signal.
-The initial model then gets fine-tuned using a #acr("DRL") algorithm such as #acr("PPO") @schulman_proximal_2017 #todo
+Then, human agents interact with the resulting _chat bot_ and grade their exchanges to generate a reward signal.
+The initial model then gets fine-tuned using a #acr("DRL") algorithm such as #acr("PPO") @schulman_proximal_2017 to account for the obtained feedback.
 
 
 

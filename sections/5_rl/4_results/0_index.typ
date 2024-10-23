@@ -29,7 +29,6 @@ where:
 
 This formulation is motivated by our previous observations of real #acr("WER") maps.
 
-
 #figure(
   image(
     "figures/synthetic_wer_map.svg",
@@ -39,6 +38,9 @@ This formulation is motivated by our previous observations of real #acr("WER") m
     [Directional (east orientation) synthetic #acr("WER") map],
     [Directional synthetic WER map]),
 )
+<fig:rl:results:analytical_map>
+
+@fig:rl:results:analytical_map shows an example of 
 
 
 === Real #acr("WER") maps
@@ -56,6 +58,10 @@ This formulation is motivated by our previous observations of real #acr("WER") m
   - Mention how important reward shaping is in DRL
   - Comparative study between different schemes (choices of $f$)
 ]
+
+$
+  r_1 (s_t) = -w(s_t)
+$
 
 === Feature extraction
 

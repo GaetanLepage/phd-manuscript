@@ -35,11 +35,11 @@
     date: if date != none { date } else { auto },
   )
 
-  // Set the body font.
-  set text(
-    font: ("Utopia LaTeX"),
-    size: 11pt
-  )
+  // Set the body font. (needs to be installed manually: let's use the default one)
+  //set text(
+  //  font: ("Utopia LaTeX"),
+  //  size: 11pt
+  //)
 
   // Configure page size and margins.
   let margin = 2.5cm
@@ -62,7 +62,7 @@
     linebreaks: "optimized"
   )
   // Default spacing is 1.2em.
-  show par: set block(spacing: 1.35em)
+  set par(spacing: 1.35em)
 
   /* -------------------------------------------------------------------- */
   /* URL */
@@ -291,7 +291,10 @@
   /* RAW (code) */
   
   // Set raw text font.
-  show raw: set text(font: ("Iosevka", "Fira Mono"), size: 9pt)
+  show raw: set text(
+    font: ("Iosevka", "Fira Mono"),
+    size: 9pt
+  )
 
   // Display inline code in a small box that retains the correct baseline.
   // show raw.where(block: false): box.with(
