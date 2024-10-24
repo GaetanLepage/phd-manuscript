@@ -203,7 +203,7 @@ The initial model then gets fine-tuned using a #acr("DRL") algorithm such as #ac
 
 By its very nature, robotics has always been one of the main applications of #acr("RL").
 Robots are fundamentally incarnated as they interact with the real physical world.
-As such, trial-and-error learning strategies have been a logical, human-inspired approach for robotics.
+As such, trial-and-error learning strategies have been a logical, human-inspired approach to robotics.
 
 *Earlier works.*
 Historically, robotics has been studied from the perspective of control theory.
@@ -212,7 +212,7 @@ This involves formally modeling the said system first.
 
 Before #acr("RL") to 
 
-Robotics has been one of the domains targetted by A.I. researchers to apply Deep Reinforcement Learning
+Robotics has been one of the domains targeted by A.I. researchers to apply Deep Reinforcement Learning
 
 // "Navigating the Practical Pitfalls of Reinforcement Learning for Social Robot Navigation"
 @pikuli_navigating_2024
