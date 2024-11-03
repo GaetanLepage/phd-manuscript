@@ -150,6 +150,28 @@
 # Misc
 #######################################
 
+##########################################################
+# Audio
+##########################################################
+# Aural Servo (not RL, but motivation for our task)
+@article{magassouba_aural_2018,
+	title = {Aural Servo: Sensor-Based Control From Robot Audition},
+	volume = {34},
+	issn = {1552-3098, 1941-0468},
+	url = {https://ieeexplore.ieee.org/document/8320543/},
+	doi = {10.1109/TRO.2018.2805310},
+	shorttitle = {Aural Servo},
+	abstract = {This paper proposes a control framework based on auditory perception. Generally, in robot audition, the motion control of a robot from the sense of hearing relies on sound source localization. We propose in this paper an alternative approach, aural servo, that is derived from the sensor-based control framework. In this approach, robot motions are directly connected to the aural perception: the variation of low-level auditory features dictates the motions applied to the robot through a feedback loop. It has the advantage of being robust to spurious measurements and modeling approximations for a low computational cost. This paper presents the theoretical concept of the aural servo framework. Besides a theoretical analysis, the aural servo framework is validated through several experiments on different robotic platforms and under real-world conditions.},
+	pages = {572--585},
+	number = {3},
+	journaltitle = {{IEEE} Transactions on Robotics},
+	shortjournal = {{IEEE} Trans. Robot.},
+	author = {Magassouba, Aly and Bertin, Nancy and Chaumette, Francois},
+	urldate = {2021-10-22},
+	date = {2018-06},
+	langid = {english},
+	file = {Magassouba et al. - 2018 - Aural Servo Sensor-Based Control From Robot Audit.pdf:/home/gaetan/.local/share/Zotero/storage/87ZN45SU/2018_magassouba_tro.pdf:application/pdf},
+}
 
 # Levenshtein distance
 @article{levenshtein_binary_1965,
@@ -162,4 +184,110 @@
 	date = {1965},
 	langid = {russian},
 	file = {PDF:/home/gaetan/.local/share/Zotero/storage/VU3J5AIK/Левенштейн - Двоичные коды с~исправлением выпадений, вставок и замещений символов.pdf:application/pdf},
+}
+
+
+@article{chen_soundspaces_2020,
+	title = {{SoundSpaces}: Audio-Visual Navigation in 3D Environments},
+	url = {http://arxiv.org/abs/1912.11474},
+	shorttitle = {{SoundSpaces}},
+	abstract = {Moving around in the world is naturally a multisensory experience, but today’s embodied agents are deaf—restricted to solely their visual perception of the environment. We introduce audio-visual navigation for complex, acoustically and visually realistic 3D environments. By both seeing and hearing, the agent must learn to navigate to a sounding object. We propose a multi-modal deep reinforcement learning approach to train navigation policies end-to-end from a stream of egocentric audio-visual observations, allowing the agent to (1) discover elements of the geometry of the physical space indicated by the reverberating audio and (2) detect and follow sound-emitting targets. We further introduce {SoundSpaces}: a ﬁrst-of-its-kind dataset of audio renderings based on geometrical acoustic simulations for two sets of publicly available 3D environments (Matterport3D and Replica), and we instrument Habitat to support the new sensor, making it possible to insert arbitrary sound sources in an array of real-world scanned environments. Our results show that audio greatly beneﬁts embodied visual navigation in 3D spaces, and our work lays groundwork for new research in embodied {AI} with audio-visual perception. Project: http: //vision.cs.utexas.edu/projects/audio\_visual\_navigation.},
+	journaltitle = {{arXiv}:1912.11474 [cs, eess]},
+	author = {Chen, Changan and Jain, Unnat and Schissler, Carl and Gari, Sebastia Vicenc Amengual and Al-Halah, Ziad and Ithapu, Vamsi Krishna and Robinson, Philip and Grauman, Kristen},
+	urldate = {2020-12-16},
+	date = {2020-08-21},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {1912.11474},
+	keywords = {man},
+	file = {Chen et al. - 2020 - SoundSpaces Audio-Visual Navigation in 3D Environ.pdf:/home/gaetan/.local/share/Zotero/storage/8SI34Q8W/Chen et al. - 2020 - SoundSpaces Audio-Visual Navigation in 3D Environ.pdf:application/pdf},
+}
+
+
+@misc{savva_habitat_2019,
+	title = {Habitat: A Platform for Embodied {AI} Research},
+	url = {http://arxiv.org/abs/1904.01201},
+	doi = {10.48550/arXiv.1904.01201},
+	shorttitle = {Habitat},
+	abstract = {We present Habitat, a platform for research in embodied artificial intelligence ({AI}). Habitat enables training embodied agents (virtual robots) in highly efficient photorealistic 3D simulation. Specifically, Habitat consists of: (i) Habitat-Sim: a flexible, high-performance 3D simulator with configurable agents, sensors, and generic 3D dataset handling. Habitat-Sim is fast -- when rendering a scene from Matterport3D, it achieves several thousand frames per second (fps) running single-threaded, and can reach over 10,000 fps multi-process on a single {GPU}. (ii) Habitat-{API}: a modular high-level library for end-to-end development of embodied {AI} algorithms -- defining tasks (e.g., navigation, instruction following, question answering), configuring, training, and benchmarking embodied agents. These large-scale engineering contributions enable us to answer scientific questions requiring experiments that were till now impracticable or 'merely' impractical. Specifically, in the context of point-goal navigation: (1) we revisit the comparison between learning and {SLAM} approaches from two recent works and find evidence for the opposite conclusion -- that learning outperforms {SLAM} if scaled to an order of magnitude more experience than previous investigations, and (2) we conduct the first cross-dataset generalization experiments \{train, test\} x \{Matterport3D, Gibson\} for multiple sensors \{blind, {RGB}, {RGBD}, D\} and find that only agents with depth (D) sensors generalize across datasets. We hope that our open-source platform and these findings will advance research in embodied {AI}.},
+	number = {{arXiv}:1904.01201},
+	publisher = {{arXiv}},
+	author = {Savva, Manolis and Kadian, Abhishek and Maksymets, Oleksandr and Zhao, Yili and Wijmans, Erik and Jain, Bhavana and Straub, Julian and Liu, Jia and Koltun, Vladlen and Malik, Jitendra and Parikh, Devi and Batra, Dhruv},
+	urldate = {2024-10-28},
+	date = {2019-11-25},
+	eprinttype = {arxiv},
+	eprint = {1904.01201},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computation and Language, Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning, Computer Science - Robotics},
+	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/7K4HUIKA/Savva et al. - 2019 - Habitat A Platform for Embodied AI Research.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/K3IRGAUW/1904.html:text/html},
+}
+
+
+@misc{chang_matterport3d_2017,
+	title = {Matterport3D: Learning from {RGB}-D Data in Indoor Environments},
+	url = {http://arxiv.org/abs/1709.06158},
+	shorttitle = {Matterport3D},
+	abstract = {Access to large, diverse {RGB}-D datasets is critical for training {RGB}-D scene understanding algorithms. However, existing datasets still cover only a limited number of views or a restricted scale of spaces. In this paper, we introduce Matterport3D, a large-scale {RGB}-D dataset containing 10,800 panoramic views from 194,400 {RGB}-D images of 90 building-scale scenes. Annotations are provided with surface reconstructions, camera poses, and 2D and 3D semantic segmentations. The precise global alignment and comprehensive, diverse panoramic set of views over entire buildings enable a variety of supervised and self-supervised computer vision tasks, including keypoint matching, view overlap prediction, normal prediction from color, semantic segmentation, and region classiﬁcation.},
+	number = {{arXiv}:1709.06158},
+	publisher = {{arXiv}},
+	author = {Chang, Angel and Dai, Angela and Funkhouser, Thomas and Halber, Maciej and Nießner, Matthias and Savva, Manolis and Song, Shuran and Zeng, Andy and Zhang, Yinda},
+	urldate = {2024-10-28},
+	date = {2017-09-18},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {1709.06158 [cs]},
+	keywords = {man},
+	file = {PDF:/home/gaetan/.local/share/Zotero/storage/X648YLBG/Chang et al. - 2017 - Matterport3D Learning from RGB-D Data in Indoor Environments.pdf:application/pdf},
+}
+
+@misc{straub_replica_2019,
+	title = {The Replica Dataset: A Digital Replica of Indoor Spaces},
+	url = {http://arxiv.org/abs/1906.05797},
+	doi = {10.48550/arXiv.1906.05797},
+	shorttitle = {The Replica Dataset},
+	abstract = {We introduce Replica, a dataset of 18 highly photo-realistic 3D indoor scene reconstructions at room and building scale. Each scene consists of a dense mesh, high-resolution high-dynamic-range ({HDR}) textures, per-primitive semantic class and instance information, and planar mirror and glass reflectors. The goal of Replica is to enable machine learning ({ML}) research that relies on visually, geometrically, and semantically realistic generative models of the world - for instance, egocentric computer vision, semantic segmentation in 2D and 3D, geometric inference, and the development of embodied agents (virtual robots) performing navigation, instruction following, and question answering. Due to the high level of realism of the renderings from Replica, there is hope that {ML} systems trained on Replica may transfer directly to real world image and video data. Together with the data, we are releasing a minimal C++ {SDK} as a starting point for working with the Replica dataset. In addition, Replica is `Habitat-compatible', i.e. can be natively used with {AI} Habitat for training and testing embodied agents.},
+	number = {{arXiv}:1906.05797},
+	publisher = {{arXiv}},
+	author = {Straub, Julian and Whelan, Thomas and Ma, Lingni and Chen, Yufan and Wijmans, Erik and Green, Simon and Engel, Jakob J. and Mur-Artal, Raul and Ren, Carl and Verma, Shobhit and Clarkson, Anton and Yan, Mingfei and Budge, Brian and Yan, Yajie and Pan, Xiaqing and Yon, June and Zou, Yuyang and Leon, Kimberly and Carter, Nigel and Briales, Jesus and Gillingham, Tyler and Mueggler, Elias and Pesqueira, Luis and Savva, Manolis and Batra, Dhruv and Strasdat, Hauke M. and Nardi, Renzo De and Goesele, Michael and Lovegrove, Steven and Newcombe, Richard},
+	urldate = {2024-10-28},
+	date = {2019-06-13},
+	eprinttype = {arxiv},
+	eprint = {1906.05797},
+	keywords = {man},
+	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/2FSA7WJ7/Straub et al. - 2019 - The Replica Dataset A Digital Replica of Indoor Spaces.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/227XKJ7M/1906.html:text/html},
+}
+
+
+
+@article{majumder_move2hear_2021,
+	title = {Move2Hear: Active Audio-Visual Source Separation},
+	url = {http://arxiv.org/abs/2105.07142},
+	shorttitle = {Move2Hear},
+	abstract = {We introduce the active audio-visual source separation problem, where an agent must move intelligently in order to better isolate the sounds coming from an object of interest in its environment. The agent hears multiple audio sources simultaneously (e.g., a person speaking down the hall in a noisy household) and must use its eyes and ears to automatically separate out the sounds originating from the target object within a limited time budget. Towards this goal, we introduce a reinforcement learning approach that trains movement policies controlling the agent’s camera and microphone placement over time, guided by the improvement in predicted audio separation quality. We demonstrate our approach in scenarios motivated by both augmented reality (system is already co-located with the target object) and mobile robotics (agent begins arbitrarily far from the target object). Using state-of-the-art realistic audio-visual simulations in 3D environments, we demonstrate our model’s ability to ﬁnd minimal movement sequences with maximal payoff for audio source separation. Project: http://vision. cs.utexas.edu/projects/move2hear.},
+	journaltitle = {{arXiv}:2105.07142 [cs, eess]},
+	author = {Majumder, Sagnik and Al-Halah, Ziad and Grauman, Kristen},
+	urldate = {2021-05-19},
+	date = {2021-05-15},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {2105.07142},
+	keywords = {man},
+	file = {Majumder et al. - 2021 - Move2Hear Active Audio-Visual Source Separation.pdf:/home/gaetan/.local/share/Zotero/storage/Q63ACNFK/Majumder et al. - 2021 - Move2Hear Active Audio-Visual Source Separation.pdf:application/pdf},
+}
+
+
+# GRU
+@misc{cho_learning_2014,
+	title = {Learning Phrase Representations using {RNN} Encoder-Decoder for Statistical Machine Translation},
+	url = {http://arxiv.org/abs/1406.1078},
+	doi = {10.48550/arXiv.1406.1078},
+	abstract = {In this paper, we propose a novel neural network model called {RNN} Encoder-Decoder that consists of two recurrent neural networks ({RNN}). One {RNN} encodes a sequence of symbols into a fixed-length vector representation, and the other decodes the representation into another sequence of symbols. The encoder and decoder of the proposed model are jointly trained to maximize the conditional probability of a target sequence given a source sequence. The performance of a statistical machine translation system is empirically found to improve by using the conditional probabilities of phrase pairs computed by the {RNN} Encoder-Decoder as an additional feature in the existing log-linear model. Qualitatively, we show that the proposed model learns a semantically and syntactically meaningful representation of linguistic phrases.},
+	number = {{arXiv}:1406.1078},
+	publisher = {{arXiv}},
+	author = {Cho, Kyunghyun and Merrienboer, Bart van and Gulcehre, Caglar and Bahdanau, Dzmitry and Bougares, Fethi and Schwenk, Holger and Bengio, Yoshua},
+	urldate = {2024-11-03},
+	date = {2014-09-03},
+	eprinttype = {arxiv},
+	eprint = {1406.1078},
+	keywords = {Computer Science - Computation and Language, Computer Science - Machine Learning, Computer Science - Neural and Evolutionary Computing, Statistics - Machine Learning},
+	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/AMSVGGJK/Cho et al. - 2014 - Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/R4LXICEQ/1406.html:text/html},
 }
