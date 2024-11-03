@@ -21,8 +21,64 @@ Numerous formulations of this question exist and they encompass different goals,
 
 === Background
 
-- _SoundSpaces_ @chen_soundspaces_2020
-- _Move2Hear_ @majumder_move2hear_2021
+The problem of perceptually motivated audio-based navigation has not seen an extensive amount of prior study.
+Nevertheless, this section will highlight some notable works that have already proven the relevance of this area of research.
+Also, they provide advanced solutions to problems similar to the one tackled in this thesis.
+
+Magassouba et al. @magassouba_aural_2018 proposed a novel framework for robotic audio-based navigation, _AuralServo_.
+Although inspired by #acr("ASSL") pipelines similar to those presented in @chap:active_ssl, their approach differs significantly.
+No explicit #acr("SSL") block is defined in their framework.
+Indeed, the robot controls are directly inferred from the aural perception.
+This system is architected around a direct feedback loop which allows for low computational cost and thus response times.
+Their contribution consists of both a theoretical scheme for commanding a robot using auditory features and real-world experiments with audio-based control tasks.
+Those tasks include automatic gaze adjustment to face the active speaker and a navigation task based on #acr("ILD").
+The latter comprises following a sound source indoors, solely relying on audio perception.
+Regarding the proposed methodology, the process involves computing relevant auditory features such as the #acr("ILD") and #acr("IPD").
+These quantities are then interpreted geometrically to be linked to the task objective thus defining an interaction matrix $bold(J_s)$ satisfying
+$
+  bold(dot(s)) = bold(J_s) bold(u)
+$
+where $bold(dot(s))$ is the variation of the feature set and $bold(u)$ denotes the control signal.
+$bold(u)$ is then inferred so as to minimize the error $bold(e)(t)$ to the target state $bold(s)^*$:
+$
+  bold(e)(t) = bold(s)(t) - bold(s)^*
+$
+The paper provides a detailed theoretical derivation of the auditory features, interaction matrices, and solving schemes.
+This work thus adopts a feedback loop strategy to control the robot and does not involve any learning algorithm.
+Finally, _AuralServo_ provides an interesting formulation for active robotic navigation problems and an analytical solution that could be demonstrated in real-world experiments.
+
+Furthermore, a research group from UT Austin, led by Kirsten Grauman, has conducted pioneer work in this direction and achieved impressive results.
+In their paper _SoundSpaces_ @chen_soundspaces_2020, Chen et al. define and solve the task of audio-visual navigation towards a sound source in complex environments.
+Their contribution is twofold.
+On the one hand, they introduce _SoundSpaces_, a dataset that extends existing realistic 3D environments with simulated audio renderings.
+The environment uses the _Habitat_ simulator @savva_habitat_2019 alongside the _Matterport3D_ @chang_matterport3d_2017 and _Replica_ @straub_replica_2019 datasets that it includes.
+This simulator provides only visual cues from its 3D representation of indoor spaces.
+Chen et al. leveraged a geometrical acoustic method for room acoustic simulation consisting of bidirectional path tracing @cao_interactive_2016 to add auditory information to the simulator.
+On the other hand, they designed a #acr("DRL") agent that can navigate in these challenging environments.
+Its neural network architecture receives the RGB and depth frames from the virtual camera, the #acr("STFT") of the listened signal, and the relative displacement vector pointing from the agent to the goal.
+Following feature-specific, then shared layers are two heads modelling the actor and the critic, respectively.
+The authors trained the system to navigate to a source in previously unknown environments.
+Audio is shown to improve navigation performance substantially.
+Mixing audio and visual information allows the agent to extract more spatial knowledge from its environment and, thus, navigate more efficiently towards the source.
+This study has also further demonstrated the capacity of neural networks to exploit the reverberation phenomenon to achieve a navigation task.
+This proposal illustrates how #acr("DRL") can be used with multi-modal agents to solve complex navigation tasks.
+
+Grauman's team has pushed their framework further in a follow-up paper by Majumder et al. called _Move2Hear_ @majumder_move2hear_2021.
+The task tackled here consists of navigating a complex 3D environment with the motivation to enhance audio perception.
+More precisely, the agent's objective is to adjust its position with respect to several sound sources so that it can perform optimal audio separation.
+The performance obtained on the audio separation task is the only reward signal available for learning the policy.
+The agent starts at a random position in a 3D scene from the _Habitat_ simulator.
+One is designated as the target source among the active sound sources in the environment.
+The neural network that implements it is split into two main blocks.
+The first takes the #acr("STFT") of the binaural signal listened to by the agent as well as the identifier of the target speech.
+It is trained to output the isolated target speech signal's #acr("STFT") and thus performs the actual source separation.
+The second component of the agent is the active audio-visual controller.
+It is responsible for implementing the navigation policy.
+A common feature extraction backbone uses #acrpl("GRU") @cho_learning_2014 to perform the core perception work.
+It is followed by two heads implementing the actor and the critic optimized by the #acr("PPO") algorithm.
+The policy itself consists of two sub-policies: one for improving the separation quality when being relatively close to the target source and an audio-visual navigation policy to get closer to it.
+Both networks are trained in a cyclic pattern, ensuring the continuous and synchronous overall performance improvement.
+A convincing experimental study is also conducted to demonstrate the approach's effectiveness.
 
 
 === Problem formulation
@@ -37,15 +93,15 @@ Numerous formulations of this question exist and they encompass different goals,
 #reset-acronym("WER")
 *#acr("WER") metric for #acr("ASR").*
 The #acr("ASR") task consists of recognizing the words pronounced by a speaker from an audio record.
-The performance of #acr("ASR") systems is evaluated by the #acr("WER") metric.
+The #acr("WER") metric measures the performance of #acr("ASR") systems.
 It is computed as follows:
 $
   "WER" = (s + d + i) / n
 $
 where $s$ is the number of substitutions, $d$ of deletions, and $i$ of insertions needed to transform the true sentence into the predicted text.
 $n$ counts the total number of words of the ground truth.
-Hence, the #acr("WER") quantifies the difference between the original and transcribed text.
-The total number of errors $s + d + i$ is also called the Levenshtein or edit distance, proposed by Vladimir Levenshtein in 1965 @levenshtein_binary_1965.
+Hence, the #acr("WER") quantifies the original and transcribed text difference.
+The total number of errors $s + d + i$ is also called the Levenshtein or edit distance, which Vladimir Levenshtein proposed in 1965 @levenshtein_binary_1965.
 Its default formulation considers comparing two strings at the character level.
 Besides, the #acr("WER") score uses words as the fundamental tokens.
 As its definition is recursive, most implementations leverage dynamic computing.
