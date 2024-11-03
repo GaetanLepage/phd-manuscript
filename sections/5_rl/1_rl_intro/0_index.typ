@@ -147,8 +147,7 @@ $
   V_pi (s) &:= EE[R_t | s_t = s]\
     &= EE[sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s]
 $
-
-#todo
+Evidently, this quantity depends on the considered policy $pi$.
 
 
 
@@ -177,8 +176,15 @@ Since then, larger and larger networks have been combined with advances made on 
 Nevertheless, scaling #acr("DRL") models up requires significant amounts of training data.
 This translates into the need for environments that can provide several tens of thousands of interactions at a tractable cost.
 For training their Deep Q-Network, Mnih et al. used around 10 million frames of each game to train their agents.
-The OpenAI Five @berner_dota_nodate project consists in training an agent to play the game Dota 2.
+The OpenAI Five @berner_dota_nodate project consists of training an agent to play the game Dota 2.
 In total, their agent has played for an approximate duration of 180 years.
+Similarly, when applying #acr("DRL") to autonomous driving, it is necessary to collect a high amount of interactive experience to achieve decent performance.
+Bansal @bansal_chauffeurnet_2018 have used dataset of 30 million samples to train their policy.
+They stated that their initial attempts at doing imitation learning on this data have not been successful.
+It required more advanced techniques to finally train a working system.
+
+
+
 #draft[TODO: give an example in autonomous driving]
 Sample efficiency has been 
 

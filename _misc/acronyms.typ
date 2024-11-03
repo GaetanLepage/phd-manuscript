@@ -14,6 +14,7 @@
   "CRDNN": ("Convolutional Recurrent Deep Neural Network"),
   "DL": ("Deep Learning"),
   "DNN": ("Deep Neural Network"),
+  "GRU": ("Gated Recurrent Unit", "Gated Recurrent Units"),
   "LLM": ("Large Language Model", "Large Language Models"),
   "LN": ("Layer Normalization"),
   "RNNLM": ("Recurrent Neural Network Language Model"),
