@@ -71,10 +71,10 @@ Besides #("ASR"), sound information may have additional use cases.
 // Other uses of audio in robotics
 For instance, human-robot interaction can be enhanced by having the agent adjust its gaze and look at the person it is interacting with.
 // TODO: cite study that backs this claim
-This has been achieved by the mean of computer vision techniques but #acr("SSL") also yields positive results. // TODO cite some works that do this
+This has been achieved through computer vision techniques but #acr("SSL") has also yielded positive results. // TODO cite some works that do this
 A robot being able to accurately locate other sound sources can also adjust its navigation policy to benefit from this knowledge.
 Robot navigation is likewise complex and often relies on multi-modal perception.
-The use of LIDAR or depth information are used for the robot to localize itself as well as other potentially moving subjects in the environment.
+LIDAR, or depth information, allows the robot to localize itself and other potentially moving subjects in the environment.
 // TODO citations
 However, identifying the position of currently speaking humans requires some sort of #acr("SSL") method.
 
@@ -99,7 +99,7 @@ Indeed, a robotic platform implies dealing with several constraints mainly cause
 @nakadai_real-time_2002
 
 // Deep Learning
-Deep learning methods have been used as well to perform #("SSL") in robotics.
+In robotics, Deep Learning methods have also been used to perform #("SSL").
 
 // Using multi-modal information (audio-visual SSL)
 // -> Not directly related to our topic though
