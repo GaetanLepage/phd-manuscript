@@ -12,7 +12,7 @@
 === Training with analytical maps
 
 Before using real #acr("WER") maps, we have conducted experiments on synthetic cost maps.
-To validate the concept of training an agent with our custom #acr("WER") maps, we have used synthetic data.
+We have used synthetic data to validate the concept of training an agent with our custom #acr("WER") maps.
 
 #draft[
   Objective: sanity check\
@@ -27,7 +27,7 @@ where:
 - $d$ is the source-microphone distance
 - $theta$ is the #doa between the source and the microphone
 
-This formulation is motivated by our previous observations of real #acr("WER") maps.
+Our previous observations of real #acr("WER") maps motivate this formulation.
 
 #figure(
   image(
@@ -48,6 +48,7 @@ This formulation is motivated by our previous observations of real #acr("WER") m
 #draft[
   - Show how #acr("WER") decreases when adding reverb
   - Show examples of #acr("WER") maps on different settings
+  - Maybe add a #acr("WER") map with a noise source, even if we don't explicitly do RL in this case.
 ]
 
 #include "figures/wer_maps/figure.typ"

@@ -109,7 +109,7 @@ The aforementioned setup allows the computation of #acr("WER") scores on full si
 However, the proposed #acr("RL") environment involves short steps of 1s, during which the agent is assumed to be immobile and gathers audio data.
 Computing the #acr("WER") on such a small snippet would not make sense.
 A complete sentence is the minimum necessary for the #acr("WER") to have meaning.
-Additionally, as with every metric, this indicator is supposed to be averaged over a significant number of samples to purposefully assess the performance of the evaluated method.
+Additionally, as with every metric, this indicator is supposed to be averaged over a significant number of samples to assess the performance of the evaluated method purposefully.
 Here, the oracle $w(s)$ is expected to provide an estimate for the average #acr("ASR") performance for a given state $s$.
 For those reasons, the oracle cannot work in real-time and needs to rely on prior information.
 

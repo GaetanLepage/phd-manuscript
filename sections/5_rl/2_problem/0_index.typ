@@ -6,10 +6,25 @@
 
 === Motivation
 
-Social robotics imply various technical and scientific problems involving computer vision, mechatronics, sociology, natural language processing or speech processing.
-Robot navigation stands as one of such crucial tasks.
-Numerous formulations of this question exist and they encompass different goals, sensory information, and target robotics platforms.
-//Although processing
+Audio perception is an essential pillar of social robotics.
+Achieving realistic human-robot interactions is conditioned by the ability to hear and understand the content of people's speech.
+#acr("ASR") techniques have significantly progressed, mainly thanks to recent advances in Deep Learning @malik_automatic_2021.
+However, some real-world settings remain challenging, and #acr("ASR") systems can struggle to extract the speech content properly.
+Most solutions are trained on a clean speech dataset.
+The literature has studied the impact of noise and reverberation on #acr("ASR") performance.
+Wang et al. @wang_systematic_2025 explored different strategies to account for the challenges present in reverberant and noisy environments.
+#draft[Maybe add more references.]
+
+In this chapter we propose to study this issue in the robotic context.
+We aim to develop algorithms that improve robots' hearing ability in real-world interaction environments.
+
+To tackle this issue, we target the design of navigation policies.
+An agent will be placed in a reverberant environment with an active speech source.
+Its goal is to position itself optimally to maximize the #acr("ASR") performance.
+Our approach solely relies on the positioning of the robot.
+The #acr("ASR") algorithm that we use is an existing solution based on a #acr("DNN").
+Our motivation relies on the observation that in a complex acoustic environment, the microphone's position and orientation with respect to the target source significantly impact the #acr("ASR") performance.
+This insight results from an experimental study conducted within our simulated environment.
 
 
 #draft[
@@ -21,7 +36,7 @@ Numerous formulations of this question exist and they encompass different goals,
 
 === Background
 
-The problem of perceptually motivated audio-based navigation has not seen an extensive amount of prior study.
+The problem of perceptually-motivated audio-based navigation has not been studied much prior.
 Nevertheless, this section will highlight some notable works that have already proven the relevance of this area of research.
 Also, they provide advanced solutions to problems similar to the one tackled in this thesis.
 
@@ -29,12 +44,12 @@ Magassouba et al. @magassouba_aural_2018 proposed a novel framework for robotic 
 Although inspired by #acr("ASSL") pipelines similar to those presented in @chap:active_ssl, their approach differs significantly.
 No explicit #acr("SSL") block is defined in their framework.
 Indeed, the robot controls are directly inferred from the aural perception.
-This system is architected around a direct feedback loop which allows for low computational cost and thus response times.
-Their contribution consists of both a theoretical scheme for commanding a robot using auditory features and real-world experiments with audio-based control tasks.
+This system is architected around a direct feedback loop, allowing for low computational cost and, thus, response times.
+Their contribution is a theoretical scheme for commanding a robot using auditory features and real-world experiments with audio-based control tasks.
 Those tasks include automatic gaze adjustment to face the active speaker and a navigation task based on #acr("ILD").
 The latter comprises following a sound source indoors, solely relying on audio perception.
 Regarding the proposed methodology, the process involves computing relevant auditory features such as the #acr("ILD") and #acr("IPD").
-These quantities are then interpreted geometrically to be linked to the task objective thus defining an interaction matrix $bold(J_s)$ satisfying
+These quantities are then interpreted geometrically to be linked to the task objective, thus defining an interaction matrix $bold(J_s)$ satisfying
 $
   bold(dot(s)) = bold(J_s) bold(u)
 $
@@ -63,32 +78,51 @@ Mixing audio and visual information allows the agent to extract more spatial kno
 This study has also further demonstrated the capacity of neural networks to exploit the reverberation phenomenon to achieve a navigation task.
 This proposal illustrates how #acr("DRL") can be used with multi-modal agents to solve complex navigation tasks.
 
-Grauman's team has pushed their framework further in a follow-up paper by Majumder et al. called _Move2Hear_ @majumder_move2hear_2021.
+Grauman's team has expanded on their framework in a follow-up paper by Majumder et al. called _Move2Hear_ @majumder_move2hear_2021.
 The task tackled here consists of navigating a complex 3D environment with the motivation to enhance audio perception.
-More precisely, the agent's objective is to adjust its position with respect to several sound sources so that it can perform optimal audio separation.
-The performance obtained on the audio separation task is the only reward signal available for learning the policy.
+More precisely, the agent's objective is to adjust its position with respect to several sound sources to perform optimal audio separation.
 The agent starts at a random position in a 3D scene from the _Habitat_ simulator.
 One is designated as the target source among the active sound sources in the environment.
+The performance obtained on the audio separation task is the primary reward signal available for learning the policy.
+Besides, the agent is also rewarded for reducing the geodesic distance to the target source.
 The neural network that implements it is split into two main blocks.
-The first takes the #acr("STFT") of the binaural signal listened to by the agent as well as the identifier of the target speech.
+The first takes the #acr("STFT") of the binaural signal listened to by the agent and the identifier of the target speech.
 It is trained to output the isolated target speech signal's #acr("STFT") and thus performs the actual source separation.
 The second component of the agent is the active audio-visual controller.
 It is responsible for implementing the navigation policy.
 A common feature extraction backbone uses #acrpl("GRU") @cho_learning_2014 to perform the core perception work.
 It is followed by two heads implementing the actor and the critic optimized by the #acr("PPO") algorithm.
-The policy itself consists of two sub-policies: one for improving the separation quality when being relatively close to the target source and an audio-visual navigation policy to get closer to it.
-Both networks are trained in a cyclic pattern, ensuring the continuous and synchronous overall performance improvement.
+The policy comprises two sub-policies: one for improving the separation quality when relatively close to the target source and an audio-visual navigation policy to get closer to it.
+Both networks are trained in a cyclic pattern, ensuring continuous and synchronous overall performance improvement.
 A convincing experimental study is also conducted to demonstrate the approach's effectiveness.
+They propose two different benchmarks.
+In the _near-target_ task, the agent starts relatively  close to the target sound source.
+Here, it has to adjust its position to optimize for the separation score.
+In the _far-target_ setting, the agent is initially placed further from the source of interest and has to navigate the environment to get close to it eventually.
+This task variant targets leveraging audio-visual information to plan the shortest possible trajectory.
+Overall, the _Move2Hear_ framework successfully applies #acr("DRL") to a robotic navigation problem where the objective is motivated by audio perception.
+
 
 
 === Problem formulation
 
-#draft[
-  - We solve is using RL -> need for an environment\
-    TODO: justify why we use RL. Isn't that weird to talk about RL in 5.1 and then to justify using it after in 5.2 ?
-  - discrete step-based stochastic process.
-  - Agent moves, listens to audio, and decides where to go next.
-]
+// RL
+We adopt a #acr("DRL") approach to design such a navigation policy.
+This policy will be modeled by a Deep Neural Network trained in a simulated environment.
+We develop a complete pipeline for solving the task of perceptually-motivated audio-based navigation.
+The problem is framed as a sequential decision process, which suits the use of #acr("RL") well.
+The implementation of the #acr("RL") environments, agents, algorithm and testing setup are an original contribution of this work.
+
+// Sound only
+Also, our solution tackles a challenging framework where only audio data can be used to perceive the environment.
+The agent has neither visual cues nor direct spatial information, such as absolute or relative positions.
+To address this limitation, we leverage the algorithms and knowledge obtained from our study of #acr("SSL").
+
+In the following paragraphs, we will formalize the task that we plan to solve.
+The core novelty of this problem is to use the #acr("ASR") performance as the reward signal.
+First, we will introduce the relevant metric and its relation to speech recognition.
+Second, the #acr("RL") environment will be presented, along with the justification for our different choices.
+
 
 #reset-acronym("WER")
 *#acr("WER") metric for #acr("ASR").*
@@ -108,7 +142,18 @@ As its definition is recursive, most implementations leverage dynamic computing.
 
 *Running of an episode.*
 An episode starts with the agent and one or several sources randomly placed in the room.
-#todo #draft[the running of an episode]
+One source is considered as the target.
+This means that the #acr("ASR") output will be evaluated against the actual transcript pronounced by this source.
+Other sources might also be added and can act as adversarial sources.
+The process is sequential and discrete.
+At each time step, the agent will be offered to listen to the surrounding audio for a fixed duration (inferior to one second).
+The robot will then be asked to select a movement action to enhance its relative position to the target source.
+The simulator then applies this movement, after which the agent receives both a new observation and a reward signal computed from the #acr("WER") of its new position.
+We choose to fix a maximum number of 32 steps per episode.
+This environment thus has a finite horizon.
+No specific event occurs at the final step.
+The reward of the last state is computed using the same scheme as for the intermediary steps.
+We will formalize the definition of the #acr("RL") environment in the following section.
 
 ==== Environment definition
 <sec:rl:problem:formulation:environment>
@@ -183,7 +228,7 @@ The agent's perception of its environment is limited to the audio signal receive
 This acoustic information consists of a one-second-long recorded signal mapped to the time-frequency domain.
 Practically, the observations are #shape("C", "F", "T") real tensors where $C$ is the number of output channels, $F$ of frequency bins, and $T$ of temporal indices.
 Formally, the observation space is $Omega = RR^(C times F times T)$.
-The goal of the agent will be to learn a mapping $s -> pi(dot | s)$ from this space to the probabilities over actions.
+The agent's goal is to learn a mapping $s -> pi(dot | s)$ from this space to the probabilities over actions.
 This represents the essence of the audio-based navigation task: learning to decide how to move depending on what is heard.
 The observability function translates the listening process.
 Sound sources speak continuously.
