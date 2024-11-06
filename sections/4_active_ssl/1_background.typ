@@ -23,17 +23,17 @@ Also, the robot's head movement automatically adjusts to face the currently acti
 Visual data plays an important role in refining the angular estimation.
 Authors use the framework of Epipolar Geometry to compute an angle from both the camera images and the spectrums of the signals received by both left and right external microphones.
 A directional band-pass filter is constructed thanks to this angle and permits dampening noise sounds coming from the robot's motors.
-This method allows to circumvent the use of #acr("HRTF") which is challenging to access in real-world scenarios.
+This method allows circumventing the use of #acr("HRTF") which is challenging to access in real-world scenarios.
 They test this pipeline within a relatively simple experimental scenario.
 Two loudspeakers play a monotone sound at a given, distinct frequency.
 They do so sequentially such that only a single source is active at a given time.
 The robotic head is expected to progressively face the active source so that it lands in its cameras' field of view.
 // split ?
-Nakadai's work is among the first ones to attempt to perform #acr("SSL") in a dynamic context.
+Nakadai's work is among the first attempts to perform #acr("SSL") in a dynamic context.
 However, it presents a few limitations.
 On the one hand, the considered setting remains very simple.
-No real speech signals are employed and the sources remain at fixed positions.
-On the other hand, the agent is not moving in the room contrary to what will be presented in this chapter.
+No real speech signals are employed, and the sources remain in fixed positions.
+On the other hand, the agent is not moving in the room, contrary to what will be presented in this chapter.
 Finally, their system does not estimate the distance to the active source.
 
 // Nguyen + Emmanuel Vincent

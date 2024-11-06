@@ -224,9 +224,9 @@ Robotics has been one of the domains targeted by A.I. researchers to apply Deep 
 @pikuli_navigating_2024
 
 
-Ibarz et al. @ibarz_how_2021
-
-Sünderhauf et al. @sunderhauf_limits_2018
+- Ibarz et al. @ibarz_how_2021
+- Sünderhauf et al. @sunderhauf_limits_2018: The Limits and Potentials of Deep Learning for Robotics
+- Lathuillière RL for AV gaze-control @lathuiliere_neural_2019
 
 #draft[
   Benchmarks on real-world robotics tasks
