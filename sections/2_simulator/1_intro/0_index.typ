@@ -3,20 +3,31 @@
 == Introduction
 <sec:simulator:intro>
 
-The physical world is an intrinsic aspect of robotics, especially of #acr("HRI").
-Developing novel methods for interacting with humanoid robots encompasses several challenges related to its embodiment dimension.
-Robotics platform suffer from severe limitations that sometimes prevent from applying data-intensive techniques.
+The physical world is an intrinsic aspect of robotics, especially #acr("HRI").
+Developing novel methods for interacting with humanoid robots encompasses several challenges related to their embodiment dimension.
+Robotic platforms suffer from severe limitations that sometimes impede applying data-intensive techniques.
 
 // Importance of simulation in science
 Simulation offers an alternative tool to experiment with new techniques.
 They have been widely used in most scientific fields since the first operation of the Monte Carlo algorithm at the end of the 1940s (@goldsman_brief_2009, @metropolis_beginning_nodate).
-#draft[Maybe cite more examples.]
-Since then, computers and simulation have progressed massively and offer accurate representations of the real world in fully virtual environments.
+In 1950, a team led by Jon von Neumann and Jule Charney used the ENIAC computer to produce the first weather forecast by an electronic computer @charney_numerical_1950.
+Although their results carried important numerical errors, this work led to the foundation of modern meteorology.
+It is an example of numerically replicating a physical phenomenon by implementing and solving the corresponding equations.
+NASA has also used simulation early in its space programs, such as Apollo.
+The primary goal of their enterprise was to build a training setup for astronauts to practice specific skills.
+Indeed, in high-stakes enterprises, the crew's accommodation to their environment and tools is essential for the mission's success.
+Between 1963 and 1972, the Apollo flight crew trained for 30,000 hours on different simulation devices.
+Using simulators as sandbox environments to perform training is a significant use case of such systems.
+It can be applied to human training, algorithm testing, and data collection.
+Once built, simulation systems can be dramatically valuable as cheap replications of physical settings that are either expensive or difficult to access.
+Multiple techniques or discoveries would have been impossible without the scaling offered by simulation.
+For instance, the field of drug discovery has considerably benefitted from molecular computer simulation @durrant_molecular_2011 @lave_challenges_2007.
+Building on this general overview of simulation, we now turn to its specific applications in deep learning and robotics.
 
 // Simulation in DL and DRL
-Deep learning techniques have shown impressive results on a variety of tasks ranging from computer vision to natural language processing.
+Deep learning techniques have shown impressive results on various tasks ranging from computer vision to natural language processing.
 At their core resides the processing of substantial amounts of data.
-Collecting datasets of sufficient size and quality is a major obstacle in many concrete applications of deep learning techniques.
+Collecting datasets of sufficient size and quality is a significant obstacle in many concrete applications of deep learning techniques.
 Simulation provides an alternative way to gather massive amounts of data and often allows for automatic annotation.
 However, building an effective simulator can be hard or even impossible.
 Also, simulated features frequently deviate from real-world data, which can heavily hinder the final performance.
@@ -24,24 +35,57 @@ Reinforcement learning, for instance, has an agent interacting with an environme
 Since deep neural networks have been employed in this field, the interest in simulating the targeted environments has grown significantly.
 The success of #acr("DRL") in applications such as board games and video games came early because simulating them is trivial.
 Large artificial neural networks could then be trained on massive amounts of data.
-Nonetheless, the design of realistic simulated environments has allowed the deployment of #acr("DRL") in more complex and _useful_ scenarios.
+Nonetheless, the design of realistic simulated environments has allowed the deployment of #acr("DRL") in more complex and practical scenarios.
 
 // 2 examples of simulation in DRL
-For instance, industrial and academic actors have used simulated environments as a first step towards achieving fully autonomous driving.
-The availability of driving simulators lets more modest research teams contributing to this field without requiring to handle data collection.
-Sallab et al. @sallab_deep_2017 and Osiński et al. @osinski_simulation-based_2020 were able to propose simulation-based #acr("DRL") techniques for autonomous driving.
+For instance, industrial and academic actors have used simulated environments as a first step toward achieving fully autonomous driving.
+The availability of driving simulators allows more modest research teams to contribute to this field without requiring them to handle data collection.
+Sallab et al. @sallab_deep_2017 and Osiński et al. @osinski_simulation-based_2020 proposed simulation-based #acr("DRL") techniques for autonomous driving.
 @kiran_deep_2022 and @rosique_systematic_2019 further survey the landscape of available techniques, datasets, and simulators in this topic
-Additionally, Google DeepMind have proposed a novel approach for magnetic control of tokamak plasmas using #acr("DRL") (@degrave_magnetic_2022).
-A critical challenge in this work has been the scarcity of access to a real fusion reactor and thus of the training data.
-To get around this, they collaborated with physicists to build a fast and accurate JAX @jax2018github simulator modeling the core of the plasma, TORAX @citrin_torax_2024.
+Additionally, a team from Google DeepMind has proposed a novel approach for controlling the magnetic field of tokamak plasmas using #acr("DRL") (@degrave_magnetic_2022).
+A critical challenge in this work has been the scarcity of access to a real-world fusion reactor and, thus, to the training data.
+To get around this, they collaborated with physicists to build a fast and accurate JAX @jax2018github simulator modeling the plasma core, TORAX @citrin_torax_2024.
+#todo
 
 
 // Simulation in robotics
-Coming back to the subject of #acr("HRI") and robotics in general, simulators have also shown to be essential for developing and testing novel algorithms.
-Experimenting with uncertain methods remains cheaper and safer within a virtual environment rather than in the physical world.
+Returning to #acr("HRI") and robotics in general, simulators have also been shown to be essential for developing and testing novel algorithms.
+Experimenting with uncertain methods remains cheaper and safer in a virtual environment than in the physical world.
 Involving real hardware brings extra cost and the need for sufficient safety measures.
+Simulation for robotics is fundamentally a multidisciplinary field.
+Liu et al. @liu_role_2021 discuss the role of physics-based simulators in robotics.
+The authors highlight the necessity of relying on software simulation to compensate for real-world robotic systems' challenges.
+Naturally, most existing toolboxes commonly feature the simulation of the various physics phenomena involved in a robotic platform.
+Depending on the richness of the targeted environment, modeling the necessary behaviors may be difficult.
+The diversity of existing solutions is highlighted by Collins et al. @collins_review_2021.
+They list and compare the available offerings for a selection of robotics applications (medical, marine, aerial, and soft robotics).
+In addition to the underlying physics, a simulator should also model the behavior of different sensors.
+Indeed, in the natural world, robots use sensors to build a faithful representation of their surroundings.
+The accuracy of simulators in this regard conditions the algorithm's performance in practical use cases.
+Furthermore, performance is a crucial metric when developing a robotics simulator.
+Solving complex equations modeling multi-physics phenomena is often computationally expensive.
+Keeping runtime low enough requires simulator designers to make tradeoffs in their implementation choices.
+In their study on opportunities and challenges of robotics simulation @choi_use_2021, Choi et al. notably highlight the difficulty of gauging the right level of model complexity.
+They also suggest that the speed limitations of current solutions are an obstacle to the broader adoption of simulation in this field.
+// TODO Maybe add a break line here if the following paragraph is big enough.
+Additionally, simulation has been used to tackle #acr("HRI") problems.
+
+
+
+On the other hand
+// Used to collect synthetic datasets
+@rafailov_d5rl_2024 @walke_bridgedata_2024
+
+#acr("DRL") robotics simulator can be used to learn from directly.
+Yet, they might also be leveraged to gather substantial synthetic datasets to perform offline training.
+For instance, 
+
+// HRI
+
+
+#todo
 #draft[
-  - In classic robotics, simulator are cheaper and faster (especially for DRL)
+  - In classic robotics, simulators are cheaper and faster (especially for DRL)
   - In HRI, all this is true, but it's even more useful as there are humans involved in the loop (human time is expensive + eventual risks of hurting people)
 ]
 #draft[TODO: challenges of Sim2Real, for learning methods]
