@@ -5,8 +5,10 @@
 
     // Chap. 2: Simulator
     "/sections/2_simulator/1_intro/bibliography/general.bib",
-    "/sections/2_simulator/1_intro/bibliography/robotics.bib",
+    "/sections/2_simulator/1_intro/bibliography/human_robot_interactions.bib",
     "/sections/2_simulator/1_intro/bibliography/offline_rl.bib",
+    "/sections/2_simulator/1_intro/bibliography/robotics.bib",
+    "/sections/2_simulator/1_intro/bibliography/sim_to_real.bib",
     "/sections/2_simulator/2_background/bibliography.bib",
     "/sections/2_simulator/3_simulator/bibliography.bib",
 
