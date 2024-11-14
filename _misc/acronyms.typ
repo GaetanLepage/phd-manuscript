@@ -8,6 +8,7 @@
   "GT": ("Ground Truth"),
   "MKF": ("mixture Kalman filter"),
   "HMM": ("Hidden Markov Model", "Hidden Markov Models"),
+  "MCTS": ("Monte Carlo tree search"),
   
   // Deep Learning
   "BN": ("Batch Normalization"),

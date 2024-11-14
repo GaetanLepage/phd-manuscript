@@ -4,6 +4,7 @@
     "/sections/1_introduction/bibliography.bib",
 
     // Chap. 2: Simulator
+    "/sections/2_simulator/1_intro/bibliography/drl_games.bib",
     "/sections/2_simulator/1_intro/bibliography/general.bib",
     "/sections/2_simulator/1_intro/bibliography/human_robot_interactions.bib",
     "/sections/2_simulator/1_intro/bibliography/offline_rl.bib",
