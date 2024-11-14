@@ -36,6 +36,8 @@ No real speech signals are employed, and the sources remain in fixed positions.
 On the other hand, the agent is not moving in the room, contrary to what this chapter will present.
 Finally, their system does not estimate the distance to the active source.
 
+
+
 // Nguyen + Emmanuel Vincent
 #let nguyen = [
   @nguyen_localizing_2016
@@ -61,22 +63,28 @@ Shannon entropy measures uncertainty and drives the exploration of the #acr("MCT
 This framework allows the motion planning algorithm to run on a predefined limited computational budget.
 Experimental results show that the #acr("MCTS") planning successfully minimizes the entropy during the trajectory compared to greedy or random algorithms.
 Furthermore, the average estimation error also sees an improvement using this approach.
+This complete pipeline has been subsequently extended in @nguyen_motion_2019.
+First, the #acr("MKF") formulation is extended to handle intermittent sound sources better and to be more robust to erroneous measurements of sound activity and #acr("DoA").
+In addition to the entropy objective introduced in @nguyen_van_long-term_2017, the standard deviation of the estimated belief on the source location may now also be used to compute the optimal trajectory.
+Both criteria are compared in a thorough experimental study and are shown to reduce the source location estimation error successfully.
 
 
-
-
-//TODO: limited to a single sound source + absolute position of the robot is known
-
-#let bustamente = [
+// Bustamante
+#let bustamante = [
   @bustamante_three-stage_2015
   @bustamante_multi-step-ahead_2017
   @bustamante_information_2018
 ]
+//TODO: limited to a single sound source + absolute position of the robot is known
+In the same period,  Bustamante et al. developed a similar pipeline across a collection of articles #bustamante.
+In their foundational paper @bustamante_three-stage_2015, they introduce a three-stage strategy to combine a mobile robot control scheme and the associated source location estimator.
+The first stage consists of the short-term detection of azimuth and activity.
+This step solely leverages the most recent binaural features.
+Conversely, the second stage aggregates these data over time and combines them with past motor commands.
+This provides a finer estimate of the source location.
+Finally, the third stage is in charge of computing the next control command by implementing a feedback loop.
+
 #draft[
-- Bustamante #bustamente
-
-// Classic method to move and localize a source (no Deep Learning)
-@bustamante_multi-step-ahead_2017
+  // Classic method to move and localize a source (no Deep Learning)
+  @bustamante_multi-step-ahead_2017
 ]
-
-
