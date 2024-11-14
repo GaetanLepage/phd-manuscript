@@ -14,7 +14,8 @@
     "/sections/2_simulator/3_simulator/bibliography.bib",
 
     // Chap. 3: SSL
-    "/sections/3_ssl/1_sota/bibliography.bib",
+    "/sections/3_ssl/1_sota/bibliography/misc.bib",
+    "/sections/3_ssl/1_sota/bibliography/robotics.bib",
     "/sections/3_ssl/bibliography/methods.bib",
     "/sections/3_ssl/bibliography/misc.bib",
 

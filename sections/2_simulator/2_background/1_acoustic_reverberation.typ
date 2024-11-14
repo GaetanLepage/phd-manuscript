@@ -53,6 +53,18 @@ $
 $
 where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c f_s]$ characterizes the acoustic path from the source to the microphone. $delta$ denotes the Dirac delta function.
 
+#draft[
+  -> To be written after the introduction of the TF representations.
+  Intuitively, we work in the TF domain as, there, the listened signal is supposed to be the product of the clean signal with the RIR filter.
+  However, this is not theoretically true (even not true in practice).
+  Indeed, the convolution theorem (i.e. conv \<-> product) does not apply with the STFT.
+  See slide \#184 of Laurent's slides _Fundamentals of Audio Processing_.
+  Although this is not true, the TF representations have been widely used in the literature and are a powerful tool for audio processing, especially with DL.
+  
+  WARNING:
+  
+]
+
 
 ==== Problem formulation
 
