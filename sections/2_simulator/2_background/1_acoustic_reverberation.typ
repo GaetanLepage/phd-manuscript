@@ -3,9 +3,56 @@
 === Background
 <sec:simulator:reverb:background>
 
-#gaet[
-  If the _Background_ section becomes more general, we should maybe rename @sec:simulator:reverb
-]
+This section lays out a selection of acoustic and audio-processing core concepts.
+Such notions are central to the scientific development of the rest of the manuscript.
+More precisely, the physical modeling of acoustic signals will be recalled at first.
+A description of the phenomenon of reverberation is provided next.
+Finally, the spectral representations of audio signals are discussed in the last section.
+
+==== Fundamentals on sound propagation
+
+Sound is a mechanical wave phenomenon.
+Sound waves propagate in various mediums, such as air, water, and solids.
+Naturally, sound is represented as a real-valued temporal signal $x(t)$.
+While physical recording devices are analogous and capture a continuous signal, this representation is often quantized and sampled to obtain a discrete signal $x[n]$.
+Discrete representations allow the numerical processing and saving of sound signals.
+
+While many modern algorithms, especially #acr("DNN")-based solutions, process sound as purely statistical data, the physical reality of acoustic phenomena is a central aspect of this thesis.
+Indeed, this work aims to tackle various audio-related tasks in reverberant environments.
+Thus, it is necessary to highlight the physical realities' impacts on recorded signals to study how they will affect the performance of the proposed methods later.
+
+//Sound processing has 
+#draft[Single microphone]
+
+Let us first consider the ideal case of a single receiver in the free field.
+The latter means that the environment can be considered as anechoic.
+Hence, no sound reflections are considered; thus, the reverberation phenomenon is ignored.
+
+The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation:
+
+#let d = $colMath(d, #olive)$
+#let c = $colMath(c, #maroon)$
+$
+  x(t) = 1 / (sqrt(4 pi) #d) s (t - #d/#c)
+$ <eq:ssl:background:single_mic_continuous>
+
+where
+- #d is the source-to-microphone distance (in m)
+- $#c approx 343$ is the speed of sound (in m/s at 20°C)
+- $#d/#c$ is the time of arrival (in s)
+
+When considering digital signals, @eq:ssl:background:single_mic_continuous becomes
+$
+  x[n] = 1 / (sqrt(4 pi) #d) s [n - #d/#c f_s]
+$ <eq:ssl:background:single_mic_discrete>
+where $f_s$ ​is the sampling rate (in Hz), neglecting sampling and quantization issues.
+
+The microphone signal can be rewritten as
+$
+  x[n] = (h * s)[n]
+$
+where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c f_s]$ characterizes the acoustic path from the source to the microphone. $delta$ denotes the Dirac delta function.
+
 
 ==== Problem formulation
 
@@ -19,7 +66,7 @@
 - Reverberation time ($T_60$)
 
 
-The reverberation time can be estimated from the room's dimensions has been empirically expressed by Wallace Clement Sabine as
+The reverberation time can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine as
 #let volume = $colMath(V, #maroon)$
 #let area = $colMath(A, #olive)$
 #let sound-speed = $colMath(c, #eastern)$
@@ -129,37 +176,11 @@ This target domain is often referenced as the time-frequency plan.
 
 *Motivation*
 
-#draft[Single microphone]
 
-
-Let us first consider the ideal case of a single receiver in the free-field.
-The latter means that the environment can be considered as anechoic.
-Hence, no sound reflections are considered and thus the reverberation phenomenon is ignored.
-
-The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation:
-
-#let d = $colMath(d, #olive)$
-#let c = $colMath(c, #maroon)$
-$
-  x(t) = 1 / (sqrt(4 pi) #d) s (t - #d/#c)
-$ <eq:ssl:background:binaural_cues:single_mic_continuous>
-
-where
-- #d is the source-to-microphone distance (in m)
-- $#c approx 343$ is the speed of sound (in m/s at 20°C)
-- $#d/#c$ is the time of arrival (in s)
-
-When considering digital signals, @eq:ssl:background:binaural_cues:single_mic_continuous becomes
-$
-  x[n] = 1 / (sqrt(4 pi) #d) s [n - #d/#c F_s]
-$ <eq:ssl:background:binaural_cues:single_mic_discrete>
-where Fs ​is the sampling rate (in Hz), neglecting sampling and quantization issues.
-
-The microphone signal can be rewritten as
-$
-  x[n] = (h * s)[n]
-$
-where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c F_s]$ characterizes the acoustic path from the source to the microphone. $delta$ denotes the Dirac delta function.
+#draft[
+  TODO: Originally, here was the explanation about how sound propagates in anechoic/reverberant environments.
+  This has been moved to the beginning of the _Background_ section.
+]
 
 *Definition*
 
