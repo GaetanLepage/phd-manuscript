@@ -38,15 +38,16 @@ The success of #acr("DRL") in applications such as board games and video games c
 Large artificial neural networks could then be trained on massive amounts of data.
 Nonetheless, the design of realistic simulated environments has allowed the deployment of #acr("DRL") in more complex and practical scenarios.
 
-// 2 examples of simulation in DRL
+// Some examples of simulation in DRL
 For instance, industrial and academic actors have used simulated environments as a first step toward achieving fully autonomous driving.
 The availability of driving simulators allows more modest research teams to contribute to this field without requiring them to handle data collection.
 Sallab et al. @sallab_deep_2017 and Osiński et al. @osinski_simulation-based_2020 proposed simulation-based #acr("DRL") techniques for autonomous driving.
-@kiran_deep_2022 and @rosique_systematic_2019 further survey the landscape of available techniques, datasets, and simulators in this topic
+@kiran_deep_2022 and @rosique_systematic_2019 further survey the landscape of available techniques, datasets, and simulators on this topic.
 Additionally, a team from Google DeepMind has proposed a novel approach for controlling the magnetic field of tokamak plasmas using #acr("DRL") (@degrave_magnetic_2022).
 A critical challenge in this work has been the scarcity of access to a real-world fusion reactor and, thus, to the training data.
 To get around this, they collaborated with physicists to build a fast and accurate JAX @jax2018github simulator modeling the plasma core, TORAX @citrin_torax_2024.
-#todo
+Finally, games have been among the most widespread application domains for #acr("DRL") as they are inherently virtual @vinyals_grandmaster_2019 @mnih_playing_2013 @berner_dota_nodate @silver_mastering_2016.
+No effort is necessary to provide a simulated version of those environments.
 
 // Simulation in robotics
 *Robotics.*
@@ -88,18 +89,21 @@ The Kubric @greff_kubric_2022 dataset generator leverages the _PyBullet_ @noauth
 
 *Human Robot interactions.*
 Human-robot interactions are another dynamic field of study @robinson_robotic_2023.
-This wide-field encompasses all the tasks that require robots to operate nearby or directly with humans.
+This broad field encompasses all the tasks that require robots to operate nearby or directly with humans.
 Such scenarios bring additional difficulties, such as safety implications or social acceptance.
-In their survey, Zacharaki et al. summarize the existing works on safety in #acr("HRI") but also insist on the several open problems remaining.
-Adding machine learning techniques in social robotics introduces new possibilities and safety difficulties.
+Zachari et al. @zacharaki_safety_2020 conducted an extensive survey on the multiple facets of safety in #acr("HRI").
+They enumerate the numerous remaining open problems in this field.
+For instance, adding machine learning techniques in social robotics introduces new possibilities and safety difficulties.
 Simulation is therefore compelling to researchers working in #acr("HRI").
 Abeyruwan et al. @abeyruwan_i-sim2real_2023 propose a framework to train #acr("RL") policies for human-interaction tasks.
-Specifically, they train a robot arm to play table-tennis against a human adversary.
-The learning process iteratively switches from a simulated environment to a real physical system involving a human player.
-
-@kaur_simulators_2022 @sprague_socialgym_2023
-
-// TODO: add social robotics example
+Specifically, they train a robot arm to play table tennis against a human adversary.
+The learning process iteratively switches from a simulated environment to a physical system involving a human player.
+Kaur et al. @kaur_simulators_2022 insist on the importance of modeling human behaviors in #acr("HRI") simulators.
+They reviewed the existing simulators for mobile robot navigation in pedestrian-rich environments.
+They identified the key missing features of available solutions.
+For instance, the richness of human behavior models is not satisfying as they often lack realism and diversity.
+Sprague et al. @sprague_socialgym_2023 proposed _SocialGym 2.0_, a multi-agent j navigation simulator that models robot-robot and human-robot interactions.
+Safety is another crucial challenge when humans are added to the loop.
 
 
 *Sim2Real challenges.*
@@ -110,6 +114,7 @@ Hence, an entire segment of the robotics #acr("DRL") community targets the probl
 This area encompasses the challenge of leveraging simulation while ensuring appropriate behavior and performance of the target physical system.
 These discrepancies are primarily due to differences between the simulator and the real-world environment.
 They can be modeling limitations, numerical imprecisions, unrealistic assumptions, etc.
+In conclusion, simulation's many benefits come at some cost, which must be carefully accounted for when deploying #acr("RL") policies in the real world.
 
 *Acoustic simulation.*
 Vision is the dominant modality used for robotic perception in practical applications.
@@ -118,23 +123,17 @@ In this thesis, the focus will be on acoustic applications in robotics.
 Simulators targeting audio simulation are scarcer, especially the ones dedicated to robotics.
 The video game industry, among others, has motivated the development of acoustic rendering engines.
 #todo
+In their review, Kaur et al. @kaur_simulators_2022 highlight the absence of ambient sound modeling for testing sound-based navigation algorithms.
 
-In conclusion, simulation is a key component in many scientific domains, but especially in robotics and deep reinforcement learning.
-It allows for scaling experiments and iterating rapidly on research ideas without the need to rely on costly and time-consuming physical infrastructure.
+*Conclusion.*
+In conclusion, simulation is a key component in many scientific domains, especially in robotics and deep reinforcement learning.
+It allows for scaling experiments and iterating rapidly on research ideas without relying on costly and time-consuming physical infrastructure.
 However, simulation has trade-offs that should be carefully considered when developing software platforms.
-// TODO repetition
 For instance, #acr("RL") policies learned in simulated environments do not always translate to performing convincingly in real-world scenarios.
-
-
-#todo
-#draft[
-  - In classic robotics, simulators are cheaper and faster (especially for DRL)
-  - In HRI, all this is true, but it's even more useful as there are humans involved in the loop (human time is expensive + eventual risks of hurting people)
-]
-#draft[TODO: challenges of Sim2Real, for learning methods]
-
-// Audio
-#draft[TODO: audio]
-
-// Our motivation to develop a simulator
-#draft[TODO: Our motivation to develop a simulator]
+Also, no satisfying simulation solution exists for sound-based robot navigation.
+For those reasons, we contributed an original implementation of a flexible and feature-rich acoustic simulator for robotics.
+Its goal is to provide a practical and convenient sandbox for machine learning and robotics scientists to experiment with various sound-related problems.
+The obtained software ecosystem has been the core framework for the experimental work conducted in the present thesis.
+This chapter will introduce the fundamental notions of sound propagation and audio processing to understand the phenomenon of acoustic reverberation.
+Also, various state-of-the-art methods for acoustic simulation will be presented along with existing implementation.
+Finally, we will detail the core design of our simulator and highlight its several features.
