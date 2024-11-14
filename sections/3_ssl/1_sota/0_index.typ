@@ -100,6 +100,9 @@ Indeed, a robotic platform implies dealing with several constraints mainly cause
 
 // Deep Learning
 In robotics, Deep Learning methods have also been used to perform #("SSL").
+#draft[
+- @nguyen_autonomous_2018: Collecting a dataset and training a CNN to localize and face a sound source with a humanoid robot head.
+]
 
 // Using multi-modal information (audio-visual SSL)
 // -> Not directly related to our topic though
