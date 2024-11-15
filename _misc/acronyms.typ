@@ -2,6 +2,7 @@
 
 #init-acronyms((
   // Misc
+  "EM": ("expectation-maximization"),
   "API": ("Application Programming Interface"),
   "HRI": ("Human-Robot Interaction"),
   "RMSE": ("Root Mean Square Error"),
@@ -44,6 +45,7 @@
   "FoV": ("Field of View"),
 
   // Audio
+  "DFT": ("Discrete Fourier Transform"),
   "GA": ("Geometrical Acoustics"),
   "GCC-PHAT": ("Generalized Cross-Correlation function with Phase Transform"),
   "HRTF": ("head-related transfer function"),
