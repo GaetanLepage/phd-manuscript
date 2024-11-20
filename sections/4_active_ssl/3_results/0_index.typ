@@ -66,16 +66,16 @@ $
 === Dataset collection
 <sec:active_ssl:results:dataset>
 
-In order to design, run and evaluate our method on the #acr("ASSL") task, the simulator is used to generate a synthetic dataset.
-Specifically, we leverage the ability of our simulator to model _dynamic_ discrete-time environments (see @sec:simulator:simulator:features:dynamic_scenarios).
+In order to design, run, and evaluate our method on the #acr("ASSL") task, the simulator is used to generate a synthetic dataset.
+Specifically, we leverage our simulator's ability to model _dynamic_ discrete-time environments (see @sec:simulator:simulator:features:dynamic_scenarios).
 The latter consists of a repository of independent $H$-steps trajectories.
 
 *Acoustic objects and movement policy.*
 First, a random number of speech sources $z_i$ is sampled uniformly between one and four.
 Those $z_i$ sources get randomly positioned in the reverberant room.
-The reverberation time $T_60$ has been set to 0.5s and the room measures $4 times 7$ meters.
+The reverberation time $T_60$ has been set to 0.5s, and the room measures $4 times 7$ meters.
 We pick a random starting side (top, bottom, left, or right) and randomly place the agent equipped with a four-microphone array in a 50cm strip along the corresponding wall.
-The agent aims at a random direction, yet ensuring that it turns its back to the wall it starts against.
+The agent aims in a random direction, yet it ensures that it turns its back on the wall it starts against.
 The range of possible initial orientations can be observed on @fig:active_ssl:results:dataset_init.
 
 #include "figures/dataset_setup/figure.typ"
@@ -87,26 +87,26 @@ $
 In practice, we use a value of radians for $sigma_theta$.
 The agent then moves forward in this new direction by a distance of 50cm.
 
-When the robot happens to be less than 50cm from a wall, the orientation is instead sampled according to the initialization process to turn its back to this wall.
+When the robot ends up being less than 50cm from a wall, its orientation is instead sampled according to the initialization process to turn its back to this wall.
 
 *Data gathering.*
-The collected datasets will find two distinct uses: the evaluation of the global #acr("ASSL") pipeline as well as the training of the #psi-dnn combination operator.
+The collected datasets will be used for two distinct purposes: evaluating the global #acr("ASSL") pipeline and training the #psi-dnn combination operator.
 Hence, exhaustive geometric and acoustic data is gathered.
 For each step, the audio signal received by the agent is fed to the #acr("SSL") network to collect the estimated #doa spectrum $hat(o)_t$.
 The oracle spectrum $o_t$ also gets saved for further comparisons.
-Also, the absolute positions of the agent as well as the relative source locations are saved at every step.
-Finally, the relative movements performed by the robot are recorded in order to later perform the map shifting operation.
-Local #doa maps have not been generated yet but all the necessary information for their creation is made available.
-This choice allows for experimenting with the relevant hyperparameters such as the #fov $L$ and pixel resolution $p$.
+Also, the absolute positions of the agent and the relative source locations are saved at every step.
+Finally, the relative movements of the robot are recorded in order to later perform the map shifting operation.
+Local #doa maps have not yet been generated, but all the necessary information for their creation has been made available.
+This choice allows for experimenting with the relevant hyperparameters, such as the #fov $L$ and pixel resolution $p$.
 
 === Performance study
 
 Both the #acr("ASSL") task and the proposed method admit variants and parameters.
-In this section, an in-depth exploration of certain settings is conducted.
+In this section, an in-depth exploration of specific settings is conducted.
 
 #gaet[
   This section is quite tricky to organize because there are several cross-dependencies:
-  - All experiments were made with the optimal clipping threshold which has been presented in @sec:active_ssl:results:likelihood_threshold
+  - All experiments were made with the optimal clipping threshold, which has been presented in @sec:active_ssl:results:likelihood_threshold
   - At the same time, the latter compares ground-truth SSL to using our multi-source SSL model which is presented in @sec:active_ssl:results:impact_of_ssl_model.
   - #psi-avg vs #psi-dnn is present in all sub-sections but clearly introduced in @sec:active_ssl:methods:blending_methods
 
@@ -115,7 +115,7 @@ In this section, an in-depth exploration of certain settings is conducted.
 
 #chris[
   I recommend to first explain 4.3.3.2 (ground-truth vs SSL model) and then discuss and show results of the cut-off (4.3.3.1). You can remove table 4.2 as it has the same information as 4.1.
-  Just explain that you compare ground-truth vs SSL model in all upcoming results. You can disucss the ultimate outcome of the results between both in your discussion. But it is obvious, the ground truth is better than the SSL model.   
+  Just explain that you compare ground truth vs SSL model in all upcoming results. You can disucss the ultimate outcome of the results between both in your discussion. But it is obvious, the ground truth is better than the SSL model.   
 ]
 
 #gaet[
@@ -128,20 +128,20 @@ In this section, an in-depth exploration of certain settings is conducted.
 ==== Likelihood cutoff
 <sec:active_ssl:results:likelihood_threshold>
 
-In order to feed the aggregated heatmaps to the clustering algorithm, it is first needed to extract a set of points from the final 2D map #AM.
-DBSCAN does not take the pixel values into account for building its clusters and only relies on the distance between the provided points.
-The set of filtered coordinates should thus be carefully chosen.
+To feed the aggregated heatmaps to the clustering algorithm, a set of points must first be extracted from the final 2D map #AM.
+When building its clusters, DBSCAN does not consider the pixel values and only relies on the distance between the provided points.
+Thus, the set of filtered coordinates should be carefully chosen.
 
-We adopt a simple thresholding approach that consists in selecting all points which value is greater than a given target #clip-t.
+We adopt a simple thresholding approach, selecting all points whose values are greater than a given target #clip-t.
 This parameter should be high enough to let the clusters surface.
-If too low, the resulting point cloud ends up fully connected leading to DBSCAN finding a single cluster.
-Conversely, increasing #clip-t too significantly will result in local peaks being completely filtered out which would produce a missed detection.
+If it is too low, the resulting point cloud is fully connected leading to DBSCAN finding a single cluster.
+Conversely, increasing #clip-t too significantly will result in local peaks being wholly filtered out, which will produce a missed detection.
 
-@fig:active_ssl:results:clipping_threshold shows a given aggregated map after having been filtered with different values of #clip-t.
-The top row depicts the map obtained from the averaging aggregation (#psi-avg) while the bottom one exposes the output of the neural network (#psi-dnn).
+@fig:active_ssl:results:clipping_threshold shows a given aggregated map after filtering with different values of #clip-t.
+The top row depicts the map obtained from the averaging aggregation (#psi-avg) while the bottom one exposes the neural network output (#psi-dnn).
 In this example, both blending strategies have provided a solid result that is not particularly challenging to cluster.
-While the neural network was able to directly yield distinct blobs, the obtained averaged map shows to be more impacted by the thresholding.
-Indeed, too low values of #clip-t do not manage to disconnect the various clusters and would link to a single prediction from the detection pipeline.
+While the neural network could yield distinct blobs directly, the obtained averaged map has shown to be more impacted by the thresholding.
+Indeed, values of #clip-t that are too low do not manage to disconnect the various clusters and would link to a single prediction from the detection pipeline.
 On the contrary, the network output suffers from too aggressive filtering as the blob with the lowest intensity eventually disappears for $#clip-t >= 0.8$.
 
 #figure(
@@ -160,7 +160,7 @@ It shows that there doesn't exist a single optimal value for #clip-t.
 As both the aggregation process and the source #doa data significantly impact #AM, the threshold needs to be chosen accordingly.
 Thus, for each scenario, we identify the best precision-recall tradeoff and select the corresponding #clip-t value.
 Those pairs are underlined in @table:active_ssl:results:clipping_threshold and do not always coincide with the highest values of individual metrics (highlighted in bold).
-For later experiments, those optimal #clip-t values will be used to extract the best performance out of each method.
+Those optimal #clip-t values will be used in later experiments to extract the best performance from each method.
 
 #include "tables/clipping_threshold.typ"
 
@@ -349,25 +349,25 @@ The #fov ($L$) determines how wide is the range covered by the egocentric map wh
 Its value must be chosen diligently as it bounds the information available once the shifting and aggregation have occurred at the final position.
 One has to consider the maximum distance $d_"max"$ traveled by the robot at each step and the horizon $H$.
 If the characteristic value $H times d_"max"$ significantly overpasses $L/2$, information from the oldest steps might be at least partly out of scope and thus useless.
-In practice, there is no strong reason to keep $L$ small, and choosing it greater than the dimensions of the room ensures capturing most of available knowledge in the shifted maps $tilde(M)_t'$.
-In order to quantify the impact of this parameter, the neural network is trained on various #fov ranging from 2 to 16 meters.
-Results are summarized in @table:active_ssl:results:fov and overall confirm the aforementioned expectation.
+In practice, there is no particular reason to keep $L$ small, and choosing it greater than the room's dimensions ensures that most of the available knowledge is captured in the shifted maps $tilde(M)_t'$.
+To quantify this parameter's impact, the neural network is trained on various #fovs, ranging from 2 to 16 meters.
+Results are summarized in @table:active_ssl:results:fov, confirming the abovementioned expectation overall.
 Performance indeed suffers from a reduction of the #fov.
 The value of 16 meters is used in the rest of our experiments as it provides the most favorable conditions.
 
 #include "tables/fov.typ"
 
 *Pixel resolution.*
-As opposed to the #fov, pixel resolution stands solely as a representation hyperparameter and does not fundamentally change the informative content of the maps.
+As opposed to the #fov, pixel resolution stands solely as a representation hyperparameter and does not fundamentally change the maps' informative content.
 Naturally, a higher resolution would limit any loss caused by the spatial discretization process.
-We have noticed during our experiments that when using too low resolutions, imprecisions would arise within the map-shifting process.
+During our experiments, we noticed that imprecisions would arise within the map-shifting process when using a too-low resolution.
 The latter is performed directly on the discrete heatmap thanks to the OpenCV @opencv_library software library.
 On the other hand, increasing the resolution induces a larger image fed into the neural network.
 As our U-net architecture is fully convolutional, the number of parameters remains identical when changing the input size.
-However, the computational cost still gets impacted by such modifications.
+However, the computational cost still is impacted by such modifications.
 We have once more trained the neural network on maps of different resolutions between 64 and 256 pixels.
 The results, presented in @table:active_ssl:results:pixel_res, suggest that a finer resolution indeed helps with the localization process.
-Although this parameter does not strongly impact precision, the recall shows to be sensitive to pixel resolution.
+Although this parameter does not strongly impact precision, the recall is shown to be sensitive to pixel resolution.
 Training time grows from 5 minutes when using $p=64$ to 30 minutes for $p=256$.
 Inference time scales similarly, ranging from 30s to 2min 15s for the biggest maps.
 As those constraints remain acceptable for real-world use cases, the most favorable resolution ($p=256$) is used in the rest of our experiments.

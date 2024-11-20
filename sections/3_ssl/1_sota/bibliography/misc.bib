@@ -365,3 +365,57 @@ Publisher: Nature Publishing Group},
 	keywords = {Reverberation, Speech, Robots, man, Acoustic noise, Distributed processing, Ethernet networks, Personal communication networks, Real time systems, Streaming media, Working environment noise},
 	file = {IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/2RIXJMRS/1013493.html:text/html;PDF:/home/gaetan/.local/share/Zotero/storage/YQBV49PU/Nakadai et al. - 2002 - Real-time speaker localization and speech separation by audio-visual integration.pdf:application/pdf},
 }
+
+########################################
+# Serizel's works
+
+@inproceedings{perotin_crnn-based_2018,
+	title = {{CRNN}-based Joint Azimuth and Elevation Localization with the Ambisonics Intensity Vector},
+	url = {https://ieeexplore.ieee.org/abstract/document/8521403},
+	doi = {10.1109/IWAENC.2018.8521403},
+	abstract = {We present a source localization system for first-order Ambisonics ({FOA}) contents based on a stacked convolutional and recurrent neural network ({CRNN}). We propose to use as input to the {CRNN} the {FOA} acoustic intensity vector, which is easy to compute and closely linked to the sound direction of arrival ({DoA}). The system estimates the {DoA} of a point source in both azimuth and elevation. We conduct an experimental evaluation in configurations including reverberation, noise, and various speaker w. r. t. microphone orientations. The results show that the proposed architecture and input allow the network to return accurate location estimates in realistic conditions compared to another recent {CRNN}-based system.},
+	eventtitle = {2018 16th International Workshop on Acoustic Signal Enhancement ({IWAENC})},
+	pages = {241--245},
+	booktitle = {2018 16th International Workshop on Acoustic Signal Enhancement ({IWAENC})},
+	author = {Perotin, Lauréline and Serizel, Romain and Vincent, Emmanuel and Guérin, Alexandre},
+	urldate = {2024-11-18},
+	date = {2018-09},
+	keywords = {{TODO}},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/2GMV5JH2/Perotin et al. - 2018 - CRNN-based Joint Azimuth and Elevation Localization with the Ambisonics Intensity Vector.pdf:application/pdf;IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/ZCTD2R3W/8521403.html:text/html},
+}
+
+
+@inproceedings{perotin_regression_2019,
+	title = {Regression Versus Classification for Neural Network Based Audio Source Localization},
+	url = {https://ieeexplore.ieee.org/abstract/document/8937277},
+	doi = {10.1109/WASPAA.2019.8937277},
+	abstract = {We compare the performance of regression and classification neural networks for single-source direction-of-arrival estimation. Since the output space is continuous and structured, regression seems more appropriate. However, classification on a discrete spherical grid is widely believed to perform better and is predominantly used in the literature. For regression, we propose two ways to account for the spherical geometry of the output space based either on the angular distance between spherical coordinates or on the mean squared error between Cartesian coordinates. For classification, we propose two alternatives to the classical one-hot encoding framework: we derive a Gibbs distribution from the squared angular distance between grid points and use the corresponding probabilities either as soft targets or as cross-entropy weights that retain a clear probabilistic interpretation. We show that regression on Cartesian coordinates is generally more accurate, except when localized interference is present, in which case classification appears to be more robust.},
+	eventtitle = {2019 {IEEE} Workshop on Applications of Signal Processing to Audio and Acoustics ({WASPAA})},
+	pages = {343--347},
+	booktitle = {2019 {IEEE} Workshop on Applications of Signal Processing to Audio and Acoustics ({WASPAA})},
+	author = {Perotin, Lauréline and Défossez, Alexandre and Vincent, Emmanuel and Serizel, Romain and Guérin, Alexandre},
+	urldate = {2024-11-19},
+	date = {2019-10},
+	note = {{ISSN}: 1947-1629},
+	keywords = {man},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/5QPGYRWF/Perotin et al. - 2019 - Regression Versus Classification for Neural Network Based Audio Source Localization.pdf:application/pdf;IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/ZRN4V99T/8937277.html:text/html},
+}
+
+
+@article{perotin_crnn-based_2019,
+	title = {{CRNN}-Based Multiple {DoA} Estimation Using Acoustic Intensity Features for Ambisonics Recordings},
+	volume = {13},
+	issn = {1941-0484},
+	url = {https://ieeexplore.ieee.org/abstract/document/8643769},
+	doi = {10.1109/JSTSP.2019.2900164},
+	abstract = {Localizing audio sources is challenging in real reverberant environments, especially when several sources are active. We propose to use a neural network built from stacked convolutional and recurrent layers in order to estimate the directions of arrival of multiple sources from a first-order Ambisonics recording. It returns the directions of arrival over a discrete grid of a known number of sources. We propose to use features derived from the acoustic intensity vector as inputs. We analyze the behavior of the neural network by means of a visualization technique called layerwise relevance propagation. This analysis highlights which parts of the input signal are relevant in a given situation. We also conduct experiments to evaluate the performance of our system in various environments, from simulated rooms to real recordings, with one or two speech sources. The results show that the proposed features significantly improve performances with respect to raw Ambisonics inputs.},
+	pages = {22--33},
+	number = {1},
+	journaltitle = {{IEEE} Journal of Selected Topics in Signal Processing},
+	author = {Perotin, Lauréline and Serizel, Romain and Vincent, Emmanuel and Guérin, Alexandre},
+	urldate = {2024-11-19},
+	date = {2019-03},
+	note = {Conference Name: {IEEE} Journal of Selected Topics in Signal Processing},
+	keywords = {man},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/YPQHHC6S/Perotin et al. - 2019 - CRNN-Based Multiple DoA Estimation Using Acoustic Intensity Features for Ambisonics Recordings.pdf:application/pdf;IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/P5ZIM7BR/8643769.html:text/html},
+}

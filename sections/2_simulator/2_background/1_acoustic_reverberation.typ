@@ -11,6 +11,21 @@ Finally, the spectral representations of audio signals are discussed in the last
 
 ==== Fundamentals on sound propagation
 
+#gaet[
+  Do we introduce propagation equations before talking about reverberation in general ?
+
+  For me, the idea is:
+  + Sound propagation (in free-field)
+  + Sound propagation in a room -> reflections
+  + Concept of the RIR: modeling as a convolution filter
+  + TF representations
+  + conv theorem not holding for STFT and why it still makes sense to use STFTs for this task
+
+  Maybe we should mention HRTFs as we do binaural for robotics.
+  I would maybe get criticized for not mentioning it.
+  However, we should insist that we have neglected it in this work.
+]
+
 Sound is a mechanical wave phenomenon.
 Sound waves propagate in various mediums, such as air, water, and solids.
 Naturally, sound is represented as a real-valued temporal signal $x(t)$.
@@ -62,6 +77,12 @@ where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c f_s]$ characterizes the acou
   Although this is not true, the TF representations have been widely used in the literature and are a powerful tool for audio processing, especially with DL.
   
   WARNING:
+  One of the interesting Fourier transform is the behavior of the convolution operation.
+  The convolution theorem
+  $
+    cal(F)(f * g) = cal(F)(f) times cal(F)(g) \
+    f times g = cal(F)(f * g)
+  $
   
 ]
 
@@ -161,7 +182,7 @@ The Fourier transform stands as the core concept of this category of encoding.
 // TODO FT -> STFT (continuous) -> STFT (discrete)
 #draft[TODO cite @smith_scientist_1997]
 As acoustic signals are stored and processed numerically, the continuous framing of the Fourier transform cannot be directly employed.
-Instead, the #acr("STFT") algorithm allows to convert the temporal real-valued signal into a two-dimensional complex form.
+Instead, the #acr("STFT") algorithm allows converting the temporal real-valued signal into a two-dimensional complex form.
 $ "STFT"(x) in CC^(F times T) $
 
 $
