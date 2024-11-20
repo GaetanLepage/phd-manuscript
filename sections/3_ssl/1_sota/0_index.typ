@@ -48,38 +48,43 @@ Our intent at exploring #acr("SSL") was initially motivated by our exploratory w
 === Deep Learning methods for #acr("SSL")
 <sec:ssl:sota:deep_learning>
 
-// Survey paper
-@grumiaux_survey_2021
 
-// How to (virtually) train your speaker localizer
-@srivastava_how_2023
 
-// Sound Source Localization Using Deep Learning Models
-@yalta_sound_2017
+
+#draft[
+  - Survey paper @grumiaux_survey_2021
+  - How to (virtually) train your speaker localizer @srivastava_how_2023
+  - Sound Source Localization Using Deep Learning Models @yalta_sound_2017
+
+  Romain Serizel's papers on SSL:
+  - CRNN-based Joint Azimuth and Elevation Localization with the Ambisonics Intensity Vector @perotin_crnn-based_2018
+  - CRNN-Based Multiple DoA Estimation Using Acoustic Intensity Features for Ambisonics Recordings @perotin_crnn-based_2019
+  - Regression Versus Classification for Neural Network Based Audio Source Localization @perotin_regression_2019
+]
 
 
 === Sound Source localization in robotics
 <sec:ssl:sota:ssl_in_robotics>
 
-Although, as demonstrated above, #acr("SSL") has been studied as a self-contained problem, it certainly have an important number of downstream applications.
-Among those, robotics is a major use case of #acr("SSL") algorithms.
+Although, as demonstrated above, #acr("SSL") has been studied as a self-contained problem, it certainly has an important number of downstream applications.
+Among those, robotics is a significant use case of #acr("SSL") algorithms.
 Perception is an essential building block of a social robotics platform.
-Besides the exploitation of visual features which falls under the computer vision domain, leveraging the audio cues may provide valuable information for a social robot.
-Naturally, such an agent will use language as the primary means of communication with humans and will thus need to extract the meaning of the speech of its interlocutors.
-Besides #("ASR"), sound information may have additional use cases.
+Besides exploitation of visual features, which falls under the computer vision domain, leveraging audio cues may provide valuable information for a social robot.
+Naturally, such an agent will use language as the primary means of communication with humans and will thus need to extract the meaning of its interlocutors' speech.
+Sound information may have additional use cases besides #("ASR").
 
 // Other uses of audio in robotics
-For instance, human-robot interaction can be enhanced by having the agent adjust its gaze and look at the person it is interacting with.
+For instance, human-robot interaction can be enhanced by having the agent adjust its gaze and look at the person it interacts with.
 // TODO: cite study that backs this claim
 This has been achieved through computer vision techniques but #acr("SSL") has also yielded positive results. // TODO cite some works that do this
-A robot being able to accurately locate other sound sources can also adjust its navigation policy to benefit from this knowledge.
+A robot that is able to locate other sound sources accurately can also adjust its navigation policy to benefit from this knowledge.
 Robot navigation is likewise complex and often relies on multi-modal perception.
 LIDAR, or depth information, allows the robot to localize itself and other potentially moving subjects in the environment.
 // TODO citations
 However, identifying the position of currently speaking humans requires some sort of #acr("SSL") method.
 
 // Constraint related to robotics
-Robotics also brings additional challenges to the #acr("SSL") task.
+Robotics also challenges the #acr("SSL") task.
 Indeed, a robotic platform implies dealing with several constraints mainly caused by interacting with the real world.
 #draft[
 // TODO:

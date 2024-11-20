@@ -3,11 +3,11 @@
 == Background
 <sec:active_ssl:background>
 
-In the original #acr("SSL") task, as defined by the signal processing community, every source in the room are assumed to be static.
+In the original #acr("SSL") task, as defined by the signal processing community, every source in the room is assumed to be static.
 However, the robotics field gave birth to original acoustic problems with different motivations and specificities.
 
-First, several works addressing #acr("SSL") in its static formulation do address challenges related to robotics systems.
-For instance, the physical aspect of a robotic head needs to be properly modeled from an acoustic perspective.
+First, several works addressing #acr("SSL") in its static formulation address challenges related to robotics systems.
+For instance, the physical aspect of a robotic head needs to be appropriately modeled from an acoustic perspective.
 An overview of #acr("SSL") in robotics has been proposed in @sec:ssl:sota:ssl_in_robotics.
 Conversely, this chapter will focus on problems involving explicitly moving entities.
 No single well-defined task could be labeled as _active sound source localization_; thus, researchers have studied a wide range of diverse problems of this kind.
@@ -21,8 +21,8 @@ The _active audition_ task aims to identify the #doa of the present sources accu
 To achieve this objective, both vision and audio signals are processed to enhance the robustness of the prediction.
 Also, the robot's head movement automatically adjusts to face the currently active source.
 Visual data plays an essential role in refining the angular estimation.
-Authors use the framework of Epipolar Geometry to compute an angle from both the camera images and the spectrums of the signals received by left and right external microphones.
-Thanks to this angle, a directional band-pass filter is constructed, which permits dampening noise sounds coming from the robot's motors.
+The authors use the framework of Epipolar Geometry to compute an angle from both the camera images and the spectrums of the signals received by left and right external microphones.
+Thanks to this angle, a directional band-pass filter is constructed, which permits dampening noise sounds produced by the robot's motors.
 This method circumvents the use of #acr("HRTF"), which is challenging to access in real-world scenarios.
 They test this pipeline within a relatively simple experimental scenario.
 Two loudspeakers play a monotone sound at a given, distinct frequency.
@@ -32,11 +32,9 @@ The robotic head is expected to progressively face the active source so that it 
 Nakadai's work is among the first attempts to perform #acr("SSL") in a dynamic context.
 However, it presents a few limitations.
 On the one hand, the considered setting remains very simple.
-No real speech signals are employed, and the sources remain in fixed positions.
+No authentic speech signals are employed, and the sources remain in fixed positions.
 On the other hand, the agent is not moving in the room, contrary to what this chapter will present.
 Finally, their system does not estimate the distance to the active source.
-
-
 
 // Nguyen + Emmanuel Vincent
 #let nguyen = [
@@ -66,7 +64,7 @@ Furthermore, the average estimation error also sees an improvement using this ap
 This complete pipeline has been subsequently extended in @nguyen_motion_2019.
 First, the #acr("MKF") formulation is extended to handle intermittent sound sources better and to be more robust to erroneous measurements of sound activity and #acr("DoA").
 In addition to the entropy objective introduced in @nguyen_van_long-term_2017, the standard deviation of the estimated belief on the source location may now also be used to compute the optimal trajectory.
-Both criteria are compared in a thorough experimental study and are shown to reduce the source location estimation error successfully.
+Both criteria are compared in a thorough experimental study and are shown to successfully reduce the source location estimation error.
 
 
 // Bustamante
@@ -89,20 +87,21 @@ This provides a progressively finer estimate of the source's relative location.
 Finally, the third stage is computing the following control command by implementing a feedback loop.
 The first two phases were tested in an anechoic room, and the results were promising.
 A technical solution for the third stage is provided in @bustamante_towards_2016.
-They model the posterior distribution of the source localization as Gaussian mixture and use a Kalman filter to predict the the next state posterior pdf.
+They model the source localization's posterior distribution as a Gaussian mixture and use a Kalman filter to predict the next state posterior pdf.
 The control commands are computed by solving an optimization problem that maximizes the mutual information between the predicted sensor position and the sound source's measurement.
 This ensures that the sensor moves in a way that yields the most informative measurement at the next time step.
 This method was evaluated both in simulation and on a physical system.
 The complete pipeline is further detailed and tested in @bustamante_information_2017.
-Bustamante et al. @bustamante_multi-step-ahead_2017 extended the control command optimization to a multi-step ahead process to enhance their three-staged approach.
+To enhance their three-staged approach, Bustamante et al. @bustamante_multi-step-ahead_2017 extended the control command optimization to a multi-step ahead process.
 The optimization problem now consists of determining the sequence of controls that minimizes a cost function at each iteration.
 This objective directly incorporates the expected uncertainty on the source's position over multiple future steps.
-#draft[TODO: Conclude on this work].
-
-#draft[
-  // Classic method to move and localize a source (no Deep Learning)
-  @bustamante_multi-step-ahead_2017
-]
+Overall, Bustamante's work demonstrates another complete and performing approach to #acr("ASSL").
+On the one hand, it aggregates #acr("DoA") estimations and robot movement over time to localize a sound source in 2D relative to the agent.
+On the other hand, it provides a controlling scheme for the agent that optimizes the location performance in the long term.
 
 In conclusion, active #acr("SSL") has been a topic of interest in the robotic literature.
-Indeed, static localization approaches suffer from limitations such as the front-back ambiguity or distance non-observability. #todo
+Indeed, static localization approaches suffer from limitations such as the front-back ambiguity or distance non-observability.
+The literature contains successful examples of #acr("ASSL") approaches.
+However, most existing strategies rely on probabilistic and information-theoretic frameworks and derive analytical schemes.
+No deep learning-based solutions have been identified.
+This chapter introduces a novel framework for #acr("ASSL") leveraging an original #acr("DNN") architecture.
