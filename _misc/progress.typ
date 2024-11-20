@@ -33,10 +33,10 @@
     - [-] #link(<sec:ssl:single_source>)[2. Single-source]
     - [-] #link(<sec:ssl:multi_source>)[2. Multi-source]
   + *Active SSL*
-    - [-] #link(<sec:active_ssl:background>)[1. Background]
+    - [x] #link(<sec:active_ssl:background>)[1. Background]
     - [x] #link(<sec:active_ssl:methods>)[2. Methods] [x] Chris
     - [x] #link(<sec:active_ssl:results>)[3. Results] [x] Chris
-    - [ ] #link(<sec:active_ssl:conclusion>)[4. Conclusion]
+    - [x] #link(<sec:active_ssl:conclusion>)[4. Conclusion]
   + *RL*
     - [-] #link(<sec:rl:intro>)[1. Intro to RL]
     - [-] #link(<sec:rl:method>)[2. Sound-driven robot navigation]
