@@ -1,0 +1,83 @@
+# ISM Matlab (Roomsim)
+@article{campbell_roomsim_nodate,
+	title = {Roomsim, a {MATLAB} Simulation of “Shoebox” Room Acoustics for use in Teaching and Research},
+	abstract = {A simulation of the acoustics of a simple rectangular prism room has been constructed using the {MATLAB} m-code programming language. The aim in creating the program Roomsim was to provide a signal generation tool for the speech and hearing research community, and a teaching tool for illustrating the image method of simulating room acoustics and some acoustical effects. The program is menu driven, has a user guide and example data files, and will be made freely available over the Internet under a {GNU} General Public Licence.},
+	pages = {4},
+	author = {Campbell, Douglas R and Palomäki, Kalle J and Brown, Guy J},
+	langid = {english},
+	keywords = {{RIR}},
+	file = {Campbell et al. - Roomsim, a MATLAB Simulation of “Shoebox” Room Aco.pdf:/home/gaetan/.local/share/Zotero/storage/AC4DW7RK/Campbell et al. - Roomsim, a MATLAB Simulation of “Shoebox” Room Aco.pdf:application/pdf},
+}
+
+
+@book{schimmel_fast_2009,
+	title = {A fast and accurate “shoebox” room acoustics simulator},
+	abstract = {We present a new ldquoshoeboxrdquo room acoustics simulator that is designed to support research into signal processing algorithms that are robust to reverberation. It is an improvement over existing room acoustics simulators because it is computationally fast, portable to many kinds of research environments, and flexible to use. The proposed simulator is also perceptually accurate because it models both specular and diffuse surface reflections. An efficient implementation of the simulator is made freely available for download from the open source project {ROOMSIM} on {SourceForge}.},
+	pagetotal = {241},
+	author = {Schimmel, Steven and Muller, Martin and Dillier, Norbert},
+	date = {2009-05-24},
+	doi = {10.1109/ICASSP.2009.4959565},
+	note = {Journal Abbreviation: {ICASSP}, {IEEE} International Conference on Acoustics, Speech and Signal Processing - Proceedings
+Pages: 244
+Publication Title: {ICASSP}, {IEEE} International Conference on Acoustics, Speech and Signal Processing - Proceedings},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/VC8T8QBL/Schimmel et al. - 2009 - A fast and accurate “shoebox” room acoustics simul.pdf:application/pdf},
+}
+
+
+
+# PyroomAcoustics
+@article{scheibler_pyroomacoustics_2018,
+	title = {Pyroomacoustics: A Python package for audio room simulations and array processing algorithms},
+	url = {http://arxiv.org/abs/1710.04196},
+	doi = {10.1109/ICASSP.2018.8461310},
+	shorttitle = {Pyroomacoustics},
+	abstract = {We present pyroomacoustics, a software package aimed at the rapid development and testing of audio array processing algorithms. The content of the package can be divided into three main components: an intuitive Python object-oriented interface to quickly construct different simulation scenarios involving multiple sound sources and microphones in 2D and 3D rooms; a fast C implementation of the image source model for general polyhedral rooms to efficiently generate room impulse responses and simulate the propagation between sources and receivers; and finally, reference implementations of popular algorithms for beamforming, direction finding, and adaptive filtering. Together, they form a package with the potential to speed up the time to market of new algorithms by significantly reducing the implementation overhead in the performance evaluation step.},
+	pages = {351--355},
+	journaltitle = {2018 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+	author = {Scheibler, Robin and Bezzam, Eric and Dokmanić, Ivan},
+	urldate = {2020-12-15},
+	date = {2018-04},
+	eprinttype = {arxiv},
+	eprint = {1710.04196},
+	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/U29IUP9B/Scheibler et al. - 2018 - Pyroomacoustics A Python package for audio room s.pdf:application/pdf},
+}
+
+# GPU based RIR (2015)
+@article{fu_gpu-based_2016,
+	title = {{GPU}-based image method for room impulse response calculation},
+	volume = {75},
+	issn = {1573-7721},
+	url = {https://doi.org/10.1007/s11042-015-2943-4},
+	doi = {10.1007/s11042-015-2943-4},
+	abstract = {Room impulse response ({RIR}) simulation based on the image-source method is widely used in room acoustic research. The calculation of the {RIR} in computer has to digitalize sound propagation delay into discrete samples. To carefully consider the digitalization error greatly increases the massive computational load of the image-source method. Therefore many real-time audio applications simply round-off the propagation delay to its nearest sample. This approximation, however, especially when the sampling frequency is low, degrades the phase precision that is required by applications such as microphone array. In this paper, by involving a Hanning-windowed ideal low-pass filter to reduce the digitalization error, a more precise image-source model is studied. We analyze its parallel calculation procedure and propose to use Graphics Processing Unit ({GPU}) to accelerate the calculation speed. The calculation procedure is divided into many parallel threads and arranged according the {GPU} architecture and its optimization criteria. We evaluate the calculation speeds of different {RIRs} using a general 5-core {CPU}, an ordinary {GPU} ({GTX}750) and an advanced {GPU} (K20C). The results show that, with similar precise {RIR} results, the speedup ratios of {GTX}750 and K20C over the general {CPU} can achieve 20 and 120 respectively.},
+	pages = {5205--5221},
+	number = {9},
+	journaltitle = {Multimedia Tools and Applications},
+	shortjournal = {Multimed Tools Appl},
+	author = {Fu, Zhong-hua and Li, Jian-wei},
+	urldate = {2021-01-12},
+	date = {2016-05-01},
+	langid = {english},
+	keywords = {room\_impulse\_response},
+	file = {Springer Full Text PDF:/home/gaetan/.local/share/Zotero/storage/78LKBA9F/Fu and Li - 2016 - GPU-based image method for room impulse response c.pdf:application/pdf},
+}
+
+# gpuRIR (2020)
+@article{diaz-guerra_gpurir_2021,
+	title = {{gpuRIR}: A python library for room impulse response simulation with {GPU} acceleration},
+	volume = {80},
+	issn = {1380-7501, 1573-7721},
+	url = {http://link.springer.com/10.1007/s11042-020-09905-3},
+	doi = {10.1007/s11042-020-09905-3},
+	shorttitle = {{gpuRIR}},
+	pages = {5653--5671},
+	number = {4},
+	journaltitle = {Multimedia Tools and Applications},
+	shortjournal = {Multimed Tools Appl},
+	author = {Diaz-Guerra, David and Miguel, Antonio and Beltran, Jose R.},
+	urldate = {2021-02-16},
+	date = {2021-02},
+	langid = {english},
+	keywords = {audio, {RIR}},
+	file = {diaz-guerra2020.pdf:/home/gaetan/.local/share/Zotero/storage/RH2S4WNC/diaz-guerra2020.pdf:application/pdf},
+}

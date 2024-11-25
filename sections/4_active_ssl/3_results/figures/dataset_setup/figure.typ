@@ -10,7 +10,7 @@
   ),
   caption: flex-caption(
     [
-      Agent starting and intermediary position for a generated trajectory.
+      Agent at start and intermediary position for a generated trajectory.
       The initial orientation is sampled in the cone delimited by dotted lines.
     ],
     [Agent position initialization for the dataset collection]

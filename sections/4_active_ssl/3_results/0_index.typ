@@ -5,36 +5,22 @@
 == Experiments and results
 <sec:active_ssl:results>
 
-This section summarizes the main experiments conducted to assess the performance of the proposed solution for #acr("ASSL").
+This section presents the main experiments conducted to assess the proposed solution's performance for #acr("ASSL").
 
 
 
 === Metrics
 
-Overall, the goal of the #acr("ASSL") task as defined in this chapter consists in extracting positions of sound sources after $H$ arbitrary steps in the environment.
-The actual detection is performed at step $H$ where the method outputs a list of coordinates relative to the robot's position.
+Overall, for our agent, the goal of the #acr("ASSL") task, as defined in this chapter, is to extract the sound sources' positions after $H$ arbitrary steps in the environment.
+The detection is only performed at step $H$, where the method outputs a list of coordinates relative to the robot's position.
 In this aspect, the #acr("ASSL") problem corresponds to a single-class detection task.
 Precision and recall hence come as natural metrics to evaluate our method's performance.
 
-Although, in this case, bounding boxes are not expected as only the sources positions should be provided.
-An acceptable range of $delta$ meters defines a criteria for a correct detection.
-For a detection to be considered valid, its estimated position needs to be closer than $delta$ meters from the ground truth.
-A positive match is characterized by the following function:
-#let dist = $norm(hat(X)_(i k) - X_(i k))_2$
-$
-  m(
-    hat(X)_(i k),
-    X_(i j)
-  ) = cases(
-    1  
-      &&"if" #dist < delta\
-      &&"and" k = limits("argmin")_(k in {1, dots, hat(z_i)}) #dist,
-    0
-       "otherwise"
-  )
-$
-where $hat(X)_(i k) = (hat(x)_(i k), hat(y)_(i k))$ is the estimated position of the $j$-th detected source in sample $i$ and $X_(i k)$ is the ground truth position of the $k$-th real source in this sample.
-$z_i$ denotes the number of real sources in sample $i$ while $hat(z)_i$ is the number of detections.
+However, bounding boxes are not expected in this case, as only the source positions should be provided.
+An acceptable range of $delta$ meters defines the criteria for correct detection.
+For a detection to be considered valid, its estimated position must be closer than $delta$ meters from the ground truth.
+The following function thus characterizes a correct/incorrect detection:
+#include "detection_equation.typ"
 _Precision_ and _recall_ definitions remain the same as for the previously introduced static #acr("SSL") task:
 $
   "Precision" = (
@@ -45,7 +31,7 @@ $
       hat(phi.alt)_(i k),
       phi.alt_(i j)
     )
-  ) / (sum_i hat(z)_i)
+  ) / (sum_i hat(z)_i),
 $
 <eq:ssl:multi_source:prec>
 
@@ -58,7 +44,7 @@ $
       hat(phi.alt)_(i k),
       phi.alt_(i j)
     )
-  ) / (sum_i z_i)
+  ) / (sum_i z_i).
 $
 <eq:ssl:multi_source:recall>
 
@@ -66,7 +52,7 @@ $
 === Dataset collection
 <sec:active_ssl:results:dataset>
 
-In order to design, run, and evaluate our method on the #acr("ASSL") task, the simulator is used to generate a synthetic dataset.
+In order to design, run, and evaluate our method on the #acr("ASSL") task, the simulator presented in Chapter 2 is used to generate a synthetic dataset.
 Specifically, we leverage our simulator's ability to model _dynamic_ discrete-time environments (see @sec:simulator:simulator:features:dynamic_scenarios).
 The latter consists of a repository of independent $H$-steps trajectories.
 
@@ -75,28 +61,29 @@ First, a random number of speech sources $z_i$ is sampled uniformly between one 
 Those $z_i$ sources get randomly positioned in the reverberant room.
 The reverberation time $T_60$ has been set to 0.5s, and the room measures $4 times 7$ meters.
 We pick a random starting side (top, bottom, left, or right) and randomly place the agent equipped with a four-microphone array in a 50cm strip along the corresponding wall.
-The agent aims in a random direction, yet it ensures that it turns its back on the wall it starts against.
+The agent aims in a random direction, yet it is ensured to turn its back to the wall it starts from.
 The range of possible initial orientations can be observed on @fig:active_ssl:results:dataset_init.
 
 #include "figures/dataset_setup/figure.typ"
 
 Regarding the movement policy, at each step, the new orientation $theta_t+1$ of the agent is sampled from the following normal distribution of mean $theta_t$ and variance $sigma_theta^2$:
 $
-  theta_(t+1) tilde cal(N)(theta_t, sigma_theta^2)
+  theta_(t+1) tilde cal(N)(theta_t, sigma_theta^2).
 $
 In practice, we use a value of radians for $sigma_theta$.
 The agent then moves forward in this new direction by a distance of 50cm.
 
-When the robot ends up being less than 50cm from a wall, its orientation is instead sampled according to the initialization process to turn its back to this wall.
+A special case occurs when the robot is less than 50cm from a wall. In this case, its orientation is instead sampled according to the initialization process to turn its back to this wall.
 
 *Data gathering.*
 The collected datasets will be used for two distinct purposes: evaluating the global #acr("ASSL") pipeline and training the #psi-dnn combination operator.
-Hence, exhaustive geometric and acoustic data is gathered.
+Hence, exhaustive geometric and acoustic data are gathered.
 For each step, the audio signal received by the agent is fed to the #acr("SSL") network to collect the estimated #doa spectrum $hat(o)_t$.
 The oracle spectrum $o_t$ also gets saved for further comparisons.
 Also, the absolute positions of the agent and the relative source locations are saved at every step.
 Finally, the relative movements of the robot are recorded in order to later perform the map shifting operation.
-Local #doa maps have not yet been generated, but all the necessary information for their creation has been made available.
+// BEFORE: Local #doa maps have not yet been generated, but all the necessary information for their creation has been made available.
+At this point, local #doa maps have not been generated, but all the necessary information for their creation is available.
 This choice allows for experimenting with the relevant hyperparameters, such as the #fov $L$ and pixel resolution $p$.
 
 === Performance study
@@ -135,7 +122,7 @@ Thus, the set of filtered coordinates should be carefully chosen.
 We adopt a simple thresholding approach, selecting all points whose values are greater than a given target #clip-t.
 This parameter should be high enough to let the clusters surface.
 If it is too low, the resulting point cloud is fully connected leading to DBSCAN finding a single cluster.
-Conversely, increasing #clip-t too significantly will result in local peaks being wholly filtered out, which will produce a missed detection.
+Conversely, increasing #clip-t too much will result in local peaks being wholly filtered out, which will produce a missed detection.
 
 @fig:active_ssl:results:clipping_threshold shows a given aggregated map after filtering with different values of #clip-t.
 The top row depicts the map obtained from the averaging aggregation (#psi-avg) while the bottom one exposes the neural network output (#psi-dnn).
@@ -156,7 +143,7 @@ On the contrary, the network output suffers from too aggressive filtering as the
 
 @table:active_ssl:results:clipping_threshold gathers the result of an experimental campaign on the impact of this parameter on the final #acr("ASSL") performance.
 For the sake of completeness, all four combinations of blending methods and #doa spectrum provider have been tested.
-It shows that there doesn't exist a single optimal value for #clip-t.
+It shows that there does not exist a single optimal value for #clip-t.
 As both the aggregation process and the source #doa data significantly impact #AM, the threshold needs to be chosen accordingly.
 Thus, for each scenario, we identify the best precision-recall tradeoff and select the corresponding #clip-t value.
 Those pairs are underlined in @table:active_ssl:results:clipping_threshold and do not always coincide with the highest values of individual metrics (highlighted in bold).
@@ -194,10 +181,11 @@ Those properties allow for better separability and fewer points being fed into t
 <sec:active_ssl:results:impact_of_ssl_model>
 
 The upstream static #acr("SSL") model features is a core part of the #acr("ASSL") pipeline.
-The quality of #doa spectra it provides plays a significant impact role in the final performance of the method.
-Hence, to isolate the behavior of the #acr("ASSL") method itself, two scenarios are compared.
+The quality of #doa spectra it provides plays a significant role in the final performance of the method.
+Hence, two scenarios are compared to isolate the behavior of the #acr("ASSL") method itself.
 On the one hand, the neural network implemented and trained in @sec:ssl:multi_source predicts the #doa spectra $hat(o)_t$ from the listened audio.
-This scenario is the more realistic and unites all the developed blocks into a single end-to-end pipeline.
+// PREVIOUSLY: This scenario is the most realistic as it can be used directly and unites all the developed blocks into a single end-to-end pipeline.
+This scenario is the most realistic as it can be used directly in a real-world scenario and does not rely on an oracle.
 On the other hand, the #acr("ASSL") framework is also evaluated directly using the ground truth spectra $o_t$.
 Here, the potential of our method can be explored under ideal conditions.
 
@@ -206,29 +194,28 @@ Here, the potential of our method can be explored under ideal conditions.
     "figures/doa_spectra.svg",
   ),
   caption: [
-    Comparison of ground-truth and predicted #doa spectra
+    Comparison of ground-truth (blue) and predicted (red) #doa spectra.
   ],
 )
 <fig:active_ssl:results:doa_spectra>
 
 @fig:active_ssl:results:doa_spectra shows instances of #doa spectra.
-Although most peaks are properly inferred by the #acr("SSL") model, failed detections can still be observed across the trajectory dataset.
-Most of the detection failures consist of false negatives where the network outputs either a too low peak, or no activation at all.
+Although the #acr("SSL") model properly infers most peaks, failed detections can still be observed across the trajectory dataset.
+Most detection failures consist of false negatives in which the network outputs either a too-low peak or no activation at all.
 In those cases, the averaged maps might still include local maxima in the correct locations, but those often get filtered when thresholding the final map.
 Samples where several sources stand particularly close with respect to #doa also represent challenging cases.
 
-From a performance point of view, @table:active_ssl:results:clipping_threshold for instance highlights an important gap between using ground-truth spectra and predicted ones.
-For instance, obtained recall on real data, peaking at around 55%, clearly appears as a weakness of the proposed pipeline.
-The main cause lies in the shortcomings of the angular localization method.
-
-Nonetheless, leveraging the static model across multiple distinct positions still allows to recover from partial misses and provide precise 2D localization.
+From a performance point of view, @table:active_ssl:results:clipping_threshold, for instance, highlights an important gap between using ground-truth spectra and predicted ones.
+For instance, obtained recall on real data, peaking at around 55%, clearly appears to be a weakness of the proposed pipeline.
+The leading cause lies in the shortcomings of the angular localization method.
+Nonetheless, leveraging the static model across multiple distinct agent positions still allows to recover from partial misses and provides precise 2D localization.
 
 
 ==== Comparison of blending methods
 <sec:active_ssl:results:blending_methods>
 
 Two alternatives have been compared for the map blending operation: naive averaging $Psi_"avg"$ and learned #psi-dnn (see @sec:active_ssl:methods:blending_methods).
-The former was introduced as a baseline, offering the advantage of being explainable while the second aims at offering the best performance.
+The former was introduced as a baseline, offering the advantage of being simple and explainable, while the second aims at offering the best performance.
 
 #figure(
   image(
@@ -242,7 +229,6 @@ The former was introduced as a baseline, offering the advantage of being explain
 
 Naturally, when significantly precise #doa spectra are extracted at each step, even the naive averaging method suffices for accurately estimating the 2D heatmap.
 However, when, more imperfect and challenging #doa maps are considered, the neural network shows a greater capacity to ignore the noise and provide a sharp likelihood estimation.
-
 Also, as #psi-dnn has been trained with localized 2D Gaussian blobs as targets, it has learned to properly filter the unnecessary parts of the original cones.
 Its output successfully concentrates on the actual position of the sources.
 By precisely separating and isolating the different local peaks in the map, the network allows for an easier clustering process.
@@ -254,10 +240,10 @@ This decreases the sensitivity to the hyperparameters of DBSCAN.
 In particular, the most efficient value of the #clip-t parameter has been used.
 Unsurprisingly, employing the neural network offers a tangible advantage compared to simply averaging the #doa maps.
 Those results confirm the qualitative observations made above.
-When provided with the ground-truth #doa spectra, #psi-dnn allows achieving an almost perfect precision.
+When provided with the ground-truth #doa spectra, #psi-dnn achieves an almost perfect precision.
 However, the recall score slightly lags behind with a value of 90.54%.
-The few missed detections consist of situations where at least one of the sources remains strictly in front of or behind the agent during the entire trajectory.
-The indirect triangulation phenomenon leveraged by our method then becomes almost infeasible and the distance cannot be accurately estimated.
+The few missed detections involve situations in which at least one of the sources remains strictly in front of or behind the agent during the entire trajectory.
+The indirect triangulation phenomenon leveraged by our method becomes almost infeasible, and the distance cannot be accurately estimated.
 Nonetheless, even in challenging cases where no clear cone intersection can be visually distinguished, the network sometimes manages to perform correct detections by relying on the prior it has learned during training.
 
 All in all, the proposed deep neural architecture has shown to be a robust and powerful methods for performing the aggregation step of the #acr("ASSL") pipeline.
@@ -266,23 +252,23 @@ All in all, the proposed deep neural architecture has shown to be a robust and p
 
 
 
-==== #doa spectrum amplification
+==== A tentative for #doa spectrum amplification
 
-As seen in @sec:active_ssl:results:impact_of_ssl_model, the #acr("ASSL") process works significantly better when provided with the ground truth #doa spectra instead of using the pre-trained #acr("SSL") model.
-One of the reasons leading to poorer performance lies in the peaks present in those heatmaps being lower.
+As seen in @sec:active_ssl:results:impact_of_ssl_model, the #acr("ASSL") process works significantly better when provided with the ground-truth #doa spectra instead of using the pre-trained #acr("SSL") model.
+One reason for this decrease in performance is that the peaks present in those estimated heatmaps are lower.
 This does not necessarily impact the static #acr("SSL") metrics as any local maximum above the detection threshold #xi-doa would be counted as a #doa prediction (see @sec:ssl:multi_source:method:doa_repr).
-However, this threshold does not intervene in the #acr("ASSL") pipeline and the #doa spectrum is directly converted into a 2D #doa map.
-When using the deep neural network #psi-dnn for combining the maps, the output is normalized to the $[0, 1]$ range.
-Although this would help amplifying too dim localization heatmaps, it cannot compensate for a relative differences coming from uneven peaks in the #doa spectra.
+However, this threshold does not intervene in the #acr("ASSL") pipeline, and the #doa spectrum is directly converted into a 2D #doa map.
+When the deep neural network #psi-dnn is used to combine the maps, the output is normalized to the $[0, 1]$ range.
+Although this would help amplify localization heatmaps that are too dim, it cannot compensate for relative differences caused by uneven peaks in the #doa spectra.
 
-To account for this phenomenon we introduce the #doa amplification trick.
-Its concept remains simple as it solely consists in clipping all the portions of a #doa spectrum that are higher than a given threshold #doa-t to one.
-As such, a #doa spectrum $hat(o)$ is transformed in the following way:
+To account for this phenomenon, we have attempted to artificially adjust the spectra with an amplification trick.
+Its concept remains simple: It simply consists of clipping all the portions of a #doa spectrum higher than a given threshold #doa-t to one.
+In other words, a #doa spectrum $hat(o)$ is transformed in the following way:
 $
   hat(o)' = max(hat(o), bb(1)_(hat(o) > #doa-t))
 $
 
-@fig:active_ssl:results:doa_spectrum_amplif displays the amplification behavior on an arbitrary example.
+@fig:active_ssl:results:doa_spectrum_amplif displays this peak amplification process on an arbitrary example.
 
 #include "figures/doa_spectrum_amplif/figure.typ"
 
@@ -290,7 +276,7 @@ $
 In @fig:active_ssl:results:doa_spectrum_amplif_maps, one can see the consequence of this process on the #doa maps.
 Each row corresponds to a different value for the threshold.
 Qualitatively, a too-high #doa-t will lead to lower peaks being left unamplified.
-However, decreasing this parameter causes larger, oversaturated cones that lose their localization information.
+However, decreasing this parameter causes bigger, oversaturated cones that lose their localization information.
 
 #figure(
   image(
@@ -305,17 +291,15 @@ However, decreasing this parameter causes larger, oversaturated cones that lose 
 
 #include "tables/doa_threshold.typ"
 
-In practice, our experiments show that #doa spectrum thresholding fails at bringing tangible benefits (see @table:active_ssl:results:doa_threshold).
-To obtain those results, our #psi-dnn network has been retrained on a dataset of maps corresponding to each #doa-t value.
-The #psi-avg technique does not require any form of training.
+Our experiments show that #doa spectrum thresholding fails to bring tangible benefits (see @table:active_ssl:results:doa_threshold).
+Our #psi-dnn network has been retrained on a dataset of maps corresponding to each #doa-t value to obtain those results.
+The #psi-avg technique, however, does not require any form of training.
 Performance is often best for $#doa-t = 1$.
-Employing this process when using the ground truth #doa spectra was not expected to bring any additional performance as all peaks maximize exactly at $1.0$ and thus do not need to be any further amplified.
+Employing this process when using the ground-truth #doa spectra was not expected to bring any additional performance as all peaks precisely maximize at $1.0$ and thus do not need to be any further amplified. In contrast, when using the #doa spectra estimated by the #acr("SSL") model combined with the neural network for map blending, #doa thresholding slightly boosts the overall performance.
+Conversely, the naive averaging approach does not appear to benefit from more saturated spectra.
 
-When using the #doa spectra estimated by the #acr("SSL") model combined with the neural network for map blending, #doa thresholding slightly boosts the overall performance.
-Conversely, the naive averaging approach does not seem to benefit from more saturated spectra.
-
-At last, the marginal and situational advantages provided by clipping #doa spectra do not suffice to be included in the final method.
-However, this study further illustrates the sensitivity of the pipeline to the quality and processing of the input #doa information.
+Finally, the marginal and situational advantages provided by clipping #doa spectra are not sufficient to justify including them in the final method.
+However, this tentative result further illustrates the pipeline's sensitivity to the quality and processing of the input #doa information.
 
 ==== Horizon
 <sec:active_ssl:results:horizon>

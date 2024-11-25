@@ -17,7 +17,7 @@ This chapter extends the previous framework by considering the problem of #acr("
 To approach a task closer to real-world social robotics, we study a dynamic setting in which the agent moves around the room and attempts to localize multiple sources.
 
 First, a brief overview of related works will be proposed in @sec:active_ssl:background.
-The exact task and our different approaches will then be presented in @sec:active_ssl:methods.
+Then, the task will be specified, and our different approaches will be presented in @sec:active_ssl:methods.
 Finally, various experiments and the corresponding results will be summarized in @sec:active_ssl:results.
 
 #include "1_background.typ"

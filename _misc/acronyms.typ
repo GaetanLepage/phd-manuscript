@@ -60,6 +60,7 @@
     "Short-Term Fourier Transform",
     "Short-Term Fourier Transforms"
   ),
+  "TDoA": ("time difference of arrival"),
   
   // RL
   "DQN": ("Deep Q Learning"),
