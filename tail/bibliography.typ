@@ -10,10 +10,14 @@
     "/sections/2_simulator/1_intro/bibliography/offline_rl.bib",
     "/sections/2_simulator/1_intro/bibliography/robotics.bib",
     "/sections/2_simulator/1_intro/bibliography/sim_to_real.bib",
-    "/sections/2_simulator/2_background/bibliography.bib",
+    "/sections/2_simulator/2_background/1_acoustic_reverberation/bibliography.bib",
+    "/sections/2_simulator/2_background/2_simulation_methods/bibliography.bib",
+    "/sections/2_simulator/2_background/3_software_libraries/bibliography.bib",
     "/sections/2_simulator/3_simulator/bibliography.bib",
 
     // Chap. 3: SSL
+    "/sections/3_ssl/1_sota/bibliography/classical_methods.bib",
+    "/sections/3_ssl/1_sota/bibliography/deep_learning.bib",
     "/sections/3_ssl/1_sota/bibliography/misc.bib",
     "/sections/3_ssl/1_sota/bibliography/robotics.bib",
     "/sections/3_ssl/bibliography/methods.bib",

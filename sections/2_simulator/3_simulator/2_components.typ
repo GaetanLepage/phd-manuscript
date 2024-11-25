@@ -201,24 +201,23 @@ No artificial limitation prevent the use of our library for 3D problems.
 //<sec:simulator:simulator:components:movement>
 
 Audio objects are of two kinds: sound sources and microphone arrays.
-Sound sources are modeled by a point in space, with an orientation.
-Thus, a position and direction vector suffice to properly localize a source.
+Sound sources are modeled by a point in space with an orientation.
+Thus, a position and direction vector suffice to localize a source unambiguously.
 Microphone arrays are constituted of possibly several microphones.
-To ease their manipulation, the array provides an abstraction allowing to define a single position and orientation for the whole array.
-Also, the array object itself can be _moved_ by the simulator while internally ensuring the consistency between its microphone positions.
+To ease their manipulation, the array provides an abstraction allowing the definition of a single position and orientation for the whole array.
+Also, the array object itself can be _moved_ by the simulator while internally ensuring consistency between its microphone positions.
 
-To allow for modelling flexible interactive scenarios, the simulator provides a set of various movement primitives.
+To allow for modeling flexible interactive scenarios, the simulator provides a set of various movement primitives.
 The positions of all objects might be randomized to start from an arbitrary setup.
 Everything is placed so that all sources and microphones are within the borders of the room.
 
-Apart from random positioning of objects, the interface permits relative motions of the agent.
-Basic movements such as moving forward by a given distance, rotating left or right by 90° find their relevance in the context of #acr("RL") environments with a discrete action space.
+Apart from the random positioning of objects, the interface permits relative motions of the agent.
+Basic movements, such as moving forward by a given distance or rotating left or right by 90° are relevant in the context of #acr("RL") environments with a discrete action space.
 Besides, the ```python move_agent_polar(angle, distance)``` method gives more control to perform relative movements.
-Finally, the user can place both the microphone array and the sources at any arbitrary position.
-Finally, the user has the freedom to place both the microphone array and the sources at any arbitrary position.
+Finally, the user can place the microphone array and the sources at any arbitrary position.
 
-An additional benefit of operating motions through the simulator is that it guarantees correctness of positions at all time.
-If an arrival position lies at the room's exterior, an exception is raised and the movement is not performed.
+An additional benefit of operating motions through the simulator is that it guarantees the correctness of positions at all times.
+If an arrival position lies at the room's exterior, an exception is raised, and the movement is not performed.
 
 In conclusion, the simulator furnishes a convenient and safe interface for moving both the microphone arrays and the sound sources in the room.
 This facilitates the flexible implementation of numerous acoustic #acr("HRI") use cases.

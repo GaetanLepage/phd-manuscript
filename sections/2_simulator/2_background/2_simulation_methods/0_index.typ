@@ -1,27 +1,26 @@
 #import "/utils.typ": *
 
-=== Related works
+=== Overview of acoustic reverberation simulation methods
 <sec:simulator:reverb:methods>
 
 #reset-acronym("ISM")
 ==== #acr("ISM")
 
 The #acr("ISM") principle was one of the first methods to simulate sound propagation in reverberant environments.
-The concept, originally introduced by Lothar Cremer in 1948 @cremer_wissenschaftlichen_1948 still stands today as an efficient way of modeling this physical phenomenon.
+The concept, originally introduced by Lothar Cremer in 1948 @cremer_wissenschaftlichen_1948, still stands today as an efficient way of modeling this physical phenomenon.
 Allen and Berkley significantly expanded this idea in 1979 by developing a more comprehensive and computationally effective version of the image source method @allen_image_nodate.
 Their paper came with a FORTRAN implementation of the proposed algorithm.
 At first, the #acr("ISM") was limited to rectangular _shoebox_ room.
 In 1984, Jeffrey Borish extended the technique to arbitrary polyhedral rooms @borish_extension_1984.
 
 #draft[
-  - Asumptions
+  - Assumptions
 
   Resources: Waveverb (https://reuk.github.io/wayverb/image_source.html)
+  - @srivastava_how_2023 has some info on ISM ('Method' section)
 ]
 
 // OG paper:
-
-// @srivastava_how_2023 has some info on ISM ('Method' section)
 
 
 ==== Numerical simulation of sound propagation
@@ -40,3 +39,11 @@ Path/ray tracing
 ==== Other methods
 // Neural network
 @tang_learning_2020,
+
+
+==== Simulation of dynamic environments
+
+#draft[
+  - Acoustic Simulation in Dynamic Environments for Robot Audition @zhang_acoustic_2019
+  - Also, Gpu-RIR @diaz-guerra_gpurir_2021 have hacked a way to simulate on trajectories
+]

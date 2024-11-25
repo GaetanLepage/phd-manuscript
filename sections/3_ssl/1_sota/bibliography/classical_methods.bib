@@ -1,0 +1,62 @@
+# Sharon's theoretical study of the HRTF estimator
+@inproceedings{markovich-golan_performance_2015,
+	title = {Performance analysis of the covariance subtraction method for relative transfer function estimation and comparison to the covariance whitening method},
+	doi = {10.1109/ICASSP.2015.7178028},
+	abstract = {Microphone array processing utilize spatial separation between the desired speaker and interference signal for speech enhancement. The transfer functions ({TFs}) relating the speaker component at a reference microphone with all other microphones, denoted as the relative {TFs} ({RTFs}), play an important role in beamforming design criteria such as minimum variance distortionless response ({MVDR}) and speech distortion weighted multichannel Wiener filter ({SDW}-{MWF}). Two common methods for estimating the {RTF} are surveyed here, namely, the covariance subtraction ({CS}) and the covariance whitening ({CW}) methods. We analyze the performance of the {CS} method theoretically and empirically validate the results of the analysis through extensive simulations. Furthermore, empirically comparing the methods performances in various scenarios evidently shows thats the {CW} method outperforms the {CS} method.},
+	eventtitle = {2015 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+	pages = {544--548},
+	booktitle = {2015 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+	author = {Markovich-Golan, Shmulik and Gannot, Sharon},
+	date = {2015-04},
+	note = {{ISSN}: 2379-190X},
+	keywords = {Acoustics, Arrays, Accuracy, beamforming, Estimation error, Filtering algorithms, {MVDR}, Relative transfer function, speech distortion weighted {MWF}, Transfer functions},
+	file = {IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/LQIWV95I/7178028.html:text/html;markovich-golan2015.pdf:/home/gaetan/.local/share/Zotero/storage/FBLT3ALD/markovich-golan2015.pdf:application/pdf},
+}
+
+# Xavi-Radu binaural localization
+@article{alameda-pineda_geometric_2014,
+	title = {A Geometric Approach to Sound Source Localization from Time-Delay Estimates},
+	volume = {22},
+	issn = {2329-9290, 2329-9304},
+	url = {http://arxiv.org/abs/1311.1047},
+	doi = {10.1109/TASLP.2014.2317989},
+	abstract = {This paper addresses the problem of sound-source localization from time-delay estimates using arbitrarily-shaped noncoplanar microphone arrays. A novel geometric formulation is proposed, together with a thorough algebraic analysis and a global optimization solver. The proposed model is thoroughly described and evaluated. The geometric analysis, stemming from the direct acoustic propagation model, leads to necessary and sufﬁcient conditions for a set of time delays to correspond to a unique position in the source space. Such sets of time delays are referred to as feasible sets. We formally prove that every feasible set corresponds to exactly one position in the source space, whose value can be recovered using a closed-form localization mapping. Therefore we seek for the optimal feasible set of time delays given, as input, the received microphone signals. This time delay estimation problem is naturally cast into a programming task, constrained by the feasibility conditions derived from the geometric analysis. A global branchand-bound optimization technique is proposed to solve the problem at hand, hence estimating the best set of feasible time delays and, subsequently, localizing the sound source. Extensive experiments with both simulated and real data are reported; we compare our methodology to four state-of-the-art techniques. This comparison shows that the proposed method combined with the branch-andbound algorithm outperforms existing methods. These in-depth geometric understanding, practical algorithms, and encouraging results, open several opportunities for future work.},
+	pages = {1082--1095},
+	number = {6},
+	journaltitle = {{IEEE}/{ACM} Transactions on Audio, Speech, and Language Processing},
+	shortjournal = {{IEEE}/{ACM} Trans. Audio Speech Lang. Process.},
+	author = {Alameda-Pineda, Xavier and Horaud, Radu},
+	urldate = {2024-07-12},
+	date = {2014-06},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {1311.1047 [cs]},
+	keywords = {Computer Science - Sound},
+	file = {Alameda-Pineda and Horaud - 2014 - A Geometric Approach to Sound Source Localization .pdf:/home/gaetan/.local/share/Zotero/storage/62E3Q4YM/Alameda-Pineda and Horaud - 2014 - A Geometric Approach to Sound Source Localization .pdf:application/pdf},
+}
+
+
+@inproceedings{an_reflection-aware_2018,
+	title = {Reflection-Aware Sound Source Localization},
+	doi = {10.1109/ICRA.2018.8461268},
+	abstract = {We present a novel, reflection-aware method for 3D sound localization in indoor environments. Unlike prior approaches, which are mainly based on continuous sound signals from a stationary source, our formulation is designed to localize the position instantaneously from signals within a single frame. We consider direct sound and indirect sound signals that reach the microphones after reflecting off surfaces such as ceilings or walls. We then generate and trace direct and reflected acoustic paths using inverse acoustic ray tracing and utilize these paths with Monte Carlo localization to estimate a 3D sound source position. We have implemented our method on a robot with a cube-shaped microphone array and tested it against different settings with continuous and intermittent sound signals with a stationary or a mobile source. Across different settings, our approach can localize the sound with an average distance error of 0.8 m tested in a room of 7 m by 7 m area with 3 m height, including a mobile and non-line-of-sight sound source. We also reveal that the modeling of indirect rays increases the localization accuracy by 40\% compared to only using direct acoustic rays.},
+	eventtitle = {2018 {IEEE} International Conference on Robotics and Automation ({ICRA})},
+	pages = {66--73},
+	booktitle = {2018 {IEEE} International Conference on Robotics and Automation ({ICRA})},
+	author = {An, Inkyu and Son, Myungbae and Manocha, Dinesh and Yoon, Sung-Eui},
+	date = {2018-05},
+	note = {{ISSN}: 2577-087X},
+	keywords = {Acoustics, Three-dimensional displays, Robots, Indoor environments, Microphone arrays, Ray tracing},
+	file = {IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/BNTD55ZW/8461268.html:text/html;Submitted Version:/home/gaetan/.local/share/Zotero/storage/VSSQV8H6/An et al. - 2018 - Reflection-Aware Sound Source Localization.pdf:application/pdf},
+}
+
+
+# Classic method for robotics
+@article{nakadai_active_nodate,
+	title = {Active Audition for Humanoid},
+	abstract = {In this paper, we present an active audition system for humanoid robot “{SIG} the humanoid”. The audition system of the highly intelligent humanoid requires localization of sound sources and identiﬁcation of meanings of the sound in the auditory scene. The active audition reported in this paper focuses on improved sound source tracking by integrating audition, vision, and motor movements. Given the multiple sound sources in the auditory scene, {SIG} actively moves its head to improve localization by aligning microphones orthogonal to the sound source and by capturing the possible sound sources by vision. However, such an active head movement inevitably creates motor noise. The system must adaptively cancel motor noise using motor control signals. The experimental result demonstrates that the active audition by integration of audition, vision, and motor control enables sound source tracking in variety of conditions.},
+	pages = {8},
+	author = {Nakadai, Kazuhiro and Lourens, Tino and Okuno, Hiroshi G and Kitano, Hiroaki},
+	langid = {english},
+	file = {Nakadai et al. - Active Audition for Humanoid.pdf:/home/gaetan/.local/share/Zotero/storage/4BIV4UP8/Nakadai et al. - Active Audition for Humanoid.pdf:application/pdf},
+}
