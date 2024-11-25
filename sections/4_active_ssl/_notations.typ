@@ -8,6 +8,7 @@
 #let AM = $cal(M)_t$
 // Target for AM
 #let AM-targ = $cal(M)_t^*$
+#let AM-targ-cont = $overline(cal(M))_t^*$
 // Predicted sources locations
 #let predictions = $hat(X)_t$
 

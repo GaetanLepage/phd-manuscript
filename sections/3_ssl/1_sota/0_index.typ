@@ -66,10 +66,10 @@ Our intent at exploring #acr("SSL") was initially motivated by our exploratory w
 === Sound Source localization in robotics
 <sec:ssl:sota:ssl_in_robotics>
 
-Although, as demonstrated above, #acr("SSL") has been studied as a self-contained problem, it certainly has an important number of downstream applications.
+As demonstrated above, although #acr("SSL") has been studied as a self-contained problem, it certainly has an important number of downstream applications.
 Among those, robotics is a significant use case of #acr("SSL") algorithms.
 Perception is an essential building block of a social robotics platform.
-Besides exploitation of visual features, which falls under the computer vision domain, leveraging audio cues may provide valuable information for a social robot.
+Besides exploiting visual features, which falls under the computer vision domain, leveraging audio cues may provide valuable information for a social robot.
 Naturally, such an agent will use language as the primary means of communication with humans and will thus need to extract the meaning of its interlocutors' speech.
 Sound information may have additional use cases besides #("ASR").
 
@@ -96,12 +96,24 @@ Indeed, a robotic platform implies dealing with several constraints mainly cause
 
 // Classical approaches
 #draft[Back in ..., researchers have intended to localize ...]
-// TODO: cite some works
-// - Xavi+Radu's paper
-// - older perception work ?
+#draft[
+  // TODO: cite some works
+  // - Xavi+Radu's paper
+  // - older perception work ?
+  
+  - Nakadai 2002 AV @nakadai_real-time_2002
+  - #text(red)[Interesting reference for robotics:] Argentieri, Danès, Souères: _A Survey on Sound Source Localization in Robotics: from Binaural to Array Processing Methods_ (2015) @argentieri_survey_2015
+    Not too much DL (less than Laurent's survey).
+    However, their approach is interesting as they focus on SSL for robotics.
+    They distinguish between binaural methods, imitating human's hearing, and array processing ($n_"mics" > 2$).
 
-// Nakadai 2002 AV
-@nakadai_real-time_2002
+    *IMPORTANT (in the Conclusion):* About the fact that in robotics, _things move_ by definition.
+    - This is a challenge and most static techniques do not take this into account (limitation).
+    - On the other hand, this is an opportunity (active SSL):\
+      _Actually, the Robotics Community has not extensively addressed this active audition topic, although it may constitute one of the most promising progress in embodied audition._:
+    
+  - @rascon_localization_2017
+]
 
 // Deep Learning
 In robotics, Deep Learning methods have also been used to perform #("SSL").
