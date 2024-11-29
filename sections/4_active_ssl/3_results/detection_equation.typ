@@ -1,15 +1,14 @@
 #import "/utils.typ": *
 
-#gaet[Do you prefer $X^i_k$ or $X_(i k)$ or $X_(i, k)$ ?]
 #let sample_index = $i$
 
-#let pos(char, index) = $char^(#sample_index)_index)$
-#let pos(char, index) = $char_(#sample_index index)$
+// #let pos(char, index) = $char^(#sample_index)_index)$
+// #let pos(char, index) = $char_(#sample_index index)$
 #let pos(char, index) = $char_(#sample_index, index)$
 
 #let gt(index) = $#pos($X$, index)$
 #let pred(index) = $#pos($hat(X)$, index)$
-#let dist(index) = $norm(#pred(index) - #gt(index)))_2$
+#let dist(index) = $norm(#pred(index) - #gt(index))_2$
 $
   m(
     hat(X)^i_k,

@@ -19,9 +19,11 @@ Precision and recall hence come as natural metrics to evaluate our method's perf
 However, bounding boxes are not expected in this case, as only the source positions should be provided.
 An acceptable range of $delta$ meters defines the criteria for correct detection.
 For a detection to be considered valid, its estimated position must be closer than $delta$ meters from the ground truth.
-The following function thus characterizes a correct/incorrect detection:
-#include "detection_equation.typ"
-_Precision_ and _recall_ definitions remain the same as for the previously introduced static #acr("SSL") task:
+#block(breakable: false)[
+  The following function thus characterizes a correct/incorrect detection:
+  #include "detection_equation.typ"
+  ~_Precision_ and _recall_ definitions remain the same as for the previously introduced static #acr("SSL") task:
+]
 $
   "Precision" = (
     sum_i
@@ -52,7 +54,7 @@ $
 === Dataset collection
 <sec:active_ssl:results:dataset>
 
-In order to design, run, and evaluate our method on the #acr("ASSL") task, the simulator presented in Chapter 2 is used to generate a synthetic dataset.
+To design, run, and evaluate our method on the #acr("ASSL") task, we generated a synthetic dataset using the simulator presented in Chapter 2.
 Specifically, we leverage our simulator's ability to model _dynamic_ discrete-time environments (see @sec:simulator:simulator:features:dynamic_scenarios).
 The latter consists of a repository of independent $H$-steps trajectories.
 
@@ -91,26 +93,6 @@ This choice allows for experimenting with the relevant hyperparameters, such as 
 Both the #acr("ASSL") task and the proposed method admit variants and parameters.
 In this section, an in-depth exploration of specific settings is conducted.
 
-#gaet[
-  This section is quite tricky to organize because there are several cross-dependencies:
-  - All experiments were made with the optimal clipping threshold, which has been presented in @sec:active_ssl:results:likelihood_threshold
-  - At the same time, the latter compares ground-truth SSL to using our multi-source SSL model which is presented in @sec:active_ssl:results:impact_of_ssl_model.
-  - #psi-avg vs #psi-dnn is present in all sub-sections but clearly introduced in @sec:active_ssl:methods:blending_methods
-
-  Anyway, we can re-order those as we like and properly reference other sub-sections when needed.
-]
-
-#chris[
-  I recommend to first explain 4.3.3.2 (ground-truth vs SSL model) and then discuss and show results of the cut-off (4.3.3.1). You can remove table 4.2 as it has the same information as 4.1.
-  Just explain that you compare ground truth vs SSL model in all upcoming results. You can disucss the ultimate outcome of the results between both in your discussion. But it is obvious, the ground truth is better than the SSL model.   
-]
-
-#gaet[
-  There are a lot of tables.
-  Maybe using more visual representations could bring more diversity.
-
-  Unfortunately _PR curves_ (made by changing #clip-t) do not look very good as they are not really PR curves.
-]
 
 ==== Likelihood cutoff
 <sec:active_ssl:results:likelihood_threshold>
@@ -121,7 +103,7 @@ Thus, the set of filtered coordinates should be carefully chosen.
 
 We adopt a simple thresholding approach, selecting all points whose values are greater than a given target #clip-t.
 This parameter should be high enough to let the clusters surface.
-If it is too low, the resulting point cloud is fully connected leading to DBSCAN finding a single cluster.
+If it is too low, the resulting point cloud is fully connected, leading DBSCAN to find a single cluster.
 Conversely, increasing #clip-t too much will result in local peaks being wholly filtered out, which will produce a missed detection.
 
 @fig:active_ssl:results:clipping_threshold shows a given aggregated map after filtering with different values of #clip-t.
@@ -141,9 +123,9 @@ On the contrary, the network output suffers from too aggressive filtering as the
 )
 <fig:active_ssl:results:clipping_threshold>
 
-@table:active_ssl:results:clipping_threshold gathers the result of an experimental campaign on the impact of this parameter on the final #acr("ASSL") performance.
-For the sake of completeness, all four combinations of blending methods and #doa spectrum provider have been tested.
-It shows that there does not exist a single optimal value for #clip-t.
+@table:active_ssl:results:clipping_threshold gathers the result of an experimental campaign on the impact of #clip-t on the final #acr("ASSL") performance.
+All four combinations of blending methods and #doa spectrum provider have been tested to ensure completeness.
+It shows that a single optimal value for #clip-t does not exist.
 As both the aggregation process and the source #doa data significantly impact #AM, the threshold needs to be chosen accordingly.
 Thus, for each scenario, we identify the best precision-recall tradeoff and select the corresponding #clip-t value.
 Those pairs are underlined in @table:active_ssl:results:clipping_threshold and do not always coincide with the highest values of individual metrics (highlighted in bold).
@@ -215,23 +197,30 @@ Nonetheless, leveraging the static model across multiple distinct agent position
 <sec:active_ssl:results:blending_methods>
 
 Two alternatives have been compared for the map blending operation: naive averaging $Psi_"avg"$ and learned #psi-dnn (see @sec:active_ssl:methods:blending_methods).
-The former was introduced as a baseline, offering the advantage of being simple and explainable, while the second aims at offering the best performance.
+The former was introduced as a baseline, offering the advantage of being simple and explainable, while the second aims at providing the best performance.
 
 #figure(
   image(
     "figures/blending_comparison.svg",
   ),
-  caption: [
-    Visual comparison of the two aggregation methods (#psi-avg top and #psi-dnn bottom)
-  ],
+  caption: flex-caption(
+    [
+      Visual comparison of the two aggregation methods (#psi-avg top and #psi-dnn bottom).
+      Each column represents an example from the dataset.
+      The first three use the ground-truth #doa spectrum, while the last two use the one estimated by the pre-trained #acr("SSL") network.
+    ],
+    // Short caption for the TOC
+    [Visual comparison of the two aggregation methods]
+  ),
 )
 <fig:active_ssl:results:blending_comparison>
 
+@fig:active_ssl:results:blending_comparison discloses a selection of 2D heatmaps produced by the two proposed methods.
 Naturally, when significantly precise #doa spectra are extracted at each step, even the naive averaging method suffices for accurately estimating the 2D heatmap.
-However, when, more imperfect and challenging #doa maps are considered, the neural network shows a greater capacity to ignore the noise and provide a sharp likelihood estimation.
-Also, as #psi-dnn has been trained with localized 2D Gaussian blobs as targets, it has learned to properly filter the unnecessary parts of the original cones.
+However, when more imperfect and challenging #doa maps are considered, the neural network shows a greater capacity to ignore the noise and provide a sharp likelihood estimation.
+Also, as #psi-dnn has been trained with localized 2D Gaussian blobs as targets, it has learned to filter the unnecessary parts of the original cones properly.
 Its output successfully concentrates on the actual position of the sources.
-By precisely separating and isolating the different local peaks in the map, the network allows for an easier clustering process.
+The network facilitates clustering by precisely separating and isolating the different local peaks in the map.
 This decreases the sensitivity to the hyperparameters of DBSCAN.
 
 #include "tables/blending_methods.typ"
@@ -246,7 +235,7 @@ The few missed detections involve situations in which at least one of the source
 The indirect triangulation phenomenon leveraged by our method becomes almost infeasible, and the distance cannot be accurately estimated.
 Nonetheless, even in challenging cases where no clear cone intersection can be visually distinguished, the network sometimes manages to perform correct detections by relying on the prior it has learned during training.
 
-All in all, the proposed deep neural architecture has shown to be a robust and powerful methods for performing the aggregation step of the #acr("ASSL") pipeline.
+In summary, the proposed deep neural architecture has shown to be a robust and powerful method for performing the aggregation step of the #acr("ASSL") pipeline.
 
 // NN rightfully infers the presence of a source in the front, but predicts an inacurrate distance leading to missing the detection in the end.
 
@@ -267,7 +256,6 @@ In other words, a #doa spectrum $hat(o)$ is transformed in the following way:
 $
   hat(o)' = max(hat(o), bb(1)_(hat(o) > #doa-t))
 $
-
 @fig:active_ssl:results:doa_spectrum_amplif displays this peak amplification process on an arbitrary example.
 
 #include "figures/doa_spectrum_amplif/figure.typ"
@@ -328,7 +316,7 @@ As #doa maps are generated from the projection of #doa spectra, we are free to d
 Two parameters influence the synthesized maps: the #fov $L$ and the pixel resolution $p$.
 
 *Field of View.*
-The #fov ($L$) determines how wide is the range covered by the egocentric map which is a $L times L$ square centered around the robot agent.
+The #fov ($L$) determines the size of the range covered by the egocentric map which is an $L times L$ square centered around the robot agent.
 
 Its value must be chosen diligently as it bounds the information available once the shifting and aggregation have occurred at the final position.
 One has to consider the maximum distance $d_"max"$ traveled by the robot at each step and the horizon $H$.
@@ -347,13 +335,13 @@ Naturally, a higher resolution would limit any loss caused by the spatial discre
 During our experiments, we noticed that imprecisions would arise within the map-shifting process when using a too-low resolution.
 The latter is performed directly on the discrete heatmap thanks to the OpenCV @opencv_library software library.
 On the other hand, increasing the resolution induces a larger image fed into the neural network.
-As our U-net architecture is fully convolutional, the number of parameters remains identical when changing the input size.
-However, the computational cost still is impacted by such modifications.
+As our U-net architecture is fully convolutional, the number of parameters remains identical when input size changes.
+However, the computational cost is still impacted by such modifications.
 We have once more trained the neural network on maps of different resolutions between 64 and 256 pixels.
 The results, presented in @table:active_ssl:results:pixel_res, suggest that a finer resolution indeed helps with the localization process.
 Although this parameter does not strongly impact precision, the recall is shown to be sensitive to pixel resolution.
 Training time grows from 5 minutes when using $p=64$ to 30 minutes for $p=256$.
-Inference time scales similarly, ranging from 30s to 2min 15s for the biggest maps.
+Inference time scales similarly, ranging from 30s to 2min 15s for the largest maps.
 As those constraints remain acceptable for real-world use cases, the most favorable resolution ($p=256$) is used in the rest of our experiments.
 
 #include "tables/pixel_res.typ"
