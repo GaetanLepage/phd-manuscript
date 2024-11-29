@@ -14,7 +14,7 @@ This phenomenon is a common theme in the different robotics problems explored in
 Our simulator explicitly models reverberant environments.
 Finally, the spectral representations of audio signals are discussed in the last section.
 
-==== Fundamentals on sound propagation
+==== Fundamentals of sound propagation
 
 #gaet[
   Do we introduce propagation equations before talking about reverberation in general?
@@ -24,6 +24,11 @@ Finally, the spectral representations of audio signals are discussed in the last
   + Sound propagation in a room -> reflections
   + Concept of the RIR: modeling as a convolution filter
   + TF representations
+    - FT, STFT
+    - Binaural cues
+      - Propagation with a multi-microphone setup (close field vs far field)
+      - ILD, IPD (magnitude/phase of the ratio)
+    - 
   + conv theorem not holding for STFT and why it still makes sense to use STFTs for this task
 
   - Maybe we should mention HRTFs as we do binaural for robotics.
@@ -31,7 +36,7 @@ Finally, the spectral representations of audio signals are discussed in the last
     However, we should insist that we have neglected it in this work.
   - Not sure in what order to put things though:\
     -> Should multi-mic be handled before or after introducing RIR/reverb ?
-    Thechnically, we don't need multi-mic for introducing reverb...
+    Technically, we don't need multi-mic to introduce reverb...
 ]
 
 Sound is a mechanical wave phenomenon.
@@ -42,13 +47,10 @@ Discrete representations allow the numerical processing and saving of sound sign
 
 While many modern algorithms, especially #acr("DNN")-based solutions, process sound as purely statistical data, the physical reality of acoustic phenomena is a central aspect of this thesis.
 Indeed, this work aims to tackle various audio-related tasks in reverberant environments.
-Thus, it is necessary to highlight the physical realities' impacts on recorded signals to study how they will affect the performance of the proposed methods later.
-
-//Sound processing has 
-*Single-microphone setting*
+Thus, it is necessary to highlight the impact of physical reality on recorded signals to study how they will affect the performance of the proposed methods later.
 
 Let us first consider the ideal case of a single receiver in the free field.
-The latter means that the environment can be considered as anechoic.
+Free field denotes an idealized environment that can be considered anechoic.
 Hence, no sound reflections are considered; thus, the reverberation phenomenon is ignored.
 
 The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation:
@@ -61,6 +63,7 @@ where
 - #d is the source-to-microphone distance (in m)
 - $#c approx 343$ is the speed of sound (in m/s at 20°C)
 - $#d/#c$ is the time of arrival (in s)
+In this simple case, the received signal corresponds to a delayed and attenuated version of the source signal.
 
 When considering digital signals, @eq:ssl:background:single_mic_continuous becomes
 $
@@ -72,40 +75,59 @@ The microphone signal can be rewritten as
 $
   x[n] = (h * s)[n]
 $
+<eq:simulator:background:single_mic_signal_freefield>
 where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c #freq]$ characterizes the acoustic path from the source to the microphone. $delta$ denotes the Dirac delta function.
-
-*Multi-microphone setting*
-
-#figure(
-  image(
-    "figures/multi_mic_schema.svg",
-    height: 10em,
-  ),
-  //square(size: 10em, stroke: 2pt),
-  caption: [
-    Two-microphone setup
-  ],
-)
-<fig:simulator:background:multi_mic_schema>
-
-#todo
-
-The signal received by microphone $i$ can be expressed as:
-$
-  x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq]
-$
-where $d_i$ is the distance from the the source $i$ to the source (see @fig:simulator:background:multi_mic_schema)
-
-One can write signal $x_2$ recorded by microphone $2$ as a function of the one recorded by microphone $1$ by combining their expressions:
-$
-  x_2[n] = d_1 / d_2 x_1 [n - (d_2 - d_1)/(#c) #freq]
-$
-
 
 ==== Acoustic reverberation
 <sec:simulator:reverb:background:reverb>
 
-- Reverberation time ($T_60$)
+*Reverberant environments*
+
+Most realistic scenarios do not behave so simply, and other physical phenomena must be modeled.
+In a closed environment, such as an indoor room, sound will reflect on walls and cause reverberation.
+When neglecting secondary effects such as temperature and pressure changes, a reverberant room can be modeled as a linear time-invariant causal system.
+Hence, expressing the listened signal as a convolution remains possible, similarly to @eq:simulator:background:single_mic_signal_freefield:
+$
+  x[n] = (h_"RIR" * s)[n]
+$
+
+*Room Impulse Response*
+
+#reset-acronym("RIR")
+The filter $h_"RIR"$ is called the *#acr("RIR")*.
+It depends on the positions of the microphone and source, the walls' acoustic properties, and the room's dimensions.
+Hence, the #acr("RIR") is defined for each source-microphone pair.
+It characterizes how the sound travels between their positions and is thus sufficient to reconstruct the listened signal.
+As its name suggests, the #acr("RIR") depicts the room's acoustic response to an impulse, modeled by a Dirac delta function:
+$
+  x[n] = (h_"RIR" * delta)[n] = h_"RIR" [n]
+$
+
+@fig:simulator:background:rir_plot gives a schematic illustration of an #acr("RIR") filter.
+It can be decomposed in three sections.
+The first is the _direct path_, which corresponds to the signal reaching the microphone directly from the source without reflecting on any surface.
+Secondly, follow the _early echoes_, which are the first reflections.
+
+#figure(
+  image("figures/rir_plot.svg", height: 10em),
+  caption: [
+    Plot of an #acr("RIR") filter @fu_gpu-based_2016
+  ],
+) <fig:simulator:background:rir_plot>
+
+
+#draft[When we have multiple microphones:]
+
+Once the pairwise $n_m times n_s$ #acr("RIR") filters have been computed, the resulting signal received at microphone $k$ is obtained by convolving it with the source signal:
+$
+  m_k [t] = sum_(i=1)^(n_s) (h_(i, k) * s_i)[t]  #h(2em) forall k in [|1, n_m|]
+$ <eq:simulator:rir_listened_signal>
+#draft[
+  TODO: unify notations
+]
+
+
+*Reverberation time ($T_60$)*
 
 The reverberation time can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine as
 #let volume = $colMath(V, #maroon)$
@@ -132,35 +154,9 @@ $
 $ <eq:simulator:background:sabine_inv>
 Here, all surfaces are assumed to behave the same, and the _equivalent absorption surface_ #area may then be written as $#area = S times e_"abs"$, with $S$ being the total surface area.
 
-==== Room Impulse Response
-
-#draft[
-  TODO: introduce the concept of #acr("RIR")
-]
-
-#figure(
-  image("figures/rir_plot.svg", height: 10em),
-  caption: [
-    Plot of an #acr("RIR") filter @fu_gpu-based_2016
-  ],
-) <fig:simulator:background:rir_plot>
-
-
-Once the pairwise $n_m times n_s$ #acr("RIR") filters have been computed, the resulting signal received at microphone $k$ is obtained by convolving it with the source signal:
-$
-  m_k [t] = sum_(i=1)^(n_s) (h_(i, k) * s_i)[t]  #h(2em) forall k in [|1, n_m|]
-$ <eq:simulator:rir_listened_signal>
-
-
 
 ==== Spectral representations of audio signals
 <sec:simulator:background:spectral-features>
-
-#gaet[
-  Not sure that this section will actually end up in *Simulator\/Background*.\
-  Originally, it was in the #acr("SSL") chapter but I was referring to those notions as soon as in the Simulator chapter.
-]
-
 
 #draft[
   The numerical representation of the audio information is a crucial for achieving #acr("SSL").
@@ -259,7 +255,7 @@ Despite this theoretical result not transferring to the #acr("STFT")-based repre
 Using multiple microphones opens a wide range of possibilities in audio processing tasks.
 Humans rely on their two ears to exploit the spatiality of their auditory environment.
 Similarly, the signal processing community has exploited microphone arrays and developed algorithms to usefully aggregate signals from several sensors.
-Array processing spans several downstream tasks, such as speech enhancement @gannot_consolidated_2017, dereverberation @gaubitch_analysis_2005 @nakatani_blind_2008, sound source localization #todo or acoustic scene analysis @imoto_spatial_2017.
+Array processing spans several downstream tasks, such as speech enhancement @gannot_consolidated_2017, dereverberation @gaubitch_analysis_2005 @nakatani_blind_2008, sound source localization @alameda-pineda_geometric_2014 @grumiaux_survey_2021 @perotin_localisation_2019 or acoustic scene analysis @imoto_spatial_2017.
 Disposing of more than one microphone allows computing the #acr("TDoA")
 
 Many array configurations have been experimented with.
@@ -267,13 +263,42 @@ Both geometries (linear, polygons, spheres, or more complex arrangements) and th
 The binaural setup is one of the most studied configurations as it is an effort to model human hearing.
 In this case, specific signal representations have been proposed to ease extracting relevant information.
 
-
 Some data representations have been introduced for the specific case of binaural devices.
-#draft[
-  They combine information from the two microphones to highlight the different
-]
+This section focuses on those.
 
 // Beamforming ?
+
+*Sound propagation with multi-microphone setting*
+
+#figure(
+  image(
+    "figures/multi_mic_schema.svg",
+    height: 10em,
+  ),
+  //square(size: 10em, stroke: 2pt),
+  caption: [
+    Two-microphone setup
+  ],
+)
+<fig:simulator:background:multi_mic_schema>
+
+#draft[
+  For Reverb: Free field vs Room -> Reverb vs not reverb\
+    direct path / higher order reflections
+  For SSL: far field vs close field:\
+    This is more for SSL
+]
+
+The signal received by microphone $i$ can be expressed as:
+$
+  x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq]
+$
+where $d_i$ is the distance from the the source $i$ to the source (see @fig:simulator:background:multi_mic_schema)
+
+One can write signal $x_2$ recorded by microphone $2$ as a function of the one recorded by microphone $1$ by combining their expressions:
+$
+  x_2[n] = d_1 / d_2 x_1 [n - (d_2 - d_1)/(#c) #freq]
+$
 
 
 #draft[

@@ -9,6 +9,8 @@
   _"Multi-step SSL"_ surely sounds less fancy but is maybe more accurate.
 ]
 
+#xavi[Either that, or you start by saying that this name is ambiguous, and that you refer to "blablablabla" as in (insert references)]
+
 In @chap:ssl, the problem of #acr("SSL") has been explored.
 Several settings have been considered, underlining their respective challenges and specificities.
 All discussed solutions involved localizing one or several sound sources in a static setup, where neither the microphones nor the sources moved.
