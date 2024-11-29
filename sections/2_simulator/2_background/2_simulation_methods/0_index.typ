@@ -3,11 +3,15 @@
 === Overview of acoustic reverberation simulation methods
 <sec:simulator:reverb:methods>
 
+Simulating the acoustic reverberation phenomenon has a broad range of applications.
+As soon as a scene happens in an indoor environment, reverberation must be considered to obtain a realistic render.
+
+
 #reset-acronym("ISM")
 ==== #acr("ISM")
 
 The #acr("ISM") principle was one of the first methods to simulate sound propagation in reverberant environments.
-The concept, originally introduced by Lothar Cremer in 1948 @cremer_wissenschaftlichen_1948, still stands today as an efficient way of modeling this physical phenomenon.
+The concept, initially introduced by Lothar Cremer in 1948 @cremer_wissenschaftlichen_1948, still stands today as an efficient way of modeling this physical phenomenon.
 Allen and Berkley significantly expanded this idea in 1979 by developing a more comprehensive and computationally effective version of the image source method @allen_image_nodate.
 Their paper came with a FORTRAN implementation of the proposed algorithm.
 At first, the #acr("ISM") was limited to rectangular _shoebox_ room.

@@ -21,10 +21,10 @@ The most significant difference is whether the robot's movement policy is explic
 
 In 2000, Nakadai et al. @nakadai_active_2000 designed a complex robotic system to perform _active audition_.
 This innovative work consisted of a physical robotic prototype equipped with microphones and cameras for sensing the environment.
-The _active audition_ task aims to identify the #doa of the present sources accurately.
+The _active audition_ task aims to estimate the #doa of the present sources accurately.
 To achieve this objective, both vision and audio signals are processed to enhance the robustness of the prediction.
 Also, the robot's head movement automatically adjusts to face the currently active source.
-Visual data plays an essential role in refining the angular estimation.
+Visual data plays an essential role in refining the #doa estimation.
 The authors use the framework of Epipolar Geometry to compute an angle from both the camera images and the spectra of the signals received by left and right external microphones.
 Thanks to this angle, a directional band-pass filter is constructed, which permits dampening noise sounds produced by the robot's motors.
 This method circumvents the use of #acr("HRTF"), which is challenging to access in real-world scenarios.
@@ -57,7 +57,7 @@ The provided theoretical derivation of the #acr("MKF") allows the estimation to 
 The experiments illustrate the importance of the robot movements in achieving successful localization.
 Indeed, at the beginning of the trajectories, the estimation suffers from the front-back ambiguity.
 As the robot can move and accumulate information, the accuracy of the prediction increases.
-Although the proposed method outperformed some existing solutions, the robot's trajectory was not being optimized.
+Although the proposed method outperformed some existing solutions, the robot's trajectory was not optimized.
 In @nguyen_van_long-term_2017, the authors improved their framework by proposing a long-term motion planning algorithm to localize a sound source.
 They introduced a #acr("MCTS") method to compute the optimal robot trajectory.
 The optimization objective is here to reduce the entropy of the belief on the source localization.
@@ -69,6 +69,8 @@ This complete pipeline has been subsequently extended in @nguyen_motion_2019.
 First, the #acr("MKF") formulation is extended to handle intermittent sound sources better and to be more robust to erroneous measurements of sound activity and #acr("DoA").
 In addition to the entropy objective introduced in @nguyen_van_long-term_2017, the standard deviation of the estimated belief on the source location may now also be used to compute the optimal trajectory.
 Both criteria are compared in a thorough experimental study and are shown to successfully reduce the source location estimation error.
+
+
 
 
 // Bustamante

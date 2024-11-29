@@ -362,13 +362,16 @@ where
 
 #figure(
   image("./figures/normalization.png", height: 4cm),
-  caption: [
-    A visual comparison of Batch and Layer normalizations
-    (adapted from @wu_group_2018)
-  ]
+  caption: flex-caption(
+    [
+      A visual comparison of Batch and Layer normalizations (adapted from @wu_group_2018)
+    ],
+    // Short caption for the TOC
+    [A visual comparison of Batch and Layer normalizations]
+  ),
 ) <fig:ssl:multi_source:normalization>
 
-Those two methods have been proven to be effective in the training deep neural network architectures.
+Those two methods have been proven to be effective in training deep neural network architectures.
 
 //===== Experiments
 *Experiments*

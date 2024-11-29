@@ -15,7 +15,8 @@ The acoustic simulator is composed of several blocks that interact with each oth
 The core of the platform resides in the #rir-lib.
 The latter performs the actual computation of the several required #acr("RIR") filters.
 However, those libraries work at a low level and only account for a given static scene involving different unrelated microphones and sources.
-Also, not all options handle acoustic signals and some only provide the #acr("RIR") filter.
+Also, not all options handle acoustic signals.
+Some only provide the #acr("RIR") filter.
 
 #let room = text(fill: rgb("23445D"))[_room_]
 Thus, the #room component offers a higher abstraction for the static acoustic simulation.
@@ -26,10 +27,10 @@ Finally, the #simulator adds multiple features relating to dynamic scenarios.
 Also, it operates more advanced audio objects such as multi-microphone arrays and sound sources of different kinds.
 This block provides the most important external #acr("API") to our pipeline.
 It allows for defining a room, an agent (i.e. microphone array) and a set of sound sources with a very limited amount of code.
-The user can then move the different audio objects with convenient movement primitives and fetching the resulting audio and geometric data in diverse forms.
+The user can then move the different audio objects with convenient movement primitives and fetch the resulting audio and geometric data in diverse forms.
 
 @code:simulator:simulator:basic_usage demonstrates a basic example of how our library can be operated.
-The following section will present the software blocks required for running this kind of operation.
+The following section will present the software blocks required to run this type of operation.
 
 #figure(
   ```python
