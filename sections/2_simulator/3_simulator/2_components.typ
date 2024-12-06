@@ -107,7 +107,7 @@ Our implementation ensures the caching of the #acr("RIR") and solely re-computes
 As stated in the previous @sec:simulator:simulator:components:low_level, the Room can use both the _Pyroomacoustics_ and _gpuRIR_ back ends interchangeably.
 
 To actually compute the signal received at each microphone, the input signal from all active sources is gathered.
-Then, the listened signals are estimated by convolving the sources' signals with the corresponding #acr("RIR") vector as described in @eq:simulator:rir_listened_signal.
+Then, the listened signals are estimated by convolving the sources' signals with the corresponding #acr("RIR") vector as described in @eq:simulator:rir_listened_signal_multi_source_multi_mic.
 
 Additionally, the _Room_ module provides a convenient interface for dynamically adding and positioning both sources and microphones.
 It ensures the validity of all locations at any time.

@@ -2,14 +2,15 @@
 
 #init-acronyms((
   // Misc
-  "EM": ("expectation-maximization"),
   "API": ("Application Programming Interface"),
-  "HRI": ("Human-Robot Interaction"),
-  "RMSE": ("Root Mean Square Error"),
+  "EM": ("expectation-maximization"),
   "GT": ("Ground Truth"),
-  "MKF": ("mixture Kalman filter"),
   "HMM": ("Hidden Markov Model", "Hidden Markov Models"),
+  "HRI": ("Human-Robot Interaction"),
+  "LTI": ("linear time-invariant"),
   "MCTS": ("Monte Carlo tree search"),
+  "MKF": ("mixture Kalman filter"),
+  "RMSE": ("Root Mean Square Error"),
   
   // Deep Learning
   "BN": ("Batch Normalization"),

@@ -113,6 +113,8 @@ Indeed, a robotic platform implies dealing with several constraints mainly cause
       _Actually, the Robotics Community has not extensively addressed this active audition topic, although it may constitute one of the most promising progress in embodied audition._:
     
   - @rascon_localization_2017
+
+  - @li_reverberant_2016
 ]
 
 // Deep Learning
