@@ -5,6 +5,13 @@
 #import "_misc/template/_index.typ": in-outline, fill-line, fig-placement
 #import "_misc/notations.typ": *
 
+// ----------------------------------------------------------------
+// SETTINGS
+// ----------------------------------------------------------------
+#let show-comments = true
+#let show-drafts = true
+#let show-chapter-tocs = true
+// ----------------------------------------------------------------
 
 // Different figure/table caption for ToC and actual caption
 #let flex-caption(long, short) = context { if in-outline.get() { short } else { long } }
@@ -69,9 +76,6 @@ $
 #let shape(x, y, z) = $(#str(x), #str(y), #str(z))$
 
 /* COMMENTING */
-#let show-comments = true
-#let show-drafts = true
-#let show-chapter-tocs = true
 
 #let minitoc(indent: true) = {
   if show-chapter-tocs {
