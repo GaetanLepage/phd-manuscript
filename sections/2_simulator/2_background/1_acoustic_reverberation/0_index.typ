@@ -14,6 +14,7 @@ This phenomenon is a common theme in the different robotics problems explored in
 Our simulator explicitly models reverberant environments.
 Finally, the spectral representations of audio signals are discussed in the last section.
 
+
 ==== Fundamentals of sound propagation
 
 #gaet[
@@ -39,6 +40,18 @@ Finally, the spectral representations of audio signals are discussed in the last
     Technically, we don't need multi-mic to introduce reverb...
 ]
 
+#draft[
+  Explain that this section uses Laurent's lecture notes @girin_fundamentals_nodate
+
+  Other references to include:
+  - Book by Vincent, Gannot and Virtanen and @vincent_audio_2018 -> Cite along with the chapter (@vincent_audio_2018 - Chapter 3)
+  - Leglaive (on Speech Separation) @leglaive_multichannel_2016
+  Introduces the essential tools for reverberation
+  - Gustafsson et al. @gustafsson_source_2003: SSL in reverberant environments.
+  - Lauri Savioja et al. _Introduction to the Special Issue on Room Acoustic Modeling and Auralization_ @savioja_introduction_2019\
+    Only an introduction to a series of paper on room acoustic modeling.
+]
+
 Sound is a mechanical wave phenomenon.
 Sound waves propagate in various mediums, such as air, water, and solids.
 Naturally, sound is represented as a real-valued temporal signal $x(t)$.
@@ -53,11 +66,11 @@ Let us first consider the ideal case of a single receiver in the free field.
 Free field denotes an idealized environment that can be considered anechoic.
 Hence, no sound reflections are considered; thus, the reverberation phenomenon is ignored.
 
-The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation:
+The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation (@vincent_audio_2018 - Chapter 3):
 
 $
   x(t) = 1 / (sqrt(4 pi) #d) s (t - #d/#c)
-$ <eq:ssl:background:single_mic_continuous>
+$ <eq:simulator:background:single_mic_continuous>
 
 where
 - #d is the source-to-microphone distance (in m)
@@ -65,10 +78,10 @@ where
 - $#d/#c$ is the time of arrival (in s)
 In this simple case, the received signal corresponds to a delayed and attenuated version of the source signal.
 
-When considering digital signals, @eq:ssl:background:single_mic_continuous becomes
+When considering digital signals, @eq:simulator:background:single_mic_continuous becomes
 $
   x[n] = 1 / (sqrt(4 pi) #d) s [n - #d/#c #freq]
-$ <eq:ssl:background:single_mic_discrete>
+$ <eq:simulator:background:single_mic_discrete>
 where #freq ​is the sampling rate (in Hz), neglecting sampling and quantization issues.
 
 The microphone signal can be rewritten as
@@ -78,6 +91,7 @@ $
 <eq:simulator:background:single_mic_signal_freefield>
 where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c #freq]$ characterizes the acoustic path from the source to the microphone. $delta$ denotes the Dirac delta function.
 
+
 ==== Acoustic reverberation
 <sec:simulator:reverb:background:reverb>
 
@@ -85,51 +99,106 @@ where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c #freq]$ characterizes the ac
 
 Most realistic scenarios do not behave so simply, and other physical phenomena must be modeled.
 In a closed environment, such as an indoor room, sound will reflect on walls and cause reverberation.
-When neglecting secondary effects such as temperature and pressure changes, a reverberant room can be modeled as a linear time-invariant causal system.
+A reverberant room can be modeled as a #acr("LTI") causal system by neglecting secondary effects such as temperature and pressure changes.
 Hence, expressing the listened signal as a convolution remains possible, similarly to @eq:simulator:background:single_mic_signal_freefield:
 $
-  x[n] = (h_"RIR" * s)[n]
+  x[n] = (#rir * s)[n]
 $
 
 *Room Impulse Response*
 
 #reset-acronym("RIR")
-The filter $h_"RIR"$ is called the *#acr("RIR")*.
+The filter #rir is called the *#acr("RIR")*.
 It depends on the positions of the microphone and source, the walls' acoustic properties, and the room's dimensions.
 Hence, the #acr("RIR") is defined for each source-microphone pair.
 It characterizes how the sound travels between their positions and is thus sufficient to reconstruct the listened signal.
 As its name suggests, the #acr("RIR") depicts the room's acoustic response to an impulse, modeled by a Dirac delta function:
 $
-  x[n] = (h_"RIR" * delta)[n] = h_"RIR" [n]
+  x[n] = (#rir * delta)[n] = #rir [n]
 $
-
-@fig:simulator:background:rir_plot gives a schematic illustration of an #acr("RIR") filter.
-It can be decomposed in three sections.
-The first is the _direct path_, which corresponds to the signal reaching the microphone directly from the source without reflecting on any surface.
-Secondly, follow the _early echoes_, which are the first reflections.
+The #acr("RIR") filter encodes the multiple propagation paths between the source and the microphone.
+Each path has a specific delay and attenuation factor.
 
 #figure(
-  image("figures/rir_plot.svg", height: 10em),
-  caption: [
-    Plot of an #acr("RIR") filter @fu_gpu-based_2016
-  ],
-) <fig:simulator:background:rir_plot>
+  image("figures/rir_schema.svg", height: 16em),
+  caption: flex-caption(
+    [
+      Schematic representation of an RIR filter.
+      It can be decomposed in three sections:
+        #text(fill: rgb("#cc0000"))[direct path],
+        #text(fill: rgb("#7f00ff"))[early reflections]
+        and #text(fill: rgb("#006633"))[late reverberation].
+    ],
+    // Short caption for the TOC
+    [
+      Schematic representation of an RIR filter.
+    ]
+  ),
+) <fig:simulator:background:rir_schema>
 
 
-#draft[When we have multiple microphones:]
+@fig:simulator:background:rir_schema gives a schematic illustration of an #acr("RIR") filter.
+It can be decomposed into three sections.
+The first is the _direct path_, which corresponds to the signal reaching the microphone directly from the source without reflecting on any surface.
+This corresponds to @eq:simulator:background:single_mic_continuous describing sound propagation in an anechoic room.
+The delay amounts to $tau_r = #d / #c$.
+Secondly, follow the _early echoes_, which are the first reflections on the walls.
+Finally, the late reflections correspond to the echoes bouncing several times before reaching the microphone.
+They form the long and dense tail of the #acr("RIR") filter.
+The boundary between early echoes and late reflections is called the _mixing time_ and depends on the room's acoustic characteristics.
 
-Once the pairwise $n_m times n_s$ #acr("RIR") filters have been computed, the resulting signal received at microphone $k$ is obtained by convolving it with the source signal:
+// TODO: add real plot of an RIR (simulated one)
+// #figure(
+//   image("figures/rir_schema.svg", height: 16em),
+//   image("figures/rir_plot.svg", height: 16em),
+//   caption: [
+//     Plot of an #acr("RIR") filter @fu_gpu-based_2016
+//   ],
+// ) <fig:simulator:background:rir_plot>
+
+
+*Model limitations*
+
+#figure(
+  image("figures/reflection_types.svg", width: 100%),
+  caption: [Illustration of the different ways sound interacts with surfaces @di_carlo_echo-aware_2020],
+)
+
+The #acr("RIR") model does not account for all the existing reflection phenomena.
+Sound will interact in various, potentially simultaneous, ways with the surface it encounters.
+It might reflect from the surface, leading to reverberation, but it can also be partly diffracted (in the presence of a small aperture), refracted, or absorbed.
+Besides, the reflection can be of two kinds.
+On the one hand, smooth surfaces lead to specular reflections that behave similarly to light reflecting on a mirror.
+This is the only phenomenon modeled by the #acr("RIR") approach.
+On the other hand, diffuse reflections occur when the surface is imperfect or rough.
+In this case, the trajectories of the reflected waves are entirely unpredictable.
+The #acr("RIR") paradigm solely accounts for specular reflections.
+
+*Multiple sources and microphones*
+
+When several sources are active in the room, the sound received by a microphone is the sum of each source's contribution.
+This formulation is known as a mixture model (@vincent_audio_2018 - Chapter 3)
+These individual contributions are the convolution between each source's signal $s_i$ and the corresponding #acr("RIR") $h_i$.
+The final received signal can be expressed as:
 $
-  m_k [t] = sum_(i=1)^(n_s) (h_(i, k) * s_i)[t]  #h(2em) forall k in [|1, n_m|]
-$ <eq:simulator:rir_listened_signal>
-#draft[
-  TODO: unify notations
-]
+  x[n] = sum_(i=1)^(n_s) (h_i * s_i)[t]
+$
+<eq:simulator:rir_listened_signal_multi_source>
+
+@eq:simulator:rir_listened_signal_multi_source can be straightly generalized to multiple microphones ${m_1, dots, m_(n_m)}$.
+The signal recorded by the $k$-th receiver is:
+$
+  m_j [t] = sum_(i=1)^(n_s) (h_(i, j) * s_i)[t]  #h(2em) forall j in [|1, n_m|]
+$
+<eq:simulator:rir_listened_signal_multi_source_multi_mic>
+where $h_(i, j)$ is the #acr("RIR") filter corresponding to the pair of positions of source $s_i$ and microphone $m_j$.
+Hence, $n_s times n_m$ #acr("RIR") filters must be computed for a scene involving $n_s$ active sources and $n_m$ receivers.
+Unfor
 
 
 *Reverberation time ($T_60$)*
 
-The reverberation time can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine as
+The reverberation time noted $T_60$ or RT60 can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine as
 #let volume = $colMath(V, #maroon)$
 #let area = $colMath(A, #olive)$
 #let sound-speed = $colMath(c, #eastern)$
@@ -293,12 +362,16 @@ The signal received by microphone $i$ can be expressed as:
 $
   x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq]
 $
+@gustafsson_source_2003
+#draft[Maybe add more references]
 where $d_i$ is the distance from the the source $i$ to the source (see @fig:simulator:background:multi_mic_schema)
 
 One can write signal $x_2$ recorded by microphone $2$ as a function of the one recorded by microphone $1$ by combining their expressions:
 $
   x_2[n] = d_1 / d_2 x_1 [n - (d_2 - d_1)/(#c) #freq]
 $
+
+On the other hand one could imagine setting this value to
 
 
 #draft[
@@ -312,6 +385,19 @@ $
   - Two types of approach:
     - Many microphones to maximize the amount of (geometrical) information collected
     - Binaural setups to mimic human hearing
+]
+
+*Relative Transfer Function*
+
+#reset-acronym("RTF")
+The #acr("RTF") is the ratio of the receiver acoustic transfer functions of a microphone $h_i$ and that of a reference microphone $h_1$ @gannot_signal_2001 @li_estimation_2015.
+This conc
+
+
+#draft[
+  - @cohen_relative_2004 - Relative transfer function identification using speech signals. Cohen et al.
+  - @li_reverberant_2016 - Reverberant sound localization with a robot head based on direct-path relative transfer function
+  - @li_estimation_2015 - Estimation of Relative Transfer Function in the Presence of Stationary Noise Based on Segmental Power Spectral Density Matrix Subtraction
 ]
 
 *Definition*
