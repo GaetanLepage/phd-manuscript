@@ -20,8 +20,11 @@
   + *Intro*
     - [ ] #link(<chap:intro>)[Intro]
   + *Simulator*
-    - [ ] #link(<sec:simulator:intro>)[1. Intro]
-    - [ ] #link(<sec:simulator:reverb>)[2. Background]
+    - [x] #link(<sec:simulator:intro>)[1. Intro]
+    - [x] #link(<sec:simulator:reverb>)[2. Background]
+      - [x] #link(<sec:simulator:reverb:background>)[2.1 Acoustic]
+      - [-] #link(<sec:simulator:reverb:methods>)[2.2 Simulation methods and libraries]
+      - [-] #link(<sec:simulator:background:rir_libraries>)[2.3 RIR libraries]
     - [ ] #link(<sec:simulator:simulator>)[3. Simulator]
       - [x] #link(<sec:simulator:simulator:overview>)[1. Overview]
       - [x] #link(<sec:simulator:simulator:components>)[2. Components]

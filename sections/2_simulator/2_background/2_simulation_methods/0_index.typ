@@ -29,6 +29,8 @@ In 1984, Jeffrey Borish extended the technique to arbitrary polyhedral rooms @bo
 
 ==== Numerical simulation of sound propagation
 
+Another approach to acoustic rendering is to solve the physical equation of sound propagation numerically.
+
 - @raghuvanshi_efficient_2016
 - @rosen_interactive_2020 + Planeverb library
 - @benhamou_numerical_2023

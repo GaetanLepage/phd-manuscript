@@ -39,7 +39,8 @@ Our intent at exploring #acr("SSL") was initially motivated by our exploratory w
 // Handcrafted features
 
 // Statistical methods
-@alameda-pineda_geometric_2014
+- @alameda-pineda_geometric_2014
+- Source Localization in Reverberant Environments: Modeling and Statistical Analysis @gustafsson_source_2003
 
 // Sharon's paper on estimators and their performance
 

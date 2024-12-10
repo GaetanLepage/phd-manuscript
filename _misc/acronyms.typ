@@ -46,10 +46,14 @@
   "FoV": ("Field of View"),
 
   // Audio
-  "DFT": ("Discrete Fourier Transform"),
+  "ATF": ("Acoustic Transfer Function", "Acoustic Transfer Functions"),
+  "DFT": ("Discrete Fourier Transform", "Discrete Fourier Transforms"),
   "GA": ("Geometrical Acoustics"),
   "GCC-PHAT": ("Generalized Cross-Correlation function with Phase Transform"),
-  "HRTF": ("head-related transfer function"),
+  "HRTF": (
+    "head-related transfer function",
+    "head-related transfer functions"
+  ),
   "ILD": ("Interaural Level Difference"),
   "IPD": ("Interaural Phase Difference"),
   "ISM": ("Image Source Model"),

@@ -10,7 +10,7 @@
 // ----------------------------------------------------------------
 #let show-comments = true
 #let show-drafts = true
-#let show-chapter-tocs = true
+#let show-chapter-tocs = false
 // ----------------------------------------------------------------
 
 // Different figure/table caption for ToC and actual caption
