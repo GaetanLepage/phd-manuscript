@@ -17,41 +17,6 @@ Finally, the spectral representations of audio signals are discussed in the last
 
 ==== Fundamentals of sound propagation
 
-#gaet[
-  Do we introduce propagation equations before talking about reverberation in general?
-
-  For me, the idea is:
-  + Sound propagation (in free-field)
-  + Sound propagation in a room -> reflections
-  + Concept of the RIR: modeling as a convolution filter
-  + TF representations
-    - FT, STFT
-    - Binaural cues
-      - Propagation with a multi-microphone setup (close field vs far field)
-      - ILD, IPD (magnitude/phase of the ratio)
-    - 
-  + conv theorem not holding for STFT and why it still makes sense to use STFTs for this task
-
-  - Maybe we should mention HRTFs as we do binaural for robotics.
-    I would maybe get criticized for not mentioning it.
-    However, we should insist that we have neglected it in this work.
-  - Not sure in what order to put things though:\
-    -> Should multi-mic be handled before or after introducing RIR/reverb ?
-    Technically, we don't need multi-mic to introduce reverb...
-]
-
-#draft[
-  Explain that this section uses Laurent's lecture notes @girin_fundamentals_nodate
-
-  Other references to include:
-  - Book by Vincent, Gannot and Virtanen and @vincent_audio_2018 -> Cite along with the chapter (@vincent_audio_2018 - Chapter 3)
-  - Leglaive (on Speech Separation) @leglaive_multichannel_2016
-  Introduces the essential tools for reverberation
-  - Gustafsson et al. @gustafsson_source_2003: SSL in reverberant environments.
-  - Lauri Savioja et al. _Introduction to the Special Issue on Room Acoustic Modeling and Auralization_ @savioja_introduction_2019\
-    Only an introduction to a series of paper on room acoustic modeling.
-]
-
 Sound is a mechanical wave phenomenon.
 Sound waves propagate in various mediums, such as air, water, and solids.
 Naturally, sound is represented as a real-valued temporal signal $x(t)$.
@@ -66,7 +31,7 @@ Let us first consider the ideal case of a single receiver in the free field.
 Free field denotes an idealized environment that can be considered anechoic.
 Hence, no sound reflections are considered; thus, the reverberation phenomenon is ignored.
 
-The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation (@vincent_audio_2018 - Chapter 3):
+The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation (@vincent_audio_2018 - Chapter 3, @leglaive_multichannel_2016):
 
 $
   x(t) = 1 / (sqrt(4 pi) #d) s (t - #d/#c)
@@ -193,8 +158,12 @@ $
 <eq:simulator:rir_listened_signal_multi_source_multi_mic>
 where $h_(i, j)$ is the #acr("RIR") filter corresponding to the pair of positions of source $s_i$ and microphone $m_j$.
 Hence, $n_s times n_m$ #acr("RIR") filters must be computed for a scene involving $n_s$ active sources and $n_m$ receivers.
-Unfor
 
+
+==== Characterizing reverberant rooms
+
+This section introduces important quantities that depict the reverberation properties of a room.
+They will be essential in the interface of our simulator as they allow specifying how the environment should behave acoustically.
 
 *Reverberation time ($T_60$)*
 
@@ -227,76 +196,90 @@ Here, all surfaces are assumed to behave the same, and the _equivalent absorptio
 ==== Spectral representations of audio signals
 <sec:simulator:background:spectral-features>
 
-#draft[
-  The numerical representation of the audio information is a crucial for achieving #acr("SSL").
-  Several pre-processing methods exist to ease the extraction of geometric information.
-  
-  #figure(
-    image("figures/waveform.svg", height: 5cm),
-    caption: [
-      An example of a waveform acoustic signal
-    ],
-  ) <fig:ssl:sota:waveform>
-  
-  #draft[
-    - Talk about discretization/sampling
-    - Cite wave2vec as a method that directly operates on waveforms
-  ]
-]
-
 *Fourier transform, from continuous to discrete*
-
-#draft[
-  - Brief mention of the continuous Fourier transform
-  - Definition and motivation of the STFT
-  - Limitations and hypotheses:
-    - Allows to process short windows where speech is considered stationary. (Although, this is not really useful for #acr("SSL") itself)
-    - Convolution theorem not holding anymore.
-]
 
 Although the waveform rendering of an audio signal is a raw and natural representation of the information, the acoustic literature has studied several alternative higher-level transforms.
 A popular way of representing audio signals is to project the temporal signal in the Fourier domain.
 The Fourier transform stands as the core concept of this category of encoding.
+Several resources, such as Oppenheim et al. @oppenheim_discrete-time_1989 (Chapter 2) and Bracewell @ronald_bracewell_fourier_2000 (Chapter 2), propose extensive descriptions of the Fourier Transform and its properties.
 
-// TODO FT -> STFT (continuous) -> STFT (discrete)
-#draft[TODO cite @smith_scientist_1997]
+// FT -> DFT -> STFT
+#reset-acronym("DFT")
+#reset-acronym("STFT")
 As acoustic signals are stored and processed numerically, the continuous framing of the Fourier transform cannot be directly employed.
-Instead, the #acr("STFT") algorithm allows converting the temporal real-valued signal into a two-dimensional complex form.
-$
-  "STFT"(x) in CC^(F times T)
-$
-
-$
-  X[n, f] = sum_(m=-infinity)^(infinity) w[n-m] x[m] e^(-2i pi f m)
-$ <eq:ssl:sota:stft_inf>
-
-$
-  X[n, f] &= sum_(m=n-(N_w - 1))^n w[n-m] x[m] e^(-2i pi f_k m)\
-   &= sum_(m=n-(N_w - 1))^n w[n-m] x[m] e^((-2i pi m k) / N)
-$ <eq:ssl:sota:stft_inf>
-
-// TODO Introduce the notations. Maybe x(t) is defined in the above section
-//TODO: give the actual definition
-// #figure(
-//   square(size: 10em, stroke: 2pt),
-//   caption: [
-//   ],
-// ) <fig:ssl:sota:spectrogram>
+In contrast, the signal processing community has turned to the #acr("DFT") to process discrete signals (see Smith @smith_scientist_1997 Chapter 8).
+Instead, the #acr("STFT") is a tool for representing the temporal real-valued signal as a two-dimensional complex form.
 This target domain is often referenced as the time-frequency plan.
+It consists of computing the signal's #acr("DFT") on short overlapping smoothed windows.
+The #acr("STFT") has been partly motivated by the non-stationarity characteristic of speech.
+The signal can be assumed to be locally stationary when using short analysis frames.
 
+Let us first define an #acr("STFT") frame for a given time index $m in ZZ$:
+$
+  x_m [n] = x[n + m #H] #w [n]
+$
+where
+- $x[n]$ is any sampled real-valued signal ($n in ZZ$),
+- $#w [n]$ denotes the analysis window with support $[|0, N-1|]$,
+  Several choices can be employed for the shape of #w.
+  While, in theory, any function with compact support can be employed, it significantly impacts the result.
+  Popular choices include the rectangular, Hamming, and Hann window functions.
+- #H is an increment, also called hop size. It should remain lower than $N$ to ensure a non-zero overlap $N - H$ between successive frames.
+The support of the #acr("STFT") frame $x[n]$ is also $[|0, N-1|]$.
+The discrete #acr("STFT") of the signal $x$ is defined as the set of #acrpl("DFT")s of the frames $x_m$, $m in ZZ$:
+$
+  X[m, k] = 1/sqrt(N) sum_(n=0)^N x_m [n] e^(-2i pi (k n) / N)
+$ <eq:ssl:sota:stft_inf>
+where $k$ denotes the frequency index in $[|-N/2, N/2|]$.
+In this definition, both the time and frequency indices are integers.
+In practice, the signal has a finite length $L >> N$, leading to approximately $M = ceil(L / H)$ total #acr("STFT") frames.
+Hence, a finite-length signal's #acr("STFT") is a complex-valued matrix of size $M times N$.
+As practical signals are real-valued, the #acr("STFT") is symmetric, and only positive frequencies ($k in [|0, ceil(N/2)|]$) are considered.
 
+The time-frequency resolution is a tradeoff directly impacted by the choice of the window size $N$.
+Low values of $N$ will produce a wide-band spectrogram with a high time resolution at the cost of a lower frequency resolution.
+On the contrary, high values of $N$ will give narrow-band spectrograms with a low time resolution but a high-frequency resolution.
 
-#draft[
-  -> To be written after the introduction of the TF representations.
-  Intuitively, we work in the TF domain as, there, the listened signal is supposed to be the product of the clean signal with the RIR filter.
-  However, this is not theoretically true (even not true in practice).
-  Indeed, the convolution theorem (i.e. conv \<-> product) does not apply with the STFT.
-  See slide \#184 of Laurent's slides _Fundamentals of Audio Processing_.
-  Although this is not true, the TF representations have been widely used in the literature and are a powerful tool for audio processing, especially with DL.
+*Spectrogram*
+
+The spectrogram of a signal is a 2D real-valued representation of its #acr("STFT").
+It displays the magnitude, phase, or power of the complex #acr("STFT").
+The spectrogram allows visualizing a signal as a form of image.
+In addition to this practical property, it quantifies the intensity of the signal at each time frame and frequency bin.
+Different types of spectrograms can be defined:
+
+- The magnitude spectrogram is the modulus of the #acr("STFT"):
+$
+  "spectrogram"{x}(m, k) = mabs(X(m, k))
+$
+- The power spectrogram, or power spectral density, is its squared modulus:
+$
+  X_"power" (m, k) = |X(m, k)|^2
+$
+#block(breakable: false)[
+  The power spectrogram can also be expressed in decibels (dB):
+$
+  X_("power", "dB") = 20 log_(10) mabs(X(m, k))
+$
+ @fig:simulator:background:spectrogram is an example of a power spectrogram computed from a speech signal.
 ]
+- The phase spectrogram is its argument:
+$
+  X_"phase" (m, k) = arg(X(m, k))
+$
+The term spectrogram can also refer directly to the complex-valued result of the #acr("STFT").
+
+#figure(
+  image("figures/spectrogram.png", height: 10em),
+  caption: [
+    Power spectrogram of a simulated speech signal
+  ],
+) <fig:simulator:background:spectrogram>
+
   
 *Motivation for using #acr("STFT") for reverberant signals.*
-The convolution theorem grants one of the fundamental properties of the Fourier transform.
+
+The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 2.9.6) grants one of the fundamental properties of the Fourier transform.
 It states that the Fourier transform of a convolution is the product of the Fourier transforms:
 $
   cal(F)(f * g) = cal(F)(f) times cal(F)(g) \
@@ -313,11 +296,11 @@ However, it must be noted that the convolution theorem does not hold for the #ac
 It can be verified for the general #acr("DFT") under certain conditions but is wrong when using short-term frames.
 In practice, the length of the #acr("STFT") window function is often significantly shorter than the length of the convolution.
 
-Despite this theoretical result not transferring to the #acr("STFT")-based representations, they are still widely used in the literature when dealing with reverberating phenomena.
+Despite this theoretical result not transferring to the #acr("STFT")-based representations, they are still widely used in the literature when dealing with reverberating phenomena @gannot_signal_2001 @li_reverberant_2016 @cohen_relative_2004.
+This assumption of multiplicative transfer functions is known as the narrow-band assumption and is made in various domains of audio processing despite the error being often large.
 
-
-*Binaural cues*
-<sec:simulator:background:spectral-features:binaural>
+==== Beamforming and binaural cues
+<sec:simulator:background:binaural>
 
 *Motivation*
 
@@ -329,155 +312,184 @@ Disposing of more than one microphone allows computing the #acr("TDoA")
 
 Many array configurations have been experimented with.
 Both geometries (linear, polygons, spheres, or more complex arrangements) and the number of microphones (from two to several thousand) vary widely across applications.
-The binaural setup is one of the most studied configurations as it is an effort to model human hearing.
+Two families of arrays have emerged in the community.
+On the one hand, researchers have increased the number of receivers in a single array to capture as much geometric information as possible.
+The ambisonic format is an example of an approach that leverages high microphone-count arrays @perotin_localisation_2019 @zaunschirm_binaural_2018.
+On the other hand, the binaural setup is one of the most studied configurations because it attempts to model human hearing.
 In this case, specific signal representations have been proposed to ease extracting relevant information.
-
 Some data representations have been introduced for the specific case of binaural devices.
-This section focuses on those.
-
-// Beamforming ?
+This section focuses on motivating and deriving those representations.
 
 *Sound propagation with multi-microphone setting*
 
 #figure(
   image(
     "figures/multi_mic_schema.svg",
-    height: 10em,
+    width: 80%,
   ),
-  //square(size: 10em, stroke: 2pt),
   caption: [
-    Two-microphone setup
+    Two-microphone setup in the near field and far field cases
   ],
 )
 <fig:simulator:background:multi_mic_schema>
 
-#draft[
-  For Reverb: Free field vs Room -> Reverb vs not reverb\
-    direct path / higher order reflections
-  For SSL: far field vs close field:\
-    This is more for SSL
-]
+// #draft[
+//   For Reverb: Free field vs Room -> Reverb vs not reverb\
+//     direct path / higher order reflections
+//   For SSL: far field vs close field:\
+//     This is more for SSL
+// ]
 
-The signal received by microphone $i$ can be expressed as:
+The signal received by microphone $i$ can be expressed as (Vincent et al. @vincent_audio_2018 Chapter 3 or Gustafsson et al. @gustafsson_source_2003):
 $
   x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq]
 $
-@gustafsson_source_2003
-#draft[Maybe add more references]
+<eq:simulator:background:propagation_multi_mic>
 where $d_i$ is the distance from the the source $i$ to the source (see @fig:simulator:background:multi_mic_schema)
 
 One can write signal $x_2$ recorded by microphone $2$ as a function of the one recorded by microphone $1$ by combining their expressions:
 $
   x_2[n] = d_1 / d_2 x_1 [n - (d_2 - d_1)/(#c) #freq]
 $
+<eq:simulator:background:propagation_multi_mic_relative>
 
-On the other hand one could imagine setting this value to
+#reset-acronym("TDoA")
+$d_1 / d_2$ is called the level ratio, while $(d_2 - d_1)/#c$ is the #acr("TDoA").
+Those quantities encode relative information on the source position.
 
+The situation is described as far-field when the source is significantly far from the microphone array @girin_fundamentals_nodate.
+The far-field situation is when the source-to-microphone distances $d_i$ are large compared to the inter-receiver distance $l$.
+In this case, the level ratio is almost equal to 1:
+$
+  d_1 / d_2 approx 1
+$
+<eq:simulator:background:multi_mic_far_field_level_ratio>
+Also, the far-field assumption implies that the #acr("TDoA") is fully determined by the #acr("DoA") and its corresponding angle $theta$:
+$
+  (d_2 - d_1) / #c = l/#c cos(theta)
+$
+<eq:simulator:background:multi_mic_far_field_doa>
+Hence, theoretically, a measure of the #acr("TDoA") can be sufficient to infer the value of $theta$.
+Increasing the number of microphones brings redundancy and, thus, robustness when the measures of the #acr("TDoA") are noisy.
 
-#draft[
-  TODO: Originally, here was the explanation about how sound propagates in anechoic/reverberant environments.
-  This has been moved to the beginning of the _Background_ section.
-  Maybe we should move the multi-mic approach to this paragraph...
-  - Single-mic stays at the beginning
-  - Multi-mic moves here
-
-  ~
-  - Two types of approach:
-    - Many microphones to maximize the amount of (geometrical) information collected
-    - Binaural setups to mimic human hearing
-]
 
 *Relative Transfer Function*
 
-#reset-acronym("RTF")
-The #acr("RTF") is the ratio of the receiver acoustic transfer functions of a microphone $h_i$ and that of a reference microphone $h_1$ @gannot_signal_2001 @li_estimation_2015.
-This conc
-
-
-#draft[
-  - @cohen_relative_2004 - Relative transfer function identification using speech signals. Cohen et al.
-  - @li_reverberant_2016 - Reverberant sound localization with a robot head based on direct-path relative transfer function
-  - @li_estimation_2015 - Estimation of Relative Transfer Function in the Presence of Stationary Noise Based on Segmental Power Spectral Density Matrix Subtraction
-]
-
-*Definition*
-
 When considering a pair of microphones, defining interaural features becomes possible.
-Those quantities and techniques have been introduced in the context of understanding and modeling binaural hearing.
+Those quantities and techniques have been introduced to help understand and model binaural hearing and beamforming in general.
 
-Let us assume a setting with a single speech source outputting the input signal $s(t)$ and a binaural microphone array.
-The signal received by the left and right microphones can be expressed as the following convolutions:
+#reset-acronym("RTF")
+In practice, the aforementioned geometrical observations are leveraged by computing specific features from the input signal.
+Then, one computes the #acr("RTF") to express the interchannel information.
+It corresponds to the ratio between two microphones' #acrpl("ATF") @gannot_signal_2001.
+The value of the #acr("RTF") at a given time can be obtained by computing the ratio of the #acr("STFT") received by two microphones: the interaural spectrogram.
+More precisely, The #acr("RTF") of the $i$-th microphone is obtained by dividing the #acr("STFT") of the signal it receives by the one of the signal recorded by a reference microphone ($m_1$ for instance):
 $
-  cases(
-    l(t) = s(t - tau_l) * h_l(t),
-    r(t) = s(t - tau_r) * h_r(t)
-  )
-$ <eq:ssl:background:binaural_cues:binaural_signals>
-where $s$ is the source signal produce by the sound source and $h_l$ and $h_r$ are the #acr("RIR") relative to the left and right microphones.
+  "RTF"_i [m, k] = (X_i [m, k]) / (X_1 [m, k]) in CC
+$
+By construction, we have $"RTF"_1 [m, k] = 1$.
 
-We may now consider the ratio of the Fourier transforms of those two signals, called the *interaural spectrogram* 
-//We may now consider the ratio of the Fourier transforms of the two #acr("RIR"), called the #acr("RTF"):
-$
-  I(omega, t) = L(omega, t) / R(omega, t)
-  //L(omega, t) / R(omega, t) = alpha(omega, t) e^(j phi.alt(omega, t))
-  //L(omega, t) / R(omega, t) = abs(H(omega, t)) e^(-)
-$
+Cohen @cohen_relative_2004 is developing a way to use speech signals to identify the #acr("RTF") of an acoustic system.
+Markovich-Golan et al. @markovich-golan_performance_2015 thoroughly evaluate two statistical estimators for the #acr("RTF").
+Li et al. @li_estimation_2015 propose an estimation method based on segmental power spectral density matrix subtraction.
+In a later work, Li et al. @li_reverberant_2016 explore methods to accurately estimate the #acr("RTF") to enhance #acr("SSL") methods.
+
+In the specific case of binaural hearing on a humanoid robot platform, the device's physical head will introduce additional acoustic perturbations between the two microphones.
+The simple propagation model derived in
+@eq:simulator:background:propagation_multi_mic - @eq:simulator:background:multi_mic_far_field_doa[]
+is not valid anymore.
+Here, the ratio of #acrpl("ATF") is called the #acr("HRTF") (Vincent et al. @vincent_audio_2018 Chapter 4).
+The modeling and simulation of #acrpl("HRTF") are outside the scope of this thesis but are nevertheless central to the field of acoustic in robotics.
+
+
+*#acr("ILD") and #acr("IPD")*
+
+
+// Let us assume a setting with a single speech source outputting the input signal $s(t)$ and a binaural microphone array.
+// The signal received by the left and right microphones can be expressed as the following convolutions:
+// $
+//   cases(
+//     l(t) = s(t - tau_l) * h_l(t),
+//     r(t) = s(t - tau_r) * h_r(t)
+//   )
+// $ <eq:ssl:background:binaural_cues:binaural_signals>
+// where $s$ is the source signal produce by the sound source and $h_l$ and $h_r$ are the #acr("RIR") relative to the left and right microphones.
 
 #reset-acronym("ILD")
 #reset-acronym("IPD")
-This complex-valued ratio defines two fundamental binaural cues: the *#acr("ILD")* and the *#acr("IPD")*.
-
-- The #acr("ILD") is the magnitude of the interaural spectrogram:
+The #acr("RTF") is a complex-valued function.
+It is often projected to real quantities, namely its argument and phase, for practical use.
+Let us consider a binaural array with microphones $m_1$ and $m_2$.
+- The modulus of the #acr("RTF"), expressed in decibels, is called the #acr("ILD")
 $
-  "ILD"(omega, t) = 20 log mabs(I(omega, t))
+  "ILD" [m, k]
+    = 20 log mabs("RTF"[m, k])
+    = 20 log mabs((X_2 [m, k]) / (X_1 [m, k]))
 $
-<eq:simulator:ild_def>
-- The #acr("IPD") denotes the phase of $I$:
+<eq:simulator:background:def_ild>
+- The phase is called the #acr("IPD"):
 $
-  "IPD"(omega, t) = arg(I(omega, t))
+  "IPD" [m, k]
+    = arg("RTF"[m, k])
+    = arg((X_2 [m, k]) / (X_1 [m, k]))
 $
-<eq:simulator:ipd_def>
+<eq:simulator:background:def_ipd>
 
-#draft[
-  TODO: this might not be useful
-  
-  which can be modelled by the as:
-  $
-    L(omega, t) / R(omega, t) approx abs(H(omega)) e^(-j omega tau(omega))
-  $
-  where $tau(omega) = tau_l - tau_r + angle H(omega)$ is assumed to be smaller than the length of the employed #acr("STFT") window.
-  // $
-  //   H_"rel"(omega, t) = (H_l (omega)) / (H_r (omega)) = abs(L(omega, t)) / abs(R(omega, t)) e^(alpha(omega, t))
-  // $
-]
+// This complex-valued ratio defines two fundamental binaural cues: the *#acr("ILD")* and the *#acr("IPD")*.
+// 
+// - The #acr("ILD") is the magnitude of the interaural spectrogram:
+// $
+//   "ILD"(omega, t) = 20 log mabs(I(omega, t))
+// $
+// <eq:simulator:ild_def>
+// - The #acr("IPD") denotes the phase of $I$:
+// $
+//   "IPD"(omega, t) = arg(I(omega, t))
+// $
+// <eq:simulator:ipd_def>
 
-Interaural features, and especially #acr("IPD") have been successfully used in #acr("SSL") as it directly relates to the #acr("DoA").
-As @eq:ssl:background:binaural_cues:binaural_signals illustrates, the times at which each microphone of the array receives the signal differ by some short delay $tau$.
-Under ideal circumstances, meaning in the absence of reverberation and perturbations such as noise, the phase of the interaural spectrogram explicitly corresponds to the value of $tau$.
+// #draft[
+//   TODO: this might not be useful
+//   
+//   which can be modelled by the as:
+//   $
+//     L(omega, t) / R(omega, t) approx abs(H(omega)) e^(-j omega tau(omega))
+//   $
+//   where $tau(omega) = tau_l - tau_r + angle H(omega)$ is assumed to be smaller than the length of the employed #acr("STFT") window.
+//   // $
+//   //   H_"rel"(omega, t) = (H_l (omega)) / (H_r (omega)) = abs(L(omega, t)) / abs(R(omega, t)) e^(alpha(omega, t))
+//   // $
+// ]
+
+Interaural features, especially #acr("IPD"), have been successfully used in #acr("SSL") as they directly relate to the #acr("DoA").
+As @eq:simulator:background:propagation_multi_mic_relative illustrates, the times at which each microphone of the array receives the signal differ by some short delay $tau = (d_2 - d_1) / #c$.
+Under ideal circumstances, meaning in the absence of reverberation and perturbations such as noise, the phase of the interaural spectrogram is an explicit and deterministic function of the #acr("TDoA") $tau$.
+Uragun et al. @uragun_discrimination_2013 studied how animal brains were sensitive to #acr("ILD") functions by monitoring rats' brain activity.
+They found out that the rat uses the #acr("ILD") as a critical cue to localize sounds in space.
+This highlights the biological motivation of interaural features and confirms its relevance.
 
 
+// #draft[
+//   TODO: rephrase the following as this was originally written in the SSL chapter
+//   As explained before, one want to leverage the delays between the signals listened by each microphone.
+//   One of the motivations for using multiple microphones to perform #acr("SSL") is leveraging the delay #acr("TDoA")
+//   In the case of a binaural microphone system, #draft[TODO]
+// ]
 
-#draft[
-  TODO: rephrase the following as this was originally written in the SSL chapter
-  As explained before, one want to leverage the delays between the signals listened by each microphone.
-  One of the motivations for using multiple microphones to perform #acr("SSL") is leveraging the delay #acr("TDoA")
-  In the case of a binaural microphone system, #draft[TODO]
-]
-
-@uragun_discrimination_2013 (About the #acr("ILD") feature)
+// @uragun_discrimination_2013 (About the #acr("ILD") feature)
 
 // TODO: Nice stuff about ILD/IPD in "Binaural Hearing for Robots - Methodological Foundations" (see zotero)
-
-// TODO schemas
-//- #acr("ILD")
-//$ "ILD"(S_1, S_2) = 20 log_10 abs(S_1/S_2) $
-//
-//- #acr("IPD")
-//$ "IPD"(S_1, S_2) = arg(S_1/S_2) $
 
 #include "figures/tf_rep.typ"
 
 A binaural array has been placed in a room along with a speech source. 
 @fig:ssl:sota:tf_representations displays different representations of the audio signal received by the array:
-- @fig:ssl:sota:tf_representations:spectrogram shows the spectrogram of the signal received by the left microphone: $20 log abs(L(omega, t))$.
-- @fig:ssl:sota:tf_representations:ild and @fig:ssl:sota:tf_representations:ipd show the binaural cues, computed from @eq:simulator:ild_def and @eq:simulator:ipd_def respectively 
+- @fig:ssl:sota:tf_representations:spectrogram shows the power spectrogram of the signal received by the left microphone: $20 log abs(X_1 [m, k])$.
+- @fig:ssl:sota:tf_representations:ild and @fig:ssl:sota:tf_representations:ipd show the binaural cues, computed from @eq:simulator:background:def_ild and @eq:simulator:background:def_ipd respectively.
+
+#draft[
+  Potential additions:
+  - SotA on works that use ILD/IPD to do SSL/denoising/Speech enhancement...
+  - Introduction of more advanced binaural features such as GCC-PHAT
+  - More precise formalism of the different notions. For example, I foresee some weakness in the #acr("ATF") introduction.
+]
