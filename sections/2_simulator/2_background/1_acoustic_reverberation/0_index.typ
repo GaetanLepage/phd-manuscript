@@ -162,7 +162,7 @@ Hence, $n_s times n_m$ #acr("RIR") filters must be computed for a scene involvin
 
 ==== Characterizing reverberant rooms
 
-This section introduces important quantities that depict the reverberation properties of a room.
+This section introduces essential quantities that depict the reverberation properties of a room.
 They will be essential in the interface of our simulator as they allow specifying how the environment should behave acoustically.
 
 *Reverberation time ($T_60$)*
@@ -270,16 +270,16 @@ $
 The term spectrogram can also refer directly to the complex-valued result of the #acr("STFT").
 
 #figure(
-  image("figures/spectrogram.png", height: 10em),
+  image("figures/spectrogram.png", height: 14em),
   caption: [
-    Power spectrogram of a simulated speech signal
+    Power spectrogram of a two-second long clean speech recording
   ],
 ) <fig:simulator:background:spectrogram>
 
   
 *Motivation for using #acr("STFT") for reverberant signals.*
 
-The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 2.9.6) grants one of the fundamental properties of the Fourier transform.
+The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 2.9.6) grants one of the Fourier transform's fundamental properties.
 It states that the Fourier transform of a convolution is the product of the Fourier transforms:
 $
   cal(F)(f * g) = cal(F)(f) times cal(F)(g) \
@@ -383,13 +383,13 @@ In practice, the aforementioned geometrical observations are leveraged by comput
 Then, one computes the #acr("RTF") to express the interchannel information.
 It corresponds to the ratio between two microphones' #acrpl("ATF") @gannot_signal_2001.
 The value of the #acr("RTF") at a given time can be obtained by computing the ratio of the #acr("STFT") received by two microphones: the interaural spectrogram.
-More precisely, The #acr("RTF") of the $i$-th microphone is obtained by dividing the #acr("STFT") of the signal it receives by the one of the signal recorded by a reference microphone ($m_1$ for instance):
+More precisely, the #acr("RTF") of the $i$-th microphone is obtained by dividing the #acr("STFT") of the signal it receives by the one of the signals recorded by a reference microphone ($m_1$ for instance):
 $
   "RTF"_i [m, k] = (X_i [m, k]) / (X_1 [m, k]) in CC
 $
 By construction, we have $"RTF"_1 [m, k] = 1$.
 
-Cohen @cohen_relative_2004 is developing a way to use speech signals to identify the #acr("RTF") of an acoustic system.
+Cohen @cohen_relative_2004 is developing a way to use speech signals to identify an acoustic system's #acr("RTF").
 Markovich-Golan et al. @markovich-golan_performance_2015 thoroughly evaluate two statistical estimators for the #acr("RTF").
 Li et al. @li_estimation_2015 propose an estimation method based on segmental power spectral density matrix subtraction.
 In a later work, Li et al. @li_reverberant_2016 explore methods to accurately estimate the #acr("RTF") to enhance #acr("SSL") methods.

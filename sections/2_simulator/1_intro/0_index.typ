@@ -4,15 +4,15 @@
 <sec:simulator:intro>
 
 The physical world is an intrinsic aspect of robotics, especially #acr("HRI").
-Developing novel methods for interacting with humanoid robots encompasses several challenges related to their embodiment dimension.
+Developing novel methods for interacting with humanoid robots encompasses several challenges related to their embodiment.
 Robotic platforms suffer from severe limitations that sometimes impede applying data-intensive techniques.
 
 // Importance of simulation in science
 Simulation offers an alternative tool to experiment with new techniques.
-They have been widely used in most scientific fields since the first operation of the Monte Carlo algorithm at the end of the 1940s (@goldsman_brief_2009, @metropolis_beginning_nodate).
+It has been widely used in most scientific fields since the first operation of the Monte Carlo algorithm at the end of the 1940s (@goldsman_brief_2009, @metropolis_beginning_nodate).
 In 1950, a team led by Jon von Neumann and Jule Charney used the ENIAC computer to produce the first weather forecast by an electronic computer @charney_numerical_1950.
 Although their results carried important numerical errors, this work led to the foundation of modern meteorology.
-It is an example of numerically replicating a physical phenomenon by implementing and solving the corresponding equations.
+This is an example of numerically replicating a physical phenomenon by implementing and solving the corresponding equations.
 NASA has also used simulation early in its space programs, such as Apollo.
 The primary goal of their enterprise was to build a training setup for astronauts to practice specific skills.
 Indeed, in high-stakes enterprises, the crew's accommodation to their environment and tools is essential for the mission's success.
@@ -31,8 +31,8 @@ At their core resides the processing of substantial amounts of data.
 Collecting datasets of sufficient size and quality is a significant obstacle in many concrete applications of deep learning techniques.
 Simulation provides an alternative way to gather massive amounts of data and often allows for automatic annotation.
 However, building an effective simulator can be hard or even impossible.
-Also, simulated features frequently deviate from real-world data, which can heavily hinder the final performance.
-Reinforcement learning, for instance, has an agent interacting with an environment and improving its policy from trial and error.
+Also, simulated features frequently deviate from real-world data, which can heavily hinder the  performance of a system trained with simulated data.
+Reinforcement learning, for instance, considers an agent interacting with an environment and improving its action policy from trial and error.
 Since deep neural networks have been employed in this field, the interest in simulating the targeted environments has grown significantly.
 The success of #acr("DRL") in applications such as board games and video games came early because simulating them is trivial.
 Large artificial neural networks could then be trained on massive amounts of data.
