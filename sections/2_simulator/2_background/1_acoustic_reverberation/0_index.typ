@@ -25,7 +25,7 @@ Discrete representations allow the numerical processing and saving of sound sign
 
 While many modern algorithms, especially #acr("DNN")-based solutions, process sound as purely statistical data, the physical reality of acoustic phenomena is a central aspect of this thesis.
 Indeed, this work aims to tackle various audio-related tasks in reverberant environments.
-Thus, it is necessary to highlight the impact of physical reality on recorded signals to study how they will affect the performance of the proposed methods later.
+Thus, it is necessary to highlight the impact of the physical reality on recorded signals to study how they will affect the performance of the proposed methods later.
 
 Let us first consider the ideal case of a single receiver in the free field.
 Free field denotes an idealized environment that can be considered anechoic.
@@ -60,8 +60,6 @@ where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c #freq]$ characterizes the ac
 ==== Acoustic reverberation
 <sec:simulator:reverb:background:reverb>
 
-*Reverberant environments*
-
 Most realistic scenarios do not behave so simply, and other physical phenomena must be modeled.
 In a closed environment, such as an indoor room, sound will reflect on walls and cause reverberation.
 A reverberant room can be modeled as a #acr("LTI") causal system by neglecting secondary effects such as temperature and pressure changes.
@@ -69,8 +67,6 @@ Hence, expressing the listened signal as a convolution remains possible, similar
 $
   x[n] = (#rir * s)[n]
 $
-
-*Room Impulse Response*
 
 #reset-acronym("RIR")
 The filter #rir is called the *#acr("RIR")*.
@@ -112,17 +108,8 @@ Finally, the late reflections correspond to the echoes bouncing several times be
 They form the long and dense tail of the #acr("RIR") filter.
 The boundary between early echoes and late reflections is called the _mixing time_ and depends on the room's acoustic characteristics.
 
-// TODO: add real plot of an RIR (simulated one)
-// #figure(
-//   image("figures/rir_schema.svg", height: 16em),
-//   image("figures/rir_plot.svg", height: 16em),
-//   caption: [
-//     Plot of an #acr("RIR") filter @fu_gpu-based_2016
-//   ],
-// ) <fig:simulator:background:rir_plot>
-
-
-*Model limitations*
+// TODO: remove if we agree that this is too much
+//*Model limitations*
 
 #figure(
   image("figures/reflection_types.svg", width: 100%),
@@ -139,7 +126,7 @@ On the other hand, diffuse reflections occur when the surface is imperfect or ro
 In this case, the trajectories of the reflected waves are entirely unpredictable.
 The #acr("RIR") paradigm solely accounts for specular reflections.
 
-*Multiple sources and microphones*
+//*Multiple sources and microphones*
 
 When several sources are active in the room, the sound received by a microphone is the sum of each source's contribution.
 This formulation is known as a mixture model (@vincent_audio_2018 - Chapter 3)
@@ -165,9 +152,9 @@ Hence, $n_s times n_m$ #acr("RIR") filters must be computed for a scene involvin
 This section introduces essential quantities that depict the reverberation properties of a room.
 They will be essential in the interface of our simulator as they allow specifying how the environment should behave acoustically.
 
-*Reverberation time ($T_60$)*
+// *Reverberation time ($T_60$)*
 
-The reverberation time noted $T_60$ or RT60 can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine as
+The reverberation time noted $T_60$ or RT60 can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine @sabine_collected_1922 as
 #let volume = $colMath(V, #maroon)$
 #let area = $colMath(A, #olive)$
 #let sound-speed = $colMath(c, #eastern)$
@@ -311,7 +298,7 @@ Array processing spans several downstream tasks, such as speech enhancement @gan
 Disposing of more than one microphone allows computing the #acr("TDoA")
 
 Many array configurations have been experimented with.
-Both geometries (linear, polygons, spheres, or more complex arrangements) and the number of microphones (from two to several thousand) vary widely across applications.
+Both the geometry (linear, polygons, spheres, or more complex arrangements) and the number of microphones (from two to several thousand) vary widely across applications.
 Two families of arrays have emerged in the community.
 On the one hand, researchers have increased the number of receivers in a single array to capture as much geometric information as possible.
 The ambisonic format is an example of an approach that leverages high microphone-count arrays @perotin_localisation_2019 @zaunschirm_binaural_2018.
@@ -320,7 +307,7 @@ In this case, specific signal representations have been proposed to ease extract
 Some data representations have been introduced for the specific case of binaural devices.
 This section focuses on motivating and deriving those representations.
 
-*Sound propagation with multi-microphone setting*
+*Sound propagation within the multi-microphone setting*
 
 #figure(
   image(
@@ -383,7 +370,7 @@ In practice, the aforementioned geometrical observations are leveraged by comput
 Then, one computes the #acr("RTF") to express the interchannel information.
 It corresponds to the ratio between two microphones' #acrpl("ATF") @gannot_signal_2001.
 The value of the #acr("RTF") at a given time can be obtained by computing the ratio of the #acr("STFT") received by two microphones: the interaural spectrogram.
-More precisely, the #acr("RTF") of the $i$-th microphone is obtained by dividing the #acr("STFT") of the signal it receives by the one of the signals recorded by a reference microphone ($m_1$ for instance):
+More precisely, the #acr("RTF") of the $i$-th microphone is obtained by dividing the #acr("STFT") of the signal it receives by the one of the signals recorded by a reference microphone (the first one for instance):
 $
   "RTF"_i [m, k] = (X_i [m, k]) / (X_1 [m, k]) in CC
 $
@@ -402,7 +389,7 @@ Here, the ratio of #acrpl("ATF") is called the #acr("HRTF") (Vincent et al. @vin
 The modeling and simulation of #acrpl("HRTF") are outside the scope of this thesis but are nevertheless central to the field of acoustic in robotics.
 
 
-*#acr("ILD") and #acr("IPD")*
+//*#acr("ILD") and #acr("IPD")*
 
 
 // Let us assume a setting with a single speech source outputting the input signal $s(t)$ and a binaural microphone array.

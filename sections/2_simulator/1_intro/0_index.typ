@@ -6,10 +6,13 @@
 The physical world is an intrinsic aspect of robotics, especially #acr("HRI").
 Developing novel methods for interacting with humanoid robots encompasses several challenges related to their embodiment.
 Robotic platforms suffer from severe limitations that sometimes impede applying data-intensive techniques.
+Because robots are physical systems, data-intensive and trial-error approaches are challenging to scale.
+In the following, we explore why simulation plays a pivotal role in numerical science and, more specifically, in addressing the challenges of robotics.
+
 
 // Importance of simulation in science
 Simulation offers an alternative tool to experiment with new techniques.
-It has been widely used in most scientific fields since the first operation of the Monte Carlo algorithm at the end of the 1940s (@goldsman_brief_2009, @metropolis_beginning_nodate).
+Since the Monte Carlo algorithm's first operation at the end of the 1940s, it has been widely used in most scientific fields (@goldsman_brief_2009, @metropolis_beginning_nodate).
 In 1950, a team led by Jon von Neumann and Jule Charney used the ENIAC computer to produce the first weather forecast by an electronic computer @charney_numerical_1950.
 Although their results carried important numerical errors, this work led to the foundation of modern meteorology.
 This is an example of numerically replicating a physical phenomenon by implementing and solving the corresponding equations.
@@ -104,7 +107,7 @@ Kaur et al. @kaur_simulators_2022 insist on the importance of modeling human beh
 They reviewed the existing simulators for mobile robot navigation in pedestrian-rich environments.
 They identified the key missing features of available solutions.
 For instance, the richness of human behavior models is not satisfying as they often lack realism and diversity.
-Sprague et al. @sprague_socialgym_2023 proposed _SocialGym 2.0_, a multi-agent j navigation simulator that models robot-robot and human-robot interactions.
+Sprague et al. @sprague_socialgym_2023 proposed _SocialGym 2.0_, a multi-agent navigation simulator that models robot-robot and human-robot interactions.
 Safety is another crucial challenge when humans are added to the loop.
 
 
@@ -120,8 +123,8 @@ In conclusion, simulation's many benefits come at some cost, which must be caref
 
 
 *Acoustic simulation.*
-Vision is the dominant modality used for robotic perception in practical applications.
-Robots have also used different cues (LIDAR @malavazi_lidar-only_2018 @hutabarat_lidar-based_2019, haptic feedback @seminara_active_2019, audio @chen_soundspaces_2020 @majumder_move2hear_2021 @bustamante_multi-step-ahead_2017, etc.).
+Thanks to the widespread availability of camera sensors and significant advancements in image processing techniques, vision has emerged as one of the most predominant modalities in robotics.
+Nevertheless, other cues have also been employed, either in conjunction with or in place of vision (LIDAR @malavazi_lidar-only_2018 @hutabarat_lidar-based_2019, haptic feedback @seminara_active_2019, audio @chen_soundspaces_2020 @majumder_move2hear_2021 @bustamante_multi-step-ahead_2017, etc.).
 In this thesis, the focus will be on acoustic applications in robotics.
 Simulators targeting audio simulation are scarcer, especially the ones dedicated to robotics.
 In their review, Kaur et al. @kaur_simulators_2022 highlight the absence of ambient sound modeling for testing sound-based navigation algorithms.

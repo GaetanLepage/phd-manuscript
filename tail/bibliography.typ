@@ -11,7 +11,11 @@
     "/sections/2_simulator/1_intro/bibliography/robotics.bib",
     "/sections/2_simulator/1_intro/bibliography/sim_to_real.bib",
     "/sections/2_simulator/2_background/1_acoustic_reverberation/bibliography.bib",
-    "/sections/2_simulator/2_background/2_simulation_methods/bibliography.bib",
+    "/sections/2_simulator/2_background/2_simulation_methods/bibliography/intro.bib",
+    "/sections/2_simulator/2_background/2_simulation_methods/bibliography/image_source_model.bib",
+    "/sections/2_simulator/2_background/2_simulation_methods/bibliography/tracing.bib",
+    "/sections/2_simulator/2_background/2_simulation_methods/bibliography/simulation.bib",
+    "/sections/2_simulator/2_background/2_simulation_methods/bibliography/misc.bib",
     "/sections/2_simulator/2_background/3_software_libraries/bibliography.bib",
     "/sections/2_simulator/3_simulator/bibliography.bib",
 
