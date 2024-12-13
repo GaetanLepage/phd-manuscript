@@ -3,16 +3,36 @@
 === Overview of acoustic reverberation simulation methods
 <sec:simulator:reverb:methods>
 
-@savioja_introduction_2019
+
+Savioja et al. @savioja_introduction_2019
 
 Simulating the acoustic reverberation phenomenon has a broad range of applications.
 Reverberation must be considered when a scene happens indoors to obtain a realistic render.
+
+// Historic context
+This task has been referred to as computational room acoustic modeling or auralization.
+This second term was coined in 1993 by Kleiner et al. @kleiner_auralization-overview_1993 #draft[find PDF], inspired by the concept of visualization for visual rendering.
+The first works on acoustic rendering #todo
+
+Several approaches have been employed to tackle the auralization task.
+They differ on which underlying physical model and equation they use.
+Hence, a taxonomy can be derived from those differences.
+We may first consider rigorous methods that explicitly attempt to solve the acoustic wave equation using numerical methods.
+Indeed, closed-form analytic solutions do not exist in the general case.
+
+#draft[Too specific for the intro ?]
+
+#draft[
+  - numerical solving
+  - ISM
+  - ray/path tracing -> difference?
+]
+
 This section provides an overview of the existing methods for rendering acoustic scenes.
 The literature is diverse, as several communities have been interested in solving this problem.
 The video game industry is motivated by rendering realistic environments and computing the appropriate room's response to every audio event.
 #draft[Add references to papers in this regard]
-In robotics
-
+In robotics 
 
 #reset-acronym("ISM")
 ==== #acr("ISM")
@@ -36,7 +56,8 @@ In 1984, Jeffrey Borish extended the technique to arbitrary polyhedral rooms @bo
 
 ==== Numerical simulation of sound propagation
 
-Another approach to acoustic rendering is to solve the physical equation of sound propagation numerically.
+Another approach to acoustic rendering is to numerically solve the physical acoustic wave equation.
+The problem space and/or time must be discretized to apply finite-element type solvers.
 
 - @raghuvanshi_efficient_2016
 - @rosen_interactive_2020 + Planeverb library
@@ -46,6 +67,7 @@ Another approach to acoustic rendering is to solve the physical equation of soun
 
 Path/ray tracing
 - @savioja_overview_2015
+- Krokstad et al. The early history of ray tracing in acoustics
 - @cao_interactive_2016,
 - @schissler_interactive_2017
 
