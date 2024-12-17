@@ -14,7 +14,7 @@ At each call of this function, each audio source reloads an entirely new signal 
 Regular speech sources, when asked to refresh their signal, draw a distinct sample from the clean speech corpus and outputs the corresponding signal.
 The latter usually consists of a complete sentence pronounced by a speaker and lasts several seconds.
 The duration of the resulting simulated audio #d-rec will differ from step to step
-This process suits well use cases where each _step_ is independent from each other.
+This process suits well use cases where each _step_ is independent of the others.
 
 *Continuous sources.*
 To allow for more realistic modeling, we introduce continuous speech sources.
