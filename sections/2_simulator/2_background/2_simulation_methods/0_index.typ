@@ -11,7 +11,7 @@ Reverberation must be considered when a scene happens indoors to obtain a realis
 
 // Historic context
 This task has been referred to as computational room acoustic modeling or auralization.
-This second term was coined in 1993 by Kleiner et al. @kleiner_auralization-overview_1993 #draft[find PDF], inspired by the concept of visualization for visual rendering.
+This second term was coined in 1993 by Kleiner et al. @kleiner_auralization-overview_1993, inspired by the concept of visualization for visual rendering.
 The first works on acoustic rendering #todo
 
 Several approaches have been employed to tackle the auralization task.
@@ -19,6 +19,7 @@ They differ on which underlying physical model and equation they use.
 Hence, a taxonomy can be derived from those differences.
 We may first consider rigorous methods that explicitly attempt to solve the acoustic wave equation using numerical methods.
 Indeed, closed-form analytic solutions do not exist in the general case.
+Literature comprises various techniques 
 
 #draft[Too specific for the intro ?]
 
@@ -32,7 +33,7 @@ This section provides an overview of the existing methods for rendering acoustic
 The literature is diverse, as several communities have been interested in solving this problem.
 The video game industry is motivated by rendering realistic environments and computing the appropriate room's response to every audio event.
 #draft[Add references to papers in this regard]
-In robotics 
+In robotics
 
 #reset-acronym("ISM")
 ==== #acr("ISM")
