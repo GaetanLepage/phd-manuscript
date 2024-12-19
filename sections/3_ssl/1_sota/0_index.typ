@@ -115,7 +115,7 @@ Indeed, a robotic platform implies dealing with several constraints mainly cause
     
   - @rascon_localization_2017
 
-  - @li_reverberant_2016
+  - Li et al. _Reverberant sound localization with a robot head based on direct-path relative transfer function_ @li_reverberant_2016
 ]
 
 // Deep Learning
