@@ -3,37 +3,46 @@
 === Overview of acoustic reverberation simulation methods
 <sec:simulator:reverb:methods>
 
-
-Savioja et al. @savioja_introduction_2019
-
 Simulating the acoustic reverberation phenomenon has a broad range of applications.
 Reverberation must be considered when a scene happens indoors to obtain a realistic render.
-
+Thus, diverse communities have explored this problem, from physicists and roboticists to the video game industry and the signal processing community.
 // Historic context
 This task has been referred to as computational room acoustic modeling or auralization.
+The first works mentioning the acoustic rendering concept  originate from the 1960s @schroeder_natural_1962.
 This second term was coined in 1993 by Kleiner et al. @kleiner_auralization-overview_1993, inspired by the concept of visualization for visual rendering.
-The first works on acoustic rendering #todo
+In 1992, Takala et @takala_sound_1992 proposed a thorough description of a general methodology for sound rendering.
+Savioja et al. @savioja_introduction_2019 highlight the diversity of the existing methods for sound rendering despite the field's relative youth.
 
 Several approaches have been employed to tackle the auralization task.
 They differ on which underlying physical model and equation they use.
 Hence, a taxonomy can be derived from those differences.
 We may first consider rigorous methods that explicitly attempt to solve the acoustic wave equation using numerical methods.
 Indeed, closed-form analytic solutions do not exist in the general case.
-Literature comprises various techniques 
+The different existing practical strategies are presented later in this section.
 
-#draft[Too specific for the intro ?]
+Geometrical acoustics denotes a family of methods that adopt another approach to this problem.
+Instead of adhering to strict physical modeling of the sound propagation phenomenon, they assume that sound behaves as rays.
+This choice implies the neglect of the wave nature of sound and is, therefore, less accurate.
+Nonetheless, the efficiency of geometrical acoustics methods has made them widely adopted.
 
-#draft[
-  - numerical solving
-  - ISM
-  - ray/path tracing -> difference?
-]
 
-This section provides an overview of the existing methods for rendering acoustic scenes.
-The literature is diverse, as several communities have been interested in solving this problem.
-The video game industry is motivated by rendering realistic environments and computing the appropriate room's response to every audio event.
-#draft[Add references to papers in this regard]
-In robotics
+==== Numerical simulation of sound propagation
+
+A natural approach to acoustic rendering is to numerically solve the acoustic wave equation.
+This strategy is the most faithful to the physical reality.
+Theoretically, it accurately represents complex mechanisms such as diffraction, interference, or modal resonances.
+However, tackling this second-order partial differential equation is challenging.
+No closed-form solution is readily available, and one must fall back to approximating a numerical solution.
+Botteldooren @botteldooren_acoustical_1994 has proposed using the finite-difference time-domain method to obtain a practical solution to the acoustic wave equation.
+In general, methods from this family discretize space and time to apply numerical integration techniques.
+
+More recently, Raghuvanshi et al. @raghuvanshi_efficient_2016 developed a new method to lower the computing cost of numerical simulation.
+They introduce an adaptive rectangular description of 3D scenes, unlocking 100-fold speedups compared to traditional techniques.
+This approach allows for rendering complex acoustic 3D scenes while not requiring more than commodity hardware to run.
+They are able to model difficult and large environments such as a cathedral.
+However, high frequency support is limited as only 
+- @rosen_interactive_2020 + Planeverb library
+- @benhamou_numerical_2023
 
 #reset-acronym("ISM")
 ==== #acr("ISM")
@@ -55,16 +64,10 @@ In 1984, Jeffrey Borish extended the technique to arbitrary polyhedral rooms @bo
 // OG paper:
 
 
-==== Numerical simulation of sound propagation
-
-Another approach to acoustic rendering is to numerically solve the physical acoustic wave equation.
-The problem space and/or time must be discretized to apply finite-element type solvers.
-
-- @raghuvanshi_efficient_2016
-- @rosen_interactive_2020 + Planeverb library
-- @benhamou_numerical_2023
 
 ==== Geometrical Acoustics
+
+Geometrical Acoustics
 
 Path/ray tracing
 - @savioja_overview_2015
@@ -78,6 +81,10 @@ Path/ray tracing
 
 
 ==== Simulation of dynamic environments
+
+Most of the works previously cited focus on static environments where neither sources nor microphones are moving across time.
+This ideal situation is not representative of real-world scenarios.
+Especially in robotics, modeling moving humans and agents can 
 
 #draft[
   - Acoustic Simulation in Dynamic Environments for Robot Audition @zhang_acoustic_2019
