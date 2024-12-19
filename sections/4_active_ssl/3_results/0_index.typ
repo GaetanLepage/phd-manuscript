@@ -15,6 +15,7 @@ Overall, for our agent, the goal of the #acr("ASSL") task, as defined in this ch
 The detection is only performed at step $H$, where the method outputs a list of coordinates relative to the robot's position.
 In this aspect, the #acr("ASSL") problem corresponds to a single-class detection task.
 Precision and recall hence come as natural metrics to evaluate our method's performance.
+#draft[TODO: Cite @zou_object_2023 and make a clear parallel with the vision task.]
 
 However, bounding boxes are not expected in this case, as only the source positions should be provided.
 An acceptable range of $delta$ meters defines the criteria for correct detection.
