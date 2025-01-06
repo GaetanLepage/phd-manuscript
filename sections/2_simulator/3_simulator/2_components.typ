@@ -195,7 +195,6 @@ Thus we have built the rest of the pipeline to allow for full control of audio o
 Besides, as the conducted downstream task involved mostly planar problems, most implemented features focus on 2D movements and spatial measures.
 No artificial limitation prevent the use of our library for 3D problems.
 
-#pagebreak()
 *Audio objects movement*
 //====== Audio objects movement
 //<sec:simulator:simulator:components:movement>
@@ -228,14 +227,14 @@ This facilitates the flexible implementation of numerous acoustic #acr("HRI") us
 //<sec:simulator:simulator:components:sim_process>
 
 Most downstream tasks leveraging the simulator involved some type of iteration through discrete time step simulation.
-More precisely, the typical workflow when using the simulator includes an initialization phase, where the _Room_, microphone array and _AudioSimulator_ are created.
+More precisely, the typical workflow when using the simulator includes an initialization phase, during which the _Room_, microphone array, and _AudioSimulator_ are created.
 @code:simulator:simulator:basic_usage gives an overview of the corresponding code snippet.
 
-Once the different components have been set up, the actual simulation process may take place.
+Once the different components have been set up, the actual simulation process may occur.
 The procedure involves positioning all audio objects in the room.
 This can be done directly by the simulator in a random fashion.
 Subsequently, each source is individually asked to provide a new sound sample (see @sec:simulator:simulator:components:sim_scenarios).
-The actual sound propagation simulation can then happen and the embedded _Room_ module returns the multi-channel received audio signal.
+The actual sound propagation simulation can then happen and the embedded _Room_ module returns the multi-channel audio signal received.
 Either the raw waveform or further processed time-frequency features can be produced.
 The user also has the ability to listen to the produced signal directly.
 In practice, those steps are abstracted and automatized by the `step()` method.

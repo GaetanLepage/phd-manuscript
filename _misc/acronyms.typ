@@ -1,23 +1,31 @@
 #import "acrostiche.typ": init-acronyms
 
 #init-acronyms((
+  // -----------------------------------------------------------------------------
   // Misc
   "API": ("Application Programming Interface"),
   "EM": ("expectation-maximization"),
   "GT": ("Ground Truth"),
-  "HMM": ("Hidden Markov Model", "Hidden Markov Models"),
+  "HMM": (
+    "Hidden Markov Model",
+    "Hidden Markov Models"
+  ),
   "HRI": ("Human-Robot Interaction"),
   "LTI": ("linear time-invariant"),
   "MCTS": ("Monte Carlo tree search"),
   "MKF": ("mixture Kalman filter"),
   "RMSE": ("Root Mean Square Error"),
   
+  // -----------------------------------------------------------------------------
   // Deep Learning
   "BN": ("Batch Normalization"),
   "CRDNN": ("Convolutional Recurrent Deep Neural Network"),
   "DL": ("Deep Learning"),
   "DNN": ("Deep Neural Network"),
-  "GRU": ("Gated Recurrent Unit", "Gated Recurrent Units"),
+  "GRU": (
+    "Gated Recurrent Unit",
+    "Gated Recurrent Units"
+  ),
   "LLM": ("Large Language Model", "Large Language Models"),
   "LN": ("Layer Normalization"),
   "RNNLM": ("Recurrent Neural Network Language Model"),
@@ -26,12 +34,14 @@
   "ReLU": ("Rectified Linear Unit"),
   "RNN": ("Recurrent Neural Network"),
   
+  // -----------------------------------------------------------------------------
   // ASR
   "ASR": ("Automatic Speech Recognition"),
   "LM": ("Language Model"),
   "CTC": ("Connectionist Temporal Classification"),
   "WER": ("Word Error Rate"),
 
+  // -----------------------------------------------------------------------------
   // SSL
   "DCASE": ("Detection and Classification of Acoustic Scenes and Events"),
   "DoA": ("Direction of Arrival"),
@@ -41,15 +51,29 @@
   "ACC": ("Accuracy"),
   "MAE": ("Mean Absolute Error"),
 
+  // -----------------------------------------------------------------------------
   // Active SSL
   "ASSL": ("Active Sound Source Localization"),
   "FoV": ("Field of View"),
 
+  // -----------------------------------------------------------------------------
   // Audio
-  "ATF": ("Acoustic Transfer Function", "Acoustic Transfer Functions"),
-  "DFT": ("Discrete Fourier Transform", "Discrete Fourier Transforms"),
+  "ATF": (
+    "Acoustic Transfer Function",
+    "Acoustic Transfer Functions"
+  ),
+  "BEM": ("Boundary Element Method"),
+  "DFT": (
+    "Discrete Fourier Transform",
+    "Discrete Fourier Transforms"
+  ),
+  "FDTD": ("Finite-Difference Time-Domain"),
+  "FEM": (
+    "Finite-Element Method",
+    "Finite-Element Methods",
+  ),
   "GA": ("Geometrical Acoustics"),
-  "GCC-PHAT": ("Generalized Cross-Correlation function with Phase Transform"),
+  "GCC-PHAT": ("Generalized Cross-Correlation with Phase Transform"),
   "HRTF": (
     "head-related transfer function",
     "head-related transfer functions"
@@ -67,6 +91,7 @@
   ),
   "TDoA": ("time difference of arrival"),
   
+  // -----------------------------------------------------------------------------
   // RL
   "DQN": ("Deep Q Learning"),
   "DRL": ("Deep Reinforcement Learning"),
