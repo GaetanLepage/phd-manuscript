@@ -11,7 +11,7 @@
 
 ==== RoomSim
 - RoomSim @campbell_roomsim_nodate (MatLab)
-- C roomsim: @schimmel_fast_2009
+- C roomsim: @schimmel_fast_2009: A fast and accurate “shoebox” room acoustics simulator
 
 
 ==== Pyroomacoustics

@@ -22,7 +22,7 @@ In this section, we will provide an overview of our simulator's main functionali
 #include "3_features.typ"
 #include "4_performance.typ"
 
-== Conclusion
+=== Conclusion
 
 #draft[
   - Possible addition of visual information

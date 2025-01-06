@@ -92,10 +92,11 @@ Each path has a specific delay and attenuation factor.
     ],
     // Short caption for the TOC
     [
-      Schematic representation of an RIR filter.
+      #todo
+      @savioja_overview_2015
     ]
   ),
-) <fig:simulator:background:rir_schema>
+) <fig:simulator:background:rir_plot>
 
 
 @fig:simulator:background:rir_schema gives a schematic illustration of an #acr("RIR") filter.
@@ -154,7 +155,22 @@ They will be essential in the interface of our simulator as they allow specifyin
 
 // *Reverberation time ($T_60$)*
 
-The reverberation time noted $T_60$ or RT60 can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine @sabine_collected_1922 as
+#figure(
+  image("figures/rir_echogram.svg", height: 16em),
+  caption: flex-caption(
+    [
+      Schematic representation of an RIR filter.
+      @savioja_overview_2015
+    ],
+    // Short caption for the TOC
+    [
+      Schematic representation of an RIR filter.
+    ]
+  ),
+) <fig:simulator:background:rir_schema>
+
+The reverberation time noted $T_60$ or RT60 denotes the time before the sound pressure decreases by 60 dB after the source signal is abruptly stopped.
+It can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine @sabine_collected_1922 as
 #let volume = $colMath(V, #maroon)$
 #let area = $colMath(A, #olive)$
 #let sound-speed = $colMath(c, #eastern)$
@@ -409,14 +425,14 @@ It is often projected to real quantities, namely its argument and phase, for pra
 Let us consider a binaural array with microphones $m_1$ and $m_2$.
 - The modulus of the #acr("RTF"), expressed in decibels, is called the #acr("ILD")
 $
-  "ILD" [m, k]
+  "ILD"[m, k]
     = 20 log mabs("RTF"[m, k])
     = 20 log mabs((X_2 [m, k]) / (X_1 [m, k]))
 $
 <eq:simulator:background:def_ild>
 - The phase is called the #acr("IPD"):
 $
-  "IPD" [m, k]
+  "IPD"[m, k]
     = arg("RTF"[m, k])
     = arg((X_2 [m, k]) / (X_1 [m, k]))
 $
@@ -451,8 +467,12 @@ $
 Interaural features, especially #acr("IPD"), have been successfully used in #acr("SSL") as they directly relate to the #acr("DoA").
 As @eq:simulator:background:propagation_multi_mic_relative illustrates, the times at which each microphone of the array receives the signal differ by some short delay $tau = (d_2 - d_1) / #c$.
 Under ideal circumstances, meaning in the absence of reverberation and perturbations such as noise, the phase of the interaural spectrogram is an explicit and deterministic function of the #acr("TDoA") $tau$.
-Uragun et al. @uragun_discrimination_2013 studied how animal brains were sensitive to #acr("ILD") functions by monitoring rats' brain activity.
-They found out that the rat uses the #acr("ILD") as a critical cue to localize sounds in space.
+Mandel et al. @mandel_probability_2006 derived a probability model to estimate the #acr("IPD") from binaural recordings.
+They test their framework on an #acr("SSL") task and compare it against an approach based on the #acr("GCC-PHAT") @knapp_generalized_1976 estimator.
+#acr("GCC-PHAT") provides an estimator of the #acr("TDoA").
+The proposed achieves better results than the baseline and shows some robustness to noise and reverberation.
+By monitoring rats' brain activity, Uragun et al. @uragun_discrimination_2013 studied how animal brains were sensitive to #acr("ILD") functions.
+They discovered that the rat uses the #acr("ILD") as a critical cue to localize sounds in space.
 This highlights the biological motivation of interaural features and confirms its relevance.
 
 
@@ -474,9 +494,11 @@ A binaural array has been placed in a room along with a speech source.
 - @fig:ssl:sota:tf_representations:spectrogram shows the power spectrogram of the signal received by the left microphone: $20 log abs(X_1 [m, k])$.
 - @fig:ssl:sota:tf_representations:ild and @fig:ssl:sota:tf_representations:ipd show the binaural cues, computed from @eq:simulator:background:def_ild and @eq:simulator:background:def_ipd respectively.
 
-#draft[
-  Potential additions:
-  - SotA on works that use ILD/IPD to do SSL/denoising/Speech enhancement...
-  - Introduction of more advanced binaural features such as GCC-PHAT
-  - More precise formalism of the different notions. For example, I foresee some weakness in the #acr("ATF") introduction.
+#block(breakable: false)[
+  #draft[
+    Potential additions:
+    - SotA on works that use ILD/IPD to do SSL/denoising/Speech enhancement...
+    - Introduction of more advanced binaural features such as GCC-PHAT
+    - More precise formalism of the different notions. For example, I foresee some weakness in the #acr("ATF") introduction.
+  ]
 ]
