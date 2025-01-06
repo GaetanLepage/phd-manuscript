@@ -1,0 +1,82 @@
+# BatchNorm
+@misc{ioffe_batch_2015,
+	title = {Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift},
+	url = {http://arxiv.org/abs/1502.03167},
+	doi = {10.48550/arXiv.1502.03167},
+	shorttitle = {Batch Normalization},
+	abstract = {Training Deep Neural Networks is complicated by the fact that the distribution of each layer's inputs changes during training, as the parameters of the previous layers change. This slows down the training by requiring lower learning rates and careful parameter initialization, and makes it notoriously hard to train models with saturating nonlinearities. We refer to this phenomenon as internal covariate shift, and address the problem by normalizing layer inputs. Our method draws its strength from making normalization a part of the model architecture and performing the normalization for each training mini-batch. Batch Normalization allows us to use much higher learning rates and be less careful about initialization. It also acts as a regularizer, in some cases eliminating the need for Dropout. Applied to a state-of-the-art image classification model, Batch Normalization achieves the same accuracy with 14 times fewer training steps, and beats the original model by a significant margin. Using an ensemble of batch-normalized networks, we improve upon the best published result on {ImageNet} classification: reaching 4.9\% top-5 validation error (and 4.8\% test error), exceeding the accuracy of human raters.},
+	number = {{arXiv}:1502.03167},
+	publisher = {{arXiv}},
+	author = {Ioffe, Sergey and Szegedy, Christian},
+	urldate = {2024-07-22},
+	date = {2015-03-02},
+	eprinttype = {arxiv},
+	eprint = {1502.03167 [cs]},
+	keywords = {Computer Science - Machine Learning},
+	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/RMQ6GTT7/Ioffe and Szegedy - 2015 - Batch Normalization Accelerating Deep Network Tra.pdf:application/pdf;arXiv.org Snapshot:/home/gaetan/.local/share/Zotero/storage/BDNFQXV8/1502.html:text/html},
+}
+
+
+# LayerNorm
+@misc{ba_layer_2016,
+	title = {Layer {Normalization}},
+	url = {http://arxiv.org/abs/1607.06450},
+	abstract = {Training state-of-the-art, deep neural networks is computationally expensive. One way to reduce the training time is to normalize the activities of the neurons. A recently introduced technique called batch normalization uses the distribution of the summed input to a neuron over a mini-batch of training cases to compute a mean and variance which are then used to normalize the summed input to that neuron on each training case. This signiﬁcantly reduces the training time in feedforward neural networks. However, the effect of batch normalization is dependent on the mini-batch size and it is not obvious how to apply it to recurrent neural networks. In this paper, we transpose batch normalization into layer normalization by computing the mean and variance used for normalization from all of the summed inputs to the neurons in a layer on a single training case. Like batch normalization, we also give each neuron its own adaptive bias and gain which are applied after the normalization but before the non-linearity. Unlike batch normalization, layer normalization performs exactly the same computation at training and test times. It is also straightforward to apply to recurrent neural networks by computing the normalization statistics separately at each time step. Layer normalization is very effective at stabilizing the hidden state dynamics in recurrent networks. Empirically, we show that layer normalization can substantially reduce the training time compared with previously published techniques.},
+	language = {en},
+	urldate = {2024-04-19},
+	publisher = {arXiv},
+	author = {Ba, Jimmy Lei and Kiros, Jamie Ryan and Hinton, Geoffrey E.},
+	month = jul,
+	year = {2016},
+	note = {arXiv:1607.06450 [cs, stat]},
+	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
+	file = {Ba et al. - 2016 - Layer Normalization.pdf:/home/gaetan/.local/share/Zotero/storage/33Y9VJL4/Ba et al. - 2016 - Layer Normalization.pdf:application/pdf},
+}
+
+# Group Norm
+@misc{wu_group_2018,
+	title = {Group Normalization},
+	url = {http://arxiv.org/abs/1803.08494},
+	doi = {10.48550/arXiv.1803.08494},
+	abstract = {Batch Normalization ({BN}) is a milestone technique in the development of deep learning, enabling various networks to train. However, normalizing along the batch dimension introduces problems --- {BN}'s error increases rapidly when the batch size becomes smaller, caused by inaccurate batch statistics estimation. This limits {BN}'s usage for training larger models and transferring features to computer vision tasks including detection, segmentation, and video, which require small batches constrained by memory consumption. In this paper, we present Group Normalization ({GN}) as a simple alternative to {BN}. {GN} divides the channels into groups and computes within each group the mean and variance for normalization. {GN}'s computation is independent of batch sizes, and its accuracy is stable in a wide range of batch sizes. On {ResNet}-50 trained in {ImageNet}, {GN} has 10.6\% lower error than its {BN} counterpart when using a batch size of 2; when using typical batch sizes, {GN} is comparably good with {BN} and outperforms other normalization variants. Moreover, {GN} can be naturally transferred from pre-training to fine-tuning. {GN} can outperform its {BN}-based counterparts for object detection and segmentation in {COCO}, and for video classification in Kinetics, showing that {GN} can effectively replace the powerful {BN} in a variety of tasks. {GN} can be easily implemented by a few lines of code in modern libraries.},
+	number = {{arXiv}:1803.08494},
+	publisher = {{arXiv}},
+	author = {Wu, Yuxin and He, Kaiming},
+	urldate = {2024-07-22},
+	date = {2018-06-11},
+	eprinttype = {arxiv},
+	eprint = {1803.08494 [cs]},
+	keywords = {Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning, man},
+	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/8VMS39CG/Wu and He - 2018 - Group Normalization.pdf:application/pdf;arXiv.org Snapshot:/home/gaetan/.local/share/Zotero/storage/83343UV5/1803.html:text/html},
+}
+
+# Power Norm
+@article{shen_powernorm_2020,
+	title = {{PowerNorm}: Rethinking Batch Normalization in Transformers},
+	abstract = {The standard normalization method for neural network ({NN}) models used in Natural Language Processing ({NLP}) is layer normalization ({LN}). This is different than batch normalization ({BN}), which is widely-adopted in Computer Vision. The preferred use of {LN} in {NLP} is principally due to the empirical observation that a (naive/vanilla) use of {BN} leads to signiﬁcant performance degradation for {NLP} tasks; however, a thorough understanding of the underlying reasons for this is not always evident. In this paper, we perform a systematic study of {NLP} transformer models to understand why {BN} has a poor performance, as compared to {LN}. We ﬁnd that the statistics of {NLP} data across the batch dimension exhibit large ﬂuctuations throughout training. This results in instability, if {BN} is naively implemented. To address this, we propose Power Normalization ({PN}), a novel normalization scheme that resolves this issue by (i) relaxing zero-mean normalization in {BN}, (ii) incorporating a running quadratic mean instead of per batch statistics to stabilize ﬂuctuations, and (iii) using an approximate backpropagation for incorporating the running statistics in the forward pass. We show theoretically, under mild assumptions, that {PN} leads to a smaller Lipschitz constant for the loss, compared with {BN}. Furthermore, we prove that the approximate backpropagation scheme leads to bounded gradients. We extensively test {PN} for transformers on a range of {NLP} tasks, and we show that it signiﬁcantly outperforms both {LN} and {BN}. In particular, {PN} outperforms {LN} by 0.4/0.6 {BLEU} on {IWSLT}14/{WMT}14 and 5.6/3.0 {PPL} on {PTB}/{WikiText}-103. We make our code publicly available at https://github.com/ {sIncerass}/powernorm.},
+	author = {Shen, Sheng and Yao, Zhewei and Gholami, Amir and Mahoney, Michael W and Keutzer, Kurt},
+	date = {2020},
+	langid = {english},
+	keywords = {man, {TODO}},
+	file = {Shen et al. - PowerNorm Rethinking Batch Normalization in Trans.pdf:/home/gaetan/.local/share/Zotero/storage/6KZJERLU/Shen et al. - PowerNorm Rethinking Batch Normalization in Trans.pdf:application/pdf},
+}
+
+
+# Normalizing the normalizers
+@misc{ren_normalizing_2017,
+	title = {Normalizing the Normalizers: Comparing and Extending Network Normalization Schemes},
+	url = {http://arxiv.org/abs/1611.04520},
+	doi = {10.48550/arXiv.1611.04520},
+	shorttitle = {Normalizing the Normalizers},
+	abstract = {Normalization techniques have only recently begun to be exploited in supervised learning tasks. Batch normalization exploits mini-batch statistics to normalize the activations. This was shown to speed up training and result in better models. However its success has been very limited when dealing with recurrent neural networks. On the other hand, layer normalization normalizes the activations across all activities within a layer. This was shown to work well in the recurrent setting. In this paper we propose a uniﬁed view of normalization techniques, as forms of divisive normalization, which includes layer and batch normalization as special cases. Our second contribution is the ﬁnding that a small modiﬁcation to these normalization schemes, in conjunction with a sparse regularizer on the activations, leads to signiﬁcant beneﬁts over standard normalization techniques. We demonstrate the effectiveness of our uniﬁed divisive normalization framework in the context of convolutional neural nets and recurrent neural networks, showing improvements over baselines in image classiﬁcation, language modeling as well as super-resolution.},
+	number = {{arXiv}:1611.04520},
+	publisher = {{arXiv}},
+	author = {Ren, Mengye and Liao, Renjie and Urtasun, Raquel and Sinz, Fabian H. and Zemel, Richard S.},
+	urldate = {2024-12-23},
+	date = {2017-03-06},
+	langid = {english},
+	eprinttype = {arxiv},
+	eprint = {1611.04520 [cs]},
+	keywords = {man, {TODO}},
+	file = {PDF:/home/gaetan/.local/share/Zotero/storage/TGY2PBRT/Ren et al. - 2017 - Normalizing the Normalizers Comparing and Extending Network Normalization Schemes.pdf:application/pdf},
+}

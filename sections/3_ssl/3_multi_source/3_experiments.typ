@@ -372,11 +372,16 @@ where
 ) <fig:ssl:multi_source:normalization>
 
 Those two methods have been proven to be effective in training deep neural network architectures.
+#draft[
+  TODO:
+  - Normalizing the Normalizers: Comparing and Extending Network Normalization Schemes @ren_normalizing_2017
+  - PowerNorm: Rethinking Batch Normalization in Transformers @shen_powernorm_2020
+]
 
 //===== Experiments
 *Experiments*
 
-Although He et al. chose to use Batch Normalization in their work, our final architecture makes use of the more flexible Layer Normalization.
+Although He et al. chose to use Batch Normalization in their work, our final architecture employs the more flexible Layer Normalization.
 The choice of the normalization scheme ended up being crucial to achieving good performance.
 We observed that the latter was yielding the same stabilization benefits during training while removing the dependence on the batch size.
 

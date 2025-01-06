@@ -78,7 +78,7 @@ We present the following microphone array configurations that have been tested.
 - A *binaural* array comprises two microphones placed a few centimeters apart from each other.
  This setup certainly constitutes the most studied robotic #acr("SSL") framework in the literature.
  A humanoid robotic head equipped with two microphones on each side has been the motivation to primarily consider this layout.
-- We have also proposed a *three microphone* design disposed in a V-shaped arrangement.
+- We have also proposed a *three-microphone* design laid out in a V-shaped arrangement.
 - Finally, a *square* array of four microphones has been implemented too.
 
 Their implementation has been integrated in our simulator (see @sec:simulator:simulator:components:sim_scenarios).
@@ -135,6 +135,7 @@ Originally, the dataset is constituted by #draft[TODO]
 
 ==== Neural Network Architecture
 <sec:ssl:single_source:method:architecture>
+
 
 As demonstrated in @sec:ssl:sota:deep_learning, deep neural networks have shown to be flexible and effective as building blocks for an #acr("SSL") solution.
 We focused in this work on a simple architecture that takes some representation of the listened audio signal as its only input.
