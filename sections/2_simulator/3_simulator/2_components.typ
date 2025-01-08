@@ -40,11 +40,11 @@ Several efforts have been conducted by members of the acoustic simulation commun
 Multiple existing libraries have been enumerated in @sec:simulator:background:rir_libraries.
 Motivated by a seamless operation within our Python code base, we have focused on the libraries providing bindings for this language.
 Two libraries appeared mature and able to satisfy the requirements of the pipeline.
-_Pyroomacoustics_ @scheibler_pyroomacoustics_2018 implements the #acr("ISM") and adds numerous advanced features (see @sec:simulator:background:rir_libraries:pyroomacoustics for more details).
+_Pyroomacoustics_ @scheibler_pyroomacoustics_2018 implements the #acr("ISM") and adds numerous advanced features (see @sec:simulator:background:rir_libraries for more details).
 Its design has inspired the architecture of our pipeline, most specifically its own `Room` object.
 _Pyroomacoustics_ is the original back-end library that we have been using for sound propagation simulation.
 As we envisioned more intensive workloads where processing time could limit the simulator's usability, the recent _gpuRIR_ implementation by Diaz-Guerra et al. @diaz-guerra_gpurir_2021 has been integrated.
-As seen in @sec:simulator:background:rir_libraries:gpurir, the authors of this library have focused on achieving the best performance in #acr("RIR") estimation.
+As seen in @sec:simulator:background:rir_libraries, the authors of this library have focused on achieving the best performance in #acr("RIR") estimation.
 Our solution offers its users to choose between those two libraries for the backbone of the simulation.
 Allowing this flexibility has required to architect the `Room` module in an abstract manner.
 This would allow for using other #acr("RIR") simulators while keeping the rest of the pipeline working accordingly.

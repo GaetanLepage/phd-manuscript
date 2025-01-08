@@ -23,14 +23,14 @@
     - [x] #link(<sec:simulator:intro>)[1. Intro]
     - [x] #link(<sec:simulator:reverb>)[2. Background]
       - [x] #link(<sec:simulator:reverb:background>)[2.1 Acoustic]
-      - [-] #link(<sec:simulator:reverb:methods>)[2.2 Simulation methods and libraries]
-      - [-] #link(<sec:simulator:background:rir_libraries>)[2.3 RIR libraries]
-    - [ ] #link(<sec:simulator:simulator>)[3. Simulator]
+      - [x] #link(<sec:simulator:reverb:methods>)[2.2 Simulation methods and libraries]
+      - [x] #link(<sec:simulator:background:rir_libraries>)[2.3 RIR libraries]
+    - [x] #link(<sec:simulator:simulator>)[3. Simulator]
       - [x] #link(<sec:simulator:simulator:overview>)[1. Overview]
       - [x] #link(<sec:simulator:simulator:components>)[2. Components]
-      - [-] #link(<sec:simulator:simulator:features>)[3. Features]
-      - [ ] #link(<sec:simulator:simulator:performance>)[4. Performance]
-    - [ ] #link(<sec:simulator:conclusion>)[4. Conclusion]
+      - [x] #link(<sec:simulator:simulator:features>)[3. Features]
+      - [ ] #link(<sec:simulator:simulator:performance>)[4. Performance] -> Not enough time + chapter already big enough
+    - [x] #link(<sec:simulator:conclusion>)[4. Conclusion]
   + *SSL*
     - [-] #link(<sec:ssl:sota>)[1. Background]
     - [-] #link(<sec:ssl:single_source>)[2. Single-source]
@@ -90,12 +90,12 @@
   - [ ] Aren't the margins OK ?\
     -> I am currently using 2.5cm everywhere.
   - [ ] Should library names (SpeechBrain, gpuRIR...) be emphasized ? (italics ?)
-  - [ ] Should the links (references to sections/papers) be in blue ?
+  - [ ] Should the links (references to sections/papers) be in blue?
   - [ ] Limit the _Table of Contents_ depth ? (currently none)
-  - [ ] Should figure captions be centered or left-align ? (I assume that table captions will them always be centered)
+  - [ ] Should figure captions be centered or left-align? (I assume that table captions will them always be centered)
 
   *Style-related questions:*
-  - [x] Is passive style OK ? to be encouraged ? discouraged ?\
+  - [x] Is passive style OK ? to be encouraged? discouraged ?\
     Xavi: Use it when you need to.
     \<SUBJECT\> is/will be/has been \<VERB\>.
 
