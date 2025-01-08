@@ -28,6 +28,7 @@ Nonetheless, the efficiency of geometrical acoustics methods has led them to be 
 
 
 ==== Numerical simulation of sound propagation
+<sec:simulator:background:simulation:wave-based>
 
 #block(breakable: false)[
   A natural approach to acoustic rendering is numerically solving the acoustic wave equation.
@@ -75,7 +76,7 @@ More particularly, they aimed at providing more computationally efficient altern
 Its main principle resides in considering that sound propagates as rays @savioja_overview_2015.
 This is an immediate parallel of the ray-based rendering techniques used for light (ray tracing).
 Each ray travels in a straight line in the air until it hits a wall.
-It then gets deviated by following a simplistic specular reflection model.
+It then deviates by following a simplistic specular reflection model.
 The assumption that all reflections are specular boils down to supposing the walls' surface being ideally rigid.
 This implies that all sound wave properties are neglected, and thus, diffraction effects are entirely neglected.
 There are two main categories of #acr("GA") methods: the image source techniques and the ray tracing ones.
@@ -99,7 +100,7 @@ This process can be repeated recursively to model reflection up to a given order
 @fig:simulator:background:image_source shows the virtual image sources for an example setup.
 According to Savioja @savioja_overview_2015, Gibbs et al. @gibbs_simple_1972 were the first to propose an implementation for computing image-source positions and sound pressure levels in a rectangular room.
 Borish et al. @borish_extension_1984 extended the model from rectangular _shoe-box_ rooms to arbitrary polyhedra.
-Allen and Berkley significantly expanded this idea back in 1979 by developing a more comprehensive and computationally effective version of the #acr("ISM") @allen_image_nodate.
+Allen and Berkley significantly expanded this idea back in 1979 by developing a more comprehensive and computationally effective version of the #acr("ISM") @allen_image_1979.
 Their paper came with a FORTRAN implementation of the proposed algorithm.
 The significant popularity of the #acr("ISM") is partly due to its simplicity and efficiency.
 
@@ -128,25 +129,19 @@ As soon as a ray hits a wall, its direction is updated according to Snell's law 
 Hence, ray tracing methods historically only account for specular reflections.
 A small volume is delimited around the receiver to obtain the resulting signal.
 Then, all rays traversing this volume will contribute to the final response.
-#draft[Add historical papers on ray tracing]
-Cao et al. @cao_interactive_2016 propose an advanced algorithm based on bidirectional path tracing: _Bidirectional Sound Transport_.
+Krokstad et al. @krokstad_early_2015 overview the early history of ray tracing methods in acoustics.
+Cao et al. @cao_interactive_2016 propose an advanced algorithm based on bidirectional path tracing: #acr("BST").
 It addresses the drawbacks of existing ray-tracing #acr("GA") methods.
 They reformulate Silken's _room acoustic rendering equation_ @siltanen_room_2007.
-
-Path/ray tracing
-- @siltanen_room_2007 The room acoustic equation
-- Krokstad et al. The early history of ray tracing in acoustics
-- @schissler_interactive_2017
-
-
-// OG paper:
-
-==== Other methods
-
-A few alternatives to #acr("GA") and wave-based methods have also been proposed.
-More 
+Schissler et al. @schissler_interactive_2017 propose an innovative hybrid algorithm handling complex scenes with numerous sources.
+It combines a ray-tracing approach with sound source clustering to model both indoor and outdoor environments accurately.
+The clustering of distant sound sources allows their algorithm to efficiently scale with the number of sources while keeping the processing time low.
+Finally, Tang et al. investigated the use of 
+#draft[Maybe add one or two additional papers.]
 // Neural network
-@tang_learning_2020,
+Tang et al. @tang_learning_2020 combine a ray-tracing algorithm with a deep neural network to render dynamic acoustic scenes at high refresh rates.
+Their approach is able to represent multiple reflection patterns (specular and diffuse reflections as well as diffraction).
+Al
 
 
 ==== Simulation of dynamic environments

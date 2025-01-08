@@ -7,8 +7,7 @@ The physical world is an intrinsic aspect of robotics, especially #acr("HRI").
 Developing novel methods for interacting with humanoid robots encompasses several challenges related to their embodiment.
 Robotic platforms suffer from severe limitations that sometimes impede applying data-intensive techniques.
 Because robots are physical systems, data-intensive and trial-error approaches are challenging to scale.
-In the following, we explore why simulation plays a pivotal role in numerical science and, more specifically, in addressing the challenges of robotics.
-
+In the following, we explore why simulation plays a pivotal role in numerical science and, more specifically, in addressing robotics challenges.
 
 // Importance of simulation in science
 Simulation offers an alternative tool to experiment with new techniques.
@@ -132,11 +131,15 @@ The video game industry, among others, has motivated the development of acoustic
 Zhao et al. @zhao_sim--real_2021 enhanced a vision-based #acr("RL") pipeline for robotic grasping by implementing audio perception.
 To conduct their experiments, they use the _ThreeDWorld_ @gan_threedworld_2021 multi-modal simulator, which can synthesize impact sounds.
 The proposed grasping pipeline performs better using both vision and audio cues than with vision only.
+Grauman et al. conducted a line of work on auditory-based robot navigation tasks @chen_soundspaces_2020 @majumder_move2hear_2021.
+They used a simulated environment modeling both visual and auditory cues to train their deep neural networks.
+The acoustic pipeline has been developed explicitly for this project and is built around the _Bidirectional Sound Transport_ algorithm by Cao et al. @cao_interactive_2016.
+#todo
 #draft[
   TODO: add maybe 1 or 2 more examples.
   I could talk about SoundSapces and Move2Hear, but we already explained them in Chap.5.
 ]
-This chapter will detail the literature on acoustic reverberation simulators and give an overview of existing software solutions.
+This chapter will detail the literature on acoustic reverberation simulators and overview existing software solutions.
 
 
 *Conclusion.*
