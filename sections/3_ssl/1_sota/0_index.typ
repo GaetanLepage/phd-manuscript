@@ -67,6 +67,10 @@ Our intent at exploring #acr("SSL") was initially motivated by our exploratory w
 === Sound Source localization in robotics
 <sec:ssl:sota:ssl_in_robotics>
 
+#draft[
+ TODO: There is a paragraph in SoundSpaces with litterature on SSL for robotics
+]
+
 As demonstrated above, although #acr("SSL") has been studied as a self-contained problem, it certainly has an important number of downstream applications.
 Among those, robotics is a significant use case of #acr("SSL") algorithms.
 Perception is an essential building block of a social robotics platform.

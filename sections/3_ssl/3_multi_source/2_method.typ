@@ -364,7 +364,10 @@ The architecture draws inspiration from vision models by employing 2D convolutio
 As discussed in @sec:ssl:sota:deep_learning, using the image-like time-frequency representation of audio signals allows applying techniques proven to perform well on conventional image data.
 
 #figure(
-  image("figures/ssl_multisource_nn_architecture.svg", height: 80%),
+  image(
+    "figures/ssl_multisource_nn_architecture.svg",
+    height: 80%
+  ),
   caption: [
     Deep neural network architecture for multi-source #acr("SSL")
   ],

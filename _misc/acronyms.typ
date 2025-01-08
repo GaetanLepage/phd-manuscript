@@ -5,6 +5,10 @@
   // Misc
   "API": ("Application Programming Interface"),
   "EM": ("expectation-maximization"),
+  "GPU": (
+    "Graphic Processing Unit",
+    "Graphic Processing Units"
+  ),
   "GT": ("Ground Truth"),
   "HMM": (
     "Hidden Markov Model",
@@ -12,6 +16,10 @@
   ),
   "HRI": ("Human-Robot Interaction"),
   "LTI": ("linear time-invariant"),
+  "LUT": (
+    "Look Up Table",
+    "Look Up Tables"
+  ),
   "MCTS": ("Monte Carlo tree search"),
   "MKF": ("mixture Kalman filter"),
   "RMSE": ("Root Mean Square Error"),
@@ -63,6 +71,7 @@
     "Acoustic Transfer Functions"
   ),
   "BEM": ("Boundary Element Method"),
+  "BST": ("Bidirectional Sound Transport"),
   "DFT": (
     "Discrete Fourier Transform",
     "Discrete Fourier Transforms"
