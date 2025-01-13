@@ -34,7 +34,10 @@
     "Gated Recurrent Unit",
     "Gated Recurrent Units"
   ),
-  "LLM": ("Large Language Model", "Large Language Models"),
+  "LLM": (
+    "Large Language Model",
+    "Large Language Models"
+  ),
   "LN": ("Layer Normalization"),
   "RNNLM": ("Recurrent Neural Network Language Model"),
   "MSE": ("Mean Squared Error"),
@@ -81,6 +84,8 @@
     "Finite-Element Method",
     "Finite-Element Methods",
   ),
+  "FFT": ("Fast Fourier Transform"),
+  "FIR": ("finite impulse response"),
   "GA": ("Geometrical Acoustics"),
   "GCC-PHAT": ("Generalized Cross-Correlation with Phase Transform"),
   "HRTF": (
