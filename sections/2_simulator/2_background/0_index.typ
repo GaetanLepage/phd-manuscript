@@ -5,7 +5,7 @@
 #minitoc(indent: true)
 
 This section explains the core concepts of acoustic reverberation and the relevant notions in audio processing.
-To establish a foundation, the key principles of acoustic reverberation are outlined in the following paragraphs.
+The key principles of acoustic reverberation are outlined in the following paragraphs to establish a foundation.
 Additionally, we present some essential works regarding the problem of realistically simulating sound propagation in reverberant environments.
 Finally, we provide an overview of the available software ecosystem.
 
