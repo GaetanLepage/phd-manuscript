@@ -140,13 +140,17 @@ Finally, Tang et al. investigated the use of
 #draft[Maybe add one or two additional papers.]
 // Neural network
 Tang et al. @tang_learning_2020 combine a ray-tracing algorithm with a deep neural network to render dynamic acoustic scenes at high refresh rates.
-Their approach is able to represent multiple reflection patterns (specular and diffuse reflections as well as diffraction).
-Al
+Their approach can represent multiple reflection patterns (specular and diffuse reflections and diffraction).
+The dataset to train the network was generated using an accurate wave-based method.
+In fact, the motivation for this work is to provide a hybrid approach combining high fidelity and responsiveness.
+The deep learning network 
+leverage a learning approach to achieve real-time performance at runtime while still modeling complex acoustic phenomena.
+Al#todo
 
 
 ==== Simulation of dynamic environments
 
-Most works previously cited focus on static environments where neither sources nor microphones are moving across time.
+The original methods for acoustic simulation were limited to static scenes where neither sources nor microphones move across time.
 This ideal situation is not representative of real-world scenarios.
 Especially in robotics, modeling moving humans and agents can 
 

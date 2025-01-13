@@ -29,13 +29,19 @@ It allows observing all the reflection paths from the source to the receiver.
 Also, the library permits to plot the #acr("RIR") graph, similar to @fig:simulator:background:rir_plot and @fig:simulator:background:rir_schema.
 
 The community has also explored using #acrpl("GPU") to speed up the computation of the #acr("RIR") filters.
+In their 2011 paper, Savioja et al. @savioja_audio_2011 explored the potential of #acrpl("GPU")s for performing several audio signal processing tasks.
+Significant speedups are identified in various algorithms and computations.
+For example, computing a two-million-point #acr("FFT") in real-time has been achieved on a #acr("GPU").
+Furthermore, the accelerator substantially accelerated operations such as time-domain convolution or multichannel #acr("FIR") filtering.
+Some early works on room acoustic modeling are mentioned in this article.
+They rely primarily on wave-based methods and adapt #acr("GPU") implementation of differential equation solvers.
 To our knowledge, Fu et al. @fu_gpu-based_2016 were the first to parallelize the #acr("ISM") algorithm on numerous #acr("GPU") cores.
 Their performance benchmarks identified a 20 to 120-fold improvement over the CPU implementation.
-This effort was broaded by Diaz-Guerra et al. with the _gpuRIR_ library.
+This effort was broadened by Diaz-Guerra et al. with the _gpuRIR_ library.
 This implementation provides performant custom CUDA kernels for parallelizing the #acr("ISM") technique on the #acr("GPU").
 This open-source implementation, in particular, leverages the mixed precision capabilities of modern #acr("GPU") accelerators.
 Also, this method innovates by introducing #acrpl("LUT") to avoid unnecessarily re-running costly trigonometric functions.
-While not being as feature-rich as _Pyroomacoustics_, _gpuRIR_ provides easy to use python bindings to the CUDA code which helps embedding it in a more complete pipeline.
+While not as feature-rich as _Pyroomacoustics_, _gpuRIR_ provides easy-to-use Python bindings to the CUDA code which helps embed it in a more complete pipeline.
 The authors have conducted performance testing and found that the #acr("GPU") code was 100x faster than alternative CPU implementations.
 This efficient library is thus efficient enough to be used in real-time applications such as virtual or augmented reality.
 
