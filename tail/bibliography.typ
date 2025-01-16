@@ -21,6 +21,7 @@
     "/sections/2_simulator/3_simulator/bibliography.bib",
 
     // Chap. 3: SSL
+    "/sections/3_ssl/1_sota/bibliography/intro.bib",
     "/sections/3_ssl/1_sota/bibliography/classical_methods.bib",
     "/sections/3_ssl/1_sota/bibliography/deep_learning.bib",
     "/sections/3_ssl/1_sota/bibliography/misc.bib",

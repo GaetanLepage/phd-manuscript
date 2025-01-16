@@ -4,6 +4,7 @@
   // -----------------------------------------------------------------------------
   // Misc
   "API": ("Application Programming Interface"),
+  "AR": ("Augmented Reality"),
   "EM": ("expectation-maximization"),
   "GPU": (
     "Graphic Processing Unit",
@@ -58,9 +59,16 @@
   "DoA": ("Direction of Arrival"),
   "SSL": ("Sound Source Localization"),
   "SSLR": ("Sound Source Localization for Robots"), // dataset by He et al.
+  "SRP-PHAT": ("Steered Response Power with Phase Transform"),
   // Metrics
   "ACC": ("Accuracy"),
   "MAE": ("Mean Absolute Error"),
+  "MUSIC": ("Multiple emitter location and signal parameter estimation"),
+  "ESPRIT": ("Estimation of Signal Parameters via Rotational Invariance Technique"),
+  "GMM": (
+    "Gaussian Mixture Model",
+    "Gaussian Mixture Models",
+  ),
 
   // -----------------------------------------------------------------------------
   // Active SSL
@@ -94,8 +102,10 @@
   ),
   "ILD": ("Interaural Level Difference"),
   "IPD": ("Interaural Phase Difference"),
+  "ITD": ("Interaural Time Difference"),
   "ISM": ("Image Source Model"),
   "MFCC": ("Mel-Frequency Cepstral Coefficients"),
+  "PHAT": ("Phase Transform"),
   "RIR": ("Room Impulse Response"),
   "RTF": ("Related Transfer Function"),
   "SNR": ("Signal to Noise Ratio"),
