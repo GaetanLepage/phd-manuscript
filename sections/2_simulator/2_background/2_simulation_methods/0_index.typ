@@ -134,25 +134,29 @@ Cao et al. @cao_interactive_2016 propose an advanced algorithm based on bidirect
 It addresses the drawbacks of existing ray-tracing #acr("GA") methods.
 They reformulate Silken's _room acoustic rendering equation_ @siltanen_room_2007.
 Schissler et al. @schissler_interactive_2017 propose an innovative hybrid algorithm handling complex scenes with numerous sources.
-It combines a ray-tracing approach with sound source clustering to model both indoor and outdoor environments accurately.
+It combines a ray-tracing approach with sound source clustering to accurately model both indoor and outdoor environments.
 The clustering of distant sound sources allows their algorithm to efficiently scale with the number of sources while keeping the processing time low.
-Finally, Tang et al. investigated the use of 
-#draft[Maybe add one or two additional papers.]
 // Neural network
 Tang et al. @tang_learning_2020 combine a ray-tracing algorithm with a deep neural network to render dynamic acoustic scenes at high refresh rates.
-Their approach can represent multiple reflection patterns (specular and diffuse reflections and diffraction).
 The dataset to train the network was generated using an accurate wave-based method.
-In fact, the motivation for this work is to provide a hybrid approach combining high fidelity and responsiveness.
-The deep learning network 
-leverage a learning approach to achieve real-time performance at runtime while still modeling complex acoustic phenomena.
-Al#todo
+This work is motivated to provide a hybrid approach combining high fidelity and responsiveness.
+Their approach can represent multiple reflection patterns (specular and diffuse reflections and diffraction).
+During training, the network learns to predict the scattering fields of objects.
+At inference time, the network achieves real-time performance and can handle dynamic scenes where objects are moving.
 
 
 ==== Simulation of dynamic environments
 
 The original methods for acoustic simulation were limited to static scenes where neither sources nor microphones move across time.
 This ideal situation is not representative of real-world scenarios.
-Especially in robotics, modeling moving humans and agents can 
+Especially in robotics, modeling moving humans and agents is an essential requirement.
+Historical techniques such as the #acr("ISM") solely account for a given static layout of the sources and sensors.
+The result of the #acr("ISM") process is a set of #acr("RIR") filters, one for each microphone-source pair.
+The resulting listened signal is computed by convolving the source's input signals with those filters.
+As soon as a source or microphone moves, the filters need to be recomputed.
+Chen et al. @chen_soundspaces_2020 pre-compute the #acr("RIR") filters for each attainable configuration of their simulated environment.
+This upfront computation moves the substantial simulation effort from training to a prior pre-processing step.
+#todo limitation has been explored in the literature in various ways.
 
 #draft[
   - Acoustic Simulation in Dynamic Environments for Robot Audition @zhang_acoustic_2019
