@@ -483,10 +483,6 @@ This highlights the biological motivation of interaural features and confirms it
 //   In the case of a binaural microphone system, #draft[TODO]
 // ]
 
-// @uragun_discrimination_2013 (About the #acr("ILD") feature)
-
-// TODO: Nice stuff about ILD/IPD in "Binaural Hearing for Robots - Methodological Foundations" (see zotero)
-
 #include "figures/tf_rep.typ"
 
 A binaural array has been placed in a room along with a speech source. 
