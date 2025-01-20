@@ -12,7 +12,7 @@ This challenge requires identifying the relative position of one or several soun
 The ability to localize sound sources is fundamental and can serve many purposes across various fields.
 
 // Applications
-Although originally targeted to replicate human-like auditory perception, it has progressively found more diverse applications.
+Although initially targeted to replicate human-like auditory perception, it has progressively found more diverse applications.
 For instance, #acr("SSL") enables hands-free computer-human interaction, improving teleconferencing systems and advancing autonomous vehicles.
 Overall, the ability to localize sound enriches machines' capabilities.
 For instance, in robotics, #acr("SSL") aids navigation, situational awareness, and human-robot interaction by directing robots to key auditory cues in their environment.
@@ -26,22 +26,30 @@ The detection and localization of such suspicious sounds can be achieved by comb
 This allows for more robust detection and tracking of sound-emitting targets.
 Interestingly, #acr("SSL") is also used in autonomous vehicle systems.
 It helps enhance environmental awareness and safety in those complex environments.
-Here, too, leveraging audio, video, and information for radar sensors improves the overall capabilities of autonomous vehicles to detect important external elements quickly.
+Here, too, leveraging audio, video, and information for radar sensors improves autonomous vehicles' overall capabilities to detect important external elements quickly.
 Sun et al. have demonstrated the effectiveness of using microphone arrays and machine learning algorithms to accurately localize such sounds, thereby improving the vehicle's decision-making capabilities @sun_emergency_2021.
 They specifically focus on the detection and localization of emergency vehicles.
 Using audio enables the gathering of crucial early spatial information.
 
 The research on #acr("SSL") has evolved significantly over time, starting with classical signal processing methods.
 Most of these techniques rely on geometric and physical principles, such as #acr("TDoA") or beamforming.
-While significant progress has been achieved thanks to such methods, they remained limited in real-world complex and noisy environments.
-The multiplicity of sources is another example of obstacle for traditional #acr("SSL") methods.
+While such methods have contributed to significant progress, they remain limited in complex and noisy real-world environments.
+The multiplicity of sources is another obstacle to traditional #acr("SSL") methods.
 As in several similar application fields, the rise of deep learning has quickly shown impressive results.
 Modern, data-driven approaches began leveraging neural networks to model complex acoustic environments, outperforming traditional methods in robustness and accuracy.
 Recent advances focus on integrating #acr("SSL") with multimodal systems, such as robotics and autonomous vehicles, to achieve real-time localization in dynamic and complex settings.
 Nevertheless, the fundamental concepts at the base of the more classical approaches remain considerably relevant today.
 Indeed, they can help design feature extractors or pre-processing techniques that would further boost the performance of deep-learning-based localizers.
 
-#todo
+// Variation in task definition
+Localizing sound sources is a vague objective, and the exact formulation of the problem varies broadly across the literature.
+First and foremost, the targetted acoustic environment can be of different natures.
+Some methods are solely tested in a simulation where the fidelity to the real world is inherently imperfect.
+As motivated in @chap:simulator, simulation provides several benefits.
+In particular, it offers a cost-effective data source that is particularly relevant when using data-based approaches.
+Naturally, the ability for a method to be applied in real-world conditions is more appealing.
+Conversely, techniques only tested in a simulator will have a priori subpar performance when deployed in the physical world.
+Furthermore, some works aim to handle multiple sources, while others are limited to a single one.
 
 This introduction explores the evolution of #acr("SSL"), starting with classical signal-processing approaches and their foundational principles. 
 It then transitions to deep learning methods, highlighting key advances, architectures, and datasets.
