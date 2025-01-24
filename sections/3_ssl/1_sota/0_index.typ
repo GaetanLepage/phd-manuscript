@@ -123,7 +123,7 @@ Estimating the time delay between sound arrivals at different microphones can in
 A more detailed overview of the geometrical aspect of sound propagation has been given in @sec:simulator:background:binaural.
 The #acr("GCC-PHAT") is a prominent algorithm in this category, known for its robustness in noisy environments @knapp_generalized_1976.
 The seminal work by Knapp et al. @knapp_generalized_1976 describes the GCC framework and explores the application of the #acr("PHAT") weighting to improve time-delay estimation in noisy and reverberant environments.
-The #acr("GCC-PHAT") remains a cornerstone technique in signal processing for sound source localization.
+The #acr("GCC-PHAT") remains a cornerstone technique in signal processing for sound source localization @gustafsson_source_2003.
 Alameda et al. @alameda-pineda_geometric_2014 developed a geometric formulation of the localization problem along with an optimization algorithm.
 Their approach illustrates the relevance of time delays as powerful features to perform #acr("SSL").
 However, reverberation and closely spaced microphones often degrade #acr("TDoA") accuracy.
@@ -157,14 +157,6 @@ These modern methods excel in handling complex, nonlinear relationships in audio
 The evolution of #acr("SSL") from classical to deep learning approaches marks a significant leap in addressing real-world challenges.
 
 
-
-#draft[
-  TODO: cite
-- Source Localization in Reverberant Environments: Modeling and Statistical Analysis @gustafsson_source_2003
-]
-
-
-
 === Deep Learning methods for #acr("SSL")
 <sec:ssl:sota:deep_learning>
 
@@ -193,55 +185,70 @@ Some can handle the detection of multiple sources @he_joint_2018, @bross_multipl
 *Input data*
 The _Wav2Vec_ method initially proposed by Schneider et al. @schneider_wav2vec_2019 and refined by Baevski et al. @baevski_wav2vec_2020 directly learns from raw audio data in a self-supervised fashion.
 This work demonstrates that deep neural networks, given enough data, are able to learn useful representations of audio signals directly.
-Although this work shows impressive results, such raw-audio-based approaches remain scarce in the acoustic literature.
+A few works have trained #acr("DNN")s to perform #acr("SSL") from raw audio data @vera-diaz_towards_2018 @suvorov_deep_2018 @vecchiotti_end--end_2019.
+Although aesthetically appealing, such raw-audio-based approaches remain scarce in the literature.
 Spectral representations stand as the most popular format from which to learn.
-Most notably, the #acr("STFT") can be used to extract the magnitude, power, and phase spectrums of acoustic signals.
-Additionally, interaural features are commonly used across the literature, such as the aforementioned #acr("ILD"), #acr("IPD"), and #acr("ITD").
+Most notably, the #acr("STFT") is used to compute acoustic signals' magnitude, power, and phase spectrums.
+Additionally, interaural (or interchannel) features are commonly used across the literature, such as the aforementioned #acr("ILD"), #acr("IPD"), and #acr("ITD") @viste_binaural_2004 @chakrabarty_broadband_2017 @nguyen_autonomous_2018.
+Ambisonics is a format for representing acoustic signals as a spherical harmonic decomposition of the sound field.
+This multi-channel representation is agnostic to the microphone array configuration and encodes the spatial properties of a sound field @grumiaux_survey_2021.
+Those properties are relevant in the context of #acr("SSL").
+Applying the #acr("STFT") to an ambisonic signal can express it in the time-frequency domain.
+Adavanne et al. @adavanne_localization_2019 employ spectrograms of first-order ambisonics to localize and track multiple sound events.
+Perotin studied ambisonics and its application to #acr("SSL") during her PhD
+@perotin_regression_2019 @perotin_crnn-based_2018 @perotin_crnn-based_2019.
+
 
 *Dataset collection*
 
 Most modern solutions adopt a supervised approach to the #acr("SSL") task.
 They thus require gathering numerous data samples from which they can learn.
 The two main approaches for data gathering consist of acoustic simulation and recording in real environments.
-The former naturally comes as a cheaper solution and especially scales well with the amount of collected data.
-As presented in @chap:simulator, there exists a large ecosystem of acoustic simulation environments.
+The former naturally comes as a cheaper solution and scales significantly well with the amount of collected data.
+As presented in @chap:simulator, a large ecosystem of acoustic simulation environments exists.
 They are constantly improved to reach higher levels of fidelity and accuracy.
-Generating a dataset from an acoustic simulator does not require any recording equipment and allows for collecting arbitrary large amounts of data. #todo
-Nonetheless, real-world performance of networks trained on such datasets is generally lower than in simulation.
-The transfer of those methods to the physical world is an important research area.
-For instance, some works such as #todo have fine-tuned their system on real recordings after an initial training phase on simulating data.
-Also, the simulation of moving sources remain an obstactle for simulation software.
+Generating a dataset from an acoustic simulator does not require any recording equipment and allows for collecting arbitrarily large amounts of data @ibarz_how_2021.
+Nonetheless, the real-world performance of networks trained on such datasets is generally lower than in simulation.
+Transferring those methods to the physical world is an important research area.
+For instance, some works such as #todo have fine-tuned their system on real-world recordings after an initial training phase on simulating data.
+Also, the simulation of moving sources remains an obstacle for simulation software.
 
 *Network architecture*
 
 Grumiaux et al. @grumiaux_survey_2021 discuss the various popular choices regarding the neural network architectures.
-The design of the network topology is one of the fundamental property of deep-learning-based #acr("SSL") systems.
+The design of the network topology is a fundamental property of deep-learning-based #acr("SSL") systems.
 
-The *Feed-forward neural network* is the simplest form of #acrpl("DNN")s.
-#todo
+The *feed-forward neural network* is the simplest form of #acrpl("DNN")s.
+It was also the first deep neural architecture to perform #acr("SSL") @ling_direction_2011 @youssef_learning-based_2013.
+These networks typically map preprocessed spatial audio features, such as #acr("IPD"), #acr("ILD") or #acr("GCC") @xiao_learning-based_2015, to the #acr("DoA") of a sound source.
+Their simplicity and efficiency make feed-forward neural networks suitable for single-source localization in controlled environments.
+However, their lack of temporal modeling capabilities limits their performance in dynamic scenarios or multi-source settings.
 
 *Convolutional neural networks* have also been employed widely for #acr("SSL").
 As seen previously, it is typical for the recorded signal to first be forwarded to the time-frequency domain.
 The Fourier representations of temporal signals share several properties with images.
 Most notably, they are often represented as multi-channel images expressed in the time-frequency plane.
 As such, the acoustic community has leveraged the vast computer vision literature which designed numerous deep neural networks for processing images.
-#acrpl("CNN")s have shown promising results for #acr("SSL") #todo.
-The inherent ability of such networks to process an arbitrary number of channels allows to leverage recordings from several microphones.
+#acrpl("CNN")s have shown promising results for #acr("SSL").
+The inherent ability of such networks to process an arbitrary number of channels allows for the leverage of recordings from several microphones.
 The convolutional kernels are responsible for combining this information.
-#todo
+Hirvonen et al. @hirvonen_classification_2015 are among the first to apply the #acr("CNN") to #acr("SSL").
+Multiple works adopting a similar approach have followed, trying to learn from different types of input features @chakrabarty_broadband_2017 @adavanne_sound_2019 @tan_sound_2021.
 
 Primarily used in the #acr("NLP") community, *#acrpl("RNN")* are a popular choice for processing sequential data and time series in general.
 They can inherently propagate information along a sequence so as to leverage global context to perform a task.
+The principal advantage of those architectures is their capacity to model temporal phenomena, which can help localize sound sources in more complex settings.
 The main #acr("RNN") architectures are the #acr("LSTM") and #acr("GRU") designs.
 
-Vaswani et al. @vaswani_attention_nodate famously introduced the transformer architecture, which has become the de facto neural network design for numerous complex tasks.
-Attention-based neural networks have first been employed by the #acr("NLP") community in replacement for #acrpl("LSTM")s @radford_improving_nodate.
+Vaswani et al. @vaswani_attention_nodate famously introduced the *transformer architecture*, which has become the de facto neural network design for numerous complex tasks.
+Attention-based neural networks were first employed by the #acr("NLP") community in replacement for #acrpl("LSTM") @radford_improving_nodate.
 They share with #acr("RNN") the ability to propagate information along a sequence of tokens, which can then be used to make a decision.
 In vision tasks, the transformer architecture has been successful as an alternative to the well-established convolutional design @dosovitskiy_carla_nodate.
 Some approaches have employed transformers for #acr("SSL") as well.
 Phan et al. @phan_audio_2020 @phan_multitask_2020 have achieved #todo
 
-Some works, such as @cao_event-independent_2020 and @comminiello_quaternion_2019 have used a combination of #acr("CNN") and #acr("RNN"), refered to as #acrpl("CRNN") for #acr("SSL").
+Some works, such as @cao_event-independent_2020 and @comminiello_quaternion_2019 have used a combination of #acr("CNN") and #acr("RNN"), referred to as #acrpl("CRNN") for #acr("SSL").
+
 
 #draft[
   - How to (virtually) train your speaker localizer @srivastava_how_2023
