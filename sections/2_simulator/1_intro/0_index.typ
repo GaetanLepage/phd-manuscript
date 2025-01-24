@@ -12,7 +12,7 @@ In the following, we explore why simulation plays a pivotal role in numerical sc
 // Importance of simulation in science
 Simulation offers an alternative tool to experiment with new techniques.
 Since the Monte Carlo algorithm's first operation at the end of the 1940s, it has been widely used in most scientific fields (@goldsman_brief_2009, @metropolis_beginning_nodate).
-In 1950, a team led by Jon von Neumann and Jule Charney used the ENIAC computer to produce the first weather forecast by an electronic computer @charney_numerical_1950.
+In 1950, a team led by John von Neumann and Jule Charney used the ENIAC computer to produce the first weather forecast by an electronic computer @charney_numerical_1950.
 Although their results carried important numerical errors, this work led to the foundation of modern meteorology.
 This is an example of numerically replicating a physical phenomenon by implementing and solving the corresponding equations.
 NASA has also used simulation early in its space programs, such as Apollo.

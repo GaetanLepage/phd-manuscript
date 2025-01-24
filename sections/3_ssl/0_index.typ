@@ -6,6 +6,9 @@
 
 #draft[
   // TODO: write general intro
+  
+  Our intent at exploring #acr("SSL") was initially motivated by our exploratory work in Deep Reinforcement Learning (see @chap:rl).
+  
   #lorem(200)
 ]
 

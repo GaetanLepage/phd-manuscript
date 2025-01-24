@@ -160,3 +160,155 @@ Publisher: Nature Publishing Group},
 	keywords = {Testing, Training, Reverberation, Speech, Robot audition, Robots, Azimuth, azimuth estimation, binaural cues, Receivers, sound localization, sound processing, printed},
 	file = {IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/IFBSGNBS/6696771.html:text/html;Youssef et al. - 2013 - A learning-based approach to robust binaural sound.pdf:/home/gaetan/.local/share/Zotero/storage/ULN4K8B5/Youssef et al. - 2013 - A learning-based approach to robust binaural sound.pdf:application/pdf},
 }
+
+
+@misc{schneider_wav2vec_2019,
+	title = {wav2vec: Unsupervised Pre-training for Speech Recognition},
+	url = {http://arxiv.org/abs/1904.05862},
+	doi = {10.48550/arXiv.1904.05862},
+	shorttitle = {wav2vec},
+	abstract = {We explore unsupervised pre-training for speech recognition by learning representations of raw audio. wav2vec is trained on large amounts of unlabeled audio data and the resulting representations are then used to improve acoustic model training. We pre-train a simple multi-layer convolutional neural network optimized via a noise contrastive binary classification task. Our experiments on {WSJ} reduce {WER} of a strong character-based log-mel filterbank baseline by up to 36\% when only a few hours of transcribed data is available. Our approach achieves 2.43\% {WER} on the nov92 test set. This outperforms Deep Speech 2, the best reported character-based system in the literature while using two orders of magnitude less labeled training data.},
+	number = {{arXiv}:1904.05862},
+	publisher = {{arXiv}},
+	author = {Schneider, Steffen and Baevski, Alexei and Collobert, Ronan and Auli, Michael},
+	urldate = {2025-01-22},
+	date = {2019-09-11},
+	eprinttype = {arxiv},
+	eprint = {1904.05862 [cs]},
+	keywords = {Computer Science - Computation and Language},
+	file = {Preprint PDF:/home/gaetan/Zotero/storage/UAPT8QWE/Schneider et al. - 2019 - wav2vec Unsupervised Pre-training for Speech Recognition.pdf:application/pdf;Snapshot:/home/gaetan/Zotero/storage/6V5H4EUZ/1904.html:text/html},
+}
+
+@misc{baevski_wav2vec_2020,
+	title = {wav2vec 2.0: A Framework for Self-Supervised Learning of Speech Representations},
+	url = {http://arxiv.org/abs/2006.11477},
+	doi = {10.48550/arXiv.2006.11477},
+	shorttitle = {wav2vec 2.0},
+	abstract = {We show for the first time that learning powerful representations from speech audio alone followed by fine-tuning on transcribed speech can outperform the best semi-supervised methods while being conceptually simpler. wav2vec 2.0 masks the speech input in the latent space and solves a contrastive task defined over a quantization of the latent representations which are jointly learned. Experiments using all labeled data of Librispeech achieve 1.8/3.3 {WER} on the clean/other test sets. When lowering the amount of labeled data to one hour, wav2vec 2.0 outperforms the previous state of the art on the 100 hour subset while using 100 times less labeled data. Using just ten minutes of labeled data and pre-training on 53k hours of unlabeled data still achieves 4.8/8.2 {WER}. This demonstrates the feasibility of speech recognition with limited amounts of labeled data.},
+	number = {{arXiv}:2006.11477},
+	publisher = {{arXiv}},
+	author = {Baevski, Alexei and Zhou, Henry and Mohamed, Abdelrahman and Auli, Michael},
+	urldate = {2025-01-22},
+	date = {2020-10-22},
+	eprinttype = {arxiv},
+	eprint = {2006.11477 [cs]},
+	keywords = {Computer Science - Computation and Language, Computer Science - Machine Learning, Computer Science - Sound, Electrical Engineering and Systems Science - Audio and Speech Processing},
+	file = {Preprint PDF:/home/gaetan/Zotero/storage/BPIIJ3DP/Baevski et al. - 2020 - wav2vec 2.0 A Framework for Self-Supervised Learning of Speech Representations.pdf:application/pdf},
+}
+
+# CRNN
+
+@misc{cao_event-independent_2020,
+	title = {Event-Independent Network for Polyphonic Sound Event Localization and Detection},
+	url = {http://arxiv.org/abs/2010.00140},
+	doi = {10.48550/arXiv.2010.00140},
+	abstract = {Polyphonic sound event localization and detection is not only detecting what sound events are happening but localizing corresponding sound sources. This series of tasks was first introduced in {DCASE} 2019 Task 3. In 2020, the sound event localization and detection task introduces additional challenges in moving sound sources and overlapping-event cases, which include two events of the same type with two different direction-of-arrival ({DoA}) angles. In this paper, a novel event-independent network for polyphonic sound event localization and detection is proposed. Unlike the two-stage method we proposed in {DCASE} 2019 Task 3, this new network is fully end-to-end. Inputs to the network are first-order Ambisonics ({FOA}) time-domain signals, which are then fed into a 1-D convolutional layer to extract acoustic features. The network is then split into two parallel branches. The first branch is for sound event detection ({SED}), and the second branch is for {DoA} estimation. There are three types of predictions from the network, {SED} predictions, {DoA} predictions, and event activity detection ({EAD}) predictions that are used to combine the {SED} and {DoA} features for on-set and off-set estimation. All of these predictions have the format of two tracks indicating that there are at most two overlapping events. Within each track, there could be at most one event happening. This architecture introduces a problem of track permutation. To address this problem, a frame-level permutation invariant training method is used. Experimental results show that the proposed method can detect polyphonic sound events and their corresponding {DoAs}. Its performance on the Task 3 dataset is greatly increased as compared with that of the baseline method.},
+	number = {{arXiv}:2010.00140},
+	publisher = {{arXiv}},
+	author = {Cao, Yin and Iqbal, Turab and Kong, Qiuqiang and Zhong, Yue and Wang, Wenwu and Plumbley, Mark D.},
+	urldate = {2025-01-22},
+	date = {2020-09-30},
+	eprinttype = {arxiv},
+	eprint = {2010.00140 [eess]},
+	keywords = {Computer Science - Sound, Electrical Engineering and Systems Science - Audio and Speech Processing},
+	file = {Preprint PDF:/home/gaetan/Zotero/storage/96U25KG5/Cao et al. - 2020 - Event-Independent Network for Polyphonic Sound Event Localization and Detection.pdf:application/pdf},
+}
+
+
+@inproceedings{comminiello_quaternion_2019,
+	title = {Quaternion Convolutional Neural Networks for Detection and Localization of 3D Sound Events},
+	url = {https://ieeexplore.ieee.org/document/8682711},
+	doi = {10.1109/ICASSP.2019.8682711},
+	abstract = {Learning from data in the quaternion domain enables us to exploit internal dependencies of 4D signals and treating them as a single entity. One of the models that perfectly suits with quaternion-valued data processing is represented by 3D acoustic signals in their spherical harmonics decomposition. In this paper, we address the problem of localizing and detecting sound events in the spatial sound field by using quaternion-valued data processing. In particular, we consider the spherical harmonic components of the signals captured by a first-order ambisonic microphone and process them by using a quaternion convolutional neural network. Experimental results show that the proposed approach exploits the correlated nature of the ambisonic signals, thus improving accuracy results in 3D sound event detection and localization.},
+	eventtitle = {{ICASSP} 2019 - 2019 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+	pages = {8533--8537},
+	booktitle = {{ICASSP} 2019 - 2019 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
+	author = {Comminiello, Danilo and Lella, Marco and Scardapane, Simone and Uncini, Aurelio},
+	urldate = {2025-01-22},
+	date = {2019-05},
+	note = {{ISSN}: 2379-190X},
+	keywords = {3D audio, Acoustics, Ambisonics, Convolution, Harmonic analysis, Hypercomplex machine learning, Microphones, Quaternion neural networks, Quaternions, Task analysis, Three-dimensional displays},
+}
+
+# DATE
+@article{radford_improving_nodate,
+	title = {Improving Language Understanding by Generative Pre-Training},
+	abstract = {Natural language understanding comprises a wide range of diverse tasks such as textual entailment, question answering, semantic similarity assessment, and document classiﬁcation. Although large unlabeled text corpora are abundant, labeled data for learning these speciﬁc tasks is scarce, making it challenging for discriminatively trained models to perform adequately. We demonstrate that large gains on these tasks can be realized by generative pre-training of a language model on a diverse corpus of unlabeled text, followed by discriminative ﬁne-tuning on each speciﬁc task. In contrast to previous approaches, we make use of task-aware input transformations during ﬁne-tuning to achieve effective transfer while requiring minimal changes to the model architecture. We demonstrate the effectiveness of our approach on a wide range of benchmarks for natural language understanding. Our general task-agnostic model outperforms discriminatively trained models that use architectures speciﬁcally crafted for each task, signiﬁcantly improving upon the state of the art in 9 out of the 12 tasks studied. For instance, we achieve absolute improvements of 8.9\% on commonsense reasoning (Stories Cloze Test), 5.7\% on question answering ({RACE}), and 1.5\% on textual entailment ({MultiNLI}).},
+	author = {Radford, Alec and Narasimhan, Karthik and Salimans, Tim and Sutskever, Ilya},
+	langid = {english},
+	file = {PDF:/home/gaetan/Zotero/storage/BLL4ZIHA/Radford et al. - Improving Language Understanding by Generative Pre-Training.pdf:application/pdf},
+}
+
+
+@misc{dosovitskiy_image_2021,
+	title = {An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale},
+	url = {http://arxiv.org/abs/2010.11929},
+	doi = {10.48550/arXiv.2010.11929},
+	shorttitle = {An Image is Worth 16x16 Words},
+	abstract = {While the Transformer architecture has become the de-facto standard for natural language processing tasks, its applications to computer vision remain limited. In vision, attention is either applied in conjunction with convolutional networks, or used to replace certain components of convolutional networks while keeping their overall structure in place. We show that this reliance on {CNNs} is not necessary and a pure transformer applied directly to sequences of image patches can perform very well on image classification tasks. When pre-trained on large amounts of data and transferred to multiple mid-sized or small image recognition benchmarks ({ImageNet}, {CIFAR}-100, {VTAB}, etc.), Vision Transformer ({ViT}) attains excellent results compared to state-of-the-art convolutional networks while requiring substantially fewer computational resources to train.},
+	number = {{arXiv}:2010.11929},
+	publisher = {{arXiv}},
+	author = {Dosovitskiy, Alexey and Beyer, Lucas and Kolesnikov, Alexander and Weissenborn, Dirk and Zhai, Xiaohua and Unterthiner, Thomas and Dehghani, Mostafa and Minderer, Matthias and Heigold, Georg and Gelly, Sylvain and Uszkoreit, Jakob and Houlsby, Neil},
+	urldate = {2025-01-22},
+	date = {2021-06-03},
+	eprinttype = {arxiv},
+	eprint = {2010.11929 [cs]},
+	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning},
+	file = {Preprint PDF:/home/gaetan/Zotero/storage/XTXQGDU9/Dosovitskiy et al. - 2021 - An Image is Worth 16x16 Words Transformers for Image Recognition at Scale.pdf:application/pdf;Snapshot:/home/gaetan/Zotero/storage/9UUB9P8P/2010.html:text/html},
+}
+
+
+@article{phan_audio_2020,
+	title = {{AUDIO} {EVENT} {DETECTION} {AND} {LOCALIZATION} {WITH} {MULTITASK} {REGRESSION} {NETWORK}},
+	abstract = {This technical report describes our submission to the {DCASE} 2020 Task 3 (Sound Event Localization and Detection ({SELD})). In the submission, we propose a multitask regression model, in which both (multi-label) event detection and localization are formulated as regression problems to use the mean squared error loss homogeneously for model training. The deep learning model features a recurrent convolutional neural network ({CRNN}) architecture coupled with self-attention mechanism. Experiments on the development set of the challenge’s {SELD} task demonstrate that the proposed system outperforms the {DCASE} 2020 {SELD} baseline across all the detection and localization metrics, reducing the overall {SELD} error (the combined metric) approximately 10\% absolute.},
+	author = {Phan, Huy and Pham, Lam and Koch, Philipp and Duong, Ngoc Q K and {McLoughlin}, Ian and Mertins, Alfred},
+	date = {2020},
+	langid = {english},
+	file = {PDF:/home/gaetan/Zotero/storage/6VQTEHCI/Phan et al. - 2020 - AUDIO EVENT DETECTION AND LOCALIZATION WITH MULTITASK REGRESSION NETWORK.pdf:application/pdf},
+}
+
+
+@misc{phan_multitask_2020,
+	title = {On Multitask Loss Function for Audio Event Detection and Localization},
+	url = {http://arxiv.org/abs/2009.05527},
+	doi = {10.48550/arXiv.2009.05527},
+	abstract = {Audio event localization and detection ({SELD}) have been commonly tackled using multitask models. Such a model usually consists of a multi-label event classification branch with sigmoid cross-entropy loss for event activity detection and a regression branch with mean squared error loss for direction-of-arrival estimation. In this work, we propose a multitask regression model, in which both (multi-label) event detection and localization are formulated as regression problems and use the mean squared error loss homogeneously for model training. We show that the common combination of heterogeneous loss functions causes the network to underfit the data whereas the homogeneous mean squared error loss leads to better convergence and performance. Experiments on the development and validation sets of the {DCASE} 2020 {SELD} task demonstrate that the proposed system also outperforms the {DCASE} 2020 {SELD} baseline across all the detection and localization metrics, reducing the overall {SELD} error (the combined metric) by approximately 10\% absolute.},
+	number = {{arXiv}:2009.05527},
+	publisher = {{arXiv}},
+	author = {Phan, Huy and Pham, Lam and Koch, Philipp and Duong, Ngoc Q. K. and {McLoughlin}, Ian and Mertins, Alfred},
+	urldate = {2025-01-22},
+	date = {2020-09-11},
+	eprinttype = {arxiv},
+	eprint = {2009.05527 [eess]},
+	keywords = {Computer Science - Machine Learning, Electrical Engineering and Systems Science - Audio and Speech Processing},
+	file = {Preprint PDF:/home/gaetan/Zotero/storage/ZP7CQ97U/Phan et al. - 2020 - On Multitask Loss Function for Audio Event Detection and Localization.pdf:application/pdf;Snapshot:/home/gaetan/Zotero/storage/W7LHIQNT/2009.html:text/html},
+}
+
+
+@book{hirvonen_classification_2015,
+	title = {Classification of Spatial Audio Location and Content Using Convolutional Neural Networks},
+	volume = {2},
+	abstract = {This paper investigates the use of Convolutional Neural Networks for spatial audio classification. In contrast to traditional methods that use hand-engineered features and algorithms, we show that a Convolutional Network in combination with generic preprocessing can give good results, and allows for specialization to challenging conditions. The method can adapt to e.g. different source distances and microphone arrays, as well as estimate both spatial location and audio content type jointly. For example, with typical single-source material in a simulated reverberant room, we can achieve cross-validation accuracy of 94.3\% for 40-ms frames across 16 classes (eight spatial directions, content type speech vs. music).},
+	author = {Hirvonen, Toni},
+	date = {2015-05-07},
+	note = {Journal Abbreviation: 138th Audio Engineering Society Convention 2015
+Publication Title: 138th Audio Engineering Society Convention 2015},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/TZ2PTHI7/Hirvonen - 2015 - Classification of Spatial Audio Location and Content Using Convolutional Neural Networks.pdf:application/pdf},
+}
+
+
+@inproceedings{chakrabarty_broadband_2017,
+	title = {Broadband {DOA} estimation using Convolutional neural networks trained with noise signals},
+	url = {http://arxiv.org/abs/1705.00919},
+	doi = {10.1109/WASPAA.2017.8170010},
+	abstract = {A convolution neural network ({CNN}) based classification method for broadband {DOA} estimation is proposed, where the phase component of the short-time Fourier transform coefficients of the received microphone signals are directly fed into the {CNN} and the features required for {DOA} estimation are learnt during training. Since only the phase component of the input is used, the {CNN} can be trained with synthesized noise signals, thereby making the preparation of the training data set easier compared to using speech signals. Through experimental evaluation, the ability of the proposed noise trained {CNN} framework to generalize to speech sources is demonstrated. In addition, the robustness of the system to noise, small perturbations in microphone positions, as well as its ability to adapt to different acoustic conditions is investigated using experiments with simulated and real data.},
+	pages = {136--140},
+	booktitle = {2017 {IEEE} Workshop on Applications of Signal Processing to Audio and Acoustics ({WASPAA})},
+	author = {Chakrabarty, Soumitro and Habets, Emanuël A. P.},
+	urldate = {2025-01-24},
+	date = {2017-10},
+	eprinttype = {arxiv},
+	eprint = {1705.00919 [cs]},
+	keywords = {Computer Science - Sound, Statistics - Machine Learning},
+	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/YN8CDSPC/Chakrabarty and Habets - 2017 - Broadband DOA estimation using Convolutional neural networks trained with noise signals.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/XH9DMKL6/1705.html:text/html},
+}
