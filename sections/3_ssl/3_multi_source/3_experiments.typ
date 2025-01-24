@@ -461,7 +461,6 @@ To generate each sample, each active source outputs one recorded sentence from t
 #acr("STFT")s of the multi-channel signals received by the microphone array coming from each source are saved independently.
 Disposing of features corresponding to several seconds of simulation allows for performing #acr("SSL") on context windows of varying lengths.
 
-
 #include "figures/sequence_processing/figure.typ"
 
 

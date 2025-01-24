@@ -310,7 +310,12 @@ This assumption of multiplicative transfer functions is known as the narrow-band
 Using multiple microphones opens a wide range of possibilities in audio processing tasks.
 Humans rely on their two ears to exploit the spatiality of their auditory environment.
 Similarly, the signal processing community has exploited microphone arrays and developed algorithms to usefully aggregate signals from several sensors.
-Array processing spans several downstream tasks, such as speech enhancement @gannot_consolidated_2017, dereverberation @gaubitch_analysis_2005 @nakatani_blind_2008, sound source localization @alameda-pineda_geometric_2014 @grumiaux_survey_2021 @perotin_localisation_2019 or acoustic scene analysis @imoto_spatial_2017.
+Array processing spans several downstream tasks, such as
+speech enhancement @gannot_consolidated_2017,
+dereverberation @gaubitch_analysis_2005 @nakatani_blind_2008,
+sound source localization @alameda-pineda_geometric_2014 @grumiaux_survey_2021 @perotin_localisation_2019,
+separation @parra_convolutive_2000
+or acoustic scene analysis @imoto_spatial_2017.
 Disposing of more than one microphone allows computing the #acr("TDoA")
 
 Many array configurations have been experimented with.

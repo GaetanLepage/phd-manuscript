@@ -23,11 +23,20 @@
   ),
   "MCTS": ("Monte Carlo tree search"),
   "MKF": ("mixture Kalman filter"),
+  "NLP": ("Natural Language Processing"),
   "RMSE": ("Root Mean Square Error"),
   
   // -----------------------------------------------------------------------------
   // Deep Learning
   "BN": ("Batch Normalization"),
+  "CNN": (
+    "Convolutional Neural Network",
+    "Convolutional Neural Networks"
+  ),
+  "CRNN": (
+    "Convolutional Recurrent Neural Network",
+    "Convolutional Recurrent Neural Networks",
+  ),
   "CRDNN": ("Convolutional Recurrent Deep Neural Network"),
   "DL": ("Deep Learning"),
   "DNN": ("Deep Neural Network"),
@@ -40,11 +49,15 @@
     "Large Language Models"
   ),
   "LN": ("Layer Normalization"),
+  "LSTM": ("Long-Short Term Memory"),
   "RNNLM": ("Recurrent Neural Network Language Model"),
   "MSE": ("Mean Squared Error"),
   "MLP": ("Multi-Layer Perceptron"),
   "ReLU": ("Rectified Linear Unit"),
-  "RNN": ("Recurrent Neural Network"),
+  "RNN": (
+    "Recurrent Neural Network",
+    "Recurrent Neural Networks"
+  ),
   
   // -----------------------------------------------------------------------------
   // ASR
@@ -69,6 +82,7 @@
     "Gaussian Mixture Model",
     "Gaussian Mixture Models",
   ),
+  "VAD": ("Voice Activity Detector"),
 
   // -----------------------------------------------------------------------------
   // Active SSL
