@@ -109,6 +109,7 @@
   "FFT": ("Fast Fourier Transform"),
   "FIR": ("finite impulse response"),
   "GA": ("Geometrical Acoustics"),
+  "GCC": ("Generalized Cross-Correlation"),
   "GCC-PHAT": ("Generalized Cross-Correlation with Phase Transform"),
   "HRTF": (
     "head-related transfer function",
