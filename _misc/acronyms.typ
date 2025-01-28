@@ -71,6 +71,7 @@
   "DCASE": ("Detection and Classification of Acoustic Scenes and Events"),
   "DoA": ("Direction of Arrival"),
   "SSL": ("Sound Source Localization"),
+  "SELD": ("Sound Event Localization and Detection"),
   "SSLR": ("Sound Source Localization for Robots"), // dataset by He et al.
   "SRP-PHAT": ("Steered Response Power with Phase Transform"),
   // Metrics
