@@ -9,7 +9,7 @@
 // Very broad introduction
 #acr("SSL") is part of the classic challenges in artificial speech processing.
 This challenge requires identifying the relative position of one or several sound sources leveraging an audition device, typically a microphone array.
-The ability to localize sound sources is fundamental and can serve many purposes across various fields.
+Localizing sound sources is fundamental and can serve many purposes across various fields.
 
 // Applications
 Although initially targeted to replicate human-like auditory perception, it has progressively found more diverse applications.
@@ -81,7 +81,7 @@ They also highlight the connections of multi-source localization with other acou
 Indeed, those tasks are complementary as they can share information to enhance each one's results.
 Transitioning from single-source to multi-source localization encompasses several challenges.
 First, the overlapping signals can create ambiguities in determining which spectral features belong to which source.
-Second, as the number of sources increases, the performance and/or algorithmic complexity of the method can be hard to scale.
+Second, as the number of sources increases, the method's performance and/or algorithmic complexity can be difficult to scale.
 For instance, the impact of noise and reverberation increases as the number of sources grows @woodruff_binaural_2012 @braun_acoustic_2019.
 Finally, estimating the number of sources may also be challenging.
 Some methods assume this number to be known as a working hypothesis.
@@ -105,12 +105,12 @@ Also, acoustic cues such as amplitude have a non-linear relationship with the di
 Distance estimation may also need to rely on calibration, which hinders the flexibility and relevance of the #acr("SSL") system.
 Furthermore, when considering angular-only #acr("SSL") systems, it is necessary to distinguish planar detectors, which predict the sole #acr("DoA") value, from 3D ones, which also estimate the elevation angle.
 Although the #acr("DoA") is the most informative angle, elevation becomes important in more complex scenes or when there is a significant height difference between the microphone array and the sources.
-The detection format also varies across the literature, with methods producing cartesian coordinates and others expressing the positions in polar or spherical coordinates.
+The detection format also varies across the literature, with methods producing Cartesian coordinates and others expressing the positions in polar or spherical coordinates.
 
 Those fundamental differences are not the only one.
 They highlight the diversity of existing approaches and show.
-Most importantly, we have seen that the #acr("SSL") task has no unique and clear definition.
-It refers to a complex problem that can be tackled with various levels of difficulty.
+Most importantly, we have seen that the #acr("SSL") task does not have a unique and clear definition.
+It refers to a complex problem that can be tackled with various difficulty levels.
 
 === Classical approaches
 <sec:ssl:sota:classical_approaches>
@@ -118,7 +118,7 @@ It refers to a complex problem that can be tackled with various levels of diffic
 #acr("SSL") has long been a central problem in auditory processing, and foundational methods have emerged from signal processing principles.
 These classical approaches primarily relied on analyzing multichannel audio data to extract spatial information about sound sources, leveraging the physics of wave propagation @grumiaux_survey_2021.
 
-#acr("TDoA")-based methods are among the most widely used classical techniques for SSL.
+#acr("TDoA")-based methods are among the most widely used classical techniques for #acr("SSL").
 Estimating the time delay between sound arrivals at different microphones can infer the source's spatial position.
 A more detailed overview of the geometrical aspect of sound propagation has been given in @sec:simulator:background:binaural.
 The #acr("GCC-PHAT") is a prominent algorithm in this category, known for its robustness in noisy environments @knapp_generalized_1976.
@@ -168,7 +168,7 @@ Deep learning-based #acr("SSL") systems typically involve three primary componen
 // Input processing
 First, *input feature extraction* consists of computing acoustic features from the raw audio data.
 // DNN processing
-Secondly, the most important step consists of processing the pre-processed input data by a #acr("DNN").
+Secondly, the most crucial step is processing the pre-processed input data by a #acr("DNN").
 While approaches differ, their task generally consists of mapping the sound signal to the sound source(s) location(s).
 The network is often trained in a supervised fashion on a collected offline dataset containing numerous pairs of sound recordings and source positions.
 After training, the model is supposed to be able to predict the sound source location from unheard recordings resulting from new situations.
@@ -179,10 +179,10 @@ Some can handle the detection of multiple sources @he_joint_2018, @bross_multipl
 
 *Input data*
 The _Wav2Vec_ method initially proposed by Schneider et al. @schneider_wav2vec_2019 and refined by Baevski et al. @baevski_wav2vec_2020 directly learns from raw audio data in a self-supervised fashion.
-This work demonstrates that deep neural networks can learn useful representations of audio signals directly, given enough data.
+This work demonstrates that deep neural networks can directly learn helpful representations of audio signals, given enough data.
 A few works have trained #acr("DNN")s to perform #acr("SSL") from raw audio data @vera-diaz_towards_2018 @suvorov_deep_2018 @vecchiotti_end--end_2019.
 Although aesthetically appealing, such raw-audio-based approaches remain scarce in the literature.
-Spectral representations stand as the most popular format from which to learn.
+Spectral representations are significantly more popular.
 Most notably, the #acr("STFT") is used to compute acoustic signals' magnitude, power, and phase spectrums.
 Additionally, interaural (or interchannel) features are commonly used across the literature, such as the aforementioned #acr("ILD"), #acr("IPD"), and #acr("ITD") @viste_binaural_2004 @chakrabarty_broadband_2017 @nguyen_autonomous_2018.
 Please refer to @sec:simulator:background:binaural for more details on such features.
@@ -238,7 +238,7 @@ As such, the acoustic community has leveraged the vast computer vision literatur
 The inherent ability of such networks to process an arbitrary number of channels allows for the leverage of recordings from several microphones.
 The convolutional kernels are responsible for combining this information.
 Hirvonen et al. @hirvonen_classification_2015 are among the first to apply the #acr("CNN") to #acr("SSL").
-Multiple works adopting a similar approach have followed, trying to learn from different types of input features @chakrabarty_broadband_2017 @adavanne_sound_2019 @tan_sound_2021.
+Multiple works have followed, adopting a similar approach and trying to learn from different types of input features @chakrabarty_broadband_2017 @adavanne_sound_2019 @tan_sound_2021.
 
 Primarily used in the #acr("NLP") community, *#acrpl("RNN")* are a popular choice for processing sequential data and time series in general.
 They can inherently propagate information along a sequence to leverage global context to perform a task.
@@ -262,11 +262,11 @@ Variational auto-encoders @bianco_semi-supervised_2020 and U-net architectures @
 
 *Output format*
 As previously explained in @sec:active_ssl:background:variations, the output formats of #acr("SSL") detectors vary considerably across methods.
-On the one hand, all solutions do not estimate the same values.
+On the one hand, not all solutions estimate the same values.
 Some systems are limited to #acr("DoA") estimation, while others can additionally predict the distance.
 On the other hand, the coordinate system used to express the detections is not always the same.
-The vast majority of works compute the source position with respect to the microphone array.
-Computing an absolute position would require additional knowledge about the environment, the microphones's positions, and the choice of a global frame for reference.
+The vast majority of works compute the source's position with respect to the microphone array.
+Computing an absolute position would require additional knowledge about the environment, the microphones' positions, and choosing a global frame for reference.
 Nonetheless, different relative coordinate systems are used.
 Choosing spherical or polar systems consists of predicting a #acr("DoA") value and, optionally, the elevation angle and/or the distance to the source.
 Alternatively, other works choose to write the estimated detections in Cartesian coordinates.

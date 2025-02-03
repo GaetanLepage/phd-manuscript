@@ -9,9 +9,9 @@
   Disclaimer: This short intro might have to be adapted if we change the organization of the chapter.
 ]
 
-Our intent at exploring #acr("SSL") was initially motivated by our exploratory work in Deep Reinforcement Learning (see @chap:rl).
-First, this chapter provides an overview the state-of-the-art in #acr("SSL").
-It depicts the major trends of research in this domain.
+Our intent to investigate #acr("SSL") was initially motivated by our exploratory work in Deep Reinforcement Learning (see @chap:rl).
+First, this chapter provides an overview of the state-of-the-art in #acr("SSL").
+It depicts the main trends of research in this domain.
 Diverse and advanced approaches have successfully been applied to this challenging acoustic problem.
 Also, we discuss the relevance of the #acr("SSL") task for the robotics research area and highlight essential works made in this field.
 We then present our methodological and experimental work on this topic.
