@@ -105,6 +105,15 @@ Overall, Bustamante's work demonstrates another principled, complete, and perfor
 On the one hand, it aggregates #acr("DoA") estimations and robot movement over time to localize a sound source in 2D relative to the agent.
 On the other hand, it provides a controlling scheme for the agent that optimizes the location performance in the long term.
 
+In addition to the works mentioned above, Roman et al. @roman_binaural_2008 designed a binaural tracking system to localize several moving sources.
+They use a probabilistic model to predict the sources' locations from interaural cues (#acr("ILD") and #acr("IPD")).
+The solution's tracking capability relies on an #acr("HMM") formulation.
+It ensures that sources are tracked across time and imposes continuity constraints on the detections.
+The challenge of reverberant environments has not been considered in the methodology.
+However, the authors do test their system in the presence of reverberation.
+Performance is shown to suffer from increasing the $T_60$.
+Working on the robustness of localization systems to reverberation is a key area for future improvement.
+
 In conclusion, active #acr("SSL") has been a topic of interest in the robotic literature.
 Indeed, static localization approaches suffer from limitations such as the front-back ambiguity or distance non-observability.
 The literature contains successful examples of #acr("ASSL") approaches.

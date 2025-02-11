@@ -30,11 +30,11 @@
       - [x] #link(<sec:simulator:simulator:components>)[2. Components]
       - [x] #link(<sec:simulator:simulator:features>)[3. Features]
       - [ ] #link(<sec:simulator:simulator:performance>)[4. Performance] -> Not enough time + chapter already big enough
-    - [x] #link(<sec:simulator:conclusion>)[4. Conclusion]
+      - [x] #link(<sec:simulator:conclusion>)[5. Conclusion]
   + *SSL*
     - [-] #link(<sec:ssl:sota>)[1. Background]
     - [-] #link(<sec:ssl:single_source>)[2. Single-source]
-    - [-] #link(<sec:ssl:multi_source>)[2. Multi-source]
+    - [-] #link(<sec:ssl:multi_source>)[3. Multi-source]
   + *Active SSL*
     - [x] #link(<sec:active_ssl:background>)[1. Background]
     - [x] #link(<sec:active_ssl:methods>)[2. Methods]
