@@ -36,7 +36,7 @@
   placement: top,
   kind: table,
   caption: [
-      #todo
+      #acr("SSL") performance for different values of #tau-doa
   ]
 )
 <table:ssl:multi_source:experiments:min_doa>

@@ -97,9 +97,10 @@ $
 As an important note, those two scenarios are used to grasp the overall performance of a given model.
 The method stays the same in both cases as solely the extraction of the prediction employs either @eq:ssl:multi_source:decoding_unknown_sources or @eq:ssl:multi_source:decoding_known_sources.
 
-#gaet[
-  Again, should I go as far as explaining the GT-predictions matching algorithm ?
-]
+//TODO
+//#gaet[
+//  Again, should I go as far as explaining the GT-predictions matching algorithm ?
+//]
 
 ==== Loss and convergence
 <sec:ssl:multi_source:experiments:loss>
@@ -109,15 +110,17 @@ The objective used by He et al. in @he_deep_2018 along their #acr("DoA") encodin
 $
   cal(L) (hat(o), o) = norm(hat(o) - o)_2^2
 $ <eq:ssl:multi_source:loss_function>
-#gaet[
-  Technically, this equation does not illustrate the _mean_ aspect of the MSE.
-  If we want to add the $sum_(i=1)^n 1/n dots$ in front, then we should do it consistently everywhere.\
-  I personally think that it is more readable to concentrate on the core formula for the loss between two samples. Of course it will be reduced using an average.
-]
+//TODO
+//#gaet[
+//  Technically, this equation does not illustrate the _mean_ aspect of the MSE.
+//  If we want to add the $sum_(i=1)^n 1/n dots$ in front, then we should do it consistently everywhere.\
+//  I personally think that it is more readable to concentrate on the core formula for the loss between two samples. Of course it will be reduced using an average.
+//]
 
 *Sub-optimal convergence*
 
-#gaet[This should go in the _Results_ section... maybe as well as this entire _Training strategy_ section]
+//TODO
+//#gaet[This should go in the _Results_ section... maybe as well as this entire _Training strategy_ section]
 // Impact of BS and LR
 *Local minimum.*
 #draft[TODO: this is the motivation for trying the $epsilon$-loss initially].
@@ -169,17 +172,12 @@ We can distinguish two distinct phases.
 - Subsequently, from the 50kth step, the model escapes from this plateau and learns to solve the regression task successfully.
 
 When using too important batch sizes or too aggressive learning rates, the model indefinitely stagnates, keeping predicting zeros.
-Keskar et al. @keskar_large-batch_2017 have documented the negative effects that large batch sizes could have on generalization performance.
+Keskar et al. @keskar_large-batch_2017 have documented the adverse effects that large batch sizes could have on generalization performance.
 
-#gaet[Ideally, this would benefit from more exhaustive experiments, especially regarding the use of LR scheduling...]
+//#gaet[Ideally, this would benefit from more exhaustive experiments, especially regarding the use of LR scheduling...]
 
-Identifying, characterizing and overcoming this shortcoming has been an essential step in the development of this model.
+Identifying, characterizing, and overcoming this shortcoming has been an essential step in developing this model.
 
-
-#gaet[
-  I am not really sure on how to layout the whole _Results_ section.\
-  Should we have a dedicated paragraph just to show the (best) results, in the default scenario ?
-]
 ==== Performance evaluation
 <sec:ssl:multi_source:experiments:performance_eval>
 
@@ -191,68 +189,64 @@ Identifying, characterizing and overcoming this shortcoming has been an essentia
 
 *Impact of the number of sources*
 
-#gaet[Should _zero_ and _four_ be written using the digit directly ?]
-As explained in @sec:ssl:multi_source:method:dataset, the dataset allows for dynamically selecting a subset of zero to four sources at runtime.
+As explained in @sec:ssl:multi_source:method:dataset, the dataset allows for dynamically selecting a subset of 0 to 4 sources at runtime.
 This feature has allowed us to experiment with the impact of how many sources are present in the room simultaneously.
 
-#gaet[
-  According to Chris, this is not that relevant
-]
-#draft[
-  *Training frameworks.*
-  On the one hand, the two following training setups can be compared:
-  - _Scenario A_ is the setup proposed in @he_neural_2021 with the following repartition of samples:
-    - 0 sources: 20%,
-    - 1 source: 40%,
-    - 2 sources: 30%,
-    - 3 sources: 5%,
-    - 4 sources: 5%.
-  - _Scenario B_ uniformly chooses a number of sources between 1 and 4 for each sample. Thus, it is more challenging as at least one source is always present in the room, and significantly more samples present 3 or 4 sources.
-  
-  As no artificial noise is added to the speech sources' signals, the training dataset in _scenario A_ brings exactly 160k identical samples which observation tensor is null.
-  Once the network successfully learns that it should output a zero-vector for those trivial samples, they will not contribute either to increasing or lowering the detection scores.
-  
-  Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to properly localize them.
-  @table:ssl:multi_source:experiments:n_sources_train displays the final performance of models trained on datasets corresponding to each scenario.
-  
-  #figure(
-    tablex(
-      // SETTINGS
-      columns: 3,
-      header-rows: 1,
-      align: left + horizon,
-      auto-vlines: false,
-      auto-hlines: false,
-      
-      // HEADER
-      toprule,
-  
-      [],
-      [Dataset A],
-      [Dataset B],
-      
-      midrule,
-  
-      // ROWS
-      header-mae,     [9.13],  [14.05],
-      header-acc,     [71.36], [61.76],
-      header-prec,    [80.98], [76.96],
-      header-recall,  [69.26], [58.53],
-  
-      bottomrule
-    ),
-    placement: top,
-    kind: table,
-    caption: [
-      #acr("SSL") performance when trained with different number of sources
-    ]
-  )
-  <table:ssl:multi_source:experiments:n_sources_train>
-  
-  One should note that both training and test datasets are different.
-  The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
-  The rest of the experiments have been conducted with respect to _Scenario A_, following the same distribution of source numbers as He et al used in @he_neural_2021.
-]
+//#draft[
+*Training frameworks.*
+On the one hand, the two following training setups can be compared:
+- _Scenario A_ is the setup proposed in @he_neural_2021 with the following repartition of samples:
+  - 0 sources: 20%,
+  - 1 source: 40%,
+  - 2 sources: 30%,
+  - 3 sources: 5%,
+  - 4 sources: 5%.
+- _Scenario B_ uniformly chooses a number of sources between 1 and 4 for each sample. Thus, it is more challenging as at least one source is always present in the room, and significantly more samples present 3 or 4 sources.
+
+As no artificial noise is added to the speech sources' signals, the training dataset in _scenario A_ brings exactly 160k identical samples which observation tensor is null.
+Once the network successfully learns that it should output a zero-vector for those trivial samples, they will not contribute either to increasing or lowering the detection scores.
+
+Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to properly localize them.
+@table:ssl:multi_source:experiments:n_sources_train displays the final performance of models trained on datasets corresponding to each scenario.
+
+#figure(
+  tablex(
+    // SETTINGS
+    columns: 3,
+    header-rows: 1,
+    align: left + horizon,
+    auto-vlines: false,
+    auto-hlines: false,
+    
+    // HEADER
+    toprule,
+
+    [],
+    [Dataset A],
+    [Dataset B],
+    
+    midrule,
+
+    // ROWS
+    header-mae,     [9.13],  [14.05],
+    header-acc,     [71.36], [61.76],
+    header-prec,    [80.98], [76.96],
+    header-recall,  [69.26], [58.53],
+
+    bottomrule
+  ),
+  placement: top,
+  kind: table,
+  caption: [
+    #acr("SSL") performance when trained with different number of sources
+  ]
+)
+<table:ssl:multi_source:experiments:n_sources_train>
+
+One should note that both training and test datasets are different.
+The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
+The rest of the experiments have been conducted with respect to _Scenario A_, following the same distribution of source numbers as He et al. used in @he_neural_2021.
+//]
 
 *Evaluation frameworks.*
 For understanding the impact of the number of concurrent sources in the room on performance, we have evaluated a given network in various scenarios.
@@ -260,19 +254,19 @@ The network has been trained according to the _scenario A_ presented above.
 
 #include "figures/table_n_sources.typ"
 
-#draft[
-  TODO: make a comparison between performance achieved on single-source SSL.\
-  I guess that this 2° MAE is quite close from what the single-source SSL will give.
-]
+// TODO: make a comparison between performance achieved on single-source SSL.\
+// I guess that this 2° MAE is quite close from what the single-source SSL will give.
 
 ==== $epsilon$-loss
 
 We propose an original modification of the loss function.
 The motivation comes from the observation that the target #acr("DoA") spatial spectrum is sparse (see @fig:ssl:multi_source:doa_gt_encoding for instance).
-This causes TODO
+This causes the active part of the spectrum to have a limited impact on the gradients.
 As seen in @sec:ssl:multi_source:experiments:loss, we use a simple #acr("MSE") loss (@eq:ssl:multi_source:loss_function) for the cost function.
-
-We have made an attempt at adjusting the latter to more aggressively penalize the sections of the spatial spectrum where sources are actually present.
+Hence, predicting high activation will be heavily penalized as it will statically correspond to false positives.
+However, predicting overall low values will not lead to high loss values as the ground truth spectrogram is primarily flat.
+The naive #acr("MSE") loss does not prioritize the supervision in the active region of the spectrogram.
+We have attempted to circumvent this by more aggressively penalizing the sections of the spatial spectrum where sources are effectively present.
 
 $
   cal(L)_epsilon (hat(o)_i, o_i) =
@@ -281,24 +275,25 @@ $
     (hat(o)_i - o_i)^2
 $ <eq:ssl:multi_source:epsilon_loss>
 
-#gaet[Should we do a plot to show the multiplicative factor across the DoA spectrum ?]
+// TODO: maybe add plots of the loss
 
 #include "figures/table_epsilon_loss.typ"
 
+@table:ssl:multi_source:experiments:epsilon_loss summarizes the performance of our model after being trained with the $epsilon$-loss.
+More precisely, we compare different values of $epsilon$ to better measure its influence on performance.
+A baseline corresponding to the #acr("MSE") loss is also included for comparison.
+This ablation study suggests that a value of $epsilon = 0.4$ improves the #acr("MAE") and accuracy scores at the expense of losing some precision points.
+A value closer to 0.1 slightly boosts the recall too but comes with an important dip in precision.
+Also, this choice has an impact on the training dynamics.
+The $epsilon$ loss seems to shorten the initial stagnating phase of the training process, where the validation loss sees no improvement.
+When training with the #acr("MSE"), the loss only starts improving after 50-60k steps, while this number falls to 16k steps when using the $epsilon$ loss.
+Unfortunately, the behavior of the $epsilon$ loss remains unclear in some aspects.
+Overall, its benefits are not satisfying enough to be included in the final method.
+Notably, its impact on precision is detrimental to the overall performance.
 
-#gaet[
-  Should we also show some training curves ?\
-  I guess that I will put some. We might get rid of them afterwards if it they are too much.
-]
+// TODO: maybe add some training curves
+// ->  This requires to run more repetitions for each experiment so that the gaps in performance can be confirmed.
 
-#gaet[
-  This requires to run more repetitions for each experiment so that the gaps in performance can be confirmed.
-]
-#draft[
-  - Better MAE, Recall and Accuracy at the expense of precision (with $epsilon=0.1$).
-    I am not too sure  about how to analyze this...
-  - The epsilon loss shortens the "stagnating" phase at the beginning of the training (16-18k steps instead of 50-60k with the normal loss)
-]
 
 ==== Normalization <sec:ssl:multi_source:experiments:normalization>
 
@@ -371,12 +366,11 @@ where
   ),
 ) <fig:ssl:multi_source:normalization>
 
-Those two methods have been proven to be effective in training deep neural network architectures.
-#draft[
-  TODO:
-  - Normalizing the Normalizers: Comparing and Extending Network Normalization Schemes @ren_normalizing_2017
-  - PowerNorm: Rethinking Batch Normalization in Transformers @shen_powernorm_2020
-]
+Those two methods have proven effective in training deep neural network architectures.
+Ren et al. @ren_normalizing_2017 develop a unified view of the #acr("BN") and #acr("LN") schemes.
+Furthermore, they proposed a novel addition to better handle sparsity and achieved better results in various downstream tasks.
+Similarly, the _PowerNorm_ scheme, introduced by Shen et al. @shen_powernorm_2020, attempts to circumvent the identified weaknesses of the existing normalization schemes when applied to the transformer architecture.
+Those works further demonstrate the importance of normalization in deep neural networks.
 
 //===== Experiments
 *Experiments*
@@ -394,20 +388,18 @@ We observed that the latter was yielding the same stabilization benefits during 
   ]
 ) <fig:ssl:multi_source:normalization_plots>
 
-#gaet[
-  The experiment _without normalization_ is mysterious: I am not able to reproduce it.
-  If I don't solve this, we might have to simply remove it and just compare BN to LN.
-]
+// The experiment _without normalization_ is mysterious: I am not able to reproduce it.
+// If I don't solve this, we might have to simply remove it and just compare BN to LN.
 
-This particular metric clearly exposes the differences between those three choices but the other metrics behave similarly.
-Overall, both normalization techniques bring additional stability and performance to the training process.
+This specific metric clearly exposes the differences between those three choices but the other metrics behave similarly.
+Both normalization techniques bring additional stability and performance to the training process.
 However, significant differences arise when looking at the validation metrics.
 When ran in evaluation mode, i.e. using the running statistics gathered during training, the network trained with #acr("BN") performs poorly compared to training.
-This would suggest that the saved means and averages do not properly account for the differences between the training and validation sets.
+This would suggest that the saved means and averages do not adequately account for the differences between the training and validation sets.
 
 Interestingly, evaluating this network's performance while forcing the batch normalization to use the training strategy avoids facing this issue.
-Indeed, using the current validation batch statistics instead of the ones gathered at training time provides results on par with the training performance.
-This constitutes an important limitation of batch normalization in this case as the evaluation thus needs to be performed in a batched manner.
+Indeed, using the current validation batch statistics instead of those gathered at training time provides results that are on par with the training performance.
+This constitutes an essential limitation of batch normalization in this case as the evaluation thus needs to be performed in a batched manner.
 @table:ssl:multi_source:experiments:normalization displays the influence of the batch size on the performance of the network trained with #acr("BN").
 
 
@@ -539,8 +531,8 @@ On the one hand, the model is expected to extract each speaker's location from t
 An increase in the number of inherently hardens this task.
 On the other hand, low #delta-t samples also get more frequent, which could participate to hinder proper localization by itself.
 
-In order to empirically study the impact of #delta-t on the #acr("SSL") performance, the model trained on a regular dataset has been evaluated on specific test cases.
-Each test dataset ensures to respect a lower bound #tau-doa such that $#delta-t >= #tau-doa$ for all samples.
+To empirically study the impact of #delta-t on the #acr("SSL") performance, the model trained on a regular dataset has been evaluated on specific test cases.
+Each test dataset ensures that it respects a lower bound #tau-doa such that $#delta-t >= #tau-doa$ for all samples.
 Also, the number of sources is fixed to $n_s = 4$ to best isolate the influence of #delta-t on the results.
 
 #include "figures/table_min_doa.typ"

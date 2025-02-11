@@ -7,7 +7,7 @@
 
 === Original problem
 // Very broad introduction
-#acr("SSL") is part of the classic challenges in artificial speech processing.
+#acr("SSL") is part of the classic challenges in artificial audio processing.
 This challenge requires identifying the relative position of one or several sound sources leveraging an audition device, typically a microphone array.
 Localizing sound sources is fundamental and can serve many purposes across various fields.
 
@@ -17,7 +17,7 @@ For instance, #acr("SSL") enables hands-free computer-human interaction, improvi
 Overall, the ability to localize sound enriches machines' capabilities.
 For instance, in robotics, #acr("SSL") aids navigation, situational awareness, and human-robot interaction by directing robots to key auditory cues in their environment.
 Similarly, it helps amplify sounds from a specific direction in hearing aids, improving the user's experience in noisy environments.
-#acr("SSL") plays a vital role in Speech Enhancement and Recognition.
+#acr("SSL") plays a vital role in speech enhancement and recognition.
 It helps enhance speech intelligibility in noisy environments by isolating and amplifying signals from specific directions.
 This is critical in applications like teleconferencing and hearing aids @varzandeh_exploiting_2020.
 In entertainment and #acr("AR"), #acr("SSL") helps enhance the user's immersion by dynamically adjusting the audio environment based on the user's spatial orientation and movement @sodnik_spatial_2006 @keyrouz_binaural_2007.
@@ -50,6 +50,10 @@ Conversely, our objective here is to give an overall overview of the field and s
 Alongside the multiple references cited in the following paragraphs, one may refer to Grumiaux et al. @grumiaux_survey_2021 for a more detailed picture of #acr("SSL") at the age of deep learning.
 Notably, the active localization techniques dealing with moving sources and/or microphones will be presented in @chap:active_ssl in addition to our contribution to the topic.
 
+Before providing details on the various methods proposed to address SSL, we devote the next section to describe the variability in problem formulation and experimental settings. 
+Chronologically, the first steps were developed in simple settings, and scenarios of increasing complexity were proposed with the progress made.
+However, the next section is not structured chronologically, but by properties (simulated vs. real data, single vs. multi-source) for the sake of clarity.
+
 
 === Variations in the Sound Source Localization task
 <sec:active_ssl:background:variations>
@@ -57,7 +61,7 @@ Notably, the active localization techniques dealing with moving sources and/or m
 Localizing sound sources is a vague objective, and the exact formulation of the problem varies broadly across the literature.
 
 *From simulated to real-world environments*
-First and foremost, the targetted acoustic environment can be of different natures.
+First and foremost, the targetted acoustic environment can be of different nature.
 Some methods are solely tested in a simulation where the fidelity to the real world is inherently imperfect.
 As motivated in @chap:simulator, simulation provides several benefits.
 In particular, it offers a cost-effective data source that is particularly relevant when using data-based approaches.
@@ -77,7 +81,7 @@ This introduces additional complexities, such as separating overlapping signals,
 Methods in this category often employ advanced signal processing or deep learning techniques to handle these challenges, relying on spatial and spectral differences between sources.
 Multi-source localization is crucial for speech separation, auditory scene analysis, and collaborative robotics applications.
 Grumiaux et al. @grumiaux_survey_2021 insist on the difficulty of the multi-source problem.
-They also highlight the connections of multi-source localization with other acoustic problems such as speaker diarization (determining _who speaks when_) or speech source separation.
+They also highlight the connections of multi-source localization with other acoustic problems such as speaker diarization (determining _who speaks when_) or speech source separation @jenrungrot_cone_2020.
 Indeed, those tasks are complementary as they can share information to enhance each one's results.
 Transitioning from single-source to multi-source localization encompasses several challenges.
 First, the overlapping signals can create ambiguities in determining which spectral features belong to which source.
@@ -180,7 +184,12 @@ Some can handle the detection of multiple sources @he_joint_2018, @bross_multipl
 *Input data*
 The _Wav2Vec_ method initially proposed by Schneider et al. @schneider_wav2vec_2019 and refined by Baevski et al. @baevski_wav2vec_2020 directly learns from raw audio data in a self-supervised fashion.
 This work demonstrates that deep neural networks can directly learn helpful representations of audio signals, given enough data.
-A few works have trained #acr("DNN")s to perform #acr("SSL") from raw audio data @vera-diaz_towards_2018 @suvorov_deep_2018 @vecchiotti_end--end_2019.
+A few works have trained #acr("DNN")s to perform #acr("SSL") from the waveform domain
+@vera-diaz_towards_2018
+@suvorov_deep_2018
+@vecchiotti_end--end_2019
+@he_sounddet_2021
+@jenrungrot_cone_2020.
 Although aesthetically appealing, such raw-audio-based approaches remain scarce in the literature.
 Spectral representations are significantly more popular.
 Most notably, the #acr("STFT") is used to compute acoustic signals' magnitude, power, and phase spectrums.
@@ -233,7 +242,7 @@ However, their lack of temporal modeling capabilities limits their performance i
 As seen previously, it is typical for the recorded signal to first be forwarded to the time-frequency domain.
 The Fourier representations of temporal signals share several properties with images.
 Most notably, they are often represented as multi-channel images expressed in the time-frequency plane.
-As such, the acoustic community has leveraged the vast computer vision literature which designed numerous deep neural networks for processing images.
+As such, the acoustic community has leveraged the vast computer vision literature that has designed numerous deep neural networks for processing images.
 #acrpl("CNN")s have shown promising results for #acr("SSL").
 The inherent ability of such networks to process an arbitrary number of channels allows for the leverage of recordings from several microphones.
 The convolutional kernels are responsible for combining this information.
@@ -248,7 +257,7 @@ Some works, such as @cao_event-independent_2020 and @comminiello_quaternion_2019
 
 Vaswani et al. @vaswani_attention_nodate famously introduced the *transformer architecture*, which has become the de facto neural network design for numerous complex tasks.
 Attention-based neural networks were first employed by the #acr("NLP") community to replace #acrpl("LSTM")s @radford_improving_nodate.
-They share with #acr("RNN")s the ability to propagate information along a sequence of tokens, which can then be used to make a decision.
+They share with #acrpl("RNN")s the ability to propagate information along a sequence of tokens, which can then be used to make a decision.
 In vision tasks, the transformer architecture has been successful as an alternative to the well-established convolutional design @dosovitskiy_carla_nodate.
 Some approaches have employed transformers for #acr("SSL") as well.
 Phan et al. @phan_audio_2020 @phan_multitask_2020 have coupled a #acr("CRNN") architecture with the self-attention mechanism.
@@ -332,8 +341,8 @@ Nguyen et al. @nguyen_autonomous_2018 have collected a dataset to train a #acr("
 
 //--------------------------------------
 // Challenges
-As depicted in this condensed overview, there have been multiple and diverse research efforts focused at solving the #acr("SSL") task.
-Although this challenge has been explored extensively for decades, the ecosystem remains vibrant, and new solutions are constantly being proposed.
+As depicted in this condensed overview, multiple and diverse research efforts have been focused on solving the #acr("SSL") task.
+Although this challenge has been explored extensively for decades, the ecosystem remains vibrant, and new solutions are constantly proposed.
 The field's evolution demonstrates valuable progress as methods handle more and more complex variations of the problem.
 Classical methods like #acr("TDoA"), beamforming, and subspace algorithms have provided foundational approaches, particularly in controlled settings. 
 They also leveraged foundational physical and statistical characteristics of the recorded signals.

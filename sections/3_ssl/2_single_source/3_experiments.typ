@@ -5,6 +5,23 @@
 === Experiments
 <sec:ssl:single_source:experiments>
 
+An initial series of experiments were conducted with apparently successful results.
+The following section was initially written to present this satisfying outcome.
+Unfortunately, we have discovered at a very late stage of the project a flaw in the experimental setup.
+The issue consists of a subtle behavior of the random generator used during the data collection.
+The entire dataset is first generated using a parallel implementation.
+Once generated, it is randomly split into two subsets: training and test datasets.
+Naturally, they are expected to be distinct, as the latter is used to evaluate the neural network's performance.
+Once the seed is set, the initial generation process is behaving in a deterministic manner.
+// TODO check
+A specificity of the Numpy random generator is that the initial state is the same for each separate thread.
+Hence, each thread generated the exact same sequence of training pairs, and the final dataset consisted of a concatenation of duplicated samples.
+This highly problematic error implied that numerous samples were shared between the train and test datasets.
+Hence, this explains the highly satisfying results of our approach.
+
+After fixing the bias in the dataset generation, the model's performance degraded significantly.
+We chose to nonetheless describe the methodology originally developed as well as the experiments we have conducted.
+
 ==== Metrics
 
 In this first formulation of the #acr("SSL") problem, each situation includes exactly one source to localize.
@@ -15,7 +32,7 @@ For this, we compute the average $ell^1$ angular pseudo-distance #d between $hat
 This measure will be referred to as the #acr("MAE"):
 #let mae-theta = $"MAE"_theta$
 $
-  #mae-theta = 1 / n_"test" sum_(i=1) ^  n_"test" #d (hat(theta)_i, theta_i)
+  #mae-theta = 1 / n_"test" sum_(i=1) ^ n_"test" #d (hat(theta)_i, theta_i)
 $ <eq:ssl:single_source:mae>
 where $n_"test"$ counts the number of samples in the test set.
 
@@ -54,12 +71,14 @@ To achieve this, two schemes were compared:
     lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
   $
   This form will be referred to as the Cartesian projection.
-#gaet[
-  The following is less accurate, but maybe enough and clearer. What do you prefer?
-  $
-    Z |-> lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
-  $
-]
+
+// TODO
+// #gaet[
+//   The following is less accurate, but maybe enough and clearer. What do you prefer?
+//   $
+//     Z |-> lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
+//   $
+// ]
 
 - The other method consists in using the polar form of the Fourier representation:
 $
@@ -67,12 +86,13 @@ $
   Z        & arrow.r.long.bar 
   lr((abs(Z), arg(Z)), size: #140%)
 $
-#gaet[
-  Same here,
-  $
-    Z |-> lr((abs(Z), arg(Z)), size: #140%)
-  $
-]
+// TODO
+//#gaet[
+//  Same here,
+//  $
+//    Z |-> lr((abs(Z), arg(Z)), size: #140%)
+//  $
+//]
 
 In both cases, a $C$-channel #acr("STFT") #shape("C","F","T") complex tensor translates to a to #shape("2C", "F", "T") real one.
 
