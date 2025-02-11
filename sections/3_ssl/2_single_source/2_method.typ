@@ -6,9 +6,9 @@
 
 ==== Custom dataset for #acr("SSL")
 <sec:ssl:single_source:method:dataset>
-#gaet[
-  This section is a mess and needs to be properly re-written along with its @sec:ssl:multi_source:method:dataset sibling.
-]
+//#gaet[
+//  This section is a mess and needs to be properly re-written along with its @sec:ssl:multi_source:method:dataset sibling.
+//]
 
 The objective of this study was to adapt State of the Art #acr("SSL") methods to diverse challenging setups.
 The audio simulator presented in @chap:simulator has been leveraged to generate various synthetic datasets to experiment with.
@@ -42,12 +42,13 @@ The speech source present in the room is considered to be omnidirectional and si
   Should we already warn about the limitations of this choice ? i.e. not very realistic
 ]
 
-#draft[
-  Mention that both source and microphones can be anywhere in the room.
-  Many papers restrict those much more (fixed mic. array, sources in a circle...)
-
-  Talk about the size (in GB) of the dataset
-]
+//TODO
+//#draft[
+//  Mention that both source and microphones can be anywhere in the room.
+//  Many papers restrict those much more (fixed mic. array, sources in a circle...)
+//
+//  Talk about the size (in GB) of the dataset
+//]
 
 
 
@@ -64,13 +65,9 @@ The speech source present in the room is considered to be omnidirectional and si
 ==== Microphone arrays
 <sec:ssl:single_source:method:mic_arrays>
 
-#gaet[
-  Do we move this in the global "acoustic" chapter/section ?
-]
-
 Several microphone arrays have been experimented in this study.
-Leveraging multiple microphones forming an array is essential.
-Geometric information is extracted from the differences between the signals received by each sensor.
+Leveraging multiple microphones to form an array is essential.
+Geometric information is extracted from the differences between the signals each sensor receives.
 Acoustic reverberation and the spatial configuration of the array lead to the apparition of exploitable patterns in the overall collected data.
 
 We present the following microphone array configurations that have been tested.
@@ -86,12 +83,10 @@ Their implementation has been integrated in our simulator (see @sec:simulator:si
 The number of microphones plays an important role in the #("SSL") performance.
 As an illustrative example, when having a binaural microphone in the free field, i.e. where the effects of reverberation can be neglected, there exist a fundamental limit:
 It is theoretically impossible to distinguish the two possible locations of the source.
-This phenomenon is known as the front-back ambiguity.
-#draft[TODO cite papers]
+This phenomenon is known as the front-back ambiguity and has been presented earlier in this chapter @sec:ssl:sota:classical_approaches.
 The latter can be cleared up by introducing relative movement or an additional microphone in the array.
 
-
-
+// TODO
 // Binaural
 // Triangle
 // Square
@@ -128,9 +123,11 @@ We have thus tested different configurations in our single-source #acr("SSL") ex
 ==== Audio post-processing
 <sec:ssl:single_source:method:audio_processing>
 
-The simulator allows to directly extract spectral representations from received signals.
-This section summarizes the explicit choices made regarding audio-processing for performing the #acr("SSL") task.
-Originally, the dataset is constituted by #draft[TODO]
+The simulator allows the extraction of spectral representations directly from received signals.
+This section summarizes the explicit choices made regarding audio processing for performing the #acr("SSL") task.
+//TODO
+//The Short Term Fourier transform is computed on short frames of 
+//Originally, the dataset is constituted by #draft[TODO]
 
 
 ==== Neural Network Architecture
@@ -167,10 +164,11 @@ More specifically, the presence of normalization layers has shown to enhance tra
 Interestingly, whether to place those normalization before or after the #acr("ReLU") in each convolutional block ended up mattering substantially.
 Albeit in some cases, similarly good performance was achieved #todo
 
-#gaet[
-  Should we say that the impact of the architecture (Relu vs ReLU+BN vs BN+ReLU vs ReLU+LN LN+ReLU) is laughingly HIGH ?
-  Should we include 
-]
+// TODO
+// #gaet[
+//   Should we say that the impact of the architecture (Relu vs ReLU+BN vs BN+ReLU vs ReLU+LN LN+ReLU) is laughingly HIGH ?
+//   Should we include 
+// ]
 
 
 ==== Loss function
