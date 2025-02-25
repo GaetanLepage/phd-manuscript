@@ -51,9 +51,8 @@ Alongside the multiple references cited in the following paragraphs, one may ref
 Notably, the active localization techniques dealing with moving sources and/or microphones will be presented in @chap:active_ssl in addition to our contribution to the topic.
 
 Before providing details on the various methods proposed to address SSL, we devote the next section to describe the variability in problem formulation and experimental settings. 
-Chronologically, the first steps were developed in simple settings, and scenarios of increasing complexity were proposed with the progress made.
-However, the next section is not structured chronologically, but by properties (simulated vs. real data, single vs. multi-source) for the sake of clarity.
-
+Chronologically, the first steps were developed in simple settings, and as progress was made, scenarios of increasing complexity were proposed.
+However, the next section is not structured chronologically but by properties (simulated vs. real data, single vs. multi-source) for clarity.
 
 === Variations in the Sound Source Localization task
 <sec:active_ssl:background:variations>
@@ -61,7 +60,7 @@ However, the next section is not structured chronologically, but by properties (
 Localizing sound sources is a vague objective, and the exact formulation of the problem varies broadly across the literature.
 
 *From simulated to real-world environments*
-First and foremost, the targetted acoustic environment can be of different nature.
+First and foremost, the targetted acoustic environment can be of different natures.
 Some methods are solely tested in a simulation where the fidelity to the real world is inherently imperfect.
 As motivated in @chap:simulator, simulation provides several benefits.
 In particular, it offers a cost-effective data source that is particularly relevant when using data-based approaches.
@@ -111,7 +110,19 @@ Furthermore, when considering angular-only #acr("SSL") systems, it is necessary 
 Although the #acr("DoA") is the most informative angle, elevation becomes important in more complex scenes or when there is a significant height difference between the microphone array and the sources.
 The detection format also varies across the literature, with methods producing Cartesian coordinates and others expressing the positions in polar or spherical coordinates.
 
-Those fundamental differences are not the only one.
+*Intermittency and nature of the sources*
+#acr("SSL") solutions make different assumptions on the target sources.
+First, the content of the source signals significantly affects the difficulty of the task.
+Initially, several approaches were restricted to localizing white-noise sources.
+Those have the particularity to have the same energy at each time and each frequency.
+Nevertheless, detecting more realistic speech sources has become the de facto framework for #acr("SSL").
+Some works still use white-noise data for training deep neural networks, but evaluate their solution using speech signals @nguyen_autonomous_2018 @deleforge_co-localization_2015.
+Similarly, assumptions on the continuity of the sources can vary across the literature.
+Dealing with intermittent sources is an additional difficulty that several approaches do not consider.
+In this regard, handling sources that may become inactive is linked with the capacity to localize an arbitrary number of sources.
+Naturally, assuming a pre-defined number of constantly active sources is easier and more common across the #acr("SSL") literature.
+
+Those fundamental differences are not the only ones.
 They highlight the diversity of existing approaches and show.
 Most importantly, we have seen that the #acr("SSL") task does not have a unique and clear definition.
 It refers to a complex problem that can be tackled with various difficulty levels.
@@ -140,7 +151,7 @@ This symmetry means that the #acr("TDoA") measurement alone cannot distinguish w
 Beamforming approaches focus on spatial filtering by steering the microphone array to maximize the energy from a specific direction.
 Methods such as the steered response power with phase transform (SRP-PHAT) are commonly employed to construct acoustic energy maps, identifying source directions as peaks in the map.
 Van Veen et al. @van_veen_beamforming_1988 provide a comprehensive overview of beamforming techniques, discussing their applications in spatial filtering and signal enhancement.
-The book by Brandstein et al. @brandstein_microphone_2001 gives a more in-depth exploration of microphone array signal processing.
+The book by Brandstein et al. @brandstein_microphone_2001 explores microphone array signal processing more in-depth.
 While effective in simple environments, beamforming techniques struggle with real-world conditions involving diffuse noise and multiple overlapping sources.
 
 Subspace methods such as #acr("MUSIC") @schmidt_multiple_1986 and #acr("ESPRIT") @roy_esprit-estimation_1989 rely on the decomposition of the microphone covariance matrix to estimate signal and noise subspaces.
@@ -152,7 +163,7 @@ These approaches combine statistical inference with signal sparsity in the time-
 Extensions to these models include Gaussian mixture regression for single and multi-source localization, highlighting their adaptability @deleforge_co-localization_2015 @deleforge_acoustic_2015.
 
 // Limitations of classical methods
-Classical #acr("SSL") methods exhibit several limitations despite their utility.
+Despite their utility, classical #acr("SSL") methods exhibit several limitations.
 Their reliance on simplifying assumptions, such as free-field propagation or the absence of significant noise and reverberation, restricts their real-world applicability @grumiaux_survey_2021. // TODO double-check
 Furthermore, many classical techniques fail to generalize across varying microphone array configurations and acoustic environments.
 Those shortcomings have catalyzed the development of data-driven techniques, particularly those leveraging deep learning.
@@ -307,6 +318,9 @@ However, identifying the position of currently speaking humans requires an #acr(
 This paragraph will take a closer look at the literature focusing on localization techniques in the context of robotics.
 Argentieri et al. @argentieri_survey_2015 provide an in-depth review of the state of the art as of 2014.
 Naturally, more recent works applying modern deep-learning-based techniques have not been discussed.
+For instance, Nguyen et al. @nguyen_autonomous_2018 designed a neural network to map audio features recorded by a binaural humanoid robot to relative source direction.
+The model is trained in a supervised fashion using white-noise.
+It is then tested in a realistic setup where the task is to localize speech sources.
 
 // Constraint related to robotics
 Robotics often brings additional challenges to the #acr("SSL") task.
@@ -336,8 +350,6 @@ Nguyen et al. @nguyen_autonomous_2018 have collected a dataset to train a #acr("
 
 // Using multi-modal information (audio-visual SSL)
 // -> Not directly related to our topic though
-
-// TODO: talk about HRTF
 
 //--------------------------------------
 // Challenges

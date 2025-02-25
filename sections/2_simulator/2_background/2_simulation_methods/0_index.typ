@@ -153,7 +153,7 @@ Especially in robotics, modeling moving humans and agents is an essential requir
 Historical techniques such as the #acr("ISM") solely account for a given static layout of the sources and sensors.
 The result of the #acr("ISM") process is a set of #acr("RIR") filters, one for each microphone-source pair.
 The resulting listened signal is computed by convolving the source's input signals with those filters.
-As soon as a source or microphone moves, the filters need to be recomputed.
+However, the filters must be recomputed as soon as a source or microphone moves.
 Chen et al. @chen_soundspaces_2020 pre-compute the #acr("RIR") filters for each attainable configuration of their simulated environment.
 This upfront computation moves the substantial simulation effort from training to a prior pre-processing step.
 #todo limitation has been explored in the literature in various ways.

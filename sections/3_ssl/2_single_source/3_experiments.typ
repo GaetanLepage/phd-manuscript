@@ -7,20 +7,20 @@
 
 An initial series of experiments were conducted with apparently successful results.
 The following section was initially written to present this satisfying outcome.
-Unfortunately, we have discovered at a very late stage of the project a flaw in the experimental setup.
+Unfortunately, we discovered a flaw in the experimental setup at a very late stage of the project.
 The issue consists of a subtle behavior of the random generator used during the data collection.
 The entire dataset is first generated using a parallel implementation.
 Once generated, it is randomly split into two subsets: training and test datasets.
 Naturally, they are expected to be distinct, as the latter is used to evaluate the neural network's performance.
 Once the seed is set, the initial generation process is behaving in a deterministic manner.
 // TODO check
-A specificity of the Numpy random generator is that the initial state is the same for each separate thread.
-Hence, each thread generated the exact same sequence of training pairs, and the final dataset consisted of a concatenation of duplicated samples.
+The specificity of the Numpy random generator is that the initial state is the same for each separate thread.
+Hence, each thread generated the same sequence of training pairs, and the final dataset consisted of a concatenation of duplicated samples.
 This highly problematic error implied that numerous samples were shared between the train and test datasets.
 Hence, this explains the highly satisfying results of our approach.
 
 After fixing the bias in the dataset generation, the model's performance degraded significantly.
-We chose to nonetheless describe the methodology originally developed as well as the experiments we have conducted.
+Nonetheless, we chose to describe the methodology initially developed and the experiments we conducted.
 
 ==== Metrics
 
@@ -147,7 +147,7 @@ The final observations fed into the network are #shape(4, 337, 32) for #acr("STF
 // TODO: Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
 @table:ssl:single_source:input_features summarizes the performance of the method when using the different kinds of input features.
 For each set of cues, we report the corresponding number of channels of the resulting tensor.
-On the one hand, a substantial difference in results arises between both complex-to-real #acr("STFT") polar and Cartesian mappings.
+On the one hand, both complex-to-real #acr("STFT") polar and Cartesian mappings yield substantially different results.
 Indeed, despite consisting in the same underlying data, those two representations do not offer the network the same ease to learn from.
 On the other hand, further processing the #acr("STFT") into the binaural features does not seem to bring any performance benefit.
 Unsurprisingly, what seems to matter the most is displaying phase-related information directly rather than indirectly.
@@ -228,8 +228,3 @@ $
 $
   #snr = 10 log_10 (E(S_"speech") / E(S_"noise"))
 $
-
-
-=== Conclusion
-
-// Limitations: single source (i.e., not more than one BUT ALSO always at least one)
