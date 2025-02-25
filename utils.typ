@@ -17,7 +17,7 @@
 #let flex-caption(long, short) = context { if in-outline.get() { short } else { long } }
 
 /* TABLES */
-#import "@preview/tablex:0.0.8": tablex, colspanx, hlinex, rowspanx
+#import "@preview/tablex:0.0.9": tablex, colspanx, hlinex, rowspanx
 #let toprule = hlinex(stroke: (thickness: 0.08em))
 #let bottomrule = toprule
 #let midrule = hlinex(stroke: (thickness: 0.05em))

@@ -15,7 +15,7 @@
 
 #outline(
   title: "Contents",
-  indent: true,
+  indent: auto,
   //depth: 2, // TODO
 )
 #outline(

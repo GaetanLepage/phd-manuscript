@@ -258,6 +258,19 @@ $
 $
 @fig:ssl:single_source:angular_dist_plot plots the value of #l-doa with respect to the value of $theta_2 - theta_1$.
 
+$
+  #l-doa (
+    hat(theta), theta
+  ) = 1 / n
+    sum_(i=1)^n
+    [
+       1 - (
+         sin(theta_i) sin(hat(theta)_i)
+         +  cos(theta_i) cos(hat(theta)_i)
+       )
+    ]
+$
+
 #figure(
   image("figures/angular_dist_loss.svg"),
   caption: flex-caption( [

@@ -49,7 +49,7 @@ $
 <eq:ssl:multi_source:acc>
 
 *Unknown number of sources.*
-Besides, the second task evaluates the ability of the model to accurately predict an unknown number of #acr("DoA") values.
+The second task also evaluates the model's ability to accurately predict an unknown number of #acr("DoA") values.
 Such a setup resembles a conventional single-class detection problem, such as present in the computer vision literature.
 In this case, the matching between ground truth #acr("DoA") angles $y_i = {phi.alt_(i j): j = 1, dots, z_i}$ and the predictions $hat(y)_i = {phi.alt_(i k): k = 1, dots, hat(z)_i}$ extracted by applying @eq:ssl:multi_source:decoding_unknown_sources might be incomplete, i.e. $hat(z)_i != z_i$.
 
@@ -123,12 +123,11 @@ $ <eq:ssl:multi_source:loss_function>
 //#gaet[This should go in the _Results_ section... maybe as well as this entire _Training strategy_ section]
 // Impact of BS and LR
 *Local minimum.*
-#draft[TODO: this is the motivation for trying the $epsilon$-loss initially].
 Several experiments were conducted to identify working hyperparameters for the proposed #acr("SSL") method.
 An interesting observation has been the impact of the learning rate batch size combination.
 Theoretically, a larger batch size leads to more accurate gradients and thus, more sensible parameter updates.
-This also allows for increasing the learning rate and reducing the number of overall training steps.
-In most cases, the acceleration hardware and its inherently finite memory capacity dictates the limit for the maximum usable batch size.
+This also allows for an increase in the learning rate and a reduction in overall training steps.
+In most cases, the acceleration hardware and its inherently finite memory capacity dictate the limit for the maximum usable batch size.
 However, in our situation, a different restraining factor has been observed.
 There exists a trivial local optimum for the #acr("SSL") task defined as a #acr("DoA") spatial spectrum regression.
 Indeed, because of the relative sparsity of the ground truth encoding, a method outputting a plain zero spectrum achieves a comparatively low loss.
@@ -262,9 +261,10 @@ The network has been trained according to the _scenario A_ presented above.
 We propose an original modification of the loss function.
 The motivation comes from the observation that the target #acr("DoA") spatial spectrum is sparse (see @fig:ssl:multi_source:doa_gt_encoding for instance).
 This causes the active part of the spectrum to have a limited impact on the gradients.
-As seen in @sec:ssl:multi_source:experiments:loss, we use a simple #acr("MSE") loss (@eq:ssl:multi_source:loss_function) for the cost function.
+As seen in previously, we use a simple #acr("MSE") loss (@eq:ssl:multi_source:loss_function) for the cost function.
 Hence, predicting high activation will be heavily penalized as it will statically correspond to false positives.
 However, predicting overall low values will not lead to high loss values as the ground truth spectrogram is primarily flat.
+This lead to the sub-optimal convergence phenomenon described in @sec:ssl:multi_source:experiments:loss.
 The naive #acr("MSE") loss does not prioritize the supervision in the active region of the spectrogram.
 We have attempted to circumvent this by more aggressively penalizing the sections of the spatial spectrum where sources are effectively present.
 

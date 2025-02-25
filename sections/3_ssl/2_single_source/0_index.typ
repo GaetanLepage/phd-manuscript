@@ -14,3 +14,11 @@ This section details the adopted deep-learning-based approach along with the tec
 #include "1_problem_statement.typ"
 #include "2_method.typ"
 #include "3_experiments.typ"
+
+
+=== Conclusion
+
+// TODO
+// Limitations: single source (i.e., not more than one BUT ALSO always at least one)
+Single-source localization is a fundamental problem of acoustics and plays an important role in robotics applications.
+//In this first 
