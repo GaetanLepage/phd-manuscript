@@ -54,3 +54,7 @@
     )
   }
 )
+
+// #canvas(length: 1cm, {
+//   plot.plot(size: (10, 3),
+// })

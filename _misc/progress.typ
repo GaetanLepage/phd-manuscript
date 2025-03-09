@@ -69,6 +69,8 @@
     - [ ] Check margins
     - [ ] Check all page breaks\
       $=>$ i.e. that nothing is incorrectly split across two subsequent pages.
+  - *Figures:*
+    - Change font in every figure to Helvetica
 ]
 
 #outline-colorbox(

@@ -237,7 +237,8 @@ $
 $ <eq:ssl:multi_source:doa_encoding>,
 where #d-prime is the following symmetric angle distance
 #footnote[
-  #d-prime is a simplified version of #d, introduced for single-source localization in @eq:ssl:single_source:angle_dist.
+  #d-prime is a simplified version of #d, introduced for single-source localization in //@eq:ssl:single_source:angle_dist.
+  #todo
   As input values always lay in the $[-pi, pi]$ interval, the outermost absolute value present in #d becomes unnecessary.
   On this interval, they coincide rigorously.
 ],
