@@ -174,90 +174,18 @@ Albeit in some cases, similarly good performance was achieved #todo
 ==== Loss function
 <sec:ssl:single_source:method:loss>
 
-This task of single-source #acr("SSL") boils down to a one-dimensional regression problem.
-The neural network comprises a single output neuron $hat(theta)$ expected to estimate the true value of $theta$.
-We will now present the loss function used during training.
+This single-source #acr("SSL") task boils down to a one or two-dimensional regression problem.
+The network is designed to eventually predict a scalar value for the #acr("DoA") and optionally an extra value for the source-microphone distance.
 
-*Angular distance.*
-First, consider the following symmetric angular pseudo-distance.
-Let $theta_1, theta_2 in RR$ two angle values expressed in radians.
-#func-def(
-  d,
-  $RR^2$,
-  $RR_+$,
-  $(theta_1, theta_2)$,
-  $
-    lr(
-      mabs(
-        pi - lr(
-          mabs(
-            mabs(theta_2 - theta_1)
-            - pi
-          )
-        )
-      )
-    )
-  $
-)
-<eq:ssl:single_source:angle_dist>
+*Angular loss.*
+While the distance case is straightforward, the #acr("DoA") estimation should be cautiously handled.
+Indeed, the #acr("DoA") lies in the $[-pi, pi]$ periodic interval.
+For instance, if the ground truth is $-3.1$ radians, then values close to either $-pi$ or $pi$ would be accurate predictions.
+A naive #acr("MSE") loss would wrongly penalize estimations close to $+pi$.
+We adopt a periodic loss for the #acr("DoA") to account for this specificity.
 
-#d is represented in blue in @fig:ssl:single_source:angular_dist_plot.
-
-On the $[-2pi, 2pi]$ interval, #d behaves like the conventional angular periodic distance.
-However, for values of $abs(theta_2 - theta_1) > 2pi$, the distance diverges to $+infinity$.
-The natural choice would have been to wrap #d in $[0, pi]$ by choosing:
-$
-  d'(theta_1, theta_2) :=
-    pi
-    - lr(mabs(
-        mabs(theta_2 - theta_1)colMath([2pi], #olive)
-        - pi
-      )
-    ).
-$
-Conversely, this pseudo-distance discourages the network from predicting high magnitudes values of $theta$ even though they would satisfy $theta approx hat(theta)[2pi]$.
-Empirically, this choice has shown no effect on neither the training process nor the final results.
-
-// TODO REMOVE
-// #draft[
-//   We have to properly discuss about the angle distances.
-//   This one goes to $+infinity$ when $abs(theta_2-theta_1) -> + infinity$.
-//   It has the benefit of taking into account the wrap at $abs(theta_2-theta_1) = plus.minus pi$ and $plus.minus 2 pi$, but diverges to enforce that the network predict angles $>> 2pi$
-//   $
-//     #d: #h(1cm) RR^2 & -->               RR_+\
-//     (theta_1, theta_2)        & arrow.r.long.bar  pi - lr(abs(abs(theta_2 - theta_1) - pi))
-//   $
-//   $
-//     #d: #h(1cm) RR^2 & -->               [0, pi]\
-//     (theta_1, theta_2)        & arrow.r.long.bar  pi - lr(abs(abs(theta_2 - theta_1)[2pi] - pi))
-//   $
-// ]
-// 
-// 
-// #draft[
-//   *The following should be removed:*
-//   #block(breakable: false)[
-//     The angular distance, defined as such, yields values wrapped in the $[-pi, pi]$ interval.
-//     
-//     Also, one should note that $d$ is antisymmetric, i.e. $forall (theta_1, theta_2) in RR^2$,
-//     $
-//       d(theta_1, theta_2) = -d(theta_2, theta_1)
-//     $
-//   ]
-// ]
-
-*Loss function.*
 Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #acr("DoA") angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
-The loss function expresses as
-$
-  #l-doa (
-    hat(theta), theta
-  ) = 1 / n
-    sum_(i=1)^n
-    d(hat(theta)_i, theta_i) ^ 2. // TODO should their be a period here ?
-$
-@fig:ssl:single_source:angular_dist_plot plots the value of #l-doa with respect to the value of $theta_2 - theta_1$.
-
+The loss function is expressed as
 $
   #l-doa (
     hat(theta), theta
@@ -271,23 +199,11 @@ $
     ]
 $
 
-#figure(
-  image("figures/angular_dist_loss.svg"),
-  caption: flex-caption( [
-    Plot of the angular pseudo-distance $colMath(d(theta_1, theta_2), #d-color)$
-    and the angular $ell^2$ loss $colMath(d(theta_1, theta_2)^2, #l-color)$
-    against $theta_2 - theta_1$
-  ],
-  [
-    Plot of the angular pseudo-distance
-    and the angular $ell^2$ loss
-  ])
-)
-<fig:ssl:single_source:angular_dist_plot>
+#include "figures/angular_loss.typ"
+@fig:ssl:single_source:angular_loss plots the value of $#l-doa (dot, hat(theta))$ for different values of $hat(theta)$.
+We use this loss function to train the neural network to output accurate #acr("DoA") values without suffering from boundary effects.
 
-
-The neural network is trained to minimize this objective.
-
+*Distance loss.*
 When the model additionally estimates the distance to the source, the natural #acr("MSE") loss is used to supervise the relevant output neuron:
 #let l-dist = $colMath(cal(L)_"dist", #maroon)$
 $
@@ -304,10 +220,63 @@ where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (ha
     cal(L)
      =
     #l-doa (hat(theta), theta)
-    + #l-dist (hat(D), D).
+    + kappa #l-dist (hat(D), D).
   $
   <eq:ssl:single_source:total_loss>
 ]
+$kappa$ balances the relative importance of the distance loss in the final result.
+
+#draft[
+  // @fig:ssl:single_source:angular_dist_plot plots the value of #l-doa with respect to the value of $theta_2 - theta_1$.
+  
+  #todo
+  // @fig:ssl:single_source:angular_dist_plot plots the value of #l-doa with respect to the value of $theta_2 - theta_1$.
+  
+  
+  The neural network comprises a single output neuron $hat(theta)$ expected to estimate the true value of $theta$.
+  We will now introduce the loss function used during training.
+
+  // Angular distance
+  
+//   #d is represented in blue in @fig:ssl:single_source:angular_dist_plot.
+  
+  On the $[-2pi, 2pi]$ interval, #d behaves like the conventional angular periodic distance.
+  However, for values of $abs(theta_2 - theta_1) > 2pi$, the distance diverges to $+infinity$.
+  The natural choice would have been to wrap #d in $[0, pi]$ by choosing:
+  $
+    d'(theta_1, theta_2) :=
+      pi
+      - lr(mabs(
+          mabs(theta_2 - theta_1)colMath([2pi], #olive)
+          - pi
+        )
+      ).
+  $
+  Conversely, this pseudo-distance discourages the network from predicting high magnitudes values of $theta$ even though they would satisfy $theta approx hat(theta)[2pi]$.
+  Empirically, this choice has shown no effect on neither the training process nor the final results.
+  
+
+  
+  //#figure(
+  //  image("figures/angular_dist_loss.svg"),
+  //  caption: flex-caption( [
+  //    Plot of the angular pseudo-distance $colMath(d(theta_1, theta_2), #d-color)$
+  //    and the angular $ell^2$ loss $colMath(d(theta_1, theta_2)^2, #l-color)$
+  //    against $theta_2 - theta_1$
+  //  ],
+  //  [
+  //    Plot of the angular pseudo-distance
+  //    and the angular $ell^2$ loss
+  //  ])
+  //)
+  //<fig:ssl:single_source:angular_dist_plot>
+  //
+  //
+  //The neural network is trained to minimize this objective.
+  
+]
+
+
 
 
 ==== Training strategy

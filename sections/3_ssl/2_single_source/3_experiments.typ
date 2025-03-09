@@ -28,7 +28,17 @@ In this first formulation of the #acr("SSL") problem, each situation includes ex
 
 *#acr("DoA") metric.*
 Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lies from the real #acr("DoA") value $theta$.
-For this, we compute the average $ell^1$ angular pseudo-distance #d between $hat(theta)$ and $theta$.
+
+
+We compute the average $ell^1$ angular distance #d between $hat(theta)$ and $theta$.
+As both the predicted and ground-truth #acr("DoA") values are constrained to the $[-pi, pi]$ interval.
+#func-def(
+  d,
+  $[-pi, pi]^2$,
+  $[0, 1]$,
+  $(theta_1, theta_2)$,
+  $abs(theta_2 - theta_1)$
+)
 This measure will be referred to as the #acr("MAE"):
 #let mae-theta = $"MAE"_theta$
 $
@@ -146,20 +156,20 @@ The final observations fed into the network are #shape(4, 337, 32) for #acr("STF
 
 // TODO: Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
 @table:ssl:single_source:input_features summarizes the performance of the method when using the different kinds of input features.
-For each set of cues, we report the corresponding number of channels of the resulting tensor.
+We report the corresponding number of channels of the resulting tensor for each set of cues.
 On the one hand, both complex-to-real #acr("STFT") polar and Cartesian mappings yield substantially different results.
-Indeed, despite consisting in the same underlying data, those two representations do not offer the network the same ease to learn from.
-On the other hand, further processing the #acr("STFT") into the binaural features does not seem to bring any performance benefit.
-Unsurprisingly, what seems to matter the most is displaying phase-related information directly rather than indirectly.
+Indeed, despite having the same underlying data, those two representations do not offer the network the same ease of learning from.
+On the other hand, further processing the #acr("STFT") into the binaural features does not seem to improve performance.
+Unsurprisingly, displaying phase-related information directly rather than indirectly seems to matter the most.
 Both the polar #acr("STFT") and interaural features explicitly contain this phase:
-The former as $arg(L)$ and $arg(R)$ on two distinct channels and the latter as the ratio $arg(L) / arg(R)$ on a single one.
-$L$ and $R$ denote the spectrograms from the left and right microphones respectively.
+The former by $arg(L)$ and $arg(R)$ on two distinct channels and the latter by the ratio $arg(L) / arg(R)$ on a single one.
+$L$ and $R$ denote the spectrograms from the left and right microphones, respectively.
 
-In order to further prove this hypothesis, an ablation study is performed.
+To further prove this hypothesis, an ablation study is performed.
 The objective involves showing whether phase-related features alone are sufficient to perform localization efficiently.
-Results are set out in the bottom half of @table:ssl:single_source:input_features.
+Results are in the bottom half of @table:ssl:single_source:input_features.
 They show that limiting the input information to phase information alone suffices to accurately estimate both the #acr("DoA") and distance values.
-Paradoxically, such a filtering of the input data even achieves results slightly better than the ones obtained when using the full features.
+Paradoxically, such filtering of the input data even achieves results slightly better than those obtained when using the full features.
 This further confirms that the rest of the features is fully redundant.
 
 Interestingly, solely using the #acr("ILD") matrix yields a promising #mae-theta of 2.39° which shows that our model manages to leverage the difference in amplitude between the two channels for performing localization.
