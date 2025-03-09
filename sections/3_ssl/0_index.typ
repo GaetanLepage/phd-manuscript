@@ -31,7 +31,9 @@ The empirical aspect of training deep neural networks leads to numerous experime
 This is essential to guarantee the reproducibility of the results, which is not guaranteed when stochastic approaches are used.
 Although numerous works have been tackling #acr("SSL") successfully, our attempts at this task have not been as encouraging.
 Our results are limited to simple acoustic scenarios in a simulated environment.
-Such efforts were made to understand the localization problem better and to develop a working solution.
+Such efforts were made to understand the localization problem better and develop a working solution.
 Unfortunately, several challenges have not been overcome, and the solutions that have been developed remain significantly flawed.
-Nonetheless, the overall experimentation framework developed and design during this project might still appear as a positive contribution.
-It should allow future research efforts to try different training approaches without the need to go through the expensive engineering task.
+Nonetheless, the overall experimentation framework developed and designed during this project might still be a positive contribution.
+Also, a particular attention was directed to extensive experimental campaigns.
+The influence of various aspects of #todo of the has been thoroughly studied in ablation .
+It should allow future research efforts to try different training approaches without going through the expensive engineering task.

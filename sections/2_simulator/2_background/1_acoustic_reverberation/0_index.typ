@@ -283,15 +283,19 @@ The term spectrogram can also refer directly to the complex-valued result of the
 *Motivation for using #acr("STFT") for reverberant signals.*
 
 The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 2.9.6) grants one of the Fourier transform's fundamental properties.
-It states that the Fourier transform of a convolution is the product of the Fourier transforms:
-$
-  cal(F)(f * g) = cal(F)(f) times cal(F)(g) \
-$
+#block(breakable: false)[
+  It states that the Fourier transform of a convolution is the product of the Fourier transforms:
+  $
+    cal(F)(f * g) = cal(F)(f) times cal(F)(g) \
+  $
+]
 <eq:simulator:conv_theorem>
-Additionally, the transform of a product is the convolution of the transforms:
-$
-  cal(F)(f times g) = cal(F)(f) * cal(F)(g)
-$
+#block(breakable: false)[
+  Additionally, the transform of a product is the convolution of the transforms:
+  $
+    cal(F)(f times g) = cal(F)(f) * cal(F)(g)
+  $
+]
 This result gives an intuitively compelling argument for using Fourier representations in problems involving reverberant environments.
 Indeed, the reverberation phenomenon can be modeled as the convolution of a source signal with the #acr("RIR") filter in the time domain.
 Hence, it translates into a product in the Fourier domain, making it easier to disentangle information from the raw signal from the listened one.

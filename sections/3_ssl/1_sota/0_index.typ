@@ -163,7 +163,7 @@ These approaches combine statistical inference with signal sparsity in the time-
 Extensions to these models include Gaussian mixture regression for single and multi-source localization, highlighting their adaptability @deleforge_co-localization_2015 @deleforge_acoustic_2015.
 
 // Limitations of classical methods
-Despite their utility, classical #acr("SSL") methods exhibit several limitations.
+Classical #acr("SSL") methods exhibit several limitations despite their utility.
 Their reliance on simplifying assumptions, such as free-field propagation or the absence of significant noise and reverberation, restricts their real-world applicability @grumiaux_survey_2021. // TODO double-check
 Furthermore, many classical techniques fail to generalize across varying microphone array configurations and acoustic environments.
 Those shortcomings have catalyzed the development of data-driven techniques, particularly those leveraging deep learning.
