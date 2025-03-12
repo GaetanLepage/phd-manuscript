@@ -113,6 +113,9 @@ The challenge of reverberant environments has not been considered in the methodo
 However, the authors do test their system in the presence of reverberation.
 Performance is shown to suffer from increasing the $T_60$.
 Working on the robustness of localization systems to reverberation is a key area for future improvement.
+Adavanne et al. @adavanne_localization_2019 handle the localization, detection and tracking of multiple sound sources.
+The framework is tested in both anechoic and reverberant environments.
+Using a #acr("CRNN") architecture, which successfully aggregates information over time, allowed for strong tracking performance.
 
 In conclusion, active #acr("SSL") has been a topic of interest in the robotic literature.
 Indeed, static localization approaches suffer from limitations such as the front-back ambiguity or distance non-observability.

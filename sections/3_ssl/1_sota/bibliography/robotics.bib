@@ -168,3 +168,30 @@ j
 	note = {{ISSN}: 2153-0866},
 	file = {IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/RWQNAG8U/6696919.html:text/html;PDF:/home/gaetan/.local/share/Zotero/storage/GUVZV5T4/Ishi et al. - 2013 - Using multiple microphone arrays and reflections for 3D localization of sound sources.pdf:application/pdf},
 }
+
+
+@article{mo_closer_2022,
+	title = {A Closer Look at Weakly-Supervised Audio-Visual Source Localization},
+	abstract = {Audio-visual source localization is a challenging task that aims to predict the location of visual sound sources in a video. Since collecting ground-truth annotations of sounding objects can be costly, a plethora of weakly-supervised localization methods that can learn from datasets with no bounding-box annotations have been proposed in recent years, by leveraging the natural co-occurrence of audio and visual signals. Despite significant interest, popular evaluation protocols have two major flaws. First, they allow for the use of a fully annotated dataset to perform early stopping, thus significantly increasing the annotation effort required for training. Second, current evaluation metrics assume the presence of sound sources at all times. This is of course an unrealistic assumption, and thus better metrics are necessary to capture the model’s performance on (negative) samples with no visible sound sources. To accomplish this, we extend the test set of popular benchmarks, Flickr {SoundNet} and {VGG}-Sound Sources, in order to include negative samples, and measure performance using metrics that balance localization accuracy and recall. Using the new protocol, we conducted an extensive evaluation of prior methods, and found that most prior works are not capable of identifying negatives and suffer from significant overfitting problems (rely heavily on early stopping for best results). We also propose a new approach for visual sound source localization that addresses both these problems. In particular, we found that, through extreme visual dropout and the use of momentum encoders, the proposed approach combats overfitting effectively, and establishes a new state-of-the-art performance on both Flickr {SoundNet} and {VGG}-Sound Source. Code and pre-trained models are available at https://github.com/{stoneMo}/{SLAVC}.},
+	author = {Mo, Shentong and Morgado, Pedro},
+	date = {2022},
+	langid = {english},
+	file = {PDF:/home/gaetan/.local/share/Zotero/storage/ZJMQJANX/Mo and Morgado - A Closer Look at Weakly-Supervised Audio-Visual Source Localization.pdf:application/pdf},
+}
+
+
+@inproceedings{narang_auditory-aware_2014,
+	title = {Auditory-aware navigation for mobile robots based on reflection-robust sound source localization and visual {SLAM}},
+	url = {https://ieeexplore.ieee.org/abstract/document/6974560?casa_token=ZQercpDVTFcAAAAA:NcHv9o8w_YNmkZN3Q3XdyFYlIFxQi9oCUmC3m2yWyQaA4WjS5a5mjn1OjJ5k2XctgS73DqNUjw},
+	doi = {10.1109/SMC.2014.6974560},
+	abstract = {Autonomous robot navigation using Simultaneous localization and mapping ({SLAM}) is essential for scene understanding by robots. Most existing systems use visual information, and even though such visual-based technologies are robust and useful for many situations, they have difficulty dealing with certain scenarios such as occluded goal or when the goal is out of frame. Introducing audio information to the navigation system solves these issues effectively. Several audio-based methods have been developed in the past to deal with these issues. However, these existing audio-based methods have been developed with the assumption that the space around the robot is open i.e. no sound reflection occurs. Hence, the invisible goals where the sound reflection can be localized have not been fully considered. This paper proposes a reflection-robust sound source localization method using visual {SLAM}. This method can deal with sound sources whose direct paths are not available, and using localization, we can set a goal only for the actual sound source. Also, to correct the drift present in the local estimates of Visual Odometry ({VO}), {SLAM} was integrated with the system, thus increasing the accuracy and robustness of mapping and navigation of our proposed method. The performance of the proposed system is compared to conventional methods, and it proves to be very efficient and robust especially in extremely reverberant situations. It was found that the integration of {VO} and {SLAM} improved the average error of a map by approximately 50 pts, and the accuracy of {SSL} for direct path of sounds was improved by approximately 8 pts. With the online implementation of these methods we successfully achieved audio visual navigation for the actual sound sources.},
+	eventtitle = {2014 {IEEE} International Conference on Systems, Man, and Cybernetics ({SMC})},
+	pages = {4021--4026},
+	booktitle = {2014 {IEEE} International Conference on Systems, Man, and Cybernetics ({SMC})},
+	author = {Narang, Gautam and Nakamura, Keisuke and Nakadai, Kazuhiro},
+	urldate = {2025-03-12},
+	date = {2014-10},
+	note = {{ISSN}: 1062-922X},
+	keywords = {Navigation, Robot kinematics, Robustness, Simultaneous localization and mapping, Three-dimensional displays, Visualization},
+	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/L7HHMK7P/Narang et al. - 2014 - Auditory-aware navigation for mobile robots based on reflection-robust sound source localization and.pdf:application/pdf;IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/A49RA8WV/6974560.html:text/html},
+}
