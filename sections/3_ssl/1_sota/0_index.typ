@@ -233,7 +233,10 @@ The ground-truth source and microphone positions are known from the start, and n
 Generating a dataset from an acoustic simulator does not require recording equipment and allows for collecting arbitrarily large amounts of data @srivastava_how_2023.
 Nonetheless, the real-world performance of networks trained on such datasets is generally lower than in simulation.
 Transferring those methods to the physical world is an important research area.
-For instance, some works such as #todo have fine-tuned their system on real-world recordings after an initial training phase on simulating data.
+For instance, some works such as Chakrabaty et al. @chakrabarty_broadband_2017, Grumiaux et al. @grumiaux_improved_2021 #todo have tested their system on real-world recordings after an initial training phase on synthetic data.
+Commonly, modern #acr("SSL") research combines both data sources.
+Inexpensive synthetic datasets are often used to train deep neural networks.
+Once trained, the performance of the obtained systems is evaluated in real scenarios using robotic heads, for instance #todo.
 Also, the simulation of moving sources remains an obstacle for simulation software.
 Publicly available acoustic datasets have been used to train or evaluate #acr("SSL") methods @cristoforetti_dirha_2014 @thiemann_multiple_2019.
 Finally, the #acr("DCASE") challenge @mesaros_decade_2024 has historically integrated a #acr("SELD") task.
@@ -290,7 +293,8 @@ Computing an absolute position would require additional knowledge about the envi
 Nonetheless, different relative coordinate systems are used.
 Choosing spherical or polar systems consists of predicting a #acr("DoA") value and, optionally, the elevation angle and/or the distance to the source.
 Alternatively, other works choose to write the estimated detections in Cartesian coordinates.
-The latter choice involves predicting the distance, too.
+The latter choice can involve predicting the distance, too.
+Adavanne et al. @adavanne_localization_2019 instead normalize their network's outputs so that estimated coordinates are restricted to the unit sphere.
 Additionally, some works can be further distinguished from the usual regression formulation of #acr("SSL").
 Specific approaches have framed the localization problem as a classification task where the system is expected to select a region of space instead of producing one or more scalar values.
 
@@ -313,6 +317,9 @@ For instance, human-robot interaction can be enhanced by having the agent adjust
 A robot that is able to locate other sound sources accurately can also adjust its navigation policy to take advantage of this knowledge.
 Robot navigation is likewise complex and often relies on multi-modal perception.
 LIDAR, or depth information, allows the robot to localize itself and other potentially moving subjects in the environment.
+Visual information has also been used to perform #acr("SSL") @mo_closer_2022.
+Regarding robotics, Naranag et al. @narang_auditory-aware_2014 have combined a sound source localizer with a visual #acr("SLAM") system for performing auditory-aware navigation.
+Using both modalities helped improve overall performance, including the #acr("SSL") accuracy itself.
 // TODO citations
 However, identifying the position of currently speaking humans requires an #acr("SSL") method.
 This paragraph will take a closer look at the literature focusing on localization techniques in the context of robotics.
@@ -331,13 +338,13 @@ Furthermore, to be relevant, a robotic system must operate in real-time.
 Contrary to some offline techniques, which can rely on computationally expensive techniques, #acr("SSL") methods are considerably constrained.
 Additionally, #acr("SSL") is generally the first block of multi-step acoustic pipelines.
 For instance, Asano et al. @asano_real-time_2001 combine a localization block, the results of which are used to separate the speech signal from ambient noise.
-The cleaned audio is finally processed by an online #acr("ASR") system.
-Nakadai et al. designed advanced systems for doing localization on actual robotics systems @nakadai_real-time_2002 @nakadai_applying_2003.
+An online #acr("ASR") system finally processes the cleaned audio.
+Nakadai et al. designed advanced systems for localization on actual robotics systems @nakadai_real-time_2002 @nakadai_applying_2003.
 Argentieri et al. @argentieri_survey_2015 differentiate two categories of robotic acoustic frameworks.
 On the one hand, binaural setups try to model human hearing.
 Experimentation platforms involve a robotic head with one microphone on each side.
 #reset-acronym("HRTF")
-The #acr("HRTF") models how the recorded signals are impacted by the physical head between the two microphones.
+The #acr("HRTF") models how the physical head between the two microphones impacts the recorded signals.
 It can be measured in an anechoic environment @algazi_cipic_2001 @wierstorf_free_2011 or simulated @otani_fast_2006.
 On the other hand, efforts have been made to use more than two microphones.
 Li. @li_estimation_2015 estimate the transfer function from recorded signals and use this information to localize a sound source with a real robotic head.
@@ -365,7 +372,7 @@ Many limitations of the classical methods were circumvented thanks to the expres
 Current research efforts try to optimize and enhance those data-based approaches by making them more efficient, robust, and performant.
 The design of network architectures and pre-processing pipelines are examples of amelioration axes for such systems.
 Despite its utility, #acr("SSL") remains a complex problem due to real-world constraints.
-Deep learning-based SSL methods often require large, annotated datasets and face difficulties in generalizing across unseen environments and array geometries.
+Deep learning-based #acr("SSL") methods often require large, annotated datasets and face difficulties in generalizing across unseen environments and array geometries.
 Issues such as scalability in multi-source settings and real-time processing constraints further underline the need for ongoing innovation.
 Also, robotics is a vibrant application of #acr("SSL") systems, putting them in challenging environments.
 In conclusion, #acr("SSL") research continues to evolve, balancing the precision of classical methods with the adaptability and robustness of modern deep learning techniques.

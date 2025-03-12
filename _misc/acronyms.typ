@@ -25,6 +25,7 @@
   "MKF": ("mixture Kalman filter"),
   "NLP": ("Natural Language Processing"),
   "RMSE": ("Root Mean Square Error"),
+  "SLAM": ("Simultaneous Localization And Mapping"),
   
   // -----------------------------------------------------------------------------
   // Deep Learning

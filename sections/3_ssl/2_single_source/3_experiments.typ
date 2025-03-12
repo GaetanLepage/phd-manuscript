@@ -28,9 +28,15 @@ In this first formulation of the #acr("SSL") problem, each situation includes ex
 
 *#acr("DoA") metric.*
 Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lies from the real #acr("DoA") value $theta$.
+As the network predicts the sine and cosine of $theta$, the #acr("DoA") value is first computed following:
+$
+  hat(theta) = op("atan2")(sin(hat(theta)), cos(hat(theta)))
+  = arg(
+    cos(hat(theta)) + i sin(hat(theta))
+  )
+$
 
-
-We compute the average $ell^1$ angular distance #d between $hat(theta)$ and $theta$.
+We then compute the average $ell^1$ angular distance #d between $hat(theta)$ and $theta$.
 As both the predicted and ground-truth #acr("DoA") values are constrained to the $[-pi, pi]$ interval.
 #func-def(
   d,
@@ -40,7 +46,6 @@ As both the predicted and ground-truth #acr("DoA") values are constrained to the
   $abs(theta_2 - theta_1)$
 )
 This measure will be referred to as the #acr("MAE"):
-#let mae-theta = $"MAE"_theta$
 $
   #mae-theta = 1 / n_"test" sum_(i=1) ^ n_"test" #d (hat(theta)_i, theta_i)
 $ <eq:ssl:single_source:mae>
@@ -49,7 +54,6 @@ where $n_"test"$ counts the number of samples in the test set.
 
 *Source-array distance metric.*
 When predicting the source-array distance, the #acr("MAE") is also used, here between predicted $hat(D)$ values and ground truth $D$:
-#let mae-dist = $"MAE"_D$
 $
   #mae-dist = 1 / n_"test" sum_(i=1) ^ n_"test"
   abs(hat(D)_i - D_i)
@@ -59,9 +63,24 @@ $ <eq:ssl:single_source:dist_metricc>
 The choice of the #acr("MAE") as performance criteria has the advantage of being expressed in length units.
 For clarity reasons, the values for this metrics will be displayed in centimeters (cm).
 
-/* METRICS HEADERS (for tables) */
-#let mae-theta-header = mae-theta + " (°) " + sym.arrow.b
-#let mae-dist-header = mae-dist + " (cm) " + sym.arrow.b
+
+==== Base solution and general methodology
+
+The goal
+#todo
+
+- The goal is to compare different factors and see their influence on the performance
+- Describe the base scenario (binaural, )
+- It does not give the best performance, but it is not the point
+- Single room (not different sizes)
+- General methodology: isolate a parameter and study its impact.
+  - Several repetitions per experiment. We take the best result
+
+
+==== Microphone arrays and layouts
+
+#include "tables/arrays.typ"
+
 
 ==== Impact of input signal representation
 
@@ -72,7 +91,7 @@ Here, the sensors consist in a binaural microphone array of two omnidirectional 
 In this work, we focus on time-frequency representations.
 Adaptations of 2D convolutions to complex tensors do exist and have already been used in the #acr("SSL") literature.
 Krause et al. @krause_comparison_2021 present this variation along with its benefits (Section II.B).
-Here, however, regular 2D convolutions have been employed and the complex-valued #acr("STFT") needed to be converted to real values.
+However, regular 2D convolutions have been employed in the present work, and the complex-valued #acr("STFT") needed to be converted to real values.
 To achieve this, two schemes were compared:
 - On the one hand, both the real and imaginary parts of the complex data can populate the two real resulting matrices:
   $
@@ -82,84 +101,58 @@ To achieve this, two schemes were compared:
   $
   This form will be referred to as the Cartesian projection.
 
-// TODO
-// #gaet[
-//   The following is less accurate, but maybe enough and clearer. What do you prefer?
-//   $
-//     Z |-> lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
-//   $
-// ]
-
 - The other method consists in using the polar form of the Fourier representation:
 $
   phi_"polar": #h(1cm) CC^(F times T) & -->               RR^(2 times F times T)\
   Z        & arrow.r.long.bar 
   lr((abs(Z), arg(Z)), size: #140%)
 $
-// TODO
-//#gaet[
-//  Same here,
-//  $
-//    Z |-> lr((abs(Z), arg(Z)), size: #140%)
-//  $
-//]
 
 In both cases, a $C$-channel #acr("STFT") #shape("C","F","T") complex tensor translates to a to #shape("2C", "F", "T") real one.
 
-Besides raw #acr("STFT") values, interaural features, presented in @sec:simulator:background:spectral-features, have been widely used in the #acr("SSL") literature (#draft[TODO add citations]).
+Besides raw #acr("STFT") values, interaural features, presented in @sec:simulator:background:spectral-features, have been widely used in the #acr("SSL") literature @nguyen_autonomous_2018, @sivasankaran_keyword_2018 @youssef_learning-based_2013.
 Binaural representations have been explicitly designed to highlight geometric information relevant to localization.
 Hence, and for the sake of exhaustivity, those cues have also been tested.
 This comparison employs a binaural array which allows to trivially compute #acr("ILD") and #acr("IPD") from the two #acr("STFT") arrays.
 
-Importantly, in this case, the number of resulting channels in the processed data remains two.
-Both #acr("ILD") and #acr("IPD") take real values and there thus do not lead to doubling the number of channels.
+Importantly, the number of resulting channels in the processed data remains two in this case.
+The interaural tensor $cal(I) in RR^(C, F, T)$ amounts to:
+$
+  cal(I) = mat(
+      "ILD"(m_1, m_2);
+      "IPD"(m_1, m_2)
+  )
+$
+Both #acr("ILD") and #acr("IPD") take real values, which does not lead to doubling the number of channels.
+When dealing with arrays having more than two microphones, we compute the interaural features for successive and overlapping microphone pairs.
+#block(breakable: false)[
+  For an array with microphones ${m_1, dots, m_k}$, the interaural features is expressed as:\
+  $quad forall i in [|1, C|]$,
+  $
+    cal(I)[i] = cases(
+      "IPD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 0,
+      "ILD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 1
+    )
+  $
+]
+When using a single interaural feature, and not both #acr("ILD") and #acr("IPD"), the coefficients of $cal(I)$ become:
+$
+  cal(I)[i] = "IPD"(m_i, m_((i+1) equiv C))
+$
 
-The final observations fed into the network are #shape(4, 337, 32) for #acr("STFT") features and #shape(2, 337, 32) for interaural features.
+To measure the impact of the input representation, we run the training process with each aforementioned encoding choice.
+The number of channels depends on the selected method and varies from 1 to 4.
 
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 4,
-    header-rows: 1,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
-    [],
-    [Number of channels],
-    [#mae-theta-header],
-    [#mae-dist-header],
-    
-    midrule,
-
-    // ROWS
-    [Interaural (#acr("ILD")/#acr("IPD"))],     [2], [1.90],    [3.87],
-    [#acr("STFT") (Cartesian)],                 [4], [9.90],    [18.29],
-    [#acr("STFT") (polar)],                     [4], [2.22],    [3.98],
-    midrule,
-    [#acr("ILD") only],                         [1], [2.39],    [4.91],
-    [#acr("IPD") only],                         [1], [*1.83*],  [*3.81*],
-    [#acr("STFT") magnitude only],              [2], [14.73],   [22.68],
-    [#acr("STFT") phase only],                  [2], [1.91],    [3.90],
-    
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    #acr("SSL") performance depending on the input features
-  ]
-) <table:ssl:single_source:input_features>
+#include "tables/input_features.typ"
 
 
 // TODO: Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
-@table:ssl:single_source:input_features summarizes the performance of the method when using the different kinds of input features.
-We report the corresponding number of channels of the resulting tensor for each set of cues.
+@table:ssl:single_source:input_features summarizes the method's performance when using different input features.
+We report the corresponding channel dimension of the resulting tensor for each set of cues.
 On the one hand, both complex-to-real #acr("STFT") polar and Cartesian mappings yield substantially different results.
 Indeed, despite having the same underlying data, those two representations do not offer the network the same ease of learning from.
 On the other hand, further processing the #acr("STFT") into the binaural features does not seem to improve performance.
+#todo (faux):
 Unsurprisingly, displaying phase-related information directly rather than indirectly seems to matter the most.
 Both the polar #acr("STFT") and interaural features explicitly contain this phase:
 The former by $arg(L)$ and $arg(R)$ on two distinct channels and the latter by the ratio $arg(L) / arg(R)$ on a single one.
@@ -173,7 +166,7 @@ Paradoxically, such filtering of the input data even achieves results slightly b
 This further confirms that the rest of the features is fully redundant.
 
 Interestingly, solely using the #acr("ILD") matrix yields a promising #mae-theta of 2.39° which shows that our model manages to leverage the difference in amplitude between the two channels for performing localization.
-Those results are however less consistent across several runs than the ones using #acr("IPD") or the phase of the #acrpl("STFT").
+However, those results are less consistent across several runs than the ones using #acr("IPD") or the phase of the #acrpl("STFT").
 Lastly, providing the only magnitude of the #acrpl("STFT") does not lead to comparable performance with a #mae-theta of 14.73 at best.
 
 Considering their satisfying results, the interaural features will be kept as the baseline method for the rest of the study.
@@ -184,39 +177,8 @@ Considering their satisfying results, the interaural features will be kept as th
 #acr("SSL") methods leverage the inter-channel differences present in the time-frequency input data to infer the source position.
 Those variations, theoretically discussed in @sec:simulator:background:spectral-features
 
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 3,
-    header-rows: 1,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
-    [$T_60$],
-    [#mae-theta-header],
-    [#mae-dist-header],
-    
-    midrule,
+#include "tables/reverb.typ"
 
-    // ROWS
-    [100ms],  [1.25], [2.30],
-    [200ms],  [2.21], [3.67],
-    [300ms],  [3.23], [4.83],
-    [500ms],  [1.90], [3.67],
-    [1s],     [2.62], [4.67],
-    [2s],     [2.25], [4.33],
-    
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    Reverberation impact on #acr("SSL") performance
-  ]
-)
 
 
 ==== Sound Source Localization in noisy environments
