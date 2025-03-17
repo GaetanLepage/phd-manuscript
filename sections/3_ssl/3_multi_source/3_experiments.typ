@@ -208,39 +208,7 @@ Once the network successfully learns that it should output a zero-vector for tho
 Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to properly localize them.
 @table:ssl:multi_source:experiments:n_sources_train displays the final performance of models trained on datasets corresponding to each scenario.
 
-#figure(
-  tablex(
-    // SETTINGS
-    columns: 3,
-    header-rows: 1,
-    align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
-    
-    // HEADER
-    toprule,
-
-    [],
-    [Dataset A],
-    [Dataset B],
-    
-    midrule,
-
-    // ROWS
-    header-mae,     [9.13],  [14.05],
-    header-acc,     [71.36], [61.76],
-    header-prec,    [80.98], [76.96],
-    header-recall,  [69.26], [58.53],
-
-    bottomrule
-  ),
-  placement: top,
-  kind: table,
-  caption: [
-    #acr("SSL") performance when trained with different number of sources
-  ]
-)
-<table:ssl:multi_source:experiments:n_sources_train>
+#include "tables/n_sources_train.typ"
 
 One should note that both training and test datasets are different.
 The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
@@ -251,7 +219,7 @@ The rest of the experiments have been conducted with respect to _Scenario A_, fo
 For understanding the impact of the number of concurrent sources in the room on performance, we have evaluated a given network in various scenarios.
 The network has been trained according to the _scenario A_ presented above.
 
-#include "figures/table_n_sources.typ"
+#include "tables/n_sources.typ"
 
 // TODO: make a comparison between performance achieved on single-source SSL.\
 // I guess that this 2° MAE is quite close from what the single-source SSL will give.
@@ -277,7 +245,7 @@ $ <eq:ssl:multi_source:epsilon_loss>
 
 // TODO: maybe add plots of the loss
 
-#include "figures/table_epsilon_loss.typ"
+#include "tables/epsilon_loss.typ"
 
 @table:ssl:multi_source:experiments:epsilon_loss summarizes the performance of our model after being trained with the $epsilon$-loss.
 More precisely, we compare different values of $epsilon$ to better measure its influence on performance.
@@ -403,7 +371,7 @@ This constitutes an essential limitation of batch normalization in this case as 
 @table:ssl:multi_source:experiments:normalization displays the influence of the batch size on the performance of the network trained with #acr("BN").
 
 
-#include "figures/table_normalization.typ"
+#include "tables/normalization.typ"
 
 
 Those results depicts the positive role played by larger batch sizes for evaluation in _training mode_.
@@ -472,7 +440,7 @@ Very few false positives are observed, as confirmed by the several quantitative 
 However, individual sources are sometimes missed, maybe because they were not active enough at this specific time.
 This drawback gets offset by leveraging the overall consistency of the method over a longer time.
 
-#include "figures/table_context_length.typ"
+#include "tables/context_length.typ"
 
 In order to further characterize this behavior, we have executed an exhaustive performance evaluation of the sequence processing workflow.
 @table:ssl:multi_source:experiments:context_length summarizes the results from the conducted experiments.
@@ -535,7 +503,7 @@ To empirically study the impact of #delta-t on the #acr("SSL") performance, the 
 Each test dataset ensures that it respects a lower bound #tau-doa such that $#delta-t >= #tau-doa$ for all samples.
 Also, the number of sources is fixed to $n_s = 4$ to best isolate the influence of #delta-t on the results.
 
-#include "figures/table_min_doa.typ"
+#include "tables/min_doa.typ"
 
 @fig:ssl:multi_source:experiments:doa_min_dist_hist_2 plots the distribution of #delta-t of all four test datasets.
 

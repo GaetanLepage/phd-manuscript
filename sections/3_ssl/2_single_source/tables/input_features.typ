@@ -2,20 +2,20 @@
 #import "utils.typ": *
 
 #figure(
-  tablex(
+  table(
     // SETTINGS
     columns: 3,
-    header-rows: 1,
     align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
+    stroke: none,
     
     // HEADER
     toprule,
-    [],
-    [Number of channels],
-    [#mae-theta-header],
-    //[#mae-dist-header],
+    table.header(
+      [],
+      [Number of channels],
+      [#mae-theta-header],
+      //[#mae-dist-header],
+    ),
     
     midrule,
 
@@ -29,7 +29,7 @@
     [#acr("STFT") magnitude only],              [2], [#todo],
     [#acr("STFT") phase only],                  [2], [#todo],
     
-    bottomrule
+    bottomrule,
   ),
   placement: top,
   kind: table,

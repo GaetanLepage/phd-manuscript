@@ -5,22 +5,28 @@
 === Experiments
 <sec:ssl:single_source:experiments>
 
-An initial series of experiments were conducted with apparently successful results.
-The following section was initially written to present this satisfying outcome.
-Unfortunately, we discovered a flaw in the experimental setup at a very late stage of the project.
-The issue consists of a subtle behavior of the random generator used during the data collection.
-The entire dataset is first generated using a parallel implementation.
-Once generated, it is randomly split into two subsets: training and test datasets.
-Naturally, they are expected to be distinct, as the latter is used to evaluate the neural network's performance.
-Once the seed is set, the initial generation process is behaving in a deterministic manner.
-// TODO check
-The specificity of the Numpy random generator is that the initial state is the same for each separate thread.
-Hence, each thread generated the same sequence of training pairs, and the final dataset consisted of a concatenation of duplicated samples.
-This highly problematic error implied that numerous samples were shared between the train and test datasets.
-Hence, this explains the highly satisfying results of our approach.
+This section presents a collection of experimental results on #acr("SSL") performance.
+This study's objective is to understand the influence of certain parameters on the difficulty of the #acr("SSL") task.
+For this purpose, a baseline solution and scenario are described and will serve as a reference point for the tested variations.
+First, the general testing methodology and metrics will be presented.
+The actual experimental results, including quantitative results, will follow.
 
-After fixing the bias in the dataset generation, the model's performance degraded significantly.
-Nonetheless, we chose to describe the methodology initially developed and the experiments we conducted.
+// An initial series of experiments were conducted with apparently successful results.
+// The following section was initially written to present this satisfying outcome.
+// Unfortunately, we discovered a flaw in the experimental setup at a very late stage of the project.
+// The issue consists of a subtle behavior of the random generator used during the data collection.
+// The entire dataset is first generated using a parallel implementation.
+// Once generated, it is randomly split into two subsets: training and test datasets.
+// Naturally, they are expected to be distinct, as the latter is used to evaluate the neural network's performance.
+// Once the seed is set, the initial generation process is behaving in a deterministic manner.
+// // TODO check
+// The specificity of the Numpy random generator is that the initial state is the same for each separate thread.
+// Hence, each thread generated the same sequence of training pairs, and the final dataset consisted of a concatenation of duplicated samples.
+// This highly problematic error implied that numerous samples were shared between the train and test datasets.
+// Hence, this explains the highly satisfying results of our approach.
+// 
+// After fixing the bias in the dataset generation, the model's performance degraded significantly.
+// Nonetheless, we chose to describe the methodology initially developed and the experiments we conducted.
 
 ==== Metrics
 
@@ -66,6 +72,7 @@ For clarity reasons, the values for this metrics will be displayed in centimeter
 
 ==== Base solution and general methodology
 
+In order to have a 
 The goal
 #todo
 
