@@ -3,22 +3,21 @@
 
 // Same training with different number of sources
 #figure(
-  tablex(
+  table(
     // SETTINGS
     columns: 5,
-    header-rows: 1,
+    stroke: none,
     align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
     
     // HEADER
     toprule,
-
-    [],
-    header-mae,     
-    header-acc,     
-    header-prec,        
-    header-recall,  
+    table.header(
+      [],
+      header-mae,     
+      header-acc,     
+      header-prec,        
+      header-recall,  
+    ),
     
     midrule,
 
@@ -30,7 +29,7 @@
     [Scenario A\ (0-4 sources)], [9.13],   [71.36],  [80.99],  [69.26], 
     [Scenario B\ (1-4 sources)], [15.24], [60.52], [76.73], [57.36],
 
-    bottomrule
+    bottomrule,
   ),
   placement: top,
   kind: table,

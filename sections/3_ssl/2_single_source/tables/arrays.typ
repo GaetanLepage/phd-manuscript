@@ -2,21 +2,21 @@
 #import "utils.typ": *
 
 #figure(
-  tablex(
+  table(
     // SETTINGS
     columns: 4,
-    header-rows: 1,
     align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
+    stroke: none,
     
     // HEADER
     toprule,
-    [],
-    [Number of microphones],
-    [microphone pattern],
-    [#mae-theta-header],
-    //[#mae-dist-header],
+    table.header(
+      [],
+      [Number of microphones],
+      [microphone pattern],
+      [#mae-theta-header],
+      //[#mae-dist-header],
+    ),
     
     midrule,
 
@@ -27,7 +27,7 @@
     [Triangle],                       [3], [cardioid],        [5.15],
     [Square],                         [4], [omnidirectional], [3.8],
     
-    bottomrule
+    bottomrule,
   ),
   placement: top,
   kind: table,

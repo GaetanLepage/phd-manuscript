@@ -5,19 +5,19 @@
 #set text(size: 10pt)
 
 #figure(
-  tablex(
+  table(
     // SETTINGS
     columns: 3,
     align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
     
     // HEADER
     toprule,
 
-    [Backbone training strategy],
-    header-wer,
-    header-reward,
+    table.header(
+      [Backbone training strategy],
+      header-wer,
+      header-reward,
+    ),
 
     midrule,
 
@@ -25,7 +25,7 @@
     [Pretraining + finetuning], [#todo], [#todo],
     [Pretraining + frozen], [#todo], [#todo],
 
-    bottomrule
+    bottomrule,
   ),
   placement: top,
   kind: table,

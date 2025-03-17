@@ -3,22 +3,22 @@
 
 
 #figure(
-  tablex(
+  table(
     // SETTINGS
     columns: 5,
-    header-rows: 1,
+    stroke: none,
     align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
     
     // HEADER
     toprule,
 
-    [$tau_"DoA"$ (°)],
-    header-mae,     
-    header-acc,     
-    header-prec,        
-    header-recall,  
+    table.header(
+      [$tau_"DoA"$ (°)],
+      header-mae,     
+      header-acc,     
+      header-prec,        
+      header-recall,  
+    ),
     
     midrule,
 
@@ -31,7 +31,7 @@
     [10], [*21.81*],  [52.64],    [72.10],    [52.82],
     [20], [21.56],    [*57.17*],  [71.68],    [*57.38*],
 
-    bottomrule
+    bottomrule,
   ),
   placement: top,
   kind: table,
