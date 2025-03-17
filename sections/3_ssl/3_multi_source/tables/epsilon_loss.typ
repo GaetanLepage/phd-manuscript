@@ -2,22 +2,21 @@
 #import "../_notations.typ": *
 
 #figure(
-  tablex(
+  table(
     // SETTINGS
     columns: 5,
-    header-rows: 1,
+    stroke: none,
     align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
     
     // HEADER
     toprule,
-
-    [],
-    header-mae,     
-    header-acc,     
-    header-prec,        
-    header-recall,  
+    table.header(
+      [],
+      header-mae,     
+      header-acc,     
+      header-prec,        
+      header-recall,  
+    ),
     
     midrule,
     
@@ -29,7 +28,7 @@
     [$epsilon=0.6$],  [8.32],   [71.60],   [76.94],   [69.88],
     [$epsilon=1.0$],  [8.49],   [71.38],   [76.87],   [69.61],
 
-    bottomrule
+    bottomrule,
   ),
   placement: top,
   kind: table,

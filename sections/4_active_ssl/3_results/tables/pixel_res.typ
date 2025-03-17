@@ -2,29 +2,28 @@
 #import "utils.typ": *
 
 #figure(
-  tablex(
+  table(
     // SETTINGS
     columns: 6,
-    header-rows: 2,
+    stroke: none,
     align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
     
     // HEADER
     toprule,
 
-    rowspanx(2)[pixel resolution],
-    //colspanx(2)[#align(center)[$hat(o)_t$]],
-    header-pred-spectrum,
-    [#h(1em)],
-    header-gt-spectrum,
-
-    (),
-    header-prec,        
-    header-recall,  
-    [],
-    header-prec,        
-    header-recall,  
+    table.header(
+      table.cell(rowspan: 2)[pixel resolution],
+      //colspanx(2)[#align(center)[$hat(o)_t$]],
+      header-pred-spectrum,
+      [#h(1em)],
+      header-gt-spectrum,
+  
+      header-prec,        
+      header-recall,  
+      [],
+      header-prec,        
+      header-recall,  
+    ),
     
     midrule,
 

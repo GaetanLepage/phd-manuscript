@@ -2,19 +2,19 @@
 #import "utils.typ": *
 
 #figure(
-  tablex(
+  table(
     // SETTINGS
     columns: 2,
-    header-rows: 1,
+    stroke: none,
     align: left + horizon,
-    auto-vlines: false,
-    auto-hlines: false,
     
     // HEADER
     toprule,
-    [$T_60$],
-    [#mae-theta-header],
-    //[#mae-dist-header],
+    table.header(
+      [$T_60$],
+      [#mae-theta-header],
+      //[#mae-dist-header],
+    ),
     
     midrule,
 
@@ -27,7 +27,7 @@
     [900ms],  [24.71],
     [1s],     [#todo],
     
-    bottomrule
+    bottomrule,
   ),
   placement: top,
   kind: table,

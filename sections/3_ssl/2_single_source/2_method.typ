@@ -108,12 +108,13 @@ We have thus tested different configurations in our experiments.
 <sec:ssl:single_source:method:audio_processing>
 
 The simulator allows the extraction of spectral representations directly from received signals.
-The observations are stored in the dataset in the form of multichannel complex #acrpl("STFT").
-These complex tensors are not fed directly in the neural network but are instead further processed.
+The observations are stored in the dataset as multichannel complex #acrpl("STFT").
+These complex tensors are not fed directly in the neural network but are further processed.
 The role of this step is to convert the complex spectral observation to a real-valued tensor.
 Several methods have been tested and compared.
+The experimental section summarizes our findings regarding their respective performance.
 #gaet[
-  Maybe we should move the detailed explanations from the corresponding 'experiemnts' section to here.
+  Maybe we should move the detailed explanations from the corresponding 'experiments' section to here.
   And only leave the "results" there.
 ]
 //This section summarizes the explicit choices made regarding audio processing for performing the #acr("SSL") task.
@@ -128,11 +129,11 @@ Several methods have been tested and compared.
 
 As demonstrated in @sec:ssl:sota:deep_learning, deep neural networks are flexible and effective as building blocks for an #acr("SSL") solution.
 We focused in this work on a simple architecture that takes some representation of the listened audio signal as its only input.
-At the other end, this network is trained to infer the #acr("DoA") value $theta$ and optionally the distance $D$ from the single speech source present in the room.
+At the other end, this network is trained to infer the #acr("DoA") value $theta$ and optionally the distance $D$ from the single speech source in the room.
 Our model is trained in a supervised fashion using some custom datasets presented in @sec:ssl:single_source:method:dataset.
 
 The architecture, depicted in @fig:ssl:single_source:nn_architecture, consists in five convolutional blocks.
-Each encompasses a 2D convolution layer, batch normalization and finally a #acr("ReLU") operator.
+Each encompasses a 2D convolution layer, batch normalization, and a #acr("ReLU") operator.
 The convolutional filters operate in the time-frequency plane.
 The dimension of the multi-channel image progressively shrinks along the network.
 The convolutional feature extractor ends with an adaptive max-pooling operation which reduces the input tensor from a #shape("C", "F", "T") shape to a $C$-dimensional vector.
