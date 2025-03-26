@@ -225,7 +225,7 @@ $
     //display(max_(theta in Theta))
       {
         e^(
-          -(#d-prime (
+          -(#d (
             phi.alt_i,
             theta
           )^2)
@@ -235,21 +235,21 @@ $
     0 &"otherwise"
   )
 $ <eq:ssl:multi_source:doa_encoding>,
-where #d-prime is the following symmetric angle distance
+where #d is the symmetric angular distance introduced in @sec:ssl:single_source:experiments:metrics (@eq:ssl:single_source:angular_dist)
 #footnote[
-  #d-prime is a simplified version of #d, introduced for single-source localization in //@eq:ssl:single_source:angle_dist.
+  #d is a simplified version of #d, introduced for single-source localization in //@eq:ssl:single_source:angle_dist.
   #todo
   As input values always lay in the $[-pi, pi]$ interval, the outermost absolute value present in #d becomes unnecessary.
   On this interval, they coincide rigorously.
 ],
-#func-def(
-  d-prime,
-  $[-pi, pi]^2$,
-  $[0, pi]$,
-  $(theta_1, theta_2)$,
-  $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)$
-)
-<eq:ssl:multi_source:symmetric_angular_dist>
+// #func-def(
+//   d-prime,
+//   $[-pi, pi]^2$,
+//   $[0, pi]$,
+//   $(theta_1, theta_2)$,
+//   $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)$
+// )
+// <eq:ssl:multi_source:symmetric_angular_dist>
 
 The result is a mixture of $abs(Theta)$ Gaussians centered at the actual #acr("DoA") angles.
 We chose to set $sigma = 5°$.

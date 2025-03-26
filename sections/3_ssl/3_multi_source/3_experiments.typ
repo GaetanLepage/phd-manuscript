@@ -22,7 +22,7 @@ $
   "MAE" = (
     sum_i
     sum_(j=1)^(z_i)
-    colMath(d, #maroon) (
+    #d (
       hat(phi.alt)_(i j),
       phi.alt_(i j)
     )
@@ -30,19 +30,19 @@ $
 $
 <eq:ssl:multi_source:mae>
 
-where  $colMath(d, #maroon)$ refers to the symmetric angular distance defined in @eq:ssl:multi_source:symmetric_angular_dist.
+where #d refers to the symmetric angular distance defined in @eq:ssl:single_source:angular_dist.
 For convenience, the #acr("MAE") will most often be expressed in degrees.
 
-The _#acr("ACC")_ constitutes the second metric for this framework and, given an error threshold $colMath(E_a, #eastern)$, provides the proportion of correctly localized sources:
+The _#acr("ACC")_ constitutes the second metric for this framework and, given an error threshold #angle-error-threshold, provides the proportion of correctly localized sources:
 $
   "ACC" = (
     sum_i
     sum_(j=1)^(z_i)
     bb(1)_(
-      colMath(d, #maroon)(
+      #d (
         hat(phi.alt)_(i j),
         phi.alt_(i j)
-      ) < colMath(E_a, #eastern)
+      ) < #angle-error-threshold
     )
   ) / (sum_i z_i)
 $
@@ -472,9 +472,9 @@ As such, samples involving sources with close #acr("DoA") values are expected to
 #let delta-t = $Delta theta_"min"$
 Let #delta-t be the angle difference between the two closest sources with respect to #acr("DoA"):
 $
-  #delta-t = min_(i, j in [|1, n_s|]\ i!= j) #d-prime (theta_i, theta_j)
+  #delta-t = min_(i, j in [|1, n_s|]\ i!= j) #d (theta_i, theta_j)
 $
-where $(theta_i)_(i=1dots n_s)$ are the real #acr("DoA") values for this sample and #d-prime is the angle distance introduced in @eq:ssl:multi_source:symmetric_angular_dist.
+where $(theta_i)_(i=1dots n_s)$ are the real #acr("DoA") values for this sample and #d is the angle distance introduced in @eq:ssl:single_source:angular_dist.
 It should be noted that this quantity can only be defined for samples encompassing at least two sources.
 
 #figure(

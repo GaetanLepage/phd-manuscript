@@ -39,7 +39,7 @@ As in several similar application fields, the rise of deep learning has quickly 
 Modern, data-driven approaches began leveraging neural networks to model complex acoustic environments, outperforming traditional methods in robustness and accuracy.
 Recent advances focus on integrating #acr("SSL") with multimodal systems, such as robotics and autonomous vehicles, to achieve real-time localization in dynamic and complex settings.
 Nevertheless, the fundamental concepts at the base of the more classical approaches remain considerably relevant today.
-Indeed, they can help design feature extractors or pre-processing techniques that would further boost the performance of deep-learning-based localizers.
+Indeed, they can help design feature extractors or pre-processing techniques to boost the performance of deep-learning-based localizers further.
 
 This introduction explores the evolution of #acr("SSL"), starting with classical signal-processing approaches and their foundational principles. 
 It then transitions to deep learning methods, highlighting key advances, architectures, and datasets.
@@ -163,8 +163,7 @@ These approaches combine statistical inference with signal sparsity in the time-
 Extensions to these models include Gaussian mixture regression for single and multi-source localization, highlighting their adaptability @deleforge_co-localization_2015 @deleforge_acoustic_2015.
 
 // Limitations of classical methods
-Classical #acr("SSL") methods exhibit several limitations despite their utility.
-Their reliance on simplifying assumptions, such as free-field propagation or the absence of significant noise and reverberation, restricts their real-world applicability @grumiaux_survey_2021. // TODO double-check
+Despite their utility, classical #acr("SSL") methods exhibit several limitations.
 Furthermore, many classical techniques fail to generalize across varying microphone array configurations and acoustic environments.
 Those shortcomings have catalyzed the development of data-driven techniques, particularly those leveraging deep learning.
 These modern methods excel in handling complex, nonlinear relationships in audio data, offering greater robustness in diverse and dynamic environments.
@@ -181,7 +180,7 @@ Today, the vast majority of research efforts on #acr("SSL") leverage deep learni
 Let us first describe the typical workflow process of such approaches.
 Deep learning-based #acr("SSL") systems typically involve three primary components.
 // Input processing
-First, *input feature extraction* consists of computing acoustic features from the raw audio data.
+First, *input feature extraction* consists in computing acoustic features from the raw audio data.
 // DNN processing
 Secondly, the most crucial step is processing the pre-processed input data by a #acr("DNN").
 While approaches differ, their task generally consists of mapping the sound signal to the sound source(s) location(s).
@@ -204,7 +203,7 @@ A few works have trained #acr("DNN")s to perform #acr("SSL") from the waveform d
 Although aesthetically appealing, such raw-audio-based approaches remain scarce in the literature.
 Spectral representations are significantly more popular.
 Most notably, the #acr("STFT") is used to compute acoustic signals' magnitude, power, and phase spectrums.
-Additionally, interaural (or interchannel) features are commonly used across the literature, such as the aforementioned #acr("ILD"), #acr("IPD"), and #acr("ITD") @viste_binaural_2004 @chakrabarty_broadband_2017 @nguyen_autonomous_2018.
+Additionally, interaural (or interchannel) features are commonly used across the literature, such as the aforementioned #acr("ILD"), #acr("IPD"), and #acr("ITD") @viste_binaural_2004 @chakrabarty_broadband_2017 @nguyen_autonomous_2018 @roden_sound_2015.
 Please refer to @sec:simulator:background:binaural for more details on such features.
 // Ambisonics
 Ambisonics is a format for representing acoustic signals as a spherical harmonic decomposition of the sound field.
@@ -296,15 +295,15 @@ Alternatively, other works choose to write the estimated detections in Cartesian
 The latter choice can involve predicting the distance, too.
 Adavanne et al. @adavanne_localization_2019 instead normalize their network's outputs so that estimated coordinates are restricted to the unit sphere.
 Additionally, some works can be further distinguished from the usual regression formulation of #acr("SSL").
-Specific approaches have framed the localization problem as a classification task where the system is expected to select a region of space instead of producing one or more scalar values.
+Specific approaches have framed the localization problem as a classification task where the system is expected to select a region of space instead of producing one or more scalar values @roden_sound_2015.
 
 
 === Sound Source localization in robotics
 <sec:ssl:sota:ssl_in_robotics>
 
 Although #acr("SSL") has been studied as a self-contained problem, it certainly has many important downstream applications.
-//Among those, robotics is a significant use case of #acr("SSL") algorithms.
-//Perception is an essential building block of a social robotics platform.
+Among those, robotics is a significant use case of #acr("SSL") algorithms.
+Indeed, perception is an essential building block of a social robotics platform.
 Human abilities in this regard are robust and efficient.
 We can detect, locate, extract, and recognize multiple sound events in complex scenes.
 Research in acoustic has investigated ways to replicate such skills in automatic systems.
@@ -320,13 +319,12 @@ LIDAR, or depth information, allows the robot to localize itself and other poten
 Visual information has also been used to perform #acr("SSL") @mo_closer_2022.
 Regarding robotics, Naranag et al. @narang_auditory-aware_2014 have combined a sound source localizer with a visual #acr("SLAM") system for performing auditory-aware navigation.
 Using both modalities helped improve overall performance, including the #acr("SSL") accuracy itself.
-// TODO citations
-However, identifying the position of currently speaking humans requires an #acr("SSL") method.
-This paragraph will take a closer look at the literature focusing on localization techniques in the context of robotics.
+In @trifa_real-time_2007, Trifa et al. discuss the importance of combining both audio and visual cues for human-robot interaction tasks.
+While solely limited to audio features, their experiments involve performing sound source localization on a physical robotic platform.
 Argentieri et al. @argentieri_survey_2015 provide an in-depth review of the state of the art as of 2014.
 Naturally, more recent works applying modern deep-learning-based techniques have not been discussed.
 For instance, Nguyen et al. @nguyen_autonomous_2018 designed a neural network to map audio features recorded by a binaural humanoid robot to relative source direction.
-The model is trained in a supervised fashion using white-noise.
+The model is trained in a supervised fashion using white noise.
 It is then tested in a realistic setup where the task is to localize speech sources.
 
 // Constraint related to robotics
@@ -347,16 +345,14 @@ Experimentation platforms involve a robotic head with one microphone on each sid
 The #acr("HRTF") models how the physical head between the two microphones impacts the recorded signals.
 It can be measured in an anechoic environment @algazi_cipic_2001 @wierstorf_free_2011 or simulated @otani_fast_2006.
 On the other hand, efforts have been made to use more than two microphones.
-Li. @li_estimation_2015 estimate the transfer function from recorded signals and use this information to localize a sound source with a real robotic head.
-On the other hand, array processing consists of using several receivers arranged in more complex geometries @alameda-pineda_geometric_2014 @ishi_using_2013.
+Li et al. @li_estimation_2015 estimate the transfer function from recorded signals and use this information to localize a sound source with a real robotic head.
+On the other hand, array processing involves using several receivers arranged in more complex geometries @alameda-pineda_geometric_2014 @ishi_using_2013.
 They leverage the redundancy of the spatial information across the multiple recorded channels.
 
 // Deep Learning
-In robotics, Deep Learning methods have also been used to perform #("SSL").
+Deep Learning methods have also been used in robotics to perform #("SSL").
 Nguyen et al. @nguyen_autonomous_2018 have collected a dataset to train a #acr("CNN") for localizing and facing a sound source with a humanoid robot head.
-
-// Using multi-modal information (audio-visual SSL)
-// -> Not directly related to our topic though
+// TODO: add more examples?
 
 //--------------------------------------
 // Challenges

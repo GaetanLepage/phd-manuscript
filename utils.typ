@@ -20,6 +20,7 @@
 #let toprule = table.hline()
 #let bottomrule = toprule
 #let midrule = table.hline(stroke: 0.05em)
+#let dashedrule = table.hline(stroke: (dash: "dashed", thickness: 0.05em))
 
 // Common headers
 #let header-mae = [MAE (°) #sym.arrow.b]
