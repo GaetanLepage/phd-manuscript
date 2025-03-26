@@ -133,12 +133,10 @@ To conduct their experiments, they use the _ThreeDWorld_ @gan_threedworld_2021 m
 The proposed grasping pipeline performs better using both vision and audio cues than with vision only.
 Grauman et al. conducted a line of work on auditory-based robot navigation tasks @chen_soundspaces_2020 @majumder_move2hear_2021.
 They used a simulated environment modeling both visual and auditory cues to train their deep neural networks.
+Srivastava's doctoral thesis @srivastava_how_2023 investigates the functioning of acoustic simulation in great detail.
+It provides a precise overview of the functioning of #acr("RIR") estimation techniques and related concepts.
+Srivastava's main contribution is training a deep neural network to estimate the room acoustic parameters.
 The acoustic pipeline has been developed explicitly for this project and is built around the _Bidirectional Sound Transport_ algorithm by Cao et al. @cao_interactive_2016.
-#todo
-#draft[
-  TODO: add maybe 1 or 2 more examples.
-  I could talk about SoundSapces and Move2Hear, but we already explained them in Chap.5.
-]
 This chapter will detail the literature on acoustic reverberation simulators and overview existing software solutions.
 
 

@@ -91,7 +91,7 @@ For instance, when recording a singer or speaker's voice, one can afford to poin
 
 The _omnidirectional_ pattern is the simpler one to think of.
 All directions are given equal importance.
-In contrast, the cardioid, and its variants (super-cardioid, hyper-cardioid, ultra-cardioid, ...), weigh non-uniformly each angle of incidence and thus privilege some directions above others.
+In contrast, the cardioid and its variants (super-cardioid, hyper-cardioid, ultra-cardioid, ...) weigh non-uniformly each angle of incidence and thus privilege some directions above others.
 @fig:ssl:single_source:polar_patterns shows the receptive field of the most common microphone patterns.
 #figure(
   image("figures/polar_patterns.jpg", height: 8cm),
@@ -108,19 +108,72 @@ We have thus tested different configurations in our experiments.
 <sec:ssl:single_source:method:audio_processing>
 
 The simulator allows the extraction of spectral representations directly from received signals.
-The observations are stored in the dataset as multichannel complex #acrpl("STFT").
-These complex tensors are not fed directly in the neural network but are further processed.
+The observations are stored in the dataset as multichannel complex #acrpl("STFT")s.
+These complex tensors are not fed directly into the neural network but are further processed.
 The role of this step is to convert the complex spectral observation to a real-valued tensor.
 Several methods have been tested and compared.
-The experimental section summarizes our findings regarding their respective performance.
-#gaet[
-  Maybe we should move the detailed explanations from the corresponding 'experiments' section to here.
-  And only leave the "results" there.
-]
+
+#todo: rephrase
 //This section summarizes the explicit choices made regarding audio processing for performing the #acr("SSL") task.
 //TODO
 //The Short Term Fourier transform is computed on short frames of 
 //Originally, the dataset is constituted by #draft[TODO]
+The experimental section summarizes our findings regarding their respective performance.
+
+The neural network is expected to extract the relevant localization information from the audio signal provided as input.
+This section explores the importance of choosing the input features fed into the network.
+Here, the sensor consists of a binaural microphone array of two omnidirectional transducers.
+
+In this work, we focus on time-frequency representations.
+Adaptations of 2D convolutions to complex tensors do exist and have already been used in the #acr("SSL") literature.
+Krause et al. @krause_comparison_2021 present this variation along with its benefits (Section II.B).
+However, regular 2D convolutions have been employed in the present work, and the complex-valued #acr("STFT") needed to be converted to real values.
+To achieve this, two schemes were compared:
+- On the one hand, both the real and imaginary parts of the complex data can populate the two real resulting matrices:
+  $
+    phi_"cart": #h(1cm) CC^(F times T) & -->               RR^(2 times F times T)\
+    Z        & arrow.r.long.bar 
+    lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
+  $
+  This form will be referred to as the Cartesian projection.
+
+- The other method consists in using the polar form of the Fourier representation:
+$
+  phi_"polar": #h(1cm) CC^(F times T) & -->               RR^(2 times F times T)\
+  Z        & arrow.r.long.bar 
+  lr((abs(Z), arg(Z)), size: #140%)
+$
+
+In both cases, a $C$-channel #acr("STFT") #shape("C","F","T") complex tensor translates to a to #shape("2C", "F", "T") real one.
+
+Besides raw #acr("STFT") values, interaural features, presented in @sec:simulator:background:spectral-features, have been widely used in the #acr("SSL") literature @nguyen_autonomous_2018, @sivasankaran_keyword_2018 @youssef_learning-based_2013.
+Binaural representations have been explicitly designed to highlight geometric information relevant to localization.
+Hence, and for the sake of exhaustivity, those cues have also been tested.
+This comparison employs a binaural array which allows to trivially compute #acr("ILD") and #acr("IPD") from the two #acr("STFT") arrays.
+Notably, the number of resulting channels in the processed data remains two in this case.
+The interaural tensor $cal(I) in RR^(C, F, T)$ amounts to:
+$
+  cal(I) = mat(
+      "ILD"(m_1, m_2);
+      "IPD"(m_1, m_2)
+  )
+$
+Both #acr("ILD") and #acr("IPD") take real values, which does not lead to doubling the number of channels.
+When dealing with arrays having more than two microphones, we compute the interaural features for successive and overlapping microphone pairs.
+#block(breakable: false)[
+  For an array with microphones ${m_1, dots, m_k}$, the interaural features is expressed as:\
+  $quad forall i in [|1, C|]$,
+  $
+    cal(I)[i] = cases(
+      "IPD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 0,
+      "ILD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 1
+    )
+  $
+]
+When using a single interaural feature, and not both #acr("ILD") and #acr("IPD"), the coefficients of $cal(I)$ become:
+$
+  cal(I)[i] = "IPD"(m_i, m_((i+1) equiv C))
+$
 
 
 ==== Neural Network Architecture
@@ -222,11 +275,11 @@ where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (ha
     cal(L)
      =
     #l-doa (hat(theta), theta)
-    + kappa #l-dist (hat(D), D).
+    + kappa #l-dist (hat(D), D),
   $
   <eq:ssl:single_source:total_loss>
 ]
-$kappa$ balances the relative importance of the distance loss in the final result.
+where $kappa$ balances the relative importance of the distance loss in the final result.
 
 // #draft[
 //   // @fig:ssl:single_source:angular_dist_plot plots the value of #l-doa with respect to the value of $theta_2 - theta_1$.
@@ -300,6 +353,6 @@ $
 $
 where $eta_t$ is the learning rate at epoch $t$, $eta_0$ is the initial learning rate, $T_"cur"$ is the current epoch.
 The minimum learning rate $eta_min$ has been set to $10^(-5)$ and is reached at the very end of the training.
-A base learning rate of $10^(-3)$ has shown to ensure rapid convergence without suffering from instability issues.
+A base learning rate of #xavi[$eta_0=$]$10^(-3)$ has shown to ensure rapid convergence without suffering from instability issues.
 Regarding the optimizer, we have chosen to use Adam @kingma_adam_2017.
 Training runs have been performed on an Nvidia RTX A6000 GPU and were lasting approximately one hour.

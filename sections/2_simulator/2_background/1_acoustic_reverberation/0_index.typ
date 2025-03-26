@@ -92,7 +92,7 @@ Each path has a specific delay and attenuation factor.
     ],
     // Short caption for the TOC
     [
-      #todo
+      Schematic representation of an RIR filter.
       @savioja_overview_2015
     ]
   ),
@@ -194,7 +194,7 @@ $
   )
 $ <eq:simulator:background:sabine_inv>
 Here, all surfaces are assumed to behave the same, and the _equivalent absorption surface_ #area may then be written as $#area = S times e_"abs"$, with $S$ being the total surface area.
-
+Srivastava's PhD thesis @srivastava_realism_2023 investigates the role of acoustic parameters in simulation and how to estimate them.
 
 ==== Spectral representations of audio signals
 <sec:simulator:background:spectral-features>
@@ -304,7 +304,8 @@ It can be verified for the general #acr("DFT") under certain conditions but is w
 In practice, the length of the #acr("STFT") window function is often significantly shorter than the length of the convolution.
 
 Despite this theoretical result not transferring to the #acr("STFT")-based representations, they are still widely used in the literature when dealing with reverberating phenomena @gannot_signal_2001 @li_reverberant_2016 @cohen_relative_2004.
-This assumption of multiplicative transfer functions is known as the narrow-band assumption and is made in various domains of audio processing despite the error being often large.
+This assumption of multiplicative transfer functions is known as the narrow-band assumption.
+It is made in various domains of audio processing despite the error being often large.
 
 ==== Beamforming and binaural cues
 <sec:simulator:background:binaural>
@@ -344,13 +345,6 @@ This section focuses on motivating and deriving those representations.
   ],
 )
 <fig:simulator:background:multi_mic_schema>
-
-// #draft[
-//   For Reverb: Free field vs Room -> Reverb vs not reverb\
-//     direct path / higher order reflections
-//   For SSL: far field vs close field:\
-//     This is more for SSL
-// ]
 
 The signal received by microphone $i$ can be expressed as (Vincent et al. @vincent_audio_2018 Chapter 3 or Gustafsson et al. @gustafsson_source_2003):
 $
@@ -411,7 +405,7 @@ The simple propagation model derived in
 @eq:simulator:background:propagation_multi_mic - @eq:simulator:background:multi_mic_far_field_doa[]
 is not valid anymore.
 Here, the ratio of #acrpl("ATF") is called the #acr("HRTF") (Vincent et al. @vincent_audio_2018 Chapter 4).
-The modeling and simulation of #acrpl("HRTF") are outside the scope of this thesis but are nevertheless central to the field of acoustic in robotics.
+The modeling and simulation of #acrpl("HRTF") are outside the scope of this thesis but are nevertheless central to the field of acoustic robotics.
 
 
 //*#acr("ILD") and #acr("IPD")*

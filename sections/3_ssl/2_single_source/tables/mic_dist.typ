@@ -11,7 +11,7 @@
     // HEADER
     toprule,
     table.header(
-      [$T_60$],
+      [microphone spacing (cm)],
       [#mae-theta-header],
       //[#mae-dist-header],
     ),
@@ -19,13 +19,11 @@
     midrule,
 
     // ROWS
-    [100ms],  [2.78],
-    [200ms],  [9.08],
-    [400ms],  [15.42],
-    [500ms],  [17.18],
-    [700ms],  [21.67],
-    [900ms],  [24.71],
-    [1s],     [26.71],
+    [1],  [17.71],
+    [2],  [*17.28*],
+    [4],  [18.75],
+    [6],  [21.86],
+    [8],  [22.58],
     
     bottomrule,
   ),
@@ -35,4 +33,4 @@
     Reverberation impact on #acr("SSL") performance
   ]
 )
-<table:ssl:single_source:reverb>
+<table:ssl:single_source:mic_dist>
