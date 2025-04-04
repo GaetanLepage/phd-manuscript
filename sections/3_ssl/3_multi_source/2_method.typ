@@ -10,10 +10,10 @@ Most of the dataset generation process remains identical to the one presented in
 All samples remain fully independent.
 The positions of both the microphone array and the sources are randomly sampled.
 This section will focus on the necessary additions taken to support the multi-source setting.
-Also, some choices have been made so as to mostly follow the methodology from He et al. @he_neural_2021.
+Also, some choices have been made so as to follow the methodology from He et al. @he_neural_2021 mostly.
 
 *Microphone array.*
-For effectively localizing multiple sound sources, a four-microphone array is used.
+To effectively localize multiple sound sources, we choose to use a four-microphone array.
 The $n_m = 4$ omnidirectional sensors are arranged in a 2cm wide square.
 
 
@@ -30,7 +30,7 @@ The latter now amounts to approximately 360ms as 16 #acr("STFT") frames particip
 
 The microphone array and $n_s$ speech sources get randomly positioned in the room.
 Such a choice has lead to challenging samples were multiple targets share very similar #acr("DoA") angles from the agent's point of view.
-The resulting #acr("RIR") filters get computed to account for the reverberation properties of the room.
+The resulting #acr("RIR") filters are computed to account for the room's reverberation properties.
 Then, each source outputs a clean speech signal randomly chosen from the #librispeech @panayotov_librispeech_2015 dataset.
 The simulator computes the resulting listened signals at each microphone of the array.
 Such signals last around 10 seconds.
