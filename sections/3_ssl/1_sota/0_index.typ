@@ -161,6 +161,8 @@ These methods are computationally intensive and sensitive to reverberation, but 
 Probabilistic methods model the spatial distribution of sound sources using generative frameworks like #acrpl("GMM") @flam_gaussian_2011 @bross_multiple_2021.
 These approaches combine statistical inference with signal sparsity in the time-frequency domain, providing robust #acr("SSL") performance in scenarios with multiple sources.
 Extensions to these models include Gaussian mixture regression for single and multi-source localization, highlighting their adaptability @deleforge_co-localization_2015 @deleforge_acoustic_2015.
+In his PhD thesis @mandel_binaural_2010, Michael I. Mandel proposes a model-based #acr("EM") approach for sound source separation and localization.
+This system can handle challenging scenarios involving reverberation and the presence of an adversarial _masker_ sound source.
 
 // Limitations of classical methods
 Despite their utility, classical #acr("SSL") methods exhibit several limitations.
@@ -321,6 +323,7 @@ Regarding robotics, Naranag et al. @narang_auditory-aware_2014 have combined a s
 Using both modalities helped improve overall performance, including the #acr("SSL") accuracy itself.
 In @trifa_real-time_2007, Trifa et al. discuss the importance of combining both audio and visual cues for human-robot interaction tasks.
 While solely limited to audio features, their experiments involve performing sound source localization on a physical robotic platform.
+Li et al. @li_reverberant_2016 demonstrate a capable #acr("SSL") solution tested on the NAO robot.
 Argentieri et al. @argentieri_survey_2015 provide an in-depth review of the state of the art as of 2014.
 Naturally, more recent works applying modern deep-learning-based techniques have not been discussed.
 For instance, Nguyen et al. @nguyen_autonomous_2018 designed a neural network to map audio features recorded by a binaural humanoid robot to relative source direction.
