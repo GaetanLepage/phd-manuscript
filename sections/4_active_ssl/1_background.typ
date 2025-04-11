@@ -30,7 +30,7 @@ Thanks to this angle, a directional band-pass filter is constructed, which permi
 This method circumvents the use of #acr("HRTF"), which is challenging to access in real-world scenarios.
 They test this pipeline within a relatively simple experimental scenario.
 Two loudspeakers play a monotone sound at a given, distinct frequency.
-They do so sequentially such that only a single source is active at a given time.
+They operate sequentially, ensuring that only one source is active at any given time.
 The robotic head is expected to progressively face the active source so that it lands in its cameras' field of view.
 // split ?
 This work was among the first attempts to perform #acr("SSL") in a dynamic context.
