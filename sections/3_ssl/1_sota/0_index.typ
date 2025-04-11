@@ -142,7 +142,7 @@ The #acr("GCC-PHAT") remains a cornerstone technique in signal processing for so
 Alameda et al. @alameda-pineda_geometric_2014 developed a geometric formulation of the localization problem along with an optimization algorithm.
 Their approach illustrates the relevance of time delays as powerful features to perform #acr("SSL").
 However, reverberation and closely spaced microphones often degrade #acr("TDoA") accuracy.
-Also, a well-known issue of binaural systems is the front-back ambiguity.
+Also, a well-known issue of binaural systems is the front-back ambiguity @wightman_resolution_1999.
 It directly comes from the symmetry of such setups in the sagittal plane.
 A sound arriving from a direction in front of the listener produces similar #acr("ITD")s and #acr("ILD")s as a sound from behind the listener.
 For sounds coming from the front and back, the paths to the left and right microphones (or ears) differ by the same amount of time but from opposite directions.

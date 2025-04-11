@@ -100,7 +100,7 @@ An #acr("MDP") consist of a tuple $<cal(S), cal(A), P, cal(R), gamma>$.
   $
     R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s']
   $
-- $gamma$: The discount factor in $[0, 1[$ dampens the impact of future rewards and ensures that the gain #box($G_t = sum_(k=0)^(infinity) gamma^k R_(t+k)$) remains bounded as long as $abs(R_t)$ is bounded as well.
+- $gamma$: The discount factor in $[0, 1[$ dampens the impact of future rewards and ensures that the gain #box($G_t = sum_(k=0)^(infinity) gamma^k r_(t+k)$) remains bounded as long as $abs(R_t)$ is bounded as well.
 
 
 *Policy.*
@@ -144,7 +144,7 @@ The value function is a fundamental quantity in #acr("RL").
 Given a policy $pi$, it measures the _quality_ of being in a certain state.
 It is defined as the expectation of future gains when starting from the state $s$.
 $
-  V_pi (s) &:= EE[R_t | s_t = s]\
+  V_pi (s) &:= EE[G_t | s_t = s]\
     &= EE[sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s]
 $
 Evidently, this quantity depends on the considered policy $pi$.
@@ -179,7 +179,7 @@ For training their Deep Q-Network, Mnih et al. used around 10 million frames of 
 The OpenAI Five @berner_dota_nodate project consists of training an agent to play the game Dota 2.
 In total, their agent has played for an approximate duration of 180 years.
 Similarly, when applying #acr("DRL") to autonomous driving, it is necessary to collect a high amount of interactive experience to achieve decent performance.
-Bansal @bansal_chauffeurnet_2018 have used dataset of 30 million samples to train their policy.
+Bansal @bansal_chauffeurnet_2018 have used a dataset of 30 million samples to train their policy.
 They stated that their initial attempts at doing imitation learning on this data have not been successful.
 It required more advanced techniques to finally train a working system.
 
@@ -243,7 +243,7 @@ Robotics has been one of the domains targeted by A.I. researchers to apply Deep 
 The first widely used #acr("RL") algorithms consisted of learning to approximate a value function.
 For instance, the notable Q-value algorithm @watkins_learning_1989 introduced the $Q$ function which gives a score to each state-action pair:
 $
-  Q_pi (s, a) := EE[r_t | s_t = s, a_t = a]
+  Q_pi (s, a) := EE[G_t | s_t = s, a_t = a]
 $
 On the contrary, policy gradient algorithms directly optimize the policy itself through a differentiable objective function depending on its parameters.
 #todo
