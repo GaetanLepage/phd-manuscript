@@ -234,7 +234,7 @@ The ground-truth source and microphone positions are known from the start, and n
 Generating a dataset from an acoustic simulator does not require recording equipment and allows for collecting arbitrarily large amounts of data @srivastava_how_2023.
 Nonetheless, the real-world performance of networks trained on such datasets is generally lower than in simulation.
 Transferring those methods to the physical world is an important research area.
-For instance, some works such as Chakrabaty et al. @chakrabarty_broadband_2017, Grumiaux et al. @grumiaux_improved_2021 #todo have tested their system on real-world recordings after an initial training phase on synthetic data.
+For instance, some works, such as Chakrabaty et al. @chakrabarty_broadband_2017 and Grumiaux et al. @grumiaux_improved_2021, have tested their system on real-world recordings after an initial training phase on synthetic data.
 Commonly, modern #acr("SSL") research combines both data sources.
 Inexpensive synthetic datasets are often used to train deep neural networks.
 Once trained, the performance of the obtained systems is evaluated in real scenarios using robotic heads, for instance #todo.
