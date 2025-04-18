@@ -157,8 +157,10 @@ All three models share the same tokenizer, trained on #librispeech.
 ]
 
 $
-  r_t = 10 e^(-w(s_t))
+  r_t = 10 e^(- 4 w(s_t))
 $
+
+#draft[Explain because it might feel arbitrary]
 
 
 === Deep Neural Agent
