@@ -54,22 +54,21 @@ While angular #acr("SSL") methods yield satisfying results, estimating the robot
 Hence, this study focuses on fusing movement information with #acr("DoA") estimation to predict the distance to the source.
 The state vector consists of the absolute position of the robot, the one of the sound source, and the source's activity (whether it is active or not).
 The provided theoretical derivation of the #acr("MKF") allows the estimation to be updated. 
-The experiments illustrate the importance of the robot movements in achieving successful localization.
+The experiments illustrate the importance of the robot's movements in achieving successful localization.
 Indeed, at the beginning of the trajectories, the estimation suffers from the front-back ambiguity.
 As the robot can move and accumulate information, the accuracy of the prediction increases.
 Although the proposed method outperformed some existing solutions, the robot's trajectory was not optimized.
 In @nguyen_van_long-term_2017, the authors improved their framework by proposing a long-term motion planning algorithm to localize a sound source.
 They introduced a #acr("MCTS") method to compute the optimal robot trajectory.
-The optimization objective is here to reduce the entropy of the belief on the source localization.
+The optimization objective is to reduce the entropy of the belief in the source localization.
 Shannon's entropy measures uncertainty and drives the exploration of the #acr("MCTS").
-This framework allows the motion planning algorithm to run on a predefined limited computational budget.
+This framework allows the motion planning algorithm to run on a predefined, limited computational budget.
 Experimental results show that the #acr("MCTS") planning successfully minimizes the entropy during the trajectory compared to greedy or random algorithms.
 Furthermore, the average estimation error also sees an improvement using this approach.
 This complete pipeline has been subsequently extended in @nguyen_motion_2019.
 First, the #acr("MKF") formulation is extended to handle intermittent sound sources better and to be more robust to erroneous measurements of sound activity and #acr("DoA").
 In addition to the entropy objective introduced in @nguyen_van_long-term_2017, the standard deviation of the estimated belief on the source location may now also be used to compute the optimal trajectory.
-Both criteria are compared in a thorough experimental study and are shown to successfully reduce the source location estimation error.
-
+Both criteria are compared in a thorough experimental study and are shown to reduce the source location estimation error successfully.
 
 
 
@@ -80,7 +79,6 @@ Both criteria are compared in a thorough experimental study and are shown to suc
   @bustamante_information_2017
   @bustamante_multi-step-ahead_2017
 ]
-//TODO: limited to a single sound source + absolute position of the robot is known
 In the same period,  Bustamante et al. presented a similar pipeline in a collection of articles #bustamante.
 In their foundational paper @bustamante_three-stage_2015, they introduced a three-stage strategy to combine a mobile robot control scheme and the associated source location estimator.
 The first stage consists of the short-term detection of azimuth and activity.
@@ -113,9 +111,12 @@ The challenge of reverberant environments has not been considered in the methodo
 However, the authors do test their system in the presence of reverberation.
 Performance is shown to suffer from increasing the $T_60$.
 Working on the robustness of localization systems to reverberation is a key area for future improvement.
-Adavanne et al. @adavanne_localization_2019 handle the localization, detection and tracking of multiple sound sources.
+In @gala_realtime_2019, Gala et al. derive a mathematical model for predicting both the #acr("DoA") and distance to a single static sound source solely from the #acr("ITD").
+They achieve this by using a robotic head that can rotate.
+It can thus leverage the recorded #acr("ITD") at different angular positions.
+Adavanne et al. @adavanne_localization_2019 handle multiple sound sources' localization, detection, and tracking.
 The framework is tested in both anechoic and reverberant environments.
-Using a #acr("CRNN") architecture, which successfully aggregates information over time, allowed for strong tracking performance.
+Their #acr("CRNN") architecture successfully aggregates information over time, allowing for strong tracking performance.
 
 In conclusion, active #acr("SSL") has been a topic of interest in the robotic literature.
 Indeed, static localization approaches suffer from limitations such as the front-back ambiguity or distance non-observability.
