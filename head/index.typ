@@ -1,17 +1,11 @@
 #import "/utils.typ": gaet
 #import "/_misc/acrostiche.typ": print-index
 
-//#include "cover-page.typ"
-//#pagebreak()
-//#pagebreak()
-//#include "head/dedication.typ"
-#include "acknowledgements.typ"
-
-// TODO
-//#include "head/preface.typ"
+#include "cover_page/index.typ"
 
 #include "abstracts.typ"
 
+#include "acknowledgements.typ"
 
 #outline(
   title: "Contents",
