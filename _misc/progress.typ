@@ -58,7 +58,10 @@
 )[
   #show: checklist
   - [ ] Grammar check
-  - [ ] Ensure consistency between: BatchNorm / Batch Norm / batch norm
+  - [ ] Ensure consistency between:
+    - BatchNorm / Batch Norm / batch norm
+    - Deep Learning / deep learning / deep-learning
+    - localization / localisation
   - *Layout:*
     - [ ] figure/table placement check
     - [ ] Check that all `subpar.grid` figures have their:

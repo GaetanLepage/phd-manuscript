@@ -630,3 +630,53 @@ Publication Title: 138th Audio Engineering Society Convention 2015},
 	keywords = {Feature extraction, Microphones, Direction-of-arrival estimation, convolutional neural network, Azimuth, Estimation, broadband, Computational complexity, Direction of arrival, Harmonic analysis, learning approach, spherical harmonics},
 	file = {IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/TIW4DY6X/9056464.html:text/html;PDF:/home/gaetan/.local/share/Zotero/storage/Q3RK3W8Z/Varanasi et al. - 2020 - A Deep Learning Framework for Robust DOA Estimation Using Spherical Harmonic Decomposition.pdf:application/pdf},
 }
+
+
+@article{chakrabarty_multi-speaker_2019,
+	title = {Multi-Speaker {DOA} Estimation Using Deep Convolutional Networks Trained With Noise Signals},
+	volume = {13},
+	issn = {1941-0484},
+	url = {https://ieeexplore.ieee.org/abstract/document/8651493},
+	doi = {10.1109/JSTSP.2019.2901664},
+	abstract = {Supervised learning-based methods for source localization, being data driven, can be adapted to different acoustic conditions via training and have been shown to be robust to adverse acoustic environments. In this paper, a convolutional neural network ({CNN}) based supervised learning method for estimating the direction of arrival ({DOA}) of multiple speakers is proposed. Multi-speaker {DOA} estimation is formulated as a multi-class multi-label classification problem, where the assignment of each {DOA} label to the input feature is treated as a separate binary classification problem. The phase component of the short-time Fourier transform ({STFT}) coefficients of the received microphone signals are directly fed into the {CNN}, and the features for {DOA} estimation are learnt during training. Utilizing the assumption of disjoint speaker activity in the {STFT} domain, a novel method is proposed to train the {CNN} with synthesized noise signals. Through experimental evaluation with both simulated and measured acoustic impulse responses, the ability of the proposed {DOA} estimation approach to adapt to unseen acoustic conditions and its robustness to unseen noise type is demonstrated. Through additional empirical investigation, it is also shown that with an array of M microphone our proposed framework yields the best localization performance with M-1 convolution layers. The ability of the proposed method to accurately localize speakers in a dynamic acoustic scenario with varying number of sources is also shown.},
+	pages = {8--21},
+	number = {1},
+	journaltitle = {{IEEE} Journal of Selected Topics in Signal Processing},
+	author = {Chakrabarty, Soumitro and Habets, Emanuël A. P.},
+	urldate = {2025-04-18},
+	date = {2019-03},
+	keywords = {man},
+	file = {Snapshot:/home/gaetan/.local/share/Zotero/storage/545S4IX8/8651493.html:text/html;Submitted Version:/home/gaetan/.local/share/Zotero/storage/Y3NSCZFJ/Chakrabarty and Habets - 2019 - Multi-Speaker DOA Estimation Using Deep Convolutional Networks Trained With Noise Signals.pdf:application/pdf},
+}
+
+
+@inproceedings{kapka_sound_2019,
+	title = {Sound source detection, localization and classification using consecutive ensemble of {CRNN} models},
+	url = {http://arxiv.org/abs/1908.00766},
+	doi = {10.33682/1syg-dy60},
+	abstract = {In this paper, we describe our method for {DCASE}2019 task3: Sound Event Localization and Detection ({SELD}). We use four {CRNN} {SELDnet}-like single output models which run in a consecutive manner to recover all possible information of occurring events. We decompose the {SELD} task into estimating number of active sources, estimating direction of arrival of a single source, estimating direction of arrival of the second source where the direction of the first one is known and a multi-label classification task. We use custom consecutive ensemble to predict events' onset, offset, direction of arrival and class. The proposed approach is evaluated on the {TAU} Spatial Sound Events 2019 - Ambisonic and it is compared with other participants' submissions.},
+	booktitle = {Proceedings of the Detection and Classification of Acoustic Scenes and             Events 2019 Workshop ({DCASE}2019)},
+	author = {Kapka, Sławomir and Lewandowski, Mateusz},
+	urldate = {2025-04-18},
+	date = {2019},
+	eprinttype = {arxiv},
+	eprint = {1908.00766 [eess]},
+	keywords = {Computer Science - Machine Learning, Computer Science - Sound, Electrical Engineering and Systems Science - Audio and Speech Processing, Statistics - Machine Learning},
+	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/M9JQJXXP/Kapka and Lewandowski - 2019 - Sound source detection, localization and classification using consecutive ensemble of CRNN models.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/4PCC3MH7/1908.html:text/html},
+}
+
+
+@article{nguyen_robust_2020,
+	title = {Robust Source Counting and {DOA} Estimation Using Spatial Pseudo-Spectrum and Convolutional Neural Network},
+	volume = {28},
+	issn = {2329-9304},
+	url = {https://ieeexplore.ieee.org/document/9178434},
+	doi = {10.1109/TASLP.2020.3019646},
+	abstract = {Many signal processing-based methods for sound source direction-of-arrival estimation produce a spatial pseudo-spectrum of which the local maxima strongly indicate the source directions. Due to different levels of noise, reverberation and different number of overlapping sources, the spatial pseudo-spectra are noisy even after smoothing. In addition, the number of sources is often unknown. As a result, selecting the peaks from these spectra is susceptible to error. Convolutional neural network has been successfully applied to many image processing problems in general and direction-of-arrival estimation in particular. In addition, deep learning-based methods for direction-of-arrival estimation show good generalization to different environments. We propose to use a 2D convolutional neural network with multi-task learning to robustly estimate the number of sources and the directions-of-arrival from short-time spatial pseudo-spectra, which have useful directional information from audio input signals. This approach reduces the tendency of the neural network to learn unwanted association between sound classes and directional information, and helps the network generalize to unseen sound classes. The simulation and experimental results show that the proposed methods outperform other directional-of-arrival estimation methods in different levels of noise and reverberation, and different number of sources.},
+	pages = {2626--2637},
+	journaltitle = {{IEEE}/{ACM} Transactions on Audio, Speech, and Language Processing},
+	author = {Nguyen, Thi Ngoc Tho and Gan, Woon-Seng and Ranjan, Rishabh and Jones, Douglas L.},
+	urldate = {2025-04-19},
+	date = {2020},
+	file = {Accepted Version:/home/gaetan/.local/share/Zotero/storage/4VDE7VUW/Nguyen et al. - 2020 - Robust Source Counting and DOA Estimation Using Spatial Pseudo-Spectrum and Convolutional Neural Net.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/GQ9K3DKU/9178434.html:text/html},
+}
