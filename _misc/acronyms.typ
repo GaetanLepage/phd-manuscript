@@ -110,6 +110,7 @@
   ),
   "FFT": ("Fast Fourier Transform"),
   "FIR": ("finite impulse response"),
+  "FOA": ("first-order Ambisonics"),
   "GA": ("Geometrical Acoustics"),
   "GCC": ("Generalized Cross-Correlation"),
   "GCC-PHAT": ("Generalized Cross-Correlation with Phase Transform"),
@@ -125,6 +126,7 @@
   "PHAT": ("Phase Transform"),
   "RIR": ("Room Impulse Response"),
   "RTF": ("Related Transfer Function"),
+  "SED": ("Sound Event Detection"),
   "SNR": ("Signal to Noise Ratio"),
   "STFT": (
     "Short-Term Fourier Transform",

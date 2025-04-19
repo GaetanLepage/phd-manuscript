@@ -9,4 +9,4 @@
 #parbreak()
 
 // TODO
-#fill-line([_Grenoble, 31 \<MONTH\> 2024_], [G. L.])
+#fill-line([_Grenoble, 31 \<MONTH\> 2025_], [G. L.])

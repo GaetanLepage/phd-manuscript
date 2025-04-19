@@ -50,7 +50,7 @@ Conversely, our objective here is to give an overall overview of the field and s
 Alongside the multiple references cited in the following paragraphs, one may refer to Grumiaux et al. @grumiaux_survey_2021 for a more detailed picture of #acr("SSL") at the age of deep learning.
 Notably, the active localization techniques dealing with moving sources and/or microphones will be presented in @chap:active_ssl in addition to our contribution to the topic.
 
-Before providing details on the various methods proposed to address SSL, we devote the next section to describe the variability in problem formulation and experimental settings. 
+Before providing details on the various methods proposed to address SSL, we devote the following section to describing the variability in problem formulation and experimental settings. 
 Chronologically, the first steps were developed in simple settings, and as progress was made, scenarios of increasing complexity were proposed.
 However, the next section is not structured chronologically but by properties (simulated vs. real data, single vs. multi-source) for clarity.
 
@@ -60,7 +60,7 @@ However, the next section is not structured chronologically but by properties (s
 Localizing sound sources is a vague objective, and the exact formulation of the problem varies broadly across the literature.
 
 *From simulated to real-world environments*
-First and foremost, the targetted acoustic environment can be of different natures.
+First and foremost, the targeted acoustic environment can be of different natures.
 Some methods are solely tested in a simulation where the fidelity to the real world is inherently imperfect.
 As motivated in @chap:simulator, simulation provides several benefits.
 In particular, it offers a cost-effective data source that is particularly relevant when using data-based approaches.
@@ -122,6 +122,14 @@ Dealing with intermittent sources is an additional difficulty that several appro
 In this regard, handling sources that may become inactive is linked with the capacity to localize an arbitrary number of sources.
 Naturally, assuming a pre-defined number of constantly active sources is easier and more common across the #acr("SSL") literature.
 
+*Event localization and detection*
+The #acr("SELD") task is an extension of the #acr("SSL") problem.
+It involves jointly performing #acr("SED") and localizing the detected events.
+This research problem has several real-world applications in surveillance systems, robot hearing, or environmental monitoring.
+Hence, the literature on #acr("SELD") methods is highly relevant for localization.
+The #acr("DCASE") challenge, held annually, proposes various tasks ranging from pure localization to the more complex #acr("SELD").
+Kapka et al. @kapka_sound_2019, Phan et al. @phan_audio_2020 @phan_multitask_2020, Adavane et al. @adavanne_sound_2019 are examples of #acr("DCASE") submissions for the #acr("SELD") task.
+
 Those fundamental differences are not the only ones.
 They highlight the diversity of existing approaches and show.
 Most importantly, we have seen that the #acr("SSL") task does not have a unique and clear definition.
@@ -149,7 +157,7 @@ For sounds coming from the front and back, the paths to the left and right micro
 This symmetry means that the #acr("TDoA") measurement alone cannot distinguish whether the source is in front or behind.
 
 Beamforming approaches focus on spatial filtering by steering the microphone array to maximize the energy from a specific direction.
-Methods such as the steered response power with phase transform (SRP-PHAT) are commonly employed to construct acoustic energy maps, identifying source directions as peaks in the map.
+Methods such as the #acr("SRP-PHAT") are commonly employed to construct acoustic energy maps, identifying source directions as peaks in the map.
 Van Veen et al. @van_veen_beamforming_1988 provide a comprehensive overview of beamforming techniques, discussing their applications in spatial filtering and signal enhancement.
 The book by Brandstein et al. @brandstein_microphone_2001 explores microphone array signal processing more in-depth.
 While effective in simple environments, beamforming techniques struggle with real-world conditions involving diffuse noise and multiple overlapping sources.
@@ -160,7 +168,7 @@ These methods are computationally intensive and sensitive to reverberation, but 
 
 Probabilistic methods model the spatial distribution of sound sources using generative frameworks like #acrpl("GMM") @flam_gaussian_2011 @bross_multiple_2021.
 These approaches combine statistical inference with signal sparsity in the time-frequency domain, providing robust #acr("SSL") performance in scenarios with multiple sources.
-Extensions to these models include Gaussian mixture regression for single and multi-source localization, highlighting their adaptability @deleforge_co-localization_2015 @deleforge_acoustic_2015.
+Extensions to these models include Gaussian mixture regression for single and multi-source localization, highlighting their adaptability @deleforge_co-localization_2015 @deleforge_acoustic_2015 @mandel_model-based_2010.
 In his PhD thesis @mandel_binaural_2010, Michael I. Mandel proposes a model-based #acr("EM") approach for sound source separation and localization.
 This system can handle challenging scenarios involving reverberation and the presence of an adversarial _masker_ sound source.
 
@@ -170,7 +178,6 @@ Furthermore, many classical techniques fail to generalize across varying microph
 Those shortcomings have catalyzed the development of data-driven techniques, particularly those leveraging deep learning.
 These modern methods excel in handling complex, nonlinear relationships in audio data, offering greater robustness in diverse and dynamic environments.
 The evolution of #acr("SSL") from classical to deep learning approaches marks a significant leap in addressing real-world challenges.
-
 
 === Deep Learning methods for #acr("SSL")
 <sec:ssl:sota:deep_learning>
@@ -204,20 +211,26 @@ A few works have trained #acr("DNN")s to perform #acr("SSL") from the waveform d
 @jenrungrot_cone_2020.
 Although aesthetically appealing, such raw-audio-based approaches remain scarce in the literature.
 Spectral representations are significantly more popular.
-Most notably, the #acr("STFT") is used to compute acoustic signals' magnitude, power, and phase spectrums.
+Most notably, the #acr("STFT") is used to compute acoustic signals' magnitude, power, and phase spectra.
+For example, Chakrabarty et al. @chakrabarty_broadband_2017 have used the phase spectrogram to localize multiple speakers.
 Additionally, interaural (or interchannel) features are commonly used across the literature, such as the aforementioned #acr("ILD"), #acr("IPD"), and #acr("ITD") @viste_binaural_2004 @chakrabarty_broadband_2017 @nguyen_autonomous_2018 @roden_sound_2015.
 Please refer to @sec:simulator:background:binaural for more details on such features.
+Also, the acoustic representations introduced by the classical localization methods remain popular in the deep learning era.
+For instance, Diaz-Guerra @diaz-guerra_robust_2021 @diaz-guerra_direction_2022 proposes to feed #acr("SRP-PHAT") power maps to a #acr("CNN") for performing localization.
 // Ambisonics
 Ambisonics is a format for representing acoustic signals as a spherical harmonic decomposition of the sound field.
 This multi-channel representation is agnostic to the microphone array configuration and encodes the spatial properties of a sound field @grumiaux_survey_2021.
 Those properties are relevant in the context of #acr("SSL").
 Applying the #acr("STFT") to an ambisonic signal can express it in the time-frequency domain.
-Adavanne et al. @adavanne_localization_2019 employ spectrograms of first-order ambisonics to localize and track multiple sound events.
+Adavanne et al. @adavanne_localization_2019, @adavanne_sound_2019 employ spectrograms of first-order ambisonics to localize and track multiple sound events.
 Perotin et al. have conducted a series of works on ambisonics and its application to #acr("SSL")
 @perotin_regression_2019
 @perotin_crnn-based_2018
 @perotin_crnn-based_2019
 @perotin_localisation_2019.
+In @varanasi_deep_2020, Varanasi et al. derive novel spherical harmonic magnitude and phase features for #acr("DoA") estimation.
+These features allow for the separate estimation of the elevation and azimuth, lowering the method's computational cost.
+Compared to #acr("FOA"), which are more common in the literature, the proposed format uses higher-order spherical harmonics (up to the third order), granting an enhanced spatial resolution.
 
 
 *Dataset collection*
@@ -234,10 +247,10 @@ The ground-truth source and microphone positions are known from the start, and n
 Generating a dataset from an acoustic simulator does not require recording equipment and allows for collecting arbitrarily large amounts of data @srivastava_how_2023.
 Nonetheless, the real-world performance of networks trained on such datasets is generally lower than in simulation.
 Transferring those methods to the physical world is an important research area.
-For instance, some works, such as Chakrabaty et al. @chakrabarty_broadband_2017 and Grumiaux et al. @grumiaux_improved_2021, have tested their system on real-world recordings after an initial training phase on synthetic data.
+For instance, some works, such as Chakrabaty et al. @chakrabarty_broadband_2017 @chakrabarty_multi-speaker_2019, Xiao et al. @xiao_learning-based_2015, and Grumiaux et al. @grumiaux_improved_2021, have tested their system on real-world recordings after an initial training phase on synthetic data.
 Commonly, modern #acr("SSL") research combines both data sources.
 Inexpensive synthetic datasets are often used to train deep neural networks.
-Once trained, the performance of the obtained systems is evaluated in real scenarios using robotic heads, for instance #todo.
+Once trained, the performance of the obtained systems is evaluated in real scenarios using microphone arrays or microphone-equipped robotic heads @nguyen_robust_2020 @moing_learning_2020.
 Also, the simulation of moving sources remains an obstacle for simulation software.
 Publicly available acoustic datasets have been used to train or evaluate #acr("SSL") methods @cristoforetti_dirha_2014 @thiemann_multiple_2019.
 Finally, the #acr("DCASE") challenge @mesaros_decade_2024 has historically integrated a #acr("SELD") task.
@@ -250,7 +263,9 @@ The network topology design is a fundamental property of deep-learning-based #ac
 The *feed-forward neural network* is the simplest form of #acrpl("DNN")s.
 It was also the first deep neural architecture used to perform #acr("SSL") @ling_direction_2011 @youssef_learning-based_2013.
 These networks typically map preprocessed spatial audio features, such as #acr("IPD"), #acr("ILD") or #acr("GCC") @xiao_learning-based_2015, to the #acr("DoA") of a sound source.
-Their simplicity and efficiency make them suitable for single-source localization in controlled environments.
+In @xiao_learning-based_2015, a single-hidden-layer #acr("MLP") is trained on #acr("GCC-PHAT")-based features.
+Takeda et al. @takeda_sound_2016 use a #acr("DNN") to learn from the eigenvectors of the recorded signal interchannel correlation matrix.
+The feed-forward networks' simplicity and efficiency make them suitable for single-source localization in controlled environments.
 However, their lack of temporal modeling capabilities limits their performance in dynamic scenarios or multi-source settings.
 
 *Convolutional neural networks* have also been employed widely for #acr("SSL").
@@ -262,13 +277,18 @@ As such, the acoustic community has leveraged the vast computer vision literatur
 The inherent ability of such networks to process an arbitrary number of channels allows for the leverage of recordings from several microphones.
 The convolutional kernels are responsible for combining this information.
 Hirvonen et al. @hirvonen_classification_2015 are among the first to apply the #acr("CNN") to #acr("SSL").
-Multiple works have followed, adopting a similar approach and trying to learn from different types of input features @chakrabarty_broadband_2017 @adavanne_sound_2019 @tan_sound_2021.
+Multiple works have followed, adopting a similar approach and trying to learn from different types of input features @chakrabarty_broadband_2017 @chakrabarty_multi-speaker_2019 @adavanne_sound_2019 @tan_sound_2021.
+In @chakrabarty_multi-speaker_2019, Chakrabarty et al. empirically show that the optimal number of convolutional layers for a microphone array with $M$ microphones is $M-1$.
+Diaz-Guerra et al. @diaz-guerra_direction_2022 demonstrate the relevance of icosahedral #acrpl("CNN")s for #acr("DoA") estimation.
+This architecture has the advantage of being equivariant to the 60 rotational symmetries of the icosahedron.
+The method achieves state-of-the-art results, even in highly reverberant environments.
+The authors attribute this success to using a model that encodes the properties of the problem in its architecture.
 
 Primarily used in the #acr("NLP") community, *#acrpl("RNN")* are a popular choice for processing sequential data and time series in general.
 They can inherently propagate information along a sequence to leverage global context to perform a task.
 The principal advantage of those architectures is their capacity to model temporal phenomena, which can help localize sound sources in more complex settings.
 The main #acr("RNN") architectures are the #acr("LSTM") and #acr("GRU") designs.
-Some works, such as @cao_event-independent_2020 and @comminiello_quaternion_2019 have used a combination of #acr("CNN") and #acr("RNN"), referred to as #acrpl("CRNN") for #acr("SSL").
+Some works, such as @cao_event-independent_2020, @adavanne_localization_2019, @kapka_sound_2019 and @comminiello_quaternion_2019 have used a combination of #acr("CNN") and #acr("RNN"), referred to as #acrpl("CRNN") for #acr("SSL").
 
 Vaswani et al. @vaswani_attention_nodate famously introduced the *transformer architecture*, which has become the de facto neural network design for numerous complex tasks.
 Attention-based neural networks were first employed by the #acr("NLP") community to replace #acrpl("LSTM")s @radford_improving_nodate.
@@ -295,9 +315,9 @@ Nonetheless, different relative coordinate systems are used.
 Choosing spherical or polar systems consists of predicting a #acr("DoA") value and, optionally, the elevation angle and/or the distance to the source.
 Alternatively, other works choose to write the estimated detections in Cartesian coordinates.
 The latter choice can involve predicting the distance, too.
-Adavanne et al. @adavanne_localization_2019 instead normalize their network's outputs so that estimated coordinates are restricted to the unit sphere.
+Adavanne et al. @adavanne_localization_2019, @adavanne_sound_2019 instead normalize their network's outputs so that estimated coordinates are restricted to the unit sphere.
 Additionally, some works can be further distinguished from the usual regression formulation of #acr("SSL").
-Specific approaches have framed the localization problem as a classification task where the system is expected to select a region of space instead of producing one or more scalar values @roden_sound_2015.
+Specific approaches have framed the localization problem as a classification task where the system is expected to select a region of space instead of producing one or more scalar values @roden_sound_2015 @xiao_learning-based_2015.
 
 
 === Sound Source localization in robotics
