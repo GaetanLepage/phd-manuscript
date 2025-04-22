@@ -62,6 +62,7 @@
     - BatchNorm / Batch Norm / batch norm
     - Deep Learning / deep learning / deep-learning
     - localization / localisation
+    - the tense (past vs. present) when citing a paper: _Doe et al. show[ed] that..._
   - *Layout:*
     - [ ] figure/table placement check
     - [ ] Check that all `subpar.grid` figures have their:

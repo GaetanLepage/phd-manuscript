@@ -6,35 +6,33 @@
 
 ==== Custom dataset for #acr("SSL")
 <sec:ssl:single_source:method:dataset>
-//#gaet[
-//  This section is a mess and needs to be properly re-written along with its @sec:ssl:multi_source:method:dataset sibling.
-//]
+//TODO This section is a mess and needs to be properly re-written along with its @sec:ssl:multi_source:method:dataset sibling.
 
-This study's objective was to adapt state-of-the-art #acr("SSL") methods to diverse, challenging setups.
-The audio simulator presented in @chap:simulator has been leveraged to generate various synthetic datasets with which to experiment.
+This study aimed to adapt state-of-the-art #acr("SSL") methods to diverse, challenging setups.
+The audio simulator presented in @chap:simulator has been leveraged to generate various synthetic datasets for experimentation.
 
 Although public #acr("SSL") datasets have been shared publicly by the community, we have chosen to work within our artificial #acr("HRI") environment for later reuse of this method.
-For the sake of exhaustivity, here are some examples of other relevant datasets.
+For the sake of completeness, here are some examples of other relevant datasets.
 He et al. @he_deep_2018 have proposed the #acr("SSLR") dataset using the Pepper robot equipped with a four-microphone array.
 Furthermore, the third task of the #acr("DCASE") challenge proposes a yearly competition around designing the best #acr("SSL") system.
-The target dataset for the 2024 edition of #acr("DCASE") was STARSS23 @shimada_starss23_nodate, introduced at the NeurIPS 2023 conference.
+The target dataset for the 2024 edition of #acr("DCASE") was STARSS23 @shimada_starss23_2023, introduced at the NeurIPS 2023 conference.
 
 Training and test samples are generated independently according to the following process.
-An omnidirectional speech source, our acoustic model for a speaking human, is placed in a random position in the room.
+An omnidirectional speech source, our acoustic model for a speaking human, is placed randomly in the room.
 A multi-microphone array is also positioned randomly in the room.
 Apart from ensuring that the source and microphones are not too close to the walls, no constraint is set on their location.
 Several published #acr("SSL") methods are only tested with restricted positions for the sources.
 Such limitations can be inherent to the physical experimental setup.
-Using a simulator allows maximizing the diversity of environment configurations.
+Using a simulator allows for maximizing the diversity of environment configurations.
 Once  the source and microphones are positioned, this configuration's #acr("RIR") filter is computed.
 Then, a random sample is drawn from the LibriSpeech @panayotov_librispeech_2015 dataset.
 An arbitrary 1s chunk is extracted from the speech recording and set as the source input signal.
 By convolving this input signal with the #acr("RIR") filter, we obtain the simulated signal recorded by each microphone.
 Finally, the multi-channel complex #acr("STFT") is computed from the waveform and saved on disk.
-We save the localization ground-truth information and additional metadata for each sample along with the acoustic observation.
+For each sample, we save the localization ground-truth information, additional metadata, and the acoustic observation.
 Most notably, the #acr("DoA") value $theta$ and the source-array distance $D$ are included.
 This process is repeated to obtain 100,000 distinct samples, which will later be split between training, validation, and testing.
-The final datasets weigh from 26 to 50GB depending on the number of microphones in the array.
+The final datasets weigh from 26 to 50GB, depending on the number of microphones in the array.
 @fig:ssl:single_source:dataset_statistics outlines the repartition of the generated samples regarding source-array relative positions.
 
 
@@ -57,20 +55,20 @@ The final datasets weigh from 26 to 50GB depending on the number of microphones 
 ==== Microphone arrays
 <sec:ssl:single_source:method:mic_arrays>
 
-Several microphone arrays have been experimented in this study.
+Several microphone arrays have been experimented with in this study.
 Leveraging multiple microphones to form an array is essential.
 Geometric information is extracted from the differences between the signals each sensor receives.
-Acoustic reverberation and the spatial configuration of the array lead to the apparition of exploitable patterns in the overall collected data.
+Acoustic reverberation and the spatial configuration of the array lead to the appearance of exploitable patterns in the overall collected data.
 
 We present the following microphone array configurations that have been tested.
 
-- A *binaural* array comprises two microphones placed a few centimeters apart from each other.
- This setup certainly constitutes the most studied robotic #acr("SSL") framework in the literature.
- A humanoid robotic head equipped with two microphones on each side has been the motivation to primarily consider this layout.
+- A *binaural* array comprises two microphones placed a few centimeters apart.
+ This setup constitutes the most studied robotic #acr("SSL") framework in the literature.
+ This layout was primarily considered because of a humanoid robotic head equipped with two microphones on each side.
 - We have also proposed a *three-microphone* design in a V-shaped arrangement.
 - Finally, a *square* array of four microphones has been implemented too.
 
-Their implementation has been integrated in our simulator (see @sec:simulator:simulator:components:sim_scenarios).
+Their implementation has been integrated into our simulator (see @sec:simulator:simulator:components:sim_scenarios).
 
 The number of microphones plays an essential role in the #("SSL") performance.
 As an illustrative example, when having a binaural microphone in the free field, i.e. where the effects of reverberation can be neglected, there exists a fundamental limit:
@@ -104,7 +102,7 @@ In the context of #acr("SSL"), a non-homogeneous pattern brings extra angular in
 We have thus tested different configurations in our experiments.
 
 
-==== Audio post-processing
+==== Audio pre-processing
 <sec:ssl:single_source:method:audio_processing>
 
 The simulator allows the extraction of spectral representations directly from received signals.
