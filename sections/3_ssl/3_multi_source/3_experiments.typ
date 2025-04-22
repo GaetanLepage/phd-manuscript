@@ -430,7 +430,7 @@ The latter also stands at a fixed position in the room.
 @fig:ssl:multi_source:sequence_processing:doa_spectrum depicts the averaged #acr("DoA") spectrum #averaged-spectrum along with the corresponding overall predictions.
 On this specific example, the averaging process successfully aggregates the angular information and allows for an accurate localization of all three sources.
 More precisely, the top part of @fig:ssl:multi_source:sequence_processing:result displays the network output at each time step.
-The gray scale patches represent the individual estimated #acr("DoA") spectrums $hat(o)_k$.
+The gray scale patches represent the individual estimated #acr("DoA") spectra $hat(o)_k$.
 The resulting predicted angles are highlighted by the red dots.
 Finally, the histogram of predictions characterizes the distribution of detections along the process.
 

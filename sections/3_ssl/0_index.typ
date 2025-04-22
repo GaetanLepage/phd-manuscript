@@ -4,9 +4,8 @@
 <chap:ssl>
 #minitoc(indent: true)
 
-#draft[
-  // TODO: write general intro
-  Disclaimer: This short intro might have to be adapted if we change the organization of the chapter.
+#gaet[
+  Isn't this too short as an introduction?
 ]
 
 Our intent to investigate #acr("SSL") was initially motivated by our exploratory work in Deep Reinforcement Learning (see @chap:rl).
