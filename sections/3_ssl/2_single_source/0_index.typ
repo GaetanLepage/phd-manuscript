@@ -21,7 +21,7 @@ This section details the adopted deep-learning-based approach and the technical 
 // TODO
 // Limitations: single source (i.e., not more than one BUT ALSO always at least one)
 Single-source localization is a fundamental problem of acoustics and plays an important role in robotics applications.
-In this first section, we have developed a deep-neural network sound source localizer.
+In this first section, we have developed a deep neural network sound source localizer.
 Our solution has been designed and trained from scratch and is inspired by the vast deep-learning-based #acr("SSL") literature.
 Original datasets were synthesized using our audio simulation library.
 They allowed us to train and evaluate the proposed network architecture on various scenarios.
