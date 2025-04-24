@@ -15,7 +15,7 @@ Although the focus will be directed towards methods that predict solely the #acr
 )
 <fig:ssl:single_source:task>
 
-As seen in @sec:ssl:sota:ssl_in_robotics, multi-modal information can be leveraged to perform #acr("SSL") in a robotics context.
+As seen in @sec:ssl:background:ssl_in_robotics, multi-modal information can be leveraged to perform #acr("SSL") in a robotics context.
 However, this chapter will focus on the exclusive use of audio information.
 This choice is more representative of the classical formulation of the #acr("SSL") problem, and although simpler to formulate, it constitutes a challenging task.
 

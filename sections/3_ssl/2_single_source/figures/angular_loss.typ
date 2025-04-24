@@ -16,7 +16,7 @@
     {
       import cetz.draw: *
       plot.plot(
-        size: (10, 3),
+        size: (14, 4),
         x-tick-step: none,
         x-ticks: ((-calc.pi, $-pi$), (0, $0$), (calc.pi, $pi$)),
         y-tick-step: 1,

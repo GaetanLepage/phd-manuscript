@@ -357,7 +357,7 @@ Each one of the $M$ microphones leads to a #shape(2, "F", "T")-shape real-valued
 Its shape is noted #shape("C", "F", "T"), where $C$ is the number of channels, i.e., twice the number of microphones in the array.
 
 The architecture draws inspiration from vision models by employing 2D convolution.
-As discussed in @sec:ssl:sota:deep_learning, using the image-like time-frequency representation of audio signals allows the application of techniques proven to perform well on conventional image data.
+As discussed in @sec:ssl:background:deep_learning, using the image-like time-frequency representation of audio signals allows the application of techniques proven to perform well on conventional image data.
 
 #figure(
   image(

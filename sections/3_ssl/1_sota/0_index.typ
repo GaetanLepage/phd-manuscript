@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 
-== Sound source localization background
-<sec:ssl:sota>
+== Background
+<sec:ssl:background>
 
 #reset-acronym("SSL")
 
@@ -55,7 +55,7 @@ Chronologically, the first steps were developed in simple settings, and as progr
 However, the next section is not structured chronologically but by properties (simulated vs. real data, single vs. multi-source) for clarity.
 
 === Variations in the Sound Source Localization task
-<sec:active_ssl:background:variations>
+<sec:ssl:background:variations>
 
 Localizing sound sources is a vague objective, and the exact formulation of the problem varies broadly across the literature.
 
@@ -136,7 +136,7 @@ Most importantly, we have seen that the #acr("SSL") task does not have a unique 
 It refers to a complex problem that can be tackled with various nuances and complexities.
 
 === Classical approaches
-<sec:ssl:sota:classical_approaches>
+<sec:ssl:background:classical_approaches>
 
 #acr("SSL") has long been a central problem in auditory processing, and foundational methods have emerged from signal processing principles.
 These classical approaches primarily relied on analyzing multichannel audio data to extract spatial information about sound sources, leveraging the physics of wave propagation @grumiaux_survey_2021.
@@ -180,7 +180,7 @@ These modern methods excel in handling complex, nonlinear relationships in audio
 The evolution of #acr("SSL") from classical to deep learning approaches marks a significant leap in addressing real-world challenges.
 
 === Deep Learning methods for #acr("SSL")
-<sec:ssl:sota:deep_learning>
+<sec:ssl:background:deep_learning>
 
 The advent of deep learning has brought transformative changes to #acr("SSL"), enabling robust performance in real-world conditions involving noise, reverberation, and multi-source scenarios.
 Unlike classical methods that rely on handcrafted features and simplified models, deep learning techniques harness large datasets and performant neural network architectures to learn complex spatial and spectral relationships directly from audio data.
@@ -197,7 +197,7 @@ The network is often trained in a supervised fashion on a collected offline data
 After training, the model is supposed to be able to predict the sound source location from unheard recordings resulting from new situations.
 The third and final aspect of the workflow consists of choosing the right *output strategy*.
 Grumiaux et al. @grumiaux_survey_2021 highlight the wide variety of possible choices in this matter.
-As noted previously, not all methods share the same capacities (@sec:active_ssl:background:variations).
+As noted previously, not all methods share the same capacities (@sec:ssl:background:variations).
 Some can handle the detection of multiple sources @he_joint_2018, @bross_multiple_2021 @woodruff_binaural_2012 while others are limited to single-source scenarios @perotin_crnn-based_2018 @hirvonen_classification_2015 @chakrabarty_broadband_2017.
 
 *Input data*
@@ -218,6 +218,7 @@ Additionally, interaural (or interchannel) features are commonly used across the
 Please refer to @sec:simulator:background:binaural for more details on such features.
 Also, the acoustic representations introduced by the classical localization methods remain popular in the deep learning era.
 For instance, Diaz-Guerra @diaz-guerra_robust_2021 @diaz-guerra_direction_2022 proposes to feed #acr("SRP-PHAT") power maps to a #acr("CNN") for performing localization.
+In @boztas_sound_2023, Boztas has explored wavelet transforms for pre-processing the raw audio data.
 
 // Ambisonics
 Ambisonics is a format for representing acoustic signals as a spherical harmonic decomposition of the sound field.
@@ -308,7 +309,7 @@ Le Moing et al. @moing_learning_2020 employed an encoder-decoder-style network t
 Variational auto-encoders @bianco_semi-supervised_2020 and U-net architectures @jenrungrot_cone_2020 are other examples of encoder-decoder networks used for #acr("SSL").
 
 *Output format*
-As previously explained in @sec:active_ssl:background:variations, the output formats of #acr("SSL") detectors vary considerably across methods.
+As previously explained in @sec:ssl:background:variations, the output formats of #acr("SSL") detectors vary considerably across methods.
 On the one hand, not all solutions estimate the same values.
 Some systems are limited to #acr("DoA") estimation, while others can additionally predict the distance.
 On the other hand, the coordinate system used to express the detections is not always the same.
@@ -324,7 +325,7 @@ Specific approaches have framed the localization problem as a classification tas
 
 
 === Sound Source localization in robotics
-<sec:ssl:sota:ssl_in_robotics>
+<sec:ssl:background:ssl_in_robotics>
 
 Although #acr("SSL") has been studied as a self-contained problem, it certainly has many notable downstream applications.
 Among those, robotics is a significant use case of #acr("SSL") algorithms.
@@ -338,7 +339,7 @@ Besides exploiting visual features, which have been investigated in the computer
 Naturally, such an agent will use language as the primary means of communication with humans and thus needs to extract the meaning of its interlocutors' speech.
 Yet, sound information may have additional use cases besides #acr("ASR").
 For instance, human-robot interaction can be enhanced by having the agent adjust its gaze and look at the person it interacts with.
-A robot able to locate other sound sources accurately can also adjust its navigation policy to take advantage of this knowledge.
+A robot that can locate other sound sources accurately can also adjust its navigation policy to take advantage of this knowledge.
 Robot navigation is likewise complex and often relies on multi-modal perception.
 LIDAR, or depth information, allows the robot to localize itself and other potentially moving subjects in the environment.
 Visual information has also been used to perform #acr("SSL") @mo_closer_2022.
@@ -347,6 +348,8 @@ Using both modalities helped improve overall performance, including the #acr("SS
 In @trifa_real-time_2007, Trifa et al. discuss the relevance of combining audio and visual cues for human-robot interaction tasks.
 While solely limited to audio features, their experiments involve performing sound source localization on a physical robotic platform.
 Li et al. @li_reverberant_2016 demonstrate a capable #acr("SSL") solution tested on the NAO robot.
+Gala et al. @gala_realtime_2019 manage to predict both the orientation and distance to the source by rotating a self-rotating binaural microphone array.
+Introducing movement is a common technique to eliminate front-back ambiguity.
 In @sewtz_sound_2020, Sewtz et al. present an audio segmentation system.
 It assigns speech phases to specific speakers in multi-party indoor environments.
 The authors insist that, contrary to vision-based systems, sound source localization does not necessitate any movement from the robot.
@@ -356,6 +359,9 @@ Naturally, their survey has not discussed more recent works applying modern deep
 For instance, Nguyen et al. @nguyen_autonomous_2018 designed a neural network to map audio features recorded by a binaural humanoid robot to the relative source direction.
 The model is trained in a supervised fashion using white noise.
 It is then tested in a realistic setup where the task is to localize speech sources.
+Boztas @boztas_sound_2023 trains a deep neural network to perform #acr("SSL") with a four-microphone array integrated on the Nao robot's head.
+Several neural network architectures are compared (#acr("MLP"), #acr("CNN"), #acr("LSTM")).
+They evaluate the proposed method by having a TurtleBot3 mobile robot carrying a sound source around the fixed Nao robot.
 
 // Constraint related to robotics
 Robotics often brings additional challenges to the #acr("SSL") task.
@@ -390,7 +396,7 @@ Interestingly, the optimal angle does not correspond to the sound entering one o
 Instead, the angle maximizing the reverberation of the sound wave on the artificial pinna provides the best condition for accurate #acr("ASR").
 
 === Conclusion
-<sec:ssl:sota:conclusion>
+<sec:ssl:background:conclusion>
 
 As depicted in this condensed overview, multiple and diverse research efforts have been focused on solving the #acr("SSL") task.
 Although this challenge has been explored extensively for decades, the ecosystem remains vibrant, and new solutions are constantly proposed.
