@@ -32,7 +32,7 @@
       - [ ] #link(<sec:simulator:simulator:performance>)[4. Performance] -> Not enough time + chapter already big enough
       - [x] #link(<sec:simulator:conclusion>)[5. Conclusion]
   + *SSL*
-    - [-] #link(<sec:ssl:sota>)[1. Background]
+    - [-] #link(<sec:ssl:background>)[1. Background]
     - [-] #link(<sec:ssl:single_source>)[2. Single-source]
     - [-] #link(<sec:ssl:multi_source>)[3. Multi-source]
   + *Active SSL*
@@ -58,6 +58,9 @@
 )[
   #show: checklist
   - [ ] Grammar check
+  - [ ] Update PhD title:
+    - [ ] Adum
+    - [ ] front page
   - [ ] Ensure consistency between:
     - BatchNorm / Batch Norm / batch norm
     - Deep Learning / deep learning / deep-learning

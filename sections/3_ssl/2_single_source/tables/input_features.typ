@@ -27,8 +27,8 @@
     dashedrule,
     [#acr("ILD") only],                         [1], [100], [38.27],
     [#acr("IPD") only],                         [1], [100], [22.74],
-    [#acr("STFT") magnitude only],              [2], [100], [#todo],
-    [#acr("STFT") phase only],                  [2], [100], [#todo],
+    [#acr("STFT") magnitude only],              [2], [100], [31.17],
+    [#acr("STFT") phase only],                  [2], [100], [27.97],
     
     bottomrule,
   ),
