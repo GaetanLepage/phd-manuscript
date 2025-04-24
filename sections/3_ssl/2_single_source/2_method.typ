@@ -73,23 +73,23 @@ Their implementation has been integrated into our simulator (see @sec:simulator:
 The number of microphones plays an essential role in the #("SSL") performance.
 As an illustrative example, when having a binaural microphone in the free field, i.e. where the effects of reverberation can be neglected, there exists a fundamental limit:
 It is theoretically impossible to distinguish between two possible locations for the source.
-This phenomenon is known as front-back ambiguity and was presented earlier in this chapter @sec:ssl:sota:classical_approaches.
-The front-back ambiguity can be cleared up by introducing relative movement or an additional microphone in the array.
+This phenomenon is known as front-back ambiguity and was presented earlier in this chapter @sec:ssl:background:classical_approaches.
+The front-back ambiguity can be cleared by introducing relative movement or an additional microphone in the array.
 
 Importantly, all our microphone arrays are deprived of any physical incarnation.
 No real material constitutes the actual array.
-In a more realistic setup, the presence of a robotic head between two microphones can be modeled using a #acr("HRTF").
+In a more realistic setup, the presence of a robotic head between two microphones can be modeled using an #acr("HRTF").
 
 // Number of microphones
 // Directionality / Pattern
-The _polar pattern_ of each microphone also stands out as an important characteristic of the array.
-This property describes which incoming capture directions will be favored by the sensor.
-Each use of a microphone can benefit from an appropriate directionality.
+Each microphone's _polar pattern_ also stands out as an essential characteristic of the array.
+This property describes which incoming capture directions will be amplified or dampened by the sensor.
+Each use of a microphone can benefit from appropriate directionality.
 For instance, when recording a singer or speaker's voice, one can afford to point the receiver towards the source and have it ignore the unwanted sounds coming from other directions.
 
 The _omnidirectional_ pattern is the simpler one to think of.
 All directions are given equal importance.
-In contrast, the cardioid and its variants (super-cardioid, hyper-cardioid, ultra-cardioid, ...) weigh non-uniformly each angle of incidence and thus privilege some directions above others.
+In contrast, the cardioid and its variants (super-cardioid, hyper-cardioid, ultra-cardioid, etc.) weigh non-uniformly each angle of incidence and thus privilege some directions above others.
 @fig:ssl:single_source:polar_patterns shows the receptive field of the most common microphone patterns.
 #figure(
   image("figures/polar_patterns.jpg", height: 8cm),
@@ -98,31 +98,23 @@ In contrast, the cardioid and its variants (super-cardioid, hyper-cardioid, ultr
   ],
 ) <fig:ssl:single_source:polar_patterns>
 
-In the context of #acr("SSL"), a non-homogeneous pattern brings extra angular information which a neural network might be able to exploit.
+In the context of #acr("SSL"), a non-homogeneous pattern brings extra angular information that a neural network might be able to exploit.
 We have thus tested different configurations in our experiments.
 
 
 ==== Audio pre-processing
-<sec:ssl:single_source:method:audio_processing>
+<sec:ssl:single_source:method:pre-processing>
 
-The simulator allows the extraction of spectral representations directly from received signals.
+Motivated by their popularity in the literature, we focus on spectral representations of audio data.
+The simulator allows the extraction of such representations directly from the generated signals.
 The observations are stored in the dataset as multichannel complex #acrpl("STFT")s.
 These complex tensors are not fed directly into the neural network but are further processed.
 The role of this step is to convert the complex spectral observation to a real-valued tensor.
-Several methods have been tested and compared.
-
-#todo: rephrase
-//This section summarizes the explicit choices made regarding audio processing for performing the #acr("SSL") task.
-//TODO
-//The Short Term Fourier transform is computed on short frames of 
-//Originally, the dataset is constituted by #draft[TODO]
-The experimental section summarizes our findings regarding their respective performance.
-
-The neural network is expected to extract the relevant localization information from the audio signal provided as input.
+The neural network is expected to extract the relevant localization information from the obtained representation.
 This section explores the importance of choosing the input features fed into the network.
-Here, the sensor consists of a binaural microphone array of two omnidirectional transducers.
+Several methods have been tested and compared.
+The corresponding experimental section (@sec:ssl:single_source:experiments:pre-processing) summarizes our findings regarding their respective performance.
 
-In this work, we focus on time-frequency representations.
 Adaptations of 2D convolutions to complex tensors do exist and have already been used in the #acr("SSL") literature.
 Krause et al. @krause_comparison_2021 present this variation along with its benefits (Section II.B).
 However, regular 2D convolutions have been employed in the present work, and the complex-valued #acr("STFT") needed to be converted to real values.
@@ -147,9 +139,9 @@ In both cases, a $C$-channel #acr("STFT") #shape("C","F","T") complex tensor tra
 Besides raw #acr("STFT") values, interaural features, presented in @sec:simulator:background:spectral-features, have been widely used in the #acr("SSL") literature @nguyen_autonomous_2018, @sivasankaran_keyword_2018 @youssef_learning-based_2013.
 Binaural representations have been explicitly designed to highlight geometric information relevant to localization.
 Hence, and for the sake of exhaustivity, those cues have also been tested.
-This comparison employs a binaural array which allows to trivially compute #acr("ILD") and #acr("IPD") from the two #acr("STFT") arrays.
-Notably, the number of resulting channels in the processed data remains two in this case.
-The interaural tensor $cal(I) in RR^(C, F, T)$ amounts to:
+This comparison employs a binaural array which allows for trivial computation of the #acr("ILD") and #acr("IPD") from the two #acr("STFT") arrays.
+Notably, the number of resulting channels in the processed data remains two.
+The interaural tensor $cal(I) in RR^(C times F times T)$ amounts to:
 $
   cal(I) = mat(
       "ILD"(m_1, m_2);
@@ -173,22 +165,24 @@ $
   cal(I)[i] = "IPD"(m_i, m_((i+1) equiv C))
 $
 
+An ablation study was conducted to measure the impact of pre-processing methods on #acr("SSL") performance (@sec:ssl:single_source:experiments:pre-processing).
+
 
 ==== Neural Network Architecture
 <sec:ssl:single_source:method:architecture>
 
 
-As demonstrated in @sec:ssl:sota:deep_learning, deep neural networks are flexible and effective as building blocks for an #acr("SSL") solution.
+As demonstrated in @sec:ssl:background:deep_learning, deep neural networks are flexible and effective building blocks for an #acr("SSL") solution.
 We focused in this work on a simple architecture that takes some representation of the listened audio signal as its only input.
 At the other end, this network is trained to infer the #acr("DoA") value $theta$ and optionally the distance $D$ from the single speech source in the room.
 Our model is trained in a supervised fashion using some custom datasets presented in @sec:ssl:single_source:method:dataset.
 
-The architecture, depicted in @fig:ssl:single_source:nn_architecture, consists in five convolutional blocks.
+The architecture, depicted in @fig:ssl:single_source:nn_architecture, consists of five convolutional blocks.
 Each encompasses a 2D convolution layer, batch normalization, and a #acr("ReLU") operator.
 The convolutional filters operate in the time-frequency plane.
 The dimension of the multi-channel image progressively shrinks along the network.
-The convolutional feature extractor ends with an adaptive max-pooling operation which reduces the input tensor from a #shape("C", "F", "T") shape to a $C$-dimensional vector.
-At this stage of the network, the spatial dimensions $F$ and $T$ have been reduced to 30 and 6 respectively, while the number of channels $C$ has increased to 256.
+The convolutional feature extractor ends with an adaptive max-pooling operation, which reduces the input tensor from a #shape("C", "F", "T") shape to a $C$-dimensional vector.
+At this stage of the network, the spatial dimensions $F$ and $T$ have been reduced to 30 and 6, respectively, while the number of channels $C$ has increased to 256.
 The convolutional backbone is followed by a 3-layer #acr("MLP") in charge of regressing the computed features to the final expected values.
 Each fully-connected hidden layer is followed by a #acr("ReLU") and a dropout operation.
 The output neurons are trained to predict the sine and cosine of the #acr("DoA") and, optionally, the distance to the source $D$.
@@ -205,28 +199,10 @@ The output neurons are trained to predict the sine and cosine of the #acr("DoA")
 ) <fig:ssl:single_source:nn_architecture>
 
 
-// *Architecture impact.*
-// Our model architecture has been explicitly designed for the present use case.
-// The structure of this reasonably standard network has been motivated by the literature on #acr("SSL") and, more broadly, computer vision.
-// However, several variations have been made regarding the layout of the convolutional blocks.
-// Although performance in _easy_ tasks were not significantly impacted by those changes, they have turned out to be crucial for achieving satisfying results in more complex settings.
-// More specifically, the presence of normalization layers has shown to enhance training stability across our experiments.
-// #draft[
-//   Interestingly, whether to place those normalization before or after the #acr("ReLU") in each convolutional block ended up mattering substantially.
-// ]
-// Albeit in some cases, similarly good performance was achieved #todo
-
-// TODO
-// #gaet[
-//   Should we say that the impact of the architecture (Relu vs ReLU+BN vs BN+ReLU vs ReLU+LN LN+ReLU) is laughingly HIGH ?
-//   Should we include 
-// ]
-
-
 ==== Loss function
 <sec:ssl:single_source:method:loss>
 
-This single-source #acr("SSL") task boils down to a one or two-dimensional regression problem.
+This single-source #acr("SSL") task boils down to a low-dimensional regression problem.
 The network is designed to eventually predict a scalar value for the #acr("DoA") and optionally an extra value for the source-microphone distance.
 
 *Angular loss.*
@@ -237,6 +213,7 @@ A naive #acr("MSE") loss would wrongly penalize estimations close to $+pi$.
 We adopt a periodic loss for the #acr("DoA") to account for this specificity.
 Also, the network does not directly predict the #acr("DoA") value $theta$, but its sine and cosine instead.
 
+#block(breakable: false)[
 Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #acr("DoA") angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
 The loss function is expressed as
 $
@@ -251,6 +228,7 @@ $
        )
     ]
 $
+]
 
 #include "figures/angular_loss.typ"
 @fig:ssl:single_source:angular_loss plots the value of $#l-doa (dot, hat(theta))$ for different values of $hat(theta)$.
@@ -334,23 +312,23 @@ where $kappa$ balances the relative importance of the distance loss in the final
 
 ==== Training strategy
 
-Training deep neural networks involves determining relevant values for multiple hyper parameters.
+Training deep neural networks involves determining relevant values for multiple hyperparameters.
 The network architecture itself plays a crucial role and has already been discussed in @sec:ssl:single_source:method:architecture.
 Similarly, the rest of the parameters have been set empirically, leveraging their impact on the final performance.
 
 The model is trained in a supervised fashion on the synthetic datasets generated by the audio simulator (see @sec:ssl:single_source:method:dataset).
 The training set consists of 80k samples. 
 72k elements are used for training itself while 8k are reserved for validation.
-Besides, the remaining 20k samples constitute a test dataset and serve for evaluating the model's performance.
+Besides, the remaining 20k samples constitute a test dataset and serve to evaluate the model's performance.
 
 The training employs a batch size of 250 items for $T_"max" = 100$ epochs.
-A learning rate scheduler helps stabilize the training and further improves the final results.
+A learning rate scheduler helps stabilize the training and further improve the final results.
 Cosine annealing, proposed by Loshchilov and Hutter @loshchilov_sgdr_2017, decays the learning rate according to the following scheme:
 $
   eta_t = eta_min + (eta_0 - eta_min) / 2  (1 + cos(T_"cur" / T_"max" pi))
 $
 where $eta_t$ is the learning rate at epoch $t$, $eta_0$ is the initial learning rate, $T_"cur"$ is the current epoch.
 The minimum learning rate $eta_min$ has been set to $10^(-5)$ and is reached at the very end of the training.
-A base learning rate of #xavi[$eta_0=$]$10^(-3)$ has shown to ensure rapid convergence without suffering from instability issues.
+A base learning rate of $eta_0=10^(-3)$ has been shown to ensure rapid convergence without suffering from instability issues.
 Regarding the optimizer, we have chosen to use Adam @kingma_adam_2017.
-Training runs have been performed on an Nvidia RTX A6000 GPU and were lasting approximately one hour.
+Training runs have been performed on an Nvidia RTX A6000 GPU and have lasted approximately one hour.

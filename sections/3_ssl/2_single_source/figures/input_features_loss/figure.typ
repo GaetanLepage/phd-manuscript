@@ -1,0 +1,30 @@
+#import "/utils.typ": *
+#import "../../_notations.typ": *
+
+#subpar.grid(
+  figure(
+    image("train.svg", width: 120%),
+    caption: [
+      Training loss
+    ]
+  ),
+  <fig:ssl:single_source:input_features:train>,
+  
+  figure(
+    image("validation.svg", width: 120%),
+    caption: [
+      Validation loss
+    ]
+  ),
+  <fig:ssl:single_source:input_features:validation>,
+  
+  columns: 2,
+  caption: [
+    Evolution of the training and validation #acr("DoA") loss #l-doa for different input features
+  ],
+  placement: fig-placement,
+  gap: grid-fig-gap,
+  numbering: fig-numbering,
+  numbering-sub-ref: fig-numbering-sub-ref,
+  label: <fig:ssl:single_source:input_features>,
+)

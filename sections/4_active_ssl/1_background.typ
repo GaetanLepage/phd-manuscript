@@ -12,7 +12,7 @@ However, the robotics field gave birth to original acoustic problems with differ
 
 First, several works addressing #acr("SSL") in its static formulation address challenges related to robotics systems.
 For instance, the physical aspect of a robotic head needs to be appropriately modeled from an acoustic perspective.
-An overview of #acr("SSL") in robotics has been proposed in @sec:ssl:sota:ssl_in_robotics.
+An overview of #acr("SSL") in robotics has been proposed in @sec:ssl:background:ssl_in_robotics.
 Conversely, this chapter will focus on problems involving explicitly moving entities.
 No single well-defined task could be labeled as _active sound source localization_; thus, researchers have studied a wide range of diverse problems of this kind.
 The common characteristic of active #acr("SSL") problems is considering a mobile robot operating in an acoustic environment that includes one or several sound sources.

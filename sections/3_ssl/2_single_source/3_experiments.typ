@@ -6,27 +6,11 @@
 <sec:ssl:single_source:experiments>
 
 This section presents a collection of experimental results on #acr("SSL") performance.
-This study's objective is to understand the influence of certain parameters on the difficulty of the #acr("SSL") task.
+This study aims to understand the influence of specific parameters on the difficulty of the #acr("SSL") task.
 For this purpose, a baseline solution and scenario are described and will serve as a reference point for the tested variations.
 First, the general testing methodology and metrics will be presented.
 The actual experimental results, including quantitative results, will follow.
 
-// An initial series of experiments were conducted with apparently successful results.
-// The following section was initially written to present this satisfying outcome.
-// Unfortunately, we discovered a flaw in the experimental setup at a very late stage of the project.
-// The issue consists of a subtle behavior of the random generator used during the data collection.
-// The entire dataset is first generated using a parallel implementation.
-// Once generated, it is randomly split into two subsets: training and test datasets.
-// Naturally, they are expected to be distinct, as the latter is used to evaluate the neural network's performance.
-// Once the seed is set, the initial generation process is behaving in a deterministic manner.
-// // TODO check
-// The specificity of the Numpy random generator is that the initial state is the same for each separate thread.
-// Hence, each thread generated the same sequence of training pairs, and the final dataset consisted of a concatenation of duplicated samples.
-// This highly problematic error implied that numerous samples were shared between the train and test datasets.
-// Hence, this explains the highly satisfying results of our approach.
-// 
-// After fixing the bias in the dataset generation, the model's performance degraded significantly.
-// Nonetheless, we chose to describe the methodology initially developed and the experiments we conducted.
 
 ==== Metrics
 <sec:ssl:single_source:experiments:metrics>
@@ -37,12 +21,12 @@ In this first formulation of the #acr("SSL") problem, each situation includes ex
 Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lies from the real #acr("DoA") value $theta$.
 As the network predicts the sine and cosine of $theta$, the #acr("DoA") value is first computed following:
 $
-  hat(theta) = op("atan2")
+  hat(theta) &= op("atan2")
     lr(
       (sin(hat(theta)), cos(hat(theta)))
       , size: #150%
-    )
-  = arg lr(
+    )\
+  &= arg lr(
       (
         cos(hat(theta))
         + i sin(hat(theta))
@@ -63,12 +47,14 @@ The following expression for #d accounts for the periodicity of the angular inte
   $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)$
 )
 <eq:ssl:single_source:angular_dist>
-This measure will be referred to as the #acr("MAE"):
+#block(breakable: false)[
+This distance is used to define the #acr("MAE") metric that quantifies the performance of #acr("DoA") estimation:
 $
   #mae-theta = 1 / n_"test" sum_(i=1) ^ n_"test" #d (hat(theta)_i, theta_i)
 $
 <eq:ssl:single_source:mae>
 where $n_"test"$ counts the number of samples in the test set.
+]
 
 
 *Source-array distance metric.*
@@ -86,20 +72,22 @@ For clarity reasons, the values for this metric will be displayed in centimeters
 
 ==== Base solution and general methodology
 
-This study aims to investigate how different parameters influence the performance of our #acr("SSL") pipeline.
-A baseline has to be defined to have a reference for comparing experimental settings.
+This study investigates how different parameters influence the performance of our #acr("SSL") pipeline.
+A baseline must be defined to have a reference for comparing experimental settings.
 The starting setting involves a binaural array with two cardioid microphones for the agent.
 Microphones are two centimeters apart.
 The room's reverberation level ($T_60$) is set to 500ms.
 Interaural features (#acr("ILD") + #acr("IPD")) have been chosen for this baseline.
 By default, only the #acr("DoA") is predicted, not the distance.
 The default number of epochs is set to 100.
-This setup is not the best-performing combination, but it provides a credible formulation from which to start.
+This setup is not the best-performing combination, but it provides a credible formulation to start with.
 These parameters will be individually changed across the following study.
 
 Furthermore, the following settings are kept fixed across the experiments.
-We use a single $4 times 7$ meters room.
+We use a single $4 times 7$ meter room.
 Learning parameters, such as the batch size, the learning rate, and the number of epochs, remain constant across most experiments.
+Also, the network architecture is common in all runs.
+Naturally, the number of input channel is adapted to the shape of the input data.
 The number of epochs has been exceptionally increased to reach proper convergence when necessary.
 Finally, the network training for each individual configuration was repeated several times to ensure that the obtained results were repeatable.
 The reported performance scores correspond to the most successful training run.
@@ -119,13 +107,13 @@ Furthermore, both microphone patterns were tested for the binaural and triangle 
 @table:ssl:single_source:mic_arrays shows the obtained #acr("SSL") performance with each array.
 The binaural array allows for an accurate localization as long as the pattern is directional.
 Indeed, when using omnidirectional microphones, the performance drops significantly to 46°.
-The asymmetry of the cardioid pattern helps discriminate the direction of arrival.
+The asymmetry of the cardioid pattern helps to discriminate the direction of arrival.
 Sound wavefronts coming from the back of a directional microphone are strongly attenuated.
 This fundamentally injects additional spatial information into the recorded signal.
-Besides the pattern influence, we have noticed that adding microphones was substancially improving performance too.
-Interestingly, the difference between an omnidirectional and a directional microphone patterns fades when dealing with three or more microphone arrays.
-Our understanding is that the third microphone provides enough additional information to compensate for each microphone's lack of directionality.
-The four-microphones array scores the lowest #acr("MAE").
+Besides the pattern influence, we have noticed that adding microphones substantially improves performance too.
+Interestingly, the difference between an omnidirectional and a directional microphone pattern diminishes when dealing with three or more microphone arrays.
+Our understanding is that the third microphone provides enough extra information to compensate for each microphone's lack of directionality.
+The four-microphone array scores the lowest #acr("MAE").
 
 #include "tables/arrays.typ"
 
@@ -135,53 +123,67 @@ We have experimented with the influence of the microphone spacing in a binaural 
 Increasing the distance between microphones appears to be detrimental to the localization accuracy.
 When microphones are further apart, the aliasing phenomenon becomes problematic and deteriorates the relationship between the recorded signal and the source positions.
 Indeed, if the spacing amounts to $d$ meters, all frequencies above $f_0 = c / (2 d)$ Hz cannot be adequately distinguished.
-For $d=2$ cm, this maximum frequency is 8.575 kHz, while most of the of human speech's frequential content is below 5 kHz @baken_clinical_2000. #draft[TODO: double-check].
-Lowering the distance further to 1cm does not seem to bring additional benefits.
+For $d=2$ cm, this maximum frequency is 8.575 kHz, while most of human speech's frequencial content is below 5 kHz @hollien_phonational_1971.
+Further lowering the distance to 1cm does not appear to bring additional benefits.
 
 
 #include "tables/mic_dist.typ"
 
 
 ==== Impact of input signal representation
+<sec:ssl:single_source:experiments:pre-processing>
 
 
-
-To measure the impact of the input representation, we run the training process with each aforementioned encoding choice.
+To measure the impact of the input representation, we run the training process with each aforementioned encoding choice (see @sec:ssl:single_source:method:pre-processing).
 The number of channels depends on the selected method and varies from 1 to 4.
+The network architecture's first convolutional layer is naturally scaled in consequence.
 
 #include "tables/input_features.typ"
 
 
 // TODO: Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
-@table:ssl:single_source:input_features summarizes the method's performance when using different input features.
+@table:ssl:single_source:input_features summarizes the method's performance using different input features.
 We report the corresponding channel dimension of the resulting tensor for each set of cues.
 On the one hand, both complex-to-real #acr("STFT") polar and Cartesian mappings yield substantially different results.
 Indeed, despite having the same underlying data, those two representations do not offer the network the same performance.
-The polar projection has been shown to be harder to learn from.
+The polar projection proved to be harder to learn from.
 Also, both Cartesian and polar projections lead to more unstable training compared to the interaural features.
-The number of epochs had to be increased from 100 to 200 to reach proper convergence.
-On the other hand, further processing the #acr("STFT") into the binaural features does not seem to improve performance.
+The Cartesian features perform the same as the interaural ones in training but lead to a less robust convergence on the validation set.
+Despite the final performance being comparable, training our neural network on interaural features is significantly more repeatable and robust.
+Hence, the #acr("ILD") #acr("IPD") combination is shown to generalize better and have stronger stability.
+@fig:ssl:single_source:input_features illustrates the training dynamics for the three types of features.
+The discrepancy between training and validation for the Cartesian projection of the #acr("STFT") appears clearly.
+We trained the network for 100 epochs in all three cases.
+The number of epochs was later increased from 100 to 200 to attempt reaching a more stable training regime.
+The #mae-theta reported in @table:ssl:single_source:input_features results from this longer training time.
+However, the loss behavior was equally unstable, and the network achieved competitive metrics at the end of the training.
+This contrasts with the interaural features experiments, where strong accuracy is already reached after a few epochs.
+Normalization could be a potential explanation for these inconsistencies.
+No additional pre-processing was applied in this study.
+Additional normalization schemes might boost the network's performance, generalization, and stability.
+Daniel Stoller @stoller_spectrogram_2017 presents two strategies for spectrogram normalization.
+
+//On the other hand, further processing the #acr("STFT") into the binaural features does not seem to improve performance.
 // Unsurprisingly, displaying phase-related information directly rather than indirectly seems to matter the most.
 // Both the polar #acr("STFT") and interaural features explicitly contain this phase:
 // The former by $arg(L)$ and $arg(R)$ on two distinct channels and the latter by the ratio $arg(L) / arg(R)$ on a single one.
 // $L$ and $R$ denote the spectrograms from the left and right microphones, respectively.
 
-To further prove this hypothesis, an ablation study is performed.
-The objective involves showing whether phase-related features alone are sufficient to perform localization efficiently.
-Results are in the bottom half of @table:ssl:single_source:input_features.
-They show that limiting the input information to phase information does not dramatically penalize the localization performance.
-On the other hand, going with the sole magnitude measurements leads to an absolute error approaching 40°.
-Also, it naturally appears that employing both the magnitude and phase information is preferable.
-//Paradoxically, such filtering of the input data even achieves results slightly better than those obtained when using the full features.
-//This further confirms that the rest of the features is fully redundant.
+#include "figures/input_features_loss/figure.typ"
 
-//Interestingly, solely using the #acr("ILD") matrix yields a promising #mae-theta of 2.39° which shows that our model manages to leverage the difference in amplitude between the two channels for performing localization.
+Furthermore, we have explored the relative importance of the individual sub-features for each category.
+The network was retrained with more granular features.
+The results are presented in the bottom half of @table:ssl:single_source:input_features.
+Regarding interaural features, neither #acr("ILD") nor #acr("IPD") appears to be fully redundant.
+Each sub-feature performs worse than the #acr("ILD")-#acr("IPD") combo referred to as _Interaural features_ above.
+Yet, #acr("IPD") allows for a lower #mae-theta compared to using #acr("IPD") only.
+This observation is reasonable as #acr("IPD") is directly correlated to the #acr("TDoA") and thus the #acr("DoA").
+Besides, regarding the sub-features of the polar #acr("STFT") representation, we notice a low drop in performance when discarding the magnitude information.
+While the complete solar #acr("STFT") features allow for an #mae-theta of 25.7°, using the sole phase spectrogram only worsens it by 2.3°.
 
-// However, those results are less consistent across several runs than the ones using #acr("IPD") or the phase of the #acrpl("STFT").
-// Lastly, providing the only magnitude of the #acrpl("STFT") does not lead to comparable performance with a #mae-theta of 14.73 at best.
-// 
-// Considering their satisfying results, the interaural features will be kept as the baseline method for the rest of the study.
-
+In conclusion, we have shown that it is highly important to carefully choose a pre-processing strategy when training a deep neural network for #acr("SSL").
+While the information content is theoretically the same across different bijective transformations of the complex #acr("STFT") performance, some can be harder to learn from.
+Our experimental results suggest that interaural features offer the best performance and stability.
 
 ==== Distance estimation
 
@@ -198,7 +200,10 @@ Also, control experiments were included in @table:ssl:single_source:distance_est
 
 Finally, a closer observation of the training behavior suggests an overfitting phenomenon.
 Indeed, the network achieves a significantly lower error on distance estimation on the training set than on the test set.
-The #mae-dist reaches 17cm on the training set when using the triangle array, while it stagnates to 74cm on the validation and test datasets.
+When using the triangle array, the #mae-dist reaches 17cm on the training set, while it stagnates at 74cm on the validation and test datasets.
+As discussed in @sec:ssl:background, methods that can accurately estimate the distance to the source often rely on additional temporal information or even controlled movement of the microphone array.
+It appears that the proposed #acr("CNN")-based method presented in this work cannot solve this task.
+In @chap:active_ssl, we leverage robot movement to accumulate localization information over time and accurately estimate the source's position.
 
 #figure(
   image(
@@ -213,37 +218,28 @@ The #mae-dist reaches 17cm on the training set when using the triangle array, wh
 
 ==== Reverberation
 
-#acr("SSL") methods leverage the inter-channel differences present in the time-frequency input data to infer the source position.
-As discussed in @sec:simulator:background:spectral-features, these interaural features are theoretically sufficient to infer the #acr("DoA") of a single sound source.
+#acr("SSL") methods leverage the inter-channel differences in the time-frequency input data to infer the source position.
+As discussed in @sec:simulator:background:spectral-features, these interaural features are theoretically sufficient to infer a single sound source's #acr("DoA").
 This result does not hold in a reverberant environment where sound reflections deteriorate the direct relationship between the recorded waveform and the direction of arrival.
 Performing #acr("SSL") in reverberant environments remains a core challenge for the acoustic research community.
-Thanks to our simulation library, we have generated datasets from different reverberation settings.
-A neural network has been trained from scratch on each of these datasets before being evaluated on the corresponding test set.
+We have generated datasets from different reverberation settings thanks to our simulation library.
+A neural network has been trained from scratch on these individual datasets before being evaluated on the corresponding test set.
 Experimental results are summarized in @table:ssl:single_source:reverb.
 Naturally, our method achieves very accurate localization in low-reverberation scenarios.
+These results demonstrate the challenge of operating #acr("SSL") in reverberant environments.
+Notably, there is a 10x factor between performance at $T_60=100$ms and the performance at $T_60=1$s.
+@fig:ssl:single_source:reverb illustrates the quasi-linear relation between the #mae-theta and the reverberation level $T_60$.
 Although performance certainly suffers from an increase of the reverberation time $T_60$, we noticed that the proposed method remained robust to reverberation.
 Even in highly reverberant scenarios, the #acr("MAE") remains inferior to 30°.
-This shows that the network succeeds in filtering out the direct path information from the recorded signal's early and late reverberation artifacts.
+This shows that the network successfully filters out the direct path information from the recorded signal's early and late reverberation artifacts.
+Furthermore, we demonstrate that a simple #acr("CNN") architecture can perform accurate localization in challenging reverberation conditions.
+
+#figure(
+  image("figures/ssl_reverb.svg", width: 80%),
+  caption: [
+    Reverberation impact on #acr("SSL") performance
+  ]
+)
+<fig:ssl:single_source:reverb>
 
 #include "tables/reverb.typ"
-
-// ==== Sound Source Localization in noisy environments
-// <sec:ssl:single_source:experiments:noise>
-// 
-// Having succeeded at accurately estimating the #acr("DoA") in a reverberant but noiseless setting, we have attempted to add noise sources.
-// The latter has revealed to harden the task significantly.
-// We have focused on noises of basic nature: white noise and music.
-// Both share the property of noticeably differing from a speech signal in its fundamental acoustic nature.
-// // Having a parasite speech
-// 
-// // Which kinds of noises
-// 
-// $
-//   E(S) = sum_(t=1)^T sum_(f=1)^F
-//     abs(S(t, f))^2
-// $
-// 
-// $
-//   #snr = 10 log_10 (E(S_"speech") / E(S_"noise"))
-// $
-// 

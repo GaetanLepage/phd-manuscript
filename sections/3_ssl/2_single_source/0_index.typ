@@ -25,12 +25,13 @@ In this first section, we have developed a deep neural network sound source loca
 Our solution has been designed and trained from scratch and is inspired by the vast deep-learning-based #acr("SSL") literature.
 Original datasets were synthesized using our audio simulation library.
 They allowed us to train and evaluate the proposed network architecture on various scenarios.
-An extensive experimental campaign was conducted to assess the relative importance of different parameters in the localization performance.
+An extensive experimental campaign assessed the relative importance of different parameters in the localization performance.
 // Limitations
 Additional questions could be further investigated.
 For instance, this work has not studied the impact of adversarial noise sources.
 Although accounting for acoustic reverberation is essential to properly model the physical world, noise sources should ideally also be included.
 While our simulator handles several sources and can use various noise signals as inputs, we have not been able to dedicate enough time to its inclusion in the #acr("SSL") pipeline.
 // Transition
-This project was essential for achieving a deeper understanding of the #acr("SSL") problem.
+This project was essential to understand better the #acr("SSL") problem.
+Also, the deep neural network trained for this occasion is used as a feature extractor in our #acr("RL") pipeline for acoustic-based navigation (see @chap:rl).
 The rest of this chapter will study the more complex case of multi-source localization.
