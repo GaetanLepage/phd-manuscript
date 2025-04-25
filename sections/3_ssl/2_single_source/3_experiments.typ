@@ -32,7 +32,7 @@ $
         + i sin(hat(theta))
       ),
       size: #150%
-    )
+    ).
 $
 
 We then compute the average $ell^1$ angular distance #d between $hat(theta)$ and $theta$.
@@ -44,13 +44,13 @@ The following expression for #d accounts for the periodicity of the angular inte
   $[0, 1]$,
   $(theta_1, theta_2)$,
   //$pi - abs(abs(theta_2 - theta_1) - pi)$
-  $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)$
+  $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%).$
 )
 <eq:ssl:single_source:angular_dist>
 #block(breakable: false)[
 This distance is used to define the #acr("MAE") metric that quantifies the performance of #acr("DoA") estimation:
 $
-  #mae-theta = 1 / n_"test" sum_(i=1) ^ n_"test" #d (hat(theta)_i, theta_i)
+  #mae-theta = 1 / n_"test" sum_(i=1) ^ n_"test" #d (hat(theta)_i, theta_i),
 $
 <eq:ssl:single_source:mae>
 where $n_"test"$ counts the number of samples in the test set.
@@ -61,7 +61,7 @@ where $n_"test"$ counts the number of samples in the test set.
 When predicting the source-array distance, the #acr("MAE") is also used, here between predicted $hat(D)$ values and ground truth $D$:
 $
   #mae-dist = 1 / n_"test" sum_(i=1) ^ n_"test"
-  abs(hat(D)_i - D_i)
+  abs(hat(D)_i - D_i).
 $ <eq:ssl:single_source:dist_metric>
 
 

@@ -1,4 +1,4 @@
-#import "/utils.typ": gaet
+#import "/utils.typ": gaet, draft
 #import "/_misc/acrostiche.typ": print-index
 
 #include "cover_page/index.typ"
@@ -20,6 +20,9 @@
   title: "List of Tables",
   target: figure.where(kind: table)
 )
+#draft[
+  List of equations?
+]
 //#outline(
 //  title: "List of Listings",
 //  target: figure.where(kind: raw)

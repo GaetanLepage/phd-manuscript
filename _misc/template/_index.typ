@@ -12,9 +12,11 @@
 // This function gets your whole document as its `body` and formats it
 #let template(
   // The title for your work.
-  title: [Your Title],
+  title: [
+    From Sound to Action: Deep Learning for Audio-Based Localization and Navigation in Robotics
+  ],
   // Author's name.
-  author: "Author",
+  author: "Gaétan Lepage",
   // The paper size to use.
   paper-size: "a4",
   // Date that will be displayed on cover page.

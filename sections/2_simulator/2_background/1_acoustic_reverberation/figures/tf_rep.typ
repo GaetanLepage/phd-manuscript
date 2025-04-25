@@ -30,7 +30,8 @@
   caption: flex-caption(
     [
       Illustration of time-frequency representations of a speech signal.
-      #todo
+      (a) shows a mono-aural spectrogram obtained from the left microphone.
+      (b) and (c) are interaural representations and use both left and right channels.
     ],
     [
       Illustration of time-frequency representations of a speech signal

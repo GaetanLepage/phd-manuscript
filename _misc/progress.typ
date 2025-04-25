@@ -29,7 +29,7 @@
       - [x] #link(<sec:simulator:simulator>)[3. Simulator]
         - [x] #link(<sec:simulator:simulator:overview>)[1. Overview]
         - [x] #link(<sec:simulator:simulator:components>)[2. Components]
-        - [x] #link(<sec:simulator:simulator:features>)[3. Features]
+        - [x] #link(<sec:simulator:simulator:dynamic_scenarios>)[3. Features]
         - [x] #link(<sec:simulator:conclusion>)[5. Conclusion]
     + *SSL*
       - [x] #link(<sec:ssl:background>)[1. Background]
@@ -62,11 +62,14 @@
   - [ ] Update PhD title:
     - [ ] Adum
     - [ ] front page
+  - [ ] Check EVERY page break (that it does not cut any paragraph/equation pair)
+  - [ ] Remove/merge all 1-sentence paragraphs
   - [ ] Ensure consistency between:
     - BatchNorm / Batch Norm / batch norm
     - Deep Learning / deep learning / deep-learning
     - localization / localisation
     - the tense (past vs. present) when citing a paper: _Doe et al. show[ed] that..._
+    - Tensor shape notation
   - *Layout:*
     - [ ] figure/table placement check
     - [ ] Check that all `subpar.grid` figures have their:
@@ -98,7 +101,7 @@
     - This is what has been done.
 
   *Visual/Layout questions:*
-  - [ ] Aren't the margins OK ?\
+  - [x] Aren't the margins OK ?\
     -> I am currently using 2.5cm everywhere.
   - [ ] Should library names (SpeechBrain, gpuRIR...) be emphasized ? (italics ?)
   - [ ] Should the links (references to sections/papers) be in blue?
@@ -115,8 +118,8 @@
     - [x] How to compute duration from $F$ (i.e. number of #acr("STFT") frames) ?\
       $N = H(T - 1) => d = H(T - 1) / f$
   ]
-  - [ ] How to organize the "audio" sections ?
+  - [x] How to organize the "audio" sections ?
 
   *Remarks:*
-  - I have added _local_ TOCs at the beginning of each chapter to help me, but I plan to remove them later.
+  - [x] I have added _local_ TOCs at the beginning of each chapter to help me, but I plan to remove them later.
 ]

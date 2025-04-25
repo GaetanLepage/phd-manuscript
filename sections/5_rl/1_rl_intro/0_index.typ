@@ -98,7 +98,7 @@ An #acr("MDP") consist of a tuple $<cal(S), cal(A), P, cal(R), gamma>$.
 - $r$: The reward real-valued function $r: cal(S) times cal(A) -> cal(R)$ maps each state-action pair to its reward $r(s, a) in cal(R) subset RR$.
   When this reward is non-deterministic, we write $R_t$ its expectation:
   $
-    R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s']
+    R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s'].
   $
 - $gamma$: The discount factor in $[0, 1[$ dampens the impact of future rewards and ensures that the gain #box($G_t = sum_(k=0)^(infinity) gamma^k r_(t+k)$) remains bounded as long as $abs(R_t)$ is bounded as well.
 
@@ -111,7 +111,7 @@ A policy denotes a function or algorithm that maps each state to a probability d
   $cal(A) times cal(S)$,
   $[0, 1]$,
   $(a, s)$,
-  $P(a_t = a | s_t = s)$,
+  $P(a_t = a | s_t = s).$,
 )
 
 The policy, being a distribution over the action space, can take various forms.
@@ -125,7 +125,7 @@ $
   )_(
     1 <= i <= abs(cal(A)),\
     1 <= j <= abs(cal(S))
-  )
+  ).
 $
 When dealing with continuous action spaces, most methods use a canonical distribution for which they learn the parameters.
 Finding a policy amounts to learning a mapping from the state space to the parameter space of the distribution.
@@ -135,7 +135,7 @@ A probabilistic policy can be used in two ways.
 During reinforcement learning algorithms' training, the action is often selected by sampling the policy #box($a tilde pi (dot | s)$).
 At test time, the most common choice is to pick the optimal action, i.e. the mode of the distribution:
 $
-  a^* = op("argmax", limits: #true)_(a in cal(A)) pi (a | s)
+  a^* = op("argmax", limits: #true)_(a in cal(A)) pi (a | s).
 $
 
 
@@ -145,9 +145,9 @@ Given a policy $pi$, it measures the _quality_ of being in a certain state.
 It is defined as the expectation of future gains when starting from the state $s$.
 $
   V_pi (s) &:= EE[G_t | s_t = s]\
-    &= EE[sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s]
+    &= EE[sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s].
 $
-Evidently, this quantity depends on the considered policy $pi$.
+Naturally, this quantity depends on the considered policy $pi$.
 
 
 
@@ -155,8 +155,8 @@ Evidently, this quantity depends on the considered policy $pi$.
 === Deep Reinforcement Learning
 <sec:rl:intro:deep_reinforcement_learning>
 
-Although #acr("RL") has existed since the 1970s, it has known a more recent and considerable surge in popularity @arulkumaran_deep_2017.
-As supervised learning and the machine learning field in general, #acr("RL") has benefitted from the possibilities offered by Deep Neural Networks.
+Although #acr("RL") has existed since the 1970s, it has experienced a more recent and considerable surge in popularity @arulkumaran_deep_2017.
+As supervised learning and the machine learning field in general, #acr("RL") has benefited from the possibilities offered by Deep Neural Networks.
 Traditionally, #acr("RL") leveraged simpler methods such as tabular methods @watkins_learning_1989 @sutton_learning_1988, linear function approximators, or shallow neural networks @barto_neuronlike_1983 @tesauro_temporal_nodate.
 The main problem of those approaches for policy modeling is their limited capacity to handle larger state and action spaces.
 Hence, #acr("RL") has been mainly limited to low-dimensional problems @arulkumaran_deep_2017.
@@ -243,7 +243,7 @@ Robotics has been one of the domains targeted by A.I. researchers to apply Deep 
 The first widely used #acr("RL") algorithms consisted of learning to approximate a value function.
 For instance, the notable Q-value algorithm @watkins_learning_1989 introduced the $Q$ function which gives a score to each state-action pair:
 $
-  Q_pi (s, a) := EE[G_t | s_t = s, a_t = a]
+  Q_pi (s, a) := EE[G_t | s_t = s, a_t = a].
 $
 On the contrary, policy gradient algorithms directly optimize the policy itself through a differentiable objective function depending on its parameters.
 #todo
@@ -274,7 +274,7 @@ $
     //  sum_(a in cal(A)) Q^pi (s, a) pi_theta (a | s)\
     &prop
       sum_(s in cal(S)) d^pi (s)
-      sum_(a in cal(A)) Q^pi (s, a) nabla_theta pi_theta (a | s)\
+      sum_(a in cal(A)) Q^pi (s, a) nabla_theta pi_theta (a | s).
 $
 
 Proof:
@@ -305,7 +305,8 @@ $
   &= sum_(a in cal(A)) [
       nabla_theta pi (a | s) Q^pi (s, a)
       + pi (a | s) sum_(s' in S) P(s' | s, a) nabla_theta V^pi (s')
-  ]\
+    ].
+    #todo
 $
 
 ==== Advantage estimation
@@ -317,11 +318,11 @@ Schulman et al. @schulman_high-dimensional_2018
 *Advantage function.*
 The advantage function is defined as:
 $
-  A^pi (s_t, a_t) := Q^pi (s_t, a_t) - V^pi (s_t)
+  A^pi (s_t, a_t) := Q^pi (s_t, a_t) - V^pi (s_t),
 $
 where,
-- $V^pi (s_t) := EE_(s_(t+1:infinity), \ a_(t:infinity)) [ sum_(i=0)^(+infinity) r_(t+i) ]$
-- $Q^pi (s_t, a_t) := EE_(s_(t+1:infinity), \ a_(t+1:infinity)) [ sum_(i=0)^(+infinity) r_(t+i) ]$
+- $V^pi (s_t) := EE_(s_(t+1:infinity), \ a_(t:infinity)) [ sum_(i=0)^(+infinity) r_(t+i) ]$,
+- $Q^pi (s_t, a_t) := EE_(s_(t+1:infinity), \ a_(t+1:infinity)) [ sum_(i=0)^(+infinity) r_(t+i) ]$.
 
 
 *Estimation.*
@@ -340,7 +341,7 @@ $
     &&:= dots
     &&= dots\
   
-  &hat(A)_t^((infinity)) &&:= sum_(l=0)^(infinity) gamma^l delta_(t+l)^V &&= r_t + gamma r_(t+1) + gamma^2 r_(t+2) + dots - V(s_t)\
+  &hat(A)_t^((infinity)) &&:= sum_(l=0)^(infinity) gamma^l delta_(t+l)^V &&= r_t + gamma r_(t+1) + gamma^2 r_(t+2) + dots - V(s_t),
 $
 where $delta_t^V$ estimates the #acr("TD") error.
 While all of those quantities do approximate $A_t$, they offer different tradeoffs.
@@ -360,14 +361,14 @@ $
     + hat(A)_t^((2))
     + hat(A)_t^((3))
     + dots
-  )
+  ).
 $
 #block(breakable: false)[
   It can be shown that this expression simplifies as:
   $
     hat(A)_t^("GAE"(gamma, lambda))
       = sum_(k=0)^(infinity)
-      (lambda gamma)^k delta_(t + k) ^V
+      (lambda gamma)^k delta_(t + k) ^V.
   $
 ]
 #todo
@@ -403,7 +404,7 @@ $
     #l-clip
     - c_1 #l-vf
     + c_2 #entropy
-  ], size: #140%)
+  ], size: #140%),
 $ <eq:rl:ppo_loss>
 
 where:

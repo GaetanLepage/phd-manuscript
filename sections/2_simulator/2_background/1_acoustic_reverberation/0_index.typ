@@ -34,7 +34,7 @@ Hence, no sound reflections are considered; thus, the reverberation phenomenon i
 The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation (@vincent_audio_2018 - Chapter 3, @leglaive_multichannel_2016):
 
 $
-  x(t) = 1 / (sqrt(4 pi) #d) s (t - #d/#c)
+  x(t) = 1 / (sqrt(4 pi) #d) s (t - #d/#c),
 $ <eq:simulator:background:single_mic_continuous>
 
 where
@@ -45,7 +45,7 @@ In this simple case, the received signal corresponds to a delayed and attenuated
 
 When considering digital signals, @eq:simulator:background:single_mic_continuous becomes
 $
-  x[n] = 1 / (sqrt(4 pi) #d) s [n - #d/#c #freq]
+  x[n] = 1 / (sqrt(4 pi) #d) s [n - #d/#c #freq],
 $ <eq:simulator:background:single_mic_discrete>
 where #freq ​is the sampling rate (in Hz), neglecting sampling and quantization issues.
 
@@ -65,7 +65,7 @@ In a closed environment, such as an indoor room, sound will reflect on walls and
 A reverberant room can be modeled as a #acr("LTI") causal system by neglecting secondary effects such as temperature and pressure changes.
 Hence, expressing the listened signal as a convolution remains possible, similarly to @eq:simulator:background:single_mic_signal_freefield:
 $
-  x[n] = (#rir * s)[n]
+  x[n] = (#rir * s)[n],
 $
 
 #reset-acronym("RIR")
@@ -75,7 +75,7 @@ Hence, the #acr("RIR") is defined for each source-microphone pair.
 It characterizes how the sound travels between their positions and is thus sufficient to reconstruct the listened signal.
 As its name suggests, the #acr("RIR") depicts the room's acoustic response to an impulse, modeled by a Dirac delta function:
 $
-  x[n] = (#rir * delta)[n] = #rir [n]
+  x[n] = (#rir * delta)[n] = #rir [n].
 $
 The #acr("RIR") filter encodes the multiple propagation paths between the source and the microphone.
 Each path has a specific delay and attenuation factor.
@@ -129,19 +129,21 @@ The #acr("RIR") paradigm solely accounts for specular reflections.
 
 //*Multiple sources and microphones*
 
+#block(breakable: false)[
 When several sources are active in the room, the sound received by a microphone is the sum of each source's contribution.
 This formulation is known as a mixture model (@vincent_audio_2018 - Chapter 3)
 These individual contributions are the convolution between each source's signal $s_i$ and the corresponding #acr("RIR") $h_i$.
 The final received signal can be expressed as:
 $
-  x[n] = sum_(i=1)^(n_s) (h_i * s_i)[t]
+  x[n] = sum_(i=1)^(n_s) (h_i * s_i)[t].
 $
 <eq:simulator:rir_listened_signal_multi_source>
+]
 
 @eq:simulator:rir_listened_signal_multi_source can be straightly generalized to multiple microphones ${m_1, dots, m_(n_m)}$.
 The signal recorded by the $k$-th receiver is:
 $
-  m_j [t] = sum_(i=1)^(n_s) (h_(i, j) * s_i)[t]  #h(2em) forall j in [|1, n_m|]
+  m_j [t] = sum_(i=1)^(n_s) (h_(i, j) * s_i)[t]  #h(2em) forall j in [|1, n_m|],
 $
 <eq:simulator:rir_listened_signal_multi_source_multi_mic>
 where $h_(i, j)$ is the #acr("RIR") filter corresponding to the pair of positions of source $s_i$ and microphone $m_j$.
@@ -182,7 +184,7 @@ $ <eq:simulator:background:sabine>
 where #sound-speed is the speed of sound in the air at 20°C, #volume is the volume of the room (in $m^3$), and #area is the _equivalent absorption surface_ (in sabins).
 The latter can be obtained by summing the weighted surface area of each wall (including floor and ceiling):
 $
-  #area = sum_(i=1)^6 e_("abs", i) s_i
+  #area = sum_(i=1)^6 e_("abs", i) s_i.
 $
 where $e_("abs", i)$ and $s_i$ are each surface's absorption coefficient and area, respectively.
 The Sabine equation can be inverted to infer the overall absorption coefficient $e_"abs"$ of the room from a reverberation time $T_60$:
@@ -191,7 +193,7 @@ $
     24 ln(10) times #volume
   ) / (
     #sound-speed times S times T_60
-  )
+  ).
 $ <eq:simulator:background:sabine_inv>
 Here, all surfaces are assumed to behave the same, and the _equivalent absorption surface_ #area may then be written as $#area = S times e_"abs"$, with $S$ being the total surface area.
 Srivastava's PhD thesis @srivastava_realism_2023 investigates the role of acoustic parameters in simulation and how to estimate them.
@@ -219,7 +221,7 @@ The signal can be assumed to be locally stationary when using short analysis fra
 
 Let us first define an #acr("STFT") frame for a given time index $m in ZZ$:
 $
-  x_m [n] = x[n + m #H] #w [n]
+  x_m [n] = x[n + m #H] #w [n],
 $
 where
 - $x[n]$ is any sampled real-valued signal ($n in ZZ$),
@@ -231,7 +233,7 @@ where
 The support of the #acr("STFT") frame $x[n]$ is also $[|0, N-1|]$.
 The discrete #acr("STFT") of the signal $x$ is defined as the set of #acrpl("DFT")s of the frames $x_m$, $m in ZZ$:
 $
-  X[m, k] = 1/sqrt(N) sum_(n=0)^N x_m [n] e^(-2i pi (k n) / N)
+  X[m, k] = 1/sqrt(N) sum_(n=0)^N x_m [n] e^(-2i pi (k n) / N),
 $ <eq:ssl:sota:stft_inf>
 where $k$ denotes the frequency index in $[|-N/2, N/2|]$.
 In this definition, both the time and frequency indices are integers.
@@ -253,22 +255,21 @@ Different types of spectrograms can be defined:
 
 - The magnitude spectrogram is the modulus of the #acr("STFT"):
 $
-  "spectrogram"{x}(m, k) = mabs(X(m, k))
+  "spectrogram"{x}(m, k) = mabs(X(m, k)).
 $
 - The power spectrogram, or power spectral density, is its squared modulus:
 $
-  X_"power" (m, k) = |X(m, k)|^2
+  X_"power" (m, k) = |X(m, k)|^2.
 $
-#block(breakable: false)[
-  The power spectrogram can also be expressed in decibels (dB):
+- The power spectrogram can also be expressed in decibels (dB):
 $
-  X_("power", "dB") = 20 log_(10) mabs(X(m, k))
+  X_("power", "dB") = 20 log_(10) mabs(X(m, k)).
 $
- @fig:simulator:background:spectrogram is an example of a power spectrogram computed from a speech signal.
-]
+@fig:simulator:background:spectrogram is an example of a power spectrogram computed from a speech signal.
+
 - The phase spectrogram is its argument:
 $
-  X_"phase" (m, k) = arg(X(m, k))
+  X_"phase" (m, k) = arg(X(m, k)).
 $
 The term spectrogram can also refer directly to the complex-valued result of the #acr("STFT").
 
@@ -286,14 +287,14 @@ The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 
 #block(breakable: false)[
   It states that the Fourier transform of a convolution is the product of the Fourier transforms:
   $
-    cal(F)(f * g) = cal(F)(f) times cal(F)(g) \
+    cal(F)(f * g) = cal(F)(f) times cal(F)(g).
   $
 ]
 <eq:simulator:conv_theorem>
 #block(breakable: false)[
   Additionally, the transform of a product is the convolution of the transforms:
   $
-    cal(F)(f times g) = cal(F)(f) * cal(F)(g)
+    cal(F)(f times g) = cal(F)(f) * cal(F)(g).
   $
 ]
 This result gives an intuitively compelling argument for using Fourier representations in problems involving reverberant environments.
@@ -348,14 +349,14 @@ This section focuses on motivating and deriving those representations.
 
 The signal received by microphone $i$ can be expressed as (Vincent et al. @vincent_audio_2018 Chapter 3 or Gustafsson et al. @gustafsson_source_2003):
 $
-  x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq]
+  x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq].
 $
 <eq:simulator:background:propagation_multi_mic>
 where $d_i$ is the distance from the the source $i$ to the source (see @fig:simulator:background:multi_mic_schema)
 
 One can write signal $x_2$ recorded by microphone $2$ as a function of the one recorded by microphone $1$ by combining their expressions:
 $
-  x_2[n] = d_1 / d_2 x_1 [n - (d_2 - d_1)/(#c) #freq]
+  x_2[n] = d_1 / d_2 x_1 [n - (d_2 - d_1)/(#c) #freq].
 $
 <eq:simulator:background:propagation_multi_mic_relative>
 
@@ -367,12 +368,12 @@ The situation is described as far-field when the source is significantly far fro
 The far-field situation is when the source-to-microphone distances $d_i$ are large compared to the inter-receiver distance $l$.
 In this case, the level ratio is almost equal to 1:
 $
-  d_1 / d_2 approx 1
+  d_1 / d_2 approx 1.
 $
 <eq:simulator:background:multi_mic_far_field_level_ratio>
 Also, the far-field assumption implies that the #acr("TDoA") is fully determined by the #acr("DoA") and its corresponding angle $theta$:
 $
-  (d_2 - d_1) / #c = l/#c cos(theta)
+  (d_2 - d_1) / #c = l/#c cos(theta).
 $
 <eq:simulator:background:multi_mic_far_field_doa>
 Hence, theoretically, a measure of the #acr("TDoA") can be sufficient to infer the value of $theta$.
@@ -391,7 +392,7 @@ It corresponds to the ratio between two microphones' #acrpl("ATF") @gannot_signa
 The value of the #acr("RTF") at a given time can be obtained by computing the ratio of the #acr("STFT") received by two microphones: the interaural spectrogram.
 More precisely, the #acr("RTF") of the $i$-th microphone is obtained by dividing the #acr("STFT") of the signal it receives by the one of the signals recorded by a reference microphone (the first one for instance):
 $
-  "RTF"_i [m, k] = (X_i [m, k]) / (X_1 [m, k]) in CC
+  "RTF"_i [m, k] = (X_i [m, k]) / (X_1 [m, k]) in CC.
 $
 By construction, we have $"RTF"_1 [m, k] = 1$.
 
@@ -430,14 +431,14 @@ Let us consider a binaural array with microphones $m_1$ and $m_2$.
 $
   "ILD"[m, k]
     = 20 log mabs("RTF"[m, k])
-    = 20 log mabs((X_2 [m, k]) / (X_1 [m, k]))
+    = 20 log mabs((X_2 [m, k]) / (X_1 [m, k])).
 $
 <eq:simulator:background:def_ild>
 - The phase is called the #acr("IPD"):
 $
   "IPD"[m, k]
     = arg("RTF"[m, k])
-    = arg((X_2 [m, k]) / (X_1 [m, k]))
+    = arg((X_2 [m, k]) / (X_1 [m, k])).
 $
 <eq:simulator:background:def_ipd>
 
