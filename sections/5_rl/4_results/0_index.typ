@@ -21,7 +21,7 @@ We have used synthetic data to validate the concept of training an agent with ou
 
 The adopted proxy for the #acr("WER") is defined as:
 $
-  hat("WER") = d + theta
+  hat("WER") = d + theta.
 $
 where:
 - $d$ is the source-microphone distance
@@ -61,7 +61,7 @@ Our previous observations of real #acr("WER") maps motivate this formulation.
 ]
 
 $
-  r_1 (s_t) = -w(s_t)
+  r_1 (s_t) = -w(s_t).
 $
 
 === Feature extraction

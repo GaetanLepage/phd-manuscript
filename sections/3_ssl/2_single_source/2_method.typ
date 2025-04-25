@@ -127,19 +127,23 @@ Krause et al. @krause_comparison_2021 present this variation along with its bene
 However, regular 2D convolutions have been employed in the present work, and the complex-valued #acr("STFT") needed to be converted to real values.
 To achieve this, two schemes were compared:
 - On the one hand, both the real and imaginary parts of the complex data can populate the two real resulting matrices:
-  $
-    phi_"cart": #h(1cm) CC^(F times T) & -->               RR^(2 times F times T)\
-    Z        & arrow.r.long.bar 
-    lr((cal(Re)(Z), cal(Im)(Z)), size: #140%)
-  $
+  #func-def(
+    $phi_"Cart"$,
+    $#h(1cm)CC^(F times T)$,
+    $RR^(2 times F times T)$,
+    $Z$,
+    $lr((cal(Re)(Z), cal(Im)(Z)), size: #140%).$,
+  )
   This form will be referred to as the Cartesian projection.
 
 - The other method consists in using the polar form of the Fourier representation:
-$
-  phi_"polar": #h(1cm) CC^(F times T) & -->               RR^(2 times F times T)\
-  Z        & arrow.r.long.bar 
-  lr((abs(Z), arg(Z)), size: #140%)
-$
+  #func-def(
+    $phi_"polar"$,
+    $#h(1cm)CC^(F times T)$,
+    $RR^(2 times F times T)$,
+    $Z$,
+    $lr((abs(Z), arg(Z)), size: #140%).$,
+  )
 
 In both cases, a $C$-channel #acr("STFT") #shape("C","F","T") complex tensor translates to a to #shape("2C", "F", "T") real one.
 
@@ -153,7 +157,7 @@ $
   cal(I) = mat(
       "ILD"(m_1, m_2);
       "IPD"(m_1, m_2)
-  )
+  ).
 $
 Both #acr("ILD") and #acr("IPD") take real values, which does not lead to doubling the number of channels.
 When dealing with arrays having more than two microphones, we compute the interaural features for successive and overlapping microphone pairs.
@@ -163,13 +167,13 @@ When dealing with arrays having more than two microphones, we compute the intera
   $
     cal(I)[i] = cases(
       "IPD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 0,
-      "ILD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 1
+      "ILD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 1.
     )
   $
 ]
 When using a single interaural feature, and not both #acr("ILD") and #acr("IPD"), the coefficients of $cal(I)$ become:
 $
-  cal(I)[i] = "IPD"(m_i, m_((i+1) equiv C))
+  cal(I)[i] = "IPD"(m_i, m_((i+1) equiv C)).
 $
 
 An ablation study was conducted to measure the impact of pre-processing methods on #acr("SSL") performance (@sec:ssl:single_source:experiments:pre-processing).
@@ -233,7 +237,7 @@ $
          sin(theta_i) sin(hat(theta)_i)
          +  cos(theta_i) cos(hat(theta)_i)
        )
-    ]
+    ].
 $
 ]
 
@@ -248,7 +252,7 @@ $
    #l-dist (hat(d), d) =
     1 / n
     sum_(i=1)^n
-  norm(hat(D)_i - D_i)_2^2
+  norm(hat(D)_i - D_i)_2^2 thick,
 $ <eq:ssl:single_source:dist_loss>
 where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (hat(D)_1, dots, hat(D)_n)$ the ground truth data.
 
@@ -332,7 +336,7 @@ The training employs a batch size of 250 items for $T_"max" = 100$ epochs.
 A learning rate scheduler helps stabilize the training and further improve the final results.
 Cosine annealing, proposed by Loshchilov and Hutter @loshchilov_sgdr_2017, decays the learning rate according to the following scheme:
 $
-  eta_t = eta_min + (eta_0 - eta_min) / 2  (1 + cos(T_"cur" / T_"max" pi))
+  eta_t = eta_min + (eta_0 - eta_min) / 2  (1 + cos(T_"cur" / T_"max" pi)),
 $
 where $eta_t$ is the learning rate at epoch $t$, $eta_0$ is the initial learning rate, $T_"cur"$ is the current epoch.
 The minimum learning rate $eta_min$ has been set to $10^(-5)$ and is reached at the very end of the training.

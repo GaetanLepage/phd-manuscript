@@ -51,12 +51,12 @@ The latter comprises following a sound source indoors, solely relying on audio p
 Regarding the proposed methodology, the process involves computing relevant auditory features such as the #acr("ILD") and #acr("IPD").
 These quantities are then interpreted geometrically to be linked to the task objective, thus defining an interaction matrix $bold(J_s)$ satisfying
 $
-  bold(dot(s)) = bold(J_s) bold(u)
+  bold(dot(s)) = bold(J_s) bold(u),
 $
 where $bold(dot(s))$ is the variation of the feature set and $bold(u)$ denotes the control signal.
 $bold(u)$ is then inferred so as to minimize the error $bold(e)(t)$ to the target state $bold(s)^*$:
 $
-  bold(e)(t) = bold(s)(t) - bold(s)^*
+  bold(e)(t) = bold(s)(t) - bold(s)^*.
 $
 The paper provides a detailed theoretical derivation of the auditory features, interaction matrices, and solving schemes.
 This work thus adopts a feedback loop strategy to control the robot and does not involve any learning algorithm.
@@ -130,7 +130,7 @@ The #acr("ASR") task consists of recognizing the words pronounced by a speaker f
 The #acr("WER") metric measures the performance of #acr("ASR") systems.
 It is computed as follows:
 $
-  "WER" = (s + d + i) / n
+  "WER" = (s + d + i) / n.
 $
 where $s$ is the number of substitutions, $d$ of deletions, and $i$ of insertions needed to transform the true sentence into the predicted text.
 $n$ counts the total number of words of the ground truth.
@@ -197,13 +197,13 @@ $
         times {0, pi/2, pi, (3 pi) / 2}
     },
     size: #120%
-  )
+  ),
 $
 <eq:rl:state_space>
 where $x_i$ and $y_j$ denote the 2D position of the agent and $alpha$ its orientation with respect to the room global frame.
 The position and orientation restrictions are enforced by the following action space $cal(A)$:
 $
-  cal(A) = {#stay, #forward, #left, #right}
+  cal(A) = {#stay, #forward, #left, #right}.
 $
 <eq:rl:action_space>
 - #stay is the neutral action where the agent does not move away from its current location.
@@ -249,7 +249,7 @@ The reward function can then be written as follows
 $
   r_t = cases(
     -10  #h(3em) &"if the movement is invalid",
-    f(w(s_t)) &"otherwise"
+    f(w(s_t)) &"otherwise".
   )
 $
 The first case allows penalizing movements that would lead the robot to collide with a wall.
@@ -273,17 +273,18 @@ The transition dynamics can be expressed as the following deterministic function
   $lr(((#x(), #y(), #s-alpha()), a), size: #130%)$,
   $
     cases(
-      (#x(), #y(), #s-alpha())
-        quad & "if" a = "STAY" | (a = "FORWARD" and a "is invalid"),
-        
       (#x(content: $x + d cos(alpha)$), #y(content: $y + d sin(alpha)$), #s-alpha())
-        quad & "if" a="TURN_RIGHT",
+        quad & "if" a="FORWARD",
         
       (#x(), #y(), #s-alpha(content: $(alpha + pi/2 )[2pi]$))
         quad & "if" a="TURN_LEFT",
         
       (#x(), #y(), #s-alpha(content: $(alpha - pi/2 )[2pi]$))
         quad & "if" a="TURN_RIGHT",
+        
+      (#x(), #y(), #s-alpha())
+        quad &  "if" a = "STAY" \
+               & quad| (a = "FORWARD" and a "is invalid").
     )
   $,
 )

@@ -59,7 +59,7 @@ $
   N_i = ceil(
     (2 T_60 times c)
     / L_i
-  )
+  ),
 $ <eq:simulator:simulator:components:rir_library:ism_order>
 where $L_i$ is the room's length in the $i$-th direction.
 All reflections happening closer than $T_60 times c$ meters
@@ -72,7 +72,7 @@ $
     / 
     (R_"min")
     - 1
-  )
+  ),
 $
 where
 $

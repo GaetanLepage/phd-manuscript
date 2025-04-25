@@ -63,18 +63,18 @@ This offers more possibilities as explained below.
 First, let us start by leveraging the following property.
 The signal $s_k$ recorded by the $k$-th microphone expresses simply as the sum of the signals $s_(i, k)$ providing from each source:
 $
-  s_k [t] = sum_(i=1)^n_s s_(i,k)[t]
+  s_k [t] = sum_(i=1)^n_s s_(i,k)[t],
 $
 where $s_(i, k)$ denotes the signal coming from the $i$-th source as received by microphone $k$.
 The #acr("STFT") being a linear operator, this equality holds in the feature space:
 $
-  S_k [t, f] = sum_(i=1)^n S_(i, k)[t, f]
+  S_k [t, f] = sum_(i=1)^n S_(i, k)[t, f],
 $
 where $S_k$ and $S_(i, k)$ are the #acr("STFT") of respectively $s_k$ and $s_(i, k)$.
 Hence, instead of saving the final features $S = (S_1, dots, S_(n_m))$, we save each source-specific encoding $S_i = (S_(i, 1), dots, S_(i, n_m))$ individually.
 
 This overhead brings complexity to the data collection process but allows for a significant increase in flexibility.
-Indeed, the number of sources plays a great role in performance and quantifying this influence has required experimenting with this parameter.
+Indeed, the number of sources plays a prominent role in performance and quantifying this influence has required experimenting with this parameter.
 Disposing of the audio features relating to each individual source allows for choosing how many sources should be active when loading each data sample from the disk.
 One solely has to sample a set ${i_1, i_2, dots, i_n}$ of sources to enable and sum the relevant source-specific features $S_i_1, dots, S_i_n$.
 The impact of the number of active sources is further studied in @sec:ssl:multi_source:experiments.
@@ -120,7 +120,7 @@ $
     sum_(t=1)^T
     sum_(f=1)^F
     20 log_10
-    lr(abs(S[t, f]), size: #150%)
+    lr(abs(S[t, f]), size: #150%).
 $
 We reject the chunks of the simulated samples where, for at least one microphone, the energy of the selected fragment is too low compared to the average energy of the entire simulated signal.
 Let
@@ -135,7 +135,7 @@ $
     E(#chunk-spec)_"dB" 
     > E(#global-spec)_"dB"
       - #tau-e
-  ]
+  ].
 $
 where $colMath(tau_E, #orange)$ has been set to 10dB in our main dataset.
 The average energy of a given chunk can be at most 10dB lower than the one of the entire signal.
@@ -171,19 +171,24 @@ The set of #acr("DoA") values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
 The solution in question has been introduced by He et al. @he_deep_2018 and consists in estimating the spatial spectrum.
 The latter is a real-valued function of the #acr("DoA") ($cal(o): [-pi, pi] -> RR$).
-We discretize this continuous function by encoding the spectra in a $d$ dimensional real vector $o$.
-$ o in [0, 1]^d $
+We discretize this continuous function by encoding the spectra in a $d$ dimensional real vector $o$:
+$
+  o in [0, 1]^d.
+$
 
-We denote $phi.alt_i$ the angle value corresponding to the $i$-th index of $o$.
-$
-  phi.alt : bracket.l.double 1, d bracket.r.double & arrow.r [-pi, pi] \
-   i & |-> phi.alt_i
-$
+We denote $phi.alt_i$ the angle value corresponding to the $i$-th index of $o$:
+#func-def(
+  $phi.alt$,
+  $bracket.l.double 1, d bracket.r.double$,
+  $[-pi, pi]$,
+  $i$,
+  $phi.alt_i.$
+)
 <eq:ssl:multi_source:phi_def>
 We naturally have 
-- $phi.alt_1 = - pi$
-- $phi.alt_(floor(d/2)) tilde.eq 0$
-- $phi.alt_d = pi$
+- $phi.alt_1 = - pi$,
+- $phi.alt_(floor(d/2)) tilde.eq 0$,
+- $phi.alt_d = pi$.
 //TODO
 //#chris[This is already visible from @eq:ssl:multi_source:phi_def Or is this information very important?]
 //#gaet[This was to make it even clearer, but with some plots, it could be enough.]
@@ -211,13 +216,13 @@ A first solution to this problem could be placing a pseudo-Dirac at the exact lo
 // TODO: introduce o(i)
 
 $
-  o(Theta)_i = sum_(k=1)^n_s bb(1)_(phi.alt_i = theta_k)
+  o(Theta)_i = sum_(k=1)^n_s bb(1)_(phi.alt_i = theta_k),
 $
 
 $
   o(Theta)_i := cases(
     1 #h(1cm) &"if" exists theta in Theta | phi.alt_i = theta,
-    0 &"otherwise"
+    0 &"otherwise,"
   )
 $
 
@@ -237,9 +242,10 @@ $
           / sigma^2
         )
       } &"if" abs(Theta) > 0,
-    0 &"otherwise"
+    0 &"otherwise,"
   )
-$ <eq:ssl:multi_source:doa_encoding>,
+$
+<eq:ssl:multi_source:doa_encoding>
 where #d is the symmetric angular distance introduced in @sec:ssl:single_source:experiments:metrics (@eq:ssl:single_source:angular_dist)
 #footnote[
   #d is a simplified version of #d, introduced for single-source localization in //@eq:ssl:single_source:angle_dist.
@@ -301,7 +307,7 @@ $
       ),
       #h(2em)
       i in [|1, n|]
-  }
+  }.
 $ <eq:ssl:multi_source:decoding_unknown_sources>
 The neighborhood threshold $colMath(sigma_n, #olive)$ must be defined carefully for this process to succeed.
 If too low, some high frequency noise in the spatial spectrum could lead to several false positive angle detections.
@@ -328,7 +334,7 @@ $
       ,
       #h(2em)
       i in [|1, n|]
-  }
+  }.
 $
 <eq:ssl:multi_source:decoding_known_sources>
 The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.

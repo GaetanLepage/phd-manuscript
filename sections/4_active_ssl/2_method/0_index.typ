@@ -123,7 +123,7 @@ Such a mapping is defined as:
     dots,
     tilde(M)_t
   )$,
-  AM,
+  AM + ",",
 )
 where #AM denotes the obtained estimate for the likelihood.
 
@@ -142,7 +142,7 @@ $
     tilde(M)_(t-H+1),
     dots,
     tilde(M_t)
-  ) := 1 / H sum_(t'=0)^(H-1) tilde(M)_(t-t')
+  ) := 1 / H sum_(t'=0)^(H-1) tilde(M)_(t-t').
 $
 
 As all maps are correctly expressed in the same local frame $cal(F)_t$, a given pixel in each one corresponds to the same position.

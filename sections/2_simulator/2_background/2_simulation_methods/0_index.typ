@@ -37,7 +37,7 @@ Nonetheless, the efficiency of geometrical acoustics methods has led them to be 
     // (partial^2 p) / (partial x^2)
     nabla^2 bold(p)
     //(partial^2 p) / (partial x^2)
-    = 1 / (#c^2) (partial^2 bold(p)) / (partial t^2)
+    = 1 / (#c^2) (partial^2 bold(p)) / (partial t^2),
   $
   <eq:simulator:background:acoustic_wave_eq>
   where $bold(p): RR^3 times RR_+ -> RR$ is the acoustic pressure as a function of position $bold(x) in RR^3$ and time $t in RR_+$.
