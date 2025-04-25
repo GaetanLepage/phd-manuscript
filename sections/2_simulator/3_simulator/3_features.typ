@@ -1,12 +1,8 @@
 #import "/utils.typ": *
 #import "2_components.typ": d-rec
 
-=== Advanced features
-<sec:simulator:simulator:features>
-
-
-==== Simulation of dynamic scenarios
-<sec:simulator:simulator:features:dynamic_scenarios>
+=== Simulation of dynamic scenarios
+<sec:simulator:simulator:dynamic_scenarios>
 
 The regular `step()` method of the simulator, presented in 
 @sec:simulator:simulator:components allows to update the simulator and to generate new received signals.

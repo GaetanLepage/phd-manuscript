@@ -56,7 +56,7 @@ $
 <sec:active_ssl:results:dataset>
 
 To design, run, and evaluate our method on the #acr("ASSL") task, we generated a synthetic dataset using the simulator presented in Chapter 2.
-Specifically, we leverage our simulator's ability to model _dynamic_ discrete-time environments (see @sec:simulator:simulator:features:dynamic_scenarios).
+Specifically, we leverage our simulator's ability to model _dynamic_ discrete-time environments (see @sec:simulator:simulator:dynamic_scenarios).
 The latter consists of a repository of independent $H$-steps trajectories.
 
 *Acoustic objects and movement policy.*
@@ -255,13 +255,11 @@ To account for this phenomenon, we have attempted to artificially adjust the spe
 Its concept remains simple: It simply consists of clipping all the portions of a #doa spectrum higher than a given threshold #doa-t to one.
 In other words, a #doa spectrum $hat(o)$ is transformed in the following way:
 $
-  hat(o)' = max(hat(o), bb(1)_(hat(o) > #doa-t))
+  hat(o)' = max(hat(o), bb(1)_(hat(o) > #doa-t)).
 $
-@fig:active_ssl:results:doa_spectrum_amplif displays this peak amplification process on an arbitrary example.
-
 #include "figures/doa_spectrum_amplif/figure.typ"
 
-
+@fig:active_ssl:results:doa_spectrum_amplif displays this peak amplification process on an arbitrary example.
 In @fig:active_ssl:results:doa_spectrum_amplif_maps, one can see the consequence of this process on the #doa maps.
 Each row corresponds to a different value for the threshold.
 Qualitatively, a too-high #doa-t will lead to lower peaks being left unamplified.

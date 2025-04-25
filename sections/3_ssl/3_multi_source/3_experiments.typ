@@ -26,7 +26,7 @@ $
       hat(phi.alt)_(i j),
       phi.alt_(i j)
     )
-  ) / (sum_i z_i)
+  ) / (sum_i z_i),
 $
 <eq:ssl:multi_source:mae>
 
@@ -44,7 +44,7 @@ $
         phi.alt_(i j)
       ) < #angle-error-threshold
     )
-  ) / (sum_i z_i)
+  ) / (sum_i z_i).
 $
 <eq:ssl:multi_source:acc>
 
@@ -60,13 +60,11 @@ $
     phi.alt_(i j)
   ) = cases(
     1
-      &"if"
-        d(hat(phi.alt)_(i k), phi.alt_(i j)) < E_a\
-        & "and" k = limits("argmin")_(k in {1, dots, hat(z_i)})  d(hat(phi.alt)_(i k), phi.alt_(i j)),
-    0 "otherwise"
+      "if"
+        d(hat(phi.alt)_(i k), phi.alt_(i j)) < E_a "and" k = limits("argmin")_(k in {1, dots, hat(z_i)})  d(hat(phi.alt)_(i k), phi.alt_(i j)),
+    0 "otherwise,"
   )
 $
-
 We may then introduce the two metrics used in this framework: _Precision_ and _Recall_:
 $
   "Precision" = (
@@ -77,7 +75,7 @@ $
       hat(phi.alt)_(i k),
       phi.alt_(i j)
     )
-  ) / (sum_i hat(z)_i)
+  ) / (sum_i hat(z)_i),
 $
 <eq:ssl:multi_source:prec>
 
@@ -90,7 +88,7 @@ $
       hat(phi.alt)_(i k),
       phi.alt_(i j)
     )
-  ) / (sum_i z_i)
+  ) / (sum_i z_i).
 $
 <eq:ssl:multi_source:recall>
 
@@ -108,8 +106,9 @@ The method stays the same in both cases as solely the extraction of the predicti
 *Loss function.*
 The objective used by He et al. in @he_deep_2018 along their #acr("DoA") encoding is a simple #acr("MSE") loss between the ground truth #acr("DoA") representation and the output vector provided by the neural network:
 $
-  cal(L) (hat(o), o) = norm(hat(o) - o)_2^2
-$ <eq:ssl:multi_source:loss_function>
+  cal(L) (hat(o), o) = norm(hat(o) - o)_2^2 med.
+$
+<eq:ssl:multi_source:loss_function>
 //TODO
 //#gaet[
 //  Technically, this equation does not illustrate the _mean_ aspect of the MSE.
@@ -137,7 +136,7 @@ The loss would most often approach its upper bound:
 #let gt = $colMath(o, #blue)$
 #let pred = $colMath(hat(o), #red)$
 $
-  0 <= cal(L) (#gt, #pred) lt cal(L) (#gt, 0) + cal(L) (#pred, 0)
+  0 <= cal(L) (#gt, #pred) lt cal(L) (#gt, 0) + cal(L) (#pred, 0).
 $
 
 #figure(
@@ -229,19 +228,21 @@ The network has been trained according to the _scenario A_ presented above.
 We propose an original modification of the loss function.
 The motivation comes from the observation that the target #acr("DoA") spatial spectrum is sparse (see @fig:ssl:multi_source:doa_gt_encoding for instance).
 This causes the active part of the spectrum to have a limited impact on the gradients.
-As seen in previously, we use a simple #acr("MSE") loss (@eq:ssl:multi_source:loss_function) for the cost function.
+As seen in previously, we use a simple #acr("MSE") loss for the cost function:
+$
+  cal(L)_epsilon (hat(o)_i, o_i) =
+    1/d sum_(i=1)^d
+    colMath((o_i + epsilon), #maroon)
+    (hat(o)_i - o_i)^2.
+$
+<eq:ssl:multi_source:epsilon_loss>
+
 Hence, predicting high activation will be heavily penalized as it will statically correspond to false positives.
 However, predicting overall low values will not lead to high loss values as the ground truth spectrogram is primarily flat.
 This lead to the sub-optimal convergence phenomenon described in @sec:ssl:multi_source:experiments:loss.
 The naive #acr("MSE") loss does not prioritize the supervision in the active region of the spectrogram.
 We have attempted to circumvent this by more aggressively penalizing the sections of the spatial spectrum where sources are effectively present.
 
-$
-  cal(L)_epsilon (hat(o)_i, o_i) =
-    1/d sum_(i=1)^d
-    colMath((o_i + epsilon), #maroon)
-    (hat(o)_i - o_i)^2
-$ <eq:ssl:multi_source:epsilon_loss>
 
 // TODO: maybe add plots of the loss
 
@@ -289,8 +290,9 @@ $
     /sqrt(
       colMath(sigma_cal(B)^2, #olive) + epsilon
     )
-  ] + colMath(beta, #blue)
-$ <eq:ssl:multi_source:batch_norm>
+  ] + colMath(beta, #blue),
+$
+<eq:ssl:multi_source:batch_norm>
 where
 - $x_i$ is an individual entry in the mini-batch $cal(B) = {x_1, dots, x_m}$,
 - $colMath(mu_cal(B) = 1 / m sum_(i=1)^m x_i, #maroon)$ is the mini-batch mean,
@@ -314,8 +316,9 @@ $
     /sqrt(
       colMath(sigma_l^2, #olive) + epsilon
     )
-  ] + colMath(beta, #blue)
-$ <eq:ssl:multi_source:batch_norm>
+  ] + colMath(beta, #blue),
+$
+<eq:ssl:multi_source:batch_norm>
 where
 - $x_(l, i)$ is an individual hidden unit in the $l$-th layer's inputs $X = {x_(l, 1), dots, x_(l, H)}$,
 - $colMath(mu_l = 1 / H sum_(i=1)^H x_(l, i), #maroon)$ is the mean,
@@ -407,7 +410,7 @@ The main idea of sequence processing resides in splitting the longer input audio
 $M$ output #acr("DoA") spectra are thus obtained and need to be aggregated.
 We simply average those signals to obtain a single vector:
 $
-  #averaged-spectrum = 1/M sum_(i=1)^M hat(o)_k #h(1em) in [0, 1]^d
+  #averaged-spectrum = 1/M sum_(i=1)^M hat(o)_k #h(1em) in [0, 1]^d.
 $
 <eq:ssl:multi_source:sequence_averaging>
 The flexibility of the #acr("DoA") spatial spectrum encoding permits the former combination without the need of additional steps.
@@ -472,7 +475,7 @@ As such, samples involving sources with close #acr("DoA") values are expected to
 #let delta-t = $Delta theta_"min"$
 Let #delta-t be the angle difference between the two closest sources with respect to #acr("DoA"):
 $
-  #delta-t = min_(i, j in [|1, n_s|]\ i!= j) #d (theta_i, theta_j)
+  #delta-t = min_(i, j in [|1, n_s|]\ i!= j) #d (theta_i, theta_j),
 $
 where $(theta_i)_(i=1dots n_s)$ are the real #acr("DoA") values for this sample and #d is the angle distance introduced in @eq:ssl:single_source:angular_dist.
 It should be noted that this quantity can only be defined for samples encompassing at least two sources.

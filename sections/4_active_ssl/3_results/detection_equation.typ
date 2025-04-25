@@ -19,7 +19,7 @@ $
       &&"if" #dist($k$) < delta\ // estimation is "close enough"
       && #h(1em)"and" k = limits("argmin")_(k' in {1, dots, hat(z_i)}) #dist($k'$), // it is the closest of all
     0
-      && "otherwise"
+      && "otherwise,"
   )
 $
 where $#pred($k$) = (#pos($hat(x)$, $k$), #pos($hat(y)$, $k$))$ is the estimated position of the $k$-th detected source in sample $i$ and #gt($j$) is the ground truth position of the $j$-th real source in this sample.
