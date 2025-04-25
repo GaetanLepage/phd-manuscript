@@ -52,9 +52,9 @@ This would allow for using other #acr("RIR") simulators while keeping the rest o
 To operate those libraries, the positions, patterns and orientations (when appropriate) of each source and microphone are provided.
 Also, the room's dimensions and acoustic properties belong to the necessary parameters.
 Both libraries offer a way to compute the wall's reflection coefficients from a target $T_60$ value by leveraging the inverse-Sabine estimator for the reverberation time (see @eq:simulator:background:sabine_inv).
-The image source order in the $i$-th axis $N_i$ counts how many virtual rooms have to be considered in this direction.
+The image source order in the $i$-th axis $N_i$ counts the number of virtual rooms that must be considered in this direction.
 Those reflected rooms, stacked up, form a diamond with the real room in its center.
-One way to approximate $N_i$ measures the distance that sound can travel in $T_60$ seconds:
+One way to approximate $N_i$ measure the distance that sound can travel in $T_60$ seconds:
 $
   N_i = ceil(
     (2 T_60 times c)
@@ -261,7 +261,8 @@ In practice, the simulator allows to artificially reduce the time of the simulat
 This may happen by first shortening the input signals to a given duration $d_s^"lim"$, thus leading to having $#d-rec = d_s^"lim" + T_60$.
 Alternatively, the resulting audio can be trimmed to any wanted duration.
 The duration control feature gives a fine-grained control of the computational time.
-Indeed, as further demonstrated in later @sec:simulator:simulator:performance the simulation time is directly impacted by the duration of the signals.
+#todo
+//Indeed, as further demonstrated in later @sec:simulator:simulator:performance the simulation time is directly impacted by the duration of the signals.
 
 
 //====== Feature extraction

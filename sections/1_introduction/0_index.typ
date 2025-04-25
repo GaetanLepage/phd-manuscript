@@ -94,7 +94,7 @@ Not sure if we want to have this in the intro
 - Give the general organization of the manuscript
 
 #figure(
-  image("figures/diagram.svg"),
+  image("figures/diagram.svg", width: 80%),
   caption: [
     Overview of the thesis organization
   ]

@@ -20,14 +20,10 @@
   title: "List of Tables",
   target: figure.where(kind: table)
 )
-#outline(
-  title: "List of Listings",
-  target: figure.where(kind: raw)
-)
-#gaet[
-  - Is this necessary ?
-  - Is listing the correct word for those ?
-]
+//#outline(
+//  title: "List of Listings",
+//  target: figure.where(kind: raw)
+//)
 
 // List of Acronyms
 #print-index(

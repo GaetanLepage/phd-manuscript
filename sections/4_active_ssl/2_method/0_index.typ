@@ -6,14 +6,11 @@
 
 === Problem formulation
 
-#gaet[
-  Mention that distance estimation was a missing feature from the static SSL framework.
-]
-
 As presented in @sec:active_ssl:background, experimenting with #acr("SSL") in a dynamic robotic context presents challenges and opportunities.
 In this work, we introduce and explore an #acr("ASSL") problem, motivated by the extension of the static #acr("SSL") methods developed in @chap:ssl to more realistic situations.
-Indeed, estimating both distance and #doa from a single recording has shown to be a challenging version of the #acr("SSL") problem.
+Indeed, estimating both distance and #doa from a single recording has been shown to be a challenging version of the #acr("SSL") problem.
 Grumiaux et al. @grumiaux_survey_2021 insist on this difficulty in their survey by highlighting the relative scarcity of the literature in this specific area.
+Neither the single-source nor multi-source localizer introduced in the previous chapter supports accurate distance prediction.
 Theoretically, though, aggregating purely angular information accumulated over time by a mobile robot could allow for predicting the actual location of sources in a room.
 
 

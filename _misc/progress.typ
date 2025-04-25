@@ -3,49 +3,50 @@
 #import "/utils.typ": *
 
 #pagebreak()
-#outline-colorbox(
-  title: "Progress",
-  color: "green",
-  width: auto,
-  radius: 2pt,
-  centering: true
-)[
-  #show: checklist
-  //#line(length: 100%)
-
-  *>>> This list shows what sections are ready to be reviewed. <<<*
+#page(margin: (x: 2cm, y: 1cm))[
+  #outline-colorbox(
+    title: "Progress",
+    color: "green",
+    width: auto,
+    radius: 2pt,
+    centering: true,
+  )[
+    #show: checklist
+    //#line(length: 100%)
   
-  - [ ] Abstract
-  - [ ] Acknowledgement
-  + *Intro*
-    - [ ] #link(<chap:intro>)[Intro]
-  + *Simulator*
-    - [x] #link(<sec:simulator:intro>)[1. Intro]
-    - [x] #link(<sec:simulator:reverb>)[2. Background]
-      - [x] #link(<sec:simulator:reverb:background>)[2.1 Acoustic]
-      - [x] #link(<sec:simulator:reverb:methods>)[2.2 Simulation methods and libraries]
-      - [x] #link(<sec:simulator:background:rir_libraries>)[2.3 RIR libraries]
-    - [x] #link(<sec:simulator:simulator>)[3. Simulator]
-      - [x] #link(<sec:simulator:simulator:overview>)[1. Overview]
-      - [x] #link(<sec:simulator:simulator:components>)[2. Components]
-      - [x] #link(<sec:simulator:simulator:features>)[3. Features]
-      - [ ] #link(<sec:simulator:simulator:performance>)[4. Performance] -> Not enough time + chapter already big enough
-      - [x] #link(<sec:simulator:conclusion>)[5. Conclusion]
-  + *SSL*
-    - [-] #link(<sec:ssl:background>)[1. Background]
-    - [-] #link(<sec:ssl:single_source>)[2. Single-source]
-    - [-] #link(<sec:ssl:multi_source>)[3. Multi-source]
-  + *Active SSL*
-    - [x] #link(<sec:active_ssl:background>)[1. Background]
-    - [x] #link(<sec:active_ssl:methods>)[2. Methods]
-    - [x] #link(<sec:active_ssl:results>)[3. Results]
-    - [x] #link(<sec:active_ssl:conclusion>)[4. Conclusion]
-  + *RL*
-    - [-] #link(<sec:rl:intro>)[1. Intro to RL]
-    - [-] #link(<sec:rl:method>)[2. Sound-driven robot navigation]
-    - [-] #link(<sec:rl:results>)[3. Experiments and discussions]
-  + *Conclusion*
-    - [ ] #link(<chap:conclusion>)[Conclusion]
+    *>>> This list shows what sections are ready to be reviewed. <<<*
+    
+    - [ ] Abstract
+    - [ ] Acknowledgement
+    + *Intro*
+      - [ ] #link(<chap:intro>)[Intro]
+    + *Simulator*
+      - [x] #link(<sec:simulator:intro>)[1. Intro]
+      - [x] #link(<sec:simulator:reverb>)[2. Background]
+        - [x] #link(<sec:simulator:reverb:background>)[2.1 Acoustic]
+        - [x] #link(<sec:simulator:reverb:methods>)[2.2 Simulation methods and libraries]
+        - [x] #link(<sec:simulator:background:rir_libraries>)[2.3 RIR libraries]
+      - [x] #link(<sec:simulator:simulator>)[3. Simulator]
+        - [x] #link(<sec:simulator:simulator:overview>)[1. Overview]
+        - [x] #link(<sec:simulator:simulator:components>)[2. Components]
+        - [x] #link(<sec:simulator:simulator:features>)[3. Features]
+        - [x] #link(<sec:simulator:conclusion>)[5. Conclusion]
+    + *SSL*
+      - [x] #link(<sec:ssl:background>)[1. Background]
+      - [x] #link(<sec:ssl:single_source>)[2. Single-source]
+      - [-] #link(<sec:ssl:multi_source>)[3. Multi-source]
+    + *Active SSL*
+      - [x] #link(<sec:active_ssl:background>)[1. Background]
+      - [x] #link(<sec:active_ssl:methods>)[2. Methods]
+      - [x] #link(<sec:active_ssl:results>)[3. Results]
+      - [x] #link(<sec:active_ssl:conclusion>)[4. Conclusion]
+    + *RL*
+      - [-] #link(<sec:rl:intro>)[1. Intro to RL]
+      - [-] #link(<sec:rl:method>)[2. Sound-driven robot navigation]
+      - [-] #link(<sec:rl:results>)[3. Experiments and discussions]
+    + *Conclusion*
+      - [ ] #link(<chap:conclusion>)[Conclusion]
+  ]
 ]
 
 #pagebreak()
