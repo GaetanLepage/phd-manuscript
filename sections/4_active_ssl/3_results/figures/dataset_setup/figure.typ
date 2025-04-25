@@ -4,7 +4,7 @@
   move(
     image(
       "dataset_setup.svg",
-      width: 80%,
+      width: 100%,
     ),
     dx: 6.5em,
   ),

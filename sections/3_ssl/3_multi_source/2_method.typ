@@ -3,14 +3,19 @@
 
 === Method
 
+He et al. have conducted a solid line of work on the multi-source #acr("SSL") problem, focusing on the associated robotics challenges @he_deep_2018 @he_neural_2021 @he_sounddet_2021.
+Their approach shows strong performance in challenging real-world scenarios.
+For this reason, several aspects of the methodology from @he_neural_2021 inspired the work presented in this section.
+#todo
+
 ==== Dataset generation and pre-processing
 <sec:ssl:multi_source:method:dataset>
 
-Most of the dataset generation process remains identical to the one presented in @sec:ssl:single_source:method:dataset.
+The dataset generation process remains largely identical to that presented in @sec:ssl:single_source:method:dataset.
 All samples remain fully independent.
 The positions of both the microphone array and the sources are randomly sampled.
-This section will focus on the necessary additions taken to support the multi-source setting.
-Also, some choices have been made so as to follow the methodology from He et al. @he_neural_2021 mostly.
+This section will focus on the necessary additions to support the multi-source setting.
+Also, most choices have been made to follow the methodology from He et al. @he_neural_2021.
 
 *Microphone array.*
 To effectively localize multiple sound sources, we choose to use a four-microphone array.

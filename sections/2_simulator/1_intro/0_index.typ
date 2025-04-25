@@ -5,9 +5,9 @@
 
 The physical world is an intrinsic aspect of robotics, especially #acr("HRI").
 Developing novel methods for interacting with humanoid robots encompasses several challenges related to their embodiment.
-Robotic platforms suffer from severe limitations that sometimes impede applying data-intensive techniques.
-Because robots are physical systems, data-intensive and trial-error approaches are challenging to scale.
-In the following, we explore why simulation plays a pivotal role in numerical science and, more specifically, in addressing robotics challenges.
+Robotic platforms suffer from severe limitations that sometimes impede the application of data-intensive techniques.
+Because robots are physical systems, data-intensive and trial-and-error approaches are challenging to scale.
+In the following, we explore why simulation plays a pivotal role in numerical science, specifically, in addressing robotics challenges.
 
 // Importance of simulation in science
 Simulation offers an alternative tool to experiment with new techniques.
@@ -15,7 +15,7 @@ Since the Monte Carlo algorithm's first operation at the end of the 1940s, it ha
 In 1950, a team led by John von Neumann and Jule Charney used the ENIAC computer to produce the first weather forecast by an electronic computer @charney_numerical_1950.
 Although their results carried important numerical errors, this work led to the foundation of modern meteorology.
 This is an example of numerically replicating a physical phenomenon by implementing and solving the corresponding equations.
-NASA has also used simulation early in its space programs, such as Apollo.
+NASA has also used simulations early in its space programs, such as Apollo.
 The primary goal of their enterprise was to build a training setup for astronauts to practice specific skills.
 Indeed, in high-stakes enterprises, the crew's accommodation to their environment and tools is essential for the mission's success.
 Between 1963 and 1972, the Apollo flight crew trained for 30,000 hours on different simulation devices.
@@ -23,7 +23,7 @@ Using simulators as sandbox environments to perform training is a significant us
 It can be applied to human training, algorithm testing, and data collection.
 Once built, simulation systems can be dramatically valuable as cheap replications of physical settings that are either expensive or difficult to access.
 Multiple techniques or discoveries would have been impossible without the scaling offered by simulation.
-For instance, the field of drug discovery has considerably benefitted from molecular computer simulation @durrant_molecular_2011 @lave_challenges_2007.
+For instance, the drug discovery field has benefited considerably from molecular computer simulation @durrant_molecular_2011 @lave_challenges_2007.
 Building on this general overview of simulation, we now turn to its specific applications in deep learning and robotics.
 
 // Simulation in DL and DRL

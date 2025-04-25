@@ -42,18 +42,3 @@ The overall process is depicted in @fig:simulator:simultor:continuous_sim.
 Ultimately, the simulator can model dynamic interaction scenarios leveraging a static #acr("RIR") simulation library.
 Thanks to our bootstrapping technique for reverberation, one may employ short simulation steps between which all objects in the room can be moved freely.
 #acr("RL") environments represent discrete-time phenomenons with #acrpl("MDP") and figure as possible use cases for this framework.
-
-
-//#reset-acronym("ASR")
-//==== #acr("ASR") integration
-//
-//// Introduction
-//#acr("ASR"),
-//
-//===== State of the Art
-//
-//===== #acr("ASR") pipeline in the simulator
-//
-//===== #acr("WER") maps
-//
-//// TODO: insert figures

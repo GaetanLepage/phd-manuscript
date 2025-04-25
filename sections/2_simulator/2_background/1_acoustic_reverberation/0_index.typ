@@ -441,39 +441,13 @@ $
 $
 <eq:simulator:background:def_ipd>
 
-// This complex-valued ratio defines two fundamental binaural cues: the *#acr("ILD")* and the *#acr("IPD")*.
-// 
-// - The #acr("ILD") is the magnitude of the interaural spectrogram:
-// $
-//   "ILD"(omega, t) = 20 log mabs(I(omega, t))
-// $
-// <eq:simulator:ild_def>
-// - The #acr("IPD") denotes the phase of $I$:
-// $
-//   "IPD"(omega, t) = arg(I(omega, t))
-// $
-// <eq:simulator:ipd_def>
-
-// #draft[
-//   TODO: this might not be useful
-//   
-//   which can be modelled by the as:
-//   $
-//     L(omega, t) / R(omega, t) approx abs(H(omega)) e^(-j omega tau(omega))
-//   $
-//   where $tau(omega) = tau_l - tau_r + angle H(omega)$ is assumed to be smaller than the length of the employed #acr("STFT") window.
-//   // $
-//   //   H_"rel"(omega, t) = (H_l (omega)) / (H_r (omega)) = abs(L(omega, t)) / abs(R(omega, t)) e^(alpha(omega, t))
-//   // $
-// ]
-
 Interaural features, especially #acr("IPD"), have been successfully used in #acr("SSL") as they directly relate to the #acr("DoA").
 As @eq:simulator:background:propagation_multi_mic_relative illustrates, the times at which each microphone of the array receives the signal differ by some short delay $tau = (d_2 - d_1) / #c$.
 Under ideal circumstances, meaning in the absence of reverberation and perturbations such as noise, the phase of the interaural spectrogram is an explicit and deterministic function of the #acr("TDoA") $tau$.
 Mandel et al. @mandel_probability_2006 derived a probability model to estimate the #acr("IPD") from binaural recordings.
 They test their framework on an #acr("SSL") task and compare it against an approach based on the #acr("GCC-PHAT") @knapp_generalized_1976 estimator.
 #acr("GCC-PHAT") provides an estimator of the #acr("TDoA").
-The proposed achieves better results than the baseline and shows some robustness to noise and reverberation.
+The proposed approach achieves better results than the baseline and shows robustness to noise and reverberation.
 By monitoring rats' brain activity, Uragun et al. @uragun_discrimination_2013 studied how animal brains were sensitive to #acr("ILD") functions.
 They discovered that the rat uses the #acr("ILD") as a critical cue to localize sounds in space.
 This highlights the biological motivation of interaural features and confirms its relevance.
@@ -488,7 +462,7 @@ This highlights the biological motivation of interaural features and confirms it
 
 #include "figures/tf_rep.typ"
 
-A binaural array has been placed in a room along with a speech source. 
+A binaural array and a speech source have been placed in a room. 
 @fig:ssl:sota:tf_representations displays different representations of the audio signal received by the array:
 - @fig:ssl:sota:tf_representations:spectrogram shows the power spectrogram of the signal received by the left microphone: $20 log abs(X_1 [m, k])$.
 - @fig:ssl:sota:tf_representations:ild and @fig:ssl:sota:tf_representations:ipd show the binaural cues, computed from @eq:simulator:background:def_ild and @eq:simulator:background:def_ipd respectively.

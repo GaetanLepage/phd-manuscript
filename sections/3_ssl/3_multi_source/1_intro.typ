@@ -3,8 +3,9 @@
 Complex human-robot interaction environments often imply a varying number of sound sources.
 Hence, at a given time, the room might be completely silent.
 On the other hand, multiple concurrent sources of different kinds could be active simultaneously.
-The current section presents our investigation of a multi-source localization framework that will bring additional flexibility to our acoustic agent.
-We showcase a deep neural network that has been implemented and trained on a challenging customized dataset, collected thanks to our simulator.
+The current section presents our investigation of a multi-source localization framework that will give our acoustic agent additional flexibility.
+We showcase a deep neural network that was implemented and trained on a challenging customized dataset, which was collected thanks to our simulator.
+This approach complements the initial investigation in single-source localization.
 
 //TODO
 //#gaet[
