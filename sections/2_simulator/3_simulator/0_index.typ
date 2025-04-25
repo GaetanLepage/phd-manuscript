@@ -20,19 +20,15 @@ In this section, we will provide an overview of our simulator's main functionali
 #include "1_overview.typ"
 #include "2_components.typ"
 #include "3_features.typ"
-#include "4_performance.typ"
 
 === Conclusion
 
-#draft[
-  - Possible addition of visual information
-]
-This section presented our custom implementation of a complex acoustic pipeline.
-The solution has been architectured from scratch while naturally employing existing open-source building blocks.
+This section presents our custom implementation of a complex acoustic pipeline.
+The solution has been architected from scratch while naturally employing existing open-source building blocks.
 This significant engineering effort is a central contribution of this thesis.
 It aims to allow researchers to test algorithms in diverse acoustic scenarios.
 The #acr("API") has been optimized to be as complete as possible while remaining user-friendly.
-The code base is entirely written in Python to be straightly integrated into new or existing research code bases.
+The code base is entirely written in Python to be directly integrated into new or existing research code bases.
 Nevertheless, performance has been considered, and efficient specialized libraries have been used for the key computational features.
 
 While the library has been enhanced and completed throughout the research project, it could be extended.
@@ -43,5 +39,8 @@ They only offer a rudimentary step-by-step preview of the room.
 Ultimately, the simulator could offer a more pleasant dynamic visualization of the movement of sources and sensors.
 Furthermore, the handling of dynamic scenes follows a simple step-based approach that discretizes the movement of objects in time.
 The addition of modern dynamic simulation techniques (@rosen_interactive_2020, @cao_interactive_2016, @schissler_interactive_2017) could make this pipeline even more relevant to robotics.
+Finally, the simulator's scope has been delimited to auditory cues and sound processing.
+The incorporation of a 3D visual rendering engine could transform the existing platform into a true multi-modal platform for a more complete simulation.
+Such an endeavor would however require an significant additional engineering effort.
 
 The entire code base of our simulator is freely available under the GPLv3 license #footnote[#link("https://gitlab.inria.fr/robotlearn/rl-audio-nav")].

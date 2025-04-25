@@ -34,10 +34,14 @@ Nonetheless, the efficiency of geometrical acoustics methods has led them to be 
   A natural approach to acoustic rendering is numerically solving the acoustic wave equation.
   The wave equation is a second-order partial differential equation characterizing the propagation of acoustic wave in a given medium (Feynman @feynman_lectures_2010, Volume I, Chapter 47):
   $
-    (partial^2 p) / (partial x^2) = 1 / (#c^2) (partial^2 p) / (partial t^2)
+    // (partial^2 p) / (partial x^2)
+    nabla^2 bold(p)
+    //(partial^2 p) / (partial x^2)
+    = 1 / (#c^2) (partial^2 bold(p)) / (partial t^2)
   $
   <eq:simulator:background:acoustic_wave_eq>
-  where $p: RR^3 times RR_+ -> RR$ is the acoustic pressure as a function of position $bold(x) in RR^3$ and time $t in RR_+$.
+  where $bold(p): RR^3 times RR_+ -> RR$ is the acoustic pressure as a function of position $bold(x) in RR^3$ and time $t in RR_+$.
+  $nabla^2 = partial / (partial x^2) + partial / (partial y^2) + partial / (partial z^2)$ denotes the Laplacian operator in 3d space.
 ]
 This strategy is the most faithful to the physical reality.
 Theoretically, it accurately represents complex mechanisms such as diffraction, interference, scattering or modal resonances @cao_interactive_2016.
@@ -45,7 +49,7 @@ However, tackling this second-order partial differential equation is challenging
 No closed-form solution is readily available, and one must fall back to approximating a numerical solution.
 Botteldooren @botteldooren_acoustical_1994 has proposed using the #acr("FDTD") method to obtain a practical solution to the acoustic wave equation.
 In general, methods from this family discretize space and time to apply numerical integration techniques.
-Kirkup @kirkup_boundary_2007 proposed an in-depth investigation of the application of the #acr("BEM") to acoustics.
+Kirkup @kirkup_boundary_2007 proposed an in-depth investigation of applying the #acr("BEM") to acoustics.
 It allows solving the Helmholtz equation by reformulating it into a boundary integral equation.
 The #acr("BEM") method is less computationally expensive than the volume-based formulation.
 Additionally, Thompson @thompson_review_2006 provides an overview of other #acrpl("FEM") for solving the Helmholtz equation.
@@ -142,7 +146,7 @@ The dataset to train the network was generated using an accurate wave-based meth
 This work is motivated to provide a hybrid approach combining high fidelity and responsiveness.
 Their approach can represent multiple reflection patterns (specular and diffuse reflections and diffraction).
 During training, the network learns to predict the scattering fields of objects.
-At inference time, the network achieves real-time performance and can handle dynamic scenes where objects are moving.
+At inference, the network achieves real-time performance and can handle dynamic scenes where objects are moving.
 
 
 ==== Simulation of dynamic environments
@@ -152,13 +156,14 @@ This ideal situation is not representative of real-world scenarios.
 Especially in robotics, modeling moving humans and agents is an essential requirement.
 Historical techniques such as the #acr("ISM") solely account for a given static layout of the sources and sensors.
 The result of the #acr("ISM") process is a set of #acr("RIR") filters, one for each microphone-source pair.
-The resulting listened signal is computed by convolving the source's input signals with those filters.
-However, the filters must be recomputed as soon as a source or microphone moves.
+The resulting signal is computed by convolving the source's input signals with those filters.
+However, the filters must be recomputed whenever a source or microphone moves.
 Chen et al. @chen_soundspaces_2020 pre-compute the #acr("RIR") filters for each attainable configuration of their simulated environment.
 This upfront computation moves the substantial simulation effort from training to a prior pre-processing step.
-#todo limitation has been explored in the literature in various ways.
-
-#draft[
-  - Acoustic Simulation in Dynamic Environments for Robot Audition @zhang_acoustic_2019
-  - Also, Gpu-RIR @diaz-guerra_gpurir_2021 have hacked a way to simulate on trajectories
-]
+Specific works have focused on improving existing simulators by supporting more and more dynamic scenarios.
+Diaz-Guerra et al. @diaz-guerra_gpurir_2021 leverage the performance of their #acr("ISM") #acr("GPU") implementation to pre-compute the #acr("RIR") of every position in the trajectory.
+The simulated signal is obtained by filtering the source recordings with the filters using the overlap-add method.
+In @zhang_acoustic_2019, Zang et al. propose a method to simulate dynamic acoustic environments where both the sources and microphones can move.
+Similarly to @diaz-guerra_gpurir_2021, their approach also relies on the discretization of the trajectory.
+Cao et al.'s #acr("BST") algorithm @cao_event-independent_2020 can model dynamic environments in real time and leverage caching schemes to speed up computations.
+The efficient and accurate simulation of complex environments where multiple sources and microphones interact dynamically remains an active research area.

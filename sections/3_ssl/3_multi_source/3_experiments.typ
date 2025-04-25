@@ -303,7 +303,7 @@ Indeed, during training, the #acr("BN") layer will keep updating a running mean 
 
 _#acr("LN")_ (Ba et al. @ba_layer_2016) follows the same principle but chooses to normalize each sample individually by computing statistics across the features' dimensions.
 @fig:ssl:multi_source:normalization displays the differences of both schemes.
-Historically, Layer Normalization has been most commonly employed within the Natural Language Processing field.
+Historically, Layer Normalization has been most commonly employed in Natural Language Processing.
 
 $
   y_(l, i) = colMath(gamma, #blue) [
@@ -345,7 +345,7 @@ Those works further demonstrate the importance of normalization in deep neural n
 
 Although He et al. chose to use Batch Normalization in their work, our final architecture employs the more flexible Layer Normalization.
 The choice of the normalization scheme ended up being crucial to achieving good performance.
-We observed that the latter was yielding the same stabilization benefits during training while removing the dependence on the batch size.
+We observed that the latter yielded the same stabilization benefits during training while removing the dependence on the batch size.
 
 @fig:ssl:multi_source:normalization_plots illustrates the evolution of the training and validation accuracy during training for different normalization schemes.
 
@@ -366,9 +366,9 @@ When ran in evaluation mode, i.e. using the running statistics gathered during t
 This would suggest that the saved means and averages do not adequately account for the differences between the training and validation sets.
 
 Interestingly, evaluating this network's performance while forcing the batch normalization to use the training strategy avoids facing this issue.
-Indeed, using the current validation batch statistics instead of those gathered at training time provides results that are on par with the training performance.
-This constitutes an essential limitation of batch normalization in this case as the evaluation thus needs to be performed in a batched manner.
-@table:ssl:multi_source:experiments:normalization displays the influence of the batch size on the performance of the network trained with #acr("BN").
+Indeed, using the current validation batch statistics instead of those gathered at training time provides results on par with the training performance.
+This constitutes an essential limitation of batch normalization in this case, as the evaluation thus needs to be performed in a batched manner.
+@table:ssl:multi_source:experiments:normalization displays the batch size's influence on the network's performance trained with #acr("BN").
 
 
 #include "tables/normalization.typ"
