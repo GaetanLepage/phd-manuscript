@@ -12,11 +12,9 @@
 // This function gets your whole document as its `body` and formats it
 #let template(
   // The title for your work.
-  title: [
-    From Sound to Action: Deep Learning for Audio-Based Localization and Navigation in Robotics
-  ],
+  title: [Your Title],
   // Author's name.
-  author: "Gaétan Lepage",
+  author: "Author",
   // The paper size to use.
   paper-size: "a4",
   // Date that will be displayed on cover page.
@@ -27,6 +25,8 @@
   // Format in which the date will be displayed on cover page.
   // More info: https://typst.app/docs/reference/foundations/datetime/#format
   date-format: "[month repr:long] [day padding:zero], [year repr:full]",
+  // Add outlines to the Table of content
+  include-outlines-in-contents: true,
   // The content of your work.
   body,
 ) = {
@@ -188,7 +188,8 @@
   show outline: it => {
     in-outline.update(true)
     // Show table of contents, list of figures, list of tables, etc. in the table of contents
-    set heading(outlined: true)
+    
+    set heading(outlined: include-outlines-in-contents)
     
     // This hides the citation in outlines (mostly for the table of figures)
     show cite: none
@@ -197,11 +198,14 @@
     in-outline.update(false)
   }
 
+  // Hide the '...' filling for top-level entried (chapters)
+  show outline.entry.where(level: 1): set outline.entry(fill: none)
+
   show outline.entry: it => {
     // Only apply styling if we're in the table of contents (not list of figures or list of tables, etc.)
     if it.element.func() == heading {
       if it.level == 1 {
-        v(1.5em, weak: true)
+        v(2em, weak: true)
         strong(it)
       } else {
         it

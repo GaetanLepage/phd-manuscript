@@ -26,7 +26,7 @@ More specifically, this branch of robotics tackles the question of human-robot i
 Key words: deep learning, robotic auditory perception, sound source localization, reverberation, human-robot interactions
 
 // French abstract
-#heading(outlined: false, [Résumé])
+= Résumé
 
 #clorem(100)
 

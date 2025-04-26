@@ -1,7 +1,11 @@
 #import "_misc/template/_index.typ": template, front-matter, main-matter, back-matter
 #import "/utils.typ": *
 
-#show: template.with(author: "Gaétan Lepage")
+#show: template.with(
+  title: "From Sound to Action: Deep Learning for Audio-Based Localization and Navigation in Robotics",
+  author: "Gaétan Lepage",
+  include-outlines-in-contents: false,
+)
 
 #set page(numbering: none)
 
@@ -11,9 +15,6 @@
 /*---------*/
 /* CONTENT */
 /*---------*/
-
-// TODO: remove
-#include "_misc/progress.typ"
 
 // FRONT
 #show: front-matter
