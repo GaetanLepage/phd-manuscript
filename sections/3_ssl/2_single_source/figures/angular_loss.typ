@@ -45,11 +45,13 @@
     }
   ),
   caption: flex-caption(
-    [
+    short: [
+      Plot of the angular loss
+    ],
+    long: [
       Angular loss plots for $colMath(hat(theta)=0, #blue)$ and $colMath(hat(theta)=(3pi) / 4, #green)$.
       The x axis corresponds to the predicted #acr("DoA") value $hat(theta)$.
     ],
-    [Angular loss plot]
   ),
 )
 <fig:ssl:single_source:angular_loss>

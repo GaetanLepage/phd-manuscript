@@ -5,6 +5,7 @@
   title: "From Sound to Action: Deep Learning for Audio-Based Localization and Navigation in Robotics",
   author: "Gaétan Lepage",
   include-outlines-in-contents: false,
+  boxed-refs: true, // TODO check if we want that
 )
 
 #set page(numbering: none)

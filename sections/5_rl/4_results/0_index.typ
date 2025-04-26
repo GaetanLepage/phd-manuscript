@@ -35,8 +35,13 @@ Our previous observations of real #acr("WER") maps motivate this formulation.
     width: 80%,
   ),
   caption: flex-caption(
-    [Directional (east orientation) synthetic #acr("WER") map],
-    [Directional synthetic WER map]),
+    short: [
+      Directional synthetic WER map,
+    ],
+    long: [
+      Directional (east orientation) synthetic #acr("WER") map
+    ],
+  )
 )
 <fig:rl:results:analytical_map>
 

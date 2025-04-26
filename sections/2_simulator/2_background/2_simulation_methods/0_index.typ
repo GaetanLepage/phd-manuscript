@@ -110,16 +110,17 @@ The significant popularity of the #acr("ISM") is partly due to its simplicity an
 
 #figure(
   image("figures/image_source.svg"),
-  caption: flex-caption(
-    [
-      Representation of the first-order virtual image sources @schimmel_fast_2009.
+  caption: detailed-caption(
+    common: [
+      Representation of the first-order virtual image sources.
+    ],
+    extra: [
+      // TODO: check if it renders correctly
+      @schimmel_fast_2009
       The physical source $S$ leads to 4 virtual sources $S_i$, i.e. one per reflective surface.
       The black arrow represents the direct path from the source to the receiver.
       The grey arrows depict the paths corresponding to the first-order reflections.
     ],
-    [
-      Representation of the first-order virtual image sources
-    ]
   )
 )
 <fig:simulator:background:image_source>

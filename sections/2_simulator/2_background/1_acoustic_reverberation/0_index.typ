@@ -83,17 +83,16 @@ Each path has a specific delay and attenuation factor.
 #figure(
   image("figures/rir_schema.svg", height: 16em),
   caption: flex-caption(
-    [
+    short: [
+      Schematic representation of an RIR filter.
+      @savioja_overview_2015
+    ],
+    long: [
       Schematic representation of an RIR filter.
       It can be decomposed in three sections:
         #text(fill: rgb("#cc0000"))[direct path],
         #text(fill: rgb("#7f00ff"))[early reflections]
         and #text(fill: rgb("#006633"))[late reverberation].
-    ],
-    // Short caption for the TOC
-    [
-      Schematic representation of an RIR filter.
-      @savioja_overview_2015
     ]
   ),
 ) <fig:simulator:background:rir_plot>
@@ -159,15 +158,13 @@ They will be essential in the interface of our simulator as they allow specifyin
 
 #figure(
   image("figures/rir_echogram.svg", height: 16em),
-  caption: flex-caption(
-    [
+  caption: detailed-caption(
+    common: [
       Schematic representation of an RIR filter.
+    ],
+    extra: [
       @savioja_overview_2015
     ],
-    // Short caption for the TOC
-    [
-      Schematic representation of an RIR filter.
-    ]
   ),
 ) <fig:simulator:background:rir_schema>
 

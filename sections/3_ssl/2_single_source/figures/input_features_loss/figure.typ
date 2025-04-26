@@ -19,9 +19,14 @@
   <fig:ssl:single_source:input_features:validation>,
   
   columns: 2,
-  caption: [
-    Evolution of the training and validation #acr("DoA") loss #l-doa for different input features
-  ],
+  caption: flex-caption(
+    short: [
+      Evolution of the training and validation #acr("DoA") loss #l-doa-raw for different input features
+    ],
+    long: [
+      Evolution of the training and validation #acr("DoA") loss #l-doa for different input features
+    ],
+  ),
   placement: fig-placement,
   gap: grid-fig-gap,
   numbering: fig-numbering,

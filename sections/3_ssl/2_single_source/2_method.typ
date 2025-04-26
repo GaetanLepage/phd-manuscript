@@ -44,15 +44,14 @@ The final datasets weigh from 26 to 50GB, depending on the number of microphones
     ),
     dx: 33pt
   ),
-  caption: flex-caption(
-    [
-      Statistics of ground-truth label pairs ($theta$, $D$) in the generated dataset.
+  caption: detailed-caption(
+    common: [
+      Statistics of ground-truth label pairs ($theta$, $D$) in the generated dataset
+    ],
+    extra:  [
       Microphone and source positions are randomly sampled within a rectangular room, resulting in a uniform distribution of #acr("DoA") values.
       Source-to-array distances range from 0 to 7 meters, with values around 2-3 meters being the most frequent.
     ],
-    [
-      Statistics of ground-truth label pairs ($theta$, $D$) in the generated dataset
-    ]
   )
 )
 <fig:ssl:single_source:dataset_statistics>
