@@ -4,11 +4,13 @@
   image(
     "doa_spectrum_amplif.svg"
   ),
-  caption: flex-caption(
-    [
-      #doa spectrum amplification: All values of $hat(o)$ above the threshold $tau_o$ get pushed to 1.
+  caption: detailed-caption(
+    common: [
+      #doa spectrum amplification
     ],
-    [#doa spectrum amplification]
+    extra: [
+      All values of $hat(o)$ above the threshold $tau_o$ get pushed to 1.
+    ],
   )
 )
 <fig:active_ssl:results:doa_spectrum_amplif>

@@ -205,13 +205,14 @@ The former was introduced as a baseline, offering the advantage of being simple 
     "figures/blending_comparison.svg",
   ),
   caption: flex-caption(
-    [
+    short: [
+      Visual comparison of the two aggregation methods
+    ],
+    long: [
       Visual comparison of the two aggregation methods (#psi-avg top and #psi-dnn bottom).
       Each column represents an example from the dataset.
       The first three use the ground-truth #doa spectrum, while the last two use the one estimated by the pre-trained #acr("SSL") network.
     ],
-    // Short caption for the TOC
-    [Visual comparison of the two aggregation methods]
   ),
 )
 <fig:active_ssl:results:blending_comparison>

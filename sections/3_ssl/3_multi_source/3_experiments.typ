@@ -159,8 +159,12 @@ along a successful training process.
 #figure(
   image("figures/301_energy-loss.svg"),
   caption: flex-caption(
-    [Evolution of the norm of the network output $norm(o)_2^2$ (orange) and loss (blue) during training],
-    [Evolution of the norm of the network output and loss during training],
+    short: [
+      Evolution of the norm of the network output and loss during training
+    ],
+    long: [
+      Evolution of the norm of the network output $norm(o)_2^2$ (orange) and loss (blue) during training
+    ],
   ),
 ) <fig:ssl:multi_source:output_norm_plot>
 
@@ -328,12 +332,14 @@ where
 
 #figure(
   image("./figures/normalization.png", height: 4cm),
-  caption: flex-caption(
-    [
-      A visual comparison of Batch and Layer normalizations (adapted from @wu_group_2018)
+  caption: detailed-caption(
+    common: [
+      A visual comparison of Batch and Layer normalizations
     ],
-    // Short caption for the TOC
-    [A visual comparison of Batch and Layer normalizations]
+    extra: [
+      // TODO: check how it renders
+      adapted from @wu_group_2018
+    ],
   ),
 ) <fig:ssl:multi_source:normalization>
 
