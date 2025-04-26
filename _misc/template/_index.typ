@@ -27,6 +27,8 @@
   date-format: "[month repr:long] [day padding:zero], [year repr:full]",
   // Add outlines to the Table of content
   include-outlines-in-contents: true,
+  // Boxes around refs
+  boxed-refs: false,
   // The content of your work.
   body,
 ) = {
@@ -54,6 +56,31 @@
   let outside-margin = margin
 
   /* -------------------------------------------------------------------- */
+  /* REFERENCES */
+  // Color boxes around ref links
+  let enable-boxed-refs = boxed-refs not in (none, false)
+  let box-color = if type(boxed-refs) == color {
+    boxed-refs
+  }
+  else {
+    green
+  }
+  show ref: it => {
+    if not enable-boxed-refs {
+      return it
+    }
+    // Skip bibliography citations.
+    if it.element == none {
+      return it
+    }
+    box(
+      stroke: 1pt + box-color,
+      outset: (bottom: 1.5pt, rest: .5pt),
+      it
+    )
+  }
+
+  /* -------------------------------------------------------------------- */
   /* PARAGRAPHS */
   
   // Configure paragraph properties.
@@ -72,15 +99,15 @@
   show link: set text(blue)
   
   // Show a small maroon circle next to external links.
-  show link: it => {
-    // Workaround for ctheorems package so that its labels keep the default link styling.
-    if type(it.dest) == label { return it }
-    it
-    h(1.6pt)
-    super(
-      box(height: 3.8pt, circle(radius: 1.2pt, stroke: 0.7pt + rgb("#993333"))),
-    )
-  }
+  //show link: it => {
+  //  // Workaround for ctheorems package so that its labels keep the default link styling.
+  //  if type(it.dest) == label { return it }
+  //  it
+  //  h(1.6pt)
+  //  super(
+  //    box(height: 3.8pt, circle(radius: 1.2pt, stroke: 0.7pt + rgb("#993333"))),
+  //  )
+  //}
 
   /* -------------------------------------------------------------------- */
   /* TITLES */

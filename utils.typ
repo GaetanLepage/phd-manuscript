@@ -13,9 +13,6 @@
 #let show-chapter-tocs = false
 // ----------------------------------------------------------------
 
-// Different figure/table caption for ToC and actual caption
-#let flex-caption(long, short) = context { if in-outline.get() { short } else { long } }
-
 /* TABLES */
 #let toprule = table.hline()
 #let bottomrule = toprule
@@ -113,3 +110,26 @@ $
 #let gaet(body) = {
   comment("Gaétan", body, color: blue)
 }
+
+// Different figure/table caption for ToC and actual caption
+#let flex-caption(
+  short: todo,
+  long: "TODO"
+) = context {
+  if in-outline.get() {
+    short
+  }
+  else {
+    long
+  }
+}
+#let detailed-caption(
+  common: todo,
+  extra: todo
+) = flex-caption(
+   short: common,
+   long: [
+     *#common.*
+     #extra
+   ],
+)
