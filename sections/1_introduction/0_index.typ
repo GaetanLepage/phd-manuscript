@@ -10,7 +10,7 @@
 General introduction about AI and robotics:
 
 - Increasing presence of AI systems in our lives
-- LLM: emerging use cases of intelligent systems. Mostly text-base interaction.
+- LLM: emerging use cases of intelligent systems. Mostly text-based interaction.
   First demonstrations of speech-based interaction
 - Robotics:
   - very challenging field, multiple unsolved research and technical problems

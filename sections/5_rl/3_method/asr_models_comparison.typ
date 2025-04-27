@@ -31,8 +31,8 @@
 
     // ROWS
     // MODEL
-    [`asr-crdnn-rnnlm-librispeech`],                [#acr("RNNLM")],          [#acr("CRDNN")],  [], [2.84],     [1.82],
-    [`asr-crdnn-transformerlm-librispeech`],        [Transformer #acr("LM")], [#acr("CRDNN")],  [], [0.24], [1.16],
+    [`asr-crdnn-rnnlm-librispeech`],                [#acr("RNNLM")],          [#acr("CRNN")],  [], [2.84],     [1.82],
+    [`asr-crdnn-transformerlm-librispeech`],        [Transformer #acr("LM")], [#acr("CRNN")],  [], [0.24], [1.16],
     [`asr-transformer-transformerlm-librispeech`],  [Transformer #acr("LM")], [Transformer],    [], [0.75], [0.05],
 
     bottomrule,

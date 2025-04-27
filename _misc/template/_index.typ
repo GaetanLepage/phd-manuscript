@@ -118,7 +118,9 @@
   }
 
   // Style chapter headings.
-  show heading.where(level: 1): set heading(supplement: [Chapter])
+  show heading.where(level: 1): set heading(
+    supplement: [Chapter]
+  )
   show heading.where(level: 1): it => {
     set text(size: 22pt)
 
@@ -129,6 +131,7 @@
       rect(
         fill: black,
         width: outside-margin - 5pt,
+        //width: outside-margin + 50pt,
         height: 2em
       ),
     )
@@ -142,21 +145,27 @@
       dx: -1em,
       text(
         fill: white,
-        heading_number
+        heading_number,
+        //[#it.supplement #heading_number]
       )
     )
 
     // Start chapters on even pages
-    // FIXME: `pagebreak(to: "even")` replicates the behaviour seen in the
-    // original template, except for an important detail: the resulting empty
-    // pages still show the header and page number. This is not great and is the
-    // subject of https://github.com/typst/typst/issues/2722.
-    // pagebreak(to: "even")
+    /*
+      FIXME: `pagebreak(to: "even")` replicates the behaviour seen in the
+      original template, except for an important detail: the resulting empty
+      pages still show the header and page number. This is not great and is the
+      subject of https://github.com/typst/typst/issues/2722.
+    */
+    //pagebreak(to: "even")
     pagebreak()
 
     v(16%)
     rect(
-      stroke: none, inset: 0em, black_rectangle + white_heading_number + it.body,
+      stroke: none,
+      inset: 0em,
+      black_rectangle + white_heading_number + it.body,
+      //[ \ #it.body ],
     )
     
     // Has no effect, still shows "Section"

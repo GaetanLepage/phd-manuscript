@@ -70,7 +70,7 @@ The specific pipeline that was used in this work involves three components:
   Those vectors are then fed to the #acr("RNN"), which is followed by fully connected layers.
   Other architectures are also provided by #speechbrain such as a _TransformerLM_, based on the famous Transformer architecture @vaswani_attention_nodate.
 - Finally, the *acoustic model* performs the actual task of speech recognition by mapping audio features to tokens.
-  It employs a #acr("CRDNN") architecture for the encoder, which maps audio features (#acr("STFT"), #acr("MFCC")...) to tokens.
+  It employs a #acr("CRNN") architecture for the encoder, which maps audio features (#acr("STFT"), #acr("MFCC")...) to tokens.
   #speechbrain applies an additional #acr("CTC") @graves_towards_2014 loss to the encoder.
   The #acr("CTC") cost function allows the training of recurrent architectures to perform speech recognition without requiring prior alignment between the input and target sequences.
   Alternatively, #speechbrain ships a Transformer-based encoder-decoder also using the #acr("CTC") training strategy.
