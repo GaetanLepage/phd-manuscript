@@ -38,9 +38,11 @@
     "Convolutional Recurrent Neural Network",
     "Convolutional Recurrent Neural Networks",
   ),
-  "CRDNN": ("Convolutional Recurrent Deep Neural Network"),
   "DL": ("Deep Learning"),
-  "DNN": ("Deep Neural Network"),
+  "DNN": (
+    "Deep Neural Network",
+    "Deep Neural Networks"
+  ),
   "GRU": (
     "Gated Recurrent Unit",
     "Gated Recurrent Units"
