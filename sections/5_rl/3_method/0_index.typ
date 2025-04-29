@@ -68,7 +68,7 @@ The specific pipeline that was used in this work involves three components:
   In this case, the recurrent units act on word sequences
   It comprises an embedding layer that maps individual words to 128-dimensional vectors.
   Those vectors are then fed to the #acr("RNN"), which is followed by fully connected layers.
-  Other architectures are also provided by #speechbrain such as a _TransformerLM_, based on the famous Transformer architecture @vaswani_attention_nodate.
+  Other architectures are also provided by #speechbrain such as a _TransformerLM_, based on the famous Transformer architecture @vaswani_attention_2017.
 - Finally, the *acoustic model* performs the actual task of speech recognition by mapping audio features to tokens.
   It employs a #acr("CRNN") architecture for the encoder, which maps audio features (#acr("STFT"), #acr("MFCC")...) to tokens.
   #speechbrain applies an additional #acr("CTC") @graves_towards_2014 loss to the encoder.

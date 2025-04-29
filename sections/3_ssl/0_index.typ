@@ -2,8 +2,6 @@
 
 = Sound Source Localization
 <chap:ssl>
-#minitoc(indent: true)
-
 #gaet[
   Isn't this too short as an introduction?
 ]
