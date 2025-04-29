@@ -7,11 +7,11 @@ The physical world is an intrinsic aspect of robotics, especially #acr("HRI").
 Developing novel methods for interacting with humanoid robots encompasses several challenges related to their embodiment.
 Robotic platforms suffer from severe limitations that sometimes impede the application of data-intensive techniques.
 Because robots are physical systems, data-intensive and trial-and-error approaches are challenging to scale.
-In the following, we explore why simulation plays a pivotal role in numerical science, specifically, in addressing robotics challenges.
+The following explores why simulation is pivotal in numerical science, specifically in addressing robotics challenges.
 
 // Importance of simulation in science
 Simulation offers an alternative tool to experiment with new techniques.
-Since the Monte Carlo algorithm's first operation at the end of the 1940s, it has been widely used in most scientific fields (@goldsman_brief_2009, @metropolis_beginning_nodate).
+Since its first operation in the late 1940s, the Monte Carlo algorithm has been widely used in most scientific fields @goldsman_brief_2009, @metropolis_beginning_nodate.
 In 1950, a team led by John von Neumann and Jule Charney used the ENIAC computer to produce the first weather forecast by an electronic computer @charney_numerical_1950.
 Although their results carried important numerical errors, this work led to the foundation of modern meteorology.
 This is an example of numerically replicating a physical phenomenon by implementing and solving the corresponding equations.

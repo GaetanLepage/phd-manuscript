@@ -451,13 +451,6 @@ They discovered that the rat uses the #acr("ILD") as a critical cue to localize 
 This highlights the biological motivation of interaural features and confirms its relevance.
 
 
-// #draft[
-//   TODO: rephrase the following as this was originally written in the SSL chapter
-//   As explained before, one want to leverage the delays between the signals listened by each microphone.
-//   One of the motivations for using multiple microphones to perform #acr("SSL") is leveraging the delay #acr("TDoA")
-//   In the case of a binaural microphone system, #draft[TODO]
-// ]
-
 #include "figures/tf_rep.typ"
 
 A binaural array and a speech source have been placed in a room. 

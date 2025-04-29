@@ -7,6 +7,26 @@
 
 === Social robotics & embodied AI
 
+In recent years, there has been flourishing and rapid progress in #acr("AI").
+The performance of #acr("AI") systems has evolved dramatically in a short period.
+Subsequently, these techniques have been used in numerous domains, ranging from highly specialized applications to widely spread end-consumer products.
+These disruptive technologies significantly impact our daily lives, societies, and economies.
+#acrpl("LLM") are surely the latest and most striking illustration of this revolution.
+Since the invention of the attention mechanism and the transformer architecture in 2017 @vaswani_attention_2017, larger and larger models could be trained on constantly growing datasets.
+The capabilities of #acrpl("LLM")s have pushed the boundaries of artificial reasoning and natural language processing.
+Similarly, diffusion models have been equally successful for image generation.
+Although interactions with these systems are still primarily text-based, academic and industrial actors invest substantial resources in making them more natural.
+More precisely, #acr("AI") agents aim to interact with humans directly through speech and vision.
+Some solutions, like KyutAI's Moshi @defossez_moshi_2024, can now have a two-way conversation with a human in real time.
+Speech-based interaction is a central research challenge in #acr("HRI").
+More generally, the design of embodied, intelligent, and capable agents is at the core of social robotics.
+Social robots operate in complex, dynamic, and often crowded environments.
+They need to 
+#todo
+
+
+Paradox: what is hard for humans is easy for the machine.
+
 General introduction about AI and robotics:
 
 - Increasing presence of AI systems in our lives
@@ -37,7 +57,7 @@ Objective: optimize ASR
 - ASR systems are sensible to the position of the agent -> let's optimize the agent's position
 
 
-== Contributions
+== Outline and Contributions
 
 Final goal: learn a policy for a robot to navigate
 
