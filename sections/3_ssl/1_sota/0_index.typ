@@ -294,7 +294,7 @@ The principal advantage of those architectures is their capacity to model tempor
 The main #acr("RNN") architectures are the #acr("LSTM") and #acr("GRU") designs.
 Some works, such as @cao_event-independent_2020, @adavanne_localization_2019, @kapka_sound_2019 and @comminiello_quaternion_2019 have used a combination of a #acr("CNN") and a #acr("RNN"), referred to as a #acrpl("CRNN") for #acr("SSL").
 
-Vaswani et al. @vaswani_attention_nodate famously introduced the *transformer architecture*, which has become the de facto neural network design for numerous complex tasks.
+Vaswani et al. @vaswani_attention_2017 famously introduced the *transformer architecture*, which has become the de facto neural network design for numerous complex tasks.
 Attention-based neural networks were first employed by the #acr("NLP") community to replace #acrpl("LSTM")s @radford_improving_nodate.
 They share with #acrpl("RNN")s the ability to propagate information along a sequence of tokens, which can then be used to make a decision.
 In vision tasks, the transformer architecture has been successful as an alternative to the well-established convolutional design @dosovitskiy_carla_nodate.

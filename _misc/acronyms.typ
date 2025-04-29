@@ -3,6 +3,7 @@
 #init-acronyms((
   // -----------------------------------------------------------------------------
   // Misc
+  "AI": ("Artificial Intelligence"),
   "API": ("Application Programming Interface"),
   "AR": ("Augmented Reality"),
   "EM": ("expectation-maximization"),

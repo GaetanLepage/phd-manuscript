@@ -122,33 +122,33 @@
     supplement: [Chapter]
   )
   show heading.where(level: 1): it => {
-    set text(size: 22pt)
-
-    let black_rectangle = place(
-      //dx: -page.margin.outside,
-      dx: -outside-margin,
-      dy: -1em,
-      rect(
-        fill: black,
-        width: outside-margin - 5pt,
-        //width: outside-margin + 50pt,
-        height: 2em
-      ),
-    )
+    //set text(size: 22pt)
+    
+    //let black_rectangle = place(
+    //  //dx: -page.margin.outside,
+    //  dx: -outside-margin,
+    //  dy: -1em,
+    //  rect(
+    //    fill: black,
+    //    width: outside-margin - 5pt,
+    //    //width: outside-margin + 50pt,
+    //    height: 2em
+    //  ),
+    //)
 
     let heading_number = if heading.numbering == none {
       []
     } else {
       counter(heading.where(level: 1)).display()
     }
-    let white_heading_number = place(
-      dx: -1em,
-      text(
-        fill: white,
-        heading_number,
-        //[#it.supplement #heading_number]
-      )
-    )
+    //let white_heading_number = place(
+    //  dx: -1em,
+    //  text(
+    //    fill: white,
+    //    heading_number,
+    //    //[#it.supplement #heading_number]
+    //  )
+    //)
 
     // Start chapters on even pages
     /*
@@ -160,16 +160,40 @@
     //pagebreak(to: "even")
     pagebreak()
 
-    v(16%)
-    rect(
-      stroke: none,
-      inset: 0em,
-      black_rectangle + white_heading_number + it.body,
-      //[ \ #it.body ],
+    if it.numbering != none {
+      set text(size: 36pt)
+      [Chapter]
+      h(0.5em)
+      text(
+        heading_number,
+        fill: maroon,
+        size: 58pt,
+        weight: "bold"
+      )
+      h(0.5em)
+    }
+  
+    v(0em)
+    text(
+      it.body,
+      size: 36pt,
+      weight: "light"
     )
+    v(-1em)
+    //v(1em)
+
+
+    //v(16%)
+    //set text(size: 36pt)
+    //rect(
+    //  stroke: none,
+    //  inset: 0em,
+    //  black_rectangle + white_heading_number + it.body,
+    //  //[ \ #it.body ],
+    //)
     
     // Has no effect, still shows "Section"
-    set heading(supplement: [Chapter])
+    //set heading(supplement: [Chapter])
   }
 
   // Configure heading numbering.
@@ -199,8 +223,8 @@
 
         let chapter-title = current.body
         let chapter-number = counter(heading.where(level: 1)).display()
-        // let chapter-number-text = [#current.supplement Chapter #chapter-number]
-        let chapter-number-text = [Chapter #chapter-number]
+        let chapter-number-text = [#current.supplement #chapter-number]
+        //let chapter-number-text = [Chapter #chapter-number]
 
         if current.numbering != none {
           let (left-text, right-text) = if calc.odd(page-number) {
