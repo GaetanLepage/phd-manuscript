@@ -45,7 +45,7 @@ For instance, industrial and academic actors have used simulated environments as
 The availability of driving simulators allows more modest research teams to contribute to this field without requiring them to handle data collection.
 Sallab et al. @sallab_deep_2017 and Osiński et al. @osinski_simulation-based_2020 proposed simulation-based #acr("DRL") techniques for autonomous driving.
 @kiran_deep_2022 and @rosique_systematic_2019 further survey the landscape of available techniques, datasets, and simulators on this topic.
-Additionally, a team from Google DeepMind has proposed a novel approach for controlling the magnetic field of tokamak plasmas using #acr("DRL") (@degrave_magnetic_2022).
+Additionally, a team from Google DeepMind has proposed a novel approach for controlling the magnetic field of tokamak plasmas using #acr("DRL") @degrave_magnetic_2022.
 A critical challenge in this work has been the scarcity of access to a real-world fusion reactor and, thus, to the training data.
 To get around this, they collaborated with physicists to build a fast and accurate JAX @jax2018github simulator modeling the plasma core, TORAX @citrin_torax_2024.
 Finally, games have been among the most widespread application domains for #acr("DRL") as they are inherently virtual @vinyals_grandmaster_2019 @mnih_playing_2013 @berner_dota_nodate @silver_mastering_2016.

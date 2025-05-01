@@ -21,26 +21,43 @@ Some solutions, like KyutAI's Moshi @defossez_moshi_2024, can now have a two-way
 Speech-based interaction is a central research challenge in #acr("HRI").
 More generally, the design of embodied, intelligent, and capable agents is at the core of social robotics.
 Social robots operate in complex, dynamic, and often crowded environments.
-They need to 
-#todo
-
-
-Paradox: what is hard for humans is easy for the machine.
-
-General introduction about AI and robotics:
-
-- Increasing presence of AI systems in our lives
-- LLM: emerging use cases of intelligent systems. Mostly text-based interaction.
-  First demonstrations of speech-based interaction
-- Robotics:
-  - very challenging field, multiple unsolved research and technical problems
-  - Quite old. A lot of research has been done to bring robots to life
-  - Early success happened in very specific tasks with limited interaction (industrial robots for e.g.)
-  - Human-robot interaction is still hard. Perception, multi-modal
-  - This PhD was funded by the SPRING project @alameda-pineda_socially_2024
+They differ from traditional robots, such as the ones used in industrial settings to perform repetitive, narrow-scope actions.
+These robots do not need to adapt and interact in an unpredictable environment.
+Their policy is often deterministic and programmed in advance.
+Also, they are not expected to interact naturally with humans.
+Bridging the gap to performant social robots turned out to be considerably challenging.
+In 1986, Hans Moravec famously introduced the following paradox.
+High-level reasoning, which is difficult for humans, tends to be relatively easy for computers.
+However, sensorimotor skills, which all humans learn at a very young age, are extremely difficult for #acr("AI") and robots.
+_It is comparatively easy to make computers exhibit adult-level performance in solving problems on intelligence tests or playing checkers, and difficult or impossible to give them the skills of a one-year-old when it comes to perception and mobility._ @moravec_mind_1988
+His observation, from 1988, remains highly relevant today as multimodal perception and action remain key challenges in #acr("AI") and robotics.
 
 
 === Multi-modal perception, a focus on acoustics
+
+Multi-modal perception for a robot consists of its ability to sense and understand the environment around it.
+Robots can be equipped with various sensors depending on their objectives, nature, and budget constraints.
+LIDAR sensors, for example, allow for estimating the distance to surrounding objects and are widely used in autonomous vehicles.
+Cameras and microphones are cost-effective and let robots sense their environment like humans.
+Processing the resulting information flux is a crucial aspect of multimodal perception.
+It entails extracting knowledge from the raw gathered data that is valuable for the task.
+For instance, object detection involves localizing and classifying semantic objects in the captured frames.
+Multi-object tracking adds a temporal aspect to the task by including tracking each identified object across time.
+Depth estimation attempts to infer how far each pixel is in an image.
+In sound source localization, the system should estimate the direction or position of the active sources in an environment.
+
+
+#figure(
+  image(
+    "./figures/ari.png",
+    width: 5cm
+  ),
+  caption: [
+    A photo of the ARI robot, a robotic platform developed by PAL robotics
+  ],
+)
+<fig:intro:ari>
+
 
 === Reinforcement learning, a powerful yet challenging framework for learning robot policies
 
@@ -102,10 +119,6 @@ Complete RL pipeline design and implementation:
 - Learn about PPO and implement from scratch
 - Train and evaluate the policy + visualization
 
-== Personal experience
-
-Not sure if we want to have this in the intro
-???
 
 == Thesis structure
 
@@ -115,9 +128,15 @@ Not sure if we want to have this in the intro
 
 #figure(
   image("figures/diagram.svg", width: 80%),
-  caption: [
-    Overview of the thesis organization
-  ]
+  caption: flex-caption(
+    short: [
+      Overview of the thesis organization
+    ],
+    long: [
+      Overview of the thesis organization.
+      Each chapter, represented by a block, outlines a specific contribution.
+    ],
+  ),
 )
 
 
@@ -149,3 +168,9 @@ Not sure if we want to have this in the intro
   - In general, no attention to adversarial noise sources
   - *More specifically, this is basically _Move2Hear_ but worse.*
 ]
+
+== Funding
+
+The SPRING H2020 project @alameda-pineda_socially_2024 aimed at bringing socially capable robots to gerontological healthcare.
+It brought together eight European academic and industrial partners to develop the algorithms, models, and software components necessary for the ARI robot to successfully perform complex social tasks (@fig:intro:ari).
+This PhD project was funded as a component of the SPRING project.
