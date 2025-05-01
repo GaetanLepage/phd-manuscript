@@ -122,7 +122,7 @@ The boundary between early echoes and late reflections is called the _mixing tim
 
 
 The #acr("RIR") model does not account for all the existing reflection phenomena.
-Sound will interact in various, potentially simultaneous, ways with the surface it encounters @fig:simulator:background:reflection_types.
+Sound will interact in various, potentially simultaneous, ways with the surface it encounters (@fig:simulator:background:reflection_types).
 It might reflect from the surface, leading to reverberation, but it can also be partly diffracted (in the presence of a small aperture), refracted, or absorbed.
 Besides, the reflection can be of two kinds.
 On the one hand, smooth surfaces lead to specular reflections that behave similarly to light reflecting on a mirror.
@@ -218,7 +218,7 @@ Several resources, such as Oppenheim et al. @oppenheim_discrete-time_1989 (Chapt
 #reset-acronym("STFT")
 As acoustic signals are stored and processed numerically, the continuous framing of the Fourier transform cannot be directly employed.
 In contrast, the signal processing community has turned to the #acr("DFT") to process discrete signals (see Smith @smith_scientist_1997 Chapter 8).
-Instead, the #acr("STFT") is a tool for representing the temporal real-valued signal as a two-dimensional complex form.
+The #acr("STFT") is a tool for representing the temporal real-valued signal as a two-dimensional complex form.
 This target domain is often referenced as the time-frequency plan.
 It consists of computing the signal's #acr("DFT") on short overlapping smoothed windows.
 The #acr("STFT") has been partly motivated by the non-stationarity characteristic of speech.
@@ -238,13 +238,13 @@ where
 The support of the #acr("STFT") frame $x[n]$ is also $[|0, N-1|]$.
 The discrete #acr("STFT") of the signal $x$ is defined as the set of #acrpl("DFT")s of the frames $x_m$, $m in ZZ$:
 $
-  X[m, k] = 1/sqrt(N) sum_(n=0)^N x_m [n] e^(-2i pi (k n) / N),
+  X[m, k] = 1/sqrt(N) sum_(n=0)^(N-1) x_m [n] e^(-2i pi (k n) / N),
 $ <eq:ssl:sota:stft_inf>
-where $k$ denotes the frequency index in $[|-N/2, N/2|]$.
+where $k$ denotes the frequency index in $[|-N/2, N/2-1|]$.
 In this definition, both the time and frequency indices are integers.
 In practice, the signal has a finite length $L >> N$, leading to approximately $M = ceil(L / H)$ total #acr("STFT") frames.
 Hence, a finite-length signal's #acr("STFT") is a complex-valued matrix of size $M times N$.
-As practical signals are real-valued, the #acr("STFT") is symmetric, and only positive frequencies ($k in [|0, ceil(N/2)|]$) are considered.
+As practical signals are real-valued, the #acr("STFT") is symmetric, and only positive frequencies ($k in [|0, ceil(N/2-1)|]$) are considered.
 
 The time-frequency resolution is a tradeoff directly impacted by the choice of the window size $N$.
 Low values of $N$ will produce a wide-band spectrogram with a high time resolution at the cost of a lower frequency resolution.
@@ -352,7 +352,7 @@ This section focuses on motivating and deriving those representations.
 )
 <fig:simulator:background:multi_mic_schema>
 
-The signal received by microphone $i$ can be expressed as (Vincent et al. @vincent_audio_2018 Chapter 3 or Gustafsson et al. @gustafsson_source_2003):
+By adapting the single-microphone case (@eq:simulator:background:single_mic_discrete), the signal received by microphone $i$ can be expressed as (Vincent et al. @vincent_audio_2018 Chapter 3 or Gustafsson et al. @gustafsson_source_2003):
 $
   x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq].
 $
@@ -435,8 +435,8 @@ Let us consider a binaural array with microphones $m_1$ and $m_2$.
 - The modulus of the #acr("RTF"), expressed in decibels, is called the #acr("ILD")
 $
   "ILD"[m, k]
-    = 20 log mabs("RTF"[m, k])
-    = 20 log mabs((X_2 [m, k]) / (X_1 [m, k])).
+    = 20 log_(10) mabs("RTF"[m, k])
+    = 20 log_(10) mabs((X_2 [m, k]) / (X_1 [m, k])).
 $
 <eq:simulator:background:def_ild>
 - The phase is called the #acr("IPD"):
@@ -461,16 +461,10 @@ This highlights the biological motivation of interaural features and confirms it
 
 #include "figures/tf_rep.typ"
 
-A binaural array and a speech source have been placed in a room. 
-@fig:ssl:sota:tf_representations displays different representations of the audio signal received by the array:
+
+@fig:ssl:sota:tf_representations provides example of each aforementioned spectral representations.
+A binaural array and a speech source have been placed in a simulated room.
+The omnidirectional source plays a 1-second section of speech recording sampled from the _LibriSpeech_ @panayotov_librispeech_2015 corpus.
+The features were then extracted from the inferred microphone signal:
 - @fig:ssl:sota:tf_representations:spectrogram shows the power spectrogram of the signal received by the left microphone: $20 log abs(X_1 [m, k])$.
 - @fig:ssl:sota:tf_representations:ild and @fig:ssl:sota:tf_representations:ipd show the binaural cues, computed from @eq:simulator:background:def_ild and @eq:simulator:background:def_ipd respectively.
-
-#block(breakable: false)[
-  #draft[
-    Potential additions:
-    - SotA on works that use ILD/IPD to do SSL/denoising/Speech enhancement...
-    - Introduction of more advanced binaural features such as GCC-PHAT
-    - More precise formalism of the different notions. For example, I foresee some weakness in the #acr("ATF") introduction.
-  ]
-]
