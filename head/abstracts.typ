@@ -4,50 +4,83 @@
 = Abstract
 
 Social robotics is a diverse, multidisciplinary research field aiming to bring capable robotic agents to the physical world.
-More specifically, this branch of robotics tackles the question of human-robot interactions in which robots are not in controlled isolated environments, but rather collaborating with humans on complex tasks.
-It includes numerous challenges such as multi-modal perception, action planning, and operating safely in the physical world.
-This thesis explores a selection of essential tasks for building effective social robots.
+In particular, it addresses the challenges of human-robot interaction, where robots operate not in isolated, controlled environments, but alongside humans in dynamic and complex tasks.
+This domain involves numerous challenges, including multi-modal perception, action planning, and safe real-world operation.
+This thesis explores a selection of essential tasks involved in building effective social robots.
 Our investigation is oriented toward the acoustic dimension of these tasks.
 
 // Simulator
-First, we introduce a capable yet flexible acoustic simulation environment.
-This contribution builds on state-of-the-art sound rendering components to provide a featured sandbox for training and testing novel acoustic algorithms.
-Deep Learning methods have allowed considerable breakthroughs in robotics.
-Yet, they require extensive data, often scarce and costly when physical robotic systems are involved.
-Hence, simulation can be crucial in generating a lot of data with excellent scaling.
+First, we introduce a flexible and powerful acoustic simulation environment.
+Built upon state-of-the-art sound rendering components, this environment serves as a feature-rich sandbox for training and evaluating novel auditory algorithms.
+Deep learning has enabled major advances in robotics, but such methods require large volumes of data—data that is often costly or impractical to collect in physical settings. Simulation thus plays a key role in scaling data generation for learning.
 
 // SSL
-Auditory perception comprises multiple facets.
-#acr("SSL") is a key ability for social robots and is grounded in a dense and long-lasting scientific literature.
-It entails accurately identifying the location of one or multiple active speakers.
-We study this problem from different angles and propose a collection of deep learning methods tackling its challenges.
-After introducing an initial single-source solution, we implement a more capable multi-source deep learning localizer.
-Extensive experimental studies are conducted to assess the performance of the proposed models in various configurations.
+Auditory perception encompasses several core abilities, among which #acr("SSL") is critical for social robots.
+#acr("SSL") involves identifying the location of one or more active speakers and draws from a long-standing body of research.
+We examine this problem from multiple angles and introduce a series of deep learning-based methods to address its key challenges.
+After presenting a single-source solution, we implement a more advanced multi-source localizer and conduct extensive experiments to evaluate its performance across varied conditions.
 
 // Active SSL
-In social robotics, sound source localization has to consider motion.
+In social robotics, sound source localization must account for motion.
 Multiple approaches exist to model dynamic scenarios in this regard.
-We propose a novel approach for aggregating the predictions from our static multi-source localizer over time.
-This framework leverages a robot's arbitrary motion to refine its estimate of speakers' locations.
-The acoustic simulator was extended to synthesize complete trajectories in the virtual room, allowing for training and evaluating a deep neural network.
+We propose a novel method for aggregating predictions from our static multi-source localizer over time.
+This framework leverages arbitrary robot motion to refine speaker position estimates.
+The acoustic simulator is extended to synthesize full trajectories in virtual environments, enabling effective training and evaluation of this dynamic localization model.
 
-Perception and action are the two essential categories of robotics capabilities.
-After exploring the acoustic perception aspect, we proposed to apply modern #acr("DRL") techniques to robot navigation.
-Our research aimed to grant robots better hearing capabilities through motion.
-Recent #acr("ASR") models offer strong capabilities and allow robots to automatically transcribe human speech.
-However, their performance can degrade in reverberant environments.
-We introduce a perceptually motivated navigation task where a robot should position itself to minimize speech recognition errors.
-The agent's decisions are solely derived from the audio signal recorded by its microphone array.
-This last contribution leverages our prior findings and methods in acoustic simulation and sound source localization.
+Perception and action are the two pillars of robotic capability.
+After exploring the acoustic perception aspect, we turn to action by applying modern #acr("DRL") techniques to robot navigation.
+Our goal is to grant robots better hearing capabilities through movement.
+Recent #acr("ASR") models offer strong performance, enabling robots to transcribe human speech.
+However, #acr("ASR") systems are sensitive to reverberation, which can significantly degrade recognition accuracy.
+To address this, we introduce a perceptually motivated navigation task in which a robot learns to position itself to minimize speech recognition errors.
+The agent’s decisions are based solely on the audio captured by its microphone array.
+This final contribution builds on our previous work in acoustic simulation and sound source localization, integrating perception and action to improve embodied auditory intelligence.
 
-*Keywords:* deep learning, robotic auditory perception, sound source localization, reverberation, human-robot interactions
+*Keywords:*
+deep learning,
+robotic auditory perception,
+sound source localization,
+acoustic simulation,
+robot navigation,
+deep reinforcement learning,
 
 // French abstract
 = Résumé
 
-#clorem(100)
+La robotique sociale est un domaine de recherche vaste et multidisciplinaire, visant à faire émerger des agents robotiques capables d'interagir dans le monde physique.
+Elle traite notamment des enjeux liés à l'interaction homme-robot, où les robots ne sont plus confinés à des environnements contrôlés et isolés, mais évoluent aux côtés des humains dans des contextes dynamiques et complexes.
+Ce domaine soulève de nombreux défis, notamment la perception multimodale, la planification d'action et l'opération sécurisée en conditions réelles.
+Cette thèse explore un ensemble de tâches essentielles pour la conception de robots sociaux efficaces, avec un intérêt particulier porté sur leur dimension acoustique.
 
-#clorem(50)
+Nous introduisons tout d'abord un environnement de simulation acoustique à la fois flexible et puissant.
+Reposant sur des technologies de rendu sonore avancées, cet environnement constitue une plateforme d'expérimentation riche en fonctionnalités pour l'entraînement et l'évaluation de nouveaux algorithmes auditifs.
+L'apprentissage profond a permis des avancées majeures en robotique, mais ces méthodes nécessitent de grandes quantités de données — souvent coûteuses ou difficiles à obtenir dans des environnements physiques.
+La simulation joue donc un rôle clé dans la génération de données à grande échelle pour l'apprentissage.
 
+La perception auditive regroupe plusieurs capacités fondamentales, parmi lesquelles la localisation de sources sonores, cruciale pour les robots sociaux.
+Cette tâche consiste à estimer la position d'un ou plusieurs locuteurs actifs, et s'appuie sur un important corpus de travaux scientifiques.
+Nous abordons ce problème sous différents angles et proposons une série de méthodes basées sur l'apprentissage profond pour relever ses principaux défis.
+Après avoir présenté une solution pour une seule source, nous développons un localisateur multi-sources plus performant, que nous évaluons de manière approfondie dans divers contextes expérimentaux.
 
-Mots clefs: apprentissage profond, perception auditive en robotique, localisation de source sonore, reverberation, interaction humain robot
+Dans le cadre de la robotique sociale, la localisation sonore doit également prendre en compte le mouvement.
+Plusieurs approches existent pour modéliser ces scénarios dynamiques.
+Nous proposons une méthode originale d’agrégation temporelle des prédictions issues de notre localisateur statique multi-sources.
+Ce cadre permet d’exploiter les déplacements arbitraires du robot afin d’affiner l'estimation des positions des locuteurs.
+Le simulateur acoustique a été étendu pour générer des trajectoires complètes dans un environnement virtuel, permettant ainsi l'entraînement et l'évaluation efficaces de ce modèle dynamique.
+
+La perception et la prise d'actions représentent les deux piliers des capacités robotiques.
+Après avoir exploré la dimension perceptive, nous abordons la capacité des robots à agir en appliquant des techniques modernes d'apprentissage par renforcement profond à la navigation robotique.
+Notre objectif est de doter les robots d’une meilleure capacité d'écoute grâce à leur mouvement.
+Les modèles récents de reconnaissance automatique de la parole offrent des performances remarquables et permettent aux robots de transcrire la parole humaine.
+Cependant, ces systèmes restent sensibles aux réverbérations, ce qui peut nuire à leur précision.
+Pour y remédier, nous introduisons une tâche de navigation guidée par la perception, où le robot apprend à se positionner de manière à minimiser les erreurs de transcription automatique.
+Les décisions de l'agent reposent uniquement sur les signaux audio captés par sa matrice de microphones.
+Cette dernière contribution s'appuie sur nos travaux antérieurs en simulation acoustique et en localisation sonore, intégrant perception et action pour améliorer l'intelligence auditive embarquée.
+
+*Mots-clés:*
+apprentissage profond,
+perception auditive en robotique,
+localisation de sources sonores,
+simulation acoustique,
+navigation robotique,
+apprentissage par renforcement profond.
