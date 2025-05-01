@@ -128,8 +128,5 @@ $
   extra: todo
 ) = flex-caption(
    short: common,
-   long: [
-     *#common.*
-     #extra
-   ],
+   long: common + extra,
 )
