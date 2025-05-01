@@ -26,7 +26,7 @@ Yet, they also provide a user-friendly Python API to make the library easy to le
 In addition to its primary filter computation capability, this project ships various additional features such as beamforming algorithms, direction finding, and adaptive filtering.
 Rathnayake et al. @rathnayake_image_2019 proposed a 3D room simulation library with an additional _OpenGL_ visualization feature.
 It allows observing all the reflection paths from the source to the receiver.
-Also, the library permits to plot the #acr("RIR") graph, similar to @fig:simulator:background:rir_plot and @fig:simulator:background:rir_schema.
+Also, the library permits to plot the #acr("RIR") graph, similar to @fig:simulator:background:rir_schema and @fig:simulator:background:rir_plot.
 
 The community has also explored using #acrpl("GPU") to speed up the computation of the #acr("RIR") filters.
 In their 2011 paper, Savioja et al. @savioja_audio_2011 explored the potential of #acrpl("GPU")s for performing several audio signal processing tasks.

@@ -95,11 +95,12 @@ Each path has a specific delay and attenuation factor.
         and #text(fill: rgb("#006633"))[late reverberation].
     ]
   ),
-) <fig:simulator:background:rir_plot>
+) <fig:simulator:background:rir_schema>
 
 
 @fig:simulator:background:rir_schema gives a schematic illustration of an #acr("RIR") filter.
 It can be decomposed into three sections.
+The plot of a real #acr("RIR") recording is visible in @fig:simulator:background:rir_plot.
 The first is the _direct path_, which corresponds to the signal reaching the microphone directly from the source without reflecting on any surface.
 This corresponds to @eq:simulator:background:single_mic_continuous describing sound propagation in an anechoic room.
 The delay amounts to $tau_r = #d / #c$.
@@ -113,11 +114,15 @@ The boundary between early echoes and late reflections is called the _mixing tim
 
 #figure(
   image("figures/reflection_types.svg", width: 100%),
-  caption: [Illustration of the different ways sound interacts with surfaces @di_carlo_echo-aware_2020],
+  caption: [
+    Illustration of the different ways sound interacts with surfaces @di_carlo_echo-aware_2020
+  ],
 )
+<fig:simulator:background:reflection_types>
+
 
 The #acr("RIR") model does not account for all the existing reflection phenomena.
-Sound will interact in various, potentially simultaneous, ways with the surface it encounters.
+Sound will interact in various, potentially simultaneous, ways with the surface it encounters @fig:simulator:background:reflection_types.
 It might reflect from the surface, leading to reverberation, but it can also be partly diffracted (in the presence of a small aperture), refracted, or absorbed.
 Besides, the reflection can be of two kinds.
 On the one hand, smooth surfaces lead to specular reflections that behave similarly to light reflecting on a mirror.
@@ -131,10 +136,10 @@ The #acr("RIR") paradigm solely accounts for specular reflections.
 #block(breakable: false)[
 When several sources are active in the room, the sound received by a microphone is the sum of each source's contribution.
 This formulation is known as a mixture model (@vincent_audio_2018 - Chapter 3)
-These individual contributions are the convolution between each source's signal $s_i$ and the corresponding #acr("RIR") $h_i$.
+These individual contributions are the convolution between each source signal $s_i$ and the corresponding #acr("RIR") $h_i$.
 The final received signal can be expressed as:
 $
-  x[n] = sum_(i=1)^(n_s) (h_i * s_i)[t].
+  x[n] = sum_(i=1)^(n_s) (h_i * s_i)[n].
 $
 <eq:simulator:rir_listened_signal_multi_source>
 ]
@@ -158,15 +163,18 @@ They will be essential in the interface of our simulator as they allow specifyin
 
 #figure(
   image("figures/rir_echogram.svg", height: 16em),
-  caption: detailed-caption(
-    common: [
-      Schematic representation of an RIR filter.
+  caption: flex-caption(
+    short: [
+      Schematic representation of an RIR
     ],
-    extra: [
+    long: [
+      (a) An impulse response recorded in a room.
+      It represents the propagation of sound pressure from the sound source to the receiver.
+      (b) The time-energy response plots the propagation of sound energy.
       @savioja_overview_2015
     ],
   ),
-) <fig:simulator:background:rir_schema>
+) <fig:simulator:background:rir_plot>
 
 The reverberation time noted $T_60$ or RT60 denotes the time before the sound pressure decreases by 60 dB after the source signal is abruptly stopped.
 It can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine @sabine_collected_1922 as
