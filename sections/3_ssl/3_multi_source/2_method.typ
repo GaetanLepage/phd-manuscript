@@ -89,12 +89,12 @@ The generated signals are then up-sampled to 48kHz.
 
 *#acr("STFT") representation of audio signals.*
 // multi-channel STFT
-As discussed in @sec:simulator:background:spectral-features, several choices can be made when it comes to data representation.
+As discussed in @sec:simulator:background:spectral-features, several choices can be made regarding data representation.
 Although we have generated different datasets, the format used in the majority was the Short-Term Fourier Transform.
-The #acr("STFT") is thus computed from the complete up-sampled simulated signal captured by each of the four microphones.
-For this, we employ a Hann window of length 2048, with a 50% overlap. We also apply a band-pass filtering by removing frequencies lower than 100Hz and higher than 48kHz.
+Thus, the #acr("STFT") is computed from the complete up-sampled simulated signal captured by each of the four microphones.
+For this, we employ a Hann window of length 2048, with a 50% overlap.
+We also apply band-pass filtering, removing frequencies lower than 100Hz and higher than 48kHz.
 The consequent #acr("STFT") counts 337 frequency bins.
-
 
 *Audio chunking.*
 We finally extract at most five short chunks of 320ms (i.e. 16 frames) from the global #acr("STFT")s.
@@ -161,9 +161,9 @@ The total audio duration of the data approximates 47 hours.
 The objective of the #acr("SSL") task is to predict the #acr("DoA") of the sound sources.
 Hence, the number of predictions outputted by an #acr("SSL") method can differ from situation to situation.
 We therefore decided to use a representation of this information that is agnostic to the number of sources.
-Having such a property is of great interest when training a Deep Neural Network.
-The latter can then have a fixed output while still being able to handle a various number of sources.
-The latter will be further denoted $n_s$.\
+Such a property is of great interest when training a deep neural network.
+The latter can then have a fixed output while still being able to handle a varying number of sources.
+The latter will be further denoted $n_s$.
 The set of #acr("DoA") values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
 
@@ -247,12 +247,12 @@ $
 $
 <eq:ssl:multi_source:doa_encoding>
 where #d is the symmetric angular distance introduced in @sec:ssl:single_source:experiments:metrics (@eq:ssl:single_source:angular_dist)
-#footnote[
-  #d is a simplified version of #d, introduced for single-source localization in //@eq:ssl:single_source:angle_dist.
-  #todo
-  As input values always lay in the $[-pi, pi]$ interval, the outermost absolute value present in #d becomes unnecessary.
-  On this interval, they coincide rigorously.
-],
+//#footnote[
+//  #d is a simplified version of #d, introduced for single-source localization in //@eq:ssl:single_source:angle_dist.
+//  #todo
+//  As input values always lie in the $[-pi, pi]$ interval, the outermost absolute value in #d becomes unnecessary.
+//  On this interval, they coincide rigorously.
+//],
 // #func-def(
 //   d-prime,
 //   $[-pi, pi]^2$,
@@ -283,7 +283,7 @@ The main benefit of this format, alongside with its ability to encode an arbitra
 
 The employed #acr("DoA") encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
 Namely, thanks to its flexibility, it allows for representing an arbitrary number of sources.
-Also, it enables to formulate the multi-source #acr("SSL") problem as a simple regression task.
+Also, it enables the formulation of the multi-source #acr("SSL") problem as a simple regression task.
 However, to extract of set of actual #acr("DoA") values, one has to explicitly process the obtained spatial spectra.
 //TODO
 //#gaet[Do we have to, once more, cite the Odobez paper here ?]#xavi[Nope]
@@ -309,11 +309,12 @@ $
       i in [|1, n|]
   }.
 $ <eq:ssl:multi_source:decoding_unknown_sources>
-The neighborhood threshold $colMath(sigma_n, #olive)$ must be defined carefully for this process to succeed.
-If too low, some high frequency noise in the spatial spectrum could lead to several false positive angle detections.
+For this process to succeed, the neighborhood threshold $colMath(sigma_n, #olive)$ must be defined carefully.
+If too low, some high-frequency noise in the spatial spectrum could lead to several false-positive angle detections.
 On the other hand, a large value of $sigma_n$ might cause two close peaks to be wrongly identified as a single one, thus missing a positive detection.
 We have found $sigma_n = 8 degree$ to be a satisfying value.
 
+#block(breakable: false)[
 When the number $colMath(z, #eastern)$ of active sources is known, @eq:ssl:multi_source:decoding_unknown_sources can be adapted as:
 $
   hat(y) (hat(o); colMath(z, #eastern)) = {
@@ -338,6 +339,7 @@ $
 $
 <eq:ssl:multi_source:decoding_known_sources>
 The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
+]
 
 // #algorithm({
 //   import algorithmic: *
@@ -360,7 +362,7 @@ The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
 
 The implemented neural network is inspired by the one proposed by He et al. @he_neural_2021.
 
-The Neural Network aims to process multi-channel audio data and extract the angular positions of the speech sources.
+The neural network aims to process multi-channel audio data and extract the angular positions of the speech sources.
 The model's input is the #acr("STFT") representation of the multi-channel signal.
 The #acr("STFT") of a signal is a complex-valued matrix of size $F times T$.
 We then split the real and imaginary values to form two distinct matrices.

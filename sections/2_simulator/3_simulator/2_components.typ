@@ -84,12 +84,11 @@ $
     sqrt(L_i^2 + L_j^2)
 $
 is the radius of the largest sphere fitting in the diamond of virtual rooms.
-
-The highest the image source order is, the more detailed the simulation will end up being.
+The higher the image source order, the more detailed the simulation will be.
 
 Finally, a sampling frequency must be  provided.
-This parameter affects the time resolution of the computed #acr("RIR") and thus its ability to capture high frequency phenomenons.
-A higher sampling frequency will be lead to increasing the computational cost of the simulation.
+This parameter affects the computed #acr("RIR") 's time resolution and, thus, its ability to capture high-frequency phenomena.
+A higher sampling frequency will increase the computational cost of the simulation.
 In most cases, using the same frequency as the one of the audio signals involved is a safe and practical choice.
 
 
@@ -178,12 +177,12 @@ The simulator constitutes the center piece of the interactive pipeline.
 It serves as an engine coordinating all the components mentioned above.
 
 At a high level, it serves as an orchestrator of the overall simulation process.
-Both the microphone agent, also referred as the _agent_, and the various sound sources (speech and non-speech) get managed by the simulator.
+The simulator manages both the microphone agent, also referred to as the _agent_, and the various sound sources (speech and non-speech).
 
 Although the room, representing the spatial and acoustic properties of the environment, and the microphone array have to be provided to the simulator at initialization, the latter can take care of creating the different sound sources.
 Once configured, the simulator may be interacted with.
 This process takes place in discrete time steps that each resemble the following execution:
-- The audio objects (agent and sources) might first be relocated
+- The audio objects (agent and sources) might first be relocated.
 - The acoustic simulation is then performed by the `Room` module, itself using the #acr("RIR") simulation library.
   The simulator ensures to propagate the positions and orientations of all elements as well as setting the right input signal of each source.
 - Finally, acoustic features can be collected in multiple representations: raw multi-channel waveforms, #acr("STFT") or #acr("ILD")/#acr("IPD").
@@ -284,19 +283,19 @@ Following the same principles of flexibility and convenience, audio data has bee
 First and foremost, each source exposes its current raw signal.
 This is how the simulator fetches the audio from the different sources before forwarding them to the #acr("RIR") simulation library.
 Once the simulation has been conducted, both the #acr("RIR") filters and the audio signal received at each microphone become accessible.
-Additionally to the raw multi-channel listened audio provided by the `Room` module, the simulator proposes further audio processing tools.
-The #acr("STFT") of the received acoustic data can thus be computed and recovered for direct use in a Neural Network or any method operating in the time-frequency plane.
-Finally, another function has been added to calculate the #acr("ILD") and #acr("IPD") of the signal given a pair of microphones.
+In addition to the raw multi-channel listened audio provided by the `Room` module, the simulator proposes further audio processing tools.
+Thus, the #acr("STFT") of the received acoustic data can be computed and recovered for direct use in a neural network or any method operating in the time-frequency plane.
+Finally, another function has been added to calculate the signal's #acr("ILD") and #acr("IPD") given a pair of microphones.
 
-All those features partly remove the post-processing burden of the downstream user, allowing for the most direct and practical usage possible.
+All those features partly remove the downstream user's post-processing burden, allowing for the most direct and practical usage possible.
 
 
 *Visualization*
 //====== Visualization
 
-For development purposes, it may come in handy to graphically render the state of the simulator.
+For development purposes, it may come in handy to graphically render the simulator's state.
 The pipeline includes a basic yet efficient way of visualizing the different objects in the room.
-Each available microphone array comes with the ability to be shown in the room, according to its geometry.
+Each available microphone array can be shown in the room, according to its geometry.
 The orientation of microphones and directional sources is also displayed.
 
 @fig:simulator:simulator:components:simulator_plot provides a demonstration of the renderer.

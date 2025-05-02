@@ -37,7 +37,7 @@ Some early works on room acoustic modeling are mentioned in this article.
 They rely primarily on wave-based methods and adapt #acr("GPU") implementation of differential equation solvers.
 To our knowledge, Fu et al. @fu_gpu-based_2016 were the first to parallelize the #acr("ISM") algorithm on numerous #acr("GPU") cores.
 Their performance benchmarks identified a 20 to 120-fold improvement over the CPU implementation.
-This effort was broadened by Diaz-Guerra et al. with the _gpuRIR_ library.
+This effort was broadened by Diaz-Guerra et al. with the _gpuRIR_ library @diaz-guerra_gpurir_2021.
 This implementation provides performant custom CUDA kernels for parallelizing the #acr("ISM") technique on the #acr("GPU").
 This open-source implementation, in particular, leverages the mixed precision capabilities of modern #acr("GPU") accelerators.
 Also, this method innovates by introducing #acrpl("LUT") to avoid unnecessarily re-running costly trigonometric functions.

@@ -25,7 +25,7 @@ Its main feature is to leverage the #rir-lib to compute the listened signal of e
 #let simulator = text(fill: rgb("6C8EBF"))[_simulator_]
 Finally, the #simulator adds multiple features relating to dynamic scenarios.
 Also, it operates more advanced audio objects such as multi-microphone arrays and sound sources of different kinds.
-This block provides the most important external #acr("API") to our pipeline.
+This block provides our pipeline with the most important external #acr("API").
 It allows for defining a room, an agent (i.e. microphone array) and a set of sound sources with a very limited amount of code.
 The user can then move the different audio objects with convenient movement primitives and fetch the resulting audio and geometric data in diverse forms.
 
