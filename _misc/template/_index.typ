@@ -9,6 +9,8 @@
 // See https://sitandr.github.io/typst-examples-book/book/snippets/chapters/outlines.html#long-and-short-captions-for-the-outline
 #let in-outline = state("in-outline", false)
 
+#let orange-uga = rgb(232, 78, 15)
+
 // This function gets your whole document as its `body` and formats it
 #let template(
   // The title for your work.
@@ -29,6 +31,7 @@
   include-outlines-in-contents: true,
   // Boxes around refs
   boxed-refs: false,
+  accent-color: orange-uga,
   // The content of your work.
   body,
 ) = {
@@ -166,7 +169,7 @@
       h(0.5em)
       text(
         heading_number,
-        fill: maroon,
+        fill: accent-color,
         size: 58pt,
         weight: "bold"
       )
