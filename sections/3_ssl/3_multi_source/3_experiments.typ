@@ -130,8 +130,8 @@ In most cases, the acceleration hardware and its inherently finite memory capaci
 However, in our situation, a different restraining factor has been observed.
 There exists a trivial local optimum for the #acr("SSL") task defined as a #acr("DoA") spatial spectrum regression.
 Indeed, because of the relative sparsity of the ground truth encoding, a method outputting a plain zero spectrum achieves a comparatively low loss.
-More precisely, the loss for the samples would approximately equal the area under $n_s$ distinct gaussians.
-Some limited mass placed randomly on the $[-pi, pi]$ interval would likely not be overlapping with the ground-truth gaussians.
+More precisely, the loss for the samples would approximately equal the area under $n_s$ distinct Gaussians.
+Some limited mass placed randomly on the $[-pi, pi]$ interval would likely not overlap with the ground-truth Gaussians.
 The loss would most often approach its upper bound:
 #let gt = $colMath(o, #blue)$
 #let pred = $colMath(hat(o), #red)$
@@ -142,9 +142,10 @@ $
 #figure(
   include("figures/loss_illustration.typ"),
   caption: [
-    Fictive example of a poor network prediction (in red) prediction along with the corresponding ground truth spectrum (in violet)
+    Fictive example of a poor network prediction (in red) along with the corresponding ground truth spectrum (in violet)
   ],
-) <fig:ssl:multi_source:loss_illustration>
+)
+<fig:ssl:multi_source:loss_illustration>
 
 
 From this observation, the strategy of enforcing $#pred = 0$, ensures the loss will never exceed $cal(L) (#gt, 0)$.
@@ -178,7 +179,7 @@ Keskar et al. @keskar_large-batch_2017 have documented the adverse effects that 
 
 //#gaet[Ideally, this would benefit from more exhaustive experiments, especially regarding the use of LR scheduling...]
 
-Identifying, characterizing, and overcoming this shortcoming has been an essential step in developing this model.
+Identifying, characterizing, and overcoming this shortcoming has been essential in developing this model.
 
 ==== Performance evaluation
 <sec:ssl:multi_source:experiments:performance_eval>
@@ -232,28 +233,41 @@ The network has been trained according to the _scenario A_ presented above.
 We propose an original modification of the loss function.
 The motivation comes from the observation that the target #acr("DoA") spatial spectrum is sparse (see @fig:ssl:multi_source:doa_gt_encoding for instance).
 This causes the active part of the spectrum to have a limited impact on the gradients.
-As seen in previously, we use a simple #acr("MSE") loss for the cost function:
+As seen previously, we use a simple #acr("MSE") loss for the cost function.
+Hence, predicting high activation will be heavily penalized as it will statistically correspond to false positives.
+However, predicting overall low values will not lead to high loss values as the ground truth spectrogram is primarily flat.
+This leads to the sub-optimal convergence phenomenon described in @sec:ssl:multi_source:experiments:loss.
+The naive #acr("MSE") loss does not prioritize the supervision in the active region of the spectrogram.
+We have attempted to circumvent this by more aggressively penalizing the sections of the spatial spectrum where sources are effectively present.
+To circumvent this phenomenon, we introduce the following $epsilon$-loss:
+#let damp-term = $colMath((o_i + epsilon), #maroon)$
 $
   cal(L)_epsilon (hat(o)_i, o_i) =
     1/d sum_(i=1)^d
-    colMath((o_i + epsilon), #maroon)
+    #damp-term
     (hat(o)_i - o_i)^2.
 $
-<eq:ssl:multi_source:epsilon_loss>
+<eq:ssl:multi_source:experiments:epsilon_loss>
+The damping term #damp-term reduces the penalization of false positive peaks in the estimated spectrogram.
+In a region of the spectrum where no sources are effectively present, i.e. where $o approx 0$, the loss value will be bounded by $epsilon$.
 
-Hence, predicting high activation will be heavily penalized as it will statically correspond to false positives.
-However, predicting overall low values will not lead to high loss values as the ground truth spectrogram is primarily flat.
-This lead to the sub-optimal convergence phenomenon described in @sec:ssl:multi_source:experiments:loss.
-The naive #acr("MSE") loss does not prioritize the supervision in the active region of the spectrogram.
-We have attempted to circumvent this by more aggressively penalizing the sections of the spatial spectrum where sources are effectively present.
-
-
-// TODO: maybe add plots of the loss
+//#figure(
+//  include("figures/epsilon_loss_plot.typ"),
+//  caption: flex-caption(
+//    short: [
+//      Plot of the $epsilon$-loss for multi-source localization
+//    ],
+//    long: [
+//      Plot of the $epsilon$-loss for multi-source localization for several values of $epsilon$ (@eq:ssl:multi_source:experiments:epsilon_loss)
+//    ],
+//  ),
+//)
+//<fig:ssl:multi_source:experiments:epsilon_loss>
 
 #include "tables/epsilon_loss.typ"
 
 @table:ssl:multi_source:experiments:epsilon_loss summarizes the performance of our model after being trained with the $epsilon$-loss.
-More precisely, we compare different values of $epsilon$ to better measure its influence on performance.
+More precisely, we compare different values of $epsilon$ to measure its influence on performance better.
 A baseline corresponding to the #acr("MSE") loss is also included for comparison.
 This ablation study suggests that a value of $epsilon = 0.4$ improves the #acr("MAE") and accuracy scores at the expense of losing some precision points.
 A value closer to 0.1 slightly boosts the recall too but comes with an important dip in precision.
