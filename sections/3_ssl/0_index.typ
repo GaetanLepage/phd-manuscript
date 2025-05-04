@@ -12,8 +12,8 @@ Besides simply hearing, a robot needs to be able to localize the  active speaker
 Although several formulations of this problem coexist, its essence consists in inferring the position of one or more active sources solely from the audio signal received by a microphone.
 Our interest in exploring #acr("SSL") is two-fold.
 First, we aim at studying how robots achieve this spatial aspect of auditory perception.
-Our second motivation was to design effective models to later investigate more specific tasks.
-Hence, along with @chap:simulator, this chapter servers as a building block for our next contributions.
+Our second motivation was to design effective models to investigate more specific tasks later.
+Hence, along with @chap:simulator, this chapter will form the foundation for our following contributions.
 
 First, this chapter provides an overview of the state-of-the-art in #acr("SSL").
 It depicts the main trends of research in this domain.
@@ -34,11 +34,25 @@ This chapter exposes our investigations of the #acr("SSL") task.
 Implementing different methods for this classic acoustic challenge constituted a significant engineering effort.
 The empirical aspect of training deep neural networks leads to numerous experiments being conducted.
 This is essential to guarantee the reproducibility of the results, which is not granted when stochastic approaches are used.
-Although numerous works have been tackling #acr("SSL") successfully, our attempts at this task have not been as encouraging.
-Our results are limited to simple acoustic scenarios in a simulated environment.
-Such efforts were made to understand the localization problem better and develop a working solution.
-Unfortunately, several challenges have not been overcome, and the solutions that have been developed remain significantly flawed.
-Nonetheless, the overall experimentation framework developed and designed during this project might still be a positive contribution.
-Also, particular attention was directed to extensive experimental campaigns.
-The influence of various aspects of #todo of the has been thoroughly studied in ablation .
-It should allow future research efforts to try different training approaches without going through the expensive engineering task.
+Our approach was not motivated by beating state-of-the-art #acr("SSL") techniques.
+Conversely, sensible yet straightforward and robust models were designed and thoroughly tested to explore the intricacies of the localization task.
+The acoustic simulator was leveraged to synthesize diverse datasets to study the limits of our solution.
+An initial #acr("CNN") model handles single-source localization in reverberant environments.
+It can handle multi-channel spectral data recorded by microphone arrays of different structures.
+Next, a deeper architecture was implemented to tackle the more challenging problem of localizing several speech sources.
+We adapted a multi-source localization method from recent works in the domain.
+It was trained on large synthesized datasets generated for this purpose.
+Our contribution includes an extensive experimental campaign to evaluate the performance of the proposed methods.
+It also entails the complete pipeline to generate the datasets, train, and evaluate the network architectures.
+This framework, combined with our acoustic simulator, may help the research community to easily and efficiently iterate on new ideas to improve #acr("SSL") methods.
+It could alleviate future research efforts from going through an expensive engineering task.
+Finally, both developed models were used as building blocks for this thesis's other contributions (see @chap:active_ssl and @chap:rl).
+
+Yet, the proposed methods have some limitations.
+Our models have been solely evaluated on synthetic data.
+Testing the model's performance on real recordings would be a valuable addition.
+Furthermore, embedding the localizers on a physical robotic platform would provide additional insight into their robustness to real-world constraints.
+An additional study of localization performance in the presence of adversarial noise sources was initially planned.
+Due to insufficient time, such experiments could not be satisfactorily conducted.
+To conclude, #acr("SSL") is a diverse and challenging acoustic task that has benefited from extensive research effort.
+Nevertheless, many amelioration paths are still worth pursuing, especially regarding their application in social robotics.

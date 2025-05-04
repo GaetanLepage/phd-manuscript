@@ -7,15 +7,31 @@
   In @argentieri_survey_2015's conclusion, there are more (pre-2015) references for #acr("ASSL").
 ]
 
-In the original #acr("SSL") task, as defined by the signal processing community, every source in the room is generally assumed to be static.
-However, the robotics field gave birth to original acoustic problems with different motivations and specificities.
+// Differentiate WHAT is moving (SP vs robotics)
+// Also, in robotics, we have additional challenges
 
-First, several works addressing #acr("SSL") in its static formulation address challenges related to robotics systems.
-For instance, the physical aspect of a robotic head needs to be appropriately modeled from an acoustic perspective.
-An overview of #acr("SSL") in robotics has been proposed in @sec:ssl:background:ssl_in_robotics.
-Conversely, this chapter will focus on problems involving explicitly moving entities.
+
+The robotics and acoustic signal processing community have addressed the #acr("SSL") problem.
+Although the literature from both domains overlaps significantly, robotics addresses the problem differently.
+First and foremost, robots, being physical devices, bring additional considerations regarding acoustics.
+Even in static #acr("SSL"), roboticists need to address robot-specific problems.
+For instance, the material aspect of a robotic head needs to be appropriately modeled from an acoustic perspective.
+In @sec:ssl:background:ssl_in_robotics, an overview of #acr("SSL") in robotics, focusing on the static case, has been proposed.
+It highlights examples of the specificities of bringing localization methods to real robots.
+In the context of #acr("ASSL"), both scientific communities adopt a differing formulation of the problem.
+In the original #acr("SSL") task, as defined by the signal processing community, the microphone array is generally assumed to be static.
+Moving sources, fundamentally harder to localize, are sometimes considered.
+This problem is often referred to as sound source tracking.
+However, a moving microphone array is significantly more central in robotics.
+This contrasts with the classic view from the signal processing domain, where the sensors are fixed and only the sources might eventually be moving.
+Regarding sources, robotics may equally assume that they are static, but sometimes consider them moving.
+Therefore, #acr("ASSL") is fundamental in robotics' perspective on acoustic localization.
+
+//Several works addressing #acr("SSL") in its static formulation address challenges related to robotics systems.
+Conversely, this chapter will focus on problems involving explicitly moving robots.
 No single well-defined task could be labeled as _active sound source localization_; thus, researchers have studied a wide range of diverse problems of this kind.
-The common characteristic of active #acr("SSL") problems is considering a mobile robot operating in an acoustic environment that includes one or several sound sources.
+The common characteristic of active #acr("SSL") problems is that of a mobile robot operating in an acoustic environment that includes one or several sound sources.
+Sources might also be static or moving, increasing the task's difficulty in the latter case.
 In this dynamic context, the method generally requires the agent to determine the relative positions of the sources.
 The most significant difference is whether the robot's movement policy is explicitly exploited and possibly optimized for this task.
 

@@ -134,6 +134,8 @@ As soon as a ray hits a wall, its direction is updated according to Snell's law 
 Hence, ray tracing methods historically only account for specular reflections.
 A small volume is delimited around the receiver to obtain the resulting signal.
 Then, all rays traversing this volume will contribute to the final response.
+Ray tracing differs from #acr("ISM") as it is a stochastic method.
+The overall simulation accuracy (including the maximum viable sampling rate) significantly depends on the number of rays used in the simulation @noauthor_wayverb_nodate.
 Krokstad et al. @krokstad_early_2015 overview the early history of ray tracing methods in acoustics.
 Cao et al. @cao_interactive_2016 propose an advanced algorithm based on bidirectional path tracing: #acr("BST").
 It addresses the drawbacks of existing ray-tracing #acr("GA") methods.
