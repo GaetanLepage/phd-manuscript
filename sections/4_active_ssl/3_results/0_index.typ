@@ -13,11 +13,11 @@ This section presents the main experiments conducted to assess the proposed solu
 
 Overall, for our agent, the goal of the #acr("ASSL") task, as defined in this chapter, is to extract the sound sources' positions after $H$ arbitrary steps in the environment.
 The detection is only performed at step $H$, where the method outputs a list of coordinates relative to the robot's position.
-In this aspect, the #acr("ASSL") problem corresponds to a single-class detection task.
-Precision and recall hence come as natural metrics to evaluate our method's performance.
-#draft[TODO: Cite @zou_object_2023 and make a clear parallel with the vision task.]
-
-However, bounding boxes are not expected in this case, as only the source positions should be provided.
+In this aspect, the #acr("ASSL") problem can be compared to the object detection task in computer vision @zou_object_2023.
+This problem involves finding the classes, positions, and sizes of semantic objects present in an image.
+In our formulation, only the position of the sources should be inferred.
+Bounding boxes and classes are not expected.
+Yet, object detection's precision and recall are natural metrics that can be adapted to evaluate our method's performance.
 An acceptable range of $delta$ meters defines the criteria for correct detection.
 For a detection to be considered valid, its estimated position must be closer than $delta$ meters from the ground truth.
 #block(breakable: false)[

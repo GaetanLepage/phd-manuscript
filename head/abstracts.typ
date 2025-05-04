@@ -3,8 +3,11 @@
 // English abstract
 = Abstract
 
+// TODO: Try to remove 1 sentence instead
+#v(-1em)
+
 Social robotics is a diverse, multidisciplinary research field aiming to bring capable robotic agents to the physical world.
-In particular, it addresses the challenges of human-robot interaction, where robots operate not in isolated, controlled environments, but alongside humans in dynamic and complex tasks.
+In particular, it addresses the challenges of human-robot interaction, in which robots operate not in isolated, controlled environments but alongside humans in dynamic and complex tasks.
 This domain involves numerous challenges, including multi-modal perception, action planning, and safe real-world operation.
 This thesis explores a selection of essential tasks involved in building effective social robots.
 Our investigation is oriented toward the acoustic dimension of these tasks.

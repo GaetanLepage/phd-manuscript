@@ -302,8 +302,3 @@ One should note that the actual values of each point in the heat map only impact
 Prior clustering happens without access to the estimated likelihood values and solely operates on the points' proximity to determine the clusters.
 Each cluster is interpreted as one source.
 One significant advantage of such a clustering formulation is that the proposed method can detect an arbitrary number of sources.
-
-#gaet[
-  Also, maybe elaborate more on why we have chosen DBSCAN.
-  It has several important benefits that we could list out.
-]
