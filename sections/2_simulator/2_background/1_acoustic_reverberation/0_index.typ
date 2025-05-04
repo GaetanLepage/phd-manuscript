@@ -67,6 +67,7 @@ Hence, expressing the listened signal as a convolution remains possible, similar
 $
   x[n] = (#rir * s)[n],
 $
+<eq:simulator:background:reverb_convolution>
 
 #reset-acronym("RIR")
 The filter #rir is called the *#acr("RIR")*.
@@ -294,6 +295,7 @@ The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 
   $
     cal(F)(f * g) = cal(F)(f) times cal(F)(g).
   $
+  <eq:simulator:background:conv_theorem>
 ]
 <eq:simulator:conv_theorem>
 #block(breakable: false)[
@@ -301,6 +303,7 @@ The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 
   $
     cal(F)(f times g) = cal(F)(f) * cal(F)(g).
   $
+  <eq:simulator:bckground:conv_theorem_bis>
 ]
 This result gives an intuitively compelling argument for using Fourier representations in problems involving reverberant environments.
 Indeed, the reverberation phenomenon can be modeled as the convolution of a source signal with the #acr("RIR") filter in the time domain.

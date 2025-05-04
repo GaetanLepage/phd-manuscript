@@ -3,37 +3,24 @@
 == Background
 <sec:active_ssl:background>
 
-#gaet[
-  In @argentieri_survey_2015's conclusion, there are more (pre-2015) references for #acr("ASSL").
-]
 
-// Differentiate WHAT is moving (SP vs robotics)
-// Also, in robotics, we have additional challenges
+The problem of #acr("SSL") has been extensively studied in both the robotics and acoustic signal processing communities.
+While their research overlaps significantly, the two domains approach the problem from different perspectives.
+In signal processing, #acr("SSL") is typically framed in terms of static microphone arrays and occasionally moving sound sources — a scenario often referred to as sound source tracking.
+In contrast, the robotics perspective introduces additional considerations due to the physical embodiment of robots.
+Even in the static case, robot-specific challenges arise, such as the need to acoustically model the material and geometry of the robot’s head or body (see Skaf et al. @skaf_optimal_2011 for example).
+@sec:ssl:background:ssl_in_robotics provides an overview of #acr("SSL") in robotics, focusing on these specific challenges.
 
+#acr("ASSL") is a natural extension of #acr("SSL") in the context of robotics, where the agent is not static but mobile.
+The #acr("ASSL") problem does not follow a single, well-defined formulation; rather, its definition varies across studies and application domains.
+When the robot is capable of movement, the problem space expands significantly, and different research communities may adopt distinct perspectives.
+In all cases, the robot’s motion influences its acoustic perception — either by affecting the signals it receives or by enabling additional observations over time.
+This mobility introduces both challenges and opportunities for improved localization.
+A key factor distinguishing #acr("ASSL") approaches is how the robot’s motion is handled: in some cases, it is explicitly optimized to enhance localization performance; in others, motion arises from external constraints or tasks, and the localization system must adapt accordingly.
+In 1999, Wightman et al. @wightman_resolution_1999 experimented on human listeners and identified movement as an effective way of dealing with front-back confusions in binaural hearing.
+Naturally, researchers have explored how a robot's movements might help improve localization performance.
+Regardless of the formulation, mobility plays a central role in designing and evaluating localization strategies.
 
-The robotics and acoustic signal processing community have addressed the #acr("SSL") problem.
-Although the literature from both domains overlaps significantly, robotics addresses the problem differently.
-First and foremost, robots, being physical devices, bring additional considerations regarding acoustics.
-Even in static #acr("SSL"), roboticists need to address robot-specific problems.
-For instance, the material aspect of a robotic head needs to be appropriately modeled from an acoustic perspective.
-In @sec:ssl:background:ssl_in_robotics, an overview of #acr("SSL") in robotics, focusing on the static case, has been proposed.
-It highlights examples of the specificities of bringing localization methods to real robots.
-In the context of #acr("ASSL"), both scientific communities adopt a differing formulation of the problem.
-In the original #acr("SSL") task, as defined by the signal processing community, the microphone array is generally assumed to be static.
-Moving sources, fundamentally harder to localize, are sometimes considered.
-This problem is often referred to as sound source tracking.
-However, a moving microphone array is significantly more central in robotics.
-This contrasts with the classic view from the signal processing domain, where the sensors are fixed and only the sources might eventually be moving.
-Regarding sources, robotics may equally assume that they are static, but sometimes consider them moving.
-Therefore, #acr("ASSL") is fundamental in robotics' perspective on acoustic localization.
-
-//Several works addressing #acr("SSL") in its static formulation address challenges related to robotics systems.
-Conversely, this chapter will focus on problems involving explicitly moving robots.
-No single well-defined task could be labeled as _active sound source localization_; thus, researchers have studied a wide range of diverse problems of this kind.
-The common characteristic of active #acr("SSL") problems is that of a mobile robot operating in an acoustic environment that includes one or several sound sources.
-Sources might also be static or moving, increasing the task's difficulty in the latter case.
-In this dynamic context, the method generally requires the agent to determine the relative positions of the sources.
-The most significant difference is whether the robot's movement policy is explicitly exploited and possibly optimized for this task.
 
 In 2000, Nakadai et al. @nakadai_active_2000 designed a complex robotic system to perform _active audition_.
 This innovative work consisted of a physical robotic prototype equipped with microphones and cameras for sensing the environment.
@@ -48,12 +35,11 @@ They test this pipeline within a relatively simple experimental scenario.
 Two loudspeakers play a monotone sound at a given, distinct frequency.
 They operate sequentially, ensuring that only one source is active at any given time.
 The robotic head is expected to progressively face the active source so that it lands in its cameras' field of view.
-// split ?
 This work was among the first attempts to perform #acr("SSL") in a dynamic context.
 However, it presents a few limitations.
 On the one hand, the considered setting remains very simple.
-No authentic speech signals are employed, and the sources remain in fixed positions.
-On the other hand, contrary to what this chapter will present, the agent does not really move in the room; only its head is moving.
+No authentic speech signals are employed, and the sources remain fixed.
+On the other hand, contrary to what this chapter will present, the agent does not actually move in the room; only its head does.
 Finally, their system does not estimate the distance to the active source.
 
 // Nguyen + Emmanuel Vincent
@@ -119,7 +105,8 @@ Overall, Bustamante's work demonstrates another principled, complete, and perfor
 On the one hand, it aggregates #acr("DoA") estimations and robot movement over time to localize a sound source in 2D relative to the agent.
 On the other hand, it provides a controlling scheme for the agent that optimizes the location performance in the long term.
 
-In addition to the works mentioned above, Roman et al. @roman_binaural_2008 designed a binaural tracking system to localize several moving sources.
+In addition to the works mentioned above, we subsequently mention other relevant references.
+Roman et al. @roman_binaural_2008 designed a binaural tracking system to localize several moving sources.
 They use a probabilistic model to predict the sources' locations from interaural cues (#acr("ILD") and #acr("IPD")).
 The solution's tracking capability relies on an #acr("HMM") formulation.
 It ensures that sources are tracked across time and imposes continuity constraints on the detections.
@@ -127,6 +114,11 @@ The challenge of reverberant environments has not been considered in the methodo
 However, the authors do test their system in the presence of reverberation.
 Performance is shown to suffer from increasing the $T_60$.
 Working on the robustness of localization systems to reverberation is a key area for future improvement.
+Kneip et al. @kneip_binaural_2008 claim that combining rotation and translation movements from a robot significantly enhances localization performance.
+Argentieri et al.'s 2015 survey on #acr("SSL") in robotics @argentieri_survey_2015 includes additional references to works in #acr("ASSL").
+Yet, the authors conclude that _active audition_ would benefit from additional research effort.
+The #acr("BINAAHR") project was a French-Japanese collaboration on robotic auditory perception.
+It allowed for several publications on active audition (see Markovic et al. @markovic_active_2013 and Portello et al. @portello_active_2012, for example).
 In @gala_realtime_2019, Gala et al. derive a mathematical model for predicting both the #acr("DoA") and distance to a single static sound source solely from the #acr("ITD").
 They achieve this by using a robotic head that can rotate.
 It can thus leverage the recorded #acr("ITD") at different angular positions.
