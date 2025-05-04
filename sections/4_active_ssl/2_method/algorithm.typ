@@ -31,7 +31,7 @@
       Cmt[
         #prev-deltas:
         $H$ previous relative movements.\
-        #h(1em) $delta_t' = (d_t', theta_t')$ is the relative movement performed from $t'$ to $t' + 1$.
+        //#h(1em) $delta_t' = (d_t', theta_t')$ is the relative movement performed from $t'$ to $t' + 1$.
       ]
       Cmt[
         $"STFT"_t$:
