@@ -34,9 +34,9 @@ The role of the #acr("RIR") simulation library consists in inferring, given the 
 ) <fig:simulator:simulator:audio_pipeline>
 
 
-*Choice of the back end library.*
+*Choice of the back-end library.*
 Developing such a library was out of the scope of this work.
-Several efforts have been conducted by members of the acoustic simulation community.
+Members of the acoustic simulation community have conducted several notable efforts.
 Multiple existing libraries have been enumerated in @sec:simulator:background:rir_libraries.
 Motivated by a seamless operation within our Python code base, we have focused on the libraries providing bindings for this language.
 Two libraries appeared mature and able to satisfy the requirements of the pipeline.

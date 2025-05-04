@@ -1,4 +1,5 @@
 #import "matter_functions.typ": front-matter, main-matter, back-matter
+#import "@preview/one-liner:0.2.0": fit-to-width 
 
 #let fill-line(left-text, right-text) = [#left-text #h(1fr) #right-text]
 
@@ -125,6 +126,7 @@
     supplement: [Chapter]
   )
   show heading.where(level: 1): it => {
+    let is-chapter = heading.numbering != none
     //set text(size: 22pt)
     
     //let black_rectangle = place(
@@ -139,10 +141,10 @@
     //  ),
     //)
 
-    let heading_number = if heading.numbering == none {
-      []
-    } else {
+    let heading_number = if is-chapter {
       counter(heading.where(level: 1)).display()
+    } else {
+      []
     }
     //let white_heading_number = place(
     //  dx: -1em,
@@ -163,7 +165,7 @@
     //pagebreak(to: "even")
     pagebreak()
 
-    if it.numbering != none {
+    if is-chapter {
       set text(size: 36pt)
       [Chapter]
       h(0.5em)
@@ -177,13 +179,19 @@
     }
   
     v(0em)
-    text(
+    let title-text = fit-to-width(
       it.body,
-      size: 36pt,
-      weight: "light"
+      max-text-size: 36pt,
     )
-    v(-1em)
-    //v(1em)
+    text(
+      title-text,
+      //it.body,
+      //size: 36pt,
+      weight: "light",
+    )
+    if is-chapter {
+      v(-1em)
+    }
 
 
     //v(16%)
