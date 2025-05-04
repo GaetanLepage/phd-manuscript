@@ -101,6 +101,7 @@
     "Acoustic Transfer Functions"
   ),
   "BEM": ("Boundary Element Method"),
+  "BINAAHR": ("BINaural Active Audition for Humanoid Robots"),
   "BST": ("Bidirectional Sound Transport"),
   "DFT": (
     "Discrete Fourier Transform",
@@ -139,6 +140,7 @@
   
   // -----------------------------------------------------------------------------
   // RL
+  "CASP": ("Critical Assessment of protein Structure Prediction"),
   "DQN": ("Deep Q Learning"),
   "DRL": ("Deep Reinforcement Learning"),
   "GAE": ("Generalized Advantage Estimation"),

@@ -53,7 +53,7 @@ In sound source localization, the system should estimate the direction or positi
     width: 5cm
   ),
   caption: [
-    A photo of the ARI robot, a robotic platform developed by PAL robotics
+    A photo of the ARI robot, a humanoid robotic platform developed by PAL Robotics.
   ],
 )
 <fig:intro:ari>

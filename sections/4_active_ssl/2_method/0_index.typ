@@ -11,22 +11,22 @@ In this work, we introduce and explore an #acr("ASSL") problem, motivated by the
 Indeed, estimating both distance and #doa from a single recording has been shown to be a challenging version of the #acr("SSL") problem.
 Grumiaux et al. @grumiaux_survey_2021 insist on this difficulty in their survey by highlighting the relative scarcity of the literature in this specific area.
 Neither the single-source nor multi-source localizer introduced in the previous chapter supports accurate distance prediction.
-Theoretically, though, aggregating purely angular information accumulated over time by a mobile robot could allow for predicting the actual location of sources in a room.
+Theoretically, though, aggregating solely angular information accumulated over time by a mobile robot could allow for predicting the actual location of sources in a room.
 
 
 More precisely, a robotic agent moves in a room with one or several human speakers.
 We adopt a step-based representation in which the robot performs movements at discrete time steps.
 Each movement consists of a rotation of angle $theta_t$ and a translation of distance $d_t$ in the new direction.
 The robot's movement at time-step $t$ is thus written as $delta_t = (d_t, theta_t)$.
-Its trajectory is assumed to be determined by an external policy which should not be affected.
-Thus, the developed method aims to localize, in real time, the relative position of each source.
+Its trajectory is assumed to be determined by an external policy that should not be affected.
+Thus, the developed method aims to localize each source's relative position in real time.
 To enforce the real-time constraint in this modeling, each step's duration is limited to a few hundred milliseconds.
 The method is provided with the recorded signal at each microphone of the agent corresponding to this time frame.
 
 *Horizon.*
 This framework appears similar to the previously used static formulation of #acr("SSL").
 However, the input data also encompasses information about the last relative movement of the robot.
-Although the #acr("ASSL") solution should not dictate the movement policy, the agent displacements are accessible to the localization module. #draft[TODO: check "displacement" (plural)]
+Although the #acr("ASSL") solution should not dictate the movement policy, the agent's displacements are accessible to the localization module.
 These data allow the model to accumulate knowledge along several consecutive steps to refine its prediction for the current sources' positions.
 The number of steps after which the method's output is evaluated will be denoted as the horizon $H$.
 Notably, only relative movement information may be leveraged to perform the task, as the absolute agent position remains unknown.
@@ -54,8 +54,6 @@ The overall procedure for performing one step of active-#acr("SSL") is illustrat
 The individual steps of the process will be detailed in the following sections.
 
 #include "algorithm.typ"
-
-#xavi[In the algorithm there is no need to redefine what delta_t is.]
 
 #figure(
   image(
