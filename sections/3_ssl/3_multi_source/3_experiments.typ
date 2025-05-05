@@ -204,12 +204,12 @@ On the one hand, the two following training setups can be compared:
   - 2 sources: 30%,
   - 3 sources: 5%,
   - 4 sources: 5%.
-- _Scenario B_ uniformly chooses a number of sources between 1 and 4 for each sample. Thus, it is more challenging as at least one source is always present in the room, and significantly more samples present 3 or 4 sources.
+- _Scenario B_ uniformly chooses a number of sources between one and four for each sample. Thus, it is more challenging as at least one source is always present in the room, and significantly more samples present 3 or 4 sources.
 
 As no artificial noise is added to the speech sources' signals, the training dataset in _scenario A_ brings exactly 160k identical samples which observation tensor is null.
-Once the network successfully learns that it should output a zero-vector for those trivial samples, they will not contribute either to increasing or lowering the detection scores.
+Once the network successfully learns that it should output a zero-vector for those trivial samples, they will not contribute to increasing or lowering the detection scores.
 
-Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to properly localize them.
+Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to localize them properly.
 @table:ssl:multi_source:experiments:n_sources_train displays the final performance of models trained on datasets corresponding to each scenario.
 
 #include "tables/n_sources_train.typ"
@@ -220,7 +220,7 @@ The rest of the experiments have been conducted with respect to _Scenario A_, fo
 //]
 
 *Evaluation frameworks.*
-For understanding the impact of the number of concurrent sources in the room on performance, we have evaluated a given network in various scenarios.
+We have evaluated a given network in various scenarios to understand the impact of the number of concurrent sources in the room on performance.
 The network has been trained according to the _scenario A_ presented above.
 
 #include "tables/n_sources.typ"
