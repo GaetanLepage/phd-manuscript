@@ -125,6 +125,7 @@
   show heading.where(level: 1): set heading(
     supplement: [Chapter]
   )
+  show heading.where(level: 2): set text(18pt)
   show heading.where(level: 1): it => {
     let is-chapter = heading.numbering != none
     //set text(size: 22pt)

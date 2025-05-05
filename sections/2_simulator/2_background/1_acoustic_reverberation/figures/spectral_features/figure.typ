@@ -1,21 +1,32 @@
 #import "/utils.typ": *
 
+#let fig-width = 5cm
+
 #subpar.grid(
   figure(
-    square(size: 10em, stroke: 2pt),
+    image(
+      "stft.png",
+      width: fig-width,
+    ),
     caption: [
       Spectrogram
     ]
   ), <fig:ssl:sota:tf_representations:spectrogram>,
   figure(
-    square(size: 10em, stroke: 2pt),
+    image(
+      "ipd.png",
+      width: fig-width,
+    ),
     caption: [
       #reset-acronym("ILD")
       #acr("ILD")
     ]
   ), <fig:ssl:sota:tf_representations:ild>,
   figure(
-    square(size: 10em, stroke: 2pt),
+    image(
+      "ild.png",
+      width: fig-width,
+    ),
     //image("/assets/mountains.jpg"),
     caption: [
       #reset-acronym("IPD")
@@ -34,6 +45,7 @@
     extra: [
       (a) shows a mono-aural spectrogram obtained from the left microphone.
       (b) and (c) are interaural representations and use both left and right channels.
+      Recordings have been generated in the acoustic simulator.
     ],
   ),
   gap: grid-fig-gap,
