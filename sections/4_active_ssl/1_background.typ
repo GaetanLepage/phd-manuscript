@@ -81,7 +81,7 @@ Both criteria are compared in a thorough experimental study and are shown to red
   @bustamante_information_2017
   @bustamante_multi-step-ahead_2017
 ]
-In the same period,  Bustamante et al. presented a similar pipeline in a collection of articles #bustamante.
+In the same period, Bustamante et al. presented a similar pipeline in a collection of articles #bustamante.
 In their foundational paper @bustamante_three-stage_2015, they introduced a three-stage strategy to combine a mobile robot control scheme and the associated source location estimator.
 The first stage consists of the short-term detection of azimuth and activity.
 This step solely leverages the most recent binaural features.

@@ -14,7 +14,7 @@
   ), <fig:ssl:sota:tf_representations:spectrogram>,
   figure(
     image(
-      "ipd.png",
+      "ild.png",
       width: fig-width,
     ),
     caption: [
@@ -24,7 +24,7 @@
   ), <fig:ssl:sota:tf_representations:ild>,
   figure(
     image(
-      "ild.png",
+      "ipd.png",
       width: fig-width,
     ),
     //image("/assets/mountains.jpg"),

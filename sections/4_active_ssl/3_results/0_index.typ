@@ -176,9 +176,14 @@ Here, the potential of our method can be explored under ideal conditions.
   image(
     "figures/doa_spectra.svg",
   ),
-  caption: [
-    Comparison of ground-truth (blue) and predicted (red) #doa spectra.
-  ],
+  caption: flex-caption(
+    short: [
+      Comparison of ground-truth and predicted #doa spectra
+    ],
+    long: [
+      Comparison of ground-truth (blue) and predicted (red) #doa spectra.
+    ],
+  ),
 )
 <fig:active_ssl:results:doa_spectra>
 

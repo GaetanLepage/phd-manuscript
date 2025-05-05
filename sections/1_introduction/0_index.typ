@@ -61,6 +61,11 @@ In sound source localization, the system should estimate the direction or positi
 
 === Reinforcement learning, a powerful yet challenging framework for learning robot policies
 
+Reinforcement learning is a flexible framework for solving discrete-time decision problems.
+#acr("RL") has a long history of research and has allowed numerous successes in various application domains.
+Since the rise of deep learning methods, #acr("RL") has benefited from more performant and capable models and function approximators.
+By leveraging high loads of training data, #acr("DRL") methods
+
 - Motivate the choice of RL for learning complex policies for robots.
 - Example of success of RL in robotics, especially with DRL
 - Issue: data requirements -> need for simulators
