@@ -4,18 +4,21 @@
 = Abstract
 
 // TODO: Try to remove 1 sentence instead
-#v(-1em)
+//#v(-1em)
 
-Social robotics is a diverse, multidisciplinary research field aiming to bring capable robotic agents to the physical world.
+Social robotics is a diverse, multidisciplinary research field aiming to design capable robotic agents.
 In particular, it addresses the challenges of human-robot interaction, in which robots operate not in isolated, controlled environments but alongside humans in dynamic and complex tasks.
 This domain involves numerous challenges, including multi-modal perception, action planning, and safe real-world operation.
 This thesis explores a selection of essential tasks involved in building effective social robots.
 Our investigation is oriented toward the acoustic dimension of these tasks.
+Namely, we explore #acr("SSL") both in static and active contexts as well as perceptually-motivated robot navigation.
 
 // Simulator
 First, we introduce a flexible and powerful acoustic simulation environment.
-Built upon state-of-the-art sound rendering components, this environment serves as a feature-rich sandbox for training and evaluating novel auditory algorithms.
-Deep learning has enabled major advances in robotics, but such methods require large volumes of data—data that is often costly or impractical to collect in physical settings. Simulation thus plays a key role in scaling data generation for learning.
+It allows for virtually recording signals in reverberant rooms, modeling various microphone arrays, room geometries, and sound sources.
+Built upon state-of-the-art sound rendering, this environment serves as a feature-rich sandbox for training and evaluating novel auditory algorithms.
+Deep learning has enabled major advances in robotics, but such methods require large volumes of data—data that is often costly or impractical to collect in physical settings.
+Simulation thus plays a key role in scaling data generation for learning.
 
 // SSL
 Auditory perception encompasses several core abilities, among which #acr("SSL") is critical for social robots.
@@ -24,10 +27,11 @@ We examine this problem from multiple angles and introduce a series of deep lear
 After presenting a single-source solution, we implement a more advanced multi-source localizer and conduct extensive experiments to evaluate its performance across varied conditions.
 
 // Active SSL
-In social robotics, sound source localization must account for motion.
+In social robotics, robots are generally moving in their environment.
+Sound source localization methods must account for their motion.
 Multiple approaches exist to model dynamic scenarios in this regard.
 We propose a novel method for aggregating predictions from our static multi-source localizer over time.
-This framework leverages arbitrary robot motion to refine speaker position estimates.
+This framework leverages robot motion to refine speaker position estimates.
 The acoustic simulator is extended to synthesize full trajectories in virtual environments, enabling effective training and evaluation of this dynamic localization model.
 
 Perception and action are the two pillars of robotic capability.
@@ -68,7 +72,7 @@ Après avoir présenté une solution pour une seule source, nous développons un
 Dans le cadre de la robotique sociale, la localisation sonore doit également prendre en compte le mouvement.
 Plusieurs approches existent pour modéliser ces scénarios dynamiques.
 Nous proposons une méthode originale d’agrégation temporelle des prédictions issues de notre localisateur statique multi-sources.
-Ce cadre permet d’exploiter les déplacements arbitraires du robot afin d’affiner l'estimation des positions des locuteurs.
+Ce cadre permet d’exploiter les déplacements du robot afin d’affiner l'estimation des positions des locuteurs.
 Le simulateur acoustique a été étendu pour générer des trajectoires complètes dans un environnement virtuel, permettant ainsi l'entraînement et l'évaluation efficaces de ce modèle dynamique.
 
 La perception et la prise d'actions représentent les deux piliers des capacités robotiques.

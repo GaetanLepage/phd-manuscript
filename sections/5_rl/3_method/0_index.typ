@@ -92,7 +92,7 @@ Thus, our #acr("ASR") module can be fed with the listened signal computed by the
 
 *ASR setup.*
 We compute the #acr("WER") score using the _jiwer_ @vaessen_jitsijiwer_2024 library.
-It itself wraps the fast C++ matching library _RapidFuzz_ @max_bachmann_2024_10938887 to compute the minimum-edit distance.
+To compute the minimum edit distance, it wraps the fast C++ matching library _RapidFuzz_ @max_bachmann_2024_10938887.
 The calculation of the metric has no significant impact on performance.
 However, running the #speechbrain #acr("ASR") model is highly computationally expensive.
 When the model is run in inference mode to evaluate its performance on 100 samples from the #librispeech dataset, 96% of the time is spent on the speech recognition process.
