@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 #import "../../_notations.typ": *
 
-=== Performance analysis
+=== Benchmarking and Performance analysis
 <sec:simulator:simulator:performance>
 
 This section provides a short breakdown of the computation load of the simulator.
@@ -53,6 +53,7 @@ We restricted the view to the `step` function, which hosts the simulation code o
 This excludes the time spent initializing modules and libraries and loading the dataset.
 These representations do not display the difference in absolute time between the two runs but only how time is spent in the different parts of the process.
 To account for this, @table:simulator:simulator:performance:backends gives the absolute durations involved.
+$T_"sim"$ measures the total time spent in the `step` function.
 We notice that _gpuRIR_ can compute the 100 sets of 8 #acr("RIR") filters considerably faster than _Pyroomacoustics_.
 The #acr("RIR") simulation took 3.69 and 109 seconds, respectively (denoted as $t_"RIR"$).
 The flame graph clearly shows that this step is the principal bottleneck when running the simulator with the _Pyroomacoustics_.

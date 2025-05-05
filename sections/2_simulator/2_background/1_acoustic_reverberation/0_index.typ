@@ -282,7 +282,7 @@ The term spectrogram can also refer directly to the complex-valued result of the
 #figure(
   image("figures/spectrogram.png", height: 14em),
   caption: [
-    Power spectrogram of a two-second long clean speech recording
+    Power spectrogram of a two-second-long clean speech recording.
   ],
 ) <fig:simulator:background:spectrogram>
 
