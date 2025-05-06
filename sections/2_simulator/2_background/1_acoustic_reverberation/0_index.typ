@@ -116,7 +116,7 @@ The boundary between early echoes and late reflections is called the _mixing tim
 #figure(
   image("figures/reflection_types.svg", width: 100%),
   caption: [
-    Illustration of the different ways sound interacts with surfaces @di_carlo_echo-aware_2020
+    Illustration of the different ways sound interacts with surfaces @di_carlo_echo-aware_2020.
   ],
 )
 <fig:simulator:background:reflection_types>
@@ -166,12 +166,13 @@ They will be essential in the interface of our simulator as they allow specifyin
   image("figures/rir_echogram.svg", height: 16em),
   caption: flex-caption(
     short: [
-      Schematic representation of an RIR
+      Plots of an impulse response and time-energy response recorded in a room.
     ],
     long: [
+      #acr("RIR") plot.
       (a) An impulse response recorded in a room.
       It represents the propagation of sound pressure from the sound source to the receiver.
-      (b) The time-energy response plots the propagation of sound energy.
+      (b) The associated time-energy response plots the propagation of sound energy.
       @savioja_overview_2015
     ],
   ),
@@ -230,12 +231,13 @@ $
   x_m [n] = x[n + m #H] #w [n],
 $
 where
-- $x[n]$ is any sampled real-valued signal ($n in ZZ$),
-- $#w [n]$ denotes the analysis window with support $[|0, N-1|]$,
+- $x[n]$ is any sampled real-valued signal ($n in ZZ$);
+- $#w [n]$ denotes the analysis window with support $[|0, N-1|]$.
   Several choices can be employed for the shape of #w.
   While, in theory, any function with compact support can be employed, it significantly impacts the result.
   Popular choices include the rectangular, Hamming, and Hann window functions.
-- #H is an increment, also called hop size. It should remain lower than $N$ to ensure a non-zero overlap $N - H$ between successive frames.
+- #H is an increment, also called hop size.
+  It should remain lower than $N$ to ensure a non-zero overlap $N - H$ between successive frames;
 The support of the #acr("STFT") frame $x[n]$ is also $[|0, N-1|]$.
 The discrete #acr("STFT") of the signal $x$ is defined as the set of #acrpl("DFT")s of the frames $x_m$, $m in ZZ$:
 $
@@ -349,9 +351,15 @@ This section focuses on motivating and deriving those representations.
     "figures/multi_mic_schema.svg",
     width: 80%,
   ),
-  caption: [
-    Two-microphone setup in the near field and far field cases
-  ],
+  caption: flex-caption(
+    short: [
+      Two-microphone configuration in the near-field and far-field cases.
+    ],
+    long: [
+      Two-microphone configuration in the near-field and far-field cases.
+      In the far-field approximation, sound propagation directions can be assumed to be parallel.
+    ],
+  ),
 )
 <fig:simulator:background:multi_mic_schema>
 

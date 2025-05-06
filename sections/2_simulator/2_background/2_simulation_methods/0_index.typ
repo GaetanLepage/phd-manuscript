@@ -109,15 +109,17 @@ Their paper came with a FORTRAN implementation of the proposed algorithm.
 The significant popularity of the #acr("ISM") is partly due to its simplicity and efficiency.
 
 #figure(
-  image("figures/image_source.svg"),
-  caption: detailed-caption(
-    common: [
+  image(
+    "figures/image_source.svg",
+    width: 10cm,
+  ),
+  caption: flex-caption(
+    short: [
       Representation of the first-order virtual image sources.
     ],
-    extra: [
-      // TODO: check if it renders correctly
-      @schimmel_fast_2009
-      The physical source $S$ leads to 4 virtual sources $S_i$, i.e. one per reflective surface.
+    long: [
+      Representation of the first-order virtual image sources @schimmel_fast_2009.
+      The physical source~$S$ leads to 4 virtual sources~$S_i$, i.e. one per reflective surface.
       The black arrow represents the direct path from the source to the receiver.
       The grey arrows depict the paths corresponding to the first-order reflections.
     ],
