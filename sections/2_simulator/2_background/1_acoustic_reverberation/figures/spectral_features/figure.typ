@@ -38,11 +38,12 @@
   placement: fig-placement,
   numbering: fig-numbering,
   numbering-sub-ref: fig-numbering-sub-ref,
-  caption: detailed-caption(
-    common: [
-      Illustration of time-frequency representations of a speech signal
+  caption: flex-caption(
+    short: [
+      Illustration of time-frequency representations of a speech signal.
     ],
-    extra: [
+    long: [
+      Illustration of time-frequency representations of a speech signal.
       (a) shows a mono-aural spectrogram obtained from the left microphone.
       (b) and (c) are interaural representations and use both left and right channels.
       Recordings have been generated in the acoustic simulator.

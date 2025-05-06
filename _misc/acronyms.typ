@@ -148,6 +148,8 @@
     "Markov Decision Process",
     "Markov Decision Processes"
   ),
+  "MPC": ("Model Predictive Control"),
+  "PESQ": ("Perceptual Evaluation of Speech Quality"),
   "POMDP": ("Partially Observable Markov Decision Process"),
   "PPO": ("Proximal Policy Optimization"),
   "RL": ("Reinforcement Learning"),

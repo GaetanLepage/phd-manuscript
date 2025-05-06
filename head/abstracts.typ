@@ -3,9 +3,6 @@
 // English abstract
 = Abstract
 
-// TODO: Try to remove 1 sentence instead
-//#v(-1em)
-
 Social robotics is a diverse, multidisciplinary research field aiming to design capable robotic agents.
 In particular, it addresses the challenges of human-robot interaction, in which robots operate not in isolated, controlled environments but alongside humans in performing dynamic and complex tasks.
 This domain poses numerous challenges, including multi-modal perception and action planning.

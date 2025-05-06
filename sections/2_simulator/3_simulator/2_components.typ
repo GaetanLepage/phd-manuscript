@@ -28,10 +28,11 @@ The role of the #acr("RIR") simulation library consists in inferring, given the 
 
 #figure(
   image("figures/audio_pipeline.svg"),
-  caption: [
-    Audio processing pipeline
-  ]
-) <fig:simulator:simulator:audio_pipeline>
+  caption:  [
+    Schematic view of the audio processing pipeline.
+  ],
+)
+<fig:simulator:simulator:audio_pipeline>
 
 
 *Choice of the back-end library.*
@@ -241,10 +242,19 @@ Lastly, the agent might be moved using the exposed displacement helpers presente
 @fig:simulator:simulator:simulator_workflow illustrates this routine.
 
 #figure(
-  image("figures/simulator_workflow.svg", height: 40%),
-  caption: [
-    Typical simulation workflow
-  ]
+  image(
+    "figures/simulator_workflow.svg",
+    //height: 40%,
+  ),
+  caption: flex-caption(
+    short: [
+      Typical simulation workflow.
+    ],
+    long: [
+      This figure illustrates the typical execution flow.
+      After an initialization phase, the simulator operates discrete steps between which the microphones and sources can move.
+    ],
+  ),
 )
 <fig:simulator:simulator:simulator_workflow>
 
@@ -260,8 +270,6 @@ In practice, the simulator allows to artificially reduce the time of the simulat
 This may happen by first shortening the input signals to a given duration $d_s^"lim"$, thus leading to having $#d-rec = d_s^"lim" + T_60$.
 Alternatively, the resulting audio can be trimmed to any wanted duration.
 The duration control feature gives a fine-grained control of the computational time.
-#todo
-//Indeed, as further demonstrated in later @sec:simulator:simulator:performance the simulation time is directly impacted by the duration of the signals.
 
 
 //====== Feature extraction
@@ -284,14 +292,12 @@ First and foremost, each source exposes its current raw signal.
 This is how the simulator fetches the audio from the different sources before forwarding them to the #acr("RIR") simulation library.
 Once the simulation has been conducted, both the #acr("RIR") filters and the audio signal received at each microphone become accessible.
 In addition to the raw multi-channel listened audio provided by the `Room` module, the simulator proposes further audio processing tools.
-Thus, the #acr("STFT") of the received acoustic data can be computed and recovered for direct use in a neural network or any method operating in the time-frequency plane.
+Thus, the received acoustic data's #acr("STFT") can be computed and recovered for direct use in a neural network or any method operating in the time-frequency plane.
 Finally, another function has been added to calculate the signal's #acr("ILD") and #acr("IPD") given a pair of microphones.
 
 All those features partly remove the downstream user's post-processing burden, allowing for the most direct and practical usage possible.
 
-
 *Visualization*
-//====== Visualization
 
 For development purposes, it may come in handy to graphically render the simulator's state.
 The pipeline includes a basic yet efficient way of visualizing the different objects in the room.
@@ -302,8 +308,14 @@ The orientation of microphones and directional sources is also displayed.
 
 #figure(
   image("figures/simulator_plot.svg", height: 20em),
-  caption: [
-    Simulator renderer
-  ]
+  caption: flex-caption(
+    short: [
+      Screenshot of the simulator renderer.
+    ],
+    long: [
+      Screenshot of the simulator renderer.
+      #todo
+    ],
+  )
 )
 <fig:simulator:simulator:components:simulator_plot>

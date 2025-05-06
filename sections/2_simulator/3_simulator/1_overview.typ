@@ -6,23 +6,35 @@
 The acoustic simulator is composed of several blocks that interact with each other.
 @fig:simulator:simulator:overview offers a global overview of the pipeline architecture.
 
+#let room = text(fill: rgb("23445D"))[_room_]
+#let rir-lib = text(fill: rgb("D6B656"))[_#acr("RIR") simulation library_]
+#let simulator = text(fill: rgb("6C8EBF"))[_simulator_]
 #figure(
-  image("figures/simulator_architecture.svg"),
-  caption: [Overview of the simulator architecture]
+  image(
+    "figures/simulator_architecture.svg",
+  ),
+  caption: flex-caption(
+    short: [
+      Overview of the simulator architecture.
+    ],
+    long: [
+      Overview of the simulator architecture.
+      The principal elements involved in the simulator are depicted.
+      The #room wraps the #rir-lib and renders the acoustic signals.
+      The #simulator provides an additional abstraction and operates the sources and microphones movements across time.
+    ]
+  )
 ) <fig:simulator:simulator:overview>
 
-#let rir-lib = text(fill: rgb("D6B656"))[_#acr("RIR") simulation library_]
 The core of the platform resides in the #rir-lib.
 The latter performs the actual computation of the several required #acr("RIR") filters.
 However, those libraries work at a low level and only account for a given static scene involving different unrelated microphones and sources.
 Also, not all options handle acoustic signals.
 Some only provide the #acr("RIR") filter.
 
-#let room = text(fill: rgb("23445D"))[_room_]
 Thus, the #room component offers a higher abstraction for the static acoustic simulation.
 Its main feature is to leverage the #rir-lib to compute the listened signal of each microphone.
 
-#let simulator = text(fill: rgb("6C8EBF"))[_simulator_]
 Finally, the #simulator adds multiple features relating to dynamic scenarios.
 Also, it operates more advanced audio objects such as multi-microphone arrays and sound sources of different kinds.
 This block provides our pipeline with the most important external #acr("API").
