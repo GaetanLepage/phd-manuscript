@@ -10,6 +10,7 @@ Several settings have been considered, underlining their respective challenges a
 All discussed solutions involved localizing one or several sound sources in a static setup, where neither the microphones nor the sources moved.
 
 This chapter extends the previous framework by considering the problem of #acr("ASSL").
+In order #todo add the closer to get to the robotics task we 
 To move closer to real-world social robotics scenarios, we focus on a dynamic setting in which the agent actively moves through the environment to localize multiple simultaneous sources.
 
 First, a brief overview of related works will be proposed in @sec:active_ssl:background.
