@@ -175,13 +175,13 @@ Since then, larger and larger networks have been combined with advances made on 
 
 Nevertheless, scaling #acr("DRL") models up requires significant amounts of training data.
 This translates into the need for environments that can provide tens of thousands of interactions at a tractable cost.
-For training their Deep Q-Network, Mnih et al. used around 10 million frames of each game to train their agents.
+Mnih et al. used around 10 million frames of each game to train their #acr("DQN") agents.
 The OpenAI Five @berner_dota_nodate project consists of training an agent to play the game Dota 2.
 In total, their agent has played for an approximate duration of 180 years.
-Similarly, when applying #acr("DRL") to autonomous driving, it is necessary to collect a high amount of interactive experience to achieve decent performance.
-Bansal @bansal_chauffeurnet_2018 have used a dataset of 30 million samples to train their policy.
-They stated that their initial attempts at doing imitation learning on this data have not been successful.
-It required more advanced techniques to finally train a working system.
+Similarly, when applying #acr("DRL") to autonomous driving, collecting a high amount of interactive experience is necessary to achieve decent performance.
+Bansal et al. @bansal_chauffeurnet_2018 have used a dataset of 30 million samples to train their policy.
+They stated that their initial attempts at imitation learning on this data were unsuccessful.
+Finally, it required more advanced techniques to train a working system.
 
 
 
@@ -193,6 +193,12 @@ Sample efficiency has been
 ]
 
 *Games.*
+Board games or video games are suitable candidates for #acr("DRL") techniques.
+They are intrinsically operated virtually, allowing for scalable training data generation.
+Contrary to applications in robotics, they do not require any special transfer techniques to a real target environment.
+Also, some games are by nature easy, constrained problems were achieving an optimal policy is sometimes easily feasible.
+As such, they have been used as toy examples or benchmark tasks to evaluate #acr("RL") algorithms.
+The Atari #todo
 
 
 *#acr("RLHF").*

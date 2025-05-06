@@ -26,9 +26,15 @@
   ),
   <fig:simulator:simulator:mic_arrays:square>,
   columns: 3,
-  caption: [
-    Examples of microphone arrays available in the simulator
-  ],
+  caption: flex-caption(
+    short: [
+      Examples of microphone arrays available in the simulator.
+    ],
+    long: [
+      Examples of microphone arrays available in the simulator.
+      All dimensions and angle values of the displayed geometries can be customized.
+    ],
+  ),
   align: top,
   placement: fig-placement,
   numbering: fig-numbering,

@@ -13,26 +13,33 @@ However, some real-world settings remain challenging, and #acr("ASR") systems ca
 Most solutions are trained on a clean speech dataset.
 The literature has studied the impact of noise and reverberation on #acr("ASR") performance.
 Wang et al. @wang_systematic_2025 explored different strategies to account for the challenges present in reverberant and noisy environments.
-#draft[Maybe add more references.]
 
-In this chapter we propose to study this issue in the robotic context.
+In this chapter, we propose to study this issue in the robotic context.
 We aim to develop algorithms that improve robots' hearing ability in real-world interaction environments.
-
 To tackle this issue, we target the design of navigation policies.
 An agent will be placed in a reverberant environment with an active speech source.
 Its goal is to position itself optimally to maximize the #acr("ASR") performance.
 Our approach solely relies on the positioning of the robot.
 The #acr("ASR") algorithm that we use is an existing solution based on a #acr("DNN").
-Our motivation relies on the observation that in a complex acoustic environment, the microphone's position and orientation with respect to the target source significantly impact the #acr("ASR") performance.
+Our motivation relies on the observation that the microphone's position and orientation relative to the target source in a complex acoustic environment significantly impact the #acr("ASR") performance.
 This insight results from an experimental study conducted within our simulated environment.
+Other metrics exist to quantify auditory perception and could have been alternatives to the #acr("ASR") performance.
+For instance, the #acr("PESQ") score predicts the perceived audio quality of speech.
+It primarily targets human perception by measuring how a degraded signal compares to its original counterpart.
+#acr("ASR") performance is likely correlated to the #acr("PESQ") score but directly quantifies how well the robot understands human speech.
+In this sense, #acr("PESQ") would have been a more indirect proxy for robotic auditory perception.
+#draft[TODO: add reference]
 
+// Why we use RL over MPCs
+We use #acr("DRL") as a learning framework to tackle this navigation task.
+Different solutions have been investigated in the literature for designing navigation policies.
+#acr("MPC") @rawlings_model_2009 is a widely used mathematical framework in robotics.
+It is an advanced control strategy used to determine the optimal control inputs for a robot by predicting future behavior over a finite time horizon.
+While #acr("MPC") has been used extensively for navigation and motion planning in robotics
+@piovesan_randomized_2009 @arul_unconstrained_2024, it is not quite suited for handling acoustic cues directly.
+On the one hand, the #acr("WER") provides an informative reward signal and can thus be exploited by an #acr("RL") algorithm.
+On the other hand, the combination of #acr("DNN") and #acr("RL") in the form of #acr("DRL") allows processing high-dimensional representations for the #acr("MDP") observations.
 
-#draft[
-  - Should we talk about MPC ?
-  - Perceptually motivated navigation
-  -> Maximize WER
-  PESQ, WER
-]
 
 === Background
 
@@ -91,14 +98,14 @@ It is trained to output the isolated target speech signal's #acr("STFT") and thu
 The second component of the agent is the active audio-visual controller.
 It is responsible for implementing the navigation policy.
 A common feature extraction backbone uses #acrpl("GRU") @cho_learning_2014 to perform the core perception work.
-It is followed by two heads implementing the actor and the critic optimized by the #acr("PPO") algorithm.
-The policy comprises two sub-policies: one for improving the separation quality when relatively close to the target source and an audio-visual navigation policy to get closer to it.
+It is followed by two heads implementing the actor and the critic, optimized by the #acr("PPO") algorithm.
+The policy comprises two sub-policies: one for improving the separation quality when relatively close to the target source, and an audio-visual navigation policy to get closer to it.
 Both networks are trained in a cyclic pattern, ensuring continuous and synchronous overall performance improvement.
 A convincing experimental study is also conducted to demonstrate the approach's effectiveness.
 They propose two different benchmarks.
 In the _near-target_ task, the agent starts relatively  close to the target sound source.
 Here, it has to adjust its position to optimize for the separation score.
-In the _far-target_ setting, the agent is initially placed further from the source of interest and has to navigate the environment to get close to it eventually.
+In the _far-target_ setting, the agent is initially placed further from the source of interest and has to navigate the environment to eventually get close to it.
 This task variant targets leveraging audio-visual information to plan the shortest possible trajectory.
 Overall, the _Move2Hear_ framework successfully applies #acr("DRL") to a robotic navigation problem where the objective is motivated by audio perception.
 
@@ -109,9 +116,9 @@ Overall, the _Move2Hear_ framework successfully applies #acr("DRL") to a robotic
 // RL
 We adopt a #acr("DRL") approach to design such a navigation policy.
 This policy will be modeled by a Deep Neural Network trained in a simulated environment.
-We develop a complete pipeline for solving the task of perceptually-motivated audio-based navigation.
-The problem is framed as a sequential decision process, which suits the use of #acr("RL") well.
-The implementation of the #acr("RL") environments, agents, algorithm and testing setup are an original contribution of this work.
+We develop a complete pipeline for solving the perceptually motivated audio-based navigation task.
+The problem is framed as a sequential decision process, which suits #acr("RL") well.
+This work's original contribution includes implementing the #acr("RL") environments, agents, algorithm, and testing setup.
 
 // Sound only
 Also, our solution tackles a challenging framework where only audio data can be used to perceive the environment.
@@ -121,7 +128,7 @@ To address this limitation, we leverage the algorithms and knowledge obtained fr
 In the following paragraphs, we will formalize the task that we plan to solve.
 The core novelty of this problem is to use the #acr("ASR") performance as the reward signal.
 First, we will introduce the relevant metric and its relation to speech recognition.
-Second, the #acr("RL") environment will be presented, along with the justification for our different choices.
+Second, the #acr("RL") environment and the justification for our different choices will be presented.
 
 
 #reset-acronym("WER")
@@ -134,9 +141,29 @@ $
 $
 where $s$ is the number of substitutions, $d$ of deletions, and $i$ of insertions needed to transform the true sentence into the predicted text.
 $n$ counts the total number of words of the ground truth.
-Hence, the #acr("WER") quantifies the original and transcribed text difference.
+Hence, the #acr("WER") quantifies the difference between the original and transcribed text.
 The total number of errors $s + d + i$ is also called the Levenshtein or edit distance, which Vladimir Levenshtein proposed in 1965 @levenshtein_binary_1965.
 Its default formulation considers comparing two strings at the character level.
+Let consider two strings $a$ and $b$ (of length $abs(a) = n$ and $abs(b) = m$ respectively).
+The Levenshtein distance between $a$ and $b$ is computed as:
+$
+  "lev"(a, b) = cases(
+    abs(a) & "if" m = 0,
+    abs(b) & "if" n = 0,
+    "lev"(a_(1..n), b_(1..m)) & "if" a_0 = b_0,
+    1 + min cases(
+      "lev"(a_(1..n), b),
+      "lev"(a, b_(1..m)),
+      "lev"(a_(1..n), b_(1..m))
+    ) & "otherwise,"
+  )
+$
+where $a_0$ is the first character of $a$ and $a_(1..n)$ is the string $a$ without its first character.
+It counts the number of edits to turn string $a$ into string $b$.
+As such, it is bounded by the length of the longest string:
+$
+  0 lt.eq "lev"(a, b) lt.eq max(abs(a), abs(b)).
+$
 Besides, the #acr("WER") score uses words as the fundamental tokens.
 As its definition is recursive, most implementations leverage dynamic computing.
 
@@ -212,28 +239,27 @@ The step size $d$ must correspond to the distance between two adjacent grid poin
 - `TURN_LEFT` and `TURN_RIGHT` correspond to a quarter-turn rotation. In this case, only the orientation of the agent changes, not its position.
 A learned policy for this problem will be a probabilistic distribution $pi(dot | dot): cal(A) times Omega -> [0, 1]$ over this finite set of four actions.
 
-Although a continuous formulation would have been permitted by our audio simulator, choosing a discrete setting provides important benefits.
+Although our audio simulator would have permitted a continuous formulation, choosing a discrete setting provides important benefits.
 The most crucial one of them is the ability to pre-compute the reward.
 Indeed, having a discrete state space allows for caching the reward function for all possible states.
 As will be explained later in @sec:rl:method:wer_maps, our reward function is very computationally expensive.
 On the other hand, having a finite action space enables working with equally finite policies $pi(a | s) = pi_a (s)$.
-This choice permits the use of #acr("RL") algorithms modeling the Q-value such as #acr("DQN") methods @mnih_playing_2013.
+This choice permits the use of #acr("RL") algorithms modeling the Q-value, such as #acr("DQN") methods @mnih_playing_2013.
 Also, such a framing is both computationally and conceptually simpler.
-#draft[
-  Survey explaining differences between discrete and continuous action spaces: @zhu_overview_2021
-]
+Zhu et al. @zhu_overview_2021 survey the role of action spaces in #acr("RL") and its applications.
+They notably explore the differences between continuous, discrete, and discrete-continuous hybrid action spaces.
 
 *Observation space.*
-The agent's perception of its environment is limited to the audio signal received by its microphones and does not know its current position.
+The agent's perception of its environment is limited to the audio signal received by its microphones, and it does not know its current position.
 This acoustic information consists of a one-second-long recorded signal mapped to the time-frequency domain.
-Practically, the observations are #shape("C", "F", "T") real tensors where $C$ is the number of output channels, $F$ of frequency bins, and $T$ of temporal indices.
+Practically, the observations are #shape("C", "F", "T") real tensors where $C$ is the number of output channels, $F$ is the number of frequency bins, and $T$ is the number of temporal indices.
 Formally, the observation space is $Omega = RR^(C times F times T)$.
-The agent's goal is to learn a mapping $s -> pi(dot | s)$ from this space to the probabilities over actions.
+The agent aims to learn a mapping $s -> pi(dot | s)$ from this space to the probabilities over actions.
 This represents the essence of the audio-based navigation task: learning to decide how to move depending on what is heard.
 The observability function translates the listening process.
 Sound sources speak continuously.
 At each step, the robot listens for $tau_"step"$ seconds while remaining immobile.
-The random nature of the speech content delivered by each speech source accounts for the position-agnostic stochasticity of the observability function.
+The random nature of the speech content delivered by each source accounts for the position-agnostic stochasticity of the observability function.
 The rest of the process consists of the sound propagation and reverberation simulation.
 By nature, there is no analytical closed-form expression of $O$.
 It is directly embedded in the environment implementation.
@@ -245,7 +271,7 @@ The agent should be trained to navigate to the optimal location regarding the #a
 Naturally, the reward function should be a decreasing function, $f: [0, 1] -> RR$, of the #acr("WER") metric so that the highest reward would correspond to the lowest possible #acr("WER").
 For now, we assume having access to an oracle $w: cal(S) -> [0, 1]$ that maps each possible state to a #acr("WER") score.
 The practical implementation of this mapping will be discussed later in @sec:rl:method:wer_maps.
-The reward function can then be written as follows
+The reward function can then be written as follows:
 $
   r_t = cases(
     -10  #h(3em) &"if the movement is invalid",
@@ -253,16 +279,16 @@ $
   )
 $
 The first case allows penalizing movements that would lead the robot to collide with a wall.
-When the policy samples such an impossible action, it will be ignored by the environment, the agent will remain immobile for this step, and a fixed reward of $-10$ will be returned.
-In practice, this only occurs for the for the forward action.
+When the policy samples such an impossible action, the environment ignores it, the agent remains immobile for this step, and a fixed reward of $-10$ is returned.
+In practice, this only occurs for the forward action.
 
 *Transition dynamics.*
-Finally, to fully define our #acr("MDP") we need to provide the transition dynamics.
-More precisely, we refer to the conditional probability $P(s' | s, a)$ of being in the state $s'$ when coming from the state $s$ and having performed action $a$.
+Finally, we need to provide the transition dynamics to fully define our #acr("MDP").
+More precisely, we refer to the conditional probability $P(s' | s, a)$ of being in the state $s'$ when coming from the state $s$ and performing action $a$.
 Those dynamics are implemented by the simulator along with the observability function $O$.
 In our case, they are completely deterministic due to their purely geometric nature.
-Indeed, each action leads to a predictable change of the agent position $(x, y, alpha)$.
-The transition dynamics can be expressed as the following deterministic function $t$ which maps a state-action pair to the next state:
+Indeed, each action leads to a predictable change of the agent's position $(x, y, alpha)$.
+The transition dynamics can be expressed as the following deterministic function $t$, which maps a state-action pair to the next state:
 #let x(content: $x$) = $colMath(content, #olive)$
 #let y(content: $y$) = $colMath(content, #orange)$
 #let s-alpha(content: $alpha$) = $colMath(content, #maroon)$
@@ -293,42 +319,42 @@ The collisions are detected before their execution so that the action can be den
 
 ==== Alternative continuous formulation
 
-A spatially discrete solution has been proposed, where both the state and action spaces were finite.
-Such a choice grants various benefits, such as an easier implementation and the possibility to use #acr("RL") methods unable to handle continuous spaces.
+A spatially discrete solution was proposed, where the state and action spaces are finite.
+Such a choice grants various benefits, such as an easier implementation and the possibility of using #acr("RL") methods that cannot handle continuous spaces.
 
 *Alternative #acr("POMDP").*
 On the other hand, a more general continuous formulation can be described.
-It would offer a more realistic modelization of the real-world problem.
+It would offer a more realistic modeling of the real-world problem.
 Indeed, restricting a real robot to move exclusively on a grid is not sensible.
-As an alternative, one could change the previously defined #acr("POMDP") as follows.
+Alternatively, one could change the previously defined #acr("POMDP").
 First, the state space would become $cal(S)_c = [0, L_x] times [0, L_y] times [0, 2pi] subset RR^3$.
 Several choices are possible regarding the action space.
 Although it would be possible to employ the original finite action space $cal(A)$, this solution would still restrict the set of reachable positions to a same-size 2D grid.
 It would be rotated and translated accordingly to the initial position.
-A more sensible choice would consist of sampling a distance and a rotation angle to parametrize a straight translation.
+A more sensible choice would be sampling a distance and a rotation angle to parametrize a straight translation.
 This would amount to the continuous action space $cal(A)_c = [0, d_max] times [0, 2pi]$.
-Fully freeform movements would still not be possible, but this new space would allow for more expressive trajectories.
+Entirely freeform movements would still not be possible, but this new space would allow for more expressive trajectories.
 The current implementation of the simulator allows for easily extending the existing discrete environment to continuous variants.
 The distinctions exposed here only impact the spatial properties of the #acr("MDP").
 Audio aspects of the environment may remain the same.
 
 *Reward computation.*
-An additional obstacle to handling the continuous form of the problem lies in the reward computation.
+The reward computation is another obstacle to handling the problem's continuous form.
 Currently, it is fully pre-computed and cached using the #acr("WER") maps solution.
 Keeping this paradigm is possible by interpolating the grid-evaluated reward function to compute the reward for arbitrary positions.
 
 *Continuous audio simulation.*
-Besides, the proposed framework makes the strong assumption that movements are instantaneous and that listening happens strictly statically.
-Accounting for a continuously moving agent would participate to improve the model's realism further.
+Besides, the proposed framework assumes that movements are instantaneous and that listening happens strictly statically.
+Accounting for a continuously moving agent would contribute to improving the model's realism further.
 As the #acr("MDP") model remains fundamentally sequential, the agent would still make step-based decisions.
-A hybrid solution consists of performing the audio simulation along a trajectory instead of assuming the position to be fixed.
-Although such a feature is not supported by our simulator, the underlying _gpuRIR_ authors explain how it could be implemented (see section 3.4 @diaz-guerra_gpurir_2021).
+A hybrid solution entails performing the audio simulation along a trajectory instead of assuming the position to be fixed.
+Although our simulator does not support such a feature, the underlying _gpuRIR_ authors explain how it could be implemented (see section 3.4 of Diaz-Guerra et al. @diaz-guerra_gpurir_2021).
 
 *Algorithmic implications.*
 The #acr("PPO") algorithm employed in this work is fully compatible with continuous state and action spaces.
 Instead of predicting the probability $p_a$ of each discrete action, the actor neural network outputs the parameters $(bold(mu), bold(sigma) I)$ of a $dim(cal(A))$-dimensional normal distribution.
 Petrazzini et al. @petrazzini_proximal_2021 alternatively propose to use the Beta distribution.
-Compared to a Gaussian distribution, its main benefit is having a finite support that naturally fits bounded action spaces.
+Compared to a Gaussian distribution, its primary benefit is having a finite support that naturally fits bounded action spaces.
 They also found the Beta distribution to outperform the Gaussian one.
 
-In conclusion, the simple discrete formulation of the sound-driven navigation problem can be generalized to represent real-world robotic scenarios better.
+In conclusion, the simple discrete formulation of the sound-driven navigation problem can be generalized to better represent real-world robotic scenarios.

@@ -271,14 +271,21 @@
   }
 
   // Hide the '...' filling for top-level entried (chapters)
-  show outline.entry.where(level: 1): set outline.entry(fill: none)
+  //show outline.entry.where(level: 1): set outline.entry(fill: none)
+  show outline.where(target: selector(heading)): it => {
+    show outline.entry.where(level: 1): set outline.entry(fill: none)
+    
+    it
+  }
 
   show outline.entry: it => {
     // Only apply styling if we're in the table of contents (not list of figures or list of tables, etc.)
     if it.element.func() == heading {
       if it.level == 1 {
         v(2em, weak: true)
-        strong(it)
+        strong(
+          text(size: 14pt,  it)
+        )
       } else {
         it
       }

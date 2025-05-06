@@ -17,13 +17,13 @@ When the robot is capable of movement, the problem space expands significantly, 
 In all cases, the robot’s motion influences its acoustic perception — either by affecting the signals it receives or by enabling additional observations over time.
 This mobility introduces both challenges and opportunities for improved localization.
 A key factor distinguishing #acr("ASSL") approaches is how the robot’s motion is handled: in some cases, it is explicitly optimized to enhance localization performance; in others, motion arises from external constraints or tasks, and the localization system must adapt accordingly.
-In 1999, Wightman et al. @wightman_resolution_1999 experimented on human listeners and identified movement as an effective way of dealing with front-back confusions in binaural hearing.
+Wightman et al. @wightman_resolution_1999 experimented on human listeners and identified movement as an effective way of dealing with front-back confusions in binaural hearing.
 Naturally, researchers have explored how a robot's movements might help improve localization performance.
 Regardless of the formulation, mobility plays a central role in designing and evaluating localization strategies.
 
 
-In 2000, Nakadai et al. @nakadai_active_2000 designed a complex robotic system to perform _active audition_.
-This innovative work consisted of a physical robotic prototype equipped with microphones and cameras for sensing the environment.
+Nakadai et al. @nakadai_active_2000 designed a complex robotic system to perform _active audition_.
+This work consisted of a physical robotic prototype equipped with microphones and cameras for sensing the environment.
 The _active audition_ task aims to estimate the #doa of the present sources accurately.
 To achieve this objective, both vision and audio signals are processed to enhance the robustness of the prediction.
 Also, the robot's head movement automatically adjusts to face the currently active source.

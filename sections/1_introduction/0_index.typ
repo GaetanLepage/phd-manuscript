@@ -135,7 +135,7 @@ Complete RL pipeline design and implementation:
   image("figures/diagram.svg", width: 80%),
   caption: flex-caption(
     short: [
-      Overview of the thesis organization
+      Overview of the thesis organization.
     ],
     long: [
       Overview of the thesis organization.
