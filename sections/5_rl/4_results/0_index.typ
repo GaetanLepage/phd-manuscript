@@ -1,4 +1,5 @@
 #import "/utils.typ": *
+#import "../_notations.typ": *
 
 == Experiments and discussions
 <sec:rl:results>
@@ -10,7 +11,8 @@ After designing and implementing the complete #acr("RL") pipeline presented in t
 === #acr("ASR") performance in a reverberant room
 
 First and foremost, we investigate how #acr("ASR") performance is impacted by reverberation. 
-Also, this study explores the importance of the robot position with respect to the source, especially in highly reverberant environments.
+Also, this study explores the importance of the robot position relative to the source, especially in highly reverberant environments.
+Several cost maps
 
 #draft[
   - Show how #acr("WER") decreases when adding reverb
@@ -20,15 +22,30 @@ Also, this study explores the importance of the robot position with respect to t
   - Motivate the use of $T_60 = 0.5s$
 ]
 
-@fig:rl:results:wer_maps_reverb a
+@fig:rl:results:wer_maps_reverb
 
 #include "figures/wer_maps/figure.typ"
+
+*Cost map directionality*
+
+When the cost function is invariant in the agent orientation $theta_a$, the map is said to be omnidirectional.
+In the case of the #acr("WER") cost #wer-cost, this is when an omnidirectional microphone is used to record signals at each position on the grid.
+When a directional microphone is used, separate recordings are made for all four cardinal orientations of the agent.
+
+it is omnidirec, omnidirectional maps correspond to the 
+
+@fig:rl:results:directional_map aims at being
+
+#include "figures/directional_wer_map/figure.typ"
 
 
 === Alternative cost maps
 
-Before using #acr("WER") maps to compute the reward, we have conducted experiments with alternative cost maps.
-As illustrated previously ()
+Before using #acr("WER") cost maps to compute the reward, we have conducted experiments with alternative cost maps.
+As highlighted in previous @sec:rl:method:wer_maps:computing, computing #wer-cost is very compute intensive.
+Furthermore, the #acr("WER") cost is noisy has some artifacts.
+In this section, we introduce an alternative formulation for the cost function #cost.
+This analytical cost #analytical-cost
 
 on artificial cost maps.
 We have used synthetic data to validate the concept of training an agent with our custom #acr("WER") maps.
@@ -47,12 +64,39 @@ We have used synthetic data to validate the concept of training an agent with ou
 ]
 
 The adopted proxy for the #acr("WER") is defined as:
-$
-  hat("WER") = d + theta.
-$
+The analytical cost is defined over the state space $cal(S)$ as:
+// #let eta = $colMath(eta, #olive)$
+// $
+//   //c_a (s_t) = norm(bold(x)_"agent" - bold(x)_"source")_2^2 + theta\
+//   C (
+//     bold(x)_a,
+//     theta_a,
+//     bold(x)_s
+//   ) = norm(bold(x)_a - bold(x)_a)_2^2 + eta "DoA"(bold(x)_a, theta_a, bold(x)_s),
+// $
+#func-def(
+  analytical-cost,
+  //$quad RR^2 times [0, 2pi] times RR^2$,
+  $cal(S)$,
+  $RR_+$,
+  $(
+    bold(x)_a,
+    theta_a
+    //bold(x)_s
+  )$,
+  $
+  norm(bold(x)_s - bold(x)_a)_2^2 + eta "DoA"(bold(x)_a, theta_a, bold(x)_s),
+  $
+)
+<eq:rl:results:analytical_cost>
 where:
-- $d$ is the source-microphone distance
-- $theta$ is the #doa between the source and the microphone
+- $bold(x)_a$ and $theta_a$ are respectively the position and orientation of the agent in the room's frame;
+- $bold(x)_s$ is the source position and is fixed for a given episode;
+- $"DoA"(bold(x)_s, theta_a, bold(x)_s)$ is the direction of arival for this source-microphone positioning;
+- $eta$ is a scaling factor; #draft[Say that we keep it as 1]
+
+Similarly to the #acr("WER") cost, we normalize the obtained map to constrain its range in the $[0, 1]$ interval.
+@fig:rl:results:analytical_map plots the analytical cost $C$
 
 Our previous observations of real #acr("WER") maps motivate this formulation.
 

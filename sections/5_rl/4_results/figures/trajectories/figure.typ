@@ -41,5 +41,5 @@
   numbering: fig-numbering,
   numbering-sub-ref: fig-numbering-sub-ref,
   gap: grid-fig-gap,
-  label: <fig:rl:results:wer_maps_reverb>,
+  label: <fig:rl:results:trajectories>,
 )

@@ -1,5 +1,6 @@
 #import "/utils.typ": *
 #import "/_misc/notations.typ": *
+#import "../_notations.typ": *
 
 == Method
 <sec:rl:method>
@@ -105,19 +106,19 @@ Importantly, the decoding process remains slow: It takes approximately 2s to pro
 ]
 
 *Motivation.*
-The aforementioned setup allows the computation of #acr("WER") scores on full simulated audio recordings.
+The setup mentioned above allows the computation of #acr("WER") scores on full simulated audio recordings.
 However, the proposed #acr("RL") environment involves short steps of 1s, during which the agent is assumed to be immobile and gathers audio data.
 Computing the #acr("WER") on such a small snippet would not make sense.
 A complete sentence is the minimum necessary for the #acr("WER") to have meaning.
-Additionally, as with every metric, this indicator is supposed to be averaged over a significant number of samples to assess the performance of the evaluated method purposefully.
-Here, the oracle $w(s)$ is expected to provide an estimate for the average #acr("ASR") performance for a given state $s$.
+Additionally, as with every metric, this indicator is supposed to be averaged over a significant number of samples to purposefully assess the performance of the evaluated method.
+Here, the cost $#wer-cost (s)$ is expected to provide an estimate for the average #acr("ASR") performance for a given state $s$.
 For those reasons, the oracle cannot work in real-time and needs to rely on prior information.
 
 *#acr("WER") maps.*
-We introduce the _#acr("WER") map_ abstraction to solve the aforementioned issue.
+To solve the previously mentioned issue, we introduce the _#acr("WER") map_ abstraction.
 The core idea of #acr("WER") maps is to pre-compute an average #acr("WER") score for each attainable state of the #acr("MDP").
 More precisely, a microphone will be positioned sequentially in each cell of the 2D grid spanning the room.
-If the microphone is not omnidirectional, the agent orientation will impact the received signal and, eventually, the recognition performance too.
+If the microphone is not omnidirectional, the agent's orientation will impact the received signal and, eventually, the recognition performance too.
 In this case, all four cardinal directions must be evaluated.
 The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphone and as a 3D tensor otherwise.
 
@@ -125,15 +126,17 @@ The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphon
 
 @algo:rl:wer_map describes the algorithm used to compute those #acr("WER") maps.
 #draft[
+  - Clearly introduce/differenciate #cost and #wer-cost
   - Say that we compute maps for a few starting positions
   - give numbers on compute time
+  - Add the size of the speech sample: 40
 ]
 
 
 ==== WER on clean speech
 
 As a sanity check for the #acr("ASR") module, we run the complete recognition pipeline on the clean speech signals from the #librispeech dataset.
-The `ASR-CRDNN-RNNLM-LibriSpeech` model from #speechbrain that we have chosen yields an average #acr("WER") of 1.82% on this clean dataset.
+The `ASR-CRDNN-RNNLM-LibriSpeech` model from #speechbrain we have chosen yields an average #acr("WER") of 1.82% on this clean dataset.
 
 @table:rl:method:asr_models shows the result of our benchmarking of three models provided by the #speechbrain library.
 It highlights the performance-speed trade-off of each model.
@@ -147,6 +150,7 @@ All three models share the same tokenizer, trained on #librispeech.
   - `asr-crdnn-rnnlm-librispeech`
 
   However, the second one is broken
+  -> Just say that the one we chose offers the best compromise between speed and quality.
 
 ]
 
@@ -214,7 +218,11 @@ $
 
 *Starting positions*
 #draft[
-  Add illustration of starting positions.
+  - Add illustration of starting positions.
+  - Give hyper-parameters used:
+    - PPO
+    - Training
+    - etc.
 ]
 
 
