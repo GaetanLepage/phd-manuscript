@@ -11,7 +11,7 @@ The following explores why simulation is pivotal in numerical science, specifica
 
 // Importance of simulation in science
 Simulation offers an alternative tool to experiment with new techniques.
-Since its first operation in the late 1940s, the Monte Carlo algorithm has been widely used in most scientific fields @goldsman_brief_2009, @metropolis_beginning_nodate.
+Since its first operation in the late 1940s, the Monte Carlo algorithm has been widely used in most scientific fields @goldsman_brief_2009, @metropolis_beginning_1987.
 In 1950, a team led by John von Neumann and Jule Charney used the ENIAC computer to produce the first weather forecast by an electronic computer @charney_numerical_1950.
 Although their results carried important numerical errors, this work led to the foundation of modern meteorology.
 This is an example of numerically replicating a physical phenomenon by implementing and solving the corresponding equations.
@@ -48,7 +48,7 @@ Sallab et al. @sallab_deep_2017 and Osiński et al. @osinski_simulation-based_20
 Additionally, a team from Google DeepMind has proposed a novel approach for controlling the magnetic field of tokamak plasmas using #acr("DRL") @degrave_magnetic_2022.
 A critical challenge in this work has been the scarcity of access to a real-world fusion reactor and, thus, to the training data.
 To get around this, they collaborated with physicists to build a fast and accurate JAX @jax2018github simulator modeling the plasma core, TORAX @citrin_torax_2024.
-Finally, games have been among the most widespread application domains for #acr("DRL") as they are inherently virtual @vinyals_grandmaster_2019 @mnih_playing_2013 @berner_dota_nodate @silver_mastering_2016.
+Finally, games have been among the most widespread application domains for #acr("DRL") as they are inherently virtual @vinyals_grandmaster_2019 @mnih_playing_2013 @berner_dota_2019 @silver_mastering_2016.
 No effort is necessary to provide a simulated version of those environments.
 
 // Simulation in robotics

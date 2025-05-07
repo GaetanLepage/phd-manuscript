@@ -157,26 +157,26 @@ Naturally, this quantity depends on the considered policy $pi$.
 
 Although #acr("RL") has existed since the 1970s, it has experienced a more recent and considerable surge in popularity @arulkumaran_deep_2017.
 As supervised learning and the machine learning field in general, #acr("RL") has benefited from the possibilities offered by Deep Neural Networks.
-Traditionally, #acr("RL") leveraged simpler methods such as tabular methods @watkins_learning_1989 @sutton_learning_1988, linear function approximators, or shallow neural networks @barto_neuronlike_1983 @tesauro_temporal_nodate.
+Traditionally, #acr("RL") leveraged simpler methods such as tabular methods @watkins_learning_1989 @sutton_learning_1988, linear function approximators, or shallow neural networks @barto_neuronlike_1983 @tesauro_temporal_1995.
 The main problem of those approaches for policy modeling is their limited capacity to handle larger state and action spaces.
 Hence, #acr("RL") has been mainly limited to low-dimensional problems @arulkumaran_deep_2017.
-As #acrpl("MDP") become more intricate, the memory, computation, and, more importantly, sample complexities grow significantly.
-#acrpl("DNN") offered a capable scaling method and have been successfully used as function approximators @arulkumaran_deep_2017 @wang_deep_2024.
+As #acrpl("MDP")s become more intricate, the memory, computation, and, more importantly, sample complexities grow significantly.
+#acrpl("DNN")s offer a capable scaling method and have been successfully used as function approximators @arulkumaran_deep_2017 @wang_deep_2024.
 
 The first applications of artificial neural networks to #acr("RL") occurred in the 1990s.
 For instance, the popular REINFORCE algorithm by Williams @williams_simple_1992 employed a shallow network that is optimized using gradient descent.
 However, the major success awaited Deep Learning's boom pf the 2010s.
 Mnih et al. @mnih_playing_2013 have famously demonstrated the capacity of those more modern models.
-They combined Watkin's Q-value algorithm @watkins_learning_1989 to a deep convolutional neural network.
+They combined Watkins' Q-value algorithm @watkins_learning_1989 with a deep convolutional neural network.
 To showcase the capabilities of their method, the authors tackled seven Atari 2600 games from the Arcade Learning Environment @bellemare_arcade_2013.
-Performance surpassed existing benchmarks and, notably, human performance in six of those games.
+Performance surpassed existing benchmarks and, notably, human performance in six games.
 This work acted as a foundation for the entire #acr("RL") domain and started the highly dynamic era of #acr("DRL").
-Since then, larger and larger networks have been combined with advances made on the algorithmic aspects.
+Since then, larger and larger networks have been combined with advances made in algorithmic aspects.
 
 Nevertheless, scaling #acr("DRL") models up requires significant amounts of training data.
 This translates into the need for environments that can provide tens of thousands of interactions at a tractable cost.
 Mnih et al. used around 10 million frames of each game to train their #acr("DQN") agents.
-The OpenAI Five @berner_dota_nodate project consists of training an agent to play the game Dota 2.
+The OpenAI Five @berner_dota_2019 project consists of training an agent to play the game Dota 2.
 In total, their agent has played for an approximate duration of 180 years.
 Similarly, when applying #acr("DRL") to autonomous driving, collecting a high amount of interactive experience is necessary to achieve decent performance.
 Bansal et al. @bansal_chauffeurnet_2018 have used a dataset of 30 million samples to train their policy.
@@ -193,12 +193,13 @@ Sample efficiency has been
 ]
 
 *Games.*
-Board games or video games are suitable candidates for #acr("DRL") techniques.
+Board or video games are suitable candidates for #acr("DRL") techniques.
 They are intrinsically operated virtually, allowing for scalable training data generation.
 Contrary to applications in robotics, they do not require any special transfer techniques to a real target environment.
 Also, some games are by nature easy, constrained problems were achieving an optimal policy is sometimes easily feasible.
 As such, they have been used as toy examples or benchmark tasks to evaluate #acr("RL") algorithms.
-The Atari #todo
+The aforementioned Atari benchmark @mnih_playing_2013 provides #acr("RL") environments of varying difficulty.
+
 
 
 *#acr("RLHF").*
