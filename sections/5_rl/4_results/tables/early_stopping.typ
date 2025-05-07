@@ -13,7 +13,7 @@
     toprule,
 
     table.header(
-      [Reward strategt],
+      [Reward strategy],
       [mean #acr("WER")]
     ),
     
@@ -30,10 +30,13 @@
   kind: table,
   caption: flex-caption(
     short: [
-      
+      Navigation performance when using different reward strategies.
     ],
     long: [
-  
+      Navigation performance when using different reward strategies.
+      In the first scenario, the episode is never stopped, no matter what the agent does.
+      Early stopping, however, means stopping the episode when the agent is close enough to the source.
+      In the last case, we additionally grant the agent a bonus as the final step reward.
     ],
   ),
 )

@@ -1,36 +1,45 @@
 #import "/utils.typ": *
 #import "utils.typ": *
-#import "/_misc/notations.typ": *
-
+#import "../../_notations.typ": *
 
 #figure(
   table(
     // SETTINGS
     columns: 3,
-    align: left + horizon,
     stroke: none,
+    align: left + horizon,
     
     // HEADER
     toprule,
 
     table.header(
-      [Backbone training strategy],
-      header-wer,
-      header-reward,
+      [Cost map type],
+      [Directionality],
+      [mean cost],
     ),
-
+    
     midrule,
 
-    [No pretraining], [#todo], [#todo],
-    [Pretraining + fine-tuning], [#todo], [#todo],
-    [Pretraining + frozen], [#todo], [#todo],
+    // ROWS
+    table.cell(rowspan: 2)[WER map], [omnidirectional], [#todo],
+    [oriented], [#todo],
+    table.cell(rowspan: 2)[WER map], [omnidirectional], [#todo],
+    [oriented], [#todo],
 
     bottomrule,
   ),
   placement: top,
   kind: table,
-  caption: [
-    Comparison of three #acr("ASR") models provided by #speechbrain
-  ]
+  caption: flex-caption(
+    short: [
+      Navigation performance when using different reward strategies.
+    ],
+    long: [
+      Navigation performance when using different reward strategies.
+      In the first scenario, the episode is never stopped, no matter what the agent does.
+      Early stopping, however, means stopping the episode when the agent is close enough to the source.
+      In the last case, we additionally grant the agent a bonus in the final step's reward.
+    ],
+  ),
 )
-<table:rl:result:maps_comparison>
+<table:rl:results:maps_comparison>

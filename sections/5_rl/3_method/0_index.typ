@@ -42,7 +42,7 @@ This section details the reward implementation and the relevant technical choice
 Several #acr("ASR") frameworks have been made available by industrial and academic actors.
 Kaldi @povey_kaldi_nodate is one of the most complete and established open-source projects for speech recognition.
 The C++ code base includes various algorithms and helpers to process speech and perform speech-related tasks.
-It includes feature extraction mechanisms, decoding algorithms, seq2ds #todo
+It includes feature extraction mechanisms, decoding algorithms, seq2seq models for end-to-end training, and support for traditional HMM-GMM and modern #acr("DNN")-based approaches, making it a versatile toolkit for research—and production-grade #acr("ASR") systems.
 PyKaldi @can_pykaldi_2018 offers a Python wrapper that allows users to interact with the Kaldi library easily.
 
 Vosk @noauthor_vosk_nodate is another open-source, popular speech recognition toolkit.
@@ -53,7 +53,7 @@ Besides its open-source programs, professional licenses for Vosk can be purchase
 #speechbrain @ravanelli_speechbrain_2021 is a more recent library based on the widely used PyTorch @Ansel_PyTorch_2_Faster_2024 #acr("DL") framework.
 It grants convenient implementations of novel deep neural networks for speech recognition.
 Its objective is to grant research and industrial actors an all-in-one speech toolkit.
-It has been used as a building block in various research works #draft[insert examples].
+It has been used as a building block in various research works @zuluaga-gomez_commonaccent_2023 @mousavi_dasb_2024.
 
 Our final implementation uses the #speechbrain library, which has allowed us to choose from a substantial pool of state-of-the-art pre-trained models.
 The specific pipeline that was used in this work involves three components:
@@ -152,6 +152,7 @@ All three models share the same tokenizer, trained on #librispeech.
 
 
 === Deep Neural Agent
+<sec:rl:method:nn_architecture>
 
 The multiple recent successes of #acr("DRL") in solving various tasks (Atari games @mnih_playing_2013, controlling plasma in fusion reactors @degrave_magnetic_2022, #todo) originates consequently in the use of #acr("DNN") as function approximators (@sec:rl:intro:deep_reinforcement_learning).
 
@@ -194,8 +195,14 @@ The partial observability aspect of the environment prevents the agent from dire
 
 *Backbone pretraining.*
 The feature extractor maps the audio spectral observations into a lower 16-dimensional embedding vector.
-We hypothesize that while learning the #acr("RL") navigation task, the agent will implicitly acquire localization capabilities.
-To improve performance and bootstrap the learning process, we train the feature extractor in a supervised fashion to perform the #acr("SSL") task.
+We hypothesize that the agent will implicitly acquire localization capabilities while learning the #acr("RL") navigation task.
+We supervisedly train the feature extractor to perform the #acr("SSL") task to improve performance and bootstrap the learning process.
+The agent architecture (@fig:rl:method:agent_architecture) is an extension of the single-source localizer previously designed (See @sec:ssl:single_source, @fig:ssl:single_source:nn_architecture).
+#draft[
+  TODO: this is redundant with @sec:rl:method:nn_architecture.
+]
+
+
 
 *Reward*
 #draft[
@@ -208,4 +215,14 @@ $
 *Starting positions*
 #draft[
   Add illustration of starting positions.
+]
+
+
+#draft[
+  Insist on the fact that we implemented the complete pipeline:
+  - RL environment (with the simulator)
+  - PPO algorithm
+  - NN architecture
+  - Training code, evaluation, validation
+  or maybe in the conclusion...
 ]

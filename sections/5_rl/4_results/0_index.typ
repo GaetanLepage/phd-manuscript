@@ -3,24 +3,34 @@
 == Experiments and discussions
 <sec:rl:results>
 
+After designing and implementing the complete #acr("RL") pipeline presented in the previous section, we turn to an experimental study of its capabilities and performance.
+
 #include "figures/trajectories/figure.typ"
 
 === #acr("ASR") performance in a reverberant room
 
+First and foremost, we investigate how #acr("ASR") performance is impacted by reverberation. 
+Also, this study explores the importance of the robot position with respect to the source, especially in highly reverberant environments.
+
 #draft[
   - Show how #acr("WER") decreases when adding reverb
-  - This study motivates our choice for WER as an interesting objective / cost function
+  - *This study motivates our choice for WER as an interesting objective / cost function*
   - Show how #acr("WER") decreases when adding reverb
   - Show examples of #acr("WER") maps on different settings
-  - Maybe add a #acr("WER") map with a noise source, even if we don't explicitly do RL in this case.
+  - Motivate the use of $T_60 = 0.5s$
 ]
 
+@fig:rl:results:wer_maps_reverb a
 
-// #include "figures/wer_maps/figure.typ"
+#include "figures/wer_maps/figure.typ"
+
 
 === Alternative cost maps
 
-Before using real #acr("WER") maps, we have conducted experiments on artificial cost maps.
+Before using #acr("WER") maps to compute the reward, we have conducted experiments with alternative cost maps.
+As illustrated previously ()
+
+on artificial cost maps.
 We have used synthetic data to validate the concept of training an agent with our custom #acr("WER") maps.
 
 #draft[
@@ -28,6 +38,7 @@ We have used synthetic data to validate the concept of training an agent with ou
   Lossless encoding of the distance
 
   TODO:
+  - Maybe introduce a different, abstract notation for the cost function (different form w)
   - Analytical vs WER maps
   - Directional vs omnidirectional maps (in both cases)
   - Material:
@@ -46,6 +57,7 @@ where:
 Our previous observations of real #acr("WER") maps motivate this formulation.
 
 #include "figures/analytical_map/figure.typ"
+#include "tables/maps_comparison.typ"
 
 
 @fig:rl:results:analytical_map shows an example of 
@@ -66,7 +78,9 @@ Our previous observations of real #acr("WER") maps motivate this formulation.
 
 ==== Scalar reward shaping
 
-#draft[]
+#draft[
+  Add a plot of the rewards as a function of $w(s_t)$
+]
 
 $
   r (s_t) = -w(s_t).
@@ -76,6 +90,9 @@ $
   r (s_t) = alpha e^(-beta w(s_t))
 $
 where $alpha$ and $beta$ are scaling parameters
+
+
+#include "tables/reward_shaping.typ"
 
 === Feature extraction strategies
 
