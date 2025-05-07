@@ -302,6 +302,12 @@
     counter(figure.where(kind: raw)).update(0)
     it
   }
+  /* -------------------------------------------------------------------- */
+  /* MATH EQUATIONS */
+
+  // Prevent inline equations from being split
+  show math.equation.where(block: false): box
+  
   set math.equation(
     numbering: eq_num => {
       let chap_num =  counter(heading).get().first()

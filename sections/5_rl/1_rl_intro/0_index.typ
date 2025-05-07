@@ -5,8 +5,6 @@
 
 === Reinforcement Learning
 
-==== Brief history
-
 Reinforcement Learning draws its origins in two formerly distinct fields.
 On the one hand, psychology researchers have attempted to understand how humans and animals could learn.
 The American psychologist Edward Lee Thorndike laid out foundational work on animal learning and behavior.
@@ -60,7 +58,8 @@ The original 1998 edition was revisited in 2018 to reflect the important progres
 The present section draws substantial inspiration from this resource.
 
 
-==== Core notions
+=== Core notions
+<sec:rl:intro:core_notions>
 
 #acr("RL") encompasses various techniques for solving stochastic sequential decision problems.
 This framework leverages trial-and-error learning by making an agent evolve in its environment while rewarding it according to its performance.
@@ -68,7 +67,7 @@ This feedback loop constitutes the reinforcement aspect and permits the agent to
 At each time step $t$, the agent is offered to observe the environment's state $s_t$.
 It then has to select an action so as to maximize the future accumulated rewards.
 In response to this action, the environment communicates the reward signal $r_t$ to the agent and transitions to a new state $s_(t+1)$ (@fig:rl:rl_intro:rl_schema).
-In this section, we briefly introduce the main concepts and notations required to further formalize this process and the relevant #acr("RL") algorithms.
+This section briefly introduces the main concepts and notations required to further formalize this process and the relevant #acr("RL") algorithms.
 
 #figure(
   image(
@@ -86,8 +85,8 @@ In this section, we briefly introduce the main concepts and notations required t
 *#acr("MDP")*
 The stochastic sequential decision problems are modeled using the #acr("MDP") framework.
 It is based on the work of Andrey Markov in the early 20th century about stochastic processes.
-Notably, the Markov process defines a process in which future states only depend on the current state but not on the sequence that preceded it.
-Bellman later extended Markov processes to add a decision aspect, leading to the introduction of the #acr("MDP") @bellman_dynamic_1957.
+Notably, the Markov process defines a process in which future states only depend on the current state, but not on the sequence that preceded it.
+Bellman later extended Markov processes to add a decision aspect, introducing the #acr("MDP") @bellman_dynamic_1957.
 An #acr("MDP") consist of a tuple $<cal(S), cal(A), P, cal(R), gamma>$.
 - $cal(S)$: The state space defines the set of all attainable states for the problem.
   Both discrete (finite or not) and continuous spaces are valid in this context.
@@ -184,21 +183,17 @@ They stated that their initial attempts at imitation learning on this data were 
 Finally, it required more advanced techniques to train a working system.
 
 
-
-#draft[TODO: give an example in autonomous driving]
-Sample efficiency has been 
-
-#draft[
-  Cite more papers (if possible that I have not yet cited in the intro)
-]
-
 *Games.*
 Board or video games are suitable candidates for #acr("DRL") techniques.
-They are intrinsically operated virtually, allowing for scalable training data generation.
+Video games are intrinsically operated virtually; board games can easily be transposed to computer programs.
+This convenient property allows for scalable training data generation.
 Contrary to applications in robotics, they do not require any special transfer techniques to a real target environment.
-Also, some games are by nature easy, constrained problems were achieving an optimal policy is sometimes easily feasible.
+Also, some games are, by nature, easy, constrained problems in which achieving an optimal policy is sometimes easily feasible.
 As such, they have been used as toy examples or benchmark tasks to evaluate #acr("RL") algorithms.
 The aforementioned Atari benchmark @mnih_playing_2013 provides #acr("RL") environments of varying difficulty.
+Regarding board games, the _AlphaGo_ @silver_mastering_2016 and _AlphaZero_ @silver_mastering_2017  models from DeepMind have shown superhuman performance on the challenging game of Go.
+While _AlphaGo_ was first trained on human expert games and only later fine-tuned using #acr("RL"), _AlphaZero_ exclusively leveraged self-play to learn the policy.
+This is a clear example of how #acr("DRL") can solve complex tasks by exploiting massive amount of interactions with the environment.
 
 
 
@@ -214,13 +209,27 @@ The initial model then gets fine-tuned using a #acr("DRL") algorithm such as #ac
 === #acr("RL") for robotics
 
 By its very nature, robotics has always been one of the main applications of #acr("RL").
-Robots are fundamentally incarnated as they interact with the real physical world.
-As such, trial-and-error learning strategies have been a logical, human-inspired approach to robotics.
+Indeed, robotics often involves sequential decision-making under uncertainty, which is a natural fit for #acr("RL").
+Also, robots are fundamentally embodied as they interact with the physical world.
+As such, trial-and-error learning strategies have been a logical, biologically inspired approach to robotics.
 
-*Earlier works.*
+// Earlier works
 Historically, robotics has been studied from the perspective of control theory.
 This area of research involves designing a controller for a given system.
-This involves formally modeling the said system first.
+#acr("PID") @kelly_control_2005 @galal_modern_2017, #acr("LQR"), and #acr("MPC") @camacho_model_2007 @rawlings_model_2009 are examples of classical techniques from control theory that have been extensively used in robotics.
+Despite their numerous successes, they involve formally modeling the robotic system beforehand.
+This is a limitation when dealing with complex multi-modal platforms where a closed-form mathematical model cannot be derived.
+Furthermore, such methods cannot directly process raw, high-dimensional sensory input.
+
+// First applications of RL
+Prior to the #acr("DRL") wave, researchers have tried applying classic #acr("RL") techniques to robotics problem.
+In their 2013 survey, Kober et al. @kober_reinforcement_2013 discuss using #acr("RL") methods in learning robot behaviours.
+They highlight several successful cases where #acr("RL") techniques enabled robots to accomplish specific tasks.
+However, the authors also underscore significant challenges, noting that applying #acr("RL") to robotics often requires substantial adaptation and that achieving positive outcomes is far from straightforward.
+#todo
+Since the first high-profile successes in #acr("DRL") emerged, interest in RL has grown substantially across the research community, including in robotics.
+
+
 
 Before #acr("RL") to 
 
@@ -230,7 +239,6 @@ Robotics has been one of the domains targeted by A.I. researchers to apply Deep 
 @pikuli_navigating_2024
 
 
-- @kober_reinforcement_2013, Kober et al., Reinforcement Learning in Robotics: A Survey (Jan Peters)
 - Ibarz et al. @ibarz_how_2021
 - Sünderhauf et al. @sunderhauf_limits_2018: The Limits and Potentials of Deep Learning for Robotics
 - Lathuillière RL for AV gaze-control @lathuiliere_neural_2019

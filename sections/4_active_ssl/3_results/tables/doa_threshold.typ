@@ -4,16 +4,16 @@
 
 #figure(
   table(
-    // SETTINGS
+    // settings
     columns: 7,
     stroke: none,
     align: left + horizon,
     
-    // HEADER
+    // header
     toprule,
 
     table.header(
-      table.cell(rowspan: 2)[Aggregation method],
+      table.cell(rowspan: 2)[aggregation method],
       table.cell(rowspan: 2)[#doa-t],
       header-pred-spectrum,
       [#h(1em)],
@@ -28,8 +28,8 @@
 
     midrule,
 
-    // ROWS
-    // Blending                        doa_threshold   Prec        Recall      ||    Prec        Recall
+    // rows
+    // blending                        doa_threshold   prec        recall      ||    prec        recall
     table.cell(rowspan: 5)[#psi-avg],  [0.2],          [55.40],    [28.78],    [],   [54.40],    [36.87],
                                        [0.4],          [66.00],    [39.03],    [],   [61.43],    [45.47],
                                        [0.6],          [67.31],    [43.97],    [],   [68.59],    [53.32],
@@ -47,7 +47,7 @@
   placement: top,
   kind: table,
   caption: [
-    Comparison of the ASSL performance for different #doa threshold (#doa-t) values
+    comparison of the assl performance for different #doa threshold (#doa-t) values
   ]
 )
 <table:active_ssl:results:doa_threshold>

@@ -230,11 +230,11 @@ $
 where $x_i$ and $y_j$ denote the 2D position of the agent and $alpha$ its orientation with respect to the room global frame.
 The position and orientation restrictions are enforced by the following action space $cal(A)$:
 $
-  cal(A) = {#stay, #forward, #left, #right}.
+  cal(A) = {#a-stay, #a-forward, #a-left, #a-right}.
 $
 <eq:rl:action_space>
-- #stay is the neutral action where the agent does not move away from its current location.
-- #forward means moving by a distance of $d$ meters in the current direction $alpha$.
+- #a-stay is the neutral action where the agent does not move away from its current location.
+- #a-forward means moving by a distance of $d$ meters in the current direction $alpha$.
 The step size $d$ must correspond to the distance between two adjacent grid points.
 - `TURN_LEFT` and `TURN_RIGHT` correspond to a quarter-turn rotation. In this case, only the orientation of the agent changes, not its position.
 A learned policy for this problem will be a probabilistic distribution $pi(dot | dot): cal(A) times Omega -> [0, 1]$ over this finite set of four actions.
@@ -282,8 +282,18 @@ The first case allows penalizing movements that would lead the robot to collide 
 When the policy samples such an impossible action, the environment ignores it, the agent remains immobile for this step, and a fixed reward of $-10$ is returned.
 In practice, this only occurs for the forward action.
 
+*Environment initialization*
+When an episode starts, the initial state is drawn randomly according to the probability distribution $p_0: cal(S)_0 -> [0, 1]$.
+In our environment, we restrict the starting position of the agent to a finite set $macron(cal(S)_0) = {s_1, dots, s_(n_"start")}$ of $n_"start"$ possible starting positions.
+The agent orientation is drawn randomly from the four cardinal orientations.
+The set of initial set is $cal(S)_0 = macron(cal(S)_0) times {0, pi/2, pi, (3 pi) / 2}$
+Finally, the initial state distribution is the uniform distribution over the finite set $cal(S)_0$:
+$
+  p_0 = cal(U) (cal(S)_0).
+$
+
 *Transition dynamics.*
-Finally, we need to provide the transition dynamics to fully define our #acr("MDP").
+Finally, we must provide the transition dynamics to fully define our #acr("MDP").
 More precisely, we refer to the conditional probability $P(s' | s, a)$ of being in the state $s'$ when coming from the state $s$ and performing action $a$.
 Those dynamics are implemented by the simulator along with the observability function $O$.
 In our case, they are completely deterministic due to their purely geometric nature.

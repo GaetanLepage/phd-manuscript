@@ -65,12 +65,12 @@ The specific pipeline that was used in this work involves three components:
 - The *neural language model* represents the dynamics of language.
   Here, we have chosen a #acr("RNNLM") @mikolov_recurrent_2010 provided by the #speechbrain library.
   This architecture applies the successful #acr("RNN") architecture to language modeling.
-  In this case, the recurrent units act on word sequences
+  In this case, the recurrent units act on word sequences.
   It comprises an embedding layer that maps individual words to 128-dimensional vectors.
   Those vectors are then fed to the #acr("RNN"), which is followed by fully connected layers.
   Other architectures are also provided by #speechbrain such as a _TransformerLM_, based on the famous Transformer architecture @vaswani_attention_2017.
 - Finally, the *acoustic model* performs the actual task of speech recognition by mapping audio features to tokens.
-  It employs a #acr("CRNN") architecture for the encoder, which maps audio features (#acr("STFT"), #acr("MFCC")...) to tokens.
+  It employs a #acr("CRNN") architecture for the encoder, which maps audio features (e.g. #acr("STFT") or #acr("MFCC")) to tokens.
   #speechbrain applies an additional #acr("CTC") @graves_towards_2014 loss to the encoder.
   The #acr("CTC") cost function allows the training of recurrent architectures to perform speech recognition without requiring prior alignment between the input and target sequences.
   Alternatively, #speechbrain ships a Transformer-based encoder-decoder also using the #acr("CTC") training strategy.
@@ -125,7 +125,8 @@ The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphon
 
 @algo:rl:wer_map describes the algorithm used to compute those #acr("WER") maps.
 #draft[
-  give numbers on compute time
+  - Say that we compute maps for a few starting positions
+  - give numbers on compute time
 ]
 
 
@@ -148,19 +149,6 @@ All three models share the same tokenizer, trained on #librispeech.
   However, the second one is broken
 
 ]
-
-==== Reward shaping
-
-#draft[
- - Could go in the results section. (Not a lot of methodology)
- - References on reward shaping. Again, the impact can be quantified and discussed further.
-]
-
-$
-  r_t = 10 e^(- 4 w(s_t)).
-$
-
-#draft[Explain because it might feel arbitrary]
 
 
 === Deep Neural Agent
@@ -208,3 +196,16 @@ The partial observability aspect of the environment prevents the agent from dire
 The feature extractor maps the audio spectral observations into a lower 16-dimensional embedding vector.
 We hypothesize that while learning the #acr("RL") navigation task, the agent will implicitly acquire localization capabilities.
 To improve performance and bootstrap the learning process, we train the feature extractor in a supervised fashion to perform the #acr("SSL") task.
+
+*Reward*
+#draft[
+  Reference the reward section explaining the different reward schemes. Maybe we need to say that we use the exponential version here...
+]
+$
+  r (s_t) = alpha e^(-beta w(s_t))
+$
+
+*Starting positions*
+#draft[
+  Add illustration of starting positions.
+]

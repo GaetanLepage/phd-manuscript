@@ -33,4 +33,4 @@
     Comparison of three #acr("ASR") models provided by #speechbrain
   ]
 )
-<table:rl:result:backbone_pretraining>
+<table:rl:result:maps_comparison>

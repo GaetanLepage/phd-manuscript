@@ -144,6 +144,7 @@
   "DQN": ("Deep Q Learning"),
   "DRL": ("Deep Reinforcement Learning"),
   "GAE": ("Generalized Advantage Estimation"),
+  "LQR": ("Linear–quadratic regulator"),
   "MDP": (
     "Markov Decision Process",
     "Markov Decision Processes"
@@ -151,6 +152,7 @@
   "MPC": ("Model Predictive Control"),
   "PESQ": ("Perceptual Evaluation of Speech Quality"),
   "POMDP": ("Partially Observable Markov Decision Process"),
+  "PID": ("Proportional-Integral-Derivative"),
   "PPO": ("Proximal Policy Optimization"),
   "RL": ("Reinforcement Learning"),
   "RLHF": ("Reinforcement Learning from Human Feedback"),
