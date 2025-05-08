@@ -36,8 +36,7 @@
   
   columns: 2,
   caption: [
-    #acr("WER") cost maps for different reverberation levels.
-    They were computed by averaging the #acr("WER") obtained for a selection of recorded sample at each position (see @algo:rl:wer_map).
+    #acr("WER") maps for different reverberation levels
   ],
   align: top,
   placement: fig-placement,
