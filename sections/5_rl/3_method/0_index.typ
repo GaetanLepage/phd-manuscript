@@ -21,6 +21,7 @@ Specifically, we use the #acr("IPD") and #acr("ILD") features.
 The final environment is Gym-compliant.
 OpenAI _Gym_ @brockman_openai_2016 was created to define the standard way of interacting with #acr("RL") environments.
 _Gymnasium_ @towers_gymnasium_2024 by Towers et al. has since replaced it and was used in this project.
+This precaution ensures compatibility with the rest of the #acr("RL") ecosystem and would allow other researchers to use the designed environment.
 A three-microphone array is used to model the agent's sensors.
 Each microphone has a cardioid pattern.
 

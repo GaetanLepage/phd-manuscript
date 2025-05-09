@@ -24,7 +24,7 @@
       [Acoustic model],
       [#h(1em)],
       [Samples/s #sym.arrow.t],
-      [#acr("WER") #sym.arrow.b],
+      [#acr("WER") (%) #sym.arrow.b],
     ),
 
     midrule,

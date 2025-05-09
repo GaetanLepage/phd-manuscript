@@ -58,22 +58,57 @@ where $s_T^i$ is the final state of the $i$-th test episode
 #include "figures/trajectories/figure.typ"
 
 
-=== Policy Collapsing
+=== Reward Design
 
+*Exponential scaling.*
+The base cost value is a value comprised between 0 and 1.
+Most experiments use the #acr("WER") maps values #wer-cost.
 
+*Policy collapsing.*
 Training a #acr("DRL") agent is significantly more intricate than classically supervised neural networks.
 Training dynamics are complex, sensitive, and depend on multiple factors.
 For instance, the numerous hyperparameters in the #acr("PPO") algorithm are pivotal.
 Some turned out to be crucial for achieving proper training.
 One example of the subtle instabilities encountered during our experimental study is the phenomenon of policy collapsing.
-Thanks to the important expressivity of the feature vector extracted by the localizer backbone, learning to move towards the source is easy to learn.
+Thanks to the important expressivity of the feature vector extracted by the localizer backbone, it is easy to learn to move towards the source.
 Let us denote this specific policy $pi^*$.
-Our initial experiments with the pre-trained backbone showed great performance and the agent could consistently learn $pi^*$.
+Our initial experiments with the pre-trained backbone showed excellent performance, and the agent could consistently learn $pi^*$.
 However, additional ablation studies demonstrated that the agent completely ignored the reward signal.
 Completely numbing the reward by setting it to a constant or random value did not change the learnt behavior and the policy was still converging to $pi^*$.
-Our interpretation is that the loss for the value function #ppo-value-loss (@eq:rl:intro:ppo:value_loss) and the entropy bonus #ppo-entropy-bonus prevail in the training dynamics.
+We interpret that the loss for the value function #ppo-value-loss (@eq:rl:intro:ppo:value_loss) and the entropy bonus #ppo-entropy-bonus prevail in the training dynamics.
 
-*Movement penalty.*
+*Reward design.*
+The reward design needed further elaboration to prevent this phenomenon and ensure the reward signal dictated the learning behavior.
+On the one hand, scaling up the reward permitted increasing its relative importance during training.
+It balances the reward weight in the overall loss values and its gradients.
+On the other hand, 
+
+#draft[
+  TODO: add plot of reward = f(C)
+]
+
+@fig:rl:results:reward plots the value of $#reward-exp-alpha exp[-#reward-exp-beta #cost-t]$ in function of the cost value #cost-t.
+
+#include "figures/reward_function.typ"
+
+//$
+//  r_t = & #reward-exp-alpha e^(-#reward-exp-beta C_t) \
+//        & quad - #reward-forward-penalty bb(1) (a_t = #a-forward) \
+//        & quad - #reward-wall-penalty bb(1) (a_t "invalid"),
+//$
+$
+  r_t = cases(
+    #reward-wall-penalty &quad "if the agent tries to hit a wall",
+    #reward-exp-alpha exp [-#reward-exp-beta #cost-t]
+      - #reward-forward-penalty bb(1) (a_t = #a-forward) &quad "otherwise"
+  )
+$
+<eq:rl:results:reward>
+where
+- #reward-exp-alpha and #reward-exp-beta are scaling factors for the exponential cost term;
+- #reward-forward-penalty is the penalty for moving forward;
+- #reward-wall-penalty is the penalty for invalid movements.
+  It corresponds to when the agent would hit a wall.
 
 We observed that the policy's 
 
