@@ -15,7 +15,7 @@ Our simulator explicitly models reverberant environments.
 Finally, the spectral representations of audio signals are discussed in the last section.
 
 
-==== Fundamentals of sound propagation
+==== Fundamentals of Sound Propagation
 
 Sound is a mechanical wave phenomenon.
 Sound waves propagate in various mediums, such as air, water, and solids.
@@ -57,7 +57,7 @@ $
 where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c #freq]$ characterizes the acoustic path from the source to the microphone. $delta$ denotes the Dirac delta function.
 
 
-==== Acoustic reverberation
+==== Acoustic Reverberation
 <sec:simulator:reverb:background:reverb>
 
 Most realistic scenarios do not behave so simply, and other physical phenomena must be modeled.
@@ -155,7 +155,7 @@ where $h_(i, j)$ is the #acr("RIR") filter corresponding to the pair of position
 Hence, $n_s times n_m$ #acr("RIR") filters must be computed for a scene involving $n_s$ active sources and $n_m$ receivers.
 
 
-==== Characterizing reverberant rooms
+==== Characterizing Reverberant Rooms
 
 This section introduces essential quantities that depict the reverberation properties of a room.
 They will be essential in the interface of our simulator as they allow specifying how the environment should behave acoustically.
@@ -205,10 +205,10 @@ $ <eq:simulator:background:sabine_inv>
 Here, all surfaces are assumed to behave the same, and the _equivalent absorption surface_ #area may then be written as $#area = S times e_"abs"$, with $S$ being the total surface area.
 Srivastava's PhD thesis @srivastava_realism_2023 investigates the role of acoustic parameters in simulation and how to estimate them.
 
-==== Spectral representations of audio signals
+==== Spectral Representations of Audio Signals
 <sec:simulator:background:spectral-features>
 
-*Fourier transform, from continuous to discrete*
+*Fourier Transform, from Continuous to Discrete*
 
 Although the waveform rendering of an audio signal is a raw and natural representation of the information, the acoustic literature has studied several alternative higher-level transforms.
 A popular way of representing audio signals is to project the temporal signal in the Fourier domain.
@@ -289,7 +289,7 @@ The term spectrogram can also refer directly to the complex-valued result of the
 ) <fig:simulator:background:spectrogram>
 
   
-*Motivation for using #acr("STFT") for reverberant signals.*
+*Motivation for Using #acr("STFT") for Reverberant Signals*
 
 The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 2.9.6) grants one of the Fourier transform's fundamental properties.
 #block(breakable: false)[
@@ -318,7 +318,7 @@ Despite this theoretical result not transferring to the #acr("STFT")-based repre
 This assumption of multiplicative transfer functions is known as the narrow-band assumption.
 It is made in various domains of audio processing despite the error being often large.
 
-==== Beamforming and binaural cues
+==== Beamforming and Binaural Cues
 <sec:simulator:background:binaural>
 
 *Motivation*
@@ -344,7 +344,7 @@ In this case, specific signal representations have been proposed to ease extract
 Some data representations have been introduced for the specific case of binaural devices.
 This section focuses on motivating and deriving those representations.
 
-*Sound propagation within the multi-microphone setting*
+*Sound Propagation within the Multi-Microphone Setting*
 
 #figure(
   image(

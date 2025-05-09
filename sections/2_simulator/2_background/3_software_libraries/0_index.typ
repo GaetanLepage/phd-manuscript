@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-=== #acr("RIR") simulation libraries
+=== #acr("RIR") Simulation Libraries
 <sec:simulator:background:rir_libraries>
 
 This section presents an overview of implementations of room acoustics simulation methods.

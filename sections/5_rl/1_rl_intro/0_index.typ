@@ -1,4 +1,5 @@
 #import "/utils.typ": *
+#import "../_notations.typ": *
 
 == Introduction to Reinforcement Learning
 <sec:rl:intro>
@@ -13,10 +14,10 @@ He wanted to understand the core principles and mechanisms allowing the subjects
 Observing animal reactions and abilities, he inferred the fundamentals of behaviorism and the theory of trial and error.
 For instance, he put hungry cats in cages, and in order to escape and reach food placed outside, they had to solve a puzzle.
 He noticed that the animals did not overcome the difficulties through insight or understanding but rather through repeated trial and error.
-He noticed that successful behaviors were reinforced, leading to quicker escapes over time, while unsuccessful behaviors were abandoned.
+He noticed that successful behaviors were reinforced, leading to quicker escapes, while unsuccessful behaviors were abandoned.
 From these observations, Thorndike developed the _Law of Effect_, which states that behaviors that lead to satisfying outcomes are more likely to happen again.
-On the contrary, actions leading to unpleasant consequences are discouraged and see their frequency decrease.
-This law has two important aspects.
+On the contrary, actions leading to unpleasant consequences are discouraged, and their frequency decreases.
+This law has two essential aspects.
 On the one hand, trial-and-error learning is _selectional_, as the subject tries different alternatives to identify the optimal one.
 On the other hand, it is _associative_ as the selected decisions are associated with particular situations.
 This principle stands as a core ingredient of modern theories of learning and behavior modification.
@@ -58,7 +59,7 @@ The original 1998 edition was revisited in 2018 to reflect the important progres
 The present section draws substantial inspiration from this resource.
 
 
-=== Core notions
+=== Core Notions
 <sec:rl:intro:core_notions>
 
 #acr("RL") encompasses various techniques for solving stochastic sequential decision problems.
@@ -136,6 +137,7 @@ At test time, the most common choice is to pick the optimal action, i.e. the mod
 $
   a^* = op("argmax", limits: #true)_(a in cal(A)) pi (a | s).
 $
+<eq:rl:intro:action_selection>
 
 
 *Value function.*
@@ -206,7 +208,7 @@ The initial model then gets fine-tuned using a #acr("DRL") algorithm such as #ac
 
 
 
-=== #acr("RL") for robotics
+=== #acr("RL") for Robotics
 
 By its very nature, robotics has always been one of the main applications of #acr("RL").
 Indeed, robotics often involves sequential decision-making under uncertainty, which is a natural fit for #acr("RL").
@@ -252,7 +254,7 @@ Robotics has been one of the domains targeted by A.I. researchers to apply Deep 
 ]
 
 
-=== Policy gradient algorithms
+=== Policy Gradient Algorithms
 
 The first widely used #acr("RL") algorithms consisted of learning to approximate a value function.
 For instance, the notable Q-value algorithm @watkins_learning_1989 introduced the $Q$ function which gives a score to each state-action pair:
@@ -323,7 +325,7 @@ $
     #todo
 $
 
-==== Advantage estimation
+==== Advantage Estimation
 
 Policy gradient methods
 
@@ -358,7 +360,7 @@ $
   &hat(A)_t^((infinity)) &&:= sum_(l=0)^(infinity) gamma^l delta_(t+l)^V &&= r_t + gamma r_(t+1) + gamma^2 r_(t+2) + dots - V(s_t),
 $
 where $delta_t^V$ estimates the #acr("TD") error.
-While all of those quantities do approximate $A_t$, they offer different tradeoffs.
+While all those quantities approximate $A_t$, they offer different tradeoffs.
 Indeed, as $V(s_t)$ is not the exact value function $V^(pi, gamma)$ for this policy, the estimator is biased.
 However, this bias decreases when $k -> + infinity$ as the term $V(s_(t+k))$ becomes increasingly dampened.
 $V(s_t)$ remains constant among the class of estimators and thus does not affect the relative bias of $hat(A)_t^((k))$.
@@ -390,7 +392,7 @@ $
 
 
 #reset-acronym("PPO")
-==== The #acr("PPO") algorithm
+==== The #acr("PPO") Algorithm
 <sec:rl:intro:ppo>
 
 The #acr("PPO") algorithm has been used extensively in the #acr("RL") field since its invention in 2017 @schulman_proximal_2017.
@@ -404,27 +406,107 @@ Huang et al. have also contributed to this practical investigation by publishing
 #draft[@mahmood_benchmarking_2018 talk about the sensitivity of #acr("RL") algorithms to their HP]
 
 *#acr("TRPO").*
-Schulman et al. @schulman_trust_2017
+Schulman et al. @schulman_trust_2017 introduced the concept of trust region policy optimization.
+Their observation was that too brutal policy updates were causing instabilities in training #acr("PG") algorithms.
+The #acr("TRPO") algorithm seeks to constrain the policy to a _trust region_, preventing it from evolving too drastically at each step.
+The notion of distance for policy updates is the #acr("KL") divergence.
+The #acr("TRPO") objective consists in maximizing the expected advantage while keeping the #acr("KL")-divergence between the old and new policy below a certain threshold.
+This translates to maximizing:
+$
+  L^"TRPO" (theta) = hat(EE)_t [
+      (pi_theta (a_t | s_t))
+      /
+      (pi_theta_"old" (a_t | s_t))
+    
+    hat(A)_t
+  ]
+$
+subject to
+$
+  hat(EE)_t lr(
+    [
+      "KL" [
+        pi_theta_"old" (dot | s_t),
+        pi_theta (dot | s_t),
+      ]
+    ],
+    size: #140%
+  ) lt.eq delta,
+$
+for a given threshold $delta$.
+$hat(A)_t$ is the advantage estimate at timestep $t$.
+This objective can be rewritten using a penalty term.
+It boils down to maximizing
+$
+  hat(EE)_t [
+    (pi_theta (a_t | s_t))
+    /
+    (pi_theta_"old" (a_t | s_t))
+    hat(A)_t
+
+    - beta "KL" [
+      pi_theta_"old" (dot | s_t),
+      pi_theta (dot | s_t)
+    ]
+  ]
+$
+for some coefficient $beta$.
+
+In practice, #acr("TRPO") approximates the #acr("KL") constraint with its second-order Taylor expansion.
+This requires computing the Fisher Information Matrix, translating into a quadratic optimization problem.
+Because it is a constrained problem, first-order optimizers like Adam or #acr("SGD") cannot be used, and the objective is thus optimized using conjugate gradient optimization.
+These practical limitations make #acr("TRPO") training computationally expensive.
+
+
 
 *#acr("PPO").*
-@schulman_proximal_2017
+In @schulman_proximal_2017, Schulman et al. iterate on #acr("TRPO") by proposing the #acr("PPO") algorithm, which solves most of the original algorithm's shortcomings.
+Its main innovation is replacing the #acr("KL") divergence constraint with a clipped surrogate objective, which prevents too-large policy updates without second-order optimization.
+This choice slightly loosens the constraint that #acr("TRPO") imposes but significantly decreases the optimization's computational complexity.
 
-#let l-clip = $colMath(L_t^"CLIP" (theta), #maroon)$
-#let l-vf = $colMath(L_t^"VF" (theta), #olive)$
-#let entropy = $colMath(S[pi_theta](s_t) , #eastern)$
+The #acr("PPO") objective combines three components: a clipped policy loss, a value function loss, and an optional entropy bonus.
+The *clipped policy loss* is defined as:
+$
+  #ppo-clipped-loss = min lr([
+    r_t (theta) hat(A)_t,
+    "clip"(
+      r_t (theta),
+      1 - epsilon,
+      1 + epsilon,
+    ) hat(A)_t
+  ], size: #140%),
+$
+<eq:rl:intro:ppo:policy_loss>
+where $r_t (theta)$ is the ratio between the old and new policy for the state $s_t$:
+$
+  r_t (theta) = (pi_theta (a_t | s_t)) / (pi_theta_"old" (a_t | s_t)).
+$
+The clipping function prevents large updates when the new policy diverges too far from the old one, thus preserving stability.
+This constitutes the primary innovation of #acr("PPO") over #acr("TRPO") as it enforces a constraint on the policy update size without the need to deal with an explicitly constrained optimization problem.
+
+$
+  #ppo-value-loss = lr(
+    (
+      V_theta (s_t) - V_t^"target"
+    ),
+    size: #140%
+  )^2
+$
+<eq:rl:intro:ppo:value_loss>
+
 $
   L_t ^("CLIP" + "VF" + "S") (theta) = 
   hat(EE)_t lr([
-    #l-clip
-    - c_1 #l-vf
-    + c_2 #entropy
+    #ppo-clipped-loss
+    - #coef-value #ppo-value-loss
+    + #coef-entropy #ppo-entropy-bonus
   ], size: #140%),
 $ <eq:rl:ppo_loss>
 
 where:
-- #l-clip
-- #l-vf
-- #entropy
+- #ppo-clipped-loss
+- #ppo-value-loss
+- #ppo-entropy-bonus
 
 #draft[ /!\\ This is the objective (to *maximize*)]
 

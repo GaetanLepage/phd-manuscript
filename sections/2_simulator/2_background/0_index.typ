@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-== Acoustic simulation of reverberant environments
+== Acoustic Simulation of Reverberant Environments
 <sec:simulator:reverb>
 #minitoc(indent: true)
 

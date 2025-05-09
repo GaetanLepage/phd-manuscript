@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-== Conclusion and discussion
+== Conclusion and Discussion
 <sec:active_ssl:conclusion>
 
 This chapter presents a custom approach for performing a simple #acr("SSL") task in a dynamic multi-source context.

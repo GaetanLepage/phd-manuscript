@@ -72,7 +72,7 @@ For clarity reasons, the values for this metric will be displayed in centimeters
 // TODO: check that we have indeed used cm.
 
 
-==== Base solution and general methodology
+==== Base Solution and General Methodology
 
 This study investigates how different parameters influence the performance of our #acr("SSL") pipeline.
 A baseline must be defined to have a reference for comparing experimental settings.
@@ -95,7 +95,7 @@ Finally, the network training for each individual configuration was repeated sev
 The reported performance scores correspond to the most successful training run.
 
 
-==== Microphone arrays and layouts
+==== Microphone Arrays and Layouts
 
 #acr("SSL") relies on extracting spatial information from audio signals.
 Hence, as discussed in @chap:simulator and in the present chapter, the use of arrays of multiple microphones is essential for this task.
@@ -132,7 +132,7 @@ Further lowering the distance to 1cm does not appear to bring additional benefit
 #include "tables/mic_dist.typ"
 
 
-==== Impact of input signal representation
+==== Impact of Input Signal Representation
 <sec:ssl:single_source:experiments:pre-processing>
 
 
@@ -187,7 +187,7 @@ In conclusion, we have shown that it is highly important to carefully choose a p
 While the information content is theoretically the same across different bijective transformations of the complex #acr("STFT") performance, some can be harder to learn from.
 Our experimental results suggest that interaural features offer the best performance and stability.
 
-==== Distance estimation
+==== Distance Estimation
 
 #acr("DoA") estimation has historically been the focus of the #acr("SSL") literature.
 Indeed, predicting the distance to a sound source is known to be a significantly more challenging problem @grumiaux_survey_2021.

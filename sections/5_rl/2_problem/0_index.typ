@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 #import "../_notations.typ": *
 
-== Sound-driven robot navigation
+== Sound-Driven Robot Navigation
 <sec:rl:problem>
 
 === Motivation
@@ -111,7 +111,7 @@ Overall, the _Move2Hear_ framework successfully applies #acr("DRL") to a robotic
 
 
 
-=== Problem formulation
+=== Problem Formulation
 
 // RL
 We adopt a #acr("DRL") approach to design such a navigation policy.
@@ -180,9 +180,9 @@ We choose to fix a maximum number of 32 steps per episode.
 This environment thus has a finite horizon.
 No specific event occurs at the final step.
 The reward of the last state is computed using the same scheme as for the intermediary steps.
-We will formalize the definition of the #acr("RL") environment in the following section.
+The following section will formalize the definition of the #acr("RL") environment.
 
-==== Environment definition
+==== Environment Definition
 <sec:rl:problem:formulation:environment>
 
 The #acr("RL") environment corresponds to the #acr("MDP") formulation and implementation for the task.
@@ -269,7 +269,7 @@ It is directly embedded in the environment implementation.
 The main originality of our approach lies in the perceptually motivated objective.
 The agent should be trained to navigate to the optimal location regarding the #acr("ASR") performance.
 Naturally, the reward function should be a decreasing function, $f: [0, 1] -> RR$, of the #acr("WER") metric so that the highest reward would correspond to the lowest possible #acr("WER").
-For now, we assume having access to an oracle $w: cal(S) -> [0, 1]$ that maps each possible state to a #acr("WER") score.
+For now, we assume having access to an oracle cost function $C: cal(S) -> [0, 1]$ that maps each possible state to a #acr("WER") score.
 The practical implementation of this mapping will be discussed later in @sec:rl:method:wer_maps.
 The reward function can then be written as follows:
 $
@@ -327,7 +327,7 @@ The transition dynamics can be expressed as the following deterministic function
 The collisions are detected before their execution so that the action can be denied.
 
 
-==== Alternative continuous formulation
+==== Alternative Continuous Formulation
 
 A spatially discrete solution was proposed, where the state and action spaces are finite.
 Such a choice grants various benefits, such as an easier implementation and the possibility of using #acr("RL") methods that cannot handle continuous spaces.

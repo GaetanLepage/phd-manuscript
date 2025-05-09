@@ -5,7 +5,7 @@
 
 == Motivations
 
-=== Social robotics & embodied AI
+=== Social Robotics & Embodied AI
 
 In recent years, there has been flourishing and rapid progress in #acr("AI").
 The performance of #acr("AI") systems has evolved dramatically in a short period.
@@ -33,7 +33,7 @@ _It is comparatively easy to make computers exhibit adult-level performance in s
 His observation, from 1988, remains highly relevant today as multimodal perception and action remain key challenges in #acr("AI") and robotics.
 
 
-=== Multi-modal perception, a focus on acoustics
+=== Multi-Modal Perception, a Focus on Acoustics
 
 Multi-modal perception for a robot consists of its ability to sense and understand the environment around it.
 Robots can be equipped with various sensors depending on their objectives, nature, and budget constraints.
@@ -59,7 +59,7 @@ In sound source localization, the system should estimate the direction or positi
 <fig:intro:ari>
 
 
-=== Reinforcement learning, a powerful yet challenging framework for learning robot policies
+=== Reinforcement Learning: a Powerful yet Challenging Framework for Learning Robot Policies
 
 Reinforcement learning is a flexible framework for solving discrete-time decision problems.
 #acr("RL") has a long history of research and has allowed numerous successes in various application domains.
@@ -72,7 +72,7 @@ By leveraging high loads of training data, #acr("DRL") methods
 - Challenges of DRL: unstable, lack of generalization.
   Maybe give some details about how we struggled (or in conclusion?)
 
-=== Acoustic Localization and navigation to enhance perception
+=== Acoustic Localization and Navigation to Enhance Perception
 
 Objective: optimize ASR
 - Robots need to understand what humans say to interact with them.
@@ -87,7 +87,7 @@ Main challenges:
 - Design and implement from scratch
 - Only acoustic perception
 
-=== Building a sandbox for room acoustic simulation
+=== Building a Sandbox for Room Acoustic Simulation
 
 Maybe our most relevant/useful contribution.
 This is the core building block of the entire PhD project.
@@ -101,7 +101,7 @@ Can configure the reverb, the microphone array etc...
 Insist that it can be used and extended to conduct future research.
 We built it as a toolbox for research.
 
-=== Sound source localization
+=== Sound Source Localization
 
 - Static
   - single-source:
@@ -115,7 +115,7 @@ We built it as a toolbox for research.
   We use our existing SSL implem as a base, and then show how we use it in a dynamic context.
   
 
-=== Deep Reinforcement learning for acoustic navigation
+=== Deep Reinforcement Learning for Acoustic Navigation
 
 Complete RL pipeline design and implementation:
 - Invent/define the task.
@@ -125,7 +125,7 @@ Complete RL pipeline design and implementation:
 - Train and evaluate the policy + visualization
 
 
-== Thesis structure
+== Thesis Structure
 
 
 - Explain how chapters are articulated.

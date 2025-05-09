@@ -1,20 +1,31 @@
 #import "/utils.typ": *
 #import "/_misc/notations.typ": *
+#import "../_notations.typ": *
 
 == Method
 <sec:rl:method>
 
-=== Acoustic pipeline
+=== Acoustic Pipeline
 
 The abstract environment defined previously in @sec:rl:problem:formulation:environment is implemented in practice thanks to our simulator @sec:simulator:simulator.
+More precisely, its capacity to operate in discrete time steps makes it particularly convenient for use in an #acr("RL") framework.
+The specific implementation details of the dynamic features of the simulator have been described in @sec:simulator:simulator:dynamic_scenarios.
+It allows us to place our microphone array and the target source at the beginning of each episode.
+The #acr("RL") environment wraps the simulator's `step` function and moves the agent according to the action selected from the policy.
+The simulator loads the next chunk of audio and sets it as the source's input.
+The source clean speech recordings are sampled from the _LibriSpeech_ @panayotov_librispeech_2015 corpus.
+When transitioning from one step to the next, the source keeps playing the same recording to improve realism.
+After loading the source's input signal, the simulator refreshes the cached #acr("RIR")s if necessary, i.e., if the agent has moved, and computes the next chunk of recorded audio.
+Finally, the resulting multi-channel signal is further processed into an interaural spectral representation.
+Specifically, we use the #acr("IPD") and #acr("ILD") features.
+The final environment is Gym-compliant.
+OpenAI _Gym_ @brockman_openai_2016 was created to define the standard way of interacting with #acr("RL") environments.
+_Gymnasium_ @towers_gymnasium_2024 by Towers et al. has since replaced it and was used in this project.
+A three-microphone array is used to model the agent's sensors.
+Each microphone has a cardioid pattern.
 
-#draft[
-  - Audio simulator (in continuous mode ?)
-  - It implements the transition dynamics (geometrically, room)
-  and the observability function (sources/simulator)
-]
 
-=== #acr("WER") as a reward signal
+=== #acr("WER") as a Reward Signal
 <sec:rl:method:wer_maps>
 
 #draft[
@@ -37,7 +48,7 @@ Although the array might include several microphones, only one of them is used t
 This section details the reward implementation and the relevant technical choices made.
 
 
-==== #acr("ASR") frameworks
+==== #acr("ASR") Frameworks
 
 Several #acr("ASR") frameworks have been made available by industrial and academic actors.
 Kaldi @povey_kaldi_nodate is one of the most complete and established open-source projects for speech recognition.
@@ -87,7 +98,7 @@ Thus, our #acr("ASR") module can be fed with the listened signal computed by the
 #include "asr_models_comparison.typ"
 
 
-==== Computing of #acr("WER")-maps
+==== Computing of #acr("WER") Maps
 <sec:rl:method:wer_maps:computing>
 
 *ASR setup.*
@@ -105,19 +116,19 @@ Importantly, the decoding process remains slow: It takes approximately 2s to pro
 ]
 
 *Motivation.*
-The aforementioned setup allows the computation of #acr("WER") scores on full simulated audio recordings.
+The setup mentioned above allows the computation of #acr("WER") scores on full simulated audio recordings.
 However, the proposed #acr("RL") environment involves short steps of 1s, during which the agent is assumed to be immobile and gathers audio data.
 Computing the #acr("WER") on such a small snippet would not make sense.
 A complete sentence is the minimum necessary for the #acr("WER") to have meaning.
-Additionally, as with every metric, this indicator is supposed to be averaged over a significant number of samples to assess the performance of the evaluated method purposefully.
-Here, the oracle $w(s)$ is expected to provide an estimate for the average #acr("ASR") performance for a given state $s$.
+Additionally, as with every metric, this indicator is supposed to be averaged over a significant number of samples to purposefully assess the performance of the evaluated method.
+Here, the cost $#wer-cost (s)$ is expected to provide an estimate for the average #acr("ASR") performance for a given state $s$.
 For those reasons, the oracle cannot work in real-time and needs to rely on prior information.
 
 *#acr("WER") maps.*
-We introduce the _#acr("WER") map_ abstraction to solve the aforementioned issue.
+To solve the previously mentioned issue, we introduce the _#acr("WER") map_ abstraction.
 The core idea of #acr("WER") maps is to pre-compute an average #acr("WER") score for each attainable state of the #acr("MDP").
 More precisely, a microphone will be positioned sequentially in each cell of the 2D grid spanning the room.
-If the microphone is not omnidirectional, the agent orientation will impact the received signal and, eventually, the recognition performance too.
+If the microphone is not omnidirectional, the agent's orientation will impact the received signal and, eventually, the recognition performance too.
 In this case, all four cardinal directions must be evaluated.
 The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphone and as a 3D tensor otherwise.
 
@@ -125,16 +136,17 @@ The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphon
 
 @algo:rl:wer_map describes the algorithm used to compute those #acr("WER") maps.
 #draft[
+  - Clearly introduce/differenciate #cost and #wer-cost
   - Say that we compute maps for a few starting positions
   - give numbers on compute time
   - Add the size of the speech sample: 40
 ]
 
 
-==== WER on clean speech
+==== WER on Clean Speech
 
 As a sanity check for the #acr("ASR") module, we run the complete recognition pipeline on the clean speech signals from the #librispeech dataset.
-The `ASR-CRDNN-RNNLM-LibriSpeech` model from #speechbrain that we have chosen yields an average #acr("WER") of 1.82% on this clean dataset.
+The `ASR-CRDNN-RNNLM-LibriSpeech` model from #speechbrain we have chosen yields an average #acr("WER") of 1.82% on this clean dataset.
 
 @table:rl:method:asr_models shows the result of our benchmarking of three models provided by the #speechbrain library.
 It highlights the performance-speed trade-off of each model.
@@ -148,6 +160,7 @@ All three models share the same tokenizer, trained on #librispeech.
   - `asr-crdnn-rnnlm-librispeech`
 
   However, the second one is broken
+  -> Just say that the one we chose offers the best compromise between speed and quality.
 
 ]
 
@@ -179,7 +192,7 @@ This feature extractor is followed by two heads implemented as #acr("MLP").
 )
 <fig:rl:method:agent_architecture>
 
-==== Pre-trained acoustic feature extractor
+==== Pre-Trained Acoustic Feature Extractor
 
 #draft[
   - motivation
@@ -188,11 +201,11 @@ This feature extractor is followed by two heads implemented as #acr("MLP").
 ]
 
 The main difficulty of the sound-driven navigation problem lies in the agent's ability to map sound cues to spatial information.
-The partial observability aspect of the environment prevents the agent from directly and transparently observing neither its own nor the sources' positions.
+The partial observability aspect of the environment prevents the agent from directly and transparently observing either its own or the source's position.
 
 
 
-=== #acr("PPO") implementation and training strategy
+=== #acr("PPO") Implementation and Training Strategy
 
 *Backbone pretraining.*
 The feature extractor maps the audio spectral observations into a lower 16-dimensional embedding vector.
@@ -207,19 +220,38 @@ The agent architecture (@fig:rl:method:agent_architecture) is an extension of th
 
 *Reward*
 #draft[
-  Reference the reward section explaining the different reward schemes. Maybe we need to say that we use the exponential version here...
+  - Differenciate between the base cost used
+  - Reward scaling
+  - Early stopping and big reward
 ]
 $
   r (s_t) = alpha e^(-beta w(s_t))
 $
 
-*Starting positions*
+*Starting positions.*
+As previously mentioned, computing a #acr("WER") map is computationally intensive.
+Also, a map needs to be computed for each possible source position.
+The final formulation for the environment involves 12 possible starting positions deterministically  spread across the room.
+
+#include "figures/source_positions/fig.typ"
+
+The #acr("WER") maps need to be co
 #draft[
-  Add illustration of starting positions.
+  - Add illustration of starting positions.
+  - Give hyper-parameters used:
+    - PPO
+    - Training
+    - etc.
 ]
 
+*Hyperparameters.*
+
+#include "tables/hyperparameters.typ"
+
 
 #draft[
+  - Add loss clipping
+  
   Insist on the fact that we implemented the complete pipeline:
   - RL environment (with the simulator)
   - PPO algorithm

@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 #import "../../_notations.typ": *
 
-=== Benchmarking and Performance analysis
+=== Benchmarking and Performance Analysis
 <sec:simulator:simulator:performance>
 
 This section provides a short breakdown of the computation load of the simulator.

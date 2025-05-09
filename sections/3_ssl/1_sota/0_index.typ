@@ -5,7 +5,7 @@
 
 #reset-acronym("SSL")
 
-=== Original problem
+=== Original Problem
 // Very broad introduction
 #acr("SSL") is part of the classic challenges in artificial audio processing.
 This challenge requires identifying the relative position of one or several sound sources leveraging an audition device, typically a microphone array.
@@ -54,7 +54,7 @@ Before providing details on the various methods proposed to address SSL, we devo
 Chronologically, the first steps were developed in simple settings, and as progress was made, scenarios of increasing complexity were proposed.
 However, the next section is not structured chronologically but by properties (simulated vs. real data, single vs. multi-source) for clarity.
 
-=== Variations in the Sound Source Localization task
+=== Variations in the Sound Source Localization Task
 <sec:ssl:background:variations>
 
 Localizing sound sources is a vague objective, and the exact formulation of the problem varies broadly across the literature.
@@ -135,7 +135,7 @@ They highlight the diversity of existing approaches and show that the difficulty
 Most importantly, we have seen that the #acr("SSL") task does not have a unique and clear definition.
 It refers to a complex problem that can be tackled with various nuances and complexities.
 
-=== Classical approaches
+=== Classical Approaches
 <sec:ssl:background:classical_approaches>
 
 #acr("SSL") has long been a central problem in auditory processing, and foundational methods have emerged from signal processing principles.
@@ -179,7 +179,7 @@ Those shortcomings have catalyzed the development of data-driven techniques, par
 These modern methods excel in handling complex, nonlinear relationships in audio data, offering greater robustness in diverse and dynamic environments.
 The evolution of #acr("SSL") from classical to deep learning approaches marks a significant leap in addressing real-world challenges.
 
-=== Deep Learning methods for #acr("SSL")
+=== Deep Learning Methods for #acr("SSL")
 <sec:ssl:background:deep_learning>
 
 The advent of deep learning has brought transformative changes to #acr("SSL"), enabling robust performance in real-world conditions involving noise, reverberation, and multi-source scenarios.
@@ -200,7 +200,7 @@ Grumiaux et al. @grumiaux_survey_2021 highlight the wide variety of possible cho
 As noted previously, not all methods share the same capacities (@sec:ssl:background:variations).
 Some can handle the detection of multiple sources @he_joint_2018, @bross_multiple_2021 @woodruff_binaural_2012 while others are limited to single-source scenarios @perotin_crnn-based_2018 @hirvonen_classification_2015 @chakrabarty_broadband_2017.
 
-*Input data*
+*Input Data*
 
 The _Wav2Vec_ method initially proposed by Schneider et al. @schneider_wav2vec_2019 and refined by Baevski et al. @baevski_wav2vec_2020 directly learns from raw audio data in a self-supervised fashion.
 This work demonstrates that deep neural networks can directly learn helpful representations of audio signals, given enough data.
@@ -236,7 +236,7 @@ These features allow for the separate estimation of the elevation and azimuth, l
 Compared to #acr("FOA"), which are more common in the literature, the proposed format uses higher-order spherical harmonics (up to the third order), granting an enhanced spatial resolution.
 
 
-*Dataset collection*
+*Dataset Collection*
 
 Most modern solutions adopt a supervised approach to the #acr("SSL") task.
 They thus require gathering numerous data samples from which they can learn.
@@ -259,7 +259,7 @@ Publicly available acoustic datasets have been used to train or evaluate #acr("S
 Finally, the #acr("DCASE") challenge @mesaros_decade_2024 has historically integrated #acr("SELD") and pure localization tasks.
 It provides the datasets that all participants can use to train and evaluate the performance of their approaches.
 
-*Network architecture*
+*Network Architecture*
 
 Grumiaux et al. @grumiaux_survey_2021 discuss the various popular choices regarding neural network architectures.
 The network topology design is a fundamental property of deep learning-based #acr("SSL") systems.
@@ -308,7 +308,8 @@ Various forms of this architecture served in #acr("SSL") methods.
 Le Moing et al. @moing_learning_2020 employed an encoder-decoder-style network to predict 2D Cartesian coordinates of multiple sound sources.
 Variational auto-encoders @bianco_semi-supervised_2020 and U-net architectures @jenrungrot_cone_2020 are other examples of encoder-decoder networks used for #acr("SSL").
 
-*Output format*
+*Output Format*
+
 As previously explained in @sec:ssl:background:variations, the output formats of #acr("SSL") detectors vary considerably across methods.
 On the one hand, not all solutions estimate the same values.
 Some systems are limited to #acr("DoA") estimation, while others can additionally predict the distance.
@@ -324,7 +325,7 @@ Additionally, some works can be further distinguished from the usual regression 
 Specific approaches have framed the localization problem as a classification task where the system is expected to select a region of space instead of producing one or more scalar values @roden_sound_2015 @xiao_learning-based_2015.
 
 
-=== Sound Source localization in robotics
+=== Sound Source Localization in Robotics
 <sec:ssl:background:ssl_in_robotics>
 
 Although #acr("SSL") has been studied as a self-contained problem, it certainly has many notable downstream applications.

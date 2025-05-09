@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 #import "../../_notations.typ": *
 
-=== Overview of acoustic reverberation simulation methods
+=== Overview of Acoustic Reverberation Simulation Methods
 <sec:simulator:reverb:methods>
 
 Simulating the acoustic reverberation phenomenon has a broad range of applications.
@@ -27,7 +27,7 @@ This choice implies the neglect of the wave nature of sound and is, therefore, l
 Nonetheless, the efficiency of geometrical acoustics methods has led them to be widely adopted.
 
 
-==== Numerical simulation of sound propagation
+==== Numerical Simulation of Sound Propagation
 <sec:simulator:background:simulation:wave-based>
 
 #block(breakable: false)[
@@ -154,7 +154,7 @@ During training, the network learns to predict the scattering fields of objects.
 At inference, the network achieves real-time performance and can handle dynamic scenes where objects are moving.
 
 
-==== Simulation of dynamic environments
+==== Simulation of Dynamic Environments
 
 The original methods for acoustic simulation were limited to static scenes where neither sources nor microphones move across time.
 This ideal situation is not representative of real-world scenarios.

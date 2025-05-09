@@ -2,7 +2,7 @@
 #import "2_method.typ": tau-e
 #import "_notations.typ": *
 
-=== Experiments and results
+=== Experiments and Results
 <sec:ssl:multi_source:experiments>
 
 // QUESTION: Should we mention the experiments made on the ILD/IPD binaural setup ?
@@ -31,7 +31,7 @@ $
 <eq:ssl:multi_source:mae>
 
 where #d refers to the symmetric angular distance defined in @eq:ssl:single_source:angular_dist.
-For convenience, the #acr("MAE") will most often be expressed in degrees.
+The #acr("MAE") will most often be expressed in degrees for convenience.
 
 The _#acr("ACC")_ constitutes the second metric for this framework and, given an error threshold #angle-error-threshold, provides the proportion of correctly localized sources:
 $
@@ -50,7 +50,7 @@ $
 
 *Unknown number of sources.*
 The second task also evaluates the model's ability to accurately predict an unknown number of #acr("DoA") values.
-Such a setup resembles a conventional single-class detection problem, such as present in the computer vision literature.
+Such a setup resembles a conventional single-class detection problem in the computer vision literature.
 In this case, the matching between ground truth #acr("DoA") angles $y_i = {phi.alt_(i j): j = 1, dots, z_i}$ and the predictions $hat(y)_i = {phi.alt_(i k): k = 1, dots, hat(z)_i}$ extracted by applying @eq:ssl:multi_source:decoding_unknown_sources might be incomplete, i.e. $hat(z)_i != z_i$.
 
 The following function denotes a positive match:
@@ -100,7 +100,7 @@ The method stays the same in both cases as solely the extraction of the predicti
 //  Again, should I go as far as explaining the GT-predictions matching algorithm ?
 //]
 
-==== Loss and convergence
+==== Loss and Convergence
 <sec:ssl:multi_source:experiments:loss>
 
 *Loss function.*
@@ -116,7 +116,7 @@ $
 //  I personally think that it is more readable to concentrate on the core formula for the loss between two samples. Of course it will be reduced using an average.
 //]
 
-*Sub-optimal convergence*
+*Sub-Optimal Convergence*
 
 //TODO
 //#gaet[This should go in the _Results_ section... maybe as well as this entire _Training strategy_ section]
@@ -181,7 +181,7 @@ Keskar et al. @keskar_large-batch_2017 have documented the adverse effects that 
 
 Identifying, characterizing, and overcoming this shortcoming has been essential in developing this model.
 
-==== Performance evaluation
+==== Performance Evaluation
 <sec:ssl:multi_source:experiments:performance_eval>
 
 // TODO: we can not really compare with the original authors as they evaluated on real data.
@@ -190,8 +190,7 @@ Identifying, characterizing, and overcoming this shortcoming has been essential 
 
 // TODO PR-curves
 
-*Impact of the number of sources*
-
+*Impact of the number of sources.*
 As explained in @sec:ssl:multi_source:method:dataset, the dataset allows for dynamically selecting a subset of 0 to 4 sources at runtime.
 This feature has allowed us to experiment with the impact of how many sources are present in the room simultaneously.
 
@@ -228,7 +227,7 @@ The network has been trained according to the _scenario A_ presented above.
 // TODO: make a comparison between performance achieved on single-source SSL.\
 // I guess that this 2° MAE is quite close from what the single-source SSL will give.
 
-==== $epsilon$-loss
+==== $epsilon$-Loss
 
 We propose an original modification of the loss function.
 The motivation comes from the observation that the target #acr("DoA") spatial spectrum is sparse (see @fig:ssl:multi_source:doa_gt_encoding for instance).
@@ -410,7 +409,7 @@ However, the model trained with #acr("LN") behaves very consistently when used i
 For those reasons, we have preferred this approach over the original one.
 
 
-==== Exploring how context length matters
+==== Exploring How Context Length Matters
 
 The choice of the signal duration used for training the localizer has some importance.
 A tradeoff needs to be made between the reactivity of the system and detection performance.
@@ -486,7 +485,7 @@ This sole difference in the data generation process explains the gap in performa
 
 
 
-==== Ablation study on sources angular proximity
+==== Ablation Study on Sources' Angular Proximity
 
 The decoding process, presented in @sec:ssl:multi_source:method:doa_repr, consists in extracting the local maxima of the predicted #acr("DoA") spectrum.
 The abscissas of the resulting peaks are considered as the final angle values.

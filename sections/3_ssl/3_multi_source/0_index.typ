@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-== Multi-source localization
+== Multi-Source Localization
 <sec:ssl:multi_source>
 #minitoc(indent: true)
 

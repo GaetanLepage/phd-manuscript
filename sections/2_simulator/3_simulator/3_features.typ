@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 #import "2_components.typ": d-rec
 
-=== Simulation of dynamic scenarios
+=== Simulation of Dynamic Scenarios
 <sec:simulator:simulator:dynamic_scenarios>
 
 The regular `step()` method of the simulator, presented in 

@@ -3,7 +3,7 @@
 = Conclusion
 <chap:conclusion>
 
-== Summary of contributions
+== Summary of Contributions
 
 In this thesis, we explored the vast domain of auditory perception for robotics.
 In particular, we investigated how to make robots extract valuable information from the audio signals they record.
@@ -43,7 +43,7 @@ In @chap:active_ssl we have further expanded our
 *Deep Reinforcement Learning for Navigation.*
 
 
-== Challenges and limitations
+== Challenges and Limitations
 
 *Restriction to simulated environments.*
 Simulation provides a considerable amount of convenience when testing learning-based approaches for robotics.
@@ -73,12 +73,12 @@ The agent's decision-making capabilities play a minor role in the end, as the op
 Hardening the problem formulation could make such trivial policies insufficient, fully justifying using #acr("RL") as a framework for this task.
 
 
-== Prospective research directions
+== Prospective Research Directions
 
 *From simulation to real robots.*
 The most obvious extension of the work pursued in this PhD is its application to real robotic systems.
 
-*Continuous Audio-Visual Simulation.*
+*Continuous audio-visual simulation.*
 
 *End-to-end active localization.*
 

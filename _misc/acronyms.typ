@@ -62,6 +62,7 @@
     "Recurrent Neural Network",
     "Recurrent Neural Networks"
   ),
+  "SGD": ("stochastic gradient descent"),
   
   // -----------------------------------------------------------------------------
   // ASR
@@ -144,6 +145,7 @@
   "DQN": ("Deep Q Learning"),
   "DRL": ("Deep Reinforcement Learning"),
   "GAE": ("Generalized Advantage Estimation"),
+  "KL": ("Kullback-Leibler"),
   "LQR": ("Linear–quadratic regulator"),
   "MDP": (
     "Markov Decision Process",
@@ -151,6 +153,7 @@
   ),
   "MPC": ("Model Predictive Control"),
   "PESQ": ("Perceptual Evaluation of Speech Quality"),
+  "PG": ("Policy Gradient"),
   "POMDP": ("Partially Observable Markov Decision Process"),
   "PID": ("Proportional-Integral-Derivative"),
   "PPO": ("Proximal Policy Optimization"),

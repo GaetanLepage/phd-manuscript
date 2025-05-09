@@ -7,21 +7,21 @@ In this part, each component briefly introduced in @sec:simulator:simulator:over
 This offers a more in-depth description of the pipeline's inner workings.
 
 
-==== Low level static simulation
+==== Low Level Static Simulation
 <sec:simulator:simulator:components:low_level>
 
-In a first time, the acoustic simulation aspect of the library will be explored.
+First, the acoustic simulation aspect of the library will be explored.
 This constitutes the starting point of the library and is responsible for its central feature: computing listened signals in a reverberant environment.
 
-*#acr("RIR") simulation*
+*#acr("RIR") Simulation*
 //===== #acr("RIR") simulation
 //<sec:simulator:simulator:components:low_level:rir_sim>
 
 The core component around which the simulation pipeline revolves is the #acr("RIR") simulation library.
 We have chosen the framework of #acr("RIR") filters for its simplicity and prevalence in the scientific literature.
-@sec:simulator:reverb:methods introduced the main concepts and fundamental aspects of this approach.
+@sec:simulator:reverb:methods introduced this approach's main concepts and fundamental aspects.
 
-@fig:simulator:simulator:audio_pipeline illustrates how the audio processing takes place within the pipeline.
+@fig:simulator:simulator:audio_pipeline illustrates how the audio processing occurs within the pipeline.
 The different steps of this procedure will be detailed in the following sections.
 The role of the #acr("RIR") simulation library consists in inferring, given the localization and properties of a set of sound sources and receivers (microphones), the pairwise #acr("RIR") filters.
 
@@ -94,7 +94,7 @@ In most cases, using the same frequency as the one of the audio signals involved
 
 
 //===== Room, static acoustic simulation
-*Room, static acoustic simulation*
+*Room, Static Acoustic Simulation*
 
 The _Room_ module is a wrapper around the #acr("RIR") simulation library.
 It brings some additional features among which is the computation of listened signals.
@@ -117,13 +117,13 @@ Contrarily, one could fix the microphone position and collect the received audio
 
 Lastly, a plotting helper has been implemented to handily visualize the state of the room and its content.
 
-==== Ergonomic simulation of complex scenarios
+==== Ergonomic Simulation of Complex Scenarios
 <sec:simulator:simulator:components:sim_scenarios>
 
 Although our _room_ abstraction extends the capabilities of the core #acr("RIR") simulation library, it still lacks abstraction power to allow for conveniently experimenting complex dynamic scenarios.
 Providing this user experience required introducing more powerful objects.
 
-*Sound sources*
+*Sound Sources*
 //===== Sound sources
 //<sec:simulator:simulator:components:sound_sources>
 
@@ -143,7 +143,7 @@ The latter is an #acr("ASR") corpus of 1000 hours worth of audiobooks, sampled a
 Each time a speech source is required to produce a signal, a random sample is pulled from _LibriSpeech_ and outputted.
 
 
-*Microphone arrays*
+*Microphone Arrays*
 //===== Microphone arrays
 //<sec:simulator:simulator:components:mic_arrays>
 
@@ -156,10 +156,10 @@ Grouping microphones as such makes the process of experimenting different array 
 The simulator can access the array's position, orientation and footprint, but more importantly can move it as a single entity, without the need for considering each of its microphones.
 The array maintains its own geometrical consistency when being translated or rotated.
 
-@fig:simulator:simulator:mic_arrays illustrates some of the currently included arrays.
+@fig:simulator:simulator:mic_arrays illustrates some currently included arrays.
 They all offer a degree of configurability.
-Especially, the pattern of the microphones can be adjusted.
-Also, the relative microphones distance and orientation are alterable.
+The pattern of the microphones can be adjusted, especially.
+Also, the relative distances and orientations of the microphones are alterable.
 
 #include "figures/mic_arrays/figure.typ"
 
@@ -172,7 +172,7 @@ A user of this library could easily implement a microphone array of its own and 
 
 
 //===== The simulator interface
-*The simulator interface*
+*The Simulator Interface*
 
 The simulator constitutes the center piece of the interactive pipeline.
 It serves as an engine coordinating all the components mentioned above.
@@ -222,7 +222,7 @@ In conclusion, the simulator furnishes a convenient and safe interface for movin
 This facilitates the flexible implementation of numerous acoustic #acr("HRI") use cases.
 
 
-*Simulation process*
+*Simulation Process*
 //====== Simulation process
 //<sec:simulator:simulator:components:sim_process>
 
@@ -273,7 +273,7 @@ The duration control feature gives a fine-grained control of the computational t
 
 
 //====== Feature extraction
-*Feature extraction*
+*Feature Extraction*
 
 Observing the simulator's state represents an essential feature set of our library.
 Potential downstream usages may require different kinds of monitoring.

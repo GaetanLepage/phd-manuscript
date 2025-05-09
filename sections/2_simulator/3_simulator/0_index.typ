@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-== Custom acoustic simulation pipeline
+== Custom Acoustic Simulation Pipeline
 <sec:simulator:simulator>
 #minitoc(indent: true)
 

@@ -2,7 +2,7 @@
 #import "../_notations.typ": *
 #import "../../3_ssl/3_multi_source/_notations.typ": xi-doa
 
-== Experiments and results
+== Experiments and Results
 <sec:active_ssl:results>
 
 This section presents the main experiments conducted to assess the proposed solution's performance for #acr("ASSL").
@@ -52,7 +52,7 @@ $
 <eq:ssl:multi_source:recall>
 
 
-=== Dataset collection
+=== Dataset Collection
 <sec:active_ssl:results:dataset>
 
 To design, run, and evaluate our method on the #acr("ASSL") task, we generated a synthetic dataset using the simulator presented in Chapter 2.
@@ -89,13 +89,13 @@ Finally, the relative movements of the robot are recorded in order to later perf
 At this point, local #doa maps have not been generated, but all the necessary information for their creation is available.
 This choice allows for experimenting with the relevant hyperparameters, such as the #fov $L$ and pixel resolution $p$.
 
-=== Performance study
+=== Performance Study
 
 Both the #acr("ASSL") task and the proposed method admit variants and parameters.
 In this section, an in-depth exploration of specific settings is conducted.
 
 
-==== Likelihood cutoff
+==== Likelihood Cutoff
 <sec:active_ssl:results:likelihood_threshold>
 
 To feed the aggregated heatmaps to the clustering algorithm, a set of points must first be extracted from the final 2D map #AM.
@@ -160,7 +160,7 @@ Those properties allow for better separability and fewer points being fed into t
 <fig:active_ssl:results:n_points_cluster>
 
 
-==== Impact of the upstream #acr("SSL") model
+==== Impact of the Upstream #acr("SSL") Model
 <sec:active_ssl:results:impact_of_ssl_model>
 
 The upstream static #acr("SSL") model features is a core part of the #acr("ASSL") pipeline.
@@ -199,7 +199,7 @@ The leading cause lies in the shortcomings of the angular localization method.
 Nonetheless, leveraging the static model across multiple distinct agent positions still allows to recover from partial misses and provides precise 2D localization.
 
 
-==== Comparison of blending methods
+==== Comparison of Blending Methods
 <sec:active_ssl:results:blending_methods>
 
 Two alternatives have been compared for the map blending operation: naive averaging $Psi_"avg"$ and learned #psi-dnn (see @sec:active_ssl:methods:blending_methods).
@@ -248,7 +248,7 @@ In summary, the proposed deep neural architecture has shown to be a robust and p
 
 
 
-==== A tentative for #doa spectrum amplification
+==== A Tentative for #doa Spectrum Amplification
 
 As seen in @sec:active_ssl:results:impact_of_ssl_model, the #acr("ASSL") process works significantly better when provided with the ground-truth #doa spectra instead of using the pre-trained #acr("SSL") model.
 One reason for this decrease in performance is that the peaks present in those estimated heatmaps are lower.
@@ -314,7 +314,7 @@ The performance drop shows to be less pronounced than for the averaging approach
 
 
 
-==== Visual encoding
+==== Visual Encoding
 
 The choice to model the 2D localization problem with heatmaps involves exploring hyperparameters related to this visual encoding.
 As #doa maps are generated from the projection of #doa spectra, we are free to define the output domain without prior constraints.

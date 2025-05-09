@@ -8,7 +8,7 @@ Their approach shows strong performance in challenging real-world scenarios.
 For this reason, several aspects of the methodology from @he_neural_2021 inspired the work presented in this section.
 #todo
 
-==== Dataset generation and pre-processing
+==== Dataset Generation and Pre-Processing
 <sec:ssl:multi_source:method:dataset>
 
 The dataset generation process remains largely identical to that presented in @sec:ssl:single_source:method:dataset.
@@ -155,7 +155,7 @@ One million of such sample pairs constitute the core training and test datasets 
 The total audio duration of the data approximates 47 hours.
 
 
-==== Direction of Arrival representation
+==== Direction of Arrival Representation
 <sec:ssl:multi_source:method:doa_repr>
 
 The objective of the #acr("SSL") task is to predict the #acr("DoA") of the sound sources.
@@ -167,7 +167,7 @@ The latter will be further denoted $n_s$.
 The set of #acr("DoA") values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
 
-*Spatial spectrum*
+*Spatial Spectrum*
 
 The solution in question has been introduced by He et al. @he_deep_2018 and consists in estimating the spatial spectrum.
 The latter is a real-valued function of the #acr("DoA") ($cal(o): [-pi, pi] -> RR$).
@@ -203,7 +203,7 @@ A peak at $0°$ designates the presence of a source in front of the microphones.
 
 // TODO: insert figure
 
-*Multi source #acr("DoA") encoding*
+*Multi-Source #acr("DoA") Encoding*
 //===== Multi source #acr("DoA") encoding
 //<sec:ssl:multi_source:method:doa_repr:gt_encoding>
 
@@ -277,7 +277,7 @@ We chose to set $sigma = 5°$.
 
 The main benefit of this format, alongside with its ability to encode an arbitrary number of sources, is to frame the #acr("SSL") problem as a simple regression task.
 
-*Detection decoding*
+*Detection Decoding*
 //===== Detection decoding
 //<sec:ssl:multi_source:method:detection_decoding>
 
@@ -357,13 +357,13 @@ The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
 // TODO: hyperparameters are important
 
 
-==== Neural Network architecture
+==== Neural Network Architecture
 
 
 The implemented neural network is inspired by the one proposed by He et al. @he_neural_2021.
 
 The neural network aims to process multi-channel audio data and extract the angular positions of the speech sources.
-The model's input is the #acr("STFT") representation of the multi-channel signal.
+The model's input is the multi-channel signal's #acr("STFT") representation.
 The #acr("STFT") of a signal is a complex-valued matrix of size $F times T$.
 We then split the real and imaginary values to form two distinct matrices.
 Each one of the $M$ microphones leads to a #shape(2, "F", "T")-shape real-valued tensor.
