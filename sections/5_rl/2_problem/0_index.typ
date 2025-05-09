@@ -115,25 +115,26 @@ Overall, the _Move2Hear_ framework successfully applies #acr("DRL") to a robotic
 
 // RL
 We adopt a #acr("DRL") approach to design such a navigation policy.
-This policy will be modeled by a Deep Neural Network trained in a simulated environment.
+This policy will be modeled by a deep neural network trained in a simulated environment.
 We develop a complete pipeline for solving the perceptually motivated audio-based navigation task.
 The problem is framed as a sequential decision process, which suits #acr("RL") well.
-This work's original contribution includes implementing the #acr("RL") environments, agents, algorithm, and testing setup.
+This work's original contribution includes implementing the #acr("RL") environment, agents, algorithm, and testing setup.
 
 // Sound only
 Also, our solution tackles a challenging framework where only audio data can be used to perceive the environment.
 The agent has neither visual cues nor direct spatial information, such as absolute or relative positions.
 To address this limitation, we leverage the algorithms and knowledge obtained from our study of #acr("SSL").
 
-In the following paragraphs, we will formalize the task that we plan to solve.
+In the following paragraphs, we will formalize the task we plan to solve.
 The core novelty of this problem is to use the #acr("ASR") performance as the reward signal.
 First, we will introduce the relevant metric and its relation to speech recognition.
-Second, the #acr("RL") environment and the justification for our different choices will be presented.
+Second, we will present the #acr("RL") environment and the justification for our different choices.
 
 
 #reset-acronym("WER")
 *#acr("WER") metric for #acr("ASR").*
-The #acr("ASR") task consists of recognizing the words pronounced by a speaker from an audio record.
+The #acr("ASR") task involves transcribing the speech content from an audio recording.
+It can be done using pre-recorded samples or in real-time from an audio stream.
 The #acr("WER") metric measures the performance of #acr("ASR") systems.
 It is computed as follows:
 $
@@ -214,7 +215,7 @@ The agent evolves along a virtual $n_x times n_y$ grid spanning the entire room.
 Also, its orientation is restricted to be aligned with the grid, i.e. being either _up_, _down_, _left_, or _right_.
 The discrete state space $cal(S)$ can then be expressed as follows:
 $
-  cal(S) = lr(
+  cal(S) &= lr(
     {
       (x_i, y_j, alpha)
       #h(1em) mid(|) #h(1em)
@@ -224,7 +225,8 @@ $
         times {0, pi/2, pi, (3 pi) / 2}
     },
     size: #120%
-  ),
+  )\
+  &subset [0, L_x] times [0, L_y] times [0, 2pi],
 $
 <eq:rl:state_space>
 where $x_i$ and $y_j$ denote the 2D position of the agent and $alpha$ its orientation with respect to the room global frame.
@@ -269,15 +271,18 @@ It is directly embedded in the environment implementation.
 The main originality of our approach lies in the perceptually motivated objective.
 The agent should be trained to navigate to the optimal location regarding the #acr("ASR") performance.
 Naturally, the reward function should be a decreasing function, $f: [0, 1] -> RR$, of the #acr("WER") metric so that the highest reward would correspond to the lowest possible #acr("WER").
-For now, we assume having access to an oracle cost function $C: cal(S) -> [0, 1]$ that maps each possible state to a #acr("WER") score.
+For now, we assume having access to an oracle cost function $C: cal(S) -> [0, 1]$ that maps each possible state to a score.
+It quantifies how desirable it is to be in this specific state.
+Although we experiment with extra formulation for $C$, the original task's cost is #wer-cost, the estimated average #acr("WER") that the #acr("ASR") would yield if the agent were standing at this position.
 The practical implementation of this mapping will be discussed later in @sec:rl:method:wer_maps.
 The reward function can then be written as follows:
 $
   r_t = cases(
-    -10  #h(3em) &"if the movement is invalid",
-    f(w(s_t)) &"otherwise".
+    -#reward-wall-penalty  #h(3em) &"if the movement is invalid",
+    #f-reward (#cost-t) &"otherwise,"
   )
 $
+where $#cost-t = #cost (s_t)$ is the cost value of the state $s_t$ and #reward-wall-penalty is a positive scalar that can be adjusted according to #f-reward's magnitude.
 The first case allows penalizing movements that would lead the robot to collide with a wall.
 When the policy samples such an impossible action, the environment ignores it, the agent remains immobile for this step, and a fixed reward of $-10$ is returned.
 In practice, this only occurs for the forward action.

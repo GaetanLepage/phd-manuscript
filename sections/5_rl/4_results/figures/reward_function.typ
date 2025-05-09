@@ -5,6 +5,7 @@
 
 #let reward(x) = reward-alpha-value * calc.exp(- reward-beta-value * x)
 
+#let y-max = reward-alpha-value + 2
 #figure(
   cetz.canvas(
     {
@@ -15,8 +16,8 @@
         //x-ticks: ((0, 1), (0, $0$), (calc.pi, $pi$)),
         x-min: 0,
         x-max: 1.0,
-        y-tick-step: reward-alpha-value / 5,
-        y-max: reward-alpha-value,
+        y-tick-step: 20,
+        y-max: y-max,
         y-label: $f(#cost-t)$,
         x-label: cost-t,
         {
@@ -37,7 +38,7 @@
       Plot of the main reward component as a function of the cost #cost-t.
     ],
     long: [
-      Plot of the main reward component $#reward-exp-alpha exp[-#reward-exp-beta #cost-t]$ as a function of the cost #cost-t.
+      Plot of the main reward component #f-reward-exp as a function of the cost #cost-t.
     ],
   ),
 )

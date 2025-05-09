@@ -169,11 +169,12 @@ All three models share the same tokenizer, trained on #librispeech.
 === Deep Neural Agent
 <sec:rl:method:nn_architecture>
 
-The multiple recent successes of #acr("DRL") in solving various tasks (Atari games @mnih_playing_2013, controlling plasma in fusion reactors @degrave_magnetic_2022, #todo) originates consequently in the use of #acr("DNN") as function approximators (@sec:rl:intro:deep_reinforcement_learning).
+The multiple recent successes of #acr("DRL") in solving various tasks (Atari games @mnih_playing_2013, controlling plasma in fusion reactors @degrave_magnetic_2022, #todo) originate consequently in the use of #acr("DNN") as function approximators (@sec:rl:intro:deep_reinforcement_learning).
 
 We propose a custom design for the neural network implementing the #acr("RL") agent.
+@fig:rl:method:agent_architecture gives a schematic view of its core components.
 The choice of #acr("PPO") as a training algorithm requires defining two models: the actor and the critic (@sec:rl:intro: PPO).
-We have designed a common backbone between those two systems, allowing to share a significant share of the model parameters.
+We have designed a common backbone between those two systems, allowing them to share a significant part of the model parameters.
 This feature extractor is followed by two heads implemented as #acr("MLP").
 
 #draft[
@@ -187,9 +188,16 @@ This feature extractor is followed by two heads implemented as #acr("MLP").
   image(
     "figures/rl_agent_architecture.svg"
   ),
-  caption: [
-    Neural network architecture for the #acr("DRL") agent
-  ],
+  caption: flex-caption(
+    short: [
+      Neural network architecture for the #acr("DRL") agent.
+    ],
+    long: [
+      Neural network architecture for the #acr("DRL") agent.
+      The feature extractor is the backbone of a pre-trained #acr("SSL") model.
+      The actor and critic-specific approximators are implemented as downstream #acr("MLP") heads.
+    ],
+  ),
 )
 <fig:rl:method:agent_architecture>
 

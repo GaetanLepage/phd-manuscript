@@ -29,7 +29,7 @@
       //]
       Cmt[
         *$bold(cal(D))$:*
-        dataset of $n_"samples"$ clean speech samples
+        dataset of $n_"samples"$ clean speech samples and their associated transcripts
       ]
       Cmt[
         *directional (boolean):*

@@ -4,6 +4,11 @@
 <sec:rl:conclusion>
 
 #draft[
+  The main thing to say is that this task in itself is trivial (it consists in going to the source).\
+  However, we show that we can solve a perceptually-motivated navigation task thanks to:
+  - #acr("RL")
+  - a pre-trained localizer as the backbone.
+  
   Limitations:
   - The solution struggles with too high reverberation levels (TODO: include ablation study to show this)
 

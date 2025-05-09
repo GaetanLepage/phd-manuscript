@@ -61,8 +61,46 @@ where $s_T^i$ is the final state of the $i$-th test episode
 === Reward Design
 
 *Exponential scaling.*
-The base cost value is a value comprised between 0 and 1.
-Most experiments use the #acr("WER") maps values #wer-cost.
+The base cost value is a scalar value between 0 and 1.
+For example, most experiments use the #acr("WER") maps values #wer-cost.
+A custom function #f-reward is designed to derive a reward signal from the underlying cost.
+Most importantly #f-reward must be a decreasing function of #cost-t
+We choose an exponential base to ensure the reward smoothly decays as #cost-t decreases.
+More precisely, we introduce two scaling parameters #reward-exp-alpha and #reward-exp-beta to control the final reward range:
+//$
+//  f(#cost-t) = #reward-exp-alpha exp[-#reward-exp-beta #cost-t]
+//$
+#func-def(
+  f-reward,
+  $[0, 1]$,
+  $RR$,
+  cost-t,
+  f-reward-exp,
+)
+
+@fig:rl:results:reward plots the value of $#reward-exp-alpha exp[-#reward-exp-beta #cost-t]$ in function of the cost value #cost-t.
+
+#include "figures/reward_function.typ"
+
+//$
+//  r_t = & #reward-exp-alpha e^(-#reward-exp-beta C_t) \
+//        & quad - #reward-forward-penalty bb(1) (a_t = #a-forward) \
+//        & quad - #reward-wall-penalty bb(1) (a_t "invalid"),
+//$
+The final reward expression is expressed as:
+$
+  r_t = cases(
+    #reward-wall-penalty &quad "if the agent tries to hit a wall",
+    #f-reward-exp
+      - #reward-forward-penalty bb(1) (a_t = #a-forward) &quad "otherwise,"
+  )
+$
+<eq:rl:results:reward>
+where
+- #reward-exp-alpha and #reward-exp-beta are scaling factors for the exponential cost term;
+- #reward-forward-penalty is the penalty for moving forward;
+- #reward-wall-penalty is the penalty for invalid movements.
+  It corresponds to when the agent would hit a wall.
 
 *Policy collapsing.*
 Training a #acr("DRL") agent is significantly more intricate than classically supervised neural networks.
@@ -81,34 +119,11 @@ We interpret that the loss for the value function #ppo-value-loss (@eq:rl:intro:
 The reward design needed further elaboration to prevent this phenomenon and ensure the reward signal dictated the learning behavior.
 On the one hand, scaling up the reward permitted increasing its relative importance during training.
 It balances the reward weight in the overall loss values and its gradients.
-On the other hand, 
+In practice, experimentally tuning the shaping coefficients led to choosing $#reward-exp-alpha = #reward-alpha-value$ and $#reward-exp-beta = #reward-beta-value$.
+Scaling #reward-forward-penalty to #reward-forward-penalty-value.
+need to adjust mu_f too
+On the other hand, we ss
 
-#draft[
-  TODO: add plot of reward = f(C)
-]
-
-@fig:rl:results:reward plots the value of $#reward-exp-alpha exp[-#reward-exp-beta #cost-t]$ in function of the cost value #cost-t.
-
-#include "figures/reward_function.typ"
-
-//$
-//  r_t = & #reward-exp-alpha e^(-#reward-exp-beta C_t) \
-//        & quad - #reward-forward-penalty bb(1) (a_t = #a-forward) \
-//        & quad - #reward-wall-penalty bb(1) (a_t "invalid"),
-//$
-$
-  r_t = cases(
-    #reward-wall-penalty &quad "if the agent tries to hit a wall",
-    #reward-exp-alpha exp [-#reward-exp-beta #cost-t]
-      - #reward-forward-penalty bb(1) (a_t = #a-forward) &quad "otherwise"
-  )
-$
-<eq:rl:results:reward>
-where
-- #reward-exp-alpha and #reward-exp-beta are scaling factors for the exponential cost term;
-- #reward-forward-penalty is the penalty for moving forward;
-- #reward-wall-penalty is the penalty for invalid movements.
-  It corresponds to when the agent would hit a wall.
 
 We observed that the policy's 
 
