@@ -39,14 +39,14 @@
     [#n-ppo-epochs], [Number of epochs per iteration], [64],
     [Optimizer], [], [Adam @kingma_adam_2017],
     [$eta$], [Learning rate], [$10^(-3)$],
-    [Learning rate annealing], [], [Yes],
+    [Learning rate annealing (scheme)], [], [Yes],
 
     bottomrule,
   ),
   placement: top,
   kind: table,
   caption: [
-    #todo
+    Final hyperparameter values used to train the #acr("PPO") algorithm.
   ]
 )
 <table:rl:method:hyperparameters>

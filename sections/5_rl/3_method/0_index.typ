@@ -286,7 +286,7 @@ The #acr("WER") maps need to be co
 *Implementation details and hyperparameters.*
 Although it has been successful at solving many complex #acr("RL") problems, #acr("PPO") remains highly sensitive to implementation details.
 Engstrom et al. @engstrom_implementation_2020 explicitly studied the "code-level optimizations" of the #acr("TRPO") and #acr("PPO") algorithms.
-This work formalized the shared impression among the community #draft[insert refs] that #acr("PPO")'s promised performance was subject to subtle implementation details.
+This work formalized the community's shared impression that #acr("PPO")'s promised performance was subject to subtle implementation details.
 Huang et al. have also contributed to this practical investigation by publishing _The 37 Implementation Details of Proximal Policy Optimization_ @shengyi2022the37implementation.
 In @mahmood_benchmarking_2018, Mahmood et al. study the sensitivity of #acr("RL") algorithms to their hyperparameters.
 They mention that #acr("PPO"), along with other state-of-the-art algorithms (#acr("TRPO"), #acr("DDPG"), and Soft-Q), is highly sensitive to its hyperparameter values.

@@ -28,6 +28,7 @@ Several cost maps
 #include "figures/wer_maps/figure.typ"
 
 *Cost Map Directionality*
+#draft[Not sure where we should put that... maybe in the "Alternative cost map section"]
 
 When the cost function is invariant in the agent orientation $theta_a$, the map is said to be omnidirectional.
 In the case of the #acr("WER") cost #wer-cost, this is when an omnidirectional microphone is used to record signals at each position on the grid.
@@ -40,25 +41,14 @@ it is omnidirec, omnidirectional maps correspond to the
 #include "figures/directional_wer_map/figure.typ"
 
 
-=== Metrics and testing methodology
-<sec:rl:results:metrics>
-
-After training, a series of #n-ep episodes are executed to assess the performance of the #acr("RL") pipeline.
-At each step, the agent greedily selects which action to take according to @eq:rl:intro:action_selection.
-This selection technique differs from the training phase where the action is sampled according to the policy probability distribution $pi_theta$.
-
-We define the primary performance metric for an episode as the loss value obtained at the final step.
-The obtained final rewards are averaged over the #n-ep episodes:
-$
-  hat(C) = 1 / #n-ep sum_(i=1)^(#n-ep) r(s_T^i)
-$
-where $s_T^i$ is the final state of the $i$-th test episode
-
-// TODO: where should I put this?
-#include "figures/trajectories/figure.typ"
-
-
 === Reward Design
+#draft[TODO: maybe this should go AFTER "Agent Performance on the Navigation Task"]
+
+Reward design is critical to training #acr("DRL") models.
+Contrary to supervised learning, where clear ground truth labels are available for all training samples, the #acr("RL") training process relies almost exclusively on the reward signal.
+It is responsible for conveying information on the quality of the action sampled from the policy.
+More specifically, framing a novel #acr("RL") task from scratch and developing an appropriate method for solving it necessitates meticulously adjusting the reward shape.
+The following explains the key design decisions regarding our reward.
 
 #include "figures/reward_function.typ"
 
@@ -108,12 +98,12 @@ Training dynamics are complex, sensitive, and depend on multiple factors.
 For instance, the numerous hyperparameters in the #acr("PPO") algorithm are pivotal.
 Some turned out to be crucial for achieving proper training.
 One example of the subtle instabilities encountered during our experimental study is the phenomenon of policy collapsing.
-Due to the important expressivity of the feature vector extracted by the localizer backbone, it is easy to learn to move towards the source.
+Due to the significant expressivity of the feature vector extracted by the localizer backbone, it is easy to learn to move towards the source.
 Let us denote this specific policy #pi-optimal.
-Our initial experiments with the pre-trained backbone showed excellent performance, and the agent could consistently learn $pi^*$.
+Our initial experiments with the pre-trained backbone showed excellent performance, and the agent could consistently learn #pi-optimal.
 However, additional ablation studies demonstrated that the agent completely ignored the reward signal.
 Completely numbing the reward by setting it to a constant or random value did not change the learnt behavior and the policy was still converging to #pi-optimal.
-We interpret that the loss for the value function #ppo-value-loss (@eq:rl:intro:ppo:value_loss) and the entropy bonus #ppo-entropy-bonus prevail in the training dynamics.
+We interpret that the loss for the value function #ppo-value-loss (@eq:rl:intro:ppo:value_loss) and the entropy bonus #ppo-entropy-bonus prevailed in the training dynamics.
 It was expected that instead of converging to #pi-optimal, the learnt policy $pi_theta$ would collapse to the static policy, denoted #pi-still.
 Indeed, in the absence of an informative reward signal and because of the penalties for hitting the room's walls (#reward-wall-penalty) and moving (#reward-movement-penalty), the agent would be expected to remain still.
 
@@ -123,15 +113,45 @@ On the one hand, scaling up the reward permitted increasing its relative importa
 It balances the reward weight in the overall loss values and its gradients.
 In practice, experimentally tuning the shaping coefficients led to choosing $#reward-exp-alpha = #reward-alpha-value$ and $#reward-exp-beta = #reward-beta-value$.
 On the other hand, scaling #reward-movement-penalty to #reward-movement-penalty-value was also needed to balance its value properly concerning $#f-reward (#cost-t)$.
-Once these two parameters were adequately tuned, the experiments were conducted voluntarily.
+Once these two parameters were adequately tuned, the experiments showed more exploitable results.
+Agents trained with the #acr("WER") cost #wer-cost quickly learned the #pi-optimal policy, while agents trained with an uninformative reward learned #pi-still.
+
+To illustrate the phenomenon of policy collapsing, we monitor the following two metrics:
+- #n-forwards counts the number of forward actions during an episode:
+$
+  #n-forwards := sum_(t=1)^T bb(1) (a_t = #a-forward).
+$
+- $#agent-source-final-dist := norm(bold(x)_(a, T) - #source-pos)_2^2$ records the distance from the agent to the target source at the final step of each episode.
+@fig:rl:experiments:policy_collapsing plots, along training, both metrics averaged on the $abs(#ppo-traj-buffer)$ trajectories collected during #acr("PPO")'s sampling phase.
+These two metrics clearly translate the collapsing of each agent to a respective typical policy.
+The policy of the agent trained with the uninformative constant cost function converges to #pi-still, the static policy.
+On the contrary, the agent trained with the regular #acr("WER") cost successfully learns to navigate to the source.
+
+#include "figures/policy_collapsing/fig.typ"
 
 
-We observed that the policy's 
+=== Agent Performance on the Navigation Task
+
+To evaluate the proposed method on the main navigation task, we report both qualitative and quantitative results.
+The goal is to assess how the model performs in the environment once it has been trained with the #acr("PPO") algorithm.
+The evaluation process consists in running several episodes where the agent acts according to the learnt policy.
+We record various metrics and monitoring quantities to later evaluate the navigation performance.
+Furthermore, trajectories are also saved to assess the agent's behavior qualitatively.
 
 
-The 
-$pi^*$ is the policy 
-o
+After training, a series of #n-ep episodes are executed to assess the performance of the #acr("RL") pipeline.
+At each step, the agent greedily selects which action to take according to @eq:rl:intro:action_selection.
+This selection technique differs from the training phase where the action is sampled according to the policy probability distribution $pi_theta$.
+
+We define the primary performance metric for an episode as the loss value obtained at the final step.
+The obtained final rewards are averaged over the #n-ep episodes:
+$
+  hat(C) = 1 / #n-ep sum_(i=1)^(#n-ep) r(s_T^i)
+$
+where $s_T^i$ is the final state of the $i$-th test episode
+
+// TODO: where should I put this?
+#include "figures/trajectories/figure.typ"
 
 
 === Alternative Cost Maps
@@ -180,8 +200,7 @@ The analytical cost is defined over the state space $cal(S)$ as:
     //bold(x)_s
   )$,
   $
-  norm(#source-pos - #agent-pos)_2^2 
-  + eta #agent-source-doa
+  #agent-source-dist + eta #agent-source-doa
   $
 )
 <eq:rl:results:analytical_cost>
@@ -203,38 +222,8 @@ Our previous observations of real #acr("WER") maps motivate this formulation.
 @fig:rl:results:analytical_map shows an example of 
 
 
-=== Reward Design
 
-#draft[
-  - Mention how important reward shaping is in DRL
-  - Comparative study between different schemes (choices of $f$)
-  - with or without early stopping (with and without big reward at the end)
-]
-
-==== Success Signal and Early Stopping
-
-
-#include "tables/early_stopping.typ"
-
-==== Scalar Reward Shaping
-
-#draft[
-  Add a plot of the rewards as a function of $w(s_t)$
-]
-
-$
-  r (s_t) = -w(s_t).
-$
-
-$
-  r (s_t) = alpha e^(-beta w(s_t))
-$
-where $alpha$ and $beta$ are scaling parameters
-
-
-#include "tables/reward_shaping.typ"
-
-=== Feature Extraction Strategies
+=== Importance of Localization Feature Extraction
 
 #draft[
   TODO: ablation study with/without pre-trained backbone

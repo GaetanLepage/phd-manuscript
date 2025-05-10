@@ -169,17 +169,15 @@ along a successful training process.
   ),
 ) <fig:ssl:multi_source:output_norm_plot>
 
-We can distinguish two distinct phases.
-- First, the network exploits the trivial local optima consisting in predicting a null output.
+We can distinguish two distinct phases:
+- First, the network exploits a trivial local optimum, consisting of predicting a null output.
   Both the loss and the output norm reach stable values.
-- Subsequently, from the 50kth step, the model escapes from this plateau and learns to solve the regression task successfully.
+- Subsequently, from the 50,000th step onward, the model escapes this plateau and successfully learns to solve the regression task.
 
 When using too important batch sizes or too aggressive learning rates, the model indefinitely stagnates, keeping predicting zeros.
 Keskar et al. @keskar_large-batch_2017 have documented the adverse effects that large batch sizes could have on generalization performance.
 
-//#gaet[Ideally, this would benefit from more exhaustive experiments, especially regarding the use of LR scheduling...]
-
-Identifying, characterizing, and overcoming this shortcoming has been essential in developing this model.
+Identifying, characterizing, and overcoming this shortcoming was essential in developing this model.
 
 ==== Performance Evaluation
 <sec:ssl:multi_source:experiments:performance_eval>
@@ -354,7 +352,8 @@ where
       adapted from @wu_group_2018
     ],
   ),
-) <fig:ssl:multi_source:normalization>
+)
+<fig:ssl:multi_source:normalization>
 
 Those two methods have proven effective in training deep neural network architectures.
 Ren et al. @ren_normalizing_2017 develop a unified view of the #acr("BN") and #acr("LN") schemes.
