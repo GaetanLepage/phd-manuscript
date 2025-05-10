@@ -1,6 +1,6 @@
 #import "@preview/cetz:0.3.2"
 #import "@preview/cetz-plot:0.1.1": plot
-#import "../../_notations.typ": *
+#import "../../_variables.typ": *
 #import "/utils.typ": *
 
 #let reward(x) = reward-alpha-value * calc.exp(- reward-beta-value * x)

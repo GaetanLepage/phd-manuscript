@@ -9,8 +9,12 @@
 #let ppo-clipped-loss = $colMath(L_t^"CLIP" (theta), #maroon)$
 #let ppo-value-loss = $colMath(L_t^"VF" (theta), #olive)$
 #let ppo-entropy-bonus = $colMath(S[pi_theta](s_t) , #eastern)$
+//#let ppo-loss = $L_t ^("CLIP" + "VF" + "S")$
+#let ppo-loss = $L^"PPO"$
 #let coef-value = $c_V$
 #let coef-entropy = $c_S$
+#let policy-ratio = $rho_t$
+#let policy-ratio-exp = $(pi_theta (a_t | s_t)) / (pi_theta_"old" (a_t | s_t))$
 
 #let wer-map = $cal(W)$
 #let cost = $C$
@@ -30,9 +34,21 @@
 #let reward-wall-penalty = $mu_W$
 #let reward-wall-penalty-value = $mu_W$
 // Forward penalty
-#let reward-forward-penalty = $mu_F$
-#let reward-forward-penalty-value = 10
+#let reward-movement-penalty = $mu_m$
+#let reward-movement-penalty-value = 10
 
 // Hyperparameters
 #let delta-grid = $delta_"grid"$
 #let n-ep = $n_"ep"$
+#let n-ppo-iter = $n_"iter"$
+#let n-ppo-steps = $n_"steps"$
+#let n-ppo-epochs = $n_"epochs"$
+#let n-ppo-minibatch = $n_"mini-batch"$
+
+#let ppo-traj-buffer = $cal(T)$
+
+// Policies
+#let pi-optimal = $pi^*$
+#let pi-still = $pi_"still"$
+#let pi-orient = $pi_"orient"$
+#let pi-random = $pi_"random"$

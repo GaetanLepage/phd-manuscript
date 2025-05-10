@@ -1,5 +1,5 @@
 #import "/utils.typ": *
-#import "../_notations.typ": wer-map, delta-grid
+#import "../_variables.typ": wer-map, delta-grid
 
 
 #let algo = algorithm({

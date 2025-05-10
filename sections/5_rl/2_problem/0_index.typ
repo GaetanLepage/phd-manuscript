@@ -1,5 +1,5 @@
 #import "/utils.typ": *
-#import "../_notations.typ": *
+#import "../_variables.typ": *
 
 == Sound-Driven Robot Navigation
 <sec:rl:problem>
@@ -278,14 +278,20 @@ The practical implementation of this mapping will be discussed later in @sec:rl:
 The reward function can then be written as follows:
 $
   r_t = cases(
-    -#reward-wall-penalty  #h(3em) &"if the movement is invalid",
-    #f-reward (#cost-t) &"otherwise,"
+    -#reward-wall-penalty  &quad "if the movement is invalid",
+    #f-reward (#cost-t) - #reward-movement-penalty bb(1) (a_t = #a-forward) &quad "otherwise,"
   )
 $
-where $#cost-t = #cost (s_t)$ is the cost value of the state $s_t$ and #reward-wall-penalty is a positive scalar that can be adjusted according to #f-reward's magnitude.
-The first case allows penalizing movements that would lead the robot to collide with a wall.
-When the policy samples such an impossible action, the environment ignores it, the agent remains immobile for this step, and a fixed reward of $-10$ is returned.
-In practice, this only occurs for the forward action.
+<eq:rl:problem:reward>
+where:
+- $#cost-t = #cost (s_t)$ is the cost value of the state $s_t$;
+- #reward-wall-penalty is a positive scalar that can be adjusted according to #f-reward's magnitude;
+  It allows penalizing movements that would lead the robot to collide with a wall.
+  When the policy samples such an impossible action, the environment ignores it, the agent remains immobile for this step, and a fixed reward of #reward-wall-penalty is returned.
+  In practice, this only occurs for the forward action.
+- #reward-movement-penalty is a movement penalty that disincentivizes the agent from moving uselessly.
+  It encourages the policy to remain static when it can, while solely moving when it serves a meaningful purpose.
+  Combined with the standard cost reward $#f-reward (#cost-t)$, it entices the agent to position optimally as efficiently as possible.
 
 *Environment initialization*
 When an episode starts, the initial state is drawn randomly according to the probability distribution $p_0: cal(S)_0 -> [0, 1]$.

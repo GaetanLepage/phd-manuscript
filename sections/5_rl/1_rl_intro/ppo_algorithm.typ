@@ -1,4 +1,5 @@
 #import "/utils.typ": *
+#import "../_variables.typ": *
 
 // TODO (this is a copy-paste)
 
@@ -7,11 +8,7 @@
   Function(
     "PPO",
     args: (
-      delta-grid,
-      $(L_x, L_y)$,
-      //$n_"samples"$,
-      $cal(D)$,
-      "directional",
+      todo,
     ),
     {
       // INPUTS
@@ -23,10 +20,6 @@
         *$bold((L_x, L_y))$:*
         dimensions of the room
       ]
-      //Cmt[
-      //  *$n_"samples"$:*
-      //  number of speech samples to use at each position to compute the average #acr("WER")
-      //]
       Cmt[
         *$bold(cal(D))$:*
         dataset of $n_"samples"$ clean speech samples
@@ -37,67 +30,111 @@
       ]
       State[]
 
-      // ----------------------------------------------------------------------
-      // Positions
-      // ----------------------------------------------------------------------
       
-      Cmt[Initialize the agent positions]
-      // X
-      Assign[$cal(X)$][${i #delta-grid mid(|) i in [|0, floor(L_x/#delta-grid)|]}$]
-      State[]
-      // Y
-      Assign[$cal(Y)$][${j #delta-grid mid(|) j in [|0, floor(L_y/#delta-grid)|]}$]
-      State[]
+      //Cmt[Initialize the agent positions]
+      //Assign[$cal(Y)$][${j 2 mid(|) j in [|0, floor(L_y/2)|]}$]
+      //State[]
 
-      If(cond: "directional", {
-        // Θ <- {0, pi/2, pi, 3pi/2}
-        Assign[$Theta$][${0, pi/2, pi, (3pi)/2}$]
-        // Z <- X x Y x Θ
-        Assign[$Z$][$cal(X) times cal(Y) colMath(times Theta, #maroon)$]
-      })
-      Else({
-        // Z <- X x Y
-        Assign[$Z$][$cal(X) times cal(Y)$]
-      })
+
+      For(cond: $i "in" 1 dots #n-ppo-iter$, { // TODO check how to write this properly
+
+        State[
+          Initialize the network parameters $theta$ randomly.
+        ]
+        State[
+          Collect a set of trajectories $#ppo-traj-buffer = {tau_k}$ by running policy $pi_theta$ in the environment.
+        ]
+        State[
+          Compute rewards $hat(R)_t$
+        ]
+        State[
+          Compute advantage estimates $hat(A)_t$ using #acr("GAE") based on the current value function $V_theta$.
+        ]
       
-      State[]
-      //Assign[#wer-map][$bold(0)_(cal(M)_(abs(cal(Z)))(RR))$]
-      Cmt[Initialize the 2D/3D #acr("WER") map tensor]
-      Assign[#wer-map][
-        $bold(0)_(
-          RR^(
-            abs(cal(X)) times abs(cal(Y)) colMath(times abs(Theta), #maroon)
-          )
-        )$
-      ]
-      State[]
-      
-      // ----------------------------------------------------------------------
-      // Loop
-      // ----------------------------------------------------------------------
-      
-      Cmt[Loop through positions]
-      For(cond: $z in cal(Z)$, {
-        State[#smallcaps[Move-Microphone]$(z)$]
+        //Cmt[Collect trajectories]
+        //Assign[#ppo-traj-buffer][[]]
+        //Assign[$s_t$][#smallcaps[Reset-Environment()]]
+        //For(
+        //  cond: $t "in" 1 dots #n-ppo-steps$,
+        //  {
+        //    //Assign[$a_t$][#smallcaps[Sample]$(pi_theta (dot | s_t))$]
+        //    State[$a_t ~ pi_theta (dot | s_t)$]
+        //    Assign[
+        //      $s_t, r_t$
+        //    ][#smallcaps[Step-Environment$(a_t)$]]
+        //    Assign[$V_t$][$V_(pi_theta)(s_t)$]
+        //    Assign[
+        //      $#ppo-traj-buffer [t]$
+        //    ][
+        //      $lr(
+        //        (
+        //          s_t,
+        //          a_t,
+        //          r_t,
+        //          pi_theta (a_t | s_t),
+        //          V_t
+        //          //V_(pi_theta) (s_t)
+        //        ),
+        //        size: #120%
+        //      )$
+        //    ]
+        //  }
+        //)
+        //State[]
+        //Cmt[Compute advantages and returns]
+        ////Assign[
+        ////  $(hat(A)_t)_(t in (1 dots #n-ppo-steps))$
+        ////][
+        ////  GAE$(cal(B)$)
+        ////]
+        //State[
+        //  ${hat(A)_t}_(t in (1 dots #n-ppo-steps))
+        //  <-
+        //  "GAE"(#ppo-traj-buffer)$
+        //]
+        //State[
+        //  ${R_t}_(t in (1 dots #n-ppo-steps))
+        //  <-
+        //  {hat(A)_t + V_t}_(t in (1 dots #n-ppo-steps))$
+        //]
+
         State[]
-        
-        Cmt[Loop through speech samples]
-        For(cond: $(x_i, t) in cal(D)$, {
-          State[]
-          Cmt[Call the simulator and get the received audio signal]
-          Assign[$x_r$][#smallcaps[Simulate-Audio]$(x_i)$]
-          State[]
-          //Cmt[Transcribe the recording]
-          Assign[$hat(t)$][#smallcaps[#acr("ASR")]$(x_r)$]
-
-          Assign[$#wer-map [z]$][$#wer-map [z]$ + #smallcaps("WER")$(t, hat(t))$]
-        })
+        Cmt[Optimize the actor and critic networks]
+        For(
+          cond: [$k "in" 1 dots #n-ppo-epochs$],
+          {
+            State[Split #ppo-traj-buffer in #n-ppo-minibatch]
+            For(
+              cond: $b subset #ppo-traj-buffer$,
+              {
+                State[
+                  $#policy-ratio <- #policy-ratio-exp$
+                ]
+                State[]
+                Assign[
+                  #ppo-loss
+                ][
+                  $1/abs(b) sum_(t = 1)^abs(b)[
+                    #todo
+                  ]$
+                ]
+                Assign[$theta_"old"$][$theta$]
+                Assign[
+                  $theta$
+                ][
+                  #smallcaps[Optimize]
+                  ($theta$, $nabla #ppo-loss$)
+                ]
+              }
+            )
+          }
+        )
       })
 
       State[]
       
-      Assign[$#wer-map$][$1/abs(cal(D)) #wer-map$]
-      Return[#wer-map]
+      Assign[$A$][$1/abs(cal(D)) B$]
+      Return[C]
     }
   )
 })
@@ -106,7 +143,7 @@
   align(left)[#algo],
   kind: raw,
   caption: [
-    WER map computation algorithm
+    #acr("PPO") algorithm
   ]
 )
 <algo:rl:ppo>

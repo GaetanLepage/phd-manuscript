@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 #import "utils.typ": *
-#import "../../_notations.typ": *
+#import "../../_variables.typ": *
 
 #figure(
   table(

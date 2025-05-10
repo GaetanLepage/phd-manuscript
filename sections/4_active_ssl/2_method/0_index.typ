@@ -80,7 +80,7 @@ First, each point $bold(p) = (x, y) in [-L/2, L/2]^2$ in the robot frame is mapp
 $
   M_(t(i, j)) = o[k_(i, j)] #h(2em) forall (i, j) in [|1, p|]^2.
 $
-Hence, the intensity of a pixel equals the value of the spectrum at the corresponding angle.
+Hence, a pixel's intensity equals the #doa spectrum's value at the corresponding angle.
 
 @fig:active_ssl:doa_map presents an example of such a #doa map along with the originating spectrum.
 By construction, the value of this 2D function remains constant along lines where $theta = arctan(x/y)$ is constant.
@@ -90,7 +90,7 @@ This leads to a mixture of cone shapes originating at the center of the egocentr
 
 *Shifting.*
 At each step, the method gets the #doa maps $(M_(t-H+1), dots, M_(t-1))$ from the $H-1$ previous steps.
-All those maps need to be _shifted_ from their original frame $cal(F)_t'$ to the current robot frame $cal(F)_t$ to be combined with the current #doa map $M_t$.
+All these maps need to be _shifted_ from their original frame $cal(F)_t'$ to the current robot frame $cal(F)_t$ to be combined with the current #doa map $M_t$.
 This operation uses the relative movement $Delta_(t_1 -> t_2)$ between two steps $t_1$ and $t_2$.
 It encodes the position and orientation of the previous map in the current frame $cal(F)_t$.
 This movement is computed from the robot movement at each step $delta_t'$ with $t' in [|t_1, t_2|]$.

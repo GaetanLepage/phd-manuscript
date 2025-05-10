@@ -1,5 +1,5 @@
 #import "/utils.typ": *
-#import "../../_notations.typ": *
+#import "../../_variables.typ": *
 
 
 #figure(
@@ -22,8 +22,8 @@
     midrule,
     
     table.cell(rowspan: 2)[General],
-    [$n_"iter"$], [Number of #acr("PPO") iterations], [100],
-    [$n_"steps"$], [Number of transitions per batch], [2000],
+    [#n-ppo-iter], [Number of #acr("PPO") iterations], [100],
+    [#n-ppo-steps], [Number of transitions per batch], [2000],
 
     midrule,
 
@@ -36,7 +36,7 @@
     
     table.cell(rowspan: 5)[Learning],
     [mini-batch size], [], [500],
-    [$n_"epochs"$], [Number of epochs per iteration], [64],
+    [#n-ppo-epochs], [Number of epochs per iteration], [64],
     [Optimizer], [], [Adam @kingma_adam_2017],
     [$eta$], [Learning rate], [$10^(-3)$],
     [Learning rate annealing], [], [Yes],

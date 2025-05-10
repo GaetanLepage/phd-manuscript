@@ -1,5 +1,5 @@
 #import "/utils.typ": *
-#import "../_notations.typ": *
+#import "../_variables.typ": *
 
 == Experiments
 <sec:rl:results>
@@ -60,11 +60,13 @@ where $s_T^i$ is the final state of the $i$-th test episode
 
 === Reward Design
 
+#include "figures/reward_function.typ"
+
 *Exponential scaling.*
 The base cost value is a scalar value between 0 and 1.
 For example, most experiments use the #acr("WER") maps values #wer-cost.
 A custom function #f-reward is designed to derive a reward signal from the underlying cost.
-Most importantly #f-reward must be a decreasing function of #cost-t
+Most importantly, #f-reward must be a decreasing function of #cost-t.
 We choose an exponential base to ensure the reward smoothly decays as #cost-t decreases.
 More precisely, we introduce two scaling parameters #reward-exp-alpha and #reward-exp-beta to control the final reward range:
 //$
@@ -75,32 +77,30 @@ More precisely, we introduce two scaling parameters #reward-exp-alpha and #rewar
   $[0, 1]$,
   $RR$,
   cost-t,
-  f-reward-exp,
+  f-reward-exp + ".",
 )
-
-@fig:rl:results:reward plots the value of $#reward-exp-alpha exp[-#reward-exp-beta #cost-t]$ in function of the cost value #cost-t.
-
-#include "figures/reward_function.typ"
-
+@fig:rl:results:reward plots the value of $#f-reward (#cost-t)$ in function of the cost value #cost-t.
 //$
 //  r_t = & #reward-exp-alpha e^(-#reward-exp-beta C_t) \
 //        & quad - #reward-forward-penalty bb(1) (a_t = #a-forward) \
 //        & quad - #reward-wall-penalty bb(1) (a_t "invalid"),
 //$
-The final reward expression is expressed as:
+The final reward, introduced in as @eq:rl:problem:reward  expression, becomes:
 $
   r_t = cases(
     #reward-wall-penalty &quad "if the agent tries to hit a wall",
     #f-reward-exp
-      - #reward-forward-penalty bb(1) (a_t = #a-forward) &quad "otherwise,"
+      - #reward-movement-penalty bb(1) (a_t = #a-forward) &quad "otherwise,"
   )
 $
 <eq:rl:results:reward>
 where
-- #reward-exp-alpha and #reward-exp-beta are scaling factors for the exponential cost term;
-- #reward-forward-penalty is the penalty for moving forward;
+- #reward-exp-alpha and #reward-exp-beta are the scaling factors for the exponential cost term;
+- #reward-movement-penalty is the movement penalty;
 - #reward-wall-penalty is the penalty for invalid movements.
   It corresponds to when the agent would hit a wall.
+The values of these parameters were set after an empirical study of their impact.
+The following paragraphs detail these investigations.
 
 *Policy collapsing.*
 Training a #acr("DRL") agent is significantly more intricate than classically supervised neural networks.
@@ -108,21 +108,22 @@ Training dynamics are complex, sensitive, and depend on multiple factors.
 For instance, the numerous hyperparameters in the #acr("PPO") algorithm are pivotal.
 Some turned out to be crucial for achieving proper training.
 One example of the subtle instabilities encountered during our experimental study is the phenomenon of policy collapsing.
-Thanks to the important expressivity of the feature vector extracted by the localizer backbone, it is easy to learn to move towards the source.
-Let us denote this specific policy $pi^*$.
+Due to the important expressivity of the feature vector extracted by the localizer backbone, it is easy to learn to move towards the source.
+Let us denote this specific policy #pi-optimal.
 Our initial experiments with the pre-trained backbone showed excellent performance, and the agent could consistently learn $pi^*$.
 However, additional ablation studies demonstrated that the agent completely ignored the reward signal.
-Completely numbing the reward by setting it to a constant or random value did not change the learnt behavior and the policy was still converging to $pi^*$.
+Completely numbing the reward by setting it to a constant or random value did not change the learnt behavior and the policy was still converging to #pi-optimal.
 We interpret that the loss for the value function #ppo-value-loss (@eq:rl:intro:ppo:value_loss) and the entropy bonus #ppo-entropy-bonus prevail in the training dynamics.
+It was expected that instead of converging to #pi-optimal, the learnt policy $pi_theta$ would collapse to the static policy, denoted #pi-still.
+Indeed, in the absence of an informative reward signal and because of the penalties for hitting the room's walls (#reward-wall-penalty) and moving (#reward-movement-penalty), the agent would be expected to remain still.
 
-*Reward design.*
+*Reward scaling.*
 The reward design needed further elaboration to prevent this phenomenon and ensure the reward signal dictated the learning behavior.
 On the one hand, scaling up the reward permitted increasing its relative importance during training.
 It balances the reward weight in the overall loss values and its gradients.
 In practice, experimentally tuning the shaping coefficients led to choosing $#reward-exp-alpha = #reward-alpha-value$ and $#reward-exp-beta = #reward-beta-value$.
-Scaling #reward-forward-penalty to #reward-forward-penalty-value.
-need to adjust mu_f too
-On the other hand, we ss
+On the other hand, scaling #reward-movement-penalty to #reward-movement-penalty-value was also needed to balance its value properly concerning $#f-reward (#cost-t)$.
+Once these two parameters were adequately tuned, the experiments were conducted voluntarily.
 
 
 We observed that the policy's 

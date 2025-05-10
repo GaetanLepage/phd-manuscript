@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 #import "/_misc/notations.typ": *
-#import "../_notations.typ": *
+#import "../_variables.typ": *
 
 == Method
 <sec:rl:method>
@@ -241,6 +241,7 @@ $
 As previously mentioned, computing a #acr("WER") map is computationally intensive.
 Also, a map needs to be computed for each possible source position.
 The final formulation for the environment involves 12 possible starting positions deterministically  spread across the room.
+#draft[This is a trade off between computational cost for caching the WER maps and the diversity/difficulty of the environment.]
 
 #include "figures/source_positions/fig.typ"
 
@@ -252,6 +253,8 @@ The #acr("WER") maps need to be co
     - Training
     - etc.
 ]
+
+*Implementation details.*
 
 *Hyperparameters.*
 
