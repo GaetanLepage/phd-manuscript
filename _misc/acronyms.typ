@@ -142,6 +142,7 @@
   // -----------------------------------------------------------------------------
   // RL
   "CASP": ("Critical Assessment of protein Structure Prediction"),
+  "DDPG": ("deep deterministic policy gradient"),
   "DQN": ("Deep Q Learning"),
   "DRL": ("Deep Reinforcement Learning"),
   "GAE": ("Generalized Advantage Estimation"),

@@ -44,6 +44,8 @@
 #let n-ppo-steps = $n_"steps"$
 #let n-ppo-epochs = $n_"epochs"$
 #let n-ppo-minibatch = $n_"mini-batch"$
+#let ppo-mini-batch = $T$
+#let ppo-mini-batch-size = $abs(#ppo-mini-batch)$
 
 #let ppo-traj-buffer = $cal(T)$
 

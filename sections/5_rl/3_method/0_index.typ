@@ -171,9 +171,9 @@ All three models share the same tokenizer, trained on #librispeech.
 
 The multiple recent successes of #acr("DRL") in solving various tasks (Atari games @mnih_playing_2013, controlling plasma in fusion reactors @degrave_magnetic_2022, #todo) originate consequently in the use of #acr("DNN") as function approximators (@sec:rl:intro:deep_reinforcement_learning).
 
-We propose a custom design for the neural network implementing the #acr("RL") agent.
+We propose a custom architecture for the neural network implementing the #acr("RL") agent.
 @fig:rl:method:agent_architecture gives a schematic view of its core components.
-The choice of #acr("PPO") as a training algorithm requires defining two models: the actor and the critic (@sec:rl:intro: PPO).
+The choice of #acr("PPO") as a training algorithm requires defining two models: the actor and the critic (@sec:rl:intro:ppo).
 We have designed a common backbone between those two systems, allowing them to share a significant part of the model parameters.
 This feature extractor is followed by two heads implemented as #acr("MLP").
 
@@ -220,7 +220,9 @@ The partial observability aspect of the environment prevents the agent from dire
 The feature extractor maps the audio spectral observations into a lower 16-dimensional embedding vector.
 We hypothesize that the agent will implicitly acquire localization capabilities while learning the #acr("RL") navigation task.
 We supervisedly train the feature extractor to perform the #acr("SSL") task to improve performance and bootstrap the learning process.
-The agent architecture (@fig:rl:method:agent_architecture) is an extension of the single-source localizer previously designed (See @sec:ssl:single_source, @fig:ssl:single_source:nn_architecture).
+The exact training methodology is detailed in @sec:ssl:single_source:method.
+The agent architecture (@fig:rl:method:agent_architecture) extends our single-source localizer.
+Please, refer to @fig:ssl:single_source:nn_architecture for a more detailed representation of the feature extractor's architecture.
 #draft[
   TODO: this is redundant with @sec:rl:method:nn_architecture.
 ]
@@ -254,9 +256,18 @@ The #acr("WER") maps need to be co
     - etc.
 ]
 
-*Implementation details.*
-
-*Hyperparameters.*
+*Implementation details and hyperparameters.*
+Although it has been successful at solving many complex #acr("RL") problems, #acr("PPO") remains highly sensitive to implementation details.
+Engstrom et al. @engstrom_implementation_2020 explicitly studied the "code-level optimizations" of the #acr("TRPO") and #acr("PPO") algorithms.
+This work formalized the shared impression among the community #draft[insert refs] that #acr("PPO")'s promised performance was subject to subtle implementation details.
+Huang et al. have also contributed to this practical investigation by publishing _The 37 Implementation Details of Proximal Policy Optimization_ @shengyi2022the37implementation.
+In @mahmood_benchmarking_2018, Mahmood et al. study the sensitivity of #acr("RL") algorithms to their hyperparameters.
+They mention that #acr("PPO"), along with other state-of-the-art algorithms (#acr("TRPO"), #acr("DDPG"), and Soft-Q), is highly sensitive to its hyperparameter values.
+It thus requires careful fine-tuning on each new environment where it is tested.
+Our experience corroborates those observations.
+Extensive experimental campaigns were required to isolate a satisfying set of hyperparameter values.
+We underscore how essential — and nontrivial — hyperparameter tuning can be.
+@table:rl:method:hyperparameters summarizes the final hyperparameter values used for training our agent with #acr("PPO").
 
 #include "tables/hyperparameters.typ"
 

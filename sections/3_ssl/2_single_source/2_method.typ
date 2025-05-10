@@ -2,6 +2,9 @@
 #import "_notations.typ": *
 
 === Method
+<sec:ssl:single_source:method>
+
+#draft[Do we need an extra intro here?]
 
 
 ==== Custom Dataset for #acr("SSL")

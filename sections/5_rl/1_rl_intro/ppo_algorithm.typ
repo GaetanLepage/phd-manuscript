@@ -45,10 +45,10 @@
           Collect a set of trajectories $#ppo-traj-buffer = {tau_k}$ by running policy $pi_theta$ in the environment.
         ]
         State[
-          Compute rewards $hat(R)_t$
+          Compute advantage estimates $hat(A)_t$ using #acr("GAE") based on the current value function $V_theta$.
         ]
         State[
-          Compute advantage estimates $hat(A)_t$ using #acr("GAE") based on the current value function $V_theta$.
+          Compute returns $hat(R)_t = V_(pi_theta)(s_t) - hat(A)_t$
         ]
       
         //Cmt[Collect trajectories]
@@ -100,13 +100,19 @@
 
         State[]
         Cmt[Optimize the actor and critic networks]
+        State[
+          Split #ppo-traj-buffer in mini-batches (#ppo-mini-batch) of transitions
+        ]
         For(
           cond: [$k "in" 1 dots #n-ppo-epochs$],
           {
-            State[Split #ppo-traj-buffer in #n-ppo-minibatch]
             For(
-              cond: $b subset #ppo-traj-buffer$,
+              //cond: $T "in" {T_1...T_#n-ppo-minibatch}$,
+              cond: [
+                each mini-batch in #ppo-traj-buffer
+              ],
               {
+                State[]
                 State[
                   $#policy-ratio <- #policy-ratio-exp$
                 ]

@@ -166,13 +166,9 @@ $
 
 The #acr("PPO") algorithm has been used extensively in the #acr("RL") field since its invention in 2017 @schulman_proximal_2017.
 #draft[give examples]
-Its main advantages are its _apparent_ simplicity and efficiency.
-Although it has been successful at solving many complex #acr("RL") problems, #acr("PPO") remains highly sensitive to implementation details.
-Engstrom et al. @engstrom_implementation_2020 explicitly studied the "code-level optimizations" of the #acr("TRPO") and #acr("PPO") algorithms.
-This work formalized the shared impression among the community #draft[insert refs] that #acr("PPO")'s promised performance was subject to subtle implementation details.
-Huang et al. have also contributed to this practical investigation by publishing _The 37 Implementation Details of Proximal Policy Optimization_ @shengyi2022the37implementation.
-#draft[Maybe this should go in the results/discussion section.]
-#draft[@mahmood_benchmarking_2018 talk about the sensitivity of #acr("RL") algorithms to their HP]
+Its main advantages are its relative simplicity and efficiency.
+It has been shown to be more stable than other algorithms, especially for continuous action spaces @schulman_proximal_2017.
+#todo
 
 *#acr("TRPO").*
 Schulman et al. @schulman_trust_2017 introduced the concept of trust region policy optimization.
@@ -291,7 +287,8 @@ Although often denoted as the #acr("PPO") _loss_, this function quantifies the o
 To optimize the #acr("PPO") objective, the algorithm involves iteratively sampling training data by running the policy in the environment and training the actor and critic networks.
 While
 Each iteration starts by freezing the neural network parameters $theta$ and collecting a set of trajectories #ppo-traj-buffer by running the current policy $pi_theta$ in the environment.
-This sampling phase ends with the computation of the advantages $hat(A)_t$ with the #acr("GAE") process presented in @sec:rl:intro:policy_gradient_algos:gae.
-#todo
+This sampling phase ends with the computation of the advantages $hat(A)_t$ with the #acr("GAE") process presented in @sec:rl:intro:policy_gradient_algos:gae, and the returns $R_t$.
+
+@algo:rl:ppo
 
 #include "ppo_algorithm.typ"

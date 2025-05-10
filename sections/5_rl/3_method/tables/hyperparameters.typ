@@ -35,7 +35,7 @@
     midrule,
     
     table.cell(rowspan: 5)[Learning],
-    [mini-batch size], [], [500],
+    [mini-batch size], [Number of samples (transitions) in each mini-batch], [500],
     [#n-ppo-epochs], [Number of epochs per iteration], [64],
     [Optimizer], [], [Adam @kingma_adam_2017],
     [$eta$], [Learning rate], [$10^(-3)$],
