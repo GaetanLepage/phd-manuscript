@@ -175,19 +175,20 @@ The analytical cost is defined over the state space $cal(S)$ as:
   $cal(S)$,
   $RR_+$,
   $(
-    bold(x)_a,
-    theta_a
+    #agent-pos,
+    #agent-ori
     //bold(x)_s
   )$,
   $
-  norm(bold(x)_s - bold(x)_a)_2^2 + eta "DoA"(bold(x)_a, theta_a, bold(x)_s),
+  norm(#source-pos - #agent-pos)_2^2 
+  + eta #agent-source-doa
   $
 )
 <eq:rl:results:analytical_cost>
 where:
-- $bold(x)_a$ and $theta_a$ are respectively the position and orientation of the agent in the room's frame;
-- $bold(x)_s$ is the source position and is fixed for a given episode;
-- $"DoA"(bold(x)_s, theta_a, bold(x)_s)$ is the direction of arival for this source-microphone positioning;
+- #agent-pos and $theta_a$ are respectively the position and orientation of the agent in the room's frame;
+- #source-pos is the source position and is fixed for a given episode;
+- $"DoA"(#agent-pos, theta_a, #source-pos)$ is the direction of arrival for this source-microphone positioning;
 - $eta$ is a scaling factor; #draft[Say that we keep it as 1]
 
 Similarly to the #acr("WER") cost, we normalize the obtained map to constrain its range in the $[0, 1]$ interval.

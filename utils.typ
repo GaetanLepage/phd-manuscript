@@ -1,16 +1,17 @@
-#import "@preview/minitoc:0.1.0": minitoc as _minitoc
+//#import "@preview/minitoc:0.1.0": minitoc as _minitoc
 #import "@preview/subpar:0.1.1"
 
 #import "_misc/acrostiche.typ": acr, acrpl, reset-acronym
 #import "_misc/template/_index.typ": in-outline, fill-line, fig-placement
 #import "_misc/notations.typ": *
+#import "_misc/minitoc.typ": minitoc as _minitoc
 
 // ----------------------------------------------------------------
 // SETTINGS
 // ----------------------------------------------------------------
 #let show-comments = true
 #let show-drafts = true
-#let show-chapter-tocs = false
+#let show-chapter-tocs = true
 // ----------------------------------------------------------------
 
 /* TABLES */
@@ -74,7 +75,7 @@ $
 
 /* COMMENTING */
 
-#let minitoc(indent: true) = {
+#let minitoc(indent: true) = { 
   if show-chapter-tocs {
     _minitoc(indent: indent)
   } else {

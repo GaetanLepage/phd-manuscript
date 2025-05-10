@@ -151,22 +151,22 @@ $
   "lev"(a, b) = cases(
     abs(a) & "if" m = 0,
     abs(b) & "if" n = 0,
-    "lev"(a_(1..n), b_(1..m)) & "if" a_0 = b_0,
+    "lev"(a_(1..n-1), b_(1..m-1)) & "if" a_0 = b_0,
     1 + min cases(
-      "lev"(a_(1..n), b),
-      "lev"(a, b_(1..m)),
-      "lev"(a_(1..n), b_(1..m))
+      "lev"(a_(1..n-1), b),
+      "lev"(a, b_(1..m-1)),
+      "lev"(a_(1..n-1), b_(1..m-1))
     ) & "otherwise,"
   )
 $
-where $a_0$ is the first character of $a$ and $a_(1..n)$ is the string $a$ without its first character.
+where $a_0$ is the first character of $a$ and $a_(1..n-1)$ is the string $a$ without its first character.
 It counts the number of edits to turn string $a$ into string $b$.
 As such, it is bounded by the length of the longest string:
 $
   0 lt.eq "lev"(a, b) lt.eq max(abs(a), abs(b)).
 $
 Besides, the #acr("WER") score uses words as the fundamental tokens.
-As its definition is recursive, most implementations leverage dynamic computing.
+//As its definition is recursive, most implementations leverage dynamic computing.
 
 *Running of an episode.*
 An episode starts with the agent and one or several sources randomly placed in the room.
@@ -190,7 +190,7 @@ The #acr("RL") environment corresponds to the #acr("MDP") formulation and implem
 In this section, we present those characteristics and the motivations that led to this final specification.
 
 *#acr("POMDP").*
-The original #acr("MDP") model is insufficient to represent our environment.
+The original #acr("MDP") model lacks expressivity to model our environment accurately.
 Instead, we rely on the #acr("POMDP") framework where the entirety of the state cannot be observed directly.
 This choice allows the decoupling of the environment logic from the sensory observation available to the agent.
 A #acr("POMDP") can be described as a tuple $lr(angle.l cal(S), cal(A), P, cal(R), Omega, O, gamma angle.r)$ where:

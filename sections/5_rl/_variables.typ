@@ -17,6 +17,10 @@
 #let policy-ratio-exp = $(pi_theta (a_t | s_t)) / (pi_theta_"old" (a_t | s_t))$
 
 #let wer-map = $cal(W)$
+#let source-pos = $bold(x)_s$
+#let agent-pos = $bold(x)_a$
+#let agent-ori = $theta_a$
+#let agent-source-doa = $"DoA"(bold(x)_a, #agent-ori, #source-pos)$
 #let cost = $C$
 #let cost-t = $cost_t$
 #let wer-cost = $cost_"WER"$

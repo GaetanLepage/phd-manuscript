@@ -28,6 +28,9 @@ Each microphone has a cardioid pattern.
 
 === #acr("WER") as a Reward Signal
 <sec:rl:method:wer_maps>
+#minitoc(indent: true)
+
+This section presents the design and implementation details of the #acr("WER") cost function (#wer-cost) computation and caching.
 
 #draft[
   - Present how we implement the WER oracle $w$
@@ -43,10 +46,34 @@ Each microphone has a cardioid pattern.
 ]
 
 
-The reward signal introduced previously expects an oracle $w$ to provide an estimate of the #acr("WER") score for each possible state.
-This is achieved by pre-computing an average #acr("WER") for every position on the grid.
-Although the array might include several microphones, only one of them is used to provide the mono-channel signal required by the #acr("ASR") system.
-This section details the reward implementation and the relevant technical choices made.
+The reward signal introduced previously expects an oracle to provide an estimate of the #acr("WER") score for each possible state.
+This is achieved by pre-computing an average #acr("WER") for every position on the grid, and possibly every orientation of the agent.
+Although the array might include several microphones, the #acr("ASR") measurements only employ a single microphone.
+Eventual techniques to combine the signal from multiple microphones are out of the scope of this work.
+The following paragraphs discuss how the caching is done.
+
+#func-def(
+  $#wer-cost^*$,
+  $cal(S)$,
+  $RR_+$,
+  $(
+    #agent-pos,
+    #agent-ori
+    //bold(x)_s
+  )$,
+  $
+    EE_((v, t) in cal(D)^*)
+    lr(
+      [
+        "WER"("listened"(v, #agent-pos, #agent-ori, #source-pos), t)
+      ],
+      size: #120%,
+    )
+  $
+)
+In practice, we don't have access to the underlying 
+
+detail the reward implementation and the relevant technical choices made.
 
 
 ==== #acr("ASR") Frameworks
@@ -80,15 +107,15 @@ The specific pipeline that was used in this work involves three components:
   In this case, the recurrent units act on word sequences.
   It comprises an embedding layer that maps individual words to 128-dimensional vectors.
   Those vectors are then fed to the #acr("RNN"), which is followed by fully connected layers.
-  Other architectures are also provided by #speechbrain such as a _TransformerLM_, based on the famous Transformer architecture @vaswani_attention_2017.
+  #speechbrain also provides other architectures, such as a _TransformerLM_, based on the widespread Transformer architecture @vaswani_attention_2017.
 - Finally, the *acoustic model* performs the actual task of speech recognition by mapping audio features to tokens.
   It employs a #acr("CRNN") architecture for the encoder, which maps audio features (e.g. #acr("STFT") or #acr("MFCC")) to tokens.
   #speechbrain applies an additional #acr("CTC") @graves_towards_2014 loss to the encoder.
   The #acr("CTC") cost function allows the training of recurrent architectures to perform speech recognition without requiring prior alignment between the input and target sequences.
-  Alternatively, #speechbrain ships a Transformer-based encoder-decoder also using the #acr("CTC") training strategy.
+  Alternatively, #speechbrain ships a Transformer-based encoder-decoder that also uses the #acr("CTC") training strategy.
 
 To choose the best model for our use case, we empirically compared three models provided in #speechbrain.
-We evaluated them on the #librispeech training set which contains 25,539 samples ranging from 3 to 16 seconds.
+We evaluated them on the #librispeech training set, which contains 25,539 samples ranging from 3 to 16 seconds.
 
 We have integrated the #speechbrain #acr("ASR") library into the simulator.
 The input signals used for each source are drawn from the #librispeech @panayotov_librispeech_2015 (@sec:simulator:simulator:components:sim_scenarios).
