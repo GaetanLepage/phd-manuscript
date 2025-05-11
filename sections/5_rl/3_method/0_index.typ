@@ -41,8 +41,6 @@ This section presents the design and implementation details of the #acr("WER") c
 The reward signal introduced previously expects an oracle to provide an estimate of the #acr("WER") score for each possible state.
 This is achieved by pre-computing an average #acr("WER") for every position on the grid, and possibly every orientation of the agent.
 The obtained #acr("WER") cost function is given by:
-#let asr-net = $T_psi$
-#let asr-dataset = $cal(D)$
 #func-def(
   $#wer-cost$,
   $cal(S)$,
@@ -80,6 +78,7 @@ The obtained #acr("WER") cost function is given by:
     ),
   $
 )
+<eq:rl:method:wer_cost>
 where:
 - $v$ and $t$ are clean speech recordings, respectively, and their associated transcripts are drawn from a corpus #asr-dataset.
 - $"listened"(v, #agent-pos, #agent-ori, #source-pos)$ is the signal recorded by the agent's primary microphone when it is located at #agent-pos and oriented by #agent-ori while the speech source, located at #source-pos, plays the recording $v$.

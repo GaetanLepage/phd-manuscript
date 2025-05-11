@@ -9,38 +9,40 @@ After designing and implementing the complete #acr("RL") pipeline presented in t
 === #acr("ASR") Performance in a Reverberant Room
 
 First and foremost, we investigate how #acr("ASR") performance is impacted by reverberation. 
-This study also explores the importance of the robot's position relative to the source, especially in highly reverberant environments.
+This study also explores the importance of the agent's position relative to the source, especially in highly reverberant environments.
+
 #todo
 
 *#acr("ASR") performance and reverberation.*
-Several cost maps
+Several #acr("WER") cost maps were computed to visualize what the reward signal would be used to supervise the agent training.
+@fig:rl:results:wer_maps_reverb provides high resolution ($#delta-grid = 10"cm"$) omnidirectional maps for different reverberation levels.
+It must be noted that the obtained #acr("WER") values are entirely dependent on the #acr("ASR") model #asr-net used to approximate #wer-cost (@eq:rl:method:wer_cost).
+It comes out that the microphone position does not affect #asr-net performance when reverberation is low.
+For $T_60=100"ms"$ and $T_60=300"ms"$, the #acr("ASR") model achieves performance similar to what was measured in the clean-speech evaluation (see @table:rl:method:asr_models).
+However, from $T_60=500"ms"$, reverberation starts to impact the #acr("WER") more, decreasing the transcript's fidelity globally.
+Furthermore, the microphone's relative position from the source notably affects the mean #acr("WER").
+This phenomenon amplifies as $T_60$ reaches $800"ms"$.
+At such reverberation levels, the #acr("ASR") model can no longer provide reliable transcripts unless the agent is very close to the source.
+Importantly, the model used in this study, `asr-crdnn-rnnlm-librispeech`, is trained exclusively on clean signal samples.
+Reverberant conditions are therefore outside of its training distribution.
+We do not report results for more advanced #acr("ASR") models, particularly those trained on reverberant or noisy data, which may perform better in such conditions.
+Lastly, although informative, these sampled #acr("WER") cost maps remain noisy and do not provide a smooth reward signal.
 
-#draft[
-  - Show how #acr("WER") decreases when adding reverb
-  - *This study motivates our choice for WER as an interesting objective / cost function*
-  - Show how #acr("WER") decreases when adding reverb
-  - Show examples of #acr("WER") maps on different settings
-  - Motivate the use of $T_60 = 0.5s$
-]
+This study confirms the relevance of developing a navigation policy that improves the agent's auditory perception.
+More specifically, we focus on the $T_60=500"ms"$ case, which grants an interesting framework for this navigation task.
 
-@fig:rl:results:wer_maps_reverb
 
 #include "figures/wer_maps/figure.typ"
 
 *Cost Map Directionality*
-#draft[
-  Not sure where we should put that... maybe in the "Alternative cost map section".
-  Actually, it is fine here because in "Agent Performance on the Navigation Task" we compare omni vs directional environments.
-  
-]
-
-When the cost function is invariant in the agent orientation $theta_a$, the map is said to be omnidirectional.
+The map is considered omnidirectional when the cost function is invariant in the agent orientation #agent-ori.
 In the case of the #acr("WER") cost #wer-cost, this is when an omnidirectional microphone is used to record signals at each position on the grid.
 When a directional microphone is used, separate recordings are made for all four cardinal orientations of the agent.
-
-it is omnidirec, omnidirectional maps correspond to the 
-
-@fig:rl:results:directional_map aims at being
+Directional maps add more challenge to the navigation task as the agent must optimize both its position #agent-pos and orientation #agent-ori to achieve the highest performance.
+@fig:rl:results:directional_map displays an example of directional #acr("WER") cost map.
+Each subfigure corresponds to a given agent orientation.
+For a given agent position, the #acr("WER") cost can vary significantly depending on whether the agent is facing the source.
+The following experiments investigate the agent's performance when trained with directional and omnidirectional costs.
 
 #include "figures/directional_wer_map/figure.typ"
 
@@ -172,6 +174,10 @@ Furthermore, we test both our directional and omnidirectional formulations of th
 //The first group of columns display the policies' performance when tested on the environment with 
 #pi-theta is trained and evaluated on both environments separately.
 Results are reported in @table:rl:results:wer_performance_vs_baselines.
+The number of test episodes is set to $#n-ep = 1000$ to ensure statistical significance.
+Also, #pi-theta is trained $#n-rep = 5$ times from scratch on each environment, and the evaluation metrics are averaged across these #n-rep runs.
+#draft[TODO: check that the values of n-ep and n-repetitions are correct!]
+For each metric, $#n-ep = 1000$ episodes are run
 #draft[TODO: add comment]
 
 #include "tables/wer_performance_vs_baselines.typ"

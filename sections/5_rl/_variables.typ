@@ -29,6 +29,8 @@
 #let cost = $C$
 #let cost-t = $cost_t$
 #let wer-cost = $cost_"WER"$
+#let asr-net = $T_psi$
+#let asr-dataset = $cal(D)$
 #let analytical-cost = $tilde(cost)$
 #let analytical-cost-t = $tilde(cost)$
 
@@ -49,6 +51,7 @@
 // Hyperparameters
 #let delta-grid = $delta_"grid"$
 #let n-ep = $n_"ep"$
+#let n-rep = $n_"rep"$
 #let n-ppo-iter = $n_"iter"$
 #let n-ppo-steps = $n_"steps"$
 #let n-ppo-epochs = $n_"epochs"$

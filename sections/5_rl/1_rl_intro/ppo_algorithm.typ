@@ -3,41 +3,34 @@
 
 // TODO (this is a copy-paste)
 
+#set text(size: 11pt)
+
 #let algo = algorithm({
   import algorithmic: *
   Function(
     "PPO",
     args: (
       n-ppo-iter,
+      n-ppo-epochs,
       ppo-mini-batch-size,
     ),
     {
       // INPUTS
       Cmt[
-        *delta-grid:*
-        spatial resolution
+        *#n-ppo-iter:*
+        The number of #acr("PPO") iterations
       ]
       Cmt[
-        *$bold((L_x, L_y))$:*
-        dimensions of the room
+        *#n-ppo-epochs:*
+        The number of training epochs done in each iteration
       ]
       Cmt[
-        *$bold(cal(D))$:*
-        dataset of $n_"samples"$ clean speech samples
-      ]
-      Cmt[
-        *directional (boolean):*
-        whether the microphone is directional or omnidirectional
+        *#ppo-mini-batch-size:*
+        The number of samples (transitions)
       ]
       State[]
 
-      
-      //Cmt[Initialize the agent positions]
-      //Assign[$cal(Y)$][${j 2 mid(|) j in [|0, floor(L_y/2)|]}$]
-      //State[]
-
-
-      For(cond: $i "in" 1 dots #n-ppo-iter$, { // TODO check how to write this properly
+      For(cond: $i "in" 1 dots #n-ppo-iter$, {
 
         State[
           Initialize the network parameters $theta$ randomly.
@@ -51,53 +44,6 @@
         State[
           Compute returns $hat(R)_t = V_(pi_theta)(s_t) - hat(A)_t$
         ]
-      
-        //Cmt[Collect trajectories]
-        //Assign[#ppo-traj-buffer][[]]
-        //Assign[$s_t$][#smallcaps[Reset-Environment()]]
-        //For(
-        //  cond: $t "in" 1 dots #n-ppo-steps$,
-        //  {
-        //    //Assign[$a_t$][#smallcaps[Sample]$(pi_theta (dot | s_t))$]
-        //    State[$a_t ~ pi_theta (dot | s_t)$]
-        //    Assign[
-        //      $s_t, r_t$
-        //    ][#smallcaps[Step-Environment$(a_t)$]]
-        //    Assign[$V_t$][$V_(pi_theta)(s_t)$]
-        //    Assign[
-        //      $#ppo-traj-buffer [t]$
-        //    ][
-        //      $lr(
-        //        (
-        //          s_t,
-        //          a_t,
-        //          r_t,
-        //          pi_theta (a_t | s_t),
-        //          V_t
-        //          //V_(pi_theta) (s_t)
-        //        ),
-        //        size: #120%
-        //      )$
-        //    ]
-        //  }
-        //)
-        //State[]
-        //Cmt[Compute advantages and returns]
-        ////Assign[
-        ////  $(hat(A)_t)_(t in (1 dots #n-ppo-steps))$
-        ////][
-        ////  GAE$(cal(B)$)
-        ////]
-        //State[
-        //  ${hat(A)_t}_(t in (1 dots #n-ppo-steps))
-        //  <-
-        //  "GAE"(#ppo-traj-buffer)$
-        //]
-        //State[
-        //  ${R_t}_(t in (1 dots #n-ppo-steps))
-        //  <-
-        //  {hat(A)_t + V_t}_(t in (1 dots #n-ppo-steps))$
-        //]
 
         State[]
         Cmt[Optimize the actor and critic networks]
@@ -108,32 +54,12 @@
           cond: [$k "in" 1 dots #n-ppo-epochs$],
           {
             For(
-              //cond: $T "in" {T_1...T_#n-ppo-minibatch}$,
               cond: [
                 each mini-batch in #ppo-traj-buffer
               ],
               {
-                State[]
                 State[
-                  Update the policy parameters by 
-                ]
-                State[
-                  $#policy-ratio <- #policy-ratio-exp$
-                ]
-                State[]
-                Assign[
-                  #ppo-loss
-                ][
-                  $1/abs(b) sum_(t = 1)^abs(b)[
-                    #todo
-                  ]$
-                ]
-                Assign[$theta_"old"$][$theta$]
-                Assign[
-                  $theta$
-                ][
-                  #smallcaps[Optimize]
-                  ($theta$, $nabla #ppo-loss$)
+                  Update the actor's and critic's parameters by maximizing the #acr("PPO") objective $#ppo-loss (theta)$ using a stochastic optimizer (e.g. Adam, #acr("SGD")).
                 ]
               }
             )
@@ -143,8 +69,7 @@
 
       State[]
       
-      Assign[$A$][$1/abs(cal(D)) B$]
-      Return[C]
+      Return[#pi-theta]
     }
   )
 })
@@ -153,7 +78,7 @@
   align(left)[#algo],
   kind: raw,
   caption: [
-    #acr("PPO") algorithm
+    Simplified #acr("PPO") algorithm.
   ]
 )
 <algo:rl:ppo>
