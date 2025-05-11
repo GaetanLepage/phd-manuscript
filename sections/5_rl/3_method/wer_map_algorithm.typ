@@ -16,7 +16,7 @@
     {
       // INPUTS
       Cmt[
-        *delta-grid:*
+        *#delta-grid:*
         spatial resolution
       ]
       Cmt[

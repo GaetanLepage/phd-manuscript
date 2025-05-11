@@ -39,7 +39,7 @@
     [#n-ppo-epochs], [Number of epochs per iteration], [64],
     [Optimizer], [], [Adam @kingma_adam_2017],
     [$eta$], [Learning rate], [$10^(-3)$],
-    [Learning rate annealing (scheme)], [], [Yes],
+    [Learning rate annealing (cosine annealing)], [], [Yes],
 
     bottomrule,
   ),

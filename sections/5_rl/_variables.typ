@@ -54,7 +54,8 @@
 #let n-ppo-epochs = $n_"epochs"$
 #let n-ppo-minibatch = $n_"mini-batch"$
 #let ppo-mini-batch = $T$
-#let ppo-mini-batch-size = $abs(#ppo-mini-batch)$
+//#let ppo-mini-batch-size = $abs(#ppo-mini-batch)$
+#let ppo-mini-batch-size = $b_"size"$
 
 #let ppo-traj-buffer = $cal(T)$
 #let n-forwards = $n_"forwards"$

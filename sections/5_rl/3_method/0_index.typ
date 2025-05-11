@@ -52,6 +52,11 @@ Although the array might include several microphones, the #acr("ASR") measuremen
 Eventual techniques to combine the signal from multiple microphones are out of the scope of this work.
 The following paragraphs discuss how the caching is done.
 
+#draft[
+  Actually, no need to introduce this as a theoretical stuff. It is actually the formula for the cached cost.
+  -> Make the wording simpler.
+]
+
 #func-def(
   $#wer-cost^*$,
   $cal(S)$,
@@ -65,13 +70,38 @@ The following paragraphs discuss how the caching is done.
     EE_((v, t) in cal(D)^*)
     lr(
       [
-        "WER"("listened"(v, #agent-pos, #agent-ori, #source-pos), t)
+        1/100
+        "WER"lr(
+          (
+            T_phi
+            lr(
+              (
+                "listened"(
+                  v,
+                  #agent-pos,
+                  #agent-ori,
+                  #source-pos
+                )
+              ),
+              size: #120%,
+            ),
+            t
+          ),
+          size: #120%,
+        )
       ],
-      size: #120%,
-    )
+      size: #100%,
+    ),
   $
 )
-In practice, we don't have access to the underlying 
+where:
+- $v$ and $t$ are respectively the clean speech recording and associated transcript drawn from a theoretically infinite corpus;
+- $"listened"(v, #agent-pos, #agent-ori, #source-pos)$ is the signal recorded by the agent's primary microphone when it is located at #agent-pos and oriented by #agent-ori while the speech source, located at #source-pos, plays the recording $v$.
+  This operator encompasses the reverberation properties of the room;
+- $T_phi$ denotes a deep #acr("ASR") model parametrized by parameters $phi$.
+  Given a recorded signal, it outputs a prediction for the transcript $hat(t)$
+- $"WER"(hat(t), t)$ is the #acr("WER") (in %) between predicted transcript $hat(t)$ and ground truth transcript $t$.
+In practice, this theoretical cost is untractable for several reasons.
 
 detail the reward implementation and the relevant technical choices made.
 
@@ -298,9 +328,14 @@ We underscore how essential — and nontrivial — hyperparameter tuning can be.
 
 #include "tables/hyperparameters.typ"
 
+In addition to careful hyperparameter tuning, a selection of implementation details was necessary to train the agent successfully.
+For instance, the use of *value loss clipping*
+
+
 
 #draft[
   - Add loss clipping
+  - We use cosine annealing
   
   Insist on the fact that we implemented the complete pipeline:
   - RL environment (with the simulator)

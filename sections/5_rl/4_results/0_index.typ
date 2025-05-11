@@ -28,7 +28,11 @@ Several cost maps
 #include "figures/wer_maps/figure.typ"
 
 *Cost Map Directionality*
-#draft[Not sure where we should put that... maybe in the "Alternative cost map section"]
+#draft[
+  Not sure where we should put that... maybe in the "Alternative cost map section".
+  Actually, it is fine here because in "Agent Performance on the Navigation Task" we compare omni vs directional environments.
+  
+]
 
 When the cost function is invariant in the agent orientation $theta_a$, the map is said to be omnidirectional.
 In the case of the #acr("WER") cost #wer-cost, this is when an omnidirectional microphone is used to record signals at each position on the grid.
@@ -104,7 +108,7 @@ Our initial experiments with the pre-trained backbone showed excellent performan
 However, additional ablation studies demonstrated that the agent completely ignored the reward signal.
 Completely numbing the reward by setting it to a constant or random value did not change the learnt behavior and the policy was still converging to #pi-optimal.
 We interpret that the loss for the value function #ppo-value-loss (@eq:rl:intro:ppo:value_loss) and the entropy bonus #ppo-entropy-bonus prevailed in the training dynamics.
-It was expected that instead of converging to #pi-optimal, the learnt policy $pi_theta$ would collapse to the static policy, denoted #pi-still.
+It was expected that instead of converging to #pi-optimal, the learnt policy #pi-theta would collapse to the static policy, denoted #pi-still.
 Indeed, in the absence of an informative reward signal and because of the penalties for hitting the room's walls (#reward-wall-penalty) and moving (#reward-movement-penalty), the agent would be expected to remain still.
 
 *Reward scaling.*
@@ -145,7 +149,7 @@ The agent can learn #pi-optimal, the policy of navigating to the source, thus mi
 A quantitative study of the agent's navigation performance is also conducted.
 After training, a series of #n-ep episodes are executed to assess the performance of the #acr("RL") pipeline.
 The agent greedily selects which action to take at each step according to @eq:rl:intro:action_selection.
-This selection technique differs from the training phase, where the action is sampled according to the policy probability distribution $pi_theta$.
+This selection technique differs from the training phase, where the action is sampled according to the policy probability distribution #pi-theta.
 
 We define the primary performance metric for an episode as the cost value obtained at the final step.
 The obtained final costs are averaged over the #n-ep episodes and give the _#acr("MFC")_:
@@ -161,14 +165,14 @@ $
 $
 where $r_(i, t)$ is the reward the agent received when transiting to state $s_t$ during episode $i$.
 The performance of the trained policy (denoted #pi-theta) is compared to a selection of baseline deterministic policies:
-- *$#pi-still = #a-stay$*, where the agent remains static and always chooses the #a-stay action;
-- *$#pi-random = cal(U)(cal(A))$*, where the agent acts randomly, also disregarding the state value;
+- *#pi-still*, where the agent remains static and always chooses the #a-stay action;
+- *#pi-random*, where the agent acts randomly, also disregarding the state value;
 - *#pi-orient* where the agent never moves, but orients itself to face the source.
 Furthermore, we test both our directional and omnidirectional formulations of the #acr("WER") cost #wer-cost.
 //The first group of columns display the policies' performance when tested on the environment with 
-#pi-theta is retrained
-
+#pi-theta is trained and evaluated on both environments separately.
 Results are reported in @table:rl:results:wer_performance_vs_baselines.
+#draft[TODO: add comment]
 
 #include "tables/wer_performance_vs_baselines.typ"
 
@@ -227,6 +231,7 @@ The analytical cost is defined over the state space $cal(S)$ as:
 where:
 - #agent-pos and $theta_a$ are respectively the position and orientation of the agent in the room's frame;
 - #source-pos is the source position and is fixed for a given episode;
+- $#agent-source-dist = #agent-source-dist-expr$ is the source-array distance;
 - $"DoA"(#agent-pos, theta_a, #source-pos)$ is the direction of arrival for this source-microphone positioning;
 - $eta$ is a scaling factor; #draft[Say that we keep it as 1]
 

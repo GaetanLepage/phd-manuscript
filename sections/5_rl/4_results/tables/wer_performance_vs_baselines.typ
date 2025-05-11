@@ -6,7 +6,7 @@
 #figure(
   table(
     // SETTINGS
-    columns: 5,
+    columns: 5 * (1fr,),
     align: left + horizon,
     stroke: none,
     
@@ -25,17 +25,25 @@
 
     midrule,
 
-    [#pi-still], [], [], [], [],
-    [#pi-random], [], [], [], [],
-    [#pi-orient], [], [], [], [],
-    [#pi-theta], [], [], [], [],
+    [#pi-still], [#todo], [#todo], [#todo], [#todo],
+    [#pi-random], [#todo], [#todo], [#todo], [#todo],
+    [#pi-orient], [#todo], [#todo], [#todo], [#todo],
+    [*#pi-theta*], [#todo], [#todo], [#todo], [#todo],
 
     bottomrule,
   ),
   placement: top,
   kind: table,
-  caption: [
-    Comparison of three #acr("ASR") models provided by #speechbrain
-  ]
+  caption: flex-caption(
+    short: [
+      Benchmark of various policies' performance on the navigation task.
+    ],
+    long: [
+      Benchmark of various policies' performance on the navigation task.
+      Both omnidirectional and directional #acr("WER") cost environments have been tested.
+      #pi-theta is our deep neural agent policy trained with #acr("PPO").
+      #todo
+    ],
+  ),
 )
 <table:rl:results:wer_performance_vs_baselines>

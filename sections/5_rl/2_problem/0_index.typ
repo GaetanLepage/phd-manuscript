@@ -294,10 +294,10 @@ where:
   Combined with the standard cost reward $#f-reward (#cost-t)$, it entices the agent to position optimally as efficiently as possible.
 
 *Environment initialization*
-When an episode starts, the initial state is drawn randomly according to the probability distribution $p_0: cal(S)_0 -> [0, 1]$.
+When an episode starts, the initial state is drawn randomly according to the probability distribution $p_0: cal(S) -> [0, 1]$.
 In our environment, we restrict the starting position of the agent to a finite set $macron(cal(S)_0) = {s_1, dots, s_(n_"start")}$ of $n_"start"$ possible starting positions.
 The agent orientation is drawn randomly from the four cardinal orientations.
-The set of initial set is $cal(S)_0 = macron(cal(S)_0) times {0, pi/2, pi, (3 pi) / 2}$
+The set of valid initial states is $cal(S)_0 = macron(cal(S)_0) times {0, pi/2, pi, (3 pi) / 2}$
 Finally, the initial state distribution is the uniform distribution over the finite set $cal(S)_0$:
 $
   p_0 = cal(U) (cal(S)_0).
@@ -308,30 +308,30 @@ Finally, we must provide the transition dynamics to fully define our #acr("MDP")
 More precisely, we refer to the conditional probability $P(s' | s, a)$ of being in the state $s'$ when coming from the state $s$ and performing action $a$.
 Those dynamics are implemented by the simulator along with the observability function $O$.
 In our case, they are completely deterministic due to their purely geometric nature.
-Indeed, each action leads to a predictable change of the agent's position $(x, y, alpha)$.
+Indeed, each action leads to a predictable change of the agent's position $(x_a, y_a, #agent-ori)$.
 The transition dynamics can be expressed as the following deterministic function $t$, which maps a state-action pair to the next state:
-#let x(content: $x$) = $colMath(content, #olive)$
-#let y(content: $y$) = $colMath(content, #orange)$
-#let s-alpha(content: $alpha$) = $colMath(content, #maroon)$
+#let x(content: $x_a$) = $colMath(content, #olive)$
+#let y(content: $y_a$) = $colMath(content, #orange)$
+#let agent-ori-colored(content: agent-ori) = $colMath(content, #maroon)$
 #func-def(
   $t$,
   $cal(S) times cal(A)$,
   $cal(S)$,
-  $lr(((#x(), #y(), #s-alpha()), a), size: #130%)$,
+  $lr(((#x(), #y(), #agent-ori-colored()), a), size: #130%)$,
   $
     cases(
-      (#x(content: $x + d cos(alpha)$), #y(content: $y + d sin(alpha)$), #s-alpha())
-        quad & "if" a="FORWARD",
+      (#x(content: $x_a + d cos(#agent-ori)$), #y(content: $y_a + d sin(#agent-ori)$), #agent-ori-colored())
+        quad & "if" a=#a-forward,
         
-      (#x(), #y(), #s-alpha(content: $(alpha + pi/2 )[2pi]$))
-        quad & "if" a="TURN_LEFT",
+      (#x(), #y(), #agent-ori-colored(content: $(#agent-ori + pi/2 )[2pi]$))
+        quad & "if" a=#a-left,
         
-      (#x(), #y(), #s-alpha(content: $(alpha - pi/2 )[2pi]$))
-        quad & "if" a="TURN_RIGHT",
+      (#x(), #y(), #agent-ori-colored(content: $(#agent-ori - pi/2 )[2pi]$))
+        quad & "if" a=#a-right,
         
-      (#x(), #y(), #s-alpha())
-        quad &  "if" a = "STAY" \
-               & quad| (a = "FORWARD" and a "is invalid").
+      (#x(), #y(), #agent-ori-colored())
+        quad &  "if" a = #a-stay \
+               & quad| (a = #a-forward and a "is invalid").
     )
   $,
 )

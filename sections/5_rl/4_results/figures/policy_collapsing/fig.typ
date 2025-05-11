@@ -11,7 +11,7 @@
       Evolution of the training metrics demonstrating the policy collapsing phenomenon.
     ],
     long: [
-      Evolution of the training metrics demonstrating the policy collapsing phenomenon.
+      Evolution of the training metrics demonstrating the phenomenon of policy collapsing.
       The behavior of two agents is monitored through the agent-to-source distance at the end of the episode #agent-source-final-dist and the average number of #a-forward actions performed per episode.
       The first agent is trained with an uninformative constant (purple) reward while the second one is trained with the #acr("WER") reward.
     ],

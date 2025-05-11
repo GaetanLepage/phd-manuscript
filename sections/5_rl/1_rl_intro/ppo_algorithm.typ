@@ -8,7 +8,8 @@
   Function(
     "PPO",
     args: (
-      todo,
+      n-ppo-iter,
+      ppo-mini-batch-size,
     ),
     {
       // INPUTS
