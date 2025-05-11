@@ -141,68 +141,14 @@ The specific pipeline that was used in this work involves three components:
 
 To choose the best model for our use case, we empirically compared three models provided in #speechbrain.
 We evaluated them on the #librispeech training set, which contains 25,539 samples ranging from 3 to 16 seconds.
-@table:rl:method:asr_models
+@table:rl:method:asr_models #todo
 
 We have integrated the #speechbrain #acr("ASR") library into the simulator.
 The input signals used for each source are drawn from the #librispeech @panayotov_librispeech_2015 (@sec:simulator:simulator:components:sim_scenarios).
 The simulator loads the ground truth transcripts along with the clean signal.
-Thus, our #acr("ASR") module, can be fed with the listened signal computed by the simulator, and the obtained transcription can then be compared with the ground-truth one.
+Thus, our #acr("ASR") module can be fed with the listened signal computed by the simulator, and the obtained transcription can then be compared with the ground-truth one.
 
-
-#include "asr_models_comparison.typ"
-
-
-==== Computing of #acr("WER") Maps
-<sec:rl:method:wer_maps:computing>
-
-*ASR setup.*
-We compute the #acr("WER") score using the _jiwer_ @vaessen_jitsijiwer_2024 library.
-To compute the minimum edit distance, it wraps the fast C++ matching library _RapidFuzz_ @max_bachmann_2024_10938887.
-The calculation of the metric has no significant impact on performance.
-However, running the #speechbrain #acr("ASR") model is highly computationally expensive.
-When the model is run in inference mode to evaluate its performance on 100 samples from the #librispeech dataset, 96% of the time is spent on the speech recognition process.
-On the contrary, less than 1% is spent computing the #acr("WER") score.
-We perform this test on an RTX A6000 NVIDIA GPU that gets fully utilized by this decoding task.
-The _RapidFuzz_ library runs directly on the CPU.
-Importantly, the decoding process remains slow: It takes approximately 2s to process a single 16s sentence at 16kHz.
-#draft[
-  Maybe add WER score on simulated/listened data.
-]
-
-*Motivation.*
-The setup mentioned above allows the computation of #acr("WER") scores on full simulated audio recordings.
-However, the proposed #acr("RL") environment involves short steps of 1s, during which the agent is assumed to be immobile and gathers audio data.
-Computing the #acr("WER") on such a small snippet would not make sense.
-A complete sentence is the minimum necessary for the #acr("WER") to have meaning.
-Additionally, as with every metric, this indicator is supposed to be averaged over a significant number of samples to purposefully assess the performance of the evaluated method.
-Here, the cost $#wer-cost (s)$ is expected to provide an estimate for the average #acr("ASR") performance for a given state $s$.
-For those reasons, the oracle cannot work in real-time and needs to rely on prior information.
-
-*#acr("WER") maps.*
-To solve the previously mentioned issue, we introduce the _#acr("WER") map_ abstraction.
-The core idea of #acr("WER") maps is to pre-compute an average #acr("WER") score for each attainable state of the #acr("MDP").
-More precisely, a microphone will be positioned sequentially in each cell of the 2D grid spanning the room.
-If the microphone is not omnidirectional, the agent's orientation will impact the received signal and, eventually, the recognition performance too.
-In this case, all four cardinal directions must be evaluated.
-The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphone and as a 3D tensor otherwise.
-
-#include "wer_map_algorithm.typ"
-
-@algo:rl:wer_map describes the algorithm used to compute those #acr("WER") maps.
-#draft[
-  - Clearly introduce/differenciate #cost and #wer-cost
-  - Say that we compute maps for a few starting positions
-  - give numbers on compute time
-  - Add the size of the speech sample: 40
-]
-
-
-==== WER on Clean Speech
-
-#draft[
-  TODO: merge with previous section
-]
-
+#todo
 As a sanity check for the #acr("ASR") module, we run the complete recognition pipeline on the clean speech signals from the #librispeech dataset.
 The `ASR-CRDNN-RNNLM-LibriSpeech` model from #speechbrain we have chosen yields an average #acr("WER") of 1.82% on this clean dataset.
 
@@ -227,16 +173,70 @@ All three models share the same tokenizer, trained on #librispeech.
 ]
 
 
+
+#include "asr_models_comparison.typ"
+
+
+==== Computing of #acr("WER") Maps
+<sec:rl:method:wer_maps:computing>
+
+*ASR setup.*
+We compute the #acr("WER") score using the _jiwer_ @vaessen_jitsijiwer_2024 library.
+To compute the minimum edit distance, it wraps the fast C++ matching library _RapidFuzz_ @max_bachmann_2024_10938887.
+The calculation of the metric has no significant impact on performance.
+However, running the #speechbrain #acr("ASR") model is highly computationally expensive.
+When the model is run in inference mode to evaluate its performance on 100 samples from the #librispeech dataset, 96% of the time is spent on the speech recognition process.
+On the contrary, less than 1% is spent computing the #acr("WER") score.
+We perform this test on an RTX A6000 NVIDIA GPU that gets fully utilized by this decoding task.
+The _RapidFuzz_ library runs directly on the CPU.
+Notably, the decoding process remains slow: It takes approximately 2s to process a single 16s sentence at 16kHz.
+
+*Motivation.*
+The setup mentioned above allows the computation of #acr("WER") scores on full simulated audio recordings.
+However, the proposed #acr("RL") environment involves short steps of 1s, during which the agent is assumed to be immobile and gathers audio data.
+Computing the #acr("WER") on such a small snippet would not make sense.
+A complete sentence is the minimum necessary for the #acr("WER") to have meaning.
+Additionally, as with every metric, this indicator is supposed to be averaged over a significant number of samples to purposefully assess the performance of the evaluated method.
+Here, the cost $#wer-cost (s)$ is expected to provide an estimate for the average #acr("ASR") performance for a given state $s$.
+For those reasons, the oracle cannot work in real-time and needs to rely on prior information.
+
+*#acr("WER") maps.*
+To solve this issue, we introduce the #acr("WER") map abstraction.
+The core idea of #acr("WER") maps is to pre-compute an average #acr("WER") score for each attainable state of the #acr("MDP") and cache it for later use.
+More precisely, a microphone is positioned sequentially in each cell of the 2D grid spanning the room.
+If the microphone is not omnidirectional, the agent's orientation will also impact the received signal and, eventually, the recognition performance.
+In this case, all four cardinal directions must be evaluated.
+The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphone and as a 3D tensor otherwise.
+
+#include "wer_map_algorithm.typ"
+
+@algo:rl:wer_map describes the algorithm used to compute those #acr("WER") maps.
+It implements @eq:rl:method:wer_cost.
+#draft[
+  - Clearly introduce/differenciate #cost and #wer-cost
+  - Say that we compute maps for a few starting positions
+  - give numbers on compute time
+  - Add the size of the speech sample: 40
+]
+
+
+
 === Deep Neural Agent
 <sec:rl:method:nn_architecture>
 
 The multiple recent successes of #acr("DRL") in solving various tasks (Atari games @mnih_playing_2013, controlling plasma in fusion reactors @degrave_magnetic_2022, #todo) originate consequently in the use of #acr("DNN") as function approximators (@sec:rl:intro:deep_reinforcement_learning).
-
 We propose a custom architecture for the neural network implementing the #acr("RL") agent.
 @fig:rl:method:agent_architecture gives a schematic view of its core components.
 The choice of #acr("PPO") as a training algorithm requires defining two models: the actor and the critic (@sec:rl:intro:ppo).
 We have designed a common backbone between those two systems, allowing them to share a significant part of the model parameters.
 This feature extractor is followed by two heads implemented as #acr("MLP").
+
+The main difficulty of the sound-driven navigation problem lies in the agent's ability to map sound cues to spatial information.
+The partial observability aspect of the environment prevents the agent from directly and transparently observing either its own or the source's position.
+We propose to leverage a pre-trained deep sound-source localizer.
+Specifically, we use the model introduced in the second chapter, trained to localize a single speech source randomly located in a reverberant room @sec:ssl:single_source:method:architecture.
+The architectures and the pre-trained weights are directly transferred to build the deep neural agent.
+
 
 #draft[
   - Backbone + 2 heads
@@ -262,23 +262,12 @@ This feature extractor is followed by two heads implemented as #acr("MLP").
 )
 <fig:rl:method:agent_architecture>
 
-==== Pre-Trained Acoustic Feature Extractor
-
-#draft[
-  - motivation
-  - Link with the SSL work
-  - Supervised pipeline
-]
-
-The main difficulty of the sound-driven navigation problem lies in the agent's ability to map sound cues to spatial information.
-The partial observability aspect of the environment prevents the agent from directly and transparently observing either its own or the source's position.
-
 
 
 === #acr("PPO") Implementation and Training Strategy
 
 *Backbone pretraining.*
-The feature extractor maps the audio spectral observations into a lower 16-dimensional embedding vector.
+The feature extractor maps the audio spectral observations into a lower 128-dimensional embedding vector.
 We hypothesize that the agent will implicitly acquire localization capabilities while learning the #acr("RL") navigation task.
 We supervisedly train the feature extractor to perform the #acr("SSL") task to improve performance and bootstrap the learning process.
 The exact training methodology is detailed in @sec:ssl:single_source:method.
@@ -300,10 +289,10 @@ $
   r (s_t) = alpha e^(-beta w(s_t))
 $
 
-*Starting positions.*
+*Source positions.*
 As previously mentioned, computing a #acr("WER") map is computationally intensive.
 Also, a map needs to be computed for each possible source position.
-The final formulation for the environment involves 12 possible starting positions deterministically  spread across the room.
+The final formulation for the environment involves #n-source-pos-value possible starting positions deterministically spread across the room.
 #draft[This is a trade off between computational cost for caching the WER maps and the diversity/difficulty of the environment.]
 
 #include "figures/source_positions/fig.typ"
@@ -323,7 +312,7 @@ Engstrom et al. @engstrom_implementation_2020 explicitly studied the "code-level
 This work formalized the community's shared impression that #acr("PPO")'s promised performance was subject to subtle implementation details.
 Huang et al. have also contributed to this practical investigation by publishing _The 37 Implementation Details of Proximal Policy Optimization_ @shengyi2022the37implementation.
 In @mahmood_benchmarking_2018, Mahmood et al. study the sensitivity of #acr("RL") algorithms to their hyperparameters.
-They mention that #acr("PPO"), along with other state-of-the-art algorithms (#acr("TRPO"), #acr("DDPG"), and Soft-Q), is highly sensitive to its hyperparameter values.
+Mahmood et al. mention that #acr("PPO"), among other state-of-the-art algorithms, is highly sensitive to its hyperparameter values @mahmood_benchmarking_2018.
 It thus requires careful fine-tuning on each new environment where it is tested.
 Our experience corroborates those observations.
 Extensive experimental campaigns were required to isolate a satisfying set of hyperparameter values.

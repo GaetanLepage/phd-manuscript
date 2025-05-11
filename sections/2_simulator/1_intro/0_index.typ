@@ -123,7 +123,7 @@ In conclusion, simulation's many benefits come at some cost, which must be caref
 
 *Acoustic simulation.*
 Thanks to the widespread availability of camera sensors and significant advancements in image processing techniques, vision has emerged as one of the most predominant modalities in robotics.
-Nevertheless, other cues have also been employed, either in conjunction with or in place of vision (LIDAR @malavazi_lidar-only_2018 @hutabarat_lidar-based_2019, haptic feedback @seminara_active_2019, audio @chen_soundspaces_2020 @majumder_move2hear_2021 @bustamante_multi-step-ahead_2017, etc.).
+Nevertheless, other cues have also been employed, either in conjunction with or in place of vision (#acr("LIDAR") @malavazi_lidar-only_2018 @hutabarat_lidar-based_2019, haptic feedback @seminara_active_2019, audio @chen_soundspaces_2020 @majumder_move2hear_2021 @bustamante_multi-step-ahead_2017, etc.).
 In this thesis, the focus will be on acoustic applications in robotics.
 Simulators targeting audio simulation are scarcer, especially the ones dedicated to robotics.
 In their review, Kaur et al. @kaur_simulators_2022 highlight the absence of ambient sound modeling for testing sound-based navigation algorithms.

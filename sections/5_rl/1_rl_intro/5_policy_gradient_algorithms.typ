@@ -142,16 +142,17 @@ $
     + hat(A)_t^((2))
     + hat(A)_t^((3))
     + dots
-  ).
+  ),
 $
-#block(breakable: false)[
-  It can be shown that this expression simplifies as:
-  $
-    hat(A)_t^("GAE"(gamma, lambda))
-      = sum_(k=0)^(infinity)
-      (lambda gamma)^k delta_(t + k) ^V.
-  $
-]
+where $gamma$ is the #acr("MDP")'s discount factor and $lambda$ is a hyperparameter that controls the estimator's bias-variance tradeoff.
+It can be shown that this expression simplifies to:
+$
+  hat(A)_t^("GAE"(gamma, lambda))
+    = sum_(k=0)^(infinity)
+    (lambda gamma)^k delta_(t + k) ^V.
+$
+The #acr("GAE") estimator is therefore the exponentially-decayed sum of rewards.
+$lambda$ 
 #todo
 
 

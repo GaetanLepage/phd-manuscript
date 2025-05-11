@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 #import "../../_variables.typ": *
 
+#set text(size: 10pt)
 
 #figure(
   table(
@@ -18,6 +19,12 @@
       [Description],
       [Value],
     ),
+    
+    midrule,
+
+    table.cell(rowspan: 2)[Environment],
+    [#env-horizon], [Horizon: number of steps per episode], [#env-horizon-value],
+    [#n-source-pos], [Number of possible source positions], [#n-source-pos-value],
 
     midrule,
     
@@ -29,7 +36,7 @@
 
     table.cell(rowspan: 3)[Loss],
     [#coef-value], [Loss value coefficient], [],
-    [#coef-entropy], [Entropy coefficient], [#todo],
+    [#coef-entropy], [Entropy coefficient], [$10^(-2)$],
     [Value clipping], [], [Yes],
     
     midrule,
@@ -37,9 +44,9 @@
     table.cell(rowspan: 5)[Learning],
     [mini-batch size], [Number of samples (transitions) in each mini-batch], [500],
     [#n-ppo-epochs], [Number of epochs per iteration], [64],
-    [Optimizer], [], [Adam @kingma_adam_2017],
+    [Optimizer], [Used for optimizing the actor and critic networks], [Adam @kingma_adam_2017],
     [$eta$], [Learning rate], [$10^(-3)$],
-    [Learning rate annealing (cosine annealing)], [], [Yes],
+    [Learning rate annealing], [Progressively decay the learning rate during training], [cosine annealing ($T_"max"=#n-ppo-epochs$)],
 
     bottomrule,
   ),

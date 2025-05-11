@@ -36,8 +36,7 @@
     ],
     long: [
       Comparison of the agent's performance for different feature extractor training strategies.
-      In the first case, the model's convolutional backbone is initialized randomly, and trained from scratch by the #acr("PPO") algorithm.
-      
+      In the first case, the model's convolutional backbone is initialized randomly and trained from scratch by the #acr("PPO") algorithm.
     ],
   ),
 )

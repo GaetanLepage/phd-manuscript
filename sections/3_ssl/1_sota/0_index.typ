@@ -342,7 +342,7 @@ Yet, sound information may have additional use cases besides #acr("ASR").
 For instance, human-robot interaction can be enhanced by having the agent adjust its gaze and look at the person it interacts with.
 A robot that can locate other sound sources accurately can also adjust its navigation policy to take advantage of this knowledge.
 Robot navigation is likewise complex and often relies on multi-modal perception.
-LIDAR, or depth information, allows the robot to localize itself and other potentially moving subjects in the environment.
+#acr("LIDAR"), or depth information, allows the robot to localize itself and other potentially moving subjects in the environment.
 Visual information has also been used to perform #acr("SSL") @mo_closer_2022.
 Regarding robotics, Naranag et al. @narang_auditory-aware_2014 have combined a sound source localizer with a visual #acr("SLAM") system for performing auditory-aware navigation.
 Using both modalities helped improve overall performance, including the #acr("SSL") accuracy itself.

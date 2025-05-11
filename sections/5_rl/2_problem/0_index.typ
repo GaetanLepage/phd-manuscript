@@ -295,13 +295,7 @@ where:
 
 *Environment initialization*
 When an episode starts, the initial state is drawn randomly according to the probability distribution $p_0: cal(S) -> [0, 1]$.
-In our environment, we restrict the starting position of the agent to a finite set $macron(cal(S)_0) = {s_1, dots, s_(n_"start")}$ of $n_"start"$ possible starting positions.
-The agent orientation is drawn randomly from the four cardinal orientations.
-The set of valid initial states is $cal(S)_0 = macron(cal(S)_0) times {0, pi/2, pi, (3 pi) / 2}$
-Finally, the initial state distribution is the uniform distribution over the finite set $cal(S)_0$:
-$
-  p_0 = cal(U) (cal(S)_0).
-$
+In our environment, we randomly draw the agent's starting position and orientation when an episode begins.
 
 *Transition dynamics.*
 Finally, we must provide the transition dynamics to fully define our #acr("MDP").
@@ -335,7 +329,11 @@ The transition dynamics can be expressed as the following deterministic function
     )
   $,
 )
-The collisions are detected before their execution so that the action can be denied.
+The collisions are detected before execution so that the environment can deny the action.
+
+Finally, the environment's horizon is finite.
+No event can terminate the environment before this time limit.
+Therefore, each episode lasts a fixed number of steps, denoted as the horizon #env-horizon.
 
 
 ==== Alternative Continuous Formulation

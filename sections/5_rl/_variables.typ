@@ -6,6 +6,9 @@
 #let a-left = `TURN_LEFT`
 #let a-right = `TURN_RIGHT`
 #let env-horizon = $T$
+#let env-horizon-value = 32
+#let n-source-pos = $n_"source pos"$
+#let n-source-pos-value = 12
 
 // PPO loss
 #let ppo-clipped-loss = $colMath(L_t^"CLIP" (theta), #maroon)$

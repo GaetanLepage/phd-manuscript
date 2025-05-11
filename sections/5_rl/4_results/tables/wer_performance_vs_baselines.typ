@@ -25,10 +25,13 @@
 
     midrule,
 
-    [#pi-still], [#todo], [#todo], [#todo], [#todo],
-    [#pi-random], [#todo], [#todo], [#todo], [#todo],
-    [#pi-orient], [#todo], [#todo], [#todo], [#todo],
-    [*#pi-theta*], [#todo], [#todo], [#todo], [#todo],
+    // Omnidirection: exp300
+    // Directional: exp301
+
+    [#pi-still], [1481], [21.13], [1512], [21.37],
+    [#pi-random], [38], [21.27], [37], [22.32],
+    [#pi-orient], [1484], [21.02], [1783], [16.75],
+    [#pi-theta], [*2341*], [*5.69*], [*2272*], [*8.59*],
 
     bottomrule,
   ),

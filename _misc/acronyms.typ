@@ -17,6 +17,7 @@
     "Hidden Markov Models"
   ),
   "HRI": ("Human-Robot Interaction"),
+  "LIDAR": ("light detection and ranging"),
   "LTI": ("linear time-invariant"),
   "LUT": (
     "Look Up Table",
@@ -161,6 +162,7 @@
   "PPO": ("Proximal Policy Optimization"),
   "RL": ("Reinforcement Learning"),
   "RLHF": ("Reinforcement Learning from Human Feedback"),
+  "SAC": ("soft actor-critic"),
   "TD": ("Temporal-difference"),
   "TRPO": ("Trust Region Policy Optimization")
 ))

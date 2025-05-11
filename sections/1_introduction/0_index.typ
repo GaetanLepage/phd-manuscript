@@ -36,8 +36,8 @@ His observation, from 1988, remains highly relevant today as multimodal percepti
 === Multi-Modal Perception, a Focus on Acoustics
 
 Multi-modal perception for a robot consists of its ability to sense and understand the environment around it.
-Robots can be equipped with various sensors depending on their objectives, nature, and budget constraints.
-LIDAR sensors, for example, allow for estimating the distance to surrounding objects and are widely used in autonomous vehicles.
+Depending on their objectives, nature, and budget constraints, robots can be equipped with various sensors.
+For example, #acr("LIDAR") sensors allow for estimating the distance to surrounding objects and are widely used in autonomous vehicles.
 Cameras and microphones are cost-effective and let robots sense their environment like humans.
 Processing the resulting information flux is a crucial aspect of multimodal perception.
 It entails extracting knowledge from the raw gathered data that is valuable for the task.
