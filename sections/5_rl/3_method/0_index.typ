@@ -30,35 +30,21 @@ Each microphone has a cardioid pattern.
 <sec:rl:method:wer_maps>
 #minitoc(indent: true)
 
-This section presents the design and implementation details of the #acr("WER") cost function (#wer-cost) computation and caching.
-
 #draft[
   - Present how we implement the WER oracle $w$
   - Motivation: Computation challenges: pre-compute maps instead of live computation
 
   - Say that even though our environment is theoretically a POMDP, we have used a normal RL method and not accounted for the PO aspect of it.
-  
-  - Also, WER does not make sense for a single position?
-  
-  - Explain the different reward schemes
-  
-  - Motivation: use #acr("ASR") as objective
 ]
 
-
+This section presents the design and implementation details of the #acr("WER") cost function (#wer-cost).
 The reward signal introduced previously expects an oracle to provide an estimate of the #acr("WER") score for each possible state.
 This is achieved by pre-computing an average #acr("WER") for every position on the grid, and possibly every orientation of the agent.
-Although the array might include several microphones, the #acr("ASR") measurements only employ a single microphone.
-Eventual techniques to combine the signal from multiple microphones are out of the scope of this work.
-The following paragraphs discuss how the caching is done.
-
-#draft[
-  Actually, no need to introduce this as a theoretical stuff. It is actually the formula for the cached cost.
-  -> Make the wording simpler.
-]
-
+The obtained #acr("WER") cost function is given by:
+#let asr-net = $T_psi$
+#let asr-dataset = $cal(D)$
 #func-def(
-  $#wer-cost^*$,
+  $#wer-cost$,
   $cal(S)$,
   $RR_+$,
   $(
@@ -67,13 +53,13 @@ The following paragraphs discuss how the caching is done.
     //bold(x)_s
   )$,
   $
-    EE_((v, t) in cal(D)^*)
+    EE_((v, t) in cal(D))
     lr(
       [
         1/100
         "WER"lr(
           (
-            T_phi
+            #asr-net
             lr(
               (
                 "listened"(
@@ -95,12 +81,22 @@ The following paragraphs discuss how the caching is done.
   $
 )
 where:
-- $v$ and $t$ are respectively the clean speech recording and associated transcript drawn from a theoretically infinite corpus;
+- $v$ and $t$ are clean speech recordings, respectively, and their associated transcripts are drawn from a corpus #asr-dataset.
 - $"listened"(v, #agent-pos, #agent-ori, #source-pos)$ is the signal recorded by the agent's primary microphone when it is located at #agent-pos and oriented by #agent-ori while the speech source, located at #source-pos, plays the recording $v$.
-  This operator encompasses the reverberation properties of the room;
-- $T_phi$ denotes a deep #acr("ASR") model parametrized by parameters $phi$.
-  Given a recorded signal, it outputs a prediction for the transcript $hat(t)$
+  This operator encompasses the reverberation properties of the room.
+- #asr-net denotes a deep #acr("ASR") model parametrized by parameters $phi$.
+  Given a recorded signal, it outputs a prediction for the transcript $hat(t)$.
 - $"WER"(hat(t), t)$ is the #acr("WER") (in %) between predicted transcript $hat(t)$ and ground truth transcript $t$.
+
+Although the array might include several microphones, the #acr("ASR") measurements only employ a single microphone.
+Eventual techniques to combine the signal from multiple microphones are out of the scope of this work.
+The following paragraphs discuss the #wer-cost's computing and caching implementation.
+
+#draft[
+  Actually, no need to introduce this as a theoretical stuff. It is actually the formula for the cached cost.
+  -> Make the wording simpler.
+]
+
 In practice, this theoretical cost is untractable for several reasons.
 
 detail the reward implementation and the relevant technical choices made.
@@ -146,11 +142,12 @@ The specific pipeline that was used in this work involves three components:
 
 To choose the best model for our use case, we empirically compared three models provided in #speechbrain.
 We evaluated them on the #librispeech training set, which contains 25,539 samples ranging from 3 to 16 seconds.
+@table:rl:method:asr_models
 
 We have integrated the #speechbrain #acr("ASR") library into the simulator.
 The input signals used for each source are drawn from the #librispeech @panayotov_librispeech_2015 (@sec:simulator:simulator:components:sim_scenarios).
 The simulator loads the ground truth transcripts along with the clean signal.
-Thus, our #acr("ASR") module can be fed with the listened signal computed by the simulator, and the obtained transcription can then be compared with the ground-truth one.
+Thus, our #acr("ASR") module, can be fed with the listened signal computed by the simulator, and the obtained transcription can then be compared with the ground-truth one.
 
 
 #include "asr_models_comparison.typ"
@@ -203,6 +200,10 @@ The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphon
 
 ==== WER on Clean Speech
 
+#draft[
+  TODO: merge with previous section
+]
+
 As a sanity check for the #acr("ASR") module, we run the complete recognition pipeline on the clean speech signals from the #librispeech dataset.
 The `ASR-CRDNN-RNNLM-LibriSpeech` model from #speechbrain we have chosen yields an average #acr("WER") of 1.82% on this clean dataset.
 
@@ -216,6 +217,10 @@ All three models share the same tokenizer, trained on #librispeech.
   - `asr-transformer-transformerlm-librispeech`
   - `asr-crdnn-transformerlm-librispeech`
   - `asr-crdnn-rnnlm-librispeech`
+
+  -> Done
+
+  - In the table, we truncated the final `-librispeech` (say somewhere that they were all trained with this reward)
 
   However, the second one is broken
   -> Just say that the one we chose offers the best compromise between speed and quality.

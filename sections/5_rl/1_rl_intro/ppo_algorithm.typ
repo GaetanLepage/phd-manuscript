@@ -102,7 +102,7 @@
         State[]
         Cmt[Optimize the actor and critic networks]
         State[
-          Split #ppo-traj-buffer in mini-batches (#ppo-mini-batch) of transitions
+          Split #ppo-traj-buffer in mini-batches of #ppo-mini-batch-size transitions each.
         ]
         For(
           cond: [$k "in" 1 dots #n-ppo-epochs$],
@@ -114,6 +114,9 @@
               ],
               {
                 State[]
+                State[
+                  Update the policy parameters by 
+                ]
                 State[
                   $#policy-ratio <- #policy-ratio-exp$
                 ]
