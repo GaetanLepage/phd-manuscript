@@ -1,5 +1,5 @@
 #import "/utils.typ": *
-#import "../_variables.typ": wer-map, delta-grid
+#import "../_variables.typ": *
 
 
 #let algo = algorithm({
@@ -8,7 +8,7 @@
     "Compute-WER-Map",
     args: (
       delta-grid,
-      $(L_x, L_y)$,
+      $(#L-x, #L-y)$,
       //$n_"samples"$,
       $cal(D)$,
       "directional",
@@ -20,7 +20,7 @@
         spatial resolution
       ]
       Cmt[
-        *$bold((L_x, L_y))$:*
+        *$bold((#L-x, #L-y))$:*
         dimensions of the room
       ]
       //Cmt[
@@ -43,10 +43,10 @@
       
       Cmt[Initialize the agent positions]
       // X
-      Assign[$cal(X)$][${i #delta-grid mid(|) i in [|0, floor(L_x/#delta-grid)|]}$]
+      Assign[$cal(X)$][${i #delta-grid mid(|) i in [|0, #n-x-exp|]}$]
       State[]
       // Y
-      Assign[$cal(Y)$][${j #delta-grid mid(|) j in [|0, floor(L_y/#delta-grid)|]}$]
+      Assign[$cal(Y)$][${j #delta-grid mid(|) j in [|0, #n-y-exp|]}$]
       State[]
 
       If(cond: "directional", {

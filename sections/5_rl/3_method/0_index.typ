@@ -30,13 +30,6 @@ Each microphone has a cardioid pattern.
 <sec:rl:method:wer_maps>
 #minitoc(indent: true)
 
-#draft[
-  - Present how we implement the WER oracle $w$
-  - Motivation: Computation challenges: pre-compute maps instead of live computation
-
-  - Say that even though our environment is theoretically a POMDP, we have used a normal RL method and not accounted for the PO aspect of it.
-]
-
 This section presents the design and implementation details of the #acr("WER") cost function (#wer-cost).
 The reward signal introduced previously expects an oracle to provide an estimate of the #acr("WER") score for each possible state.
 This is achieved by pre-computing an average #acr("WER") for every position on the grid, and possibly every orientation of the agent.
@@ -90,15 +83,6 @@ where:
 Although the array might include several microphones, the #acr("ASR") measurements only employ a single microphone.
 Eventual techniques to combine the signal from multiple microphones are out of the scope of this work.
 The following paragraphs discuss the #wer-cost's computing and caching implementation.
-
-#draft[
-  Actually, no need to introduce this as a theoretical stuff. It is actually the formula for the cached cost.
-  -> Make the wording simpler.
-]
-
-In practice, this theoretical cost is untractable for several reasons.
-
-detail the reward implementation and the relevant technical choices made.
 
 
 ==== #acr("ASR") Frameworks
@@ -158,12 +142,6 @@ It highlights the performance-speed trade-off of each model.
 All three models share the same tokenizer, trained on #librispeech.
 
 #draft[
-  Ideally, we could compare three models:
-  - `asr-transformer-transformerlm-librispeech`
-  - `asr-crdnn-transformerlm-librispeech`
-  - `asr-crdnn-rnnlm-librispeech`
-
-  -> Done
 
   - In the table, we truncated the final `-librispeech` (say somewhere that they were all trained with this reward)
 
@@ -212,13 +190,19 @@ The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphon
 
 @algo:rl:wer_map describes the algorithm used to compute those #acr("WER") maps.
 It implements @eq:rl:method:wer_cost.
-#draft[
-  - Clearly introduce/differenciate #cost and #wer-cost
-  - Say that we compute maps for a few starting positions
-  - give numbers on compute time
-  - Add the size of the speech sample: 40
-]
-
+It adds an extra normalization step (line 34) to ensure that $C_"WER"$ will scale over the entire $[0, 1]$ interval.
+The computation time of the #acr("WER") map algorithm can quickly grow to several hours.
+Its time complexity grows in the order of:
+$
+  O(#n-x-exp times #n-y-exp times abs(#asr-dataset)).
+$
+Hence, increasing the spatial resolution by lowering #delta-grid increase the computing time quadratically.
+Besides, using the entire #librispeech corpus for #asr-dataset would take a single #acr("WER") map several days to compute.
+Finally, directional maps require four times more time to compute as the process has to be repeated for each possible agent orientation.
+To balance spatial resolution and statistical significance, we settle on using $abs(#asr-dataset) = 40$ recordings and $#delta-grid = 50"cm"$.
+With the $4 times 7$ meter room used in this study, this resolution translates to maps of dimension $14 times 8 (times 4)$.
+Directional maps take approximately 17 hours to compute.
+A #acr("WER") map needs to be computed for each source position considered.
 
 
 === Deep Neural Agent
@@ -236,6 +220,28 @@ The partial observability aspect of the environment prevents the agent from dire
 We propose to leverage a pre-trained deep sound-source localizer.
 Specifically, we use the model introduced in the second chapter, trained to localize a single speech source randomly located in a reverberant room @sec:ssl:single_source:method:architecture.
 The architectures and the pre-trained weights are directly transferred to build the deep neural agent.
+
+#draft[
+*Backbone pretraining.*
+The pre-trained feature extractor is trained on the #acr("SSL") task defined in @sec:ssl:single_source.
+The final regression layer of the sound source localizer is removed to make the model output a 128-dimensional feature vector.
+The default #acr("RL") training process involves freezeing the weigh
+#draft[
+  Just say that the default is pre-trained + frozen and that we investigate it later.
+]
+]
+
+#draft[
+The feature extractor maps the audio spectral observations into a lower 128-dimensional embedding vector.
+We hypothesize that the agent will implicitly acquire localization capabilities while learning the #acr("RL") navigation task.
+We supervisedly train the feature extractor to perform the #acr("SSL") task to improve performance and bootstrap the learning process.
+The exact training methodology is detailed in @sec:ssl:single_source:method.
+The agent architecture (@fig:rl:method:agent_architecture) extends our single-source localizer.
+Please, refer to @fig:ssl:single_source:nn_architecture for a more detailed representation of the feature extractor's architecture.
+#draft[
+  TODO: this is redundant with @sec:rl:method:nn_architecture.
+]
+]
 
 
 #draft[
@@ -265,17 +271,6 @@ The architectures and the pre-trained weights are directly transferred to build 
 
 
 === #acr("PPO") Implementation and Training Strategy
-
-*Backbone pretraining.*
-The feature extractor maps the audio spectral observations into a lower 128-dimensional embedding vector.
-We hypothesize that the agent will implicitly acquire localization capabilities while learning the #acr("RL") navigation task.
-We supervisedly train the feature extractor to perform the #acr("SSL") task to improve performance and bootstrap the learning process.
-The exact training methodology is detailed in @sec:ssl:single_source:method.
-The agent architecture (@fig:rl:method:agent_architecture) extends our single-source localizer.
-Please, refer to @fig:ssl:single_source:nn_architecture for a more detailed representation of the feature extractor's architecture.
-#draft[
-  TODO: this is redundant with @sec:rl:method:nn_architecture.
-]
 
 
 

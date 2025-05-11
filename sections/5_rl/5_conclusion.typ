@@ -8,10 +8,12 @@
   However, we show that we can solve a perceptually-motivated navigation task thanks to:
   - #acr("RL")
   - a pre-trained localizer as the backbone.
+
+  Other positive aspects:
+  - Significant engineering effort (env + PPO + agent + WER maps)
   
   Limitations:
   - The solution struggles with too high reverberation levels (TODO: include ablation study to show this)
-
   - We only handled the single-source case in our experiments
   - The sources are static during an episode
   - On aurait p

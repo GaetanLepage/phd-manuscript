@@ -88,7 +88,16 @@ The value function is a fundamental quantity in #acr("RL").
 Given a policy $pi$, it measures the _quality_ of being in a specific state.
 It is the expectation of future gains starting from the state $s$:
 $
-  V_pi (s) &:= EE[G_t | s_t = s]\
-    &= EE[sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s].
+  #v-pi (s) &:= EE_pi [R_t | s_t = s]\
+    &= EE_pi [sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s].
 $
+<eq:rl:intro:value_function>
 Naturally, this quantity depends on the considered policy $pi$.
+
+*Q-function.*
+#draft[We also introduce it in the PGA section]
+$
+  #q-pi (s, a) &:= EE_pi [R_t | s_t = s, a_t = a]\
+    &= EE_pi [sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s, a_t = a].
+$
+<eq:rl:intro:q_function>

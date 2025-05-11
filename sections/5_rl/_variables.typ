@@ -1,5 +1,11 @@
 #import "/utils.typ": colMath
 
+// RL
+#let v-pi = $V^pi$
+#let v-pi-theta = $V^(pi_theta)$
+#let q-pi = $Q^pi$
+#let q-pi-theta = $Q^(pi_theta)$
+
 // Environment
 #let a-stay = `STAY`
 #let a-forward = `FORWARD`
@@ -16,12 +22,18 @@
 #let ppo-entropy-bonus = $colMath(S[pi_theta](s_t) , #eastern)$
 //#let ppo-loss = $L_t ^("CLIP" + "VF" + "S")$
 #let ppo-loss = $L^"PPO"$
+#let ppo-loss-epsilon = $epsilon$
 #let coef-value = $c_V$
 #let coef-entropy = $c_S$
 #let policy-ratio = $rho_t$
 #let policy-ratio-exp = $(pi_theta (a_t | s_t)) / (pi_theta_"old" (a_t | s_t))$
 
 #let wer-map = $cal(W)$
+#let L-x = $L_x$
+#let L-y = $L_y$
+#let delta-grid = $delta_"grid"$
+#let n-x-exp = $floor(L_x/#delta-grid)$
+#let n-y-exp = $floor(L_y/#delta-grid)$
 #let source-pos = $bold(x)_s$
 #let agent-pos = $bold(x)_a$
 #let agent-ori = $theta_a$
@@ -52,7 +64,6 @@
 #let reward-movement-penalty-value = 10
 
 // Hyperparameters
-#let delta-grid = $delta_"grid"$
 #let n-ep = $n_"ep"$
 #let n-rep = $n_"rep"$
 #let n-ppo-iter = $n_"iter"$

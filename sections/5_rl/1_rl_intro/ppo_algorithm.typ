@@ -77,8 +77,14 @@
 #figure(
   align(left)[#algo],
   kind: raw,
-  caption: [
-    Simplified #acr("PPO") algorithm.
-  ]
+  caption: flex-caption(
+    short: [
+      Simplified #acr("PPO") algorithm.
+    ],
+    long: [
+      Simplified #acr("PPO") algorithm.
+      It iterates between a data sampling phase where trajectories are collected by running the agent in the environment, and a learning phase where the neural network is optimized according to the #acr("PPO") objective #ppo-loss.
+    ],
+  ),
 )
 <algo:rl:ppo>

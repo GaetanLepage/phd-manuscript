@@ -28,7 +28,6 @@ For instance, the #acr("PESQ") score predicts the perceived audio quality of spe
 It primarily targets human perception by measuring how a degraded signal compares to its original counterpart.
 #acr("ASR") performance is likely correlated to the #acr("PESQ") score but directly quantifies how well the robot understands human speech.
 In this sense, #acr("PESQ") would have been a more indirect proxy for robotic auditory perception.
-#draft[TODO: add reference]
 
 // Why we use RL over MPCs
 We use #acr("DRL") as a learning framework to tackle this navigation task.

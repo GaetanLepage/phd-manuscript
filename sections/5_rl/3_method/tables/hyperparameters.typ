@@ -35,6 +35,7 @@
     midrule,
 
     table.cell(rowspan: 3)[Loss],
+    [#ppo-loss-epsilon], [Clipping threshold for the clipped loss #ppo-clipped-loss], [#todo],
     [#coef-value], [Loss value coefficient], [],
     [#coef-entropy], [Entropy coefficient], [$10^(-2)$],
     [Value clipping], [], [Yes],

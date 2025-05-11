@@ -7,10 +7,10 @@
 The first widely used #acr("RL") algorithms consisted of learning to approximate a value function.
 For instance, the notable Q-value algorithm @watkins_learning_1989 introduced the $Q$ function which gives a score to each state-action pair:
 $
-  Q_pi_theta (s, a) := EE[G_t | s_t = s, a_t = a].
-$
+  Q^(pi_theta) (s, a) := EE[G_t | s_t = s, a_t = a].
+$ #draft[répétition avec l'eq and 5.1.2]
 On the contrary, policy gradient algorithms optimize the policy directly, through a differentiable objective function depending on its parameters.
-The reward function is defined as: #draft[TODO Isn't there a log in the formula?]
+The cost function is expressed as: #draft[TODO Isn't there a log in the formula?]
 $
   J(theta)
   &= EE_(tau ~ pi_theta) [R(tau)]\
@@ -22,20 +22,9 @@ Most policy gradient algorithms rely on maximizing this objective using gradient
 This process results in an optimal set of weights $theta^*$ leading to the highest return.
 However, computing the gradient of $J$ is not trivial and can become intractable as the action space grows in dimensionality.
 
-// TODO: pas le temps
-//In 2001, Kakade et al. @kakade_natural_2001 improved the traditional policy gradient framework by introducing the _Natural Gradient_ concept.
-//It uses the Fisher information matrix in the policy update rule.
-//This choice is supposed to take into account the curvature of the parameter space and thus allow more efficient training.
-//In addition to the theoretical arguments advanced by the authors, this schema is empirically superior to the more conventional gradient optimization. 
-//It has shown to be #todo
-
-
-
-#draft[
-  Introduce PG algorithms:
-  - Handles both discrete and continuous spaces
-  - The concept, the theorem and give a few examples
-]
+Several policy gradient have been developped and used in conjunction with deep learning models.
+Our main focus will remain on the #acr("PPO") algorithm @schulman_proximal_2017, but #acr("DDPG") @lillicrap_continuous_2019, #acr("SAC") @haarnoja_off-policy_2018 and #acr("TRPO") @schulman_trust_2017 are other notable examples.
+The core advantage of policy gradient algorithms over Q-learning is their ability to handle both discrete and continuous action spaces.
 
 ==== Policy Gradient Theorem
 
@@ -152,8 +141,6 @@ $
     (lambda gamma)^k delta_(t + k) ^V.
 $
 The #acr("GAE") estimator is therefore the exponentially-decayed sum of rewards.
-$lambda$ 
-#todo
 
 
 
@@ -161,14 +148,10 @@ $lambda$
 ==== The #acr("PPO") Algorithm
 <sec:rl:intro:ppo>
 
-#draft[
-  Examples of application, success stories
-]
-
 The #acr("PPO") algorithm has been used extensively in the #acr("RL") field since its invention in 2017 @schulman_proximal_2017.
 #draft[give examples]
 Its main advantages are its relative simplicity and efficiency.
-It has been shown to be more stable than other algorithms, especially for continuous action spaces @schulman_proximal_2017.
+It is claimed to be more stable than other algorithms, especially for continuous action spaces @schulman_proximal_2017.
 #todo
 
 *#acr("TRPO").*
@@ -289,7 +272,8 @@ To optimize the #acr("PPO") objective, the algorithm involves iteratively sampli
 While
 Each iteration starts by freezing the neural network parameters $theta$ and collecting a set of trajectories #ppo-traj-buffer by running the current policy $pi_theta$ in the environment.
 This sampling phase ends with the computation of the advantages $hat(A)_t$ with the #acr("GAE") process presented in @sec:rl:intro:policy_gradient_algos:gae, and the returns $R_t$.
-
-@algo:rl:ppo
+The second part of the iteration is where the learning occurs.
+The actor and critic networks are optimized by maximizing the overall #acr("PPO") objective #ppo-loss (@eq:rl:ppo_loss).
+This is most often done with a stochastic gradient optimizer such as Adam @kingma_adam_2017 or #acr("SGD"). @algo:rl:ppo gives the pseudo-code for the #acr("PPO") algorithm.
 
 #include "ppo_algorithm.typ"
