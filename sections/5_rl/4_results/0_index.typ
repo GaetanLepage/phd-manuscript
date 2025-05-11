@@ -132,26 +132,46 @@ On the contrary, the agent trained with the regular #acr("WER") cost successfull
 
 === Agent Performance on the Navigation Task
 
-To evaluate the proposed method on the main navigation task, we report both qualitative and quantitative results.
-The goal is to assess how the model performs in the environment once it has been trained with the #acr("PPO") algorithm.
-The evaluation process consists in running several episodes where the agent acts according to the learnt policy.
-We record various metrics and monitoring quantities to later evaluate the navigation performance.
+We report qualitative and quantitative results to evaluate the proposed method on the main navigation task.
+The goal is to assess how the model performs in the environment once trained with the #acr("PPO") algorithm.
+The evaluation consists of running several episodes where the agent acts according to the learnt policy.
+We record various metrics and monitoring quantities to evaluate the navigation performance later.
 Furthermore, trajectories are also saved to assess the agent's behavior qualitatively.
+Examples of trajectories are represented on @fig:rl:results:trajectories.
+The agent can learn #pi-optimal, the policy of navigating to the source, thus minimizing the associated #wer-cost cost.
 
-
-After training, a series of #n-ep episodes are executed to assess the performance of the #acr("RL") pipeline.
-At each step, the agent greedily selects which action to take according to @eq:rl:intro:action_selection.
-This selection technique differs from the training phase where the action is sampled according to the policy probability distribution $pi_theta$.
-
-We define the primary performance metric for an episode as the loss value obtained at the final step.
-The obtained final rewards are averaged over the #n-ep episodes:
-$
-  hat(C) = 1 / #n-ep sum_(i=1)^(#n-ep) r(s_T^i)
-$
-where $s_T^i$ is the final state of the $i$-th test episode
-
-// TODO: where should I put this?
 #include "figures/trajectories/figure.typ"
+
+A quantitative study of the agent's navigation performance is also conducted.
+After training, a series of #n-ep episodes are executed to assess the performance of the #acr("RL") pipeline.
+The agent greedily selects which action to take at each step according to @eq:rl:intro:action_selection.
+This selection technique differs from the training phase, where the action is sampled according to the policy probability distribution $pi_theta$.
+
+We define the primary performance metric for an episode as the cost value obtained at the final step.
+The obtained final costs are averaged over the #n-ep episodes and give the _#acr("MFC")_:
+$
+  #mfc = 100 / #n-ep sum_(i=1)^#n-ep C(s_(i, T)),
+$
+where #env-horizon is the environment horizon and $s_T^i$ is the final state of the $i$-th test episode.
+When using the #acr("WER") cost, it corresponds to the #acr("ASR") performance after the agent is done moving.
+We convert the normalized cost to a percentage for more intuitive interpretation, especially in the case of #wer-cost.
+In addition to #acr("MFC"), we report the undiscounted cumulated reward #mean-cum-reward:
+$
+  #mean-cum-reward = 1 / #n-ep sum_(i=1)^#n-ep sum_(t=1)^#env-horizon r_(i, t),
+$
+where $r_(i, t)$ is the reward the agent received when transiting to state $s_t$ during episode $i$.
+The performance of the trained policy (denoted #pi-theta) is compared to a selection of baseline deterministic policies:
+- *$#pi-still = #a-stay$*, where the agent remains static and always chooses the #a-stay action;
+- *$#pi-random = cal(U)(cal(A))$*, where the agent acts randomly, also disregarding the state value;
+- *#pi-orient* where the agent never moves, but orients itself to face the source.
+Furthermore, we test both our directional and omnidirectional formulations of the #acr("WER") cost #wer-cost.
+//The first group of columns display the policies' performance when tested on the environment with 
+#pi-theta is retrained
+
+Results are reported in @table:rl:results:wer_performance_vs_baselines.
+
+#include "tables/wer_performance_vs_baselines.typ"
+
 
 
 === Alternative Cost Maps

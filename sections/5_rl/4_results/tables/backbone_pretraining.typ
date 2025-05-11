@@ -15,8 +15,8 @@
 
     table.header(
       [Backbone training strategy],
-      header-wer,
-      header-reward,
+      [#todo],
+      [#todo],
     ),
 
     midrule,
@@ -33,4 +33,4 @@
     Comparison of three #acr("ASR") models provided by #speechbrain
   ]
 )
-<table:rl:result:backbone_pretraining>
+<table:rl:results:backbone_pretraining>

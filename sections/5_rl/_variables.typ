@@ -1,9 +1,11 @@
 #import "/utils.typ": colMath
 
+// Environment
 #let a-stay = `STAY`
 #let a-forward = `FORWARD`
 #let a-left = `TURN_LEFT`
 #let a-right = `TURN_RIGHT`
+#let env-horizon = $T$
 
 // PPO loss
 #let ppo-clipped-loss = $colMath(L_t^"CLIP" (theta), #maroon)$
@@ -58,7 +60,12 @@
 #let n-forwards = $n_"forwards"$
 
 // Policies
+#let pi-theta = $pi_theta$
 #let pi-optimal = $pi^*$
 #let pi-still = $pi_"still"$
 #let pi-orient = $pi_"orient"$
 #let pi-random = $pi_"random"$
+
+// Metrics
+#let mfc = $hat(C)_F$
+#let mean-cum-reward = $macron(R)$

@@ -152,6 +152,7 @@
     "Markov Decision Process",
     "Markov Decision Processes"
   ),
+  "MFC": ("mean final cost"),
   "MPC": ("Model Predictive Control"),
   "PESQ": ("Perceptual Evaluation of Speech Quality"),
   "PG": ("Policy Gradient"),

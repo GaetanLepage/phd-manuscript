@@ -29,11 +29,12 @@
   columns: 1,
   caption: flex-caption(
     short: [
-      Examples of agent trajectories after training.
+      Examples of agent trajectories for two distinct source positions.
     ],
     long: [
-      Examples of agent trajectories after training.
-      For a given 
+      Examples of agent trajectories for two distinct source positions.
+      Each sub-figure represents 10 different trajectories corresponding to a random agent starting position.
+      In every case, the agent successfully learns to navigate to the source, minimizing the #acr("WER").
     ],
   ),
   align: top,
