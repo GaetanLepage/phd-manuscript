@@ -23,6 +23,7 @@
 //#let ppo-loss = $L_t ^("CLIP" + "VF" + "S")$
 #let ppo-loss = $L^"PPO"$
 #let ppo-loss-epsilon = $epsilon$
+#let ppo-value-loss-epsilon = $epsilon_V$
 #let coef-value = $c_V$
 #let coef-entropy = $c_S$
 #let policy-ratio = $rho_t$
@@ -67,6 +68,7 @@
 #let n-ep = $n_"ep"$
 #let n-rep = $n_"rep"$
 #let n-ppo-iter = $n_"iter"$
+#let n-ppo-iter-value = 100
 #let n-ppo-steps = $n_"steps"$
 #let n-ppo-epochs = $n_"epochs"$
 #let n-ppo-minibatch = $n_"mini-batch"$

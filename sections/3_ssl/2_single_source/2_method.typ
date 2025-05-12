@@ -27,10 +27,10 @@ Apart from ensuring that the source and microphones are not too close to the wal
 Several published #acr("SSL") methods are only tested with restricted positions for the sources.
 Such limitations can be inherent to the physical experimental setup.
 Using a simulator allows for maximizing the diversity of environment configurations.
-Once  the source and microphones are positioned, this configuration's #acr("RIR") filter is computed.
+Once  the source and microphones are positioned, this configuration's #acr("RIR") is computed.
 Then, a random sample is drawn from the LibriSpeech @panayotov_librispeech_2015 dataset.
 An arbitrary 1s chunk is extracted from the speech recording and set as the source input signal.
-By convolving this input signal with the #acr("RIR") filter, we obtain the simulated signal recorded by each microphone.
+By convolving this input signal with the #acr("RIR"), we obtain the simulated signal recorded by each microphone.
 Finally, the multi-channel complex #acr("STFT") is computed from the waveform and saved on disk.
 For each sample, we save the localization ground-truth information, additional metadata, and the acoustic observation.
 Most notably, the #acr("DoA") value $theta$ and the source-array distance $D$ are included.

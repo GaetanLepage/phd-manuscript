@@ -160,14 +160,14 @@ The original methods for acoustic simulation were limited to static scenes where
 This ideal situation is not representative of real-world scenarios.
 Especially in robotics, modeling moving humans and agents is an essential requirement.
 Historical techniques such as the #acr("ISM") solely account for a given static layout of the sources and sensors.
-The result of the #acr("ISM") process is a set of #acr("RIR") filters, one for each microphone-source pair.
+The result of the #acr("ISM") process is a set of #acr("RIR")s, one for each microphone-source pair.
 The resulting signal is computed by convolving the source's input signals with those filters.
-However, the filters must be recomputed whenever a source or microphone moves.
-Chen et al. @chen_soundspaces_2020 pre-compute the #acr("RIR") filters for each attainable configuration of their simulated environment.
+However, the #acr("RIR")s must be recomputed whenever a source or microphone moves.
+Chen et al. @chen_soundspaces_2020 pre-compute the #acr("RIR")s for each attainable configuration of their simulated environment.
 This upfront computation moves the substantial simulation effort from training to a prior pre-processing step.
 Specific works have focused on improving existing simulators by supporting more and more dynamic scenarios.
 Diaz-Guerra et al. @diaz-guerra_gpurir_2021 leverage the performance of their #acr("ISM") #acr("GPU") implementation to pre-compute the #acr("RIR") of every position in the trajectory.
-The simulated signal is obtained by filtering the source recordings with the filters using the overlap-add method.
+The simulated signal is obtained by filtering the source recordings with the #acr("RIR")s using the overlap-add method.
 In @zhang_acoustic_2019, Zang et al. propose a method to simulate dynamic acoustic environments where both the sources and microphones can move.
 Similarly to @diaz-guerra_gpurir_2021, their approach also relies on the discretization of the trajectory.
 Cao et al.'s #acr("BST") algorithm @cao_event-independent_2020 can model dynamic environments in real time and leverage caching schemes to speed up computations.

@@ -244,7 +244,7 @@ The two main approaches for data gathering consist of acoustic simulation and re
 The former naturally comes as a cheaper solution and scales significantly well with the amount of collected data.
 As presented in @chap:simulator, a large ecosystem of acoustic simulation environments exists.
 They are constantly improved to reach higher levels of fidelity and accuracy.
-A typical data generator for #acr("SSL") is the association of a bank of #acr("RIR") filters computed by simulation software and a set of clean speech signals from an existing corpus.
+A typical data generator for #acr("SSL") is the association of a bank of #acr("RIR")s computed by simulation software and a set of clean speech signals from an existing corpus.
 Speech signals are then convoluted with the clean recordings to obtain simulated listened signals.
 The ground-truth source and microphone positions are known from the start, and no further labeling work is required.
 Generating a dataset from an acoustic simulator does not require recording equipment and allows for collecting arbitrarily large amounts of data @srivastava_how_2023.

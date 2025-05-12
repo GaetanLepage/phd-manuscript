@@ -27,10 +27,10 @@ The acoustic simulator is composed of several blocks that interact with each oth
 ) <fig:simulator:simulator:overview>
 
 The core of the platform resides in the #rir-lib.
-The latter performs the actual computation of the several required #acr("RIR") filters.
+The latter performs the actual computation of the several required #acr("RIR")s.
 However, those libraries work at a low level and only account for a given static scene involving different unrelated microphones and sources.
 Also, not all options handle acoustic signals.
-Some only provide the #acr("RIR") filter.
+Some only provide the #acr("RIR")s.
 
 Thus, the #room component offers a higher abstraction for the static acoustic simulation.
 Its main feature is to leverage the #rir-lib to compute the listened signal of each microphone.

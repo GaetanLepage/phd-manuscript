@@ -127,6 +127,7 @@ To choose the best model for our use case, we empirically compared three models 
 We evaluated them on the #librispeech training set, which contains 25,539 samples ranging from 3 to 16 seconds.
 @table:rl:method:asr_models #todo
 
+
 We have integrated the #speechbrain #acr("ASR") library into the simulator.
 The input signals used for each source are drawn from the #librispeech @panayotov_librispeech_2015 (@sec:simulator:simulator:components:sim_scenarios).
 The simulator loads the ground truth transcripts along with the clean signal.
@@ -196,8 +197,9 @@ Its time complexity grows in the order of:
 $
   O(#n-x-exp times #n-y-exp times abs(#asr-dataset)).
 $
-Hence, increasing the spatial resolution by lowering #delta-grid increase the computing time quadratically.
-Besides, using the entire #librispeech corpus for #asr-dataset would take a single #acr("WER") map several days to compute.
+Hence, increasing the spatial resolution by lowering #delta-grid increases the computing time quadratically.
+Moreover, if the #librispeech corpus (28,549 samples) were used as dataset #asr-dataset, computing a single #acr("WER") map would require over a year.
+Naturally, distributing this algorithm over several nodes would help reduce the overall walltime and would be an interesting extension to our current implementation.
 Finally, directional maps require four times more time to compute as the process has to be repeated for each possible agent orientation.
 To balance spatial resolution and statistical significance, we settle on using $abs(#asr-dataset) = 40$ recordings and $#delta-grid = 50"cm"$.
 With the $4 times 7$ meter room used in this study, this resolution translates to maps of dimension $14 times 8 (times 4)$.
@@ -225,7 +227,7 @@ The architectures and the pre-trained weights are directly transferred to build 
 *Backbone pretraining.*
 The pre-trained feature extractor is trained on the #acr("SSL") task defined in @sec:ssl:single_source.
 The final regression layer of the sound source localizer is removed to make the model output a 128-dimensional feature vector.
-The default #acr("RL") training process involves freezeing the weigh
+The default #acr("RL") training process involves freezing the weights of the backbone.
 #draft[
   Just say that the default is pre-trained + frozen and that we investigate it later.
 ]
@@ -274,21 +276,11 @@ Please, refer to @fig:ssl:single_source:nn_architecture for a more detailed repr
 
 
 
-*Reward*
-#draft[
-  - Differenciate between the base cost used
-  - Reward scaling
-  - Early stopping and big reward
-]
-$
-  r (s_t) = alpha e^(-beta w(s_t))
-$
-
 *Source positions.*
 As previously mentioned, computing a #acr("WER") map is computationally intensive.
 Also, a map needs to be computed for each possible source position.
 The final formulation for the environment involves #n-source-pos-value possible starting positions deterministically spread across the room.
-#draft[This is a trade off between computational cost for caching the WER maps and the diversity/difficulty of the environment.]
+#draft[This is a tradeoff between computational cost for caching the WER maps and the diversity/difficulty of the environment.]
 
 #include "figures/source_positions/fig.typ"
 
@@ -302,10 +294,7 @@ The #acr("WER") maps need to be co
 ]
 
 *Implementation details and hyperparameters.*
-Although it has been successful at solving many complex #acr("RL") problems, #acr("PPO") remains highly sensitive to implementation details.
-Engstrom et al. @engstrom_implementation_2020 explicitly studied the "code-level optimizations" of the #acr("TRPO") and #acr("PPO") algorithms.
-This work formalized the community's shared impression that #acr("PPO")'s promised performance was subject to subtle implementation details.
-Huang et al. have also contributed to this practical investigation by publishing _The 37 Implementation Details of Proximal Policy Optimization_ @shengyi2022the37implementation.
+Although it has been successful at solving many complex #acr("RL") problems, #acr("PPO") remains highly dependent on its hyperparameter values and implementation details.
 In @mahmood_benchmarking_2018, Mahmood et al. study the sensitivity of #acr("RL") algorithms to their hyperparameters.
 Mahmood et al. mention that #acr("PPO"), among other state-of-the-art algorithms, is highly sensitive to its hyperparameter values @mahmood_benchmarking_2018.
 It thus requires careful fine-tuning on each new environment where it is tested.
@@ -317,8 +306,20 @@ We underscore how essential — and nontrivial — hyperparameter tuning can be.
 #include "tables/hyperparameters.typ"
 
 In addition to careful hyperparameter tuning, a selection of implementation details was necessary to train the agent successfully.
-For instance, the use of *value loss clipping*
+Engstrom et al. @engstrom_implementation_2020 explicitly studied the "code-level optimizations" of the #acr("TRPO") and #acr("PPO") algorithms.
+This work formalized the community's shared impression that #acr("PPO")'s promised performance was subject to subtle implementation details.
+Huang et al. have also contributed to this practical investigation by publishing _The 37 Implementation Details of Proximal Policy Optimization_ @shengyi2022the37implementation.
+We incorporate several of those optimizations in our custom #acr("PPO") implementation.
+Most notably, #todo
 
+For instance, the use of *value loss clipping* #todo
+Learning rate annealing, Progressively decay the learning rate during training, cosine annealing ,
+
+*Reward.*
+The reward design was fundamental in achieving reliable training of the agent.
+The general formulation of the reward function was given by @eq:rl:problem:reward.
+Its final parameter values have been tuned empirically to ensure proper training dynamics and the convergence to satisfying policies.
+This process is later discussed in the @sec:rl:results:reward_design, which also gives the final expression of the reward function.
 
 
 #draft[

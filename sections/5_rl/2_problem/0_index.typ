@@ -24,7 +24,7 @@ The #acr("ASR") algorithm that we use is an existing solution based on a #acr("D
 Our motivation relies on the observation that the microphone's position and orientation relative to the target source in a complex acoustic environment significantly impact the #acr("ASR") performance.
 This insight results from an experimental study conducted within our simulated environment.
 Other metrics exist to quantify auditory perception and could have been alternatives to the #acr("ASR") performance.
-For instance, the #acr("PESQ") score predicts the perceived audio quality of speech.
+For instance, the #acr("PESQ") score, introduced by Rix et al. @rix_perceptual_2001, predicts the perceived audio quality of speech.
 It primarily targets human perception by measuring how a degraded signal compares to its original counterpart.
 #acr("ASR") performance is likely correlated to the #acr("PESQ") score but directly quantifies how well the robot understands human speech.
 In this sense, #acr("PESQ") would have been a more indirect proxy for robotic auditory perception.

@@ -44,8 +44,10 @@
     long: [
       Benchmark of various policies' performance on the navigation task.
       Both omnidirectional and directional #acr("WER") cost environments have been tested.
-      #pi-theta is our deep neural agent policy trained with #acr("PPO").
-      #todo
+      #pi-still has the robot remaining immobile;
+      #pi-random samples actions randomly;
+      #pi-orient never has the agent moving but ensures it faces the source;
+      and #pi-theta is our deep neural agent policy trained with #acr("PPO").
     ],
   ),
 )

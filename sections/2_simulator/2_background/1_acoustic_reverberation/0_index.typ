@@ -78,18 +78,18 @@ As its name suggests, the #acr("RIR") depicts the room's acoustic response to an
 $
   x[n] = (#rir * delta)[n] = #rir [n].
 $
-The #acr("RIR") filter encodes the multiple propagation paths between the source and the microphone.
+The #acr("RIR") encodes the multiple propagation paths between the source and the microphone.
 Each path has a specific delay and attenuation factor.
 
 #figure(
   image("figures/rir_schema.svg", height: 16em),
   caption: flex-caption(
     short: [
-      Schematic representation of an RIR filter.
+      Schematic representation of an RIR.
       @savioja_overview_2015
     ],
     long: [
-      Schematic representation of an RIR filter.
+      Schematic representation of an RIR.
       It can be decomposed in three sections:
         #text(fill: rgb("#cc0000"))[direct path],
         #text(fill: rgb("#7f00ff"))[early reflections]
@@ -99,7 +99,7 @@ Each path has a specific delay and attenuation factor.
 ) <fig:simulator:background:rir_schema>
 
 
-@fig:simulator:background:rir_schema gives a schematic illustration of an #acr("RIR") filter.
+@fig:simulator:background:rir_schema gives a schematic illustration of an #acr("RIR").
 It can be decomposed into three sections.
 The plot of a real #acr("RIR") recording is visible in @fig:simulator:background:rir_plot.
 The first is the _direct path_, which corresponds to the signal reaching the microphone directly from the source without reflecting on any surface.
@@ -107,7 +107,7 @@ This corresponds to @eq:simulator:background:single_mic_continuous describing so
 The delay amounts to $tau_r = #d / #c$.
 Secondly, follow the _early echoes_, which are the first reflections on the walls.
 Finally, the late reflections correspond to the echoes bouncing several times before reaching the microphone.
-They form the long and dense tail of the #acr("RIR") filter.
+They form the long and dense tail of the #acr("RIR").
 The boundary between early echoes and late reflections is called the _mixing time_ and depends on the room's acoustic characteristics.
 
 // TODO: remove if we agree that this is too much
@@ -151,8 +151,8 @@ $
   m_j [t] = sum_(i=1)^(n_s) (h_(i, j) * s_i)[t]  #h(2em) forall j in [|1, n_m|],
 $
 <eq:simulator:rir_listened_signal_multi_source_multi_mic>
-where $h_(i, j)$ is the #acr("RIR") filter corresponding to the pair of positions of source $s_i$ and microphone $m_j$.
-Hence, $n_s times n_m$ #acr("RIR") filters must be computed for a scene involving $n_s$ active sources and $n_m$ receivers.
+where $h_(i, j)$ is the #acr("RIR") corresponding to the pair of positions of source $s_i$ and microphone $m_j$.
+Hence, $n_s times n_m$ #acr("RIR")s must be computed for a scene involving $n_s$ active sources and $n_m$ receivers.
 
 
 ==== Characterizing Reverberant Rooms
@@ -191,7 +191,7 @@ $ <eq:simulator:background:sabine>
 where #sound-speed is the speed of sound in the air at 20°C, #volume is the volume of the room (in $m^3$), and #area is the _equivalent absorption surface_ (in sabins).
 The latter can be obtained by summing the weighted surface area of each wall (including floor and ceiling):
 $
-  #area = sum_(i=1)^6 e_("abs", i) s_i.
+  #area = sum_(i=1)^6 e_("abs", i) s_i,
 $
 where $e_("abs", i)$ and $s_i$ are each surface's absorption coefficient and area, respectively.
 The Sabine equation can be inverted to infer the overall absorption coefficient $e_"abs"$ of the room from a reverberation time $T_60$:
@@ -232,7 +232,7 @@ $
 $
 where
 - $x[n]$ is any sampled real-valued signal ($n in ZZ$);
-- $#w [n]$ denotes the analysis window with support $[|0, N-1|]$.
+- $#w [n]$ denotes the analysis window with compact support $[|0, N-1|]$, where $N$ is assumed to be even.
   Several choices can be employed for the shape of #w.
   While, in theory, any function with compact support can be employed, it significantly impacts the result.
   Popular choices include the rectangular, Hamming, and Hann window functions.
@@ -243,11 +243,11 @@ The discrete #acr("STFT") of the signal $x$ is defined as the set of #acrpl("DFT
 $
   X[m, k] = 1/sqrt(N) sum_(n=0)^(N-1) x_m [n] e^(-2i pi (k n) / N),
 $ <eq:ssl:sota:stft_inf>
-where $k$ denotes the frequency index in $[|-N/2, N/2-1|]$.
+where $k$ denotes the frequency index in $[|-N/2 + 1, N/2|]$.
 In this definition, both the time and frequency indices are integers.
 In practice, the signal has a finite length $L >> N$, leading to approximately $M = ceil(L / H)$ total #acr("STFT") frames.
 Hence, a finite-length signal's #acr("STFT") is a complex-valued matrix of size $M times N$.
-As practical signals are real-valued, the #acr("STFT") is symmetric, and only positive frequencies ($k in [|0, ceil(N/2-1)|]$) are considered.
+As practical signals are real-valued, the #acr("STFT") is symmetric, and only positive frequencies ($k in [|0, N/2|]$) are considered.
 
 The time-frequency resolution is a tradeoff directly impacted by the choice of the window size $N$.
 Low values of $N$ will produce a wide-band spectrogram with a high time resolution at the cost of a lower frequency resolution.
@@ -308,7 +308,7 @@ The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 
   <eq:simulator:bckground:conv_theorem_bis>
 ]
 This result gives an intuitively compelling argument for using Fourier representations in problems involving reverberant environments.
-Indeed, the reverberation phenomenon can be modeled as the convolution of a source signal with the #acr("RIR") filter in the time domain.
+Indeed, the reverberation phenomenon can be modeled as the convolution of a source signal with the #acr("RIR") in the time domain.
 Hence, it translates into a product in the Fourier domain, making it easier to disentangle information from the raw signal from the listened one.
 However, it must be noted that the convolution theorem does not hold for the #acr("STFT").
 It can be verified for the general #acr("DFT") under certain conditions but is wrong when using short-term frames.

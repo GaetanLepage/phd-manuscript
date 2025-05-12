@@ -35,7 +35,7 @@ The latter now amounts to approximately 360ms as 16 #acr("STFT") frames particip
 
 The microphone array and $n_s$ speech sources get randomly positioned in the room.
 Such a choice has lead to challenging samples were multiple targets share very similar #acr("DoA") angles from the agent's point of view.
-The resulting #acr("RIR") filters are computed to account for the room's reverberation properties.
+The resulting #acr("RIR")s are computed to account for the room's reverberation properties.
 Then, each source outputs a clean speech signal randomly chosen from the #librispeech @panayotov_librispeech_2015 dataset.
 The simulator computes the resulting listened signals at each microphone of the array.
 Such signals last around 10 seconds.
@@ -93,7 +93,7 @@ As discussed in @sec:simulator:background:spectral-features, several choices can
 Although we have generated different datasets, the format used in the majority was the Short-Term Fourier Transform.
 Thus, the #acr("STFT") is computed from the complete up-sampled simulated signal captured by each of the four microphones.
 For this, we employ a Hann window of length 2048, with a 50% overlap.
-We also apply band-pass filtering, removing frequencies lower than 100Hz and higher than 48kHz.
+We also apply band-pass filtering, removing frequencies below 100Hz and above 8kHz.
 The consequent #acr("STFT") counts 337 frequency bins.
 
 *Audio chunking.*
@@ -110,8 +110,8 @@ However, in a dynamic robotics context, which we ultimately target, we cannot af
 We aim at preventing the inclusion of samples were one of the target sources is not active enough for the duration of the recording.\
 Given its #acr("STFT") $S in CC^(T times F)$, the average energy
 #footnote[
-  Strictly speaking, this quantity is homogeneous to a spectral energy density.
-  We will further simply refer to it as _energy_ for the sake of clarity.
+  Strictly speaking, this quantity is dimensionally equivalent to a spectral energy density.
+  We will further refer to it as _energy_ for the sake of clarity.
 ]
 of a real-valued signal, expressed in decibels (dB), is defined as
 $

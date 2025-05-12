@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-=== #acr("RIR") Simulation Libraries
+=== RIR Simulation Libraries
 <sec:simulator:background:rir_libraries>
 
 This section presents an overview of implementations of room acoustics simulation methods.
@@ -19,20 +19,20 @@ This new code was claimed to be faster and thus address the main limitation of t
 They evaluated their library against the latter and obtained a 40x improvement in terms of speed.
 Also, they implemented the diffuse rain algorithm to better model the high-order and diffuse reflections.
 _Pyroomacoustics_ @scheibler_pyroomacoustics_2018 is a modern and feature-rich implementation by Scheibler et al.
-It also relies on the #acr("ISM") method to compute the #acr("RIR") filters.
+It also relies on the #acr("ISM") method to compute the #acr("RIR")s.
 Their formulation allows for handling arbitrary polyhedral rooms, which were not handled by the classic #acr("ISM") implementations.
 The core simulation algorithms are written in C to achieve good performance.
 Yet, they also provide a user-friendly Python API to make the library easy to learn and use.
-In addition to its primary filter computation capability, this project ships various additional features such as beamforming algorithms, direction finding, and adaptive filtering.
+In addition to its primary #acr("RIR") computation capability, this project ships various additional features such as beamforming algorithms, direction finding, and adaptive filtering.
 Rathnayake et al. @rathnayake_image_2019 proposed a 3D room simulation library with an additional _OpenGL_ visualization feature.
 It allows observing all the reflection paths from the source to the receiver.
 Also, the library permits to plot the #acr("RIR") graph, similar to @fig:simulator:background:rir_schema and @fig:simulator:background:rir_plot.
 
-The community has also explored using #acrpl("GPU") to speed up the computation of the #acr("RIR") filters.
+The community has also explored using #acrpl("GPU") to speed up the computation of the #acr("RIR")s.
 In their 2011 paper, Savioja et al. @savioja_audio_2011 explored the potential of #acrpl("GPU")s for performing several audio signal processing tasks.
 Significant speedups are identified in various algorithms and computations.
 For example, computing a two-million-point #acr("FFT") in real-time has been achieved on a #acr("GPU").
-Furthermore, the accelerator substantially accelerated operations such as time-domain convolution or multichannel #acr("FIR") filtering.
+Furthermore, the accelerator substantially accelerated operations such as time-domain convolution or multichannel #acrpl("FIR").
 Some early works on room acoustic modeling are mentioned in this article.
 They rely primarily on wave-based methods and adapt #acr("GPU") implementation of differential equation solvers.
 To our knowledge, Fu et al. @fu_gpu-based_2016 were the first to parallelize the #acr("ISM") algorithm on numerous #acr("GPU") cores.

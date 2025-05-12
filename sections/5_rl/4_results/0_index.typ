@@ -11,8 +11,6 @@ After designing and implementing the complete #acr("RL") pipeline presented in t
 First and foremost, we investigate how #acr("ASR") performance is impacted by reverberation. 
 This study also explores the importance of the agent's position relative to the source, especially in highly reverberant environments.
 
-#todo
-
 *#acr("ASR") performance and reverberation.*
 Several #acr("WER") cost maps were computed to visualize what the reward signal would be used to supervise the agent training.
 @fig:rl:results:wer_maps_reverb provides high resolution ($#delta-grid = 10"cm"$) omnidirectional maps for different reverberation levels.
@@ -48,6 +46,7 @@ The following experiments investigate the agent's performance when trained with 
 
 
 === Reward Design
+<sec:rl:results:reward_design>
 #draft[TODO: maybe this should go AFTER "Agent Performance on the Navigation Task"]
 
 Reward design is critical to training #acr("DRL") models.
@@ -173,12 +172,16 @@ The performance of the trained policy (denoted #pi-theta) is compared to a selec
 Furthermore, we test both our directional and omnidirectional formulations of the #acr("WER") cost #wer-cost.
 //The first group of columns display the policies' performance when tested on the environment with 
 #pi-theta is trained and evaluated on both environments separately.
+We use the reward function defined in @eq:rl:results:reward.
 Results are reported in @table:rl:results:wer_performance_vs_baselines.
 The number of test episodes is set to $#n-ep = 1000$ to ensure statistical significance.
-Also, #pi-theta is trained $#n-rep = 5$ times from scratch on each environment, and the evaluation metrics are averaged across these #n-rep runs.
-#draft[TODO: check that the values of n-ep and n-repetitions are correct!]
-For each metric, $#n-ep = 1000$ episodes are run
-#draft[TODO: add comment]
+Also, #pi-theta is trained $#n-rep = 4$ times from scratch on each environment, and the evaluation metrics are averaged across these #n-rep runs.
+#pi-still and #pi-orient have the same performance on the omnidirectional environment, where the agent's orientation does not affect the cost value.
+In contrast, the #acr("MFC") of #pi-orient is lower than that of #pi-still, with the directional cost as facing the source contributes to reducing the #acr("WER") on average.
+The low cumulated reward achieved by #pi-random is caused by the agent repeatedly hitting the room walls and being penalized by the #reward-wall-penalty penalty.
+The trained deep neural policy #pi-theta outperforms all baselines on the two environments.
+It significantly improves the #acr("MFC") over other navigation strategies.
+Reducing the #acr("WER") from around 20% to 5.69% in the omnidirectional case and 8.59% in the directional case would considerably help a real robot understand the human speaker.
 
 #include "tables/wer_performance_vs_baselines.typ"
 

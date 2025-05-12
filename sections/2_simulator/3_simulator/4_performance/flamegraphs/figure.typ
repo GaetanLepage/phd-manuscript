@@ -28,7 +28,7 @@
     
     columns: 1,
     caption: [
-      Profiling results for both available #acr("RIR") simulation back ends
+      Profiling results for both available RIR simulation back ends
     ],
     align: top,
     placement: fig-placement,

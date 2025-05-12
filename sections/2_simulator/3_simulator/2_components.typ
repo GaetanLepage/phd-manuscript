@@ -18,12 +18,12 @@ This constitutes the starting point of the library and is responsible for its ce
 //<sec:simulator:simulator:components:low_level:rir_sim>
 
 The core component around which the simulation pipeline revolves is the #acr("RIR") simulation library.
-We have chosen the framework of #acr("RIR") filters for its simplicity and prevalence in the scientific literature.
+We have chosen the #acr("RIR") framework for its simplicity and prevalence in the scientific literature.
 @sec:simulator:reverb:methods introduced this approach's main concepts and fundamental aspects.
 
 @fig:simulator:simulator:audio_pipeline illustrates how the audio processing occurs within the pipeline.
 The different steps of this procedure will be detailed in the following sections.
-The role of the #acr("RIR") simulation library consists in inferring, given the localization and properties of a set of sound sources and receivers (microphones), the pairwise #acr("RIR") filters.
+The role of the #acr("RIR") simulation library consists in inferring, given the localization and properties of a set of sound sources and receivers (microphones), the pairwise #acr("RIR")s.
 
 
 #figure(
@@ -290,7 +290,7 @@ Following the same principles of flexibility and convenience, audio data has bee
 @fig:simulator:simulator:audio_pipeline outlines those steps visually.
 First and foremost, each source exposes its current raw signal.
 This is how the simulator fetches the audio from the different sources before forwarding them to the #acr("RIR") simulation library.
-Once the simulation has been conducted, both the #acr("RIR") filters and the audio signal received at each microphone become accessible.
+Once the simulation has been conducted, both the #acr("RIR")s and the audio signal received at each microphone become accessible.
 In addition to the raw multi-channel listened audio provided by the `Room` module, the simulator proposes further audio processing tools.
 Thus, the received acoustic data's #acr("STFT") can be computed and recovered for direct use in a neural network or any method operating in the time-frequency plane.
 Finally, another function has been added to calculate the signal's #acr("ILD") and #acr("IPD") given a pair of microphones.

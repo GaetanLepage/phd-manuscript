@@ -115,7 +115,10 @@
     "Finite-Element Methods",
   ),
   "FFT": ("Fast Fourier Transform"),
-  "FIR": ("finite impulse response"),
+  "FIR": (
+    "finite impulse response",
+    "finite impulse responses",
+  ),
   "FOA": ("first-order Ambisonics"),
   "GA": ("Geometrical Acoustics"),
   "GCC": ("Generalized Cross-Correlation"),
