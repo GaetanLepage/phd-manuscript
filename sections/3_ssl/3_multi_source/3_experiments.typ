@@ -2,7 +2,7 @@
 #import "2_method.typ": tau-e
 #import "_notations.typ": *
 
-=== Experiments and Results
+=== Experiments
 <sec:ssl:multi_source:experiments>
 
 // QUESTION: Should we mention the experiments made on the ILD/IPD binaural setup ?
@@ -10,12 +10,12 @@
 ==== Metrics
 
 To evaluate the performance of the proposed #acr("SSL") method, a total of four metrics are computed.
-They provide from two distinct setups.
+Each pair of metrics targets a different task.
 
 *Known number of sources.*
 In this first task, the number of active sources is assumed to be known.
 @eq:ssl:multi_source:decoding_known_sources is then used to perform the decoding of the neural network output.
-This process ensures to output as many detections as there are ground truth sources and allows to compute the two following metrics:
+This process ensures that the number of detections matches the number of ground-truth sources and allows the computation of the following two metrics.
 
 - The _#acr("MAE")_ gives an idea about the angular distance between detected and correct angles:
 $

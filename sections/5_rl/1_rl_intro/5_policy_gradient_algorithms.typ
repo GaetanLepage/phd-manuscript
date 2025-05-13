@@ -81,6 +81,7 @@ $
 <sec:rl:intro:policy_gradient_algos:gae>
 
 Policy gradient methods
+#todo
 
 Schulman et al. @schulman_high-dimensional_2018
 
@@ -140,8 +141,7 @@ $
     = sum_(k=0)^(infinity)
     (lambda gamma)^k delta_(t + k) ^V.
 $
-The #acr("GAE") estimator is therefore the exponentially-decayed sum of rewards.
-
+Therefore, the #acr("GAE") estimator is the exponentially-decayed sum of rewards.
 
 
 #reset-acronym("PPO")

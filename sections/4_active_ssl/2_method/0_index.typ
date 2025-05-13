@@ -26,6 +26,7 @@ The method is provided with the recorded signal at each microphone of the agent 
 *Horizon.*
 This framework appears similar to the previously used static formulation of #acr("SSL").
 However, the input data also encompasses information about the last relative movement of the robot.
+Indeed, our approach aggregates the localization estimates for several time points.
 Although the #acr("ASSL") solution should not dictate the movement policy, the agent's displacements are accessible to the localization module.
 These data allow the model to accumulate knowledge along several consecutive steps to refine its prediction for the current sources' positions.
 The number of steps after which the method's output is evaluated will be denoted as the horizon $H$.
@@ -44,8 +45,8 @@ We first explore leveraging the previously developed multi-source static localiz
 The method's central concept is building and refining a 2D egocentric map that encodes the relative positions of each source.
 This map is built to model the likelihood of the sources' presence in the robot's surroundings.
 
-To build such a map, we start by running the #acr("SSL") model (@sec:ssl:multi_source) which provides an estimated #doa spectrum.
-This detection is then transformed into a _#doa map_ projecting the one-dimensional localization result to an egocentric 2D map containing the same information.
+To build such a map, we start by running the #acr("SSL") model (@sec:ssl:multi_source), which provides an estimated #doa spectrum.
+This detection is then transformed into a _#doa map_ ,projecting the one-dimensional localization result to an egocentric 2D map containing the same information.
 Then, this map is combined with the ones from previous steps after having been transposed to the current robot frame.
 Different ways of operating this aggregation are  proposed.
 Finally, the 2D relative positions of the sources are extracted from this estimated egocentric map.
@@ -97,7 +98,7 @@ This movement is computed from the robot movement at each step $delta_t'$ with $
 The result of this operation will be denoted as $tilde(M)_t'$.
 @fig:active_ssl:method:shift provides an example of a #doa map along with its shifted version.
 Of course, we have $tilde(M)_t = M_t$ as the current map does not need to be shifted.
-This corresponds to the lines 12-16 of @algo:active_ssl:algo.
+This corresponds to lines 12-16 of @algo:active_ssl:algo.
 The #fov parameter $L$ has to be chosen carefully.
 Its impact will be studied in a later section.
 
@@ -295,7 +296,7 @@ In this case, as we deal with points in the plane, we use the conventional Eucli
 DBSCAN categorizes all input points into three groups: _core_ points, reachable points, and outliers.
 The latter are considered noise and do not belong to any cluster, while the other form connected groups of samples, the clusters.
 Among its several benefits, DBSCAN does not require specifying an a priori number of clusters.
-This limitation features amid other clustering algorithms, such as $k$-means, for instance.
+This limitation also appears in other clustering algorithms, such as $k$-means, for instance.
 DBSCAN itself does not define a concept of center for clusters.
 Here, we define the cluster center as the point with the highest value in the aggregated likelihood map.
 One should note that the actual values of each point in the heat map only impact the center search.

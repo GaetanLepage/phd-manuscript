@@ -8,6 +8,7 @@
 
 // Environment
 #let a-stay = `STAY`
+#let forward-dist = $d_"forward"$
 #let a-forward = `FORWARD`
 #let a-left = `TURN_LEFT`
 #let a-right = `TURN_RIGHT`
@@ -16,6 +17,7 @@
 #let n-source-pos = $n_"source pos"$
 #let n-source-pos-value = 12
 #let dim-features-value = 128
+#let discount-factor-value = 0.99
 
 // PPO loss
 #let _ppo-clipped-loss = $L_t^"CLIP"$
@@ -53,7 +55,7 @@
 #let cost = $C$
 #let cost-t = $cost_t$
 #let wer-cost = $cost_"WER"$
-#let asr-net = $T_psi$
+#let asr-net = $"ASR"_psi$
 #let asr-dataset = $cal(D)$
 #let analytical-cost = $tilde(cost)$
 #let analytical-cost-t = $tilde(cost)$
@@ -93,6 +95,7 @@
 #let pi-still = $pi_"still"$
 #let pi-orient = $pi_"orient"$
 #let pi-random = $pi_"random"$
+#let pi-safe-random = $pi_"safe random"$
 
 // Metrics
 #let mfc = $hat(C)_F$

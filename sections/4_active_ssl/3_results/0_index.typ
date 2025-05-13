@@ -2,7 +2,7 @@
 #import "../_notations.typ": *
 #import "../../3_ssl/3_multi_source/_notations.typ": xi-doa
 
-== Experiments and Results
+== Experiments
 <sec:active_ssl:results>
 
 This section presents the main experiments conducted to assess the proposed solution's performance for #acr("ASSL").

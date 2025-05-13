@@ -36,38 +36,3 @@ This reinforces the importance of careful environment design and thorough empiri
 
 Overall, deep reinforcement learning offers powerful tools for enabling robot autonomous behavior.
 However, deploying these methods effectively requires addressing both fundamental algorithmic challenges and the complex realities of real-world robotic systems.
-
-
-
-
-
-// ---------------------------------
-
-// First applications of RL
-Prior to the #acr("DRL") wave, researchers have tried applying classic #acr("RL") techniques to robotics problem.
-In their 2013 survey, Kober et al. @kober_reinforcement_2013 discuss using #acr("RL") methods in learning robot behaviours.
-They highlight several successful cases where #acr("RL") techniques enabled robots to accomplish specific tasks.
-However, the authors also underscore significant challenges, noting that applying #acr("RL") to robotics often requires substantial adaptation and that achieving positive outcomes is far from straightforward.
-#todo
-Since the first high-profile successes in #acr("DRL") emerged, interest in RL has grown substantially across the research community, including in robotics.
-
-
-
-Before #acr("RL") to 
-
-Robotics has been one of the domains targeted by A.I. researchers to apply Deep Reinforcement Learning
-
-"Navigating the Practical Pitfalls of Reinforcement Learning for Social Robot Navigation" @pikuli_navigating_2024
-
-
-- Ibarz et al. @ibarz_how_2021
-- Sünderhauf et al. @sunderhauf_limits_2018: The Limits and Potentials of Deep Learning for Robotics
-- Lathuillière RL for AV gaze-control @lathuiliere_neural_2019
-
-#draft[
-  Benchmarks on real-world robotics tasks
-  @mahmood_benchmarking_2018
-
-  How to Train Your Robot with Deep Reinforcement Learning – Lessons We’ve Learned
-  @ibarz_how_2021
-]

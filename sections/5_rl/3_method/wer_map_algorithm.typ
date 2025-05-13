@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 #import "../_variables.typ": *
 
-
+#let angle-space = $Theta$
 #let algo = algorithm({
   import algorithmic: *
   Function(
@@ -51,9 +51,9 @@
 
       If(cond: "directional", {
         // Θ <- {0, pi/2, pi, 3pi/2}
-        Assign[$Theta$][${0, pi/2, pi, (3pi)/2}$]
+        Assign[#angle-space][${0, pi/2, pi, (3pi)/2}$]
         // Z <- X x Y x Θ
-        Assign[$Z$][$cal(X) times cal(Y) colMath(times Theta, #maroon)$]
+        Assign[$Z$][$cal(X) times cal(Y) colMath(times #angle-space, #maroon)$]
       })
       Else({
         // Z <- X x Y
@@ -66,7 +66,7 @@
       Assign[#wer-map][
         $bold(0)_(
           RR^(
-            abs(cal(X)) times abs(cal(Y)) colMath(times abs(Theta), #maroon)
+            abs(cal(X)) times abs(cal(Y)) colMath(times abs(#angle-space), #maroon)
           )
         )$
       ]
@@ -87,8 +87,8 @@
           Cmt[Call the simulator and get the received audio signal]
           Assign[$x_r$][#smallcaps[Simulate-Audio]$(x_i)$]
           State[]
-          //Cmt[Transcribe the recording]
-          Assign[$hat(t)$][#smallcaps[#acr("ASR")]$(x_r)$]
+          Cmt[Transcribe the recording]
+          Assign[$hat(t)$][$#asr-net (x_r)$]
 
           Assign[$#wer-map [z]$][$#wer-map [z]$ + #smallcaps("WER")$(t, hat(t))$]
         })

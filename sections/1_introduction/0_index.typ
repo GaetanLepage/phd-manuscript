@@ -174,8 +174,8 @@ Complete RL pipeline design and implementation:
   - *More specifically, this is basically _Move2Hear_ but worse.*
 ]
 
-== Funding
-
-The SPRING H2020 project @alameda-pineda_socially_2024 aimed at bringing socially capable robots to gerontological healthcare.
-It brought together eight European academic and industrial partners to develop the algorithms, models, and software components necessary for the ARI robot to successfully perform complex social tasks (@fig:intro:ari).
-This PhD project was funded as a component of the SPRING project.
+// == Funding
+// 
+// The SPRING H2020 project @alameda-pineda_socially_2024 aimed at bringing socially capable robots to gerontological healthcare.
+// It brought together eight European academic and industrial partners to develop the algorithms, models, and software components necessary for the ARI robot to successfully perform complex social tasks (@fig:intro:ari).
+// This PhD project was funded as a component of the SPRING project.

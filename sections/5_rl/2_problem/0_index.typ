@@ -1,7 +1,7 @@
 #import "/utils.typ": *
 #import "../_variables.typ": *
 
-== Sound-Driven Robot Navigation
+== Sound-Driven Robot Navigation: Problem Statement
 <sec:rl:problem>
 
 === Motivation
@@ -235,8 +235,8 @@ $
 $
 <eq:rl:action_space>
 - #a-stay is the neutral action where the agent does not move away from its current location.
-- #a-forward means moving by a distance of $d$ meters in the current direction $alpha$.
-The step size $d$ must correspond to the distance between two adjacent grid points.
+- #a-forward means moving by a distance of #forward-dist meters in the current direction $alpha$.
+The step size #forward-dist must correspond to the distance #delta-grid between two adjacent grid points.
 - `TURN_LEFT` and `TURN_RIGHT` correspond to a quarter-turn rotation. In this case, only the orientation of the agent changes, not its position.
 A learned policy for this problem will be a probabilistic distribution $pi(dot | dot): cal(A) times Omega -> [0, 1]$ over this finite set of four actions.
 

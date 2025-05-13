@@ -1,6 +1,7 @@
 #import "/utils.typ": *
 #import "utils.typ": *
 #import "/_misc/notations.typ": *
+#import "_data.typ": *
 
 
 #figure(
@@ -22,12 +23,13 @@
 
     midrule,
 
+    [#pi-safe-random], [#pi-safe-random-rew-wer-dir], [#pi-safe-random-mfc-wer-dir],
     // exp 302
-    [No pretraining], [#todo], [#todo],
+    [No pretraining], [1473], [22.78],
     // exp 303
-    [Pretraining + fine-tuning], [#todo], [#todo],
+    [Pretraining + fine-tuning], [1480], [22.36],
     // exp 304
-    [Pretraining + frozen], [#todo], [#todo],
+    [Pretraining + frozen], [#exp-301-rew-wer], [#exp-301-mfc-wer],
 
     bottomrule,
   ),

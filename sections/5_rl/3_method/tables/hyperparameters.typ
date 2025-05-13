@@ -22,10 +22,11 @@
     
     midrule,
 
-    table.cell(rowspan: 3)[Environment],
+    table.cell(rowspan: 4)[Environment],
     [#env-horizon], [Horizon: number of steps per episode], [#env-horizon-value],
     [#n-source-pos], [Number of possible source positions], [#n-source-pos-value],
-    [$gamma$], [Reward discount factor], [0.99],
+    [$gamma$], [Reward discount factor], [#discount-factor-value],
+    [#delta-grid], [Grid spatial resolution], [0.5m],
 
     midrule,
     

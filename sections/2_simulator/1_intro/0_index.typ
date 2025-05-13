@@ -3,11 +3,13 @@
 == Introduction
 <sec:simulator:intro>
 
-The physical world is an intrinsic aspect of robotics, especially #acr("HRI").
-Developing novel methods for interacting with humanoid robots encompasses several challenges related to their embodiment.
-Robotic platforms suffer from severe limitations that sometimes impede the application of data-intensive techniques.
-Because robots are physical systems, data-intensive and trial-and-error approaches are challenging to scale.
-The following explores why simulation is pivotal in numerical science, specifically in addressing robotics challenges.
+#acr("HRI") investigates the challenges of bringing capable humanoid robots into real-world environments.
+These robots are embodied agents that must operate in complex, often unpredictable settings involving humans.
+This context introduces multiple challenges: social robotics experiments are subject to material costs, safety constraints, and logistical complexity.
+As a result, applying data-intensive, trial-and-error learning approaches to physical robots is difficult to scale.
+Simulation provides an effective alternative to physical interaction for bootstrapping and designing intelligent robot behaviors.
+However, it also introduces its own limitations, which must be carefully considered when transferring algorithms to the real world.
+The following explores the role of simulation in robotics and why it is pivotal in addressing many of the field’s practical and scientific challenges.
 
 // Importance of simulation in science
 Simulation offers an alternative tool to experiment with new techniques.

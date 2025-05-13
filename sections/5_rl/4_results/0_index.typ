@@ -47,7 +47,6 @@ The following experiments investigate the agent's performance when trained with 
 
 === Reward Design
 <sec:rl:results:reward_design>
-#draft[TODO: maybe this should go AFTER "Agent Performance on the Navigation Task"]
 
 Reward design is critical to training #acr("DRL") models.
 Contrary to supervised learning, where clear ground truth labels are available for all training samples, the #acr("RL") training process relies almost exclusively on the reward signal.
@@ -168,6 +167,7 @@ where $r_(i, t)$ is the reward the agent received when transiting to state $s_t$
 The performance of the trained policy (denoted #pi-theta) is compared to a selection of baseline deterministic policies:
 - *#pi-still*, where the agent remains static and always chooses the #a-stay action;
 - *#pi-random*, where the agent acts randomly, also disregarding the state value;
+- *#pi-safe-random*, which additionally avoids hitting the walls;
 - *#pi-orient* where the agent never moves, but orients itself to face the source.
 Furthermore, we test both our directional and omnidirectional formulations of the #acr("WER") cost #wer-cost.
 //The first group of columns display the policies' performance when tested on the environment with 
@@ -175,10 +175,11 @@ Furthermore, we test both our directional and omnidirectional formulations of th
 We use the reward function defined in @eq:rl:results:reward.
 Results are reported in @table:rl:results:wer_performance_vs_baselines.
 The number of test episodes is set to $#n-ep = 1000$ to ensure statistical significance.
-Also, #pi-theta is trained $#n-rep = 4$ times from scratch on each environment, and the evaluation metrics are averaged across these #n-rep runs.
+Also, #pi-theta is trained $#n-rep = 8$ times from scratch on each environment, and the evaluation metrics are averaged across these #n-rep runs.
 #pi-still and #pi-orient have the same performance on the omnidirectional environment, where the agent's orientation does not affect the cost value.
 In contrast, the #acr("MFC") of #pi-orient is lower than that of #pi-still, with the directional cost as facing the source contributes to reducing the #acr("WER") on average.
 The low cumulated reward achieved by #pi-random is caused by the agent repeatedly hitting the room walls and being penalized by the #reward-wall-penalty penalty.
+#todo
 The trained deep neural policy #pi-theta outperforms all baselines on the two environments.
 It significantly improves the #acr("MFC") over other navigation strategies.
 Reducing the #acr("WER") from around 20% to 5.69% in the omnidirectional case and 8.59% in the directional case would considerably help a real robot understand the human speaker.
@@ -280,18 +281,16 @@ As #analytical-cost has a closed-form definition, the resulting cost maps are co
 
 
 === Importance of Localization Feature Extraction
+<sec:rl:results:backbone_init>
 
 The agent neural network's backbone is pre-trained on the supervised static #acr("SSL") task.
 It outputs #dim-features-value;-dimensional feature vectors that are highly correlated with the source localization.
 To assess the impact of this choice, we conduct an ablation study where different initialization strategies are tested.
 In addition to our regular initialization strategy, we train an agent where the entire network is initialized from scratch, with no pre-training.
 We include an extra variation in which the backbone is pre-trained on the localization task, but whose weights are not frozen during the #acr("RL") training phase.
-The main evaluation metrics #mean-cum-reward and #mfc are reported in @table:rl:results:backbone_pretraining
-
-
-#draft[
-  TODO: Include and comment results
-]
-
+The directional #acr("WER") cost is used to train and evaluate all agents.
+@table:rl:results:backbone_pretraining reports the main evaluation metrics #mean-cum-reward and #mfc.
 
 #include "tables/backbone_pretraining.typ"
+
+#todo

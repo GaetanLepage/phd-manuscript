@@ -1,5 +1,6 @@
 //#import "@preview/minitoc:0.1.0": minitoc as _minitoc
 #import "@preview/subpar:0.1.1"
+#import "@preview/one-liner:0.2.0": fit-to-width 
 
 #import "_misc/acrostiche.typ": acr, acrpl, reset-acronym
 #import "_misc/template/_index.typ": in-outline, fill-line, fig-placement

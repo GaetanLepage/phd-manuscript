@@ -2,14 +2,14 @@
 #import "/_misc/notations.typ": *
 #import "../_variables.typ": *
 
-== Method
+== Proposed Approach
 <sec:rl:method>
 
 === Acoustic Pipeline
 
 The abstract environment defined previously in @sec:rl:problem:formulation:environment is implemented in practice thanks to our simulator @sec:simulator:simulator.
 More precisely, its capacity to operate in discrete time steps makes it particularly convenient for use in an #acr("RL") framework.
-The specific implementation details of the dynamic features of the simulator have been described in @sec:simulator:simulator:dynamic_scenarios.
+The specific implementation details of the simulator's dynamic features have been described in @sec:simulator:simulator:dynamic_scenarios.
 It allows us to place our microphone array and the target source at the beginning of each episode.
 The #acr("RL") environment wraps the simulator's `step` function and moves the agent according to the action selected from the policy.
 The simulator loads the next chunk of audio and sets it as the source's input.
@@ -18,12 +18,14 @@ When transitioning from one step to the next, the source keeps playing the same 
 After loading the source's input signal, the simulator refreshes the cached #acr("RIR")s if necessary, i.e., if the agent has moved, and computes the next chunk of recorded audio.
 Finally, the resulting multi-channel signal is further processed into an interaural spectral representation.
 Specifically, we use the #acr("IPD") and #acr("ILD") features.
+A three-microphone array is used to model the agent's sensors.
+Each microphone has a cardioid pattern.
+Therefore, the observations materialize as #shape(6, "F", "T") multi-channel spectral features.
+
 The final environment is Gym-compliant.
 OpenAI _Gym_ @brockman_openai_2016 was created to define the standard way of interacting with #acr("RL") environments.
 _Gymnasium_ @towers_gymnasium_2024 by Towers et al. has since replaced it and was used in this project.
 This precaution ensures compatibility with the rest of the #acr("RL") ecosystem and would allow other researchers to use the designed environment.
-A three-microphone array is used to model the agent's sensors.
-Each microphone has a cardioid pattern.
 
 
 === WER as a Reward Signal
@@ -50,19 +52,22 @@ The obtained #acr("WER") cost function is given by:
         1/100
         "WER"lr(
           (
+            underbrace(
             #asr-net
             lr(
-              (
+              [
                 "listened"(
                   v,
                   #agent-pos,
                   #agent-ori,
                   #source-pos
                 )
-              ),
+              ],
               size: #120%,
             ),
-            t
+            "predicted transcript" hat(t) 
+            ),
+            thick t
           ),
           size: #120%,
         )
@@ -109,7 +114,7 @@ The specific pipeline that was used in this work involves three components:
 //https://huggingface.co/speechbrain/asr-crdnn-transformerlm-librispeech
 //https://huggingface.co/speechbrain/asr-transformer-transformerlm-librispeech
 - The *tokenizer* that transforms each word into one or more tokens.
-  This model has been trained on the #librispeech dataset @panayotov_librispeech_2015.
+  This model was trained on the #librispeech dataset @panayotov_librispeech_2015.
 - The *neural language model* represents the dynamics of language.
   Here, we have chosen a #acr("RNNLM") @mikolov_recurrent_2010 provided by the #speechbrain library.
   This architecture applies the successful #acr("RNN") architecture to language modeling.
@@ -123,33 +128,16 @@ The specific pipeline that was used in this work involves three components:
   The #acr("CTC") cost function allows the training of recurrent architectures to perform speech recognition without requiring prior alignment between the input and target sequences.
   Alternatively, #speechbrain ships a Transformer-based encoder-decoder that also uses the #acr("CTC") training strategy.
 
-To choose the best model for our use case, we empirically compared three models provided in #speechbrain.
+To choose the best model for our use case, we empirically compared three models provided by the #speechbrain toolkit.
 We evaluated them on the #librispeech training set, which contains 25,539 samples ranging from 3 to 16 seconds.
-@table:rl:method:asr_models #todo
+Each model's performance is measured through the #acr("WER").
+@table:rl:method:asr_models summarizes the benchmarking results.
+All three models provide distinct tradeoffs between inference speed and performance.
+`asr-crdnn-rnnlm` has the fastest measured sample rate.
+The transformer architecture allows the other two models to reach sub-1% #acr("WER"), but at the expense of being 2 to 7 times slower.
+`asr-crdnn-transformerlm` has the lowest throughput while providing worse performance than `asr-transformer-transformerlm`.
+As the absolute #acr("ASR") performance is not particularly relevant for this project, we adopted the `asr-crdnn-rnnlm` model to benefit from its higher throughput.
 
-
-We have integrated the #speechbrain #acr("ASR") library into the simulator.
-The input signals used for each source are drawn from the #librispeech @panayotov_librispeech_2015 (@sec:simulator:simulator:components:sim_scenarios).
-The simulator loads the ground truth transcripts along with the clean signal.
-Thus, our #acr("ASR") module can be fed with the listened signal computed by the simulator, and the obtained transcription can then be compared with the ground-truth one.
-
-#todo
-As a sanity check for the #acr("ASR") module, we run the complete recognition pipeline on the clean speech signals from the #librispeech dataset.
-The `ASR-CRDNN-RNNLM-LibriSpeech` model from #speechbrain we have chosen yields an average #acr("WER") of 1.82% on this clean dataset.
-
-@table:rl:method:asr_models shows the result of our benchmarking of three models provided by the #speechbrain library.
-It highlights the performance-speed trade-off of each model.
-`ASR-CRDNN-RNNLM-LibriSpeech` is the fastest model #todo
-All three models share the same tokenizer, trained on #librispeech.
-
-#draft[
-
-  - In the table, we truncated the final `-librispeech` (say somewhere that they were all trained with this reward)
-
-  However, the second one is broken
-  -> Just say that the one we chose offers the best compromise between speed and quality.
-
-]
 
 
 
@@ -214,44 +202,20 @@ The multiple recent successes of #acr("DRL") in solving various tasks originate 
 We propose a custom architecture for the neural network implementing the #acr("RL") agent.
 @fig:rl:method:agent_architecture gives a schematic view of its core components.
 The choice of #acr("PPO") as a training algorithm requires defining two models: the actor and the critic (@sec:rl:intro:ppo).
-We have designed a common backbone between those two systems, allowing them to share a significant part of the model parameters.
+We have designed a common backbone between those two systems, allowing them to share a significant amount of  parameters.
 This feature extractor is followed by two heads implemented as #acr("MLP").
 
 The main difficulty of the sound-driven navigation problem lies in the agent's ability to map sound cues to spatial information.
 The partial observability aspect of the environment prevents the agent from directly and transparently observing either its own or the source's position.
-We propose to leverage a pre-trained deep sound-source localizer.
-Specifically, we use the model introduced in the second chapter, trained to localize a single speech source randomly located in a reverberant room @sec:ssl:single_source:method:architecture.
+Therefore, we hypothesize that the agent will implicitly acquire localization capabilities while learning the #acr("RL") navigation task.
+We propose to leverage a pre-trained deep sound-source localizer to bootstrap this capability in the agent's initial weights.
+Specifically, we use the model introduced in the second chapter, trained to localize a single speech source randomly located in a reverberant room.
 The architectures and the pre-trained weights are directly transferred to build the deep neural agent.
-
-#draft[
-*Backbone pretraining.*
-The pre-trained feature extractor is trained on the #acr("SSL") task defined in @sec:ssl:single_source.
-The final regression layer of the sound source localizer is removed to make the model output a #dim-features-value;-dimensional feature vector.
-The default #acr("RL") training process involves freezing the weights of the backbone.
-#draft[
-  Just say that the default is pre-trained + frozen and that we investigate it later.
-]
-]
-
-#draft[
-The feature extractor maps the audio spectral observations into a lower #dim-features-value;-dimensional embedding vector.
-We hypothesize that the agent will implicitly acquire localization capabilities while learning the #acr("RL") navigation task.
-We supervisedly train the feature extractor to perform the #acr("SSL") task to improve performance and bootstrap the learning process.
-The exact training methodology is detailed in @sec:ssl:single_source:method.
-The agent architecture (@fig:rl:method:agent_architecture) extends our single-source localizer.
-Please, refer to @fig:ssl:single_source:nn_architecture for a more detailed representation of the feature extractor's architecture.
-#draft[
-  TODO: this is redundant with @sec:rl:method:nn_architecture.
-]
-]
-
-
-#draft[
-  - Backbone + 2 heads
-  - talk about different strats for BB (fine-tuning, no pre-training, frozen)
-]
-
-// TODO: add figure
+@fig:ssl:single_source:nn_architecture provides a more detailed representation of the feature extractor's architecture.
+Its final regression layer is removed.
+The obtained model outputs #dim-features-value;-dimensional feature vectors fed into the actor and critic heads.
+The feature extractor's weights are kept frozen for during the entire #acr("PPO") training process.
+@sec:rl:results:backbone_init discusses different strategies regarding backbone initialization strategies.
 
 #figure(
   image(
@@ -275,6 +239,11 @@ Please, refer to @fig:ssl:single_source:nn_architecture for a more detailed repr
 === PPO Implementation and Training Strategy
 
 
+*Environment.*
+The environment for the navigation task is parametrized with a horizon #env-horizon of $#env-horizon-value$ steps.
+This value allows the agent to navigate the room in its entire span several times per episode.
+The value of the discount factor $gamma$ is fixed at #discount-factor-value.
+Furthermore, the incremental moving distance #forward-dist is set to $50"cm"$ to match the chosen grid spatial resolution #delta-grid.
 
 *Source positions.*
 As previously mentioned, computing a #acr("WER") map is computationally intensive.
@@ -282,6 +251,7 @@ Also, a map needs to be computed for each possible source position.
 The final formulation for the environment involves $#n-source-pos = #n-source-pos-value$ possible starting positions deterministically spread across the room.
 This choice is a tradeoff between the computational cost of #acr("WER") maps caching and the diversity and difficulty of the environment.
 @fig:rl:method:source_positions shows the chosen distribution of source positions across the room.
+
 
 #include "figures/source_positions/fig.typ"
 
@@ -337,13 +307,3 @@ The reward design was fundamental in achieving reliable training of the agent.
 The general formulation of the reward function was given by @eq:rl:problem:reward.
 Its final parameter values have been tuned empirically to ensure proper training dynamics and the convergence to satisfying policies.
 This process is later discussed in the @sec:rl:results:reward_design, which also gives the final expression of the reward function.
-
-
-#draft[
-  Insist on the fact that we implemented the complete pipeline:
-  - RL environment (with the simulator)
-  - PPO algorithm
-  - NN architecture
-  - Training code, evaluation, validation
-  or maybe in the conclusion...
-]

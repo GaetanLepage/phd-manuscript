@@ -3,6 +3,13 @@
 == Conclusion
 <sec:rl:conclusion>
 
+
+#gaet[
+  This should probably go in the conclusion.
+]
+The entire #acr("RL") pipeline presented in this chapter has been implemented from scratch.
+It entails the #acr("RL") environment for the sound-driven navigation task, along with the computation of #acr("WER") maps, the #acr("PPO") algorithm, the neural network model, and the training and evaluation logic.
+
 #draft[
   The main thing to say is that this task in itself is trivial (it consists in going to the source).\
   However, we show that we can solve a perceptually-motivated navigation task thanks to:

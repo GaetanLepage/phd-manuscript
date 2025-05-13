@@ -32,10 +32,12 @@ The overall process is depicted in @fig:simulator:simultor:continuous_sim.
   image("figures/continuous_simulation.svg"),
   caption: flex-caption(
     short: [
-      #draft[Schematics of?]Continuous simulation process.
+      Illustration of the pseudo-continuous simulation process.
     ],
     long: [
-      #todo
+      Illustration of the pseudo-continuous simulation process.
+      It renders the signal recorded by each sensor across time, accounting for the movement of sources and microphones.
+      Reverberation bootstrapping ensures late reverberations are included in the short rendered audio chunks.
     ],
   ),
 ) <fig:simulator:simultor:continuous_sim>
