@@ -166,10 +166,10 @@ along a successful training process.
   image("figures/301_energy-loss.svg"),
   caption: flex-caption(
     short: [
-      Evolution of the norm of the network output and loss during training
+      Evolution of the norm of the network output and loss during training.
     ],
     long: [
-      Evolution of the norm of the network output $norm(o)_2^2$ (orange) and loss (blue) during training
+      Evolution of the norm of the network output $norm(o)_2^2$ (orange) and loss (blue) during training.
     ],
   ),
 ) <fig:ssl:multi_source:output_norm_plot>
@@ -353,9 +353,7 @@ where
       A visual comparison of Batch and Layer Normalization.
     ],
     long: [
-      A visual comparison of Batch and Layer Normalization.
-      // TODO: check how it renders
-      adapted from @wu_group_2018
+      A visual comparison of Batch and Layer Normalization, adapted from @wu_group_2018.
     ],
   ),
 )
@@ -379,7 +377,7 @@ We observed that the latter yielded the same stabilization benefits during train
 #figure(
   image("./figures/normalization_exp.svg"),
   caption: [
-    Training and validation accuracies during training for different normalization schemes
+    Training and validation accuracies during training for different normalization schemes.
   ]
 ) <fig:ssl:multi_source:normalization_plots>
 
@@ -510,7 +508,7 @@ It should be noted that this quantity can only be defined for samples encompassi
     height: 10cm,
   ),
   caption: [
-    Distribution of #delta-t for different numbers of active sources
+    Distribution of #delta-t for different numbers of active sources.
   ]
 )
 <fig:ssl:multi_source:experiments:doa_min_dist_hist>
@@ -544,7 +542,7 @@ This observation hence confirms that samples with very low #delta-t constitute h
     height: 10cm,
   ),
   caption: [
-    Distribution of #delta-t for different values of #tau-doa
+    Distribution of #delta-t for different values of #tau-doa.
   ]
 )
 <fig:ssl:multi_source:experiments:doa_min_dist_hist_2>

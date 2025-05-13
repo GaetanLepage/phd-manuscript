@@ -56,7 +56,7 @@
   placement: top,
   kind: table,
   caption: [
-    Comparison of the ASSL performance for different clipping threshold (#clip-t) values
+    Comparison of the ASSL performance for different clipping threshold (#clip-t) values.
   ]
 )
 <table:active_ssl:results:clipping_threshold>

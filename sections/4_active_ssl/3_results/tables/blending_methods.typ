@@ -36,7 +36,7 @@
   placement: top,
   kind: table,
   caption: [
-    Final performance of both aggregation methods
+    Final performance of both aggregation methods.
   ]
 )
 <table:active_ssl:results:blending_methods>

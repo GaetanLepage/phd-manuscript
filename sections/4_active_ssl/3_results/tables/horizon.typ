@@ -47,7 +47,7 @@
   placement: top,
   kind: table,
   caption: [
-    Evolution of localization performance for different horizon values
+    Evolution of localization performance for different horizon values.
   ]
 )
 <table:active_ssl:results:horizon>

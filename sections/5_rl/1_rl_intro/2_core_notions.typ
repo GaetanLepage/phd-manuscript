@@ -18,7 +18,7 @@ This section briefly introduces the main concepts and notations required to furt
     width: 50%,
   ),
   caption: [
-    Reinforcement Learning framework
+    Reinforcement Learning framework.
   ]
 )
 <fig:rl:rl_intro:rl_schema>

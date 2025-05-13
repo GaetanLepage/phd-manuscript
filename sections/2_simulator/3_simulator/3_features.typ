@@ -30,9 +30,14 @@ The overall process is depicted in @fig:simulator:simultor:continuous_sim.
 
 #figure(
   image("figures/continuous_simulation.svg"),
-  caption: [
-    Continuous simulation process
-  ]
+  caption: flex-caption(
+    short: [
+      #draft[Schematics of?]Continuous simulation process.
+    ],
+    long: [
+      #todo
+    ],
+  ),
 ) <fig:simulator:simultor:continuous_sim>
 
 Ultimately, the simulator can model dynamic interaction scenarios leveraging a static #acr("RIR") simulation library.

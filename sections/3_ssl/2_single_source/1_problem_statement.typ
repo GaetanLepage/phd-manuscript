@@ -10,7 +10,7 @@ Although the focus will be directed towards methods that predict solely the #acr
 #figure(
   image("figures/ssl_task.svg", height: 20em),
   caption: [
-    Schema of the #acr("SSL") task
+    Schema of the #acr("SSL") task.
   ]
 )
 <fig:ssl:single_source:task>

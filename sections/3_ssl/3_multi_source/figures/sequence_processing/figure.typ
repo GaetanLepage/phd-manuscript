@@ -5,7 +5,7 @@
   figure(
     image("doa_spectrum.svg", width: 80%),
     caption: [
-      Averaged #acr("DoA") spectrum #averaged-spectrum
+      Averaged #acr("DoA") spectrum #averaged-spectrum.
     ]
   ),
   <fig:ssl:multi_source:sequence_processing:doa_spectrum>,
@@ -14,14 +14,14 @@
     image("result.svg", width: 80%),
     //image("/assets/mountains.jpg"),
     caption: [
-      Network output and extracted detections over time (top) and histogram of predictions (bottom)
+      Network output and extracted detections over time (top) and histogram of predictions (bottom).
     ]
   ),
   <fig:ssl:multi_source:sequence_processing:result>,
   
   columns: 1,
   caption: [
-    Example of a sequence processing result
+    Example of a sequence processing result.
   ],
   placement: fig-placement,
   gap: grid-fig-gap,

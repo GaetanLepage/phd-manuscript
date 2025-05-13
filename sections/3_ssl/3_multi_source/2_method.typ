@@ -270,7 +270,7 @@ We chose to set $sigma = 5°$.
 #figure(
   image("figures/doa_encoding.svg"),
   caption: [
-    DOA encoding of three sources
+    #_doa spectrum encoding of three sources.
   ]
 )
 <fig:ssl:multi_source:doa_gt_encoding>
@@ -378,7 +378,7 @@ As discussed in @sec:ssl:background:deep_learning, using the image-like time-fre
     height: 80%
   ),
   caption: [
-    Deep neural network architecture for multi-source #acr("SSL")
+    Deep neural network architecture for multi-source #acr("SSL").
   ],
 ) <fig:ssl:multi_source:network_architecture>
 

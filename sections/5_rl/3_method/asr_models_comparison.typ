@@ -40,7 +40,7 @@
   placement: top,
   kind: table,
   caption: [
-    Comparison of three #acr("ASR") models provided by #speechbrain
+    Comparison of three #acr("ASR") models provided by #speechbrain.
   ]
 )
 <table:rl:method:asr_models>

@@ -120,7 +120,7 @@ On the contrary, the network output suffers from too aggressive filtering as the
     "figures/clipping_threshold.svg",
   ),
   caption: [
-    Effect of the clipping threshold on the aggregated maps
+    Effect of the clipping threshold on the aggregated maps.
   ],
 )
 <fig:active_ssl:results:clipping_threshold>
@@ -155,7 +155,7 @@ Those properties allow for better separability and fewer points being fed into t
     width: 80%,
   ),
   caption: [
-    Number of points remaining after the filtering operation with respect to #clip-t
+    Number of points remaining after the filtering operation with respect to #clip-t.
   ]
 )
 <fig:active_ssl:results:n_points_cluster>
@@ -189,7 +189,7 @@ Here, the potential of our method can be explored under ideal conditions.
 <fig:active_ssl:results:doa_spectra>
 
 @fig:active_ssl:results:doa_spectra shows instances of #doa spectra.
-Although the #acr("SSL") model properly infers most peaks, failed detections can still be observed across the trajectory dataset.
+Although the #acr("SSL") model correctly infers most peaks, failed detections can still be observed across the trajectory dataset.
 Most detection failures consist of false negatives in which the network outputs either a too-low peak or no activation at all.
 In those cases, the averaged maps might still include local maxima in the correct locations, but those often get filtered when thresholding the final map.
 Samples where several sources stand particularly close with respect to #doa also represent challenging cases.
@@ -212,7 +212,7 @@ The former was introduced as a baseline, offering the advantage of being simple 
   ),
   caption: flex-caption(
     short: [
-      Visual comparison of the two aggregation methods
+      Visual comparison of the two aggregation methods.
     ],
     long: [
       Visual comparison of the two aggregation methods (#psi-avg top and #psi-dnn bottom).
@@ -238,12 +238,12 @@ In particular, the most efficient value of the #clip-t parameter has been used.
 Unsurprisingly, employing the neural network offers a tangible advantage compared to simply averaging the #doa maps.
 Those results confirm the qualitative observations made above.
 When provided with the ground-truth #doa spectra, #psi-dnn achieves an almost perfect precision.
-However, the recall score slightly lags behind with a value of 90.54%.
+However, the recall score slightly lags, with a value of 90.54%.
 The few missed detections involve situations in which at least one of the sources remains strictly in front of or behind the agent during the entire trajectory.
 The indirect triangulation phenomenon leveraged by our method becomes almost infeasible, and the distance cannot be accurately estimated.
 Nonetheless, even in challenging cases where no clear cone intersection can be visually distinguished, the network sometimes manages to perform correct detections by relying on the prior it has learned during training.
 
-In summary, the proposed deep neural architecture has shown to be a robust and powerful method for performing the aggregation step of the #acr("ASSL") pipeline.
+In summary, the proposed deep neural architecture has been shown to be a robust and powerful method for performing the aggregation step of the #acr("ASSL") pipeline.
 
 // NN rightfully infers the presence of a source in the front, but predicts an inacurrate distance leading to missing the detection in the end.
 
@@ -278,7 +278,7 @@ However, decreasing this parameter causes bigger, oversaturated cones that lose 
     width: 80%,
   ),
   caption: [
-    Effect of #_doa spectrum amplification on the local maps
+    Effect of #_doa spectrum amplification on the local maps.
   ],
 )
 <fig:active_ssl:results:doa_spectrum_amplif_maps>

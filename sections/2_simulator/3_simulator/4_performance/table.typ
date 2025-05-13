@@ -30,13 +30,8 @@
   ),
   placement: top,
   kind: table,
-  caption: flex-caption(
-    short: [
-      Relative performance of the simulator back-end #acr("RIR") libraries
-    ],
-    long: [
-      Relative performance of the simulator back-end #acr("RIR") libraries.
-    ],
-  )
+  caption: [
+    Relative performance of the simulator back-end #acr("RIR") libraries.
+  ],
 )
 <table:simulator:simulator:performance:backends>

@@ -29,7 +29,7 @@
   placement: top,
   kind: table,
   caption: [
-    #acr("SSL") performance when trained with different number of sources
+    #acr("SSL") performance when trained with different number of sources.
   ]
 )
 <table:ssl:multi_source:experiments:n_sources_train>

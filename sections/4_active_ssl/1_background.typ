@@ -115,7 +115,7 @@ However, the authors do test their system in the presence of reverberation.
 Performance is shown to suffer from increasing the $T_60$.
 Working on the robustness of localization systems to reverberation is a key area for future improvement.
 Kneip et al. @kneip_binaural_2008 claim that combining rotation and translation movements from a robot significantly enhances localization performance.
-Argentieri et al.'s 2015 survey on #acr("SSL") in robotics @argentieri_survey_2015 includes additional references to works in #acr("ASSL").
+Argentieri et al.'s survey on #acr("SSL") in robotics @argentieri_survey_2015 includes additional references to works in #acr("ASSL").
 Yet, the authors conclude that _active audition_ would benefit from additional research effort.
 The #acr("BINAAHR") project was a French-Japanese collaboration on robotic auditory perception.
 It allowed for several publications on active audition (see Markovic et al. @markovic_active_2013 and Portello et al. @portello_active_2012, for example).

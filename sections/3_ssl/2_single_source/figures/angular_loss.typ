@@ -46,7 +46,7 @@
   ),
   caption: flex-caption(
     short: [
-      Plot of the angular loss
+      Plot of the angular loss.
     ],
     long: [
       Angular loss plots for $colMath(hat(theta)=0, #blue)$ and $colMath(hat(theta)=(3pi) / 4, #green)$.

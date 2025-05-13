@@ -103,9 +103,14 @@ In contrast, the cardioid and its variants (super-cardioid, hyper-cardioid, ultr
 @fig:ssl:single_source:polar_patterns shows the receptive field of the most common microphone patterns.
 #figure(
   image("figures/polar_patterns.jpg", height: 8cm),
-  caption: [
-    Illustration of the most common microphone polar patterns @stoddart_beginners_2016
-  ],
+  caption: flex-caption(
+    short: [
+      Illustration of the most common microphone polar patterns.
+    ],
+    long: [
+      Illustration of the most common microphone polar patterns @stoddart_beginners_2016.
+    ],
+  ),
 ) <fig:ssl:single_source:polar_patterns>
 
 In the context of #acr("SSL"), a non-homogeneous pattern brings extra angular information that a neural network might be able to exploit.
@@ -208,7 +213,7 @@ The output neurons are trained to predict the sine and cosine of the #acr("DoA")
     height: 70%
   ),
   caption: [
-    Simple convolutional architecture for #acr("SSL")
+    Deep convolutional network architecture for #acr("SSL").
   ],
 ) <fig:ssl:single_source:nn_architecture>
 

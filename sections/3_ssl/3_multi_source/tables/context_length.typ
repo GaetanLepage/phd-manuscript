@@ -67,7 +67,7 @@
   placement: top,
   kind: table,
   caption: [
-    #acr("SSL") performance depending on the input duration
+    #acr("SSL") performance depending on the input duration.
   ]
 )
 <table:ssl:multi_source:experiments:context_length>

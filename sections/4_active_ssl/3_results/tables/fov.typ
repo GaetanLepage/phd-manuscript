@@ -40,7 +40,7 @@
   placement: top,
   kind: table,
   caption: [
-    Comparison of the ASSL performance for different FoV values
+    Comparison of the ASSL performance for different FoV values.
   ]
 )
 <table:active_ssl:results:fov>

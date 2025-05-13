@@ -106,7 +106,7 @@
   align(left)[#algo],
   kind: raw,
   caption: [
-    WER map computation algorithm
+    WER map computation algorithm.
   ]
 )
 <algo:rl:wer_map>

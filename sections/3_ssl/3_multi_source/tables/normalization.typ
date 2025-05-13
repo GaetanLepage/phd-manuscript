@@ -41,7 +41,7 @@
   placement: top,
   kind: table,
   caption: [
-    Final performance of #acr("SSL") for different normalization/evaluation schemes
+    Final performance of #acr("SSL") for different normalization/evaluation schemes.
   ]
 )
 <table:ssl:multi_source:experiments:normalization>

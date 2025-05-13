@@ -115,9 +115,14 @@ The boundary between early echoes and late reflections is called the _mixing tim
 
 #figure(
   image("figures/reflection_types.svg", width: 100%),
-  caption: [
-    Illustration of the different ways sound interacts with surfaces @di_carlo_echo-aware_2020.
-  ],
+  caption: flex-caption(
+    short: [
+      Illustration of the different ways sound interacts with surfaces.
+    ],
+    long: [
+      Illustration of the different ways sound interacts with surfaces @di_carlo_echo-aware_2020.
+    ],
+  ),
 )
 <fig:simulator:background:reflection_types>
 

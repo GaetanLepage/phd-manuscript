@@ -61,7 +61,7 @@ The individual steps of the process will be detailed in the following sections.
     width: 100%,
   ),
   caption: [
-    Active-#acr("SSL") pipeline
+    Active-#acr("SSL") pipeline.
   ]
 )
 <fig:active_ssl:method:pipeline>
@@ -192,7 +192,9 @@ This continuous function is discretized in the final $p times p$ matrix #AM-targ
     "figures/gt_encoding.svg",
     height: 7cm
   ),
-  caption: [Ground truth encoding #AM-targ of the localization map]
+  caption: [
+    Ground truth encoding #AM-targ of the localization map.
+  ]
 )
 <fig:active_ssl:methods:gt_encoding>
 
@@ -235,7 +237,7 @@ The process is repeated until the original dimension of the image is recovered.
     width: 100%,
   ),
   caption: [
-    Deep neural network architecture for 2D localization map aggregation
+    Deep neural network architecture for 2D localization map aggregation.
   ]
 )
 <fig:active_ssl:methods:nn_architecture>
