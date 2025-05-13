@@ -15,6 +15,7 @@
 #let env-horizon-value = 32
 #let n-source-pos = $n_"source pos"$
 #let n-source-pos-value = 12
+#let dim-features-value = 128
 
 // PPO loss
 #let ppo-clipped-loss = $colMath(L_t^"CLIP" (theta), #maroon)$
@@ -37,9 +38,9 @@
 #let n-y-exp = $floor(L_y/#delta-grid)$
 #let source-pos = $bold(x)_s$
 #let agent-pos = $bold(x)_a$
-#let agent-ori = $theta_a$
+#let agent-ori = $alpha_a$
 #let agent-source-doa = $"DoA"(bold(x)_a, #agent-ori, #source-pos)$
-#let agent-source-dist = $D_"source"$
+#let agent-source-dist = $D_"source" (#agent-pos, #source-pos)$
 #let agent-source-dist-expr = $norm(#source-pos - #agent-pos)_2^2$
 #let agent-source-final-dist = $D_F$
 #let cost = $C$
@@ -52,9 +53,9 @@
 
 // Reward
 #let f-reward = $f$
-#let reward-exp-alpha = $alpha_C$
+#let reward-exp-alpha = $eta_C$
 #let reward-alpha-value = 100
-#let reward-exp-beta = $beta_C$
+#let reward-exp-beta = $xi_C$
 #let reward-beta-value = 4
 #let f-reward-exp = $#reward-exp-alpha exp[- #reward-exp-beta #cost-t]$
 // wall-penalty
@@ -88,4 +89,6 @@
 
 // Metrics
 #let mfc = $hat(C)_F$
+#let mfd = $hat(D)_F$
+#let mfae = $hat(theta)_F$
 #let mean-cum-reward = $macron(R)$

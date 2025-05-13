@@ -31,7 +31,7 @@
   
   // -----------------------------------------------------------------------------
   // Deep Learning
-  "BN": ("Batch Normalization"),
+  "BatchNorm": ("Batch Normalization"),
   "CNN": (
     "Convolutional Neural Network",
     "Convolutional Neural Networks"
@@ -53,7 +53,7 @@
     "Large Language Model",
     "Large Language Models"
   ),
-  "LN": ("Layer Normalization"),
+  "LayerNorm": ("Layer Normalization"),
   "LSTM": ("Long-Short Term Memory"),
   "RNNLM": ("Recurrent Neural Network Language Model"),
   "MSE": ("Mean Squared Error"),
@@ -156,6 +156,8 @@
     "Markov Decision Process",
     "Markov Decision Processes"
   ),
+  "MFAE": ("mean final angle error"),
+  "MFD": ("mean final distance"),
   "MFC": ("mean final cost"),
   "MPC": ("Model Predictive Control"),
   "PESQ": ("Perceptual Evaluation of Speech Quality"),

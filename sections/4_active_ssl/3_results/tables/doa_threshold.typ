@@ -47,7 +47,7 @@
   placement: top,
   kind: table,
   caption: [
-    comparison of the assl performance for different #doa threshold (#doa-t) values
+    Comparison of the ASSL performance for different #_doa threshold (#doa-t) values.
   ]
 )
 <table:active_ssl:results:doa_threshold>

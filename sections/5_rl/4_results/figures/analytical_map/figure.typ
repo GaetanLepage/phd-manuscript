@@ -8,7 +8,7 @@
   ),
   caption: flex-caption(
     short: [
-      Example of a directional analytical cost map,
+      Example of a directional analytical cost map.
     ],
     long: [
       Directional (east orientation) analytical cost map.

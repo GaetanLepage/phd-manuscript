@@ -56,7 +56,7 @@
   placement: top,
   kind: table,
   caption: [
-    Final hyperparameter values used to train the #acr("PPO") algorithm.
+    Final hyperparameter values used to train the PPO algorithm.
   ]
 )
 <table:rl:method:hyperparameters>

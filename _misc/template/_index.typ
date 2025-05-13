@@ -180,14 +180,15 @@
     }
   
     v(0em)
-    let title-text = fit-to-width(
-      it.body,
-      max-text-size: 36pt,
-    )
+    //let title-text = fit-to-width(
+    //  it.body,
+    //  max-text-size: 36pt,
+    //)
+    let title-text = it.body
     text(
       title-text,
       //it.body,
-      //size: 36pt,
+      size: 36pt,
       weight: "light",
     )
     if is-chapter {

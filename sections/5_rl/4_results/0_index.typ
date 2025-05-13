@@ -70,7 +70,7 @@ More precisely, we introduce two scaling parameters #reward-exp-alpha and #rewar
 #func-def(
   f-reward,
   $[0, 1]$,
-  $RR$,
+  $RR_+^*$,
   cost-t,
   f-reward-exp + ".",
 )
@@ -190,28 +190,14 @@ Reducing the #acr("WER") from around 20% to 5.69% in the omnidirectional case an
 === Alternative Cost Maps
 
 Before using #acr("WER") cost maps to compute the reward, we have conducted experiments with alternative cost maps.
-As highlighted in previous @sec:rl:method:wer_maps:computing, computing #wer-cost is very compute intensive.
+As highlighted in previous @sec:rl:method:wer_maps:computing, computing #wer-cost is very compute-intensive.
 Furthermore, the #acr("WER") cost is noisy has some artifacts.
-In this section, we introduce an alternative formulation for the cost function #cost.
-This analytical cost #analytical-cost
-
-on artificial cost maps.
-We have used synthetic data to validate the concept of training an agent with our custom #acr("WER") maps.
-
-#draft[
-  Objective: sanity check\
-  Lossless encoding of the distance
-
-  TODO:
-  - Maybe introduce a different, abstract notation for the cost function (different form w)
-  - Analytical vs WER maps
-  - Directional vs omnidirectional maps (in both cases)
-  - Material:
-    - Training curves
-    - Final results in terms of WER
-]
-
-The adopted proxy for the #acr("WER") is defined as:
+The present study introduces an alternative formulation for the cost function #cost.
+This _analytical cost_ #analytical-cost is a closed-form formula that directly maps a state $s in cal(S)$ to its normalized cost.
+It was initially used to validate the concept of a navigation task parametrized by an eventually directional cost map.
+It also allows for comparing the training dynamics in this sanitized environment to those in the main #wer-cost\-based environment.
+//The adopted proxy for the #acr("WER") is defined as:
+Our previous observations of real #acr("WER") maps motivate this formulation.
 The analytical cost is defined over the state space $cal(S)$ as:
 // #let eta = $colMath(eta, #olive)$
 // $
@@ -242,15 +228,51 @@ where:
 - #source-pos is the source position and is fixed for a given episode;
 - $#agent-source-dist = #agent-source-dist-expr$ is the source-array distance;
 - $"DoA"(#agent-pos, theta_a, #source-pos)$ is the direction of arrival for this source-microphone positioning;
-- $eta$ is a scaling factor; #draft[Say that we keep it as 1]
+- $eta$ is a scaling factor, set to 1 in the conducted experiments.
+  
+Naturally, this definition is inspired by the shape of the #acr("WER") maps (see @fig:rl:results:directional_map for an example).
+The obtained map is normalized to constrain its range in the $[0, 1]$ interval.
+Setting $eta$ to 0 gives the omnidirectional formulation of the analytical cost.
+@fig:rl:results:analytical_map plots the analytical cost $C$ for the east orientation, i.e., where the agent is facing right in this figure's frame.
+As #analytical-cost has a closed-form definition, the resulting cost maps are considerably smoother and less noisy than #acr("WER") maps.
 
-Similarly to the #acr("WER") cost, we normalize the obtained map to constrain its range in the $[0, 1]$ interval.
-@fig:rl:results:analytical_map plots the analytical cost $C$
+#draft[
+  The results from this experiment show that we can use these maps as a proxy for the WER and still be able to learn #pi-optimal (even better)
 
-Our previous observations of real #acr("WER") maps motivate this formulation.
+  The WER scores cannot be directly compared across experiments, so we use geometrical metrics:
+  The _#acr("MFD")_ quantifies how far the agent stands from the source when the episode ends
+  $
+    #mfd = 1 / #n-ep sum_(i=1)^#n-ep D(s_(T, i)),
+  $
+  where $D(s_(T, i))$ denotes the source-array distance at the final step of the $i$-th episode.
+
+  Similarly, the _#acr("MFAE")_ measures how much the agent faces the source when the episode ends:
+  $
+    #mfae =
+      1 / #n-ep
+      sum_(i=1)^#n-ep 
+      abs(
+        "DoA"(s_(T, i))
+      ).
+  $
+]
+
 
 #include "figures/analytical_map/figure.typ"
 #include "tables/maps_comparison.typ"
+
+#draft[
+  Objective: sanity check\
+  Lossless encoding of the distance
+
+  TODO:
+  - Maybe introduce a different, abstract notation for the cost function (different form w)
+  - Analytical vs WER maps
+  - Directional vs omnidirectional maps (in both cases)
+  - Material:
+    - Training curves
+    - Final results in terms of WER
+]
 
 
 @fig:rl:results:analytical_map shows an example of 
@@ -259,11 +281,17 @@ Our previous observations of real #acr("WER") maps motivate this formulation.
 
 === Importance of Localization Feature Extraction
 
+The agent neural network's backbone is pre-trained on the supervised static #acr("SSL") task.
+It outputs #dim-features-value\-dimensional feature vectors that are highly correlated with the source localization.
+To assess the impact of this choice, we conduct an ablation study where different initialization strategies are tested.
+In addition to our regular initialization strategy, we train an agent where the entire network is initialized from scratch, with no pre-training.
+We include an extra variation in which the backbone is pre-trained on the localization task, but whose weights are not frozen during the #acr("RL") training phase.
+The main evaluation metrics #mean-cum-reward and #mfc are reported in @table:rl:results:backbone_pretraining
+
+
 #draft[
-  TODO: ablation study with/without pre-trained backbone
-  - No pre-training at all: E2E training in #acr("RL")
-  - Pre-training in SSL + frozen weights during #acr("RL") training
-  - Pre-training in SSL + fine-tuning in RL
+  TODO: Include and comment results
 ]
+
 
 #include "tables/backbone_pretraining.typ"

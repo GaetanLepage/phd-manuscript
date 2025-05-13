@@ -140,25 +140,25 @@ $
   "WER" = (s + d + i) / n.
 $
 where $s$ is the number of substitutions, $d$ of deletions, and $i$ of insertions needed to transform the true sentence into the predicted text.
-$n$ counts the total number of words of the ground truth.
+$n$ counts the total number of words of the ground truth transcript.
 Hence, the #acr("WER") quantifies the difference between the original and transcribed text.
 The total number of errors $s + d + i$ is also called the Levenshtein or edit distance, which Vladimir Levenshtein proposed in 1965 @levenshtein_binary_1965.
 Its default formulation considers comparing two strings at the character level.
-Let consider two strings $a$ and $b$ (of length $abs(a) = n$ and $abs(b) = m$ respectively).
+Let consider two strings $a$ and $b$ (of length $abs(a) = n + 1$ and $abs(b) = m + 1$ respectively).
 The Levenshtein distance between $a$ and $b$ is computed as:
 $
   "lev"(a, b) = cases(
     abs(a) & "if" m = 0,
     abs(b) & "if" n = 0,
-    "lev"(a_(1..n-1), b_(1..m-1)) & "if" a_0 = b_0,
+    "lev"(a_(1..n), b_(1..m)) & "if" a_0 = b_0,
     1 + min cases(
-      "lev"(a_(1..n-1), b),
-      "lev"(a, b_(1..m-1)),
-      "lev"(a_(1..n-1), b_(1..m-1))
+      "lev"(a_(1..n), b),
+      "lev"(a, b_(1..m)),
+      "lev"(a_(1..n), b_(1..m))
     ) & "otherwise,"
   )
 $
-where $a_0$ is the first character of $a$ and $a_(1..n-1)$ is the string $a$ without its first character.
+where $a_0$ is the first character of $a$ and $a_(1..n)$ is the string $a$ without its first character.
 It counts the number of edits to turn string $a$ into string $b$.
 As such, it is bounded by the length of the longest string:
 $
@@ -270,7 +270,7 @@ It is directly embedded in the environment implementation.
 The main originality of our approach lies in the perceptually motivated objective.
 The agent should be trained to navigate to the optimal location regarding the #acr("ASR") performance.
 Naturally, the reward function should be a decreasing function, $f: [0, 1] -> RR$, of the #acr("WER") metric so that the highest reward would correspond to the lowest possible #acr("WER").
-For now, we assume having access to an oracle cost function $C: cal(S) -> [0, 1]$ that maps each possible state to a score.
+For now, we assume having access to an oracle cost function $C: cal(S) -> RR_+$ that maps each possible state to a score.
 It quantifies how desirable it is to be in this specific state.
 Although we experiment with extra formulation for $C$, the original task's cost is #wer-cost, the estimated average #acr("WER") that the #acr("ASR") would yield if the agent were standing at this position.
 The practical implementation of this mapping will be discussed later in @sec:rl:method:wer_maps.
@@ -284,6 +284,7 @@ $
 <eq:rl:problem:reward>
 where:
 - $#cost-t = #cost (s_t)$ is the cost value of the state $s_t$;
+//- $#cost-t = (#cost (s_t)) / (max_(s in cal(S)) C(s)) $ is the normalized cost value of the state $s_t$;
 - #reward-wall-penalty is a positive scalar that can be adjusted according to #f-reward's magnitude;
   It allows penalizing movements that would lead the robot to collide with a wall.
   When the policy samples such an impossible action, the environment ignores it, the agent remains immobile for this step, and a fixed reward of #reward-wall-penalty is returned.

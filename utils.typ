@@ -124,10 +124,3 @@ $
     long
   }
 }
-#let detailed-caption(
-  common: todo,
-  extra: todo
-) = flex-caption(
-   short: common,
-   long: common + extra,
-)

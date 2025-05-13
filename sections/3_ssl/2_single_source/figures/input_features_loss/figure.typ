@@ -21,10 +21,10 @@
   columns: 2,
   caption: flex-caption(
     short: [
-      Evolution of the training and validation #acr("DoA") loss #l-doa-raw for different input features
+      Evolution of the training and validation #_doa loss #l-doa-raw for different input features
     ],
     long: [
-      Evolution of the training and validation #acr("DoA") loss #l-doa for different input features
+      Evolution of the training and validation #_doa loss #l-doa for different input features
     ],
   ),
   placement: fig-placement,

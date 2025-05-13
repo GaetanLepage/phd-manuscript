@@ -26,7 +26,7 @@ A three-microphone array is used to model the agent's sensors.
 Each microphone has a cardioid pattern.
 
 
-=== #acr("WER") as a Reward Signal
+=== WER as a Reward Signal
 <sec:rl:method:wer_maps>
 #minitoc(indent: true)
 
@@ -114,7 +114,7 @@ The specific pipeline that was used in this work involves three components:
   Here, we have chosen a #acr("RNNLM") @mikolov_recurrent_2010 provided by the #speechbrain library.
   This architecture applies the successful #acr("RNN") architecture to language modeling.
   In this case, the recurrent units act on word sequences.
-  It comprises an embedding layer that maps individual words to 128-dimensional vectors.
+  It comprises an embedding layer that maps individual words to #dim-features-value\-dimensional vectors.
   Those vectors are then fed to the #acr("RNN"), which is followed by fully connected layers.
   #speechbrain also provides other architectures, such as a _TransformerLM_, based on the widespread Transformer architecture @vaswani_attention_2017.
 - Finally, the *acoustic model* performs the actual task of speech recognition by mapping audio features to tokens.
@@ -191,7 +191,7 @@ The #acr("WER") map materializes as a 2D matrix for an omnidirectional microphon
 
 @algo:rl:wer_map describes the algorithm used to compute those #acr("WER") maps.
 It implements @eq:rl:method:wer_cost.
-It adds an extra normalization step (line 34) to ensure that $C_"WER"$ will scale over the entire $[0, 1]$ interval.
+//Line 34 implements cost normalization, which ensures that $C_"WER"$ will scale over the entire $[0, 1]$ interval.
 The computation time of the #acr("WER") map algorithm can quickly grow to several hours.
 Its time complexity grows in the order of:
 $
@@ -226,7 +226,7 @@ The architectures and the pre-trained weights are directly transferred to build 
 #draft[
 *Backbone pretraining.*
 The pre-trained feature extractor is trained on the #acr("SSL") task defined in @sec:ssl:single_source.
-The final regression layer of the sound source localizer is removed to make the model output a 128-dimensional feature vector.
+The final regression layer of the sound source localizer is removed to make the model output a #dim-features-value\-dimensional feature vector.
 The default #acr("RL") training process involves freezing the weights of the backbone.
 #draft[
   Just say that the default is pre-trained + frozen and that we investigate it later.
@@ -234,7 +234,7 @@ The default #acr("RL") training process involves freezing the weights of the bac
 ]
 
 #draft[
-The feature extractor maps the audio spectral observations into a lower 128-dimensional embedding vector.
+The feature extractor maps the audio spectral observations into a lower #dim-features-value\-dimensional embedding vector.
 We hypothesize that the agent will implicitly acquire localization capabilities while learning the #acr("RL") navigation task.
 We supervisedly train the feature extractor to perform the #acr("SSL") task to improve performance and bootstrap the learning process.
 The exact training methodology is detailed in @sec:ssl:single_source:method.
@@ -272,7 +272,7 @@ Please, refer to @fig:ssl:single_source:nn_architecture for a more detailed repr
 
 
 
-=== #acr("PPO") Implementation and Training Strategy
+=== PPO Implementation and Training Strategy
 
 
 

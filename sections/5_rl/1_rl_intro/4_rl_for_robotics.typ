@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-=== #acr("RL") for Robotics
+=== Reinforcement Learning for Robotics
 <sec:rl:intro:rl_for_robotics>
 
 By its very nature, robotics has long been a central application area for #acr("RL").

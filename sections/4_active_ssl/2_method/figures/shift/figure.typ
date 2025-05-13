@@ -1,4 +1,5 @@
 #import "/utils.typ": *
+#import "/_misc/notations.typ": *
 
 #subpar.grid(
   figure(
@@ -28,6 +29,6 @@
   
   numbering: fig-numbering,
   numbering-sub-ref: fig-numbering-sub-ref,
-  caption: [Shifting process for local #acr("DoA") maps],
+  caption: [Shifting process for local #_doa maps],
   label: <fig:active_ssl:method:shift>,
 )

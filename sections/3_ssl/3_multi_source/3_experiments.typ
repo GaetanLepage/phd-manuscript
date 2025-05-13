@@ -141,9 +141,14 @@ $
 
 #figure(
   include("figures/loss_illustration.typ"),
-  caption: [
-    Fictive example of a poor network prediction (in red) along with the corresponding ground truth spectrum (in violet)
-  ],
+  caption: flex-caption(
+      short: [
+        Illustrative example of a poor network prediction and the corresponding ground truth spectrum.
+      ],
+      long: [
+        Illustrative example of a poor network prediction (in red) and the corresponding ground truth spectrum (in violet).
+      ],
+    ),
 )
 <fig:ssl:multi_source:loss_illustration>
 
@@ -291,7 +296,7 @@ This problem comes from the distribution of each layer's inputs changing during 
 Such a drift causes the non-linear activation functions to saturate and harms the learning process.
 Normalization also attempts at reducing the effects of mismatch between the training and test dataset distributions.
 
-_#acr("BN")_, proposed by Ioffe et al. @ioffe_batch_2015 has gathered significant success, especially in the computer vision community.
+_#acr("BatchNorm")_, proposed by Ioffe et al. @ioffe_batch_2015 has gathered significant success, especially in the computer vision community.
 It consists in normalizing each mini-batch input with respect to its own statistics.
 Acting as a form of regularizer, this process stabilizes learning by ensuring that the values entering all layers do not deviate too significantly.
 The data will get distributed according to a standard normal distribution.
@@ -316,11 +321,11 @@ where
 - $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters.
 
 To be able to perform inference on single samples, i.e. without disposing of an entire mini-batch, substitution statistics are used in place of $colMath(mu_cal(B), #maroon)$ and $colMath(sigma_cal(B)^2, #olive)$.
-Indeed, during training, the #acr("BN") layer will keep updating a running mean and variance to be used at evaluation time.
+Indeed, during training, the #acr("BatchNorm") layer will keep updating a running mean and variance to be used at evaluation time.
 
-_#acr("LN")_ (Ba et al. @ba_layer_2016) follows the same principle but chooses to normalize each sample individually by computing statistics across the features' dimensions.
+_#acr("LayerNorm")_ (Ba et al. @ba_layer_2016) follows the same principle but chooses to normalize each sample individually by computing statistics across the features' dimensions.
 @fig:ssl:multi_source:normalization displays the differences of both schemes.
-Historically, Layer Normalization has been most commonly employed in Natural Language Processing.
+Historically, #acr("LayerNorm") has been most commonly employed in Natural Language Processing.
 
 $
   y_(l, i) = colMath(gamma, #blue) [
@@ -343,11 +348,12 @@ where
 
 #figure(
   image("./figures/normalization.png", height: 4cm),
-  caption: detailed-caption(
-    common: [
-      A visual comparison of Batch and Layer normalizations
+  caption: flex-caption(
+    short: [
+      A visual comparison of Batch and Layer Normalization.
     ],
-    extra: [
+    long: [
+      A visual comparison of Batch and Layer Normalization.
       // TODO: check how it renders
       adapted from @wu_group_2018
     ],
@@ -356,7 +362,7 @@ where
 <fig:ssl:multi_source:normalization>
 
 Those two methods have proven effective in training deep neural network architectures.
-Ren et al. @ren_normalizing_2017 develop a unified view of the #acr("BN") and #acr("LN") schemes.
+Ren et al. @ren_normalizing_2017 develop a unified view of the #acr("BatchNorm") and #acr("LayerNorm") schemes.
 Furthermore, they proposed a novel addition to better handle sparsity and achieved better results in various downstream tasks.
 Similarly, the _PowerNorm_ scheme, introduced by Shen et al. @shen_powernorm_2020, attempts to circumvent the identified weaknesses of the existing normalization schemes when applied to the transformer architecture.
 Those works further demonstrate the importance of normalization in deep neural networks.
@@ -364,7 +370,7 @@ Those works further demonstrate the importance of normalization in deep neural n
 //===== Experiments
 *Experiments*
 
-Although He et al. chose to use Batch Normalization in their work, our final architecture employs the more flexible Layer Normalization.
+Although He et al. chose to use #acr("BatchNorm") in their work, our final architecture employs the more flexible #acr("LayerNorm").
 The choice of the normalization scheme ended up being crucial to achieving good performance.
 We observed that the latter yielded the same stabilization benefits during training while removing the dependence on the batch size.
 
@@ -383,13 +389,13 @@ We observed that the latter yielded the same stabilization benefits during train
 This specific metric clearly exposes the differences between those three choices but the other metrics behave similarly.
 Both normalization techniques bring additional stability and performance to the training process.
 However, significant differences arise when looking at the validation metrics.
-When ran in evaluation mode, i.e. using the running statistics gathered during training, the network trained with #acr("BN") performs poorly compared to training.
+When ran in evaluation mode, i.e. using the running statistics gathered during training, the network trained with #acr("BatchNorm") performs poorly compared to training.
 This would suggest that the saved means and averages do not adequately account for the differences between the training and validation sets.
 
 Interestingly, evaluating this network's performance while forcing the batch normalization to use the training strategy avoids facing this issue.
 Indeed, using the current validation batch statistics instead of those gathered at training time provides results on par with the training performance.
 This constitutes an essential limitation of batch normalization in this case, as the evaluation thus needs to be performed in a batched manner.
-@table:ssl:multi_source:experiments:normalization displays the batch size's influence on the network's performance trained with #acr("BN").
+@table:ssl:multi_source:experiments:normalization displays the batch size's influence on the network's performance trained with #acr("BatchNorm").
 
 
 #include "tables/normalization.typ"
@@ -400,11 +406,11 @@ Although in a purely synthetic benchmark, this does not constitute an important 
 In our robotics context, the developed #acr("SSL") solution would have to be able to be used in real-world scenario where an entire batch of observation is not available at inference.
 
 This is what motivated enhancement of the model using other normalization schemes.
-As explained in @sec:ssl:multi_source:experiments:normalization, #acr("LN") does not encompass this behavioral distinction between training and evaluation.
+As explained in @sec:ssl:multi_source:experiments:normalization, #acr("LayerNorm") does not encompass this behavioral distinction between training and evaluation.
 @table:ssl:multi_source:experiments:normalization also compares the final performance of the layer normalization strategy.
 
-Overall, #acr("LN") and #acr("BN") offer comparable performance.
-However, the model trained with #acr("LN") behaves very consistently when used in evaluation.
+Overall, #acr("LayerNorm") and #acr("BatchNorm") offer comparable performance.
+However, the model trained with #acr("LayerNorm") behaves very consistently when used in evaluation.
 For those reasons, we have preferred this approach over the original one.
 
 

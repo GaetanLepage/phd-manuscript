@@ -30,11 +30,12 @@
   ),
   placement: top,
   kind: table,
-  caption: detailed-caption(
-    common: [
-      #acr("SSL") performance when estimating the source-microphone distance
+  caption: flex-caption(
+    short: [
+      #acr("SSL") performance when estimating the source-microphone distance.
     ],
-    extra: [
+    long: [
+      #acr("SSL") performance when estimating the source-microphone distance.
       #todo   
     ],
   )

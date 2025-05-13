@@ -98,7 +98,7 @@
   align(left)[#algo],
   kind: raw,
   caption: [
-    Active-#acr("SSL") algorithm
+    Active-#acr("SSL") algorithm.
   ]
 )
 <algo:active_ssl:algo>

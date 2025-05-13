@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-= Reinforcement Learning
+= Deep Reinforcement Learning for Sound-Driven Navigation
 <chap:rl>
 #minitoc(indent: true)
 

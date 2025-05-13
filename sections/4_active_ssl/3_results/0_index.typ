@@ -73,10 +73,11 @@ Regarding the movement policy, at each step, the new orientation $theta_t+1$ of 
 $
   theta_(t+1) tilde cal(N)(theta_t, sigma_theta^2).
 $
-In practice, we use a value of radians for $sigma_theta$.
+In practice, we use a value of $0.1$ radians ($approx 5.7°$) for $sigma_theta$.
 The agent then moves forward in this new direction by a distance of 50cm.
 
-A special case occurs when the robot is less than 50cm from a wall. In this case, its orientation is instead sampled according to the initialization process to turn its back to this wall.
+A special case occurs when the robot is less than 50cm from a wall.
+In this case, its orientation is instead sampled according to the initialization process to turn its back to this wall.
 
 *Data gathering.*
 The collected datasets will be used for two distinct purposes: evaluating the global #acr("ASSL") pipeline and training the #psi-dnn combination operator.
@@ -178,10 +179,10 @@ Here, the potential of our method can be explored under ideal conditions.
   ),
   caption: flex-caption(
     short: [
-      Comparison of ground-truth and predicted #doa spectra
+      Comparison of ground-truth and predicted #_doa spectra
     ],
     long: [
-      Comparison of ground-truth (blue) and predicted (red) #doa spectra.
+      Comparison of ground-truth (blue) and predicted (red) #_doa spectra.
     ],
   ),
 )
@@ -248,7 +249,7 @@ In summary, the proposed deep neural architecture has shown to be a robust and p
 
 
 
-==== A Tentative for #doa Spectrum Amplification
+==== A Tentative for #_doa Spectrum Amplification
 
 As seen in @sec:active_ssl:results:impact_of_ssl_model, the #acr("ASSL") process works significantly better when provided with the ground-truth #doa spectra instead of using the pre-trained #acr("SSL") model.
 One reason for this decrease in performance is that the peaks present in those estimated heatmaps are lower.
@@ -277,7 +278,7 @@ However, decreasing this parameter causes bigger, oversaturated cones that lose 
     width: 80%,
   ),
   caption: [
-    Effect of #doa spectrum amplification on the local maps
+    Effect of #_doa spectrum amplification on the local maps
   ],
 )
 <fig:active_ssl:results:doa_spectrum_amplif_maps>
