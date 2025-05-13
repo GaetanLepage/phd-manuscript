@@ -66,7 +66,7 @@ The following section will present the software blocks required to run this type
   doa_source_1 = audio_simulator.get_doa("speech_1")
   ```,
   caption: [
-    Example of basic usage of the simulator
+    Example of basic usage of the simulator.
   ]
 )
 <code:simulator:simulator:basic_usage>

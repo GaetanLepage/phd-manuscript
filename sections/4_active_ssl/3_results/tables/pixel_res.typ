@@ -39,7 +39,7 @@
   placement: top,
   kind: table,
   caption: [
-    Comparison of the ASSL performance for different pixel resolutions
+    Comparison of the ASSL performance for different pixel resolutions.
   ]
 )
 <table:active_ssl:results:pixel_res>

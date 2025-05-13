@@ -31,14 +31,14 @@
     
     table.cell(rowspan: 2)[General],
     [#n-ppo-iter], [Number of #acr("PPO") iterations], [#n-ppo-iter-value],
-    [#n-ppo-steps], [Number of trtransitions per batch], [2000],
+    [#n-ppo-steps], [Number of transitions per batch], [2000],
 
     midrule,
 
     table.cell(rowspan: 5)[Loss],
     [$lambda_"GAE"$], [Bias–variance trade-off parameter for the #acr("GAE")], [0.95],
-    [#ppo-loss-epsilon], [Clipping threshold for the clipped loss #ppo-clipped-loss], [0.2],
-    [#ppo-value-loss-epsilon], [Clipping threshold for the value loss #ppo-value-loss], [0.1],
+    [#ppo-loss-epsilon], [Clipping threshold for the clipped loss #_ppo-clipped-loss], [0.2],
+    [#ppo-value-loss-epsilon], [Clipping threshold for the clipped value loss #ppo-value-loss-clipped], [0.1],
     [#coef-value], [Loss value coefficient], [0.5],
     [#coef-entropy], [Entropy coefficient], [$10^(-2)$],
     

@@ -18,8 +18,15 @@
 #let dim-features-value = 128
 
 // PPO loss
-#let ppo-clipped-loss = $colMath(L_t^"CLIP" (theta), #maroon)$
-#let ppo-value-loss = $colMath(L_t^"VF" (theta), #olive)$
+#let _ppo-clipped-loss = $L_t^"CLIP"$
+#let ppo-clipped-loss = $colMath(#_ppo-clipped-loss, #maroon)$
+#let ppo-clipped-loss-theta = $colMath(#_ppo-clipped-loss (theta), #maroon)$
+#let _ppo-value-loss = $L_t^"VF"$
+#let ppo-value-loss = $colMath(#_ppo-value-loss, #olive)$
+#let ppo-value-loss-theta = $colMath(#_ppo-value-loss (theta), #olive)$
+#let ppo-value-loss-clipped = $L_t^"VF, CLIPPED"$
+#let ppo-value-loss-clipped-theta = $#ppo-value-loss-clipped (theta)$
+#let v-theta
 #let ppo-entropy-bonus = $colMath(S[pi_theta](s_t) , #eastern)$
 //#let ppo-loss = $L_t ^("CLIP" + "VF" + "S")$
 #let ppo-loss = $L^"PPO"$

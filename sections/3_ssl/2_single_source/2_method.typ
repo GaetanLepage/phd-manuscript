@@ -223,7 +223,7 @@ The output neurons are trained to predict the sine and cosine of the #acr("DoA")
 
 This single-source #acr("SSL") task boils down to a low-dimensional regression problem.
 The network is designed to eventually predict a scalar value for the #acr("DoA") and optionally an extra value for the source-microphone distance.
-
+G
 *Angular loss.*
 While the distance case is straightforward, the #acr("DoA") estimation should be cautiously handled.
 Indeed, the #acr("DoA") lies in the $[-pi, pi]$ periodic interval.
@@ -330,6 +330,7 @@ where $kappa$ balances the relative importance of the distance loss in the final
 
 
 ==== Training Strategy
+<sec:ssl:single_source:method:training_strategy>
 
 Training deep neural networks involves determining relevant values for multiple hyperparameters.
 The network architecture plays a crucial role and has already been discussed in @sec:ssl:single_source:method:architecture.

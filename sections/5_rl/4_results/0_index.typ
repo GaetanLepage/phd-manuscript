@@ -195,7 +195,7 @@ Furthermore, the #acr("WER") cost is noisy has some artifacts.
 The present study introduces an alternative formulation for the cost function #cost.
 This _analytical cost_ #analytical-cost is a closed-form formula that directly maps a state $s in cal(S)$ to its normalized cost.
 It was initially used to validate the concept of a navigation task parametrized by an eventually directional cost map.
-It also allows for comparing the training dynamics in this sanitized environment to those in the main #wer-cost\-based environment.
+It also allows for comparing the training dynamics in this sanitized environment to those in the main #wer-cost;-based environment.
 //The adopted proxy for the #acr("WER") is defined as:
 Our previous observations of real #acr("WER") maps motivate this formulation.
 The analytical cost is defined over the state space $cal(S)$ as:
@@ -282,7 +282,7 @@ As #analytical-cost has a closed-form definition, the resulting cost maps are co
 === Importance of Localization Feature Extraction
 
 The agent neural network's backbone is pre-trained on the supervised static #acr("SSL") task.
-It outputs #dim-features-value\-dimensional feature vectors that are highly correlated with the source localization.
+It outputs #dim-features-value;-dimensional feature vectors that are highly correlated with the source localization.
 To assess the impact of this choice, we conduct an ablation study where different initialization strategies are tested.
 In addition to our regular initialization strategy, we train an agent where the entire network is initialized from scratch, with no pre-training.
 We include an extra variation in which the backbone is pre-trained on the localization task, but whose weights are not frozen during the #acr("RL") training phase.

@@ -41,6 +41,7 @@
   kind: table,
   caption: [
     Comparison of three #acr("ASR") models provided by #speechbrain.
+    #draft[TODO: caption font size is reduced too]
   ]
 )
 <table:rl:method:asr_models>

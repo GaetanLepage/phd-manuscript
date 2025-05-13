@@ -5,7 +5,7 @@
   figure(
     image("train.svg", width: 120%),
     caption: [
-      Training loss
+      Training loss.
     ]
   ),
   <fig:ssl:single_source:input_features:train>,
@@ -13,7 +13,7 @@
   figure(
     image("validation.svg", width: 120%),
     caption: [
-      Validation loss
+      Validation loss.
     ]
   ),
   <fig:ssl:single_source:input_features:validation>,

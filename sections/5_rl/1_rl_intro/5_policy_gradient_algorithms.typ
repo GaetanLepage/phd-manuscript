@@ -216,7 +216,7 @@ This choice slightly loosens the constraint that #acr("TRPO") imposes but signif
 The #acr("PPO") objective combines three components: a clipped policy loss, a value function loss, and an optional entropy bonus.
 The *clipped policy loss* is defined as:
 $
-  #ppo-clipped-loss = min lr([
+  #ppo-clipped-loss-theta = min lr([
     #policy-ratio (theta) hat(A)_t,
     "clip"(
       #policy-ratio (theta),
@@ -235,7 +235,7 @@ This constitutes the primary innovation of #acr("PPO") over #acr("TRPO") as it e
 
 The second component of the loss is the *value function loss*, typically a squared error between the predicted value and the empirical return:
 $
-  #ppo-value-loss = lr(
+  #ppo-value-loss-theta = lr(
     [
       V_theta (s_t) - R_t
     ],
@@ -256,8 +256,8 @@ The final #acr("PPO") loss can finally be expressed as:
 $
   #ppo-loss _t (theta) = 
   hat(EE)_t lr([
-    #ppo-clipped-loss
-    - #coef-value #ppo-value-loss
+    #ppo-clipped-loss-theta
+    - #coef-value #ppo-value-loss-theta
     + #coef-entropy #ppo-entropy-bonus
   ], size: #140%),
 $ <eq:rl:ppo_loss>

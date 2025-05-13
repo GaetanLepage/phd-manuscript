@@ -9,7 +9,7 @@
       width: fig-width,
     ),
     caption: [
-      Source position $(6, 3)$
+      Source position $(6, 3)$.
     ]
   ),
   <fig:rl:results:trajectories:1>,
@@ -21,7 +21,7 @@
       width: fig-width,
     ),
     caption: [
-      Source position $(3, 2)$
+      Source position $(3, 2)$.
     ],
   ),
   <fig:rl:results:trajectories:2>,

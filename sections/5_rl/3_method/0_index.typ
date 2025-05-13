@@ -114,7 +114,7 @@ The specific pipeline that was used in this work involves three components:
   Here, we have chosen a #acr("RNNLM") @mikolov_recurrent_2010 provided by the #speechbrain library.
   This architecture applies the successful #acr("RNN") architecture to language modeling.
   In this case, the recurrent units act on word sequences.
-  It comprises an embedding layer that maps individual words to #dim-features-value\-dimensional vectors.
+  It comprises an embedding layer that maps individual words to #dim-features-value;-dimensional vectors.
   Those vectors are then fed to the #acr("RNN"), which is followed by fully connected layers.
   #speechbrain also provides other architectures, such as a _TransformerLM_, based on the widespread Transformer architecture @vaswani_attention_2017.
 - Finally, the *acoustic model* performs the actual task of speech recognition by mapping audio features to tokens.
@@ -210,7 +210,7 @@ A #acr("WER") map needs to be computed for each source position considered.
 === Deep Neural Agent
 <sec:rl:method:nn_architecture>
 
-The multiple recent successes of #acr("DRL") in solving various tasks (Atari games @mnih_playing_2013, controlling plasma in fusion reactors @degrave_magnetic_2022, #todo) originate consequently in the use of #acr("DNN") as function approximators (@sec:rl:intro:deep_reinforcement_learning).
+The multiple recent successes of #acr("DRL") in solving various tasks originate consequently in the use of #acr("DNN") as function approximators (@sec:rl:intro:deep_reinforcement_learning).
 We propose a custom architecture for the neural network implementing the #acr("RL") agent.
 @fig:rl:method:agent_architecture gives a schematic view of its core components.
 The choice of #acr("PPO") as a training algorithm requires defining two models: the actor and the critic (@sec:rl:intro:ppo).
@@ -226,7 +226,7 @@ The architectures and the pre-trained weights are directly transferred to build 
 #draft[
 *Backbone pretraining.*
 The pre-trained feature extractor is trained on the #acr("SSL") task defined in @sec:ssl:single_source.
-The final regression layer of the sound source localizer is removed to make the model output a #dim-features-value\-dimensional feature vector.
+The final regression layer of the sound source localizer is removed to make the model output a #dim-features-value;-dimensional feature vector.
 The default #acr("RL") training process involves freezing the weights of the backbone.
 #draft[
   Just say that the default is pre-trained + frozen and that we investigate it later.
@@ -234,7 +234,7 @@ The default #acr("RL") training process involves freezing the weights of the bac
 ]
 
 #draft[
-The feature extractor maps the audio spectral observations into a lower #dim-features-value\-dimensional embedding vector.
+The feature extractor maps the audio spectral observations into a lower #dim-features-value;-dimensional embedding vector.
 We hypothesize that the agent will implicitly acquire localization capabilities while learning the #acr("RL") navigation task.
 We supervisedly train the feature extractor to perform the #acr("SSL") task to improve performance and bootstrap the learning process.
 The exact training methodology is detailed in @sec:ssl:single_source:method.
@@ -279,19 +279,11 @@ Please, refer to @fig:ssl:single_source:nn_architecture for a more detailed repr
 *Source positions.*
 As previously mentioned, computing a #acr("WER") map is computationally intensive.
 Also, a map needs to be computed for each possible source position.
-The final formulation for the environment involves #n-source-pos-value possible starting positions deterministically spread across the room.
-#draft[This is a tradeoff between computational cost for caching the WER maps and the diversity/difficulty of the environment.]
+The final formulation for the environment involves $#n-source-pos = #n-source-pos-value$ possible starting positions deterministically spread across the room.
+This choice is a tradeoff between the computational cost of #acr("WER") maps caching and the diversity and difficulty of the environment.
+@fig:rl:method:source_positions shows the chosen distribution of source positions across the room.
 
 #include "figures/source_positions/fig.typ"
-
-The #acr("WER") maps need to be co
-#draft[
-  - Add illustration of starting positions.
-  - Give hyper-parameters used:
-    - PPO
-    - Training
-    - etc.
-]
 
 *Implementation details and hyperparameters.*
 Although it has been successful at solving many complex #acr("RL") problems, #acr("PPO") remains highly dependent on its hyperparameter values and implementation details.
@@ -309,11 +301,36 @@ In addition to careful hyperparameter tuning, a selection of implementation deta
 Engstrom et al. @engstrom_implementation_2020 explicitly studied the "code-level optimizations" of the #acr("TRPO") and #acr("PPO") algorithms.
 This work formalized the community's shared impression that #acr("PPO")'s promised performance was subject to subtle implementation details.
 Huang et al. have also contributed to this practical investigation by publishing _The 37 Implementation Details of Proximal Policy Optimization_ @shengyi2022the37implementation.
-We incorporate several of those optimizations in our custom #acr("PPO") implementation.
-Most notably, #todo
-
-For instance, the use of *value loss clipping* #todo
-Learning rate annealing, Progressively decay the learning rate during training, cosine annealing ,
+We incorporate several of these optimizations in our custom #acr("PPO") implementation.
+While the employed implementation details are not exhaustively listed here, the following are notable examples.
+Most notably, value loss clipping effectively helped stabilize the critic's optimization.
+The unclipped value loss function, introduced in @eq:rl:intro:ppo:value_loss is replaced by:
+$
+  L_t^"VF, clipped" (theta) := max[
+    underbrace(
+      (V_theta (s_t) - R_t)^2,
+      "unclipped loss"
+    ),
+    (V^"clipped" (s_t) - R_t)^2
+  ],
+$
+where $V^"clipped" (s_t))$ is the clipped value prediction:
+$
+  V^"clipped" (s_t) =
+    V_theta_"old" (s_t)
+    + "clip"[
+      V_theta (s_t)
+      - V_theta_"old" (s_t),
+      - #ppo-value-loss-epsilon,
+      #ppo-value-loss-epsilon
+    ].
+$
+Here, $V_theta_"old"$ is the value network from the previous iteration, and #ppo-value-loss-epsilon controls the clipping range of the value update.
+This new loss is inspired by the clipped loss #_ppo-clipped-loss used to optimize the actor network.
+It prevents large updates to the value function while still allowing it to improve when it's confident.
+Our experiments showed that using this clipped formulation of the value loss significantly helps stabilize training.
+Furthermore, the final training process also progressively decays the learning rate during training.
+This is achieved using a cosine annealing scheduler (see @sec:ssl:single_source:method:training_strategy, for example).
 
 *Reward.*
 The reward design was fundamental in achieving reliable training of the agent.
@@ -323,9 +340,6 @@ This process is later discussed in the @sec:rl:results:reward_design, which also
 
 
 #draft[
-  - Add loss clipping
-  - We use cosine annealing
-  
   Insist on the fact that we implemented the complete pipeline:
   - RL environment (with the simulator)
   - PPO algorithm

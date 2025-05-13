@@ -4,7 +4,7 @@
   figure(
     image("wer_map_100ms.svg", width: 100%),
     caption: [
-      $T_(60) = 100"ms"$
+      $T_(60) = 100"ms"$.
     ]
   ),
   <fig:rl:results:wer_maps_reverb:100>,
@@ -12,7 +12,7 @@
   figure(
     image("wer_map_300ms.svg", width: 100%),
     caption: [
-      $T_(60) = 300"ms"$
+      $T_(60) = 300"ms"$.
     ]
   ),
   <fig:rl:results:wer_maps_reverb:300>,
@@ -21,7 +21,7 @@
     image("wer_map_500ms.svg", width: 100%),
     //image("/assets/mountains.jpg"),
     caption: [
-      $T_(60) = 500"ms"$
+      $T_(60) = 500"ms"$.
     ]
   ),
   <fig:rl:results:wer_maps_reverb:500>,
@@ -29,7 +29,7 @@
   figure(
     image("wer_map_800ms.svg", width: 100%),
     caption: [
-      $T_(60) = 800"ms"$
+      $T_(60) = 800"ms"$.
     ]
   ),
   <fig:rl:results:wer_maps_reverb:800>,

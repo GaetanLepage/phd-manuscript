@@ -9,3 +9,4 @@
     Distribution of the 12 possible source positions.
   ],
 )
+<fig:rl:method:source_positions>
