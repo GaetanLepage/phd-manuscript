@@ -242,6 +242,8 @@ However, the recall score slightly lags, with a value of 90.54%.
 The few missed detections involve situations in which at least one of the sources remains strictly in front of or behind the agent during the entire trajectory.
 The indirect triangulation phenomenon leveraged by our method becomes almost infeasible, and the distance cannot be accurately estimated.
 Nonetheless, even in challenging cases where no clear cone intersection can be visually distinguished, the network sometimes manages to perform correct detections by relying on the prior it has learned during training.
+During training, the network learns the statistical distributions of sound sources.
+This can therefore help it to guess were a source can be, even when the actual map appears to be lacking the necessary information.
 
 In summary, the proposed deep neural architecture has been shown to be a robust and powerful method for performing the aggregation step of the #acr("ASSL") pipeline.
 
@@ -255,7 +257,7 @@ As seen in @sec:active_ssl:results:impact_of_ssl_model, the #acr("ASSL") process
 One reason for this decrease in performance is that the peaks present in those estimated heatmaps are lower.
 This does not necessarily impact the static #acr("SSL") metrics as any local maximum above the detection threshold #xi-doa would be counted as a #doa prediction (see @sec:ssl:multi_source:method:doa_repr).
 However, this threshold does not intervene in the #acr("ASSL") pipeline, and the #doa spectrum is directly converted into a 2D #doa map.
-When the deep neural network #psi-dnn is used to combine the maps, the output is normalized to the $[0, 1]$ range.
+When the deep neural network #psi-dnn is used to combine the maps, its output is normalized to the $[0, 1]$ range.
 Although this would help amplify localization heatmaps that are too dim, it cannot compensate for relative differences caused by uneven peaks in the #doa spectra.
 
 To account for this phenomenon, we have attempted to artificially adjust the spectra with an amplification trick.

@@ -32,10 +32,10 @@
   kind: table,
   caption: flex-caption(
     short: [
-      #acr("SSL") performance when estimating the source-microphone distance.
+      SSL performance when estimating the source-microphone distance.
     ],
     long: [
-      #acr("SSL") performance when estimating the source-microphone distance.
+      SSL performance when estimating the source-microphone distance.
       #todo   
     ],
   )

@@ -35,7 +35,7 @@
   placement: top,
   kind: table,
   caption: [
-    #acr("SSL") performance depending on the input features.
+    SSL performance depending on the input features.
   ]
 )
 <table:ssl:single_source:input_features>

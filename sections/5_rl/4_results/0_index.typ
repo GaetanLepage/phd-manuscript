@@ -6,7 +6,7 @@
 
 After designing and implementing the complete #acr("RL") pipeline presented in the previous section, we turn to an experimental study of its capabilities and performance.
 
-=== #acr("ASR") Performance in a Reverberant Room
+=== ASR Performance in a Reverberant Room
 
 First and foremost, we investigate how #acr("ASR") performance is impacted by reverberation. 
 This study also explores the importance of the agent's position relative to the source, especially in highly reverberant environments.
@@ -243,12 +243,16 @@ Indeed, the average cumulated reward (#mean-cum-reward) and the mean final cost 
 Naturally, the target environment is based on the #acr("WER") cost function.
 This study aims to see the benefits of using analytical maps for training the agent.
 @table:rl:results:maps_comparison gathers the quantitative results from this experimental campaign.
-Besides being considerably more efficient to compute, #analytical-cost;-based cost maps appear to help with the final #acr("WER") performance.
-Indeed, the policies trained to optimize the directional and omnidirectional analytical cost yield a lower #mfc cost than those directly trained with the target cost.
+Besides being considerably more efficient to compute, #analytical-cost;-based cost maps appear to help with the final #acr("WER") performance in the omnidirectional case.
+Indeed, the policies trained to optimize the analytical cost yield a lower #mfc cost than those directly trained with the target cost.
 Analytical maps provide a stronger reward signal and help achieve better policies thanks to their inherent consistency and smoothness.
-#gaet[
-  This probably deserves some more polish, but it's 6am and I need to get some sleep.
-]
+However, training the agent on the directional analytical cost was not as successful.
+The performance in the training environment is inconsistent with the omnidirectional case.
+Although the underlying cost maps and thus optimal policies are different, the agent does not succeed in learning a robust policy.
+The analytical directional environment is more challenging as the zone yielding the lowest cost is smaller.
+Furthermore, if the agent is not facing the source, being at the proper position does not suffice.
+Besides the sub-par performance on the training environment, the obtained policy compares poorly to the one trained directly on the target environment.
+Hence, transferring a policy trained on the directional analytical cost is not worth it.
 
 
 // TODO remove

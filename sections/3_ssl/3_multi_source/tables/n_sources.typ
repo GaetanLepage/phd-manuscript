@@ -34,7 +34,7 @@
   placement: top,
   kind: table,
   caption: [
-    #acr("SSL") performance depending on the number of active sources.
+    SSL performance depending on the number of active sources.
   ]
 )
 <table:ssl:multi_source:experiments:n_sources>

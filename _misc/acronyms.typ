@@ -42,8 +42,8 @@
   ),
   "DL": ("Deep Learning"),
   "DNN": (
-    "Deep Neural Network",
-    "Deep Neural Networks"
+    "deep neural network",
+    "deep neural networks"
   ),
   "GRU": (
     "Gated Recurrent Unit",

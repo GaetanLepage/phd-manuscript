@@ -32,7 +32,7 @@
   placement: top,
   kind: table,
   caption: [
-    Reverberation impact on #acr("SSL") performance.
+    Reverberation impact on SSL performance.
   ]
 )
 <table:ssl:single_source:reverb>

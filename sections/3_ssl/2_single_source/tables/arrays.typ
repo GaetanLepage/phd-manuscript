@@ -35,7 +35,7 @@
   placement: top,
   kind: table,
   caption: [
-    #acr("SSL") performance for different microphone arrays.
+    SSL performance for different microphone arrays.
   ]
 )
 <table:ssl:single_source:mic_arrays>

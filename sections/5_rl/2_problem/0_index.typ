@@ -68,13 +68,13 @@ The paper provides a detailed theoretical derivation of the auditory features, i
 This work thus adopts a feedback loop strategy to control the robot and does not involve any learning algorithm.
 Finally, _AuralServo_ provides an interesting formulation for active robotic navigation problems and an analytical solution that could be demonstrated in real-world experiments.
 
-Furthermore, a research group from UT Austin, led by Kirsten Grauman, has conducted pioneer work in this direction and achieved impressive results.
+Furthermore, a research group from UT Austin, led by Kirsten Grauman, has conducted pioneer work in perceptually-motivated robotic navigation and achieved impressive results.
 In their paper _SoundSpaces_ @chen_soundspaces_2020, Chen et al. define and solve the task of audio-visual navigation towards a sound source in complex environments.
 Their contribution is twofold.
 On the one hand, they introduce _SoundSpaces_, a dataset that extends existing realistic 3D environments with simulated audio renderings.
 The environment uses the _Habitat_ simulator @savva_habitat_2019 alongside the _Matterport3D_ @chang_matterport3d_2017 and _Replica_ @straub_replica_2019 datasets that it includes.
 This simulator provides only visual cues from its 3D representation of indoor spaces.
-Chen et al. leveraged a geometrical acoustic method for room acoustic simulation consisting of bidirectional path tracing @cao_interactive_2016 to add auditory information to the simulator.
+Chen et al. leveraged a geometrical acoustic method for room acoustic simulations consisting of bidirectional path tracing @cao_interactive_2016 to add auditory information to the simulator.
 On the other hand, they designed a #acr("DRL") agent that can navigate in these challenging environments.
 Its neural network architecture receives the RGB and depth frames from the virtual camera, the #acr("STFT") of the listened signal, and the relative displacement vector pointing from the agent to the goal.
 Following feature-specific, then shared layers are two heads modelling the actor and the critic, respectively.
@@ -137,14 +137,14 @@ It can be done using pre-recorded samples or in real-time from an audio stream.
 The #acr("WER") metric measures the performance of #acr("ASR") systems.
 It is computed as follows:
 $
-  "WER" = (s + d + i) / n.
+  "WER" = (s + d + i) / n,
 $
 where $s$ is the number of substitutions, $d$ of deletions, and $i$ of insertions needed to transform the true sentence into the predicted text.
 $n$ counts the total number of words of the ground truth transcript.
-Hence, the #acr("WER") quantifies the difference between the original and transcribed text.
+The #acr("WER") quantifies the difference between the original and transcribed text.
 The total number of errors $s + d + i$ is also called the Levenshtein or edit distance, which Vladimir Levenshtein proposed in 1965 @levenshtein_binary_1965.
 Its default formulation considers comparing two strings at the character level.
-Let consider two strings $a$ and $b$ (of length $abs(a) = n + 1$ and $abs(b) = m + 1$ respectively).
+Lets consider two strings $a$ and $b$ (of length $abs(a) = n + 1$ and $abs(b) = m + 1$ respectively).
 The Levenshtein distance between $a$ and $b$ is computed as:
 $
   "lev"(a, b) = cases(
@@ -164,7 +164,7 @@ As such, it is bounded by the length of the longest string:
 $
   0 lt.eq "lev"(a, b) lt.eq max(abs(a), abs(b)).
 $
-Besides, the #acr("WER") score uses words as the fundamental tokens.
+The #acr("WER") score uses words instead of characters as the fundamental tokens.
 //As its definition is recursive, most implementations leverage dynamic computing.
 
 *Running of an episode.*
@@ -196,9 +196,9 @@ A #acr("POMDP") can be described as a tuple $lr(angle.l cal(S), cal(A), P, cal(R
 - $cal(S), cal(A), P$, $cal(R)$ and $gamma$ describe the underlying #acr("MDP");
 - $Omega$ is the observation space; and
 - $O: cal(S) times cal(A) -> Pi (Omega)$ is the _observability function_ which maps all state-action pairs to a probability distribution over the observation space $Omega$.
-  $O(s', a, o)$ denotes the probability of making observation $o$ given that the agent took action $a$ and landed in state $s'$.
+  $O(s' | a, o)$ denotes the probability of making observation $o$ given that the agent took action $a$ and landed in state $s'$.
 This definition and its notations have been borrowed from Leslie Kaelbling et al. @kaelbling_planning_1998.
-She, along with her research group, has conducted groundbreaking work related to the comprehension and use of #acr("POMDP"), in particular in robotics.
+She, along with her research group, has conducted groundbreaking work related to the comprehension and use of #acr("POMDP")s, in particular in robotics.
 From her original work on this topic, _Acting Optimally in Partially Observable Stochastic Domains_ @cassandra_acting_1994 in 1994 Kaelbling has published several papers exploring how to efficiently solve partially observable environments problems
 @cassandra_acting_1996
 @theocharous_approximate_2003
@@ -251,7 +251,8 @@ Zhu et al. @zhu_overview_2021 survey the role of action spaces in #acr("RL") and
 They notably explore the differences between continuous, discrete, and discrete-continuous hybrid action spaces.
 
 *Observation space.*
-The agent's perception of its environment is limited to the audio signal received by its microphones, and it does not know its current position.
+The agent's perception of its environment is limited to the audio signal received by its microphones. 
+It does not know its current position.
 This acoustic information consists of a one-second-long recorded signal mapped to the time-frequency domain.
 Practically, the observations are #shape("C", "F", "T") real tensors where $C$ is the number of output channels, $F$ is the number of frequency bins, and $T$ is the number of temporal indices.
 Formally, the observation space is $Omega = RR^(C times F times T)$.
@@ -288,14 +289,15 @@ where:
 - #reward-wall-penalty is a positive scalar that can be adjusted according to #f-reward's magnitude;
   It allows penalizing movements that would lead the robot to collide with a wall.
   When the policy samples such an impossible action, the environment ignores it, the agent remains immobile for this step, and a fixed reward of #reward-wall-penalty is returned.
-  In practice, this only occurs for the forward action.
+  This can only occur for the forward action.
 - #reward-movement-penalty is a movement penalty that disincentivizes the agent from moving uselessly.
   It encourages the policy to remain static when it can, while solely moving when it serves a meaningful purpose.
-  Combined with the standard cost reward $#f-reward (#cost-t)$, it entices the agent to position optimally as efficiently as possible.
+  Combined with the standard cost reward $#f-reward (#cost-t)$, it entices the agent to position itself optimally as efficiently as possible.
 
 *Environment initialization*
-When an episode starts, the initial state is drawn randomly according to the probability distribution $p_0: cal(S) -> [0, 1]$.
+When an episode starts, the initial state is drawn randomly according to the probability distribution $rho: cal(S) -> [0, 1]$.
 In our environment, we randomly draw the agent's starting position and orientation when an episode begins.
+Therefore, the initial state distribution is the uniform distribution over the state space: $s_0 ~ rho = cal(U) (cal(S))$.
 
 *Transition dynamics.*
 Finally, we must provide the transition dynamics to fully define our #acr("MDP").

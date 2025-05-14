@@ -1,4 +1,4 @@
-#import "/utils.typ": clorem, acr
+#import "/utils.typ": clorem, acr, reset-acronym
 
 // English abstract
 = Abstract
@@ -45,6 +45,10 @@ sound source localization,
 acoustic simulation,
 robot navigation,
 deep reinforcement learning,
+
+#reset-acronym("ASR")
+#reset-acronym("SSL")
+#reset-acronym("DRL")
 
 // French abstract
 = Résumé

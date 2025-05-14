@@ -1,4 +1,4 @@
-#import "/utils.typ": gaet, draft
+#import "/utils.typ": gaet, draft, reset-acronym
 #import "/_misc/acrostiche.typ": print-index
 
 #include "cover_page/index.typ"
@@ -41,3 +41,4 @@
   title: "List of Acronyms",
   outlined: false,
 )
+

@@ -33,7 +33,7 @@
   placement: top,
   kind: table,
   caption: [
-    Performance of the #acr("SSL") model trained with the $epsilon$-loss.
+    Performance of the SSL model trained with the $epsilon$-loss.
   ]
 )
 <table:ssl:multi_source:experiments:epsilon_loss>

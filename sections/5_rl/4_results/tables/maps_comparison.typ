@@ -66,9 +66,9 @@
     
     // exp 301
     table.cell(rowspan: 2)[dir.],
-    [#wer-cost], [#exp-301-rew-wer], [#exp-301-mfc-wer], [#exp-301-rew-wer], [#exp-301-mfc-wer],
+    [#wer-cost], [#exp-301-rew-wer], [#exp-301-mfc-wer], [*#exp-301-rew-wer*], [*#exp-301-mfc-wer*],
     // exp 311
-    [#analytical-cost], [#exp-311-rew-analytical], [#exp-311-mfc-analytical], [*#exp-311-rew-wer*], [*#exp-311-mfc-wer*],
+    [#analytical-cost], [#exp-311-rew-analytical], [#exp-311-mfc-analytical], [#exp-311-rew-wer], [#exp-311-mfc-wer],
     
     
     //table.cell(rowspan: 2)[WER map], [omnidirectional], [#todo],

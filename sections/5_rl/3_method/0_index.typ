@@ -144,7 +144,7 @@ As the absolute #acr("ASR") performance is not particularly relevant for this pr
 #include "asr_models_comparison.typ"
 
 
-==== Computing of #acr("WER") Maps
+==== Computation of #acr("WER") Maps
 <sec:rl:method:wer_maps:computing>
 
 *ASR setup.*

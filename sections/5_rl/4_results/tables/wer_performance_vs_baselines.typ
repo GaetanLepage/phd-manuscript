@@ -44,12 +44,12 @@
     ],
     long: [
       Benchmark of various policies' performance on the navigation task.
-      Both omnidirectional and directional #acr("WER") cost environments have been tested.
+      Both omnidirectional and directional WER cost environments have been tested.
       #pi-still has the robot remaining immobile;
       #pi-random samples actions randomly;
       #pi-safe-random does the same, but never hits the room's walls;
       #pi-orient never has the agent moving but ensures it faces the source;
-      and #pi-theta is our deep neural agent policy trained with #acr("PPO").
+      and #pi-theta is our deep neural agent policy trained with PPO.
     ],
   ),
 )

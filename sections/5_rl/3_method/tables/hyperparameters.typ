@@ -56,7 +56,7 @@
   ),
   placement: top,
   kind: table,
-  caption: [
+  caption: text(size: 12pt)[
     Final hyperparameter values used to train the PPO algorithm.
   ]
 )

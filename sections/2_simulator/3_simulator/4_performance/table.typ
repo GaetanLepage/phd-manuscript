@@ -31,7 +31,7 @@
   placement: top,
   kind: table,
   caption: [
-    Relative performance of the simulator back-end #acr("RIR") libraries.
+    Relative performance of the simulator back-end RIR libraries.
   ],
 )
 <table:simulator:simulator:performance:backends>
