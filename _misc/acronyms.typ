@@ -162,7 +162,7 @@
   "MPC": ("Model Predictive Control"),
   "PESQ": ("Perceptual Evaluation of Speech Quality"),
   "PG": ("Policy Gradient"),
-  "POMDP": ("Partially Observable Markov Decision Process"),
+  "POMDP": ("partially observable Markov Decision Process"),
   "PID": ("Proportional-Integral-Derivative"),
   "PPO": ("Proximal Policy Optimization"),
   "RL": ("Reinforcement Learning"),
