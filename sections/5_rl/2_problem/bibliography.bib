@@ -2,31 +2,18 @@
 # POMDP
 #######################################
 
-@misc{azizzadenesheli_policy_2020,
-	title = {Policy Gradient in Partially Observable Environments: Approximation and Convergence},
-	url = {http://arxiv.org/abs/1810.07900},
-	shorttitle = {Policy Gradient in Partially Observable Environments},
-	abstract = {Policy gradient is a generic and ﬂexible reinforcement learning approach that generally enjoys simplicity in analysis, implementation, and deployment. In the last few decades, this approach has been extensively advanced for fully observable environments. In this paper, we generalize a variety of these advances to partially observable settings, and similar to the fully observable case, we keep our focus on the class of Markovian policies. We propose a series of technical tools, including a novel notion of advantage function, to develop policy gradient algorithms and study their convergence properties in such environments. Deploying these tools, we generalize a variety of existing theoretical guarantees, such as policy gradient and convergence theorems, to partially observable domains, those which also could be carried to more settings of interest. This study also sheds light on the understanding of policy gradient approaches in real-world applications which tend to be partially observable.},
-	number = {{arXiv}:1810.07900},
-	publisher = {{arXiv}},
-	author = {Azizzadenesheli, Kamyar and Yue, Yisong and Anandkumar, Animashree},
-	urldate = {2024-09-19},
-	date = {2020-05-24},
-	langid = {english},
-	eprinttype = {arxiv},
-	eprint = {1810.07900 [cs, stat]},
-	keywords = {Computer Science - Machine Learning, Statistics - Machine Learning},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/BPRFBPG4/Azizzadenesheli et al. - 2020 - Policy Gradient in Partially Observable Environments Approximation and Convergence.pdf:application/pdf},
+@article{azizzadenesheli_policy_2020,
+  title={Policy Gradient in Partially Observable Environments: Approximation and Convergence},
+  author={Azizzadenesheli, Kamyar and Yue, Yisong and Anandkumar, Animashree},
+  journal={arXiv preprint arXiv:1810.07900},
+  year={2018}
 }
-
 
 @article{cassandra_acting_1994,
 	title = {Acting Optimally in Partially Observable Stochastic Domains},
-	abstract = {In this paper, we describe the partially observable Markov decision process ({POMDP}) approach to finding optimal or near-optimal control strategies for partially observable stochastic environments, given a complete model of the environment. The {POMDP} approach was originally developed in the operations research community and provides a formal basis for planning problems that have been of interest to the {AI} community.},
 	author = {Cassandra, R and Kaelblingt, Leslie Pack and Littmant, L},
 	date = {1994},
 	langid = {english},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/R68G7DHE/Cassandra et al. - Acting Optimally in Part ially servable Stoc ains.pdf:application/pdf},
 }
 
 @article{kaelbling_planning_1998,
@@ -36,43 +23,32 @@
 	issn = {00043702},
 	url = {https://linkinghub.elsevier.com/retrieve/pii/S000437029800023X},
 	doi = {10.1016/S0004-3702(98)00023-X},
-	abstract = {In this paper, we bring techniques from operations research to bear on the problem of choosing optimal actions in partially observable stochastic domains. We begin by introducing the theory of Markov decision processes ({MDPs}) and partially observable {MDPs} ({POMDPs}). We then outline a novel algorithm for solving {POMDPs} off line and show how, in some cases, a ﬁnite-memory controller can be extracted from the solution to a {POMDP}. We conclude with a discussion of how our approach relates to previous work, the complexity of ﬁnding exact solutions to {POMDPs}, and of some possibilities for ﬁnding approximate solutions.  1998 Elsevier Science B.V. All rights reserved.},
 	pages = {99--134},
 	number = {1},
 	journaltitle = {Artificial Intelligence},
 	shortjournal = {Artificial Intelligence},
 	author = {Kaelbling, Leslie Pack and Littman, Michael L. and Cassandra, Anthony R.},
-	urldate = {2024-09-19},
 	date = {1998-05},
 	langid = {english},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/AYLK8MYG/Kaelbling et al. - 1998 - Planning and acting in partially observable stochastic domains.pdf:application/pdf},
 }
 
 @article{brunskill_continuous-state_2008,
 	title = {Continuous-State {POMDPs} with Hybrid Dynamics},
-	abstract = {Continuous-state {POMDPs} provide a natural representation for a variety of tasks, including many in robotics. However, existing continuous-state {POMDP} approaches are limited by their reliance on a single linear model to represent the world dynamics. We introduce a new switching-state (hybrid) dynamics model that can represent multi-modal state-dependent dynamics. We present a new point-based {POMDP} planning algorithm for solving continuous-state {POMDPs} using this dynamics model. We also provide a constrained optimization approach for approximating the value function as a mixture of a bounded number of Gaussians. We present results on a set of example problems and demonstrate that when different degrees of state accuracy are needed to accomplish a task, our hybrid continuous-state approach outperforms a standard discrete state technique.},
 	author = {Brunskill, Emma and Kaelbling, Leslie and Lozano-Perez, Tomas and Roy, Nicholas},
 	date = {2008},
 	langid = {english},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/LZXBJHKP/Brunskill et al. - Continuous-State POMDPs with Hybrid Dynamics.pdf:application/pdf},
 }
-
-
 
 @inproceedings{theocharous_approximate_2003,
 	title = {Approximate Planning in {POMDPs} with Macro-Actions},
 	volume = {16},
 	url = {https://papers.nips.cc/paper_files/paper/2003/hash/ea4eb49329550caaa1d2044105223721-Abstract.html},
-	abstract = {Leslie Pack Kaelbling},
 	booktitle = {Advances in Neural Information Processing Systems},
 	publisher = {{MIT} Press},
 	author = {Theocharous, Georgios and Kaelbling, Leslie},
-	urldate = {2024-09-25},
 	date = {2003},
 	keywords = {man},
-	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/P7NSWWHK/Theocharous and Kaelbling - 2003 - Approximate Planning in POMDPs with Macro-Actions.pdf:application/pdf},
 }
-
 
 @inproceedings{cassandra_acting_1996,
 	title = {Acting under uncertainty: discrete Bayesian models for mobile-robot navigation},
@@ -80,71 +56,37 @@
 	url = {https://ieeexplore.ieee.org/document/571080},
 	doi = {10.1109/IROS.1996.571080},
 	shorttitle = {Acting under uncertainty},
-	abstract = {Discrete Bayesian models have been used to model uncertainty for mobile-robot navigation, but the question of how actions should be chosen remains largely unexplored. This paper presents the optimal solution to the problem, formulated as a partially observable Markov decision process. Since solving for the optimal control policy is intractable, in general, it goes on to explore a variety of heuristic control strategies. The control strategies are compared experimentally, both in simulation and in runs on a robot.},
 	eventtitle = {Proceedings of {IEEE}/{RSJ} International Conference on Intelligent Robots and Systems. {IROS} '96},
 	pages = {963--972 vol.2},
 	booktitle = {Proceedings of {IEEE}/{RSJ} International Conference on Intelligent Robots and Systems. {IROS} '96},
 	author = {Cassandra, A.R. and Kaelbling, L.P. and Kurien, J.A.},
-	urldate = {2024-09-25},
 	date = {1996-11},
 	keywords = {man},
-	file = {IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/X4QCLDQ7/571080.html:text/html},
 }
-
-
 
 # PPO + Bounded continuous action spaces
-@misc{petrazzini_proximal_2021,
-	title = {Proximal Policy Optimization with Continuous Bounded Action Space via the Beta Distribution},
-	url = {http://arxiv.org/abs/2111.02202},
-	abstract = {Reinforcement learning methods for continuous control tasks have evolved in recent years generating a family of policy gradient methods that rely primarily on a Gaussian distribution for modeling a stochastic policy. However, the Gaussian distribution has an inﬁnite support, whereas real world applications usually have a bounded action space. This dissonance causes an estimation bias that can be eliminated if the Beta distribution is used for the policy instead, as it presents a ﬁnite support. In this work, we investigate how this Beta policy performs when it is trained by the Proximal Policy Optimization ({PPO}) algorithm on two continuous control tasks from {OpenAI} gym. For both tasks, the Beta policy is superior to the Gaussian policy in terms of agent’s ﬁnal expected reward, also showing more stability and faster convergence of the training process. For the {CarRacing} environment with high-dimensional image input, the agent’s success rate was improved by 63\% over the Gaussian policy.},
-	number = {{arXiv}:2111.02202},
-	publisher = {{arXiv}},
-	author = {Petrazzini, Irving G. B. and Antonelo, Eric A.},
-	urldate = {2024-09-20},
-	date = {2021-11-03},
-	langid = {english},
-	eprinttype = {arxiv},
-	eprint = {2111.02202 [cs]},
-	keywords = {Computer Science - Artificial Intelligence, Computer Science - Machine Learning, man},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/6R3LIV9M/Petrazzini and Antonelo - 2021 - Proximal Policy Optimization with Continuous Bounded Action Space via the Beta Distribution.pdf:application/pdf},
+@inproceedings{petrazzini_proximal_2021,
+  title={Proximal Policy Optimization with Continuous Bounded Action Space via the Beta Distribution},
+  author={Petrazzini, Irving GB and Antonelo, Eric A},
+  booktitle={2021 IEEE symposium series on computational intelligence (SSCI)},
+  pages={1--8},
+  year={2021},
+  organization={IEEE}
 }
 
-
-@misc{meuleau_solving_2013,
-	title = {Solving {POMDPs} by Searching the Space of Finite Policies},
-	url = {http://arxiv.org/abs/1301.6720},
-	doi = {10.48550/arXiv.1301.6720},
-	abstract = {Solving partially observable Markov decision processes ({POMDPs}) is highly intractable in general, at least in part because the optimal policy may be infinitely large. In this paper, we explore the problem of finding the optimal policy from a restricted set of policies, represented as finite state automata of a given size. This problem is also intractable, but we show that the complexity can be greatly reduced when the {POMDP} and/or policy are further constrained. We demonstrate good empirical results with a branch-and-bound method for finding globally optimal deterministic policies, and a gradient-ascent method for finding locally optimal stochastic policies.},
-	number = {{arXiv}:1301.6720},
-	publisher = {{arXiv}},
-	author = {Meuleau, Nicolas and Kim, Kee-Eung and Kaelbling, Leslie Pack and Cassandra, Anthony R.},
-	urldate = {2024-09-26},
-	date = {2013-01-23},
-	eprinttype = {arxiv},
-	eprint = {1301.6720 [cs]},
-	keywords = {man},
-	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/FLYLXTWH/Meuleau et al. - 2013 - Solving POMDPs by Searching the Space of Finite Policies.pdf:application/pdf;arXiv.org Snapshot:/home/gaetan/.local/share/Zotero/storage/XT3VH5MM/1301.html:text/html},
+@article{meuleau_solving_2013,
+  title={Solving POMDPs by Searching the Space of Finite Policies},
+  author={Meuleau, Nicolas and Kim, Kee-Eung and Kaelbling, Leslie Pack and Cassandra, Anthony R},
+  journal={arXiv preprint arXiv:1301.6720},
+  year={2013}
 }
 
-
-@misc{meuleau_learning_2013,
-	title = {Learning Finite-State Controllers for Partially Observable Environments},
-	url = {http://arxiv.org/abs/1301.6721},
-	doi = {10.48550/arXiv.1301.6721},
-	abstract = {Reactive (memoryless) policies are sufficient in completely observable Markov decision processes ({MDPs}), but some kind of memory is usually necessary for optimal control of a partially observable {MDP}. Policies with finite memory can be represented as finite-state automata. In this paper, we extend Baird and Moore's {VAPS} algorithm to the problem of learning general finite-state automata. Because it performs stochastic gradient descent, this algorithm can be shown to converge to a locally optimal finite-state controller. We provide the details of the algorithm and then consider the question of under what conditions stochastic gradient descent will outperform exact gradient descent. We conclude with empirical results comparing the performance of stochastic and exact gradient descent, and showing the ability of our algorithm to extract the useful information contained in the sequence of past observations to compensate for the lack of observability at each time-step.},
-	number = {{arXiv}:1301.6721},
-	publisher = {{arXiv}},
-	author = {Meuleau, Nicolas and Peshkin, Leonid and Kim, Kee-Eung and Kaelbling, Leslie Pack},
-	urldate = {2024-09-26},
-	date = {2013-01-23},
-	eprinttype = {arxiv},
-	eprint = {1301.6721 [cs]},
-	keywords = {Computer Science - Artificial Intelligence, Electrical Engineering and Systems Science - Systems and Control},
-	file = {arXiv Fulltext PDF:/home/gaetan/.local/share/Zotero/storage/AVQWEEG5/Meuleau et al. - 2013 - Learning Finite-State Controllers for Partially Observable Environments.pdf:application/pdf},
+@article{meuleau_learning_2013,
+  title={Learning Finite-State Controllers for Partially Observable Environments},
+  author={Meuleau, Nicolas and Peshkin, Leonid and Kim, Kee-Eung and Kaelbling, Leslie Pack},
+  journal={arXiv preprint arXiv:1301.6721},
+  year={2013}
 }
-
-
 
 #######################################
 # Misc
@@ -161,16 +103,13 @@
 	url = {https://ieeexplore.ieee.org/document/8320543/},
 	doi = {10.1109/TRO.2018.2805310},
 	shorttitle = {Aural Servo},
-	abstract = {This paper proposes a control framework based on auditory perception. Generally, in robot audition, the motion control of a robot from the sense of hearing relies on sound source localization. We propose in this paper an alternative approach, aural servo, that is derived from the sensor-based control framework. In this approach, robot motions are directly connected to the aural perception: the variation of low-level auditory features dictates the motions applied to the robot through a feedback loop. It has the advantage of being robust to spurious measurements and modeling approximations for a low computational cost. This paper presents the theoretical concept of the aural servo framework. Besides a theoretical analysis, the aural servo framework is validated through several experiments on different robotic platforms and under real-world conditions.},
 	pages = {572--585},
 	number = {3},
 	journaltitle = {{IEEE} Transactions on Robotics},
 	shortjournal = {{IEEE} Trans. Robot.},
 	author = {Magassouba, Aly and Bertin, Nancy and Chaumette, Francois},
-	urldate = {2021-10-22},
 	date = {2018-06},
 	langid = {english},
-	file = {Magassouba et al. - 2018 - Aural Servo Sensor-Based Control From Robot Audit.pdf:/home/gaetan/.local/share/Zotero/storage/87ZN45SU/2018_magassouba_tro.pdf:application/pdf},
 }
 
 # Levenshtein distance
@@ -183,114 +122,65 @@
 	author = {Levenshtein, Vladimir},
 	date = {1965},
 	langid = {russian},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/VU3J5AIK/Левенштейн - Двоичные коды с~исправлением выпадений, вставок и замещений символов.pdf:application/pdf},
 }
-
 
 @article{chen_soundspaces_2020,
 	title = {{SoundSpaces}: Audio-Visual Navigation in 3D Environments},
 	url = {http://arxiv.org/abs/1912.11474},
 	shorttitle = {{SoundSpaces}},
-	abstract = {Moving around in the world is naturally a multisensory experience, but today’s embodied agents are deaf—restricted to solely their visual perception of the environment. We introduce audio-visual navigation for complex, acoustically and visually realistic 3D environments. By both seeing and hearing, the agent must learn to navigate to a sounding object. We propose a multi-modal deep reinforcement learning approach to train navigation policies end-to-end from a stream of egocentric audio-visual observations, allowing the agent to (1) discover elements of the geometry of the physical space indicated by the reverberating audio and (2) detect and follow sound-emitting targets. We further introduce {SoundSpaces}: a ﬁrst-of-its-kind dataset of audio renderings based on geometrical acoustic simulations for two sets of publicly available 3D environments (Matterport3D and Replica), and we instrument Habitat to support the new sensor, making it possible to insert arbitrary sound sources in an array of real-world scanned environments. Our results show that audio greatly beneﬁts embodied visual navigation in 3D spaces, and our work lays groundwork for new research in embodied {AI} with audio-visual perception. Project: http: //vision.cs.utexas.edu/projects/audio\_visual\_navigation.},
 	journaltitle = {{arXiv}:1912.11474 [cs, eess]},
 	author = {Chen, Changan and Jain, Unnat and Schissler, Carl and Gari, Sebastia Vicenc Amengual and Al-Halah, Ziad and Ithapu, Vamsi Krishna and Robinson, Philip and Grauman, Kristen},
-	urldate = {2020-12-16},
 	date = {2020-08-21},
 	langid = {english},
 	eprinttype = {arxiv},
 	eprint = {1912.11474},
 	keywords = {man},
-	file = {Chen et al. - 2020 - SoundSpaces Audio-Visual Navigation in 3D Environ.pdf:/home/gaetan/.local/share/Zotero/storage/8SI34Q8W/Chen et al. - 2020 - SoundSpaces Audio-Visual Navigation in 3D Environ.pdf:application/pdf},
 }
 
-
-@misc{savva_habitat_2019,
-	title = {Habitat: A Platform for Embodied {AI} Research},
-	url = {http://arxiv.org/abs/1904.01201},
-	doi = {10.48550/arXiv.1904.01201},
-	shorttitle = {Habitat},
-	abstract = {We present Habitat, a platform for research in embodied artificial intelligence ({AI}). Habitat enables training embodied agents (virtual robots) in highly efficient photorealistic 3D simulation. Specifically, Habitat consists of: (i) Habitat-Sim: a flexible, high-performance 3D simulator with configurable agents, sensors, and generic 3D dataset handling. Habitat-Sim is fast -- when rendering a scene from Matterport3D, it achieves several thousand frames per second (fps) running single-threaded, and can reach over 10,000 fps multi-process on a single {GPU}. (ii) Habitat-{API}: a modular high-level library for end-to-end development of embodied {AI} algorithms -- defining tasks (e.g., navigation, instruction following, question answering), configuring, training, and benchmarking embodied agents. These large-scale engineering contributions enable us to answer scientific questions requiring experiments that were till now impracticable or 'merely' impractical. Specifically, in the context of point-goal navigation: (1) we revisit the comparison between learning and {SLAM} approaches from two recent works and find evidence for the opposite conclusion -- that learning outperforms {SLAM} if scaled to an order of magnitude more experience than previous investigations, and (2) we conduct the first cross-dataset generalization experiments \{train, test\} x \{Matterport3D, Gibson\} for multiple sensors \{blind, {RGB}, {RGBD}, D\} and find that only agents with depth (D) sensors generalize across datasets. We hope that our open-source platform and these findings will advance research in embodied {AI}.},
-	number = {{arXiv}:1904.01201},
-	publisher = {{arXiv}},
-	author = {Savva, Manolis and Kadian, Abhishek and Maksymets, Oleksandr and Zhao, Yili and Wijmans, Erik and Jain, Bhavana and Straub, Julian and Liu, Jia and Koltun, Vladlen and Malik, Jitendra and Parikh, Devi and Batra, Dhruv},
-	urldate = {2024-10-28},
-	date = {2019-11-25},
-	eprinttype = {arxiv},
-	eprint = {1904.01201},
-	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computation and Language, Computer Science - Computer Vision and Pattern Recognition, Computer Science - Machine Learning, Computer Science - Robotics},
-	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/7K4HUIKA/Savva et al. - 2019 - Habitat A Platform for Embodied AI Research.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/K3IRGAUW/1904.html:text/html},
+@inproceedings{savva_habitat_2019,
+  title={Habitat: A Platform for Embodied AI Research},
+  author={Savva, Manolis and Kadian, Abhishek and Maksymets, Oleksandr and Zhao, Yili and Wijmans, Erik and Jain, Bhavana and Straub, Julian and Liu, Jia and Koltun, Vladlen and Malik, Jitendra and others},
+  booktitle={Proceedings of the IEEE/CVF international conference on computer vision},
+  pages={9339--9347},
+  year={2019}
 }
 
-
-@misc{chang_matterport3d_2017,
-	title = {Matterport3D: Learning from {RGB}-D Data in Indoor Environments},
-	url = {http://arxiv.org/abs/1709.06158},
-	shorttitle = {Matterport3D},
-	abstract = {Access to large, diverse {RGB}-D datasets is critical for training {RGB}-D scene understanding algorithms. However, existing datasets still cover only a limited number of views or a restricted scale of spaces. In this paper, we introduce Matterport3D, a large-scale {RGB}-D dataset containing 10,800 panoramic views from 194,400 {RGB}-D images of 90 building-scale scenes. Annotations are provided with surface reconstructions, camera poses, and 2D and 3D semantic segmentations. The precise global alignment and comprehensive, diverse panoramic set of views over entire buildings enable a variety of supervised and self-supervised computer vision tasks, including keypoint matching, view overlap prediction, normal prediction from color, semantic segmentation, and region classiﬁcation.},
-	number = {{arXiv}:1709.06158},
-	publisher = {{arXiv}},
-	author = {Chang, Angel and Dai, Angela and Funkhouser, Thomas and Halber, Maciej and Nießner, Matthias and Savva, Manolis and Song, Shuran and Zeng, Andy and Zhang, Yinda},
-	urldate = {2024-10-28},
-	date = {2017-09-18},
-	langid = {english},
-	eprinttype = {arxiv},
-	eprint = {1709.06158 [cs]},
-	keywords = {man},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/X648YLBG/Chang et al. - 2017 - Matterport3D Learning from RGB-D Data in Indoor Environments.pdf:application/pdf},
+@article{chang_matterport3d_2017,
+  title={Matterport3D: Learning from RGB-D Data in Indoor Environments},
+  author={Chang, Angel and Dai, Angela and Funkhouser, Thomas and Halber, Maciej and Niessner, Matthias and Savva, Manolis and Song, Shuran and Zeng, Andy and Zhang, Yinda},
+  journal={arXiv preprint arXiv:1709.06158},
+  year={2017}
 }
 
-@misc{straub_replica_2019,
-	title = {The Replica Dataset: A Digital Replica of Indoor Spaces},
-	url = {http://arxiv.org/abs/1906.05797},
-	doi = {10.48550/arXiv.1906.05797},
-	shorttitle = {The Replica Dataset},
-	abstract = {We introduce Replica, a dataset of 18 highly photo-realistic 3D indoor scene reconstructions at room and building scale. Each scene consists of a dense mesh, high-resolution high-dynamic-range ({HDR}) textures, per-primitive semantic class and instance information, and planar mirror and glass reflectors. The goal of Replica is to enable machine learning ({ML}) research that relies on visually, geometrically, and semantically realistic generative models of the world - for instance, egocentric computer vision, semantic segmentation in 2D and 3D, geometric inference, and the development of embodied agents (virtual robots) performing navigation, instruction following, and question answering. Due to the high level of realism of the renderings from Replica, there is hope that {ML} systems trained on Replica may transfer directly to real world image and video data. Together with the data, we are releasing a minimal C++ {SDK} as a starting point for working with the Replica dataset. In addition, Replica is `Habitat-compatible', i.e. can be natively used with {AI} Habitat for training and testing embodied agents.},
-	number = {{arXiv}:1906.05797},
-	publisher = {{arXiv}},
-	author = {Straub, Julian and Whelan, Thomas and Ma, Lingni and Chen, Yufan and Wijmans, Erik and Green, Simon and Engel, Jakob J. and Mur-Artal, Raul and Ren, Carl and Verma, Shobhit and Clarkson, Anton and Yan, Mingfei and Budge, Brian and Yan, Yajie and Pan, Xiaqing and Yon, June and Zou, Yuyang and Leon, Kimberly and Carter, Nigel and Briales, Jesus and Gillingham, Tyler and Mueggler, Elias and Pesqueira, Luis and Savva, Manolis and Batra, Dhruv and Strasdat, Hauke M. and Nardi, Renzo De and Goesele, Michael and Lovegrove, Steven and Newcombe, Richard},
-	urldate = {2024-10-28},
-	date = {2019-06-13},
-	eprinttype = {arxiv},
-	eprint = {1906.05797},
-	keywords = {man},
-	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/2FSA7WJ7/Straub et al. - 2019 - The Replica Dataset A Digital Replica of Indoor Spaces.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/227XKJ7M/1906.html:text/html},
+@article{straub_replica_2019,
+  title={The Replica Dataset: A Digital Replica of Indoor Spaces},
+  author={Straub, Julian and Whelan, Thomas and Ma, Lingni and Chen, Yufan and Wijmans, Erik and Green, Simon and Engel, Jakob J and Mur-Artal, Raul and Ren, Carl and Verma, Shobhit and others},
+  journal={arXiv preprint arXiv:1906.05797},
+  year={2019}
 }
-
-
 
 @article{majumder_move2hear_2021,
 	title = {Move2Hear: Active Audio-Visual Source Separation},
 	url = {http://arxiv.org/abs/2105.07142},
 	shorttitle = {Move2Hear},
-	abstract = {We introduce the active audio-visual source separation problem, where an agent must move intelligently in order to better isolate the sounds coming from an object of interest in its environment. The agent hears multiple audio sources simultaneously (e.g., a person speaking down the hall in a noisy household) and must use its eyes and ears to automatically separate out the sounds originating from the target object within a limited time budget. Towards this goal, we introduce a reinforcement learning approach that trains movement policies controlling the agent’s camera and microphone placement over time, guided by the improvement in predicted audio separation quality. We demonstrate our approach in scenarios motivated by both augmented reality (system is already co-located with the target object) and mobile robotics (agent begins arbitrarily far from the target object). Using state-of-the-art realistic audio-visual simulations in 3D environments, we demonstrate our model’s ability to ﬁnd minimal movement sequences with maximal payoff for audio source separation. Project: http://vision. cs.utexas.edu/projects/move2hear.},
 	journaltitle = {{arXiv}:2105.07142 [cs, eess]},
 	author = {Majumder, Sagnik and Al-Halah, Ziad and Grauman, Kristen},
-	urldate = {2021-05-19},
 	date = {2021-05-15},
 	langid = {english},
 	eprinttype = {arxiv},
 	eprint = {2105.07142},
 	keywords = {man},
-	file = {Majumder et al. - 2021 - Move2Hear Active Audio-Visual Source Separation.pdf:/home/gaetan/.local/share/Zotero/storage/Q63ACNFK/Majumder et al. - 2021 - Move2Hear Active Audio-Visual Source Separation.pdf:application/pdf},
 }
 
 
 # GRU
-@misc{cho_learning_2014,
-	title = {Learning Phrase Representations using {RNN} Encoder-Decoder for Statistical Machine Translation},
-	url = {http://arxiv.org/abs/1406.1078},
-	doi = {10.48550/arXiv.1406.1078},
-	abstract = {In this paper, we propose a novel neural network model called {RNN} Encoder-Decoder that consists of two recurrent neural networks ({RNN}). One {RNN} encodes a sequence of symbols into a fixed-length vector representation, and the other decodes the representation into another sequence of symbols. The encoder and decoder of the proposed model are jointly trained to maximize the conditional probability of a target sequence given a source sequence. The performance of a statistical machine translation system is empirically found to improve by using the conditional probabilities of phrase pairs computed by the {RNN} Encoder-Decoder as an additional feature in the existing log-linear model. Qualitatively, we show that the proposed model learns a semantically and syntactically meaningful representation of linguistic phrases.},
-	number = {{arXiv}:1406.1078},
-	publisher = {{arXiv}},
-	author = {Cho, Kyunghyun and Merrienboer, Bart van and Gulcehre, Caglar and Bahdanau, Dzmitry and Bougares, Fethi and Schwenk, Holger and Bengio, Yoshua},
-	urldate = {2024-11-03},
-	date = {2014-09-03},
-	eprinttype = {arxiv},
-	eprint = {1406.1078},
-	keywords = {Computer Science - Computation and Language, Computer Science - Machine Learning, Computer Science - Neural and Evolutionary Computing, Statistics - Machine Learning},
-	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/AMSVGGJK/Cho et al. - 2014 - Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/R4LXICEQ/1406.html:text/html},
+@article{cho_learning_2014,
+  title={Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation},
+  author={Cho, Kyunghyun and Van Merri{\"e}nboer, Bart and Gulcehre, Caglar and Bahdanau, Dzmitry and Bougares, Fethi and Schwenk, Holger and Bengio, Yoshua},
+  journal={arXiv preprint arXiv:1406.1078},
+  year={2014}
 }
+
 
 # Survey ASR
 @article{malik_automatic_2021,
@@ -300,16 +190,13 @@
 	url = {http://link.springer.com/10.1007/s11042-020-10073-7},
 	doi = {10.1007/s11042-020-10073-7},
 	shorttitle = {Automatic speech recognition},
-	abstract = {Recently great strides have been made in the field of automatic speech recognition ({ASR}) by using various deep learning techniques. In this study, we present a thorough comparison between cutting-edged techniques currently being used in this area, with a special focus on the various deep learning methods. This study explores different feature extraction methods, state-of-the-art classification models, and vis-a-vis their impact on an {ASR}. As deep learning techniques are very data-dependent different speech datasets that are available online are also discussed in detail. In the end, the various online toolkits, resources, and language models that can be helpful in the formulation of an {ASR} are also proffered. In this study, we captured every aspect that can impact the performance of an {ASR}. Hence, we speculate that this work is a good starting point for academics interested in {ASR} research.},
 	pages = {9411--9457},
 	number = {6},
 	journaltitle = {Multimedia Tools and Applications},
 	shortjournal = {Multimed Tools Appl},
 	author = {Malik, Mishaim and Malik, Muhammad Kamran and Mehmood, Khawar and Makhdoom, Imran},
-	urldate = {2024-11-04},
 	date = {2021-03},
 	langid = {english},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/JW8V9HTH/Malik et al. - 2021 - Automatic speech recognition a survey.pdf:application/pdf},
 }
 
 # Survey ASR + reverberation + noise
@@ -319,73 +206,56 @@
 	issn = {0885-2308},
 	url = {https://www.sciencedirect.com/science/article/pii/S0885230824000603},
 	doi = {10.1016/j.csl.2024.101677},
-	abstract = {Deep learning has led to dramatic performance improvements for the task of speech enhancement, where deep neural networks ({DNNs}) are trained to recover clean speech from noisy and reverberant mixtures. Most of the existing {DNN}-based algorithms operate in the frequency domain, as time-domain approaches are believed to be less effective for speech dereverberation. In this study, we employ two {DNNs}: {ARN} (attentive recurrent network) and {DC}-{CRN} (densely-connected convolutional recurrent network), and systematically investigate the effects of different components on enhancement performance, such as window sizes, loss functions, and feature representations. We conduct evaluation experiments in two main conditions: reverberant-only and reverberant-noisy. Our findings suggest that incorporating larger window sizes is helpful for dereverberation, and adding transform operations (either convolutional or linear) to encode and decode waveform features improves the sparsity of the learned representations, and boosts the performance of time-domain models. Experimental results demonstrate that {ARN} and {DC}-{CRN} with proposed techniques achieve superior performance compared with other strong enhancement baselines.},
 	pages = {101677},
 	journaltitle = {Computer Speech \& Language},
 	shortjournal = {Computer Speech \& Language},
 	author = {Wang, Heming and Pandey, Ashutosh and Wang, {DeLiang}},
-	urldate = {2024-11-04},
 	date = {2025-01-01},
 	keywords = {{ARN}, {DC}-{CRN}, Self-attention, Speech dereverberation, Speech enhancement},
-	file = {ScienceDirect Snapshot:/home/gaetan/.local/share/Zotero/storage/MFMR8C9D/S0885230824000603.html:text/html},
 }
-
 
 @book{rawlings_model_2009,
 	title = {Model Predictive Control: Theory and Design},
 	shorttitle = {Model Predictive Control},
 	author = {Rawlings, J and Mayne, D.Q.},
 	date = {2009-01-01},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/XNHW22RJ/Rawlings and Mayne - 2009 - Model Predictive Control Theory and Design.pdf:application/pdf},
 }
-
 
 @inproceedings{piovesan_randomized_2009,
 	title = {Randomized model predictive control for robot navigation},
 	url = {https://ieeexplore.ieee.org/abstract/document/5152468},
 	doi = {10.1109/ROBOT.2009.5152468},
-	abstract = {The paper suggests a new approach to navigation of mobile robots, based on nonlinear model predictive control and using a navigation function as a control Lyapunov function. In this approach, the nonlinear optimal control problem is treated using randomized algorithms. The advantage of the proposed combination of navigation functions for robot motion planning with randomized algorithms within an {MPC} framework, is that the control design offers stability by design, is platform independent, and allows the designer to trade-off performance for (computation) speed, according to the application requirements.},
 	eventtitle = {2009 {IEEE} International Conference on Robotics and Automation},
 	pages = {94--99},
 	booktitle = {2009 {IEEE} International Conference on Robotics and Automation},
 	author = {Piovesan, Jorge L. and Tanner, Herbert G.},
-	urldate = {2025-05-06},
 	date = {2009-05},
 	note = {{ISSN}: 1050-4729},
 	keywords = {Algorithm design and analysis, Control design, Lyapunov method, Mobile robots, Motion planning, Navigation, Optimal control, Predictive control, Predictive models, Robot motion},
-	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/NKQMFKD7/Piovesan and Tanner - 2009 - Randomized model predictive control for robot navigation.pdf:application/pdf},
 }
-
 
 @inproceedings{arul_unconstrained_2024,
 	title = {Unconstrained Model Predictive Control for Robot Navigation under Uncertainty},
 	url = {https://ieeexplore.ieee.org/document/10610531},
 	doi = {10.1109/ICRA57147.2024.10610531},
-	abstract = {In this paper, we present a probabilistic and unconstrained model predictive control formulation for robot navigation under uncertainty. We present (1) a closed-form approximation of the probability of collision that naturally models the propagation of uncertainty over the planning horizon and is computationally cheap to evaluate, and (2) a collision-cost formulation which provably preserves forward invariance (i.e., keeps the robot away from obstacles) when combined with the probability formulation. Notably, our formulation avoids hard constraints by construction, which in turn avoids abrupt transitions in robot behavior around the constraint boundaries ensuring graceful navigation. Further, we present proof for the forward invariance and the stability of the approach. We compare the efficacy of our method with the baseline [1], which the proposed approach builds on. We demonstrate that the approach results in confident and safe robot navigation in tight spaces by smoothly slowing down the robot in low survivability environments (e.g., tight corridors), but also allows it to move away from obstacles safely when needed.},
 	eventtitle = {2024 {IEEE} International Conference on Robotics and Automation ({ICRA})},
 	pages = {9321--9327},
 	booktitle = {2024 {IEEE} International Conference on Robotics and Automation ({ICRA})},
 	author = {Arul, Senthil Hariharan and Jin Park, Jong and Prem, Vishnu and Zhang, Yang and Manocha, Dinesh},
-	urldate = {2025-05-06},
 	date = {2024-05},
 	keywords = {man},
-	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/TSPRURKY/Arul et al. - 2024 - Unconstrained Model Predictive Control for Robot Navigation under Uncertainty.pdf:application/pdf},
 }
-
 
 @inproceedings{rix_perceptual_2001,
 	title = {Perceptual evaluation of speech quality ({PESQ})-a new method for speech quality assessment of telephone networks and codecs},
 	volume = {2},
 	url = {https://ieeexplore.ieee.org/document/941023},
 	doi = {10.1109/ICASSP.2001.941023},
-	abstract = {Previous objective speech quality assessment models, such as bark spectral distortion ({BSD}), the perceptual speech quality measure ({PSQM}), and measuring normalizing blocks ({MNB}), have been found to be suitable for assessing only a limited range of distortions. A new model has therefore been developed for use across a wider range of network conditions, including analogue connections, codecs, packet loss and variable delay. Known as perceptual evaluation of speech quality ({PESQ}), it is the result of integration of the perceptual analysis measurement system ({PAMS}) and {PSQM}99, an enhanced version of {PSQM}. {PESQ} is expected to become a new {ITU}-T recommendation P.862, replacing P.861 which specified {PSQM} and {MNB}.},
 	eventtitle = {2001 {IEEE} International Conference on Acoustics, Speech, and Signal Processing (Cat. No.01CH37221)},
 	pages = {749--752 vol.2},
 	booktitle = {2001 {IEEE} International Conference on Acoustics, Speech, and Signal Processing. Proceedings (Cat. No.01CH37221)},
 	author = {Rix, A.W. and Beerends, J.G. and Hollier, M.P. and Hekstra, A.P.},
-	urldate = {2025-05-12},
 	date = {2001-05},
 	note = {{ISSN}: 1520-6149},
 	keywords = {man},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/ZCEJD8UH/Rix et al. - 2001 - Perceptual evaluation of speech quality (PESQ)-a new method for speech quality assessment of telepho.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/PNRZVQ56/941023.html:text/html},
 }

@@ -5,7 +5,7 @@
 <sec:rl:intro:core_notions>
 
 #acr("RL") encompasses various techniques for solving stochastic sequential decision problems.
-This framework leverages trial-and-error learning by making an agent evolve in its environment while rewarding it according to its performance.
+It leverages trial-and-error learning by making an agent evolve in its environment while rewarding it according to its performance.
 This feedback loop constitutes the reinforcement aspect and permits the agent to self-improve.
 At each time step $t$, the agent observes the current state $s_t$ of the environment.
 It then has to select an action so as to maximize the future accumulated rewards.
@@ -38,7 +38,7 @@ An #acr("MDP") consists of a tuple $<cal(S), cal(A), P, r, gamma>$.
   It denotes the probability that the agent will transition to state $s'$ while in state $s$ and taking action $a$.
   $P(s_(t+1) = s' mid(|) s_t = s, a_t = a)$ denotes the _transition probabilities_.
 - $r$: The reward real-valued function $r: cal(S) times cal(A) -> RR$ maps each state-action pair to its reward $r(s, a)$.
-  When this reward is non-deterministic, we write $R_t$ its expectation:
+  When this reward is non-deterministic, we write $R_t$ for its expectation:
   $
     R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s'].
   $
@@ -46,7 +46,7 @@ An #acr("MDP") consists of a tuple $<cal(S), cal(A), P, r, gamma>$.
 
 *Expected Return Maximization.*
 To guide learning, the agent seeks to maximize the cumulative rewards it collects over time.
-This objective is formalized as the return, defined as follows:
+This objective is formalized as the return:
 $
   G_t = sum_(k=0)^(+ infinity) gamma ^k r_(t+k+1)
 $
@@ -73,7 +73,7 @@ The policy denotes a function or algorithm that maps each state to a probability
 )
 
 As a distribution over the action space, the policy can take various forms.
-For finite #acrpl("MDP"), i.e. when both the action and state spaces are finite, the policy is a $abs(cal(S)) times abs(cal(A))$ matrix:
+For finite #acrpl("MDP")s, i.e. when both the action and state spaces are finite, the policy is a $abs(cal(S)) times abs(cal(A))$ matrix:
 $
   lr(
     (

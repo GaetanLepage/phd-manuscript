@@ -4,19 +4,16 @@
 # Kaldi
 @article{povey_kaldi_nodate,
 	title = {The Kaldi Speech Recognition Toolkit},
-	abstract = {We describe the design of Kaldi, a free, open-source toolkit for speech recognition research. Kaldi provides a speech recognition system based on ﬁnite-state transducers (using the freely available {OpenFst}), together with detailed documentation and scripts for building complete recognition systems. Kaldi is written is C++, and the core library supports modeling of arbitrary phonetic-context sizes, acoustic modeling with subspace Gaussian mixture models ({SGMM}) as well as standard Gaussian mixture models, together with all commonly used linear and afﬁne transforms. Kaldi is released under the Apache License v2.0, which is highly nonrestrictive, making it suitable for a wide community of users.},
 	pages = {4},
 	author = {Povey, Daniel and Ghoshal, Arnab and Boulianne, Gilles and Burget, Lukasˇ and Glembek, Ondˇrej and Goel, Nagendra and Hannemann, Mirko and Motlıcˇek, Petr and Qian, Yanmin and Schwarz, Petr and Silovsky, Jan and Stemmer, Georg and Vesely, Karel},
 	langid = {english},
 	keywords = {man},
-	file = {Povey et al. - The Kaldi Speech Recognition Toolkit.pdf:/home/gaetan/.local/share/Zotero/storage/3Y6AN8M3/Povey et al. - The Kaldi Speech Recognition Toolkit.pdf:application/pdf},
 }
 
 @inproceedings{can_pykaldi_2018,
 	title = {Pykaldi: A Python Wrapper for Kaldi},
 	doi = {10.1109/ICASSP.2018.8462463},
 	shorttitle = {Pykaldi},
-	abstract = {We present {PyKaldi}, a free and open-source Python wrapper for the widely-used Kaldi speech recognition toolkit. {PyKaldi} is more than a collection of Python bindings into Kaldi libraries. It is an extensible scripting layer that allows users to work with Kaldi and {OpenFst} types interactively in Python. It tightly integrates Kaldi vector and matrix types with {NumPy} arrays. We believe Py Kaldi will significantly improve the user experience and simplify the integration of Kaldi into Python workflows. {PyKaldi} comes with extensive documentation and tests. It is released under the Apache License v2.0 with support for both Python 2.7 and 3.5+.},
 	eventtitle = {2018 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
 	pages = {5889--5893},
 	booktitle = {2018 {IEEE} International Conference on Acoustics, Speech and Signal Processing ({ICASSP})},
@@ -24,36 +21,29 @@
 	date = {2018-04},
 	note = {{ISSN}: 2379-190X},
 	keywords = {asr, software, speech\_recognition},
-	file = {Can et al_2018_Pykaldi.pdf:/home/gaetan/.local/share/Zotero/storage/WGZTD2AU/Can et al_2018_Pykaldi.pdf:application/pdf;IEEE Xplore Abstract Record:/home/gaetan/.local/share/Zotero/storage/Q6DDFIH7/8462463.html:text/html},
 }
 
 # Vosk
 @online{noauthor_vosk_nodate,
 	title = {{VOSK} Offline Speech Recognition {API}},
 	url = {https://alphacephei.com/vosk/},
-	abstract = {Accurate speech recognition for Android, {iOS}, Raspberry Pi and servers with Python, Java, C\#, Swift and Node.},
 	titleaddon = {{VOSK} Offline Speech Recognition {API}},
 	urldate = {2021-08-25},
 	langid = {english},
 	keywords = {man},
-	file = {Snapshot:/home/gaetan/.local/share/Zotero/storage/X6MZ5LMB/vosk.html:text/html},
 }
-
 
 @article{ravanelli_speechbrain_2021,
 	title = {{SpeechBrain}: A General-Purpose Speech Toolkit},
 	url = {http://arxiv.org/abs/2106.04624},
 	shorttitle = {{SpeechBrain}},
-	abstract = {{SpeechBrain} is an open-source and all-in-one speech toolkit. It is designed to facilitate the research and development of neural speech processing technologies by being simple, ﬂexible, user-friendly, and well-documented. This paper describes the core architecture designed to support several tasks of common interest, allowing users to naturally conceive, compare and share novel speech processing pipelines. {SpeechBrain} achieves competitive or state-of-the-art performance in a wide range of speech benchmarks. It also provides training recipes, pretrained models, and inference scripts for popular speech datasets, as well as tutorials which allow anyone with basic Python proﬁciency to familiarize themselves with speech technologies.},
 	journaltitle = {{arXiv}:2106.04624 [cs, eess]},
 	author = {Ravanelli, Mirco and Parcollet, Titouan and Plantinga, Peter and Rouhe, Aku and Cornell, Samuele and Lugosch, Loren and Subakan, Cem and Dawalatabad, Nauman and Heba, Abdelwahab and Zhong, Jianyuan and Chou, Ju-Chieh and Yeh, Sung-Lin and Fu, Szu-Wei and Liao, Chien-Feng and Rastorgueva, Elena and Grondin, François and Aris, William and Na, Hwidong and Gao, Yan and De Mori, Renato and Bengio, Yoshua},
-	urldate = {2021-09-02},
 	date = {2021-06-08},
 	langid = {english},
 	eprinttype = {arxiv},
 	eprint = {2106.04624},
 	keywords = {Computer Science - Machine Learning, Computer Science - Artificial Intelligence, Computer Science - Sound, Electrical Engineering and Systems Science - Audio and Speech Processing},
-	file = {Ravanelli et al. - 2021 - SpeechBrain A General-Purpose Speech Toolkit.pdf:/home/gaetan/.local/share/Zotero/storage/VSJTRBP3/Ravanelli et al. - 2021 - SpeechBrain A General-Purpose Speech Toolkit.pdf:application/pdf},
 }
 
 # PyTorch
@@ -68,22 +58,18 @@ url = {https://pytorch.org/assets/pytorch2-2.pdf},
 year = {2024}
 }
 
-
 # CTC (for ASR)
 @inproceedings{graves_towards_2014,
 	title = {Towards End-To-End Speech Recognition with Recurrent Neural Networks},
 	url = {https://proceedings.mlr.press/v32/graves14.html},
-	abstract = {This paper presents a speech recognition system that directly transcribes audio data with text, without requiring an intermediate phonetic representation. The system is based on a combination of the deep bidirectional {LSTM} recurrent neural network architecture and the Connectionist Temporal Classification objective function. A modification to the objective function is introduced that trains the network to minimise the expectation of an arbitrary transcription loss function. This allows a direct optimisation of the word error rate, even in the absence of a lexicon or language model. The system achieves a word error rate of 27.3\% on the Wall Street Journal corpus with no prior linguistic information, 21.9\% with only a lexicon of allowed words, and 8.2\% with a trigram language model. Combining the network with a baseline system further reduces the error rate to 6.7\%.},
 	eventtitle = {International Conference on Machine Learning},
 	pages = {1764--1772},
 	booktitle = {Proceedings of the 31st International Conference on Machine Learning},
 	publisher = {{PMLR}},
 	author = {Graves, Alex and Jaitly, Navdeep},
-	urldate = {2024-09-26},
 	date = {2014-06-18},
 	langid = {english},
 	note = {{ISSN}: 1938-7228},
-	file = {Full Text PDF:/home/gaetan/.local/share/Zotero/storage/FABXAUUP/Graves and Jaitly - 2014 - Towards End-To-End Speech Recognition with Recurrent Neural Networks.pdf:application/pdf},
 }
 
 # RNNLM
@@ -94,17 +80,13 @@ year = {2024}
 	eventtitle = {Proc. Interspeech 2010},
 	pages = {1045--1048},
 	author = {Mikolov, Tomáš and Karafiát, Martin and Burget, Lukáš and Černocký, Jan and Khudanpur, Sanjeev},
-	urldate = {2024-09-25},
 	date = {2010},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/7GRFLUR7/Mikolov et al. - 2010 - Recurrent neural network based language model.pdf:application/pdf},
 }
-
 
 @software{vaessen_jitsijiwer_2024,
 	title = {jitsi/jiwer},
 	rights = {Apache-2.0},
 	url = {https://github.com/jitsi/jiwer},
-	abstract = {Evaluate your speech-to-text system with similarity measures such as word error rate ({WER})},
 	publisher = {Jitsi},
 	author = {Vaessen, Nik},
 	urldate = {2024-09-26},
@@ -124,84 +106,43 @@ year = {2024}
   url          = {https://doi.org/10.5281/zenodo.10938887}
 }
 
-
-
 @article{vaswani_attention_2017,
-	title = {Attention is All you Need},
-	abstract = {The dominant sequence transduction models are based on complex recurrent or convolutional neural networks that include an encoder and a decoder. The best performing models also connect the encoder and decoder through an attention mechanism. We propose a new simple network architecture, the Transformer, based solely on attention mechanisms, dispensing with recurrence and convolutions entirely. Experiments on two machine translation tasks show these models to be superior in quality while being more parallelizable and requiring signiﬁcantly less time to train. Our model achieves 28.4 {BLEU} on the {WMT} 2014 Englishto-German translation task, improving over the existing best results, including ensembles, by over 2 {BLEU}. On the {WMT} 2014 English-to-French translation task, our model establishes a new single-model state-of-the-art {BLEU} score of 41.0 after training for 3.5 days on eight {GPUs}, a small fraction of the training costs of the best models from the literature.},
-	author = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, Łukasz and Polosukhin, Illia},
-	date = {2017},
-	langid = {english},
-	keywords = {man},
-	file = {PDF:/home/gaetan/.local/share/Zotero/storage/TP7TQ38J/Vaswani et al. - Attention is All you Need.pdf:application/pdf},
+  title={Attention is all you need},
+  author={Vaswani, Ashish and Shazeer, Noam and Parmar, Niki and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N and Kaiser, {\L}ukasz and Polosukhin, Illia},
+  journal={Advances in neural information processing systems},
+  volume={30},
+  year={2017}
 }
 
-
-@misc{zuluaga-gomez_commonaccent_2023,
-	title = {{CommonAccent}: Exploring Large Acoustic Pretrained Models for Accent Classification Based on Common Voice},
-	url = {http://arxiv.org/abs/2305.18283},
-	doi = {10.48550/arXiv.2305.18283},
-	shorttitle = {{CommonAccent}},
-	abstract = {Despite the recent advancements in Automatic Speech Recognition ({ASR}), the recognition of accented speech still remains a dominant problem. In order to create more inclusive {ASR} systems, research has shown that the integration of accent information, as part of a larger {ASR} framework, can lead to the mitigation of accented speech errors. We address multilingual accent classification through the {ECAPA}-{TDNN} and Wav2Vec 2.0/{XLSR} architectures which have been proven to perform well on a variety of speech-related downstream tasks. We introduce a simple-to-follow recipe aligned to the {SpeechBrain} toolkit for accent classification based on Common Voice 7.0 (English) and Common Voice 11.0 (Italian, German, and Spanish). Furthermore, we establish new state-of-the-art for English accent classification with as high as 95\% accuracy. We also study the internal categorization of the Wav2Vev 2.0 embeddings through t-{SNE}, noting that there is a level of clustering based on phonological similarity. (Our recipe is open-source in the {SpeechBrain} toolkit, see: https://github.com/speechbrain/speechbrain/tree/develop/recipes)},
-	number = {{arXiv}:2305.18283},
-	publisher = {{arXiv}},
-	author = {Zuluaga-Gomez, Juan and Ahmed, Sara and Visockas, Danielius and Subakan, Cem},
-	urldate = {2025-05-07},
-	date = {2023-05-29},
-	eprinttype = {arxiv},
-	eprint = {2305.18283 [cs]},
-	keywords = {Computer Science - Artificial Intelligence, Computer Science - Computation and Language, Computer Science - Machine Learning, Electrical Engineering and Systems Science - Audio and Speech Processing},
-	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/SQJKEQ8J/Zuluaga-Gomez et al. - 2023 - CommonAccent Exploring Large Acoustic Pretrained Models for Accent Classification Based on Common V.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/F63MAS8G/2305.html:text/html},
+@article{zuluaga-gomez_commonaccent_2023,
+  title={CommonAccent: Exploring Large Acoustic Pretrained Models for Accent Classification Based on Common Voice},
+  author={Zuluaga-Gomez, Juan and Ahmed, Sara and Visockas, Danielius and Subakan, Cem},
+  journal={arXiv preprint arXiv:2305.18283},
+  year={2023}
 }
 
-
-@misc{mousavi_dasb_2024,
-	title = {{DASB} - Discrete Audio and Speech Benchmark},
-	url = {http://arxiv.org/abs/2406.14294},
-	doi = {10.48550/arXiv.2406.14294},
-	abstract = {Discrete audio tokens have recently gained considerable attention for their potential to connect audio and language processing, enabling the creation of modern multimodal large language models. Ideal audio tokens must effectively preserve phonetic and semantic content along with paralinguistic information, speaker identity, and other details. While several types of audio tokens have been recently proposed, identifying the optimal tokenizer for various tasks is challenging due to the inconsistent evaluation settings in existing studies. To address this gap, we release the Discrete Audio and Speech Benchmark ({DASB}), a comprehensive leaderboard for benchmarking discrete audio tokens across a wide range of discriminative tasks, including speech recognition, speaker identification and verification, emotion recognition, keyword spotting, and intent classification, as well as generative tasks such as speech enhancement, separation, and text-to-speech. Our results show that, on average, semantic tokens outperform compression tokens across most discriminative and generative tasks. However, the performance gap between semantic tokens and standard continuous representations remains substantial, highlighting the need for further research in this field.},
-	number = {{arXiv}:2406.14294},
-	publisher = {{arXiv}},
-	author = {Mousavi, Pooneh and Libera, Luca Della and Duret, Jarod and Ploujnikov, Artem and Subakan, Cem and Ravanelli, Mirco},
-	urldate = {2025-05-07},
-	date = {2024-06-21},
-	eprinttype = {arxiv},
-	eprint = {2406.14294 [cs]},
-	keywords = {Computer Science - Artificial Intelligence, Computer Science - Sound, Electrical Engineering and Systems Science - Audio and Speech Processing},
-	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/ZREQPT6F/Mousavi et al. - 2024 - DASB - Discrete Audio and Speech Benchmark.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/YC7T6ML9/2406.html:text/html},
+@article{mousavi_dasb_2024,
+  title={DASB - Discrete Audio and Speech Benchmark},
+  author={Mousavi, Pooneh and Della Libera, Luca and Duret, Jarod and Ploujnikov, Artem and Subakan, Cem and Ravanelli, Mirco},
+  journal={arXiv preprint arXiv:2406.14294},
+  year={2024}
 }
-
-
 
 @article{brockman_openai_2016,
 	title = {{OpenAI} Gym},
 	url = {http://arxiv.org/abs/1606.01540},
-	abstract = {{OpenAI} Gym1 is a toolkit for reinforcement learning research. It includes a growing collection of benchmark problems that expose a common interface, and a website where people can share their results and compare the performance of algorithms. This whitepaper discusses the components of {OpenAI} Gym and the design decisions that went into the software.},
 	journaltitle = {{arXiv}:1606.01540 [cs]},
 	author = {Brockman, Greg and Cheung, Vicki and Pettersson, Ludwig and Schneider, Jonas and Schulman, John and Tang, Jie and Zaremba, Wojciech},
-	urldate = {2021-08-25},
 	date = {2016-06-05},
 	langid = {english},
 	eprinttype = {arxiv},
 	eprint = {1606.01540},
 	keywords = {man},
-	file = {Brockman et al. - 2016 - OpenAI Gym.pdf:/home/gaetan/.local/share/Zotero/storage/GD9EPPRJ/Brockman et al. - 2016 - OpenAI Gym.pdf:application/pdf},
 }
 
-
-@misc{towers_gymnasium_2024,
-	title = {Gymnasium: A Standard Interface for Reinforcement Learning Environments},
-	url = {http://arxiv.org/abs/2407.17032},
-	doi = {10.48550/arXiv.2407.17032},
-	shorttitle = {Gymnasium},
-	abstract = {Reinforcement Learning ({RL}) is a continuously growing field that has the potential to revolutionize many areas of artificial intelligence. However, despite its promise, {RL} research is often hindered by the lack of standardization in environment and algorithm implementations. This makes it difficult for researchers to compare and build upon each other's work, slowing down progress in the field. Gymnasium is an open-source library that provides a standard {API} for {RL} environments, aiming to tackle this issue. Gymnasium's main feature is a set of abstractions that allow for wide interoperability between environments and training algorithms, making it easier for researchers to develop and test {RL} algorithms. In addition, Gymnasium provides a collection of easy-to-use environments, tools for easily customizing environments, and tools to ensure the reproducibility and robustness of {RL} research. Through this unified framework, Gymnasium significantly streamlines the process of developing and testing {RL} algorithms, enabling researchers to focus more on innovation and less on implementation details. By providing a standardized platform for {RL} research, Gymnasium helps to drive forward the field of reinforcement learning and unlock its full potential. Gymnasium is available online at https://github.com/Farama-Foundation/Gymnasium},
-	number = {{arXiv}:2407.17032},
-	publisher = {{arXiv}},
-	author = {Towers, Mark and Kwiatkowski, Ariel and Terry, Jordan and Balis, John U. and Cola, Gianluca De and Deleu, Tristan and Goulão, Manuel and Kallinteris, Andreas and Krimmel, Markus and {KG}, Arjun and Perez-Vicente, Rodrigo and Pierré, Andrea and Schulhoff, Sander and Tai, Jun Jet and Tan, Hannah and Younis, Omar G.},
-	urldate = {2025-05-08},
-	date = {2024-11-08},
-	eprinttype = {arxiv},
-	eprint = {2407.17032 [cs]},
-	keywords = {man},
-	file = {Preprint PDF:/home/gaetan/.local/share/Zotero/storage/9SMXS5QY/Towers et al. - 2024 - Gymnasium A Standard Interface for Reinforcement Learning Environments.pdf:application/pdf;Snapshot:/home/gaetan/.local/share/Zotero/storage/S337X3SF/2407.html:text/html},
+@article{towers_gymnasium_2024,
+  title={Gymnasium: A Standard Interface for Reinforcement Learning Environments},
+  author={Towers, Mark and Kwiatkowski, Ariel and Terry, Jordan and Balis, John U and De Cola, Gianluca and Deleu, Tristan and Goulao, Manuel and Kallinteris, Andreas and Krimmel, Markus and KG, Arjun and others},
+  journal={arXiv preprint arXiv:2407.17032},
+  year={2024}
 }

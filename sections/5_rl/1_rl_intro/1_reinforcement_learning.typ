@@ -20,15 +20,13 @@ On the other hand, it is _associative_ as the selected decisions are associated 
 This principle stands as a core ingredient of modern theories of learning and behavior modification.
 The idea of learning progressively and gradually from substantial experience contrasts with the theories stating that animals learn from higher-level reasoning, similar to humans.
 In 1927, Ivan Pavlov detailed the concept of trial-and-error in _Conditioned reflexes: An investigation of the physiological activity of the cerebral cortex_ @pavlov_1927_conditioned_2010.
-Pavlov described reinforcement as the strengthening of a pattern of behavior due
-to an animal receiving a stimulus—a reinforcer—in an appropriate temporal relationship
-with another stimulus or with a response @sutton_reinforcement_2018.
-All in all, psychology, by observing animal behaviors has provided the intuition behind the formulation of #acr("RL") as a framework to solve complex decision problems.
+Pavlov described reinforcement as the strengthening of a pattern of behavior due to an animal receiving a stimulus—a reinforcer—in an appropriate temporal relationship with another stimulus or with a response @sutton_reinforcement_2018.
+All in all, psychology, by observing animal behaviors, has provided the intuition behind the formulation of #acr("RL") as a framework to solve complex decision problems.
 
 On the other hand, #acr("RL") has been preceded by the older field of optimal control.
 Its objective is to design a controller for a dynamic system that should minimize some cost function.
 Richard Bellman has conducted essential work on this problem, notably by introducing dynamic programming @bellman_dynamic_1957 and the notorious Bellman equation.
-Dynamic programming is the most general and feasible solution to optimal control problems but suffers from limitations.
+Dynamic programming is the most general and feasible solution to optimal control problems but it suffers from limitations.
 For instance, when the number of dimensions of the involved control spaces grows too large, they suffer from the curse of dimensionality, which Bellman himself describes.
 #reset-acronym("MDP")
 He is also at the origin of the discrete stochastic version of the optimal control problem, called #acr("MDP") @bellman_markovian_1957.

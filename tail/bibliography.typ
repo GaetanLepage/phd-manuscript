@@ -26,7 +26,7 @@
     "/sections/3_ssl/1_sota/bibliography/deep_learning.bib",
     "/sections/3_ssl/1_sota/bibliography/misc.bib",
     "/sections/3_ssl/1_sota/bibliography/robotics.bib",
-    "/sections/3_ssl/3_multi_source/bibliography/normalization.bib",
+    "/sections/3_ssl/3_multi_source/bibliography.bib",
     "/sections/3_ssl/bibliography/methods.bib",
     "/sections/3_ssl/bibliography/misc.bib",
 
