@@ -142,12 +142,6 @@ It has been effectively applied in various domains, including robotics and auton
 For instance, PPO has been utilized to train mobile robots for safe navigation in complex environments, demonstrating improved stability and obstacle avoidance capabilities.
 Additionally, PPO has been employed in multi-robot systems to optimize path planning and reduce navigation time through effective conflict resolution strategies.
 
-The #acr("PPO") algorithm @schulman_proximal_2017 has been used extensively in the #acr("RL") field since its invention in 2017 .
-#draft[give examples]
-Its main advantages are its relative simplicity and efficiency.
-It is claimed to be more stable than other algorithms, especially for continuous action spaces @schulman_proximal_2017.
-#todo
-
 *#acr("TRPO").*
 Schulman et al. @schulman_trust_2017 introduced the concept of trust region policy optimization.
 Their observation was that too brutal policy updates were causing instabilities in training #acr("PG") algorithms.

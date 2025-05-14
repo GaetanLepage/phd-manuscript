@@ -270,8 +270,8 @@ It is directly embedded in the environment implementation.
 The main originality of our approach lies in the perceptually motivated objective.
 The agent should be trained to navigate to the optimal location regarding the #acr("ASR") performance.
 Naturally, the reward function should be a decreasing function, $f: [0, 1] -> RR$, of the #acr("WER") metric so that the highest reward would correspond to the lowest possible #acr("WER").
-For now, we assume having access to an oracle cost function $C: cal(S) -> RR_+$ that maps each possible state to a score.
-It quantifies how desirable it is to be in this specific state.
+For now, we assume having access to an oracle cost function $C: cal(S) -> [0, 1]$ that maps each possible state to a penalty that should be minimized.
+It quantifies how undesirable it is to be in this specific state.
 Although we experiment with extra formulation for $C$, the original task's cost is #wer-cost, the estimated average #acr("WER") that the #acr("ASR") would yield if the agent were standing at this position.
 The practical implementation of this mapping will be discussed later in @sec:rl:method:wer_maps.
 The reward function can then be written as follows:
