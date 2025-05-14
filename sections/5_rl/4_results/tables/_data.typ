@@ -46,7 +46,7 @@
 #let exp-311-mfc-analytical = 22.53 // dir
 #let exp-311-rew-analytical = 1234 // dir
 
-#let exp-310-mfc-wer = 1.50 // omni
+#let exp-310-mfc-wer = "1.50" // omni
 #let exp-310-rew-wer = 2586 // omni
 #let exp-311-mfc-wer = 16.56 // dir
 #let exp-311-rew-wer = 1789 // dir

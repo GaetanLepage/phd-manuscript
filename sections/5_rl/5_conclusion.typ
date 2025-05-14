@@ -4,45 +4,37 @@
 <sec:rl:conclusion>
 
 // Recall of the motivation
-This chapter motivates and introduces a novel navigation task for robotics.
-The agent, equipped with a multi-microphone array, is tasked to position itself to improve its ability to understand human speech.
-It can only rely on auditory cues, as no other sensory information is available.
-This constraint requires the agent to build implicit spatial representations and rely on source localization capabilities.
-The #acr("WER") quantifies the performance of an #acr("ASR") system and serves as a proxy for the perceptual quality of the sensed audio signals.
-We demonstrate how critical good positioning can be to transcribe speech content recorded in reverberant environments effectively.
+This chapter introduced a novel perceptually motivated navigation task for robotics, in which an agent equipped with a multi-microphone array must reposition itself to enhance its ability to understand human speech.
+The agent relies solely on auditory cues, without access to visual or spatial information, requiring it to build internal representations of space and develop source localization capabilities.
+To quantify perceptual quality, we employed the #acr("WER") of an #acr("ASR") system as the reward signal.
+Experimental evidence showed that small changes in position and orientation could significantly impact #acr("ASR") performance in reverberant environments, motivating the task.
 
 // Main contributions
-We introduce a rigorous #acr("MDP") formulation for this perceptually motivated navigation task.
-The proposed environment allows training and evaluating #acr("DRL") agents with modern algorithms.
-It directly integrates with the acoustic simulator in @chap:simulator.
-#acr("WER") scores are computed for each possible agent position beforehand and cached to ensure satisfying environment performance.
-Besides defining, designing, and implementing the environment for the proposed task, we develop a deep neural agent that successfully solves the initial formulation of the navigation problem.
-It leverages a convolutional feature extractor that maps the interaural audio representation to an embedding of the source localization.
-To achieve this, the agent backbone is pre-trained on an #acr("SSL") task in a supervised fashion.
-The #acr("PPO") algorithm efficiently learns the navigation policy by having the agent interact with the environment.
-Qualitative and quantitative experimental results show that the learned policy successfully navigates close to the source, thus significantly improving the #acr("WER").
+We proposed a rigorous #acr("MDP") formulation for this navigation problem, fully integrated with the acoustic simulation tools presented earlier in this thesis.
+The #acr("WER")-based cost maps were precomputed and cached to enable tractable training, despite the high computational cost of running #acr("ASR") evaluations.
+A deep reinforcement learning agent, trained using the #acr("PPO") algorithm, successfully learned to minimize the WER by navigating toward favorable positions.
+The neural agent incorporates a pre-trained source localization backbone, which encodes interaural acoustic features into a compact embedding, enabling the policy to leverage spatial cues.
+The learning process was supported by extensive hyperparameter tuning and careful reward shaping.
+Empirical results, both qualitative and quantitative, demonstrated that the learned policy consistently outperformed baseline strategies and led to significant reductions in WER.
 
+
+// ----------------------------
 // Limitations
-Despite effectively solving the navigation task, the proposed approach, as well as the problem framing have some limitations.
-On the one hand, the specific formulation of the environment leads the agent to learn to systematically navigate to the source.
-By having access to a capable sound source localizer, one could craft a deterministic policy that positions the agent as close as possible to the source.
-This observation naturally questions the need for training a #acr("DRL") agent.
-The present contribution builds the necessary framework for eventually enriching the naive task introduced here as an example.
-We are confident in the fact that considerably more complex variations of the problem could be imagined, where the optimal policy cannot be implemented deterministically.
-For instance, using a simulator capable of modeling non-convex rooms, the agent could have to navigate in a more challenging environment, thus requiring extensive exploration.
-For instance, the _Move2Hear_ task, introduced by Kirsten et al. @majumder_move2hear_2021, demonstrate an interesting audio-visual robotics navigation problem that could be solved using #acr("DRL").
-Yet, we have shown that combining a source localizer with a deep reinforcement learning agent remains a valid strategy for solving this kind of audio-based navigation problem.
-On the other hand, the #acr("PPO") algorithm employed in this work has proven difficult to use.
-Several experimental difficulties arose in the development of the final solution.
-A tedious, iterative research endeavor was necessary to effectively combine the multiple elements of the pipeline.
-Most specifically, a careful and subtle tuning of the hyperparameters, loss coefficients, environment properties, and reward was crucial in obtaining a workable solution.
+While the proposed agent successfully solves the initial formulation of the task, several limitations remain.
+First, the current environment setup implicitly favors policies that navigate directly to the sound source.
+If an external source localizer is available, this behavior could be replicated deterministically, reducing the need for reinforcement learning.
+However, this chapter provides the groundwork for tackling more complex and realistic scenarios where such shortcuts are no longer feasible.
+For instance, introducing occlusions or non-convex environments would challenge the agent to explore and reason over partial observations.
+The _Move2Hear_ framework @majumder_move2hear_2021 exemplifies such complexity by coupling audio-visual perception with source separation and navigation.
+Within this broader context, the integration of pre-trained perception modules with #acr("DRL") agents remains a promising and effective strategy.
 
-// Emphasis on the engineering effort (to finish on a positive note)
-The entire #acr("RL") pipeline presented in this chapter has been implemented from scratch.
-It entails the #acr("RL") environment for the sound-driven navigation task, along with the computation of #acr("WER") maps, the #acr("PPO") algorithm, the neural network model, and the training and evaluation logic.
-This significant engineering effort aims to provide the research community with a quality software ecosystem for experimenting with more complex and interesting formulations of the sound-driven navigation task.
-For instance, extending the current environment to a multi-source paradigm could bring additional considerations.
-Improving the simulator is also an interesting perspective for future work.
-Indeed, implementing the proper support for moving sources could lead to dynamic environments in which the agent would need to constantly adapt its positioning.
-Finally, injecting other goals in addition to the #acr("WER")-based objective could be relevant in the context of social robotics.
-Complex interaction tasks, involving multi-modal perception, require robots to handle multi-factor decision making.
+Second, training with PPO was non-trivial.
+While #acr("PPO") is often praised for its stability, we found it to be highly sensitive to implementation details and reward scaling.
+Careful tuning of hyperparameters, loss coefficients, and training dynamics was essential to obtain a working solution.
+Our experience echoes observations from prior work on the fragility of #acr("DRL") algorithms when applied to new domains.
+
+The complete #acr("DRL") pipeline presented here — including the simulator interface, WER map generation, agent architecture, PPO training loop, and evaluation framework — was implemented from scratch.
+This engineering effort contributes a reproducible foundation for future work on audio-based navigation tasks.
+Several promising extensions lie ahead.
+Incorporating multiple sound sources, enabling dynamic environments with moving targets, or introducing higher-level behavioral goals could create more realistic and socially aware robotics scenarios.
+In such contexts, deep reinforcement learning agents will need to combine multimodal perception, dynamic planning, and long-horizon reasoning — all of which are facilitated by the foundations established in this chapter.

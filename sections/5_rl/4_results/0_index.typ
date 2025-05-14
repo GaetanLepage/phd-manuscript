@@ -230,55 +230,51 @@ where:
 - $#agent-source-dist = #agent-source-dist-expr$ is the source-array distance;
 - $"DoA"(#agent-pos, theta_a, #source-pos)$ is the direction of arrival for this source-microphone positioning;
 - $eta$ is a scaling factor, set to 1 in the conducted experiments.
-  
 Naturally, this definition is inspired by the shape of the #acr("WER") maps (see @fig:rl:results:directional_map for an example).
 The obtained map is normalized to constrain its range in the $[0, 1]$ interval.
 Setting $eta$ to 0 gives the omnidirectional formulation of the analytical cost.
 @fig:rl:results:analytical_map plots the analytical cost $C$ for the east orientation, i.e., where the agent is facing right in this figure's frame.
 As #analytical-cost has a closed-form definition, the resulting cost maps are considerably smoother and less noisy than #acr("WER") maps.
 
-#draft[
-  The results from this experiment show that we can use these maps as a proxy for the WER and still be able to learn #pi-optimal (even better)
-
-  The WER scores cannot be directly compared across experiments, so we use geometrical metrics:
-  The _#acr("MFD")_ quantifies how far the agent stands from the source when the episode ends
-  $
-    #mfd = 1 / #n-ep sum_(i=1)^#n-ep D(s_(T, i)),
-  $
-  where $D(s_(T, i))$ denotes the source-array distance at the final step of the $i$-th episode.
-
-  Similarly, the _#acr("MFAE")_ measures how much the agent faces the source when the episode ends:
-  $
-    #mfae =
-      1 / #n-ep
-      sum_(i=1)^#n-ep 
-      abs(
-        "DoA"(s_(T, i))
-      ).
-  $
-]
-
-
 #include "figures/analytical_map/figure.typ"
-#include "tables/maps_comparison.typ"
 
-#draft[
-  Objective: sanity check\
-  Lossless encoding of the distance
-
-  TODO:
-  - Maybe introduce a different, abstract notation for the cost function (different form w)
-  - Analytical vs WER maps
-  - Directional vs omnidirectional maps (in both cases)
-  - Material:
-    - Training curves
-    - Final results in terms of WER
+To evaluate the impact of the cost function on the learned policy, we start by training the deep neural agent on both cost variants to later evaluate them on the same final target environment.
+Indeed, the average cumulated reward (#mean-cum-reward) and the mean final cost (#mfc) are not comparable across environments, as the same navigation policy would lead to different values.
+Naturally, the target environment is based on the #acr("WER") cost function.
+This study aims to see the benefits of using analytical maps for training the agent.
+@table:rl:results:maps_comparison gathers the quantitative results from this experimental campaign.
+Besides being considerably more efficient to compute, #analytical-cost;-based cost maps appear to help with the final #acr("WER") performance.
+Indeed, the policies trained to optimize the directional and omnidirectional analytical cost yield a lower #mfc cost than those directly trained with the target cost.
+Analytical maps provide a stronger reward signal and help achieve better policies thanks to their inherent consistency and smoothness.
+#gaet[
+  This probably deserves some more polish, but it's 6am and I need to get some sleep.
 ]
 
 
-@fig:rl:results:analytical_map shows an example of 
+// TODO remove
+//#draft[
+//  The results from this experiment show that we can use these maps as a proxy for the WER and still be able to learn #pi-optimal (even better)
+//
+//  The WER scores cannot be directly compared across experiments, so we use geometrical metrics:
+//  The _#acr("MFD")_ quantifies how far the agent stands from the source when the episode ends
+//  $
+//    #mfd = 1 / #n-ep sum_(i=1)^#n-ep D(s_(T, i)),
+//  $
+//  where $D(s_(T, i))$ denotes the source-array distance at the final step of the $i$-th episode.
+//
+//  Similarly, the _#acr("MFAE")_ measures how much the agent faces the source when the episode ends:
+//  $
+//    #mfae =
+//      1 / #n-ep
+//      sum_(i=1)^#n-ep 
+//      abs(
+//        "DoA"(s_(T, i))
+//      ).
+//  $
+//]
 
 
+#include "tables/maps_comparison.typ"
 
 === Importance of Localization Feature Extraction
 <sec:rl:results:backbone_init>
