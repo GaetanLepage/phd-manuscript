@@ -240,6 +240,7 @@ The feature extractor's weights are kept frozen for during the entire #acr("PPO"
 
 
 *Environment.*
+While the environment is defined initially as a #acr("POMDP"), we apply the standard #acr("PPO") algorithm, adopting a classical #acr("MDP") formulation.
 The environment for the navigation task is parametrized with a horizon #env-horizon of $#env-horizon-value$ steps.
 This value allows the agent to navigate the room in its entire span several times per episode.
 The value of the discount factor $gamma$ is fixed at #discount-factor-value.

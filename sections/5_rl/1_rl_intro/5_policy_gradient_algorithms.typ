@@ -4,97 +4,81 @@
 === Policy Gradient Algorithms
 <sec:rl:intro:policy_gradient_algorithms>
 
-The first widely used #acr("RL") algorithms consisted of learning to approximate a value function.
-For instance, the notable Q-value algorithm @watkins_learning_1989 introduced the $Q$ function which gives a score to each state-action pair:
-$
-  Q^(pi_theta) (s, a) := EE[G_t | s_t = s, a_t = a].
-$ #draft[répétition avec l'eq and 5.1.2]
-On the contrary, policy gradient algorithms optimize the policy directly, through a differentiable objective function depending on its parameters.
-The cost function is expressed as: #draft[TODO Isn't there a log in the formula?]
+Early reinforcement learning algorithms primarily focused on value-based methods, where the agent learns to estimate a value function that guides action selection.
+A notable example is Q-learning @watkins_learning_1989, which iteratively approximates the Q-function (as defined in @eq:rl:intro:q_function) and derives a policy by acting greedily with respect to it.
+
+In contrast, policy gradient methods aim to optimize the policy directly by maximizing a differentiable objective function with respect to the policy parameters.
+Rather than relying on value estimates to induce a policy, these methods treat the policy itself as a parameterized function $pi_theta$​ and compute gradients of the expected return with respect to $theta$.
+The objective is typically to maximize the expected return $J(theta)$, defined as:
 $
   J(theta)
   &= EE_(tau ~ pi_theta) [R(tau)]\
   &= sum_(s in cal(S)) d_(pi_theta) (s) V_pi (s)\
   &= sum_(s in cal(S)) d_(pi_theta) (s) pi_theta (a  | s) Q_(pi_theta) (s, a),
 $
-where $d_pi_theta (s)$ corresponds to the stationary distribution of Markov chain for $pi_theta$, i.e., the on-policy state distribution under $pi_theta$.
+<eq:rl:intro:pg_algorithms:expected_return>
+This decomposition expresses the expected return as a weighted sum over states and actions, where $d_pi_theta (s)$ is the stationary state distribution under policy $pi_theta$​.
+$R(tau)$ denotes the return of the trajectory $tau$, also referred to as the cumulative reward.
+The final line expands the value function using the policy and Q-function, which will be instrumental in deriving the policy gradient.
 Most policy gradient algorithms rely on maximizing this objective using gradient ascent algorithms.
 This process results in an optimal set of weights $theta^*$ leading to the highest return.
-However, computing the gradient of $J$ is not trivial and can become intractable as the action space grows in dimensionality.
+However, computing the gradient of $J$ directly can be complex.
+The policy gradient theorem offers a tractable expression for this gradient that avoids the need to differentiate through the environment's dynamics.
 
-Several policy gradient have been developped and used in conjunction with deep learning models.
-Our main focus will remain on the #acr("PPO") algorithm @schulman_proximal_2017, but #acr("DDPG") @lillicrap_continuous_2019, #acr("SAC") @haarnoja_off-policy_2018 and #acr("TRPO") @schulman_trust_2017 are other notable examples.
-The core advantage of policy gradient algorithms over Q-learning is their ability to handle both discrete and continuous action spaces.
+Several policy gradient have been developed and successfully used in conjunction with deep neural networks.
+Our main focus will be on the #acr("PPO") algorithm @schulman_proximal_2017, but other notable methods include #acr("DDPG") @lillicrap_continuous_2019, #acr("SAC") @haarnoja_off-policy_2018 and #acr("TRPO") @schulman_trust_2017.
+A key advantage of policy gradient approaches over value-based methods like Q-learning is their ability to handle both discrete and continuous action spaces naturally.
+
+In the next section, we present the Policy Gradient Theorem, which underpins all such algorithms and provides the theoretical foundation for computing policy updates via gradient ascent.
 
 ==== Policy Gradient Theorem
 
 //#draft[Lilian Weng @noauthor_policy_2018]
 Sutton & Barto @sutton_reinforcement_2018 present the Policy Gradient theorem as a fundamental result enabling policy gradient algorithms.
-It rewrites the gradient of the objective $J(theta)$ as:
+It provides a tractable expression for the gradient of the expected return under a differentiable stochastic policy.
+Let $pi_theta (a | s)$ be a differentiable policy and $J(theta)$ the expected return (@eq:rl:intro:pg_algorithms:expected_return).
+Then:
 $
-  nabla_theta J(theta)
-    &= nabla_theta
-      sum_(s in cal(S)) d_(pi_theta) (s)
-      sum_(a in cal(A)) Q^(pi_theta) (s, a) pi_theta (a | s)\
-    &prop
-      sum_(s in cal(S)) d_(pi_theta) (s)
-      sum_(a in cal(A)) Q^(pi_theta) (s, a) nabla_theta pi_theta (a | s),
+  nabla_theta J(theta) =
+    EE_(s~ d_(pi_theta), a~pi_theta) [
+      nabla_theta log pi_theta (a | s) Q_(pi_theta)(s, a)
+    ]
 $
 <eq:rl:intro:policy_gradient_theorem>
-where:
-- $pi_theta$ is the policy parametrized by the set of parameters $theta$;
-- $tau$ is a trajectory, i.e., a sequence of states, actions, and rewards;
-- $R(tau)$ is the return of the trajectory $tau$, also referred to as the cumulative reward.
+//$
+//  nabla_theta J(theta)
+//    &= nabla_theta
+//      sum_(s in cal(S)) d_(pi_theta) (s)
+//      sum_(a in cal(A)) Q^(pi_theta) (s, a) pi_theta (a | s)\
+//    &prop
+//      sum_(s in cal(S)) d_(pi_theta) (s)
+//      sum_(a in cal(A)) Q^(pi_theta) (s, a) nabla_theta pi_theta (a | s),
+//$
+//where:
+//- $pi_theta$ is the policy parametrized by the set of parameters $theta$;
+//- $tau$ is a trajectory, i.e., a sequence of states, actions, and rewards;
+//- $R(tau)$ is the return of the trajectory $tau$, also referred to as the cumulative reward.
 
-*Proof:*
-$
-  nabla_theta V^pi (s)
-  &= nabla_theta
-    (sum (a in cal(A)) pi (a | s) Q^pi (s, a))\
-    
-  &= sum_(a in cal(A)) lr(
-    [
-      nabla_theta pi (a | s) Q^pi (s, a)
-      + pi (a | s) nabla_theta Q^pi (s, a)
-    ],
-    size: #200%
-  )\
-  
-  &= sum_(a in cal(A)) [
-      nabla_theta pi (a | s) Q^pi (s, a)
-      + pi (a | s) nabla_theta sum_(s' in S, r in cal(R) #todo) P(s', r | s, a) (r + V^pi (s'))
-  ]\
-  
-  &= sum_(a in cal(A)) [
-      nabla_theta pi (a | s) Q^pi (s, a)
-      + pi (a | s) sum_(s' in S, r in cal(R)) P(s', r | s, a) nabla_theta V^pi (s')
-  ]\
-  
-  &= sum_(a in cal(A)) [
-      nabla_theta pi (a | s) Q^pi (s, a)
-      + pi (a | s) sum_(s' in S) P(s' | s, a) nabla_theta V^pi (s')
-    ].
-    #todo
-$
+#include "policy_gradient_theorem_proof.typ"
+
+This result shows that policy gradients can be estimated using samples from the environment without requiring gradients through the environment's dynamics.
+In practice, $#q-pi-theta (s, a)$ is often replaced by the empirical return $G_t$​, an advantage estimate, or a critic’s learned value.
+
 
 ==== Advantage Estimation
 <sec:rl:intro:policy_gradient_algos:gae>
 
-Policy gradient methods
-#todo
-
-Schulman et al. @schulman_high-dimensional_2018
+In the policy gradient expression given by the theorem (@eq:rl:intro:policy_gradient_theorem), the expected return is weighted by the Q-function.
+However, estimating $#q-pi (s, a)$ directly can be challenging in practice due to its high variance, especially when using sample-based estimates.
+To address this, many policy gradient algorithms rely on advantage functions, which capture how much better (or worse) an action is compared to the average action at a given state.
 
 *Advantage function.*
 The advantage function is defined as:
 $
   A^pi (s_t, a_t) := Q^pi (s_t, a_t) - V^pi (s_t),
 $
-where,
-- $V^pi (s_t) := EE_(s_(t+1:infinity), \ a_(t:infinity)) [ sum_(i=0)^(+infinity) r_(t+i) ]$,
-- $Q^pi (s_t, a_t) := EE_(s_(t+1:infinity), \ a_(t+1:infinity)) [ sum_(i=0)^(+infinity) r_(t+i) ]$.
-#draft[TODO: remove when I will have added the definition in a previous section]
-
+This formulation provides a more targeted signal for learning: instead of reinforcing actions that are merely good in absolute terms, it favors those that are better than expected.
+The use of advantage estimates has become standard in modern actor-critic algorithms.
 
 *Estimation.*
 Estimation of the advantage function has been discussed by Schulman et al. @schulman_high-dimensional_2018.
@@ -120,7 +104,7 @@ Indeed, as $V(s_t)$ is not the exact value function $V^(pi, gamma)$ for this pol
 However, this bias decreases when $k -> + infinity$ as the term $V(s_(t+k))$ becomes increasingly dampened.
 $V(s_t)$ remains constant among the class of estimators and thus does not affect the relative bias of $hat(A)_t^((k))$.
 Although being asymptotically unbiased, $hat(A)_t^((infinity))$ has a high variance.
-The estimator's variance is an increasing function of $k$ as more and more terms $r_(t+k)$ are summed as $k$ grows.
+The variance increases with $k$, as each additional term $r_(t+k)$ introduces more uncertainty into the estimator.
 
 *#acr("GAE").*
 Schulman et al. @schulman_high-dimensional_2018 proposed a novel estimation method by combining all the estimators $hat(A)_t^((k))$ into a single one.
@@ -134,21 +118,31 @@ $
     + dots
   ),
 $
+<eq:rl:intro:gae_def>
 where $gamma$ is the #acr("MDP")'s discount factor and $lambda$ is a hyperparameter that controls the estimator's bias-variance tradeoff.
-It can be shown that this expression simplifies to:
+When $lambda=0$, #acr("GAE") reduces to a one-step temporal difference estimate (similar to $"TD"(0)$), which has low variance but may be biased due to relying heavily on the learned value function.
+When $lambda=1$, it approximates a Monte Carlo return by summing full future rewards, yielding an unbiased but high-variance estimate.
+By tuning $lambda$, one can interpolate between these extremes, making #acr("GAE") a versatile and effective estimator.
+
+It can be shown that @eq:rl:intro:gae_def simplifies to:
 $
   hat(A)_t^("GAE"(gamma, lambda))
     = sum_(k=0)^(infinity)
     (lambda gamma)^k delta_(t + k) ^V.
 $
 Therefore, the #acr("GAE") estimator is the exponentially-decayed sum of rewards.
-
+In practice, it has become a standard component in modern actor-critic methods, such as #acr("PPO") @schulman_proximal_2017 and A3C @mnih_asynchronous_2016.
 
 #reset-acronym("PPO")
 ==== The #acr("PPO") Algorithm
 <sec:rl:intro:ppo>
 
-The #acr("PPO") algorithm has been used extensively in the #acr("RL") field since its invention in 2017 @schulman_proximal_2017.
+#acr("PPO") is a widely adopted reinforcement learning algorithm known for its balance between implementation simplicity and robust performance.
+It has been effectively applied in various domains, including robotics and autonomous navigation @taheri_deep_2024.
+For instance, PPO has been utilized to train mobile robots for safe navigation in complex environments, demonstrating improved stability and obstacle avoidance capabilities.
+Additionally, PPO has been employed in multi-robot systems to optimize path planning and reduce navigation time through effective conflict resolution strategies.
+
+The #acr("PPO") algorithm @schulman_proximal_2017 has been used extensively in the #acr("RL") field since its invention in 2017 .
 #draft[give examples]
 Its main advantages are its relative simplicity and efficiency.
 It is claimed to be more stable than other algorithms, especially for continuous action spaces @schulman_proximal_2017.

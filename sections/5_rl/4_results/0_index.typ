@@ -287,10 +287,25 @@ The agent neural network's backbone is pre-trained on the supervised static #acr
 It outputs #dim-features-value;-dimensional feature vectors that are highly correlated with the source localization.
 To assess the impact of this choice, we conduct an ablation study where different initialization strategies are tested.
 In addition to our regular initialization strategy, we train an agent where the entire network is initialized from scratch, with no pre-training.
+All three agents are trained on the directional #wer-cost;-based environment.
 We include an extra variation in which the backbone is pre-trained on the localization task, but whose weights are not frozen during the #acr("RL") training phase.
 The directional #acr("WER") cost is used to train and evaluate all agents.
 @table:rl:results:backbone_pretraining reports the main evaluation metrics #mean-cum-reward and #mfc.
+The performance of #pi-safe-random is also reported for reference.
 
 #include "tables/backbone_pretraining.typ"
 
-#todo
+First, training the backbone from scratch does not succeed.
+The end-to-end agent cannot learn directly from the raw acoustic observations.
+Pre-training the feature extractor on a supervised localization task appears to be crucial to solving the present navigation problem.
+Training the proposed architecture from scratch might be achievable, but would probably require more #acr("PPO") iterations and a slower learning rate.
+Secondly, and more surprisingly, our attempt at fine-tuning the localizer's backbone has failed too.
+Even though the backbone's weights were initialized from the pre-trained checkpoint, #acr("PPO") could not learn a satisfying navigation policy.
+We hypothesize that the training hyperparameters that have been tuned for working with the frozen backbone cannot fine-tune the backbone stably.
+More precisely, the learning rate of $10^-3$, coupled with #acr("PPO")'s highly chaotic early training regime, is probably altering the pre-trained backbone weights before learning a working policy.
+A two-stage training process appears to be a plausible solution to this problem.
+At first, its goal would be to prevent perturbing the feature extractor while the actor and critic are stabilized.
+In a second time, it could be unfrozen and fine-tuned with a lower learning rate.
+
+To conclude, this study confirms the relevance of pre-training the agent's feature extractor.
+It permits rapid learning of a navigation policy by employing minimal #acr("MLP")-style actor and critic networks that ingest the localization feature vectors.

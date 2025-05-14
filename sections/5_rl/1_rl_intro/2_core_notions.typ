@@ -30,7 +30,7 @@ The stochastic sequential decision problems are modeled using the #acr("MDP") fr
 It is based on the work of Andrey Markov in the early 20th century about stochastic processes.
 Notably, the Markov process defines a process in which future states only depend on the current state, but not on the sequence that preceded it.
 Bellman later extended Markov processes to add a decision aspect, introducing the #acr("MDP") @bellman_dynamic_1957.
-An #acr("MDP") consist of a tuple $<cal(S), cal(A), P, r, gamma>$.
+An #acr("MDP") consists of a tuple $<cal(S), cal(A), P, r, gamma>$.
 - $cal(S)$: The state space defines the set of all attainable states for the problem.
   Both discrete (finite or not) and continuous spaces are valid in this context.
 - $cal(A)$: The action space is the mathematical space in which the agent's actions are defined. It may be discrete or continuous, and either bounded or unbounded. It can also be multi-dimensional, in which case it is typically expressed as the Cartesian product of simpler subspaces.
@@ -53,19 +53,26 @@ $
 Discounting models the idea that immediate rewards are more valuable or certain than distant ones, and helps prioritize short-term gains while still accounting for long-term outcomes.
 The agent's goal is to learn a policy $pi$ that maximizes the expected return $EE_pi [G_t]$, averaged over trajectories it generates through interaction with the environment.
 $gamma$ denotes the previously introduced #acr("MDP") discount factor.
-It ensures that the gain remains bounded as long as $abs(r_(t+k+1))$ is also bounded.
+It ensures that the return remains bounded as long as $abs(r_(t+k+1))$ is also bounded.
 
 *Policy.*
 The policy denotes a function or algorithm that maps each state to a probability distribution over the action space.
+//#func-def(
+//  $pi(dot|dot)$,
+//  $cal(A) times cal(S)$,
+//  $[0, 1]$,
+//  $(a, s)$,
+//  $P(a_t = a | s_t = s).$,
+//)
 #func-def(
-  $pi(dot|dot)$,
-  $cal(A) times cal(S)$,
-  $[0, 1]$,
-  $(a, s)$,
-  $P(a_t = a | s_t = s).$,
+  $pi$,
+  $cal(S)$,
+  $cal(P)(cal(A))$,
+  $s$,
+  $pi(dot | s).$,
 )
 
-The policy, being a distribution over the action space, can take various forms.
+As a distribution over the action space, the policy can take various forms.
 For finite #acrpl("MDP"), i.e. when both the action and state spaces are finite, the policy is a $abs(cal(S)) times abs(cal(A))$ matrix:
 $
   lr(

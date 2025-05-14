@@ -47,6 +47,20 @@
    && input & arrow.r.long.bar  output
 $
 
+#let proof(body) = block(
+  inset: (x: 1em, y: 1em),
+  width: 100%,
+  fill: rgb("#EEEEEE"),
+  {
+    [_Proof._ ]
+    body
+    h(1fr)
+    sym.wj
+    sym.space.nobreak
+    $qed$
+  }
+)
+
 /* FIGURES */
 // Numbering
 #let fig-numbering = fig_num => {

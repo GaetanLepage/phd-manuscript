@@ -44,9 +44,10 @@
   )
 
   // Set the body font. (needs to be installed manually: let's use the default one)
+  let default-font-size = 12pt
   set text(
     //font: ("Utopia LaTeX"),
-    size: 12pt
+    size: default-font-size,
   )
 
   // Configure page size and margins.
