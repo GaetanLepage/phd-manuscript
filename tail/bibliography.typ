@@ -32,7 +32,7 @@
 
     // Chap. 4: Active SSL
     "/sections/4_active_ssl/bibliography.bib",
-    "/sections/4_active_ssl/2_method/bibliography.bib",
+    "/sections/4_active_ssl/3_method/bibliography.bib",
 
     // Chap. 5: RL
     "/sections/5_rl/1_rl_intro/bibliography/rl_general.bib",

@@ -475,7 +475,7 @@ They discovered that the rat uses the #acr("ILD") as a critical cue to localize 
 This highlights the biological motivation of interaural features and confirms its relevance.
 
 
-#include "figures/spectral_features/figure.typ"
+#include "figures/spectral_features/fig.typ"
 
 
 @fig:ssl:sota:tf_representations provides example of each aforementioned spectral representations.

@@ -161,7 +161,7 @@ They all offer a degree of configurability.
 The pattern of the microphones can be adjusted, especially.
 Also, the relative distances and orientations of the microphones are alterable.
 
-#include "figures/mic_arrays/figure.typ"
+#include "figures/mic_arrays/fig.typ"
 
 The arrows depict each microphone's orientation.
 The position of the array, although virtual, is represented by a diamond ($colMath(diamond.filled, #rgb(128, 0, 128))$).

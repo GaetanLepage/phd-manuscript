@@ -44,7 +44,7 @@ Apart from which library performs the acoustic simulation, every parameter remai
 We profile the simulator's execution in both cases to study the relative importance of the different computation steps.
 The _py-spy_ @frederickson_benfredpy-spy_2025 and _vprof_ @volynets_nvdvvprof_2025 utilities are employed to perform this profiling.
 
-#include "flamegraphs/figure.typ"
+#include "flamegraphs/fig.typ"
 #include "table.typ"
 
 @fig:simulator:simulator:performance:flamegraphs displays the resulting flame graphs.

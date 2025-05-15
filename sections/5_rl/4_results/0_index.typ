@@ -30,7 +30,7 @@ This study confirms the relevance of developing a navigation policy that improve
 More specifically, we focus on the $T_60=500"ms"$ case, which grants an interesting framework for this navigation task.
 
 
-#include "figures/wer_maps/figure.typ"
+#include "figures/wer_maps/fig.typ"
 
 *Cost Map Directionality*
 The map is considered omnidirectional when the cost function is invariant in the agent orientation #agent-ori.
@@ -42,7 +42,7 @@ Each subfigure corresponds to a given agent orientation.
 For a given agent position, the #acr("WER") cost can vary significantly depending on whether the agent is facing the source.
 The following experiments investigate the agent's performance when trained with directional and omnidirectional costs.
 
-#include "figures/directional_wer_map/figure.typ"
+#include "figures/directional_wer_map/fig.typ"
 
 
 === Reward Design
@@ -144,7 +144,7 @@ Furthermore, trajectories are also saved to assess the agent's behavior qualitat
 Examples of trajectories are represented on @fig:rl:results:trajectories.
 The agent can learn #pi-optimal, the policy of navigating to the source, thus minimizing the associated #wer-cost cost.
 
-#include "figures/trajectories/figure.typ"
+#include "figures/trajectories/fig.typ"
 
 A quantitative study of the agent's navigation performance is also conducted.
 After training, a series of #n-ep episodes are executed to assess the performance of the #acr("RL") pipeline.
@@ -236,7 +236,7 @@ Setting $eta$ to 0 gives the omnidirectional formulation of the analytical cost.
 @fig:rl:results:analytical_map plots the analytical cost $C$ for the east orientation, i.e., where the agent is facing right in this figure's frame.
 As #analytical-cost has a closed-form definition, the resulting cost maps are considerably smoother and less noisy than #acr("WER") maps.
 
-#include "figures/analytical_map/figure.typ"
+#include "figures/analytical_map/fig.typ"
 
 To evaluate the impact of the cost function on the learned policy, we start by training the deep neural agent on both cost variants to later evaluate them on the same final target environment.
 Indeed, the average cumulated reward (#mean-cum-reward) and the mean final cost (#mfc) are not comparable across environments, as the same navigation policy would lead to different values.

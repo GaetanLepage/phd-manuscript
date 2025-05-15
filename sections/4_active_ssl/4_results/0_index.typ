@@ -67,7 +67,7 @@ We pick a random starting side (top, bottom, left, or right) and randomly place 
 The agent aims in a random direction, yet it is ensured to turn its back to the wall it starts from.
 The range of possible initial orientations can be observed on @fig:active_ssl:results:dataset_init.
 
-#include "figures/dataset_setup/figure.typ"
+#include "figures/dataset_setup/fig.typ"
 
 Regarding the movement policy, at each step, the new orientation $theta_t+1$ of the agent is sampled from the following normal distribution of mean $theta_t$ and variance $sigma_theta^2$:
 $
@@ -266,7 +266,7 @@ In other words, a #doa spectrum $hat(o)$ is transformed in the following way:
 $
   hat(o)' = max(hat(o), bb(1)_(hat(o) > #doa-t)).
 $
-#include "figures/doa_spectrum_amplif/figure.typ"
+#include "figures/doa_spectrum_amplif/fig.typ"
 
 @fig:active_ssl:results:doa_spectrum_amplif displays this peak amplification process on an arbitrary example.
 In @fig:active_ssl:results:doa_spectrum_amplif_maps, one can see the consequence of this process on the #doa maps.

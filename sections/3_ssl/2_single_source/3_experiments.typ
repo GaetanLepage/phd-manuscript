@@ -171,7 +171,7 @@ Daniel Stoller @stoller_spectrogram_2017 presents two strategies for spectrogram
 // The former by $arg(L)$ and $arg(R)$ on two distinct channels and the latter by the ratio $arg(L) / arg(R)$ on a single one.
 // $L$ and $R$ denote the spectrograms from the left and right microphones, respectively.
 
-#include "figures/input_features_loss/figure.typ"
+#include "figures/input_features_loss/fig.typ"
 
 Furthermore, we have explored the relative importance of the individual sub-features for each category.
 The network was retrained with more granular features.

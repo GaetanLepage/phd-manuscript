@@ -1,43 +1,8 @@
 #import "/utils.typ": *
 #import "../_notations.typ": *
 
-== Methods
-<sec:active_ssl:methods>
-
-=== Problem Formulation
-
-As presented in @sec:active_ssl:background, experimenting with #acr("SSL") in a dynamic robotic context presents challenges and opportunities.
-In this work, we introduce and explore an #acr("ASSL") problem, motivated by the extension of the static #acr("SSL") methods developed in @chap:ssl to more realistic situations.
-Indeed, estimating both distance and #doa from a single recording has been shown to be a challenging version of the #acr("SSL") problem.
-Grumiaux et al. @grumiaux_survey_2021 insist on this difficulty in their survey by highlighting the relative scarcity of the literature in this specific area.
-Neither the single-source nor multi-source localizer introduced in the previous chapter supports accurate distance prediction.
-Theoretically, though, aggregating solely angular information accumulated over time by a mobile robot could allow for predicting the actual location of sources in a room.
-
-
-More precisely, a robotic agent moves in a room with one or several human speakers.
-We adopt a step-based representation in which the robot performs movements at discrete time steps.
-Each movement consists of a rotation of angle $theta_t$ and a translation of distance $d_t$ in the new direction.
-The robot's movement at time step $t$ is thus written as $delta_t = (d_t, theta_t)$.
-Its trajectory is assumed to be determined by an external policy that should not be affected.
-Thus, the developed method aims to localize each source's relative position in real time.
-To enforce the real-time constraint in this modeling, each step's duration is limited to a few hundred milliseconds.
-The method is provided with the recorded signal at each microphone of the agent corresponding to this time frame.
-
-*Horizon.*
-This framework appears similar to the previously used static formulation of #acr("SSL").
-However, the input data also encompasses information about the last relative movement of the robot.
-Indeed, our approach aggregates the localization estimates for several time points.
-Although the #acr("ASSL") solution should not dictate the movement policy, the agent's displacements are accessible to the localization module.
-These data allow the model to accumulate knowledge along several consecutive steps to refine its prediction for the current sources' positions.
-The number of steps after which the method's output is evaluated will be denoted as the horizon $H$.
-Notably, only relative movement information may be leveraged to perform the task, as the absolute agent position remains unknown.
-In this aspect, this formulation differs from problems where the robot's localization is also available.
-
-Sound sources model talking humans present at arbitrary positions within the room.
-Their positions are assumed to be static for an entire episode of $H$ steps.
-This simplifying assumption is necessary for the development of our current work.
-Future work may have to consider more complex source behaviors.
-
+== Method
+<sec:active_ssl:method>
 
 === Pipeline Overview
 
@@ -87,7 +52,7 @@ Hence, a pixel's intensity equals the #doa spectrum's value at the corresponding
 By construction, the value of this 2D function remains constant along lines where $theta = arctan(x/y)$ is constant.
 This leads to a mixture of cone shapes originating at the center of the egocentric map.
 
-#include "figures/doa_map/figure.typ"
+#include "figures/doa_map/fig.typ"
 
 *Shifting.*
 At each step, the method gets the #doa maps $(M_(t-H+1), dots, M_(t-1))$ from the $H-1$ previous steps.
@@ -102,7 +67,7 @@ This corresponds to lines 12-16 of @algo:active_ssl:algo.
 The #fov parameter $L$ has to be chosen carefully.
 Its impact will be studied in a later section.
 
-#include "figures/shift/figure.typ"
+#include "figures/shift/fig.typ"
 
 
 === Aggregation Strategies
