@@ -48,7 +48,7 @@ The key idea is to construct and refine an egocentric 2D likelihood map of sourc
 Two aggregation strategies are explored: a naive averaging approach and a learned blending network based on a U-Net architecture.
 The final source positions are extracted via a spatial clustering algorithm (DBSCAN), enabling the system to handle an arbitrary number of concurrent speakers.
 Experiments reveal the critical role of trajectory length (horizon), feature resolution, and the quality of the upstream #acr("SSL") model in determining localization accuracy.
-While the method is constrained to static sources and simulated environments, it demonstrates that spatial reasoning can be significantly improved by leveraging motion—even in the absence of ground-truth robot positions or multimodal sensing.
+While the method is constrained to static sources, it demonstrates that spatial reasoning can be significantly improved by leveraging motion—even in the absence of ground-truth robot positions or multimodal sensing.
 
 
 === Perceptually Guided Navigation via Deep Reinforcement Learning

@@ -4,7 +4,7 @@
 == Experiments
 <sec:rl:results>
 
-After designing and implementing the complete #acr("RL") pipeline presented in the previous section, we turn to an experimental study of its capabilities and performance.
+After designing and implementing the complete #acr("RL") pipeline presented in the previous section, we proceed with experimental study of its capabilities and performance.
 
 === ASR Performance in a Reverberant Room
 
@@ -139,7 +139,7 @@ On the contrary, the agent trained with the regular #acr("WER") cost successfull
 We report qualitative and quantitative results to evaluate the proposed method on the main navigation task.
 The goal is to assess how the model performs in the environment once trained with the #acr("PPO") algorithm.
 The evaluation consists of running several episodes where the agent acts according to the learnt policy.
-We record various metrics and monitoring quantities to evaluate the navigation performance later.
+We record various metrics to evaluate the navigation performance later.
 Furthermore, trajectories are also saved to assess the agent's behavior qualitatively.
 Examples of trajectories are represented on @fig:rl:results:trajectories.
 The agent can learn #pi-optimal, the policy of navigating to the source, thus minimizing the associated #wer-cost cost.
@@ -179,13 +179,43 @@ Also, #pi-theta is trained $#n-rep = 8$ times from scratch on each environment, 
 #pi-still and #pi-orient have the same performance on the omnidirectional environment, where the agent's orientation does not affect the cost value.
 In contrast, the #acr("MFC") of #pi-orient is lower than that of #pi-still, with the directional cost as facing the source contributes to reducing the #acr("WER") on average.
 The low cumulated reward achieved by #pi-random is caused by the agent repeatedly hitting the room walls and being penalized by the #reward-wall-penalty penalty.
-#todo
+By contrast, #pi-safe-random achieves a similar mean final cost, but does not see its reward impacted by the wall hit penalty.
 The trained deep neural policy #pi-theta outperforms all baselines on the two environments.
 It significantly improves the #acr("MFC") over other navigation strategies.
 Reducing the #acr("WER") from around 20% to 5.69% in the omnidirectional case and 8.59% in the directional case would considerably help a real robot understand the human speaker.
 
 #include "tables/wer_performance_vs_baselines.typ"
 
+
+=== Importance of Localization Feature Extraction
+<sec:rl:results:backbone_init>
+
+The agent neural network's backbone is pre-trained on the supervised static #acr("SSL") task.
+It outputs #dim-features-value;-dimensional feature vectors that are highly correlated with the source localization.
+To assess the impact of this choice, we conduct an ablation study where different initialization strategies are tested.
+In addition to our regular initialization strategy, we train an agent where the entire network is initialized from scratch, with no pre-training.
+All three agents are trained on the directional #wer-cost;-based environment.
+We include an extra variation in which the backbone is pre-trained on the localization task, but whose weights are not frozen during the #acr("RL") training phase.
+The directional #acr("WER") cost is used to train and evaluate all agents.
+@table:rl:results:backbone_pretraining reports the main evaluation metrics #mean-cum-reward and #mfc.
+The performance of #pi-safe-random is also reported for reference.
+
+#include "tables/backbone_pretraining.typ"
+
+First, training the backbone from scratch does not succeed.
+The end-to-end agent cannot learn directly from the raw acoustic observations.
+Pre-training the feature extractor on a supervised localization task appears to be crucial to solving the present navigation problem.
+Training the proposed architecture from scratch might be achievable, but would probably require more #acr("PPO") iterations and a slower learning rate.
+Secondly, and more surprisingly, our attempt at fine-tuning the localizer's backbone has failed too.
+Even though the backbone's weights were initialized from the pre-trained checkpoint, #acr("PPO") could not learn a satisfying navigation policy.
+We hypothesize that the training hyperparameters that have been tuned for working with the frozen backbone cannot fine-tune the backbone stably.
+More precisely, the learning rate of $10^-3$, coupled with #acr("PPO")'s highly chaotic early training regime, is probably altering the pre-trained backbone weights before learning a working policy.
+A two-stage training process appears to be a plausible solution to this problem.
+At first, its goal would be to prevent perturbing the feature extractor while the actor and critic are stabilized.
+In a second time, it could be unfrozen and fine-tuned with a lower learning rate.
+
+To conclude, this study confirms the relevance of pre-training the agent's feature extractor.
+It permits rapid learning of a navigation policy by employing minimal #acr("MLP")-style actor and critic networks that ingest the localization feature vectors.
 
 
 === Alternative Cost Maps
@@ -279,33 +309,3 @@ Hence, transferring a policy trained on the directional analytical cost is not w
 
 
 #include "tables/maps_comparison.typ"
-
-=== Importance of Localization Feature Extraction
-<sec:rl:results:backbone_init>
-
-The agent neural network's backbone is pre-trained on the supervised static #acr("SSL") task.
-It outputs #dim-features-value;-dimensional feature vectors that are highly correlated with the source localization.
-To assess the impact of this choice, we conduct an ablation study where different initialization strategies are tested.
-In addition to our regular initialization strategy, we train an agent where the entire network is initialized from scratch, with no pre-training.
-All three agents are trained on the directional #wer-cost;-based environment.
-We include an extra variation in which the backbone is pre-trained on the localization task, but whose weights are not frozen during the #acr("RL") training phase.
-The directional #acr("WER") cost is used to train and evaluate all agents.
-@table:rl:results:backbone_pretraining reports the main evaluation metrics #mean-cum-reward and #mfc.
-The performance of #pi-safe-random is also reported for reference.
-
-#include "tables/backbone_pretraining.typ"
-
-First, training the backbone from scratch does not succeed.
-The end-to-end agent cannot learn directly from the raw acoustic observations.
-Pre-training the feature extractor on a supervised localization task appears to be crucial to solving the present navigation problem.
-Training the proposed architecture from scratch might be achievable, but would probably require more #acr("PPO") iterations and a slower learning rate.
-Secondly, and more surprisingly, our attempt at fine-tuning the localizer's backbone has failed too.
-Even though the backbone's weights were initialized from the pre-trained checkpoint, #acr("PPO") could not learn a satisfying navigation policy.
-We hypothesize that the training hyperparameters that have been tuned for working with the frozen backbone cannot fine-tune the backbone stably.
-More precisely, the learning rate of $10^-3$, coupled with #acr("PPO")'s highly chaotic early training regime, is probably altering the pre-trained backbone weights before learning a working policy.
-A two-stage training process appears to be a plausible solution to this problem.
-At first, its goal would be to prevent perturbing the feature extractor while the actor and critic are stabilized.
-In a second time, it could be unfrozen and fine-tuned with a lower learning rate.
-
-To conclude, this study confirms the relevance of pre-training the agent's feature extractor.
-It permits rapid learning of a navigation policy by employing minimal #acr("MLP")-style actor and critic networks that ingest the localization feature vectors.

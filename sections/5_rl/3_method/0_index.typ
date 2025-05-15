@@ -150,10 +150,10 @@ As the absolute #acr("ASR") performance is not particularly relevant for this pr
 *ASR setup.*
 We compute the #acr("WER") score using the _jiwer_ @vaessen_jitsijiwer_2024 library.
 To compute the minimum edit distance, it wraps the fast C++ matching library _RapidFuzz_ @max_bachmann_2024_10938887.
-The calculation of the metric has no significant impact on performance.
+The calculation of the metric has negligible impact on runtime performance.
 However, running the #speechbrain #acr("ASR") model is highly computationally expensive.
-When the model is run in inference mode to evaluate its performance on 100 samples from the #librispeech dataset, 96% of the time is spent on the speech recognition process.
-On the contrary, less than 1% is spent computing the #acr("WER") score.
+When the model is run in inference mode to evaluate its performance on 100 samples from the #librispeech dataset, approximately 96% of the total runtime is spent on the speech recognition process.
+On the contrary, less than 1% is used for computing the #acr("WER").
 We perform this test on an RTX A6000 NVIDIA GPU that gets fully utilized by this decoding task.
 The _RapidFuzz_ library runs directly on the CPU.
 Notably, the decoding process remains slow: It takes approximately 2s to process a single 16s sentence at 16kHz.

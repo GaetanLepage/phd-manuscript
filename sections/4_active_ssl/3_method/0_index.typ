@@ -65,7 +65,9 @@ The result of this operation will be denoted as $tilde(M)_t'$.
 Of course, we have $tilde(M)_t = M_t$ as the current map does not need to be shifted.
 This corresponds to lines 12-16 of @algo:active_ssl:algo.
 The #fov parameter $L$ has to be chosen carefully.
-Its impact will be studied in a later section.
+If $L$ is too small, information gathered during earlier steps may fall outside the current map and become unusable for aggregation.
+Conversely, a very large $M$ may dilute spatial resolution or introduce irrelevant areas into the heatmap estimation.
+Its impact will be studied in more detail in a later section.
 
 #include "figures/shift/fig.typ"
 

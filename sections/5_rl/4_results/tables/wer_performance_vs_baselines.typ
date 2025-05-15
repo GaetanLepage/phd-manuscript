@@ -28,11 +28,35 @@
     // Omnidirection: exp300
     // Directional: exp301
 
-    [#pi-still], [1481], [21.13], [1512], [21.37],
-    [#pi-random], [38], [21.27], [37], [22.32],
-    [#pi-safe-random], [], [], [], [],
-    [#pi-orient], [1484], [21.02], [1783], [16.75],
-    [#pi-theta], [*2341*], [*5.69*], [*2272*], [*8.59*],
+    [#pi-still],
+    [#pi-still-rew-wer-omni],
+    [#pi-still-mfc-wer-omni],
+    [#pi-still-rew-wer-dir],
+    [#pi-still-mfc-wer-dir],
+    
+    [#pi-random],
+    [#pi-random-rew-wer-omni],
+    [#pi-random-mfc-wer-omni],
+    [#pi-random-rew-wer-dir],
+    [#pi-random-mfc-wer-dir],
+    
+    [#pi-safe-random],
+    [#pi-safe-random-rew-wer-omni],
+    [#pi-safe-random-mfc-wer-omni],
+    [#pi-safe-random-rew-wer-dir],
+    [#pi-safe-random-mfc-wer-dir],
+    
+    [#pi-orient],
+    [#pi-orient-rew-wer-omni],
+    [#pi-orient-mfc-wer-omni],
+    [#pi-orient-rew-wer-dir],
+    [#pi-orient-mfc-wer-dir],
+    
+    [#pi-theta],
+    [*#exp-300-rew-wer*],
+    [*#exp-300-mfc-wer*],
+    [*#exp-301-rew-wer*],
+    [*#exp-301-mfc-wer*],
 
     bottomrule,
   ),
