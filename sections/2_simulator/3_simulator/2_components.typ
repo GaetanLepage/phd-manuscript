@@ -308,14 +308,8 @@ The orientation of microphones and directional sources is also displayed.
 
 #figure(
   image("figures/simulator_plot.svg", height: 20em),
-  caption: flex-caption(
-    short: [
-      Screenshot of the simulator renderer.
-    ],
-    long: [
-      Screenshot of the simulator renderer.
-      #todo
-    ],
-  )
+  caption: [
+    Screenshot of the simulator renderer.
+  ],
 )
 <fig:simulator:simulator:components:simulator_plot>

@@ -22,38 +22,16 @@ To effectively localize multiple sound sources, we choose to use a four-micropho
 The $n_m = 4$ omnidirectional sensors are arranged in a 2cm wide square.
 
 
-//TOD
-//#gaet[An important difference with the source paper is that I always use the same room ($T_60$, size, ...)]
-//#xavi[This is an implementation detail that you can mention when relevant.]
-
-
 Audio processing has been kept the same, except for the sample duration.
 The latter now amounts to approximately 360ms as 16 #acr("STFT") frames participate to each input of the model.
-// TODO
-//#gaet[This choice is not easy to justify. He uses even less samples (7)]
 
 
 The microphone array and $n_s$ speech sources get randomly positioned in the room.
-Such a choice has lead to challenging samples were multiple targets share very similar #acr("DoA") angles from the agent's point of view.
+Such a choice has led to challenging samples where multiple targets share very similar #acr("DoA") angles from the agent's point of view.
 The resulting #acr("RIR")s are computed to account for the room's reverberation properties.
 Then, each source outputs a clean speech signal randomly chosen from the #librispeech @panayotov_librispeech_2015 dataset.
 The simulator computes the resulting listened signals at each microphone of the array.
 Such signals last around 10 seconds.
-
-//TODO
-// #gaet[
-//   Should we talk about train/val/test splits ? This could also be put in the "training" paragraph of the "method".\
-//   Also, this is the same one as in single-source.
-// 
-// 
-//   
-//   Talk about the size (in GB) of the dataset
-// ]
-// #xavi[Talk about train/val/test when describe training and evaluation]
-// 
-// #gaet[
-//   No need to explain source-wise simulation here if we have already done it in the single-source section (regarding noise)
-// ]
 
 *Source-wise simulation and late mixing.*
 In practice, the sources are not placed simultaneously in the room.
@@ -74,17 +52,15 @@ where $S_k$ and $S_(i, k)$ are the #acr("STFT") of respectively $s_k$ and $s_(i,
 Hence, instead of saving the final features $S = (S_1, dots, S_(n_m))$, we save each source-specific encoding $S_i = (S_(i, 1), dots, S_(i, n_m))$ individually.
 
 This overhead brings complexity to the data collection process but allows for a significant increase in flexibility.
-Indeed, the number of sources plays a prominent role in performance and quantifying this influence has required experimenting with this parameter.
+Indeed, the number of sources plays a prominent role in performance, and quantifying this influence has required experimenting with this parameter.
 Disposing of the audio features relating to each individual source allows for choosing how many sources should be active when loading each data sample from the disk.
 One solely has to sample a set ${i_1, i_2, dots, i_n}$ of sources to enable and sum the relevant source-specific features $S_i_1, dots, S_i_n$.
 The impact of the number of active sources is further studied in @sec:ssl:multi_source:experiments.
-// TODO: replace with @sec:ssl:multi_source:experiments:number_of_sources if it has became its own section again.
-
 
 *Sampling frequency.*
-The method was designed to operate with audio signals sampled at 48kHz, which does not match the 16kHz sample rate of the LibriSpeech @panayotov_librispeech_2015 dataset, which provides the simulator with clean speech utterances.
-To account for this, the simulation of the audio signaled listened by each microphone of the array is operated at the native 16kHz frequency.
-The generated signals are then up-sampled to 48kHz.
+The method was designed to operate with audio signals sampled at 48 kHz, which does not match the 16 kHz sample rate of the LibriSpeech @panayotov_librispeech_2015 dataset, which provides the simulator with clean speech utterances.
+To account for this, the simulation of the audio signale listened by each microphone of the array is operated at the native 16kHz frequency.
+The generated signals are then up-sampled to 48 kHz.
 
 
 *#acr("STFT") representation of audio signals.*
@@ -99,8 +75,8 @@ The consequent #acr("STFT") counts 337 frequency bins.
 *Audio chunking.*
 We finally extract at most five short chunks of 320ms (i.e. 16 frames) from the global #acr("STFT")s.
 This duration constitutes a tradeoff between detection latency and performance.
-The longer the method is offered to listen, the better more accurate the results will be.
-However, in a dynamic robotics context, which we ultimately target, we cannot afford to have long audio sequences for inferring the source positions.
+The longer the method is offered to listen, the more accurate the results will be.
+However, in a dynamic robotics context, which we ultimately target, we cannot afford to use long audio sequences to infer the source positions.
 
 // TODO add the footnote
 #let tau-e = $colMath(tau_E, #orange)$
@@ -111,7 +87,7 @@ We aim at preventing the inclusion of samples were one of the target sources is 
 Given its #acr("STFT") $S in CC^(T times F)$, the average energy
 #footnote[
   Strictly speaking, this quantity is dimensionally equivalent to a spectral energy density.
-  We will further refer to it as _energy_ for the sake of clarity.
+  We will further refer to it as _energy_ for clarity.
 ]
 of a real-valued signal, expressed in decibels (dB), is defined as
 $
@@ -137,8 +113,8 @@ $
       - #tau-e
   ].
 $
-where $colMath(tau_E, #orange)$ has been set to 10dB in our main dataset.
-The average energy of a given chunk can be at most 10dB lower than the one of the entire signal.
+where $colMath(tau_E, #orange)$ has been set to 10dB in our primary dataset.
+The average energy of a given chunk can be at most 10dB lower than that of the entire signal.
 In practice, around 40% of the generated chunks are rejected.
 
 //TODO
@@ -189,16 +165,13 @@ We naturally have
 - $phi.alt_1 = - pi$,
 - $phi.alt_(floor(d/2)) tilde.eq 0$,
 - $phi.alt_d = pi$.
-//TODO
-//#chris[This is already visible from @eq:ssl:multi_source:phi_def Or is this information very important?]
-//#gaet[This was to make it even clearer, but with some plots, it could be enough.]
 
 
-We choose $d = 360$ which corresponds to a $1°$ resolution.
+We choose $d = 360$, corresponding to a $1°$ resolution.
 
-Higher numerical values translate the presence of a source at this location.
+Higher numerical values indicate the presence of a source at this location.
 // TODO not sure how to pluralize DoA
-Those angles, being #acrpl("DoA") are relative to the microphone array's orientation.
+Those angles, being #acrpl("DoA"), are relative to the microphone array's orientation.
 A peak at $0°$ designates the presence of a source in front of the microphones.
 
 // TODO: insert figure
@@ -225,8 +198,6 @@ $
     0 &"otherwise,"
   )
 $
-
-// TODO: insert figure for this case
 
 This approach can be enhanced to allow for a more consistent regression target.
 

@@ -12,7 +12,7 @@ These approaches, while successful in many domains, require hand-engineered mode
 Prior to the rise of deep learning, classic #acr("RL") algorithms had been applied to robotics, often with limited success due to issues like poor sample efficiency and sensitivity to hyperparameters.
 Kober et al. @kober_reinforcement_2013 provide an overview of such early efforts, noting several cases in which #acr("RL") enabled robots to acquire useful behaviors while highlighting the substantial manual engineering required.
 The advent of #acr("DRL"), which integrates deep neural networks as function approximators with #acr("RL") algorithms, has significantly expanded the potential of learning-based control in robotics.
-#acr("DRL") makes it possible to learn policies directly from raw, high-dimensional sensor inputs, such as images, and has demonstrated remarkable success in domains like manipulation, locomotion, and navigation.
+#acr("DRL") makes it possible to learn policies directly from raw, high-dimensional sensor inputs, such as images, and has demonstrated remarkable success in domains like manipulation, locomotion, and navigation @openai_learning_2019 @kalashnikov_scalable_2018.
 
 Since the first notorious #acr("DRL") successes, interest in applying these methods to robotics has grown substantially.
 However, integrating #acr("DRL") into real-world robotic systems remains challenging.

@@ -13,7 +13,7 @@ We will use the modern #acr("DRL") paradigm to train an agent to navigate autono
 First, the general framework of #acr("RL") will be introduced, along with how deep neural networks are leveraged as function approximators in this context.
 Secondly, we will present a problem of perceptually motivated acoustic-based robot navigation and relevant literature.
 This chapter also exposes a proof of concept of a complete pipeline to address this challenging task.
-Finally, experimental results will demonstrate the capacity of the former solution.
+Finally, experimental results will demonstrate the effectiveness of the proposed approach.
 
 
 #include "1_rl_intro/0_index.typ"

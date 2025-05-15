@@ -9,7 +9,6 @@
 
 ==== Custom Dataset for #acr("SSL")
 <sec:ssl:single_source:method:dataset>
-//TODO This section is a mess and needs to be properly re-written along with its @sec:ssl:multi_source:method:dataset sibling.
 
 This study aimed to adapt state-of-the-art #acr("SSL") methods to diverse, challenging setups.
 The audio simulator presented in @chap:simulator has been leveraged to generate various synthetic datasets for experimentation.
@@ -247,59 +246,6 @@ where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (ha
   <eq:ssl:single_source:total_loss>
 ]
 where $kappa$ balances the relative importance of the distance loss in the final result.
-
-// #draft[
-//   // @fig:ssl:single_source:angular_dist_plot plots the value of #l-doa with respect to the value of $theta_2 - theta_1$.
-//   
-//   #todo
-//   // @fig:ssl:single_source:angular_dist_plot plots the value of #l-doa with respect to the value of $theta_2 - theta_1$.
-//   
-//   
-//   The neural network comprises a single output neuron $hat(theta)$ expected to estimate the true value of $theta$.
-//   We will now introduce the loss function used during training.
-// 
-//   // Angular distance
-//   
-// //   #d is represented in blue in @fig:ssl:single_source:angular_dist_plot.
-//   
-//   On the $[-2pi, 2pi]$ interval, #d behaves like the conventional angular periodic distance.
-//   However, for values of $abs(theta_2 - theta_1) > 2pi$, the distance diverges to $+infinity$.
-//   The natural choice would have been to wrap #d in $[0, pi]$ by choosing:
-//   $
-//     d'(theta_1, theta_2) :=
-//       pi
-//       - lr(mabs(
-//           mabs(theta_2 - theta_1)colMath([2pi], #olive)
-//           - pi
-//         )
-//       ).
-//   $
-//   Conversely, this pseudo-distance discourages the network from predicting high magnitudes values of $theta$ even though they would satisfy $theta approx hat(theta)[2pi]$.
-//   Empirically, this choice has shown no effect on neither the training process nor the final results.
-//   
-// 
-//   
-//   //#figure(
-//   //  image("figures/angular_dist_loss.svg"),
-//   //  caption: flex-caption( [
-//   //    Plot of the angular pseudo-distance $colMath(d(theta_1, theta_2), #d-color)$
-//   //    and the angular $ell^2$ loss $colMath(d(theta_1, theta_2)^2, #l-color)$
-//   //    against $theta_2 - theta_1$
-//   //  ],
-//   //  [
-//   //    Plot of the angular pseudo-distance
-//   //    and the angular $ell^2$ loss
-//   //  ])
-//   //)
-//   //<fig:ssl:single_source:angular_dist_plot>
-//   //
-//   //
-//   //The neural network is trained to minimize this objective.
-//   
-// ]
-
-
-
 
 ==== Training Strategy
 <sec:ssl:single_source:method:training_strategy>

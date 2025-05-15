@@ -116,7 +116,7 @@ Safety is another crucial challenge when humans are added to the loop.
 Despite offering substantial advantages for learning robust policies using #acr("DRL"), simulators should be handled carefully.
 Indeed, the end objective of robotics is to design systems that can interact with the real world.
 The performance of policies learned in simulated environments is not guaranteed to transfer to real scenarios.
-Hence, an entire segment of the robotics #acr("DRL") community targets the problem of Sim-to-Real @zhao_sim--real_2021 @peng_sim--real_2018 @tan_sim--real_2018.
+Hence, an entire segment of the robotics #acr("DRL") community targets the problem of sim-to-real @zhao_sim--real_2021 @peng_sim--real_2018 @tan_sim--real_2018.
 This area encompasses the challenge of leveraging simulation while ensuring appropriate behavior and performance of the target physical system.
 These discrepancies are primarily due to differences between the simulator and the real-world environment.
 They can be modeling limitations, numerical imprecisions, unrealistic assumptions, etc.

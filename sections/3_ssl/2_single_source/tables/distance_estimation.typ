@@ -30,14 +30,8 @@
   ),
   placement: top,
   kind: table,
-  caption: flex-caption(
-    short: [
-      SSL performance when estimating the source-microphone distance.
-    ],
-    long: [
-      SSL performance when estimating the source-microphone distance.
-      #todo   
-    ],
-  )
+  caption: [
+    SSL performance when estimating the source-microphone distance.
+  ],
 )
 <table:ssl:single_source:distance_estimation>

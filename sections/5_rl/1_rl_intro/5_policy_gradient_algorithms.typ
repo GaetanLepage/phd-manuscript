@@ -187,6 +187,7 @@ These practical limitations make #acr("TRPO") training computationally expensive
 In @schulman_proximal_2017, Schulman et al. iterate on #acr("TRPO") by proposing the #acr("PPO") algorithm, which solves most of the original algorithm's shortcomings.
 Its main innovation is replacing the #acr("KL") divergence constraint with a clipped surrogate objective, which prevents too-large policy updates without second-order optimization.
 This choice slightly loosens the constraint that #acr("TRPO") imposes but significantly decreases the optimization's computational complexity.
+Bick @bick_towards_2021 offers a comprehensive and accessible dissection of #acr("PPO"), bridging theoretical foundations with practical implementation details.
 
 The #acr("PPO") objective combines three components: a clipped policy loss, a value function loss, and an optional entropy bonus.
 The clipped policy loss is defined as:

@@ -27,8 +27,6 @@ As Hans Moravec observed in the 1980s @moravec_mind_1988, tasks that are easy fo
 This paradox highlights a central challenge of social robotics: while computers can outperform humans in abstract reasoning tasks, they still struggle with sensorimotor skills that even infants master early in life.
 His observation, from 1988, remains highly relevant today as multimodal perception and action remain key challenges in #acr("AI") and robotics.
 
-
-=== Multimodal Perception, a Focus on Acoustics
 === Acoustic Perception in Robotics
 
 Multimodal perception refers to a robot's ability to sense and understand its environment using multiple types of sensory input.
@@ -45,8 +43,7 @@ This task is essential in social robotics as speech is often the primary communi
 #acr("SSL") involves estimating the direction or position of the active audio sources in an environment.
 #acr("SSL") helps robots be more spatially aware by complementing visual features.
 Also, it allows them to know which person is currently speaking and where they are located.
-Therefore, social robots can behave accordingly to the conversation dynamics.
-#acr("SSL") can also provide essential spatial context for navigation tasks.
+While not sufficient on its own, #acr("SSL") enhances a robot's ability to interpret and respond to human interactions and can complement other modalities in navigation tasks.
 
 
 #figure(
@@ -88,13 +85,13 @@ However, these approaches are extremely data-intensive and require considerable 
 #acr("DRL") rapidly achieved impressive results on entirely virtual tasks where interacting with the environment is cost-effective and scalable.
 Some recent works report agents interacting with environments for the equivalent of years of simulated time—OpenAI's Five agent trained on over 180 years of experience @raiman_long-term_2019, while common #acr("DRL") benchmarks like Atari require millions of frames to achieve good performance @mnih_playing_2013.
 By contrast, robots are embodied agents that must interact with the physical world, where each action has a cost.
-This mismatch gives rise to the well-known Sim-to-Real gap—the challenge of transferring policies trained in simulation to real-world hardware.
+This mismatch gives rise to the well-known sim-to-real gap—the challenge of transferring policies trained in simulation to real-world hardware.
 Overall, #acr("DRL") is a powerful framework for robotics, with many successful applications.
 However, it still faces key limitations, including poor generalization, sample inefficiency, and limited interpretability.
 
 === Acoustic Localization and Navigation to Enhance Perception
 
-Perceptually-motivated navigation is an interesting example of a complex multimodal robotics tasks.
+Perceptually-motivated navigation is a canonical example of a complex multimodal robotics tasks.
 It can be framed in various ways, depending on the context and the targeted application.
 Robots must often perform complex tasks that require gathering information and planning actions with foresight.
 Moreover, robots rarely have full observability.
