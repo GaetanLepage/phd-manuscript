@@ -2,29 +2,41 @@
 
 == Challenges and Limitations
 
-*Restriction to simulated environments.*
-Simulation provides a considerable amount of convenience when testing learning-based approaches for robotics.
-It allows large datasets to be gathered to train deep neural networks without the costly, manual recording of real data.
-Also, simulation offers a flexible sandbox for evaluating the performance of algorithms.
-Large-scale comparative evaluation campaigns become feasible.
-However, restricting our study to virtual environments is an obvious shortcoming of this thesis.
-Ideally, the developed models would benefit from being tested on a robotic platform.
-The #acr("SSL") literature insists on the challenges of integrating localizers on real robots. #draft[add citation].
-Similarly, in #acr("RL"), adapting policies trained in simulators to physical platforms is a research area in itself.
-The numerous works on _Sim2Real_ #draft[Add citation] study these difficulties.
-A fine-tuning phase is often necessary to bridge the performance gap, which is inevitably initially observed.
-More generally, roboticists have extensively covered the shortcomings of simulation.
 
-*Overly simplified problems.*
-Tackling the different acoustic problems we chose to study has been significantly challenging.
-As such, it was necessary to simplify the initially envisioned tasks.
-Experienced communities have scrutinized each of the acoustic tasks discussed in this thesis.
-#gaet[Ça fait très victimaire. C'est le principe même de la recherche. Je pense qu'il faut au moins reformuler.]
-We have been unable to design truly novel solutions competing with the existing state-of-the-art methods.
-Our investigations would benefit from additional efforts to improve overall performance.
-Switching to more modern architecture, such as attention-based transformers @vaswani_attention_2017 would be a sensible first step in enhancing our current models.
-In the specific case of our #acr("RL") task, only a restricted and sanitized framing was handled.
-The transition to more complex room geometries would probably underscore the need for adaptable policies.
-Our current proof of concept heavily relies on the #acr("SSL") backbone for feature extraction.
-The agent's decision-making capabilities play a minor role in the end, as the optimal policy involves moving in the direction of the source.
-Hardening the problem formulation could make such trivial policies insufficient, fully justifying using #acr("RL") as a framework for this task.
+While the contributions presented in this thesis provide a coherent and reproducible framework for studying audio-based perception and control, several limitations and challenges constrain the scope and generalizability of the results.
+These limitations arise from deliberate design choices, computational constraints, and broader research trade-offs that reflect the current state of deep learning for embodied #acr("AI").
+
+*Simulation-Only Evaluation*
+
+All experiments in this work were conducted within a custom acoustic simulation environment.
+Although this simulator was carefully engineered to model reverberation, spatialization, and microphone configurations with high realism, it inevitably abstracts away many factors present in real-world settings.
+Real acoustic environments involve a broader range of phenomena—such as non-uniform materials, background noise, microphone imperfections, and non-stationary reverberation—that are difficult to model or anticipate.
+
+This reliance on simulation limits the empirical validation of the proposed models and policies.
+In particular, the active localization and reinforcement learning experiments assume perfect control over the agent's movement and audio capture, and do not account for hardware-specific delays, sensor calibration errors, or ambient variability.
+While the simulation-based approach was essential for controlled experimentation and large-scale training, future work will need to address the sim-to-real transfer gap to confirm the applicability of these methods in physical robotic systems.
+
+*Task and Agent Constraints*
+
+Several simplifications were made in the formulation of the localization and navigation tasks.
+First, the #acr("SSL") models assume that all sound sources are static during inference, with no modeling of speaker motion or interruption.
+This assumption facilitates tractable evaluation but limits applicability to dynamic environments.
+In the active localization pipeline, the agent moves in a discrete 2D grid with uniform steps and perfect self-location, without incorporating odometry drift, inertial feedback, or motion constraints typical of real robots.
+
+The agent is modeled as a simple microphone array, without explicit embodiment or interaction with the environment beyond locomotion.
+Notably, Head-related transfer functions (HRTFs), body occlusion effects, and mechanical actuation noise are not accounted for in this work while being highly relevant to embodied auditory sensing.
+While this abstraction enabled a focused study on acoustic perception, it also means that the system does not yet reflect the full complexity of real-world sensing platforms.
+
+The navigation task, in particular, is limited to a single, known room layout with a fixed number of possible source locations.
+Although this constraint was imposed to manage the computational cost of generating and storing #acr("WER") maps, it narrows the diversity of encountered scenarios and may reduce the robustness of the learned policies.
+
+*Engineering and Algorithmic Challenges*
+
+From an engineering perspective, training deep reinforcement learning agents remained non-trivial.
+The #acr("PPO") algorithm, while widely adopted, is known to be sensitive to hyperparameters and implementation details.
+Extensive empirical tuning was required to obtain stable training and meaningful policies.
+This sensitivity introduces reproducibility challenges and increases the barrier to broader adoption.
+
+The design of the reward function—based on #acr("ASR") performance using precomputed WER maps—provided a task-relevant optimization signal but also imposed practical limitations.
+Generating accurate WER maps for multiple source positions is computationally expensive and scales poorly with the number of concurrent speakers or room configurations.
+As a result, the learning environment was deliberately simplified, and the agent was trained with a frozen feature extractor rather than in an end-to-end fashion.
