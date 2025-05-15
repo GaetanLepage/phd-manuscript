@@ -41,4 +41,3 @@
   title: "List of Acronyms",
   outlined: false,
 )
-

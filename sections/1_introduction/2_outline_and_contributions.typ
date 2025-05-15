@@ -17,7 +17,7 @@ To address this, we designed a modular simulator that generates realistic multi-
 The simulator supports customizable microphone arrays, varied source types (speech, noise), and dynamic trajectories for both sources and receivers.
 It integrates two back-end RIR simulation engines: the feature-rich but slower _Pyroomacoustics_ @scheibler_pyroomacoustics_2018, and the high-performance GPU-accelerated _gpuRIR_ @diaz-guerra_gpurir_2021 library.
 Additional layers of abstraction were developed to model robot movement, generate egocentric acoustic features, and simulate realistic interaction scenarios in a step-based pipeline.
-A novel method was also introduced to bootstrap reverberation across short simulation steps, allowing accurate modeling of reverberant tails during dynamic agent movement.
+A novel method was introduced to bootstrap reverberation across short simulation steps, allowing accurate modeling of reverberant tails during dynamic agent movement.
 This simulator, released as open-source research software, is used throughout the thesis for dataset generation, training supervision, and online policy interaction.
 
 
@@ -34,7 +34,7 @@ This analysis offers practical insights into building accurate, low-latency #acr
 The multi-source formulation extends the problem to scenarios with an arbitrary number of active speakers.
 An angular spectrum representation is adopted, framing #acr("SSL") as a continuous regression task.
 A dedicated convolutional architecture is implemented and trained on a large synthetic dataset, with performance evaluated using both fixed and variable source counts.
-Though inspired in part by prior work @he_neural_2021, the pipeline was reimplemented, adapted, and integrated into our experimental framework.
+Inspired in part by prior work @he_neural_2021, the pipeline was reimplemented, adapted, and integrated into our experimental framework.
 Additional contributions include a detailed ablation study on source proximity, context length, and alternative loss formulations.
 
 Together, these experiments establish robust and reproducible baselines for #acr("SSL") in complex environments, forming a foundation for the dynamic and interactive extensions developed in the next chapters.

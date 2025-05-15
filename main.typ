@@ -6,6 +6,7 @@
   author: "Gaétan Lepage",
   include-outlines-in-contents: false,
   boxed-refs: true, // TODO check if we want that
+  highlight-external-links: true, // TODO check if we want that
 )
 
 #set page(numbering: none)

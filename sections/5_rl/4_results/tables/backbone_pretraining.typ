@@ -29,7 +29,7 @@
     // exp 303
     [Pretraining + fine-tuning], [1480], [22.36],
     // exp 304
-    [Pretraining + frozen], [#exp-301-rew-wer], [#exp-301-mfc-wer],
+    [Pretraining + frozen], [*#exp-301-rew-wer*], [*#exp-301-mfc-wer*],
 
     bottomrule,
   ),

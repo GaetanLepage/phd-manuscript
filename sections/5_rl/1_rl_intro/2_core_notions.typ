@@ -26,7 +26,7 @@ This section briefly introduces the main concepts and notations required to furt
 
 #reset-acronym("MDP")
 *#acr("MDP").*
-The stochastic sequential decision problems are modeled using the #acr("MDP") framework.
+The stochastic sequential decision problems are modeled using the #acr("MDP") framework @sutton_reinforcement_2018.
 It is based on the work of Andrey Markov in the early 20th century about stochastic processes.
 Notably, the Markov process defines a process in which future states only depend on the current state, but not on the sequence that preceded it.
 Bellman later extended Markov processes to add a decision aspect, introducing the #acr("MDP") @bellman_dynamic_1957.
@@ -42,7 +42,7 @@ An #acr("MDP") consists of a tuple $<cal(S), cal(A), P, r, gamma>$.
   $
     R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s'].
   $
-- $gamma$: The discount factor in $[0, 1)$ dampens the impact of future rewards and ensures.
+- $gamma$: The discount factor in $[0, 1)$ dampens the impact of future rewards.
 
 *Expected Return Maximization.*
 To guide learning, the agent seeks to maximize the cumulative rewards it collects over time.
@@ -85,10 +85,9 @@ $
     1 <= j <= abs(cal(S))
   ).
 $
-When dealing with continuous action spaces, most methods use a canonical distribution for which they learn the parameters.
+When dealing with continuous action spaces, most methods use classical probability distributions for which they learn the parameters.
 Finding a policy amounts to learning a mapping from the state space to the distribution's parameter space.
-For instance, the Gaussian distribution is often used in modern reinforcement learning.
-Then, the method would associate a mean vector and a covariance matrix with each state.
+A common choice in modern #acr("RL") is the Gaussian distribution, where the policy assigns a mean vector and covariance matrix to each state.
 A probabilistic policy can be used in two ways.
 During reinforcement learning algorithms' training, the action is often selected by sampling the policy #box($a tilde pi (dot | s)$).
 At test time, the most common choice is to pick the optimal action, i.e., the mode of the distribution:

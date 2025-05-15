@@ -3,7 +3,7 @@
 === Reinforcement Learning
 <sec:rl:intro:rl>
 
-Reinforcement Learning draws its origins in two formerly distinct fields.
+#acr("RL") originates from two formerly distinct fields.
 On the one hand, psychology researchers have attempted to understand how humans and animals could learn.
 The American psychologist Edward Lee Thorndike laid out foundational work on animal learning and behavior.
 In his 1911 book _Animal Intelligence: Experimental studies_ @thorndike_animal_1911, Thorndike presented a collection of experiments involving animals solving different tasks.
@@ -21,11 +21,11 @@ This principle stands as a core ingredient of modern theories of learning and be
 The idea of learning progressively and gradually from substantial experience contrasts with the theories stating that animals learn from higher-level reasoning, similar to humans.
 In 1927, Ivan Pavlov detailed the concept of trial-and-error in _Conditioned reflexes: An investigation of the physiological activity of the cerebral cortex_ @pavlov_1927_conditioned_2010.
 Pavlov described reinforcement as the strengthening of a pattern of behavior due to an animal receiving a stimulus—a reinforcer—in an appropriate temporal relationship with another stimulus or with a response @sutton_reinforcement_2018.
-All in all, psychology, by observing animal behaviors, has provided the intuition behind the formulation of #acr("RL") as a framework to solve complex decision problems.
+Overall, psychology, by observing animal behaviors, has provided the intuition behind the formulation of #acr("RL") as a framework to solve complex decision problems.
 
-On the other hand, #acr("RL") has been preceded by the older field of optimal control.
+On the other hand, #acr("RL") has been preceded by the field of optimal control.
 Its objective is to design a controller for a dynamic system that should minimize some cost function.
-Richard Bellman has conducted essential work on this problem, notably by introducing dynamic programming @bellman_dynamic_1957 and the notorious Bellman equation.
+Richard Bellman has conducted essential work on this problem, notably by introducing dynamic programming @bellman_dynamic_1957 and the foundational Bellman equation.
 Dynamic programming is the most general and feasible solution to optimal control problems but it suffers from limitations.
 For instance, when the number of dimensions of the involved control spaces grows too large, they suffer from the curse of dimensionality, which Bellman himself describes.
 #reset-acronym("MDP")
@@ -34,10 +34,10 @@ Those concepts served as foundations of modern reinforcement learning theory and
 
 #acr("TD") learning can be seen as another building block of the #acr("RL") field.
 #acr("TD") learning methods involve leveraging the difference between successive estimates of a given quantity.
-Although this concept was first introduced by Arthur Samuel (1959) @samuel_studies_1959 and Hyman Minsky (1961) @minsky_steps_1961, it has not been directly applied in practice.
+Although first proposed by Arthur Samuel (1959) @samuel_studies_1959 and Hyman Minsky (1961) @minsky_steps_1961, the idea was not widely adopted or implemented at the time.
 In 1972, Harry Klopf @klopf_brain_1972 combined #acr("TD") learning and trial-and-error in its theory of _heterostasis_.
 Klopf's theory was pursued further by Richard Sutton.
-For instance, in 1988, Sutton used temporal-difference learning as a standalone prediction method @sutton_learning_1988.
+For instance, in 1988, Sutton used #acr("TD") learning as a standalone prediction method @sutton_learning_1988.
 He also extended the principle of #acr("TD") learning by inventing the TD$(lambda)$ approach.
 This extension bridges the gap between Monte Carlo methods (which wait until the end of an episode to update values) and one-step TD learning, providing a more flexible framework for #acr("RL").
 Chris Watkins is responsible for a major breakthrough in #acr("RL") by having introduced Q-learning (1989) @watkins_learning_1989.

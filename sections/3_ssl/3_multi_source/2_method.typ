@@ -341,24 +341,7 @@ $
 The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
 ]
 
-// #algorithm({
-//   import algorithmic: *
-//   Function(
-//     "ExtractDetections",
-//     args: ("H", $tau$),
-//     {
-//       Cmt[Compute the neighborhood]
-//     }
-//   )
-// })
-
-// TODO: add figure
-
-// TODO: hyperparameters are important
-
-
 ==== Neural Network Architecture
-
 
 The implemented neural network is inspired by the one proposed by He et al. @he_neural_2021.
 
@@ -370,7 +353,7 @@ Each one of the $M$ microphones leads to a #shape(2, "F", "T")-shape real-valued
 Its shape is noted #shape("C", "F", "T"), where $C$ is the number of channels, i.e., twice the number of microphones in the array.
 
 The architecture draws inspiration from vision models by employing 2D convolution.
-As discussed in @sec:ssl:background:deep_learning, using the image-like time-frequency representation of audio signals allows the application of techniques proven to perform well on conventional image data.
+As discussed in @sec:ssl:background:deep_learning, using the image-like time-frequency representation of audio signals allows applying techniques proven to perform well on conventional image data.
 
 #figure(
   image(
@@ -378,14 +361,7 @@ As discussed in @sec:ssl:background:deep_learning, using the image-like time-fre
     height: 80%
   ),
   caption: [
-    Deep neural network architecture for multi-source #acr("SSL").
+    Deep neural network architecture for multi-source SSL.
   ],
-) <fig:ssl:multi_source:network_architecture>
-
-
-// As we have not seriously tried 2-stage training and anyway haven't obtained any significant results, maybe we should entirely omit 2-stage training.
-// ==== Two stage training
-// 
-// Similarly to our single-source methodology, we train our deep neural network in a supervised fashion.
-// 
-// // TODO: doesn't seem to work well...
+)
+<fig:ssl:multi_source:network_architecture>

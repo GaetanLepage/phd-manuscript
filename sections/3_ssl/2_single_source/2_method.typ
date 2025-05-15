@@ -39,27 +39,7 @@ The final datasets weigh from 26 to 50GB, depending on the number of microphones
 @fig:ssl:single_source:dataset_statistics outlines the repartition of the generated samples regarding source-array relative positions.
 
 
-#figure(
-  move(
-    image(
-      "figures/dataset_statistics.svg",
-      height: 10cm,
-    ),
-    dx: 33pt
-  ),
-  caption: flex-caption(
-    short: [
-      Statistics of ground-truth label pairs ($theta$, $D$) in the generated dataset.
-    ],
-    long: [
-      Statistics of ground-truth label pairs ($theta$, $D$) in the generated dataset.
-      Microphone and source positions are randomly sampled within a rectangular room, resulting in a uniform distribution of #acr("DoA") values.
-      Source-to-array distances range from 0 to 7 meters, with values around 2-3 meters being the most frequent.
-    ],
-  )
-)
-<fig:ssl:single_source:dataset_statistics>
-
+#include "figures/dataset_statistics/fig.typ"
 
 
 ==== Microphone Arrays
@@ -101,17 +81,8 @@ The _omnidirectional_ pattern is the simpler one to think of.
 All directions are given equal importance.
 In contrast, the cardioid and its variants (super-cardioid, hyper-cardioid, ultra-cardioid, etc.) weigh non-uniformly each angle of incidence and thus privilege some directions above others.
 @fig:ssl:single_source:polar_patterns shows the receptive field of the most common microphone patterns.
-#figure(
-  image("figures/polar_patterns.jpg", height: 8cm),
-  caption: flex-caption(
-    short: [
-      Illustration of the most common microphone polar patterns.
-    ],
-    long: [
-      Illustration of the most common microphone polar patterns @stoddart_beginners_2016.
-    ],
-  ),
-) <fig:ssl:single_source:polar_patterns>
+
+#include "figures/polar_patterns/fig.typ"
 
 In the context of #acr("SSL"), a non-homogeneous pattern brings extra angular information that a neural network might be able to exploit.
 We have thus tested different configurations in our experiments.
@@ -213,9 +184,10 @@ The output neurons are trained to predict the sine and cosine of the #acr("DoA")
     height: 70%
   ),
   caption: [
-    Deep convolutional network architecture for #acr("SSL").
+    Deep convolutional network architecture for SSL.
   ],
-) <fig:ssl:single_source:nn_architecture>
+)
+<fig:ssl:single_source:nn_architecture>
 
 
 ==== Loss Function

@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-== Motivations
+== Motivation
 
 === Social Robotics & Embodied AI
 
@@ -8,7 +8,7 @@ Recent years have seen rapid and remarkable progress in #acr("AI").
 #acr("AI") systems have advanced dramatically in a relatively short period.
 Subsequently, these techniques have been used in numerous domains, ranging from highly specialized applications to widely spread end-consumer products.
 These technologies have had a profound impact on daily life, society, and the global economy.
-#acrpl("LLM") are surely the latest and most striking illustration of this revolution.
+#acrpl("LLM") are the latest and most striking illustration of this revolution.
 Since the invention of the attention mechanism and the transformer architecture in 2017 @vaswani_attention_2017, larger and larger models could be trained on constantly growing datasets.
 The capabilities of #acrpl("LLM")s have pushed the boundaries of artificial reasoning and natural language processing.
 Similarly, diffusion models have been equally successful for image generation.
@@ -19,7 +19,7 @@ Speech-based interaction is a central research challenge in #acr("HRI").
 More generally, the design of embodied agents is at the core of social robotics.
 Social robots operate in complex, dynamic, and often crowded environments.
 They differ from traditional robots, such as the ones used in industrial settings to perform repetitive, narrow-scope actions.
-These robots do not need to adapt and interact in an unpredictable environment.
+These social robots do not need to adapt and interact in an unpredictable environment.
 Their policy is often deterministic and programmed in advance.
 Also, they are not expected to interact naturally with humans.
 Bridging the gap toward capable social robots remains a significant challenge.
@@ -29,6 +29,7 @@ His observation, from 1988, remains highly relevant today as multimodal percepti
 
 
 === Multimodal Perception, a Focus on Acoustics
+=== Acoustic Perception in Robotics
 
 Multimodal perception refers to a robot's ability to sense and understand its environment using multiple types of sensory input.
 Robots can be equipped with various sensors depending on their objectives, nature, and budget constraints.
@@ -53,16 +54,21 @@ Therefore, social robots can behave accordingly to the conversation dynamics.
     "./figures/ari.png",
     width: 6cm
   ),
-  caption: [
-    A photo of the ARI robot, a humanoid robotic platform developed by PAL Robotics.
-  ],
+  caption: flex-caption(
+    short: [
+      The ARI humanoid robot.
+    ],
+    long: [
+      A photo of the ARI robot, a humanoid robotic platform developed by PAL Robotics.
+    ],
+  ),
 )
 <fig:intro:ari>
 
 
 === Learning Robot Policies with Reinforcement Learning
 
-Reinforcement learning is a flexible framework for solving discrete-time decision problems.
+#acr("RL") is a flexible framework for solving multi-step decision problems.
 #acr("RL") has a long history of research and has allowed numerous successes in various application domains.
 Since the rise of deep learning methods, #acr("RL") has benefited from more effective and capable models and function approximators.
 #acr("DRL") methods make it possible to train deep neural networks with high representational capacity.
@@ -74,7 +80,7 @@ Such fundamental progress clearly impacted robotics, which is well suited to #ac
 Indeed, relevant robot behaviors are complex and cannot be modeled explicitly, especially in social robotics.
 This limits the applicability of traditional rule-based approaches, which require explicit behavior modeling.
 #acr("RL") proposes an alternative solution to the problem of robot policy design.
-It relies on defining a reward function that gives the agent feedback on the quality of its action.
+It relies on defining a reward function that gives the agent feedback on the quality of its action @akalin_reinforcement_2021.
 The agent will then progressively optimize its policy by interacting with the environment to maximize the collected reward.
 Therefore, it is not required to model the environment explicitly; it is implicitly learned during training.
 #acr("DRL") allows learning from high-dimensional sensory inputs, such as camera frames or recorded audio signals.
@@ -88,7 +94,7 @@ However, it still faces key limitations, including poor generalization, sample i
 
 === Acoustic Localization and Navigation to Enhance Perception
 
-Perceptually-motivated navigation is an interesting example of a complex multimodal robotics task.
+Perceptually-motivated navigation is an interesting example of a complex multimodal robotics tasks.
 It can be framed in various ways, depending on the context and the targeted application.
 Robots must often perform complex tasks that require gathering information and planning actions with foresight.
 Moreover, robots rarely have full observability.

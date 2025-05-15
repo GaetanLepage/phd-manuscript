@@ -16,35 +16,36 @@ $
 The trajectory probability under policy $pi_theta$ is:
 $
   p(tau; theta) =
-    rho(s_0) product_(t=0)^T
+    rho(s_0) product_(t=0)^(T-1)
     pi_theta (a_t | s_t) P(s_(t+1) | s_t, a_t),
 $
 where $rho(s_0)$ is the initial state distribution, and $P(s_(t+1) | s_t, a_t)$ are the #acr("MDP")'s transition dynamics.
 As they are both independent from $theta$, the log of the trajectory probability simplifies to:
 $
   log p(tau; theta) =
-    sum_(t=0)^T log pi_theta (a_t | s_t) + "const".
+    sum_(t=0)^(T-1) log pi_theta (a_t | s_t) + "const".
 $
 Taking the gradient:
 $
-  nabla_theta p(tau; theta) =
-    sum_(t=0)^T nabla_theta log pi_theta (a_t | s_t).
+  nabla_theta log p(tau; theta) =
+    sum_(t=0)^(T-1) nabla_theta log pi_theta (a_t | s_t).
 $
+
 We substitute back into the gradient of the objective:
 $
   nabla_theta J(theta)
     &= EE_(tau~pi_theta) [
-      R(tau) sum_(t=0)^T nabla_theta log pi_theta (a_t | s_t)
+      R(tau) sum_(t=0)^(T-1) nabla_theta log pi_theta (a_t | s_t)
     ]\
-    &= sum_(t=0)^T EE_(tau~pi_theta) [
+    &= sum_(t=0)^(T-1) EE_(tau~pi_theta) [
       nabla_theta log pi_theta (a_t | s_t)
       R(tau)
     ]
 $
-Since the return $R(tau)$ is constant for all time-steps, we can reduce variance by using the time-dependent return $G_t = sum_(k=0)^(T-t) gamma^k r_(t+k)$ starting at time $t$:
+Since the return $R(tau)$ is constant for all time steps, we can reduce variance by using the time-dependent return $G_t = sum_(k=0)^(T-t) gamma^k r_(t+k)$ starting at time $t$, as proposed in REINFORCE @williams_simple_1992:
 $
   nabla_theta J(theta)
-  = sum_(t=0)^T EE_(tau~pi_theta) [
+  = sum_(t=0)^(T-1) EE_(tau~pi_theta) [
     nabla_theta log pi_theta (a_t | s_t) G_t
   ]
 $

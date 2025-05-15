@@ -32,6 +32,8 @@
   include-outlines-in-contents: true,
   // Boxes around refs
   boxed-refs: false,
+  // Put external links in blue and underline them
+  highlight-external-links: true,
   accent-color: orange-uga,
   // The content of your work.
   body,
@@ -100,8 +102,15 @@
 
   /* -------------------------------------------------------------------- */
   /* URL */
-  show link: underline
-  show link: set text(blue)
+  // TODO
+  show: if highlight-external-links {
+    it => { show link: underline; it }
+  } else {
+    it => it
+  }
+  show link: set text(blue) if highlight-external-links
+  //show link: set text(blue)
+  //show link: underline
   
   // Show a small maroon circle next to external links.
   //show link: it => {

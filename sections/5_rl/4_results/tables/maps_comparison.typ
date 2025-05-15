@@ -88,9 +88,9 @@
       Navigation performance when using different cost functions.
       The agent is trained with the two variants of the cost #wer-cost and #analytical-cost.
       All policies are then evaluated on the same #wer-cost;-based target environment.
-      #gaet[
-        Is it interesting to keep the "baseline" policies? I don't think so.
-      ]
+      // #gaet[
+      //   Is it interesting to keep the "baseline" policies? I don't think so.
+      // ]
     ],
   ),
 )

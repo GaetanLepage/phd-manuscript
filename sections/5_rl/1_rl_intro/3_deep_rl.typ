@@ -44,8 +44,6 @@ Regarding board games, the _AlphaGo_ @silver_mastering_2016 and _AlphaZero_ @sil
 While _AlphaGo_ was first trained on human expert games and only later fine-tuned using #acr("RL"), _AlphaZero_ exclusively leveraged self-play to learn the policy.
 This is a clear example of how #acr("DRL") can solve complex tasks by exploiting massive amount of interactions with the environment.
 
-
-
 *#acr("RLHF").*
 Finally, #acr("RLHF") helps turning #acrpl("LLM") into conversational agents @ouyang_training_2022 @bai_training_2022 @deepseek-ai_deepseek-r1_2025.
 At first, large-scale auto-regressive models such as GPT-3 @brown_language_2020 are trained on massive datasets in a supervised manner.

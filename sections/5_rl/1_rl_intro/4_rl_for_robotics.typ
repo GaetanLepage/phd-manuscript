@@ -21,6 +21,7 @@ They include sensor noise, hardware wear, safety constraints, and asynchronous e
 The authors document practical lessons learned from deploying #acr("DRL") on real robots, highlighting strategies such as combining offline and online learning, incorporating demonstrations, and designing robust reward functions.
 
 Numerous studies have explored the application of #acr("DRL") to robotic navigation and social interaction.
+Akalin et al. @akalin_reinforcement_2021 provide a comprehensive survey of reinforcement learning methods in social robotics, emphasizing reward design, communication modalities, and interaction dynamics.
 Pikuli et al. @pikuli_navigating_2024, for instance, investigate the use of #acr("RL") for social robot navigation, where the dynamics of human-robot interaction are too complex to model explicitly.
 Their study emphasizes the importance of design choices such as observation space, action representation, and reward shaping, and provides practical guidance for ensuring policy convergence.
 Similarly, Lathuilière et al. @lathuiliere_neural_2019 demonstrate how reinforcement learning can be used for gaze control in human-robot interaction, learning audio-visual attention policies through a combination of simulation and real-world fine-tuning.

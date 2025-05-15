@@ -79,7 +79,7 @@ More precisely, we introduce two scaling parameters #reward-exp-alpha and #rewar
 //        & quad - #reward-forward-penalty bb(1) (a_t = #a-forward) \
 //        & quad - #reward-wall-penalty bb(1) (a_t "invalid"),
 //$
-The final reward, introduced in as @eq:rl:problem:reward  expression, becomes:
+The final reward, introduced in @eq:rl:problem:reward, becomes:
 $
   r_t = cases(
     #reward-wall-penalty &quad "if the agent tries to hit a wall",
@@ -192,7 +192,7 @@ Reducing the #acr("WER") from around 20% to 5.69% in the omnidirectional case an
 
 Before using #acr("WER") cost maps to compute the reward, we have conducted experiments with alternative cost maps.
 As highlighted in previous @sec:rl:method:wer_maps:computing, computing #wer-cost is very compute-intensive.
-Furthermore, the #acr("WER") cost is noisy has some artifacts.
+Furthermore, the #acr("WER") cost is noisy and has some artifacts.
 The present study introduces an alternative formulation for the cost function #cost.
 This _analytical cost_ #analytical-cost is a closed-form formula that directly maps a state $s in cal(S)$ to its normalized cost.
 It was initially used to validate the concept of a navigation task parametrized by an eventually directional cost map.

@@ -239,7 +239,7 @@ Furthermore, we demonstrate that a simple #acr("CNN") architecture can perform a
 #figure(
   image("figures/ssl_reverb.svg", width: 80%),
   caption: [
-    Reverberation impact on #acr("SSL") performance.
+    Reverberation impact on SSL performance.
   ]
 )
 <fig:ssl:single_source:reverb>

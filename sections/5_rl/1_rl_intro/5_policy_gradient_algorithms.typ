@@ -25,7 +25,7 @@ This process results in an optimal set of weights $theta^*$ leading to the highe
 However, computing the gradient of $J$ directly can be complex.
 The policy gradient theorem offers a tractable expression for this gradient that avoids the need to differentiate through the environment's dynamics.
 
-Several policy gradient have been developed and successfully used in conjunction with deep neural networks.
+Several policy gradient algorithms have been developed and successfully used in conjunction with deep neural networks.
 Our main focus will be on the #acr("PPO") algorithm @schulman_proximal_2017, but other notable methods include #acr("DDPG") @lillicrap_continuous_2019, #acr("SAC") @haarnoja_off-policy_2018 and #acr("TRPO") @schulman_trust_2017.
 A key advantage of policy gradient approaches over value-based methods like Q-learning is their ability to handle both discrete and continuous action spaces naturally.
 
@@ -45,24 +45,11 @@ $
     ]
 $
 <eq:rl:intro:policy_gradient_theorem>
-//$
-//  nabla_theta J(theta)
-//    &= nabla_theta
-//      sum_(s in cal(S)) d_(pi_theta) (s)
-//      sum_(a in cal(A)) Q^(pi_theta) (s, a) pi_theta (a | s)\
-//    &prop
-//      sum_(s in cal(S)) d_(pi_theta) (s)
-//      sum_(a in cal(A)) Q^(pi_theta) (s, a) nabla_theta pi_theta (a | s),
-//$
-//where:
-//- $pi_theta$ is the policy parametrized by the set of parameters $theta$;
-//- $tau$ is a trajectory, i.e., a sequence of states, actions, and rewards;
-//- $R(tau)$ is the return of the trajectory $tau$, also referred to as the cumulative reward.
 
 #include "policy_gradient_theorem_proof.typ"
 
 This result shows that policy gradients can be estimated using samples from the environment without requiring gradients through the environment's dynamics.
-In practice, $#q-pi-theta (s, a)$ is often replaced by the empirical return $G_t$​, an advantage estimate, or a critic’s learned value.
+In practice, $#q-pi-theta (s, a)$ is often replaced by the empirical return $G_t$​, an advantage estimate, or a critic's learned value.
 
 
 ==== Advantage Estimation
@@ -81,7 +68,7 @@ This formulation provides a more targeted signal for learning: instead of reinfo
 The use of advantage estimates has become standard in modern actor-critic algorithms.
 
 *Estimation.*
-Estimation of the advantage function has been discussed by Schulman et al. @schulman_high-dimensional_2018.
+Estimation of the advantage function was discussed by Schulman et al. @schulman_high-dimensional_2018.
 To estimate the advantage function, we may consider the following class of estimators $hat(A)_t^((k))$:
 $
   &hat(A)_t^((1))
@@ -144,7 +131,7 @@ Additionally, PPO has been employed in multi-robot systems to optimize path plan
 
 *#acr("TRPO").*
 Schulman et al. @schulman_trust_2017 introduced the concept of trust region policy optimization.
-Their observation was that too brutal policy updates were causing instabilities in training #acr("PG") algorithms.
+They observed that overly aggressive policy updates were causing instabilities in training #acr("PG") algorithms.
 The #acr("TRPO") algorithm seeks to constrain the policy to a _trust region_, preventing it from evolving too drastically at each step.
 The notion of distance for policy updates is the #acr("KL") divergence.
 The #acr("TRPO") objective is to maximize the expected advantage while keeping the #acr("KL") divergence between the old and new policy below a certain threshold.
@@ -168,12 +155,12 @@ $
       ]
     ],
     size: #140%
-  ) lt.eq delta,
+  ) lt.eq xi,
 $
-for a given threshold $delta$.
-$hat(A)_t$ is the advantage estimate at timestep $t$.
+for a given threshold $xi$.
+$hat(A)_t$ is the advantage estimate at time step $t$.
 This objective can be rewritten using a penalty term.
-It boils down to maximizing
+It boils down to maximizing:
 $
   hat(EE)_t [
     (pi_theta (a_t | s_t))
@@ -202,7 +189,7 @@ Its main innovation is replacing the #acr("KL") divergence constraint with a cli
 This choice slightly loosens the constraint that #acr("TRPO") imposes but significantly decreases the optimization's computational complexity.
 
 The #acr("PPO") objective combines three components: a clipped policy loss, a value function loss, and an optional entropy bonus.
-The *clipped policy loss* is defined as:
+The clipped policy loss is defined as:
 $
   #ppo-clipped-loss-theta = min lr([
     #policy-ratio (theta) hat(A)_t,
@@ -221,7 +208,7 @@ $
 The clipping function prevents large updates when the new policy diverges too far from the old one, thus preserving stability.
 This constitutes the primary innovation of #acr("PPO") over #acr("TRPO") as it enforces a constraint on the policy update size without the need to deal with an explicitly constrained optimization problem.
 
-The second component of the loss is the *value function loss*, typically a squared error between the predicted value and the empirical return:
+The second component of the loss is the value function loss, typically a squared error between the predicted value and the empirical return:
 $
   #ppo-value-loss-theta = lr(
     [
@@ -234,26 +221,27 @@ $
 where $V_theta (s_t)$ is the predicted state value and $R_t$ is the estimated return.
 $R_t$ can be derived via the aforementioned #acr("GAE") estimator.
 
-Finally, the #acr("PPO") loss entails an *entropy bonus*, which encourages exploration by maximizing the policy's entropy:
+Finally, the #acr("PPO") loss entails an entropy bonus, which encourages exploration by maximizing the policy's entropy:
 $
   #ppo-entropy-bonus = sum_(a in cal(A)) pi_theta (a | s_t) log [pi_theta (a | s_t)].
 $
 
-#block(breakable: false)[
 The final #acr("PPO") loss can finally be expressed as:
 $
   #ppo-loss _t (theta) = 
-  hat(EE)_t lr([
-    #ppo-clipped-loss-theta
-    - #coef-value #ppo-value-loss-theta
-    + #coef-entropy #ppo-entropy-bonus
-  ], size: #140%),
+  hat(EE)_t lr(
+    [
+      #ppo-clipped-loss-theta
+      - #coef-value #ppo-value-loss-theta
+      + #coef-entropy #ppo-entropy-bonus
+    ],
+    size: #140%
+  ),
 $ <eq:rl:ppo_loss>
 where #coef-value and #coef-entropy are coefficients that weight the value function loss and entropy bonus, respectively, relative to the policy loss.
 These are treated as hyperparameters.
 This formulation is the most common in the literature and software implementations of #acr("PPO").
 Although often denoted as the #acr("PPO") _loss_, this function quantifies the objective and should thus be maximized.
-]
 
 *Algorithm.*
 To optimize the #acr("PPO") objective, the algorithm involves iteratively sampling training data by running the policy in the environment and training the actor and critic networks.
