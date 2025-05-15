@@ -188,9 +188,9 @@ A first solution to this problem could be placing a pseudo-Dirac at the exact lo
 // TODO: introduce Theta being the vector of DOA angles
 // TODO: introduce o(i)
 
-$
-  o(Theta)_i = sum_(k=1)^n_s bb(1)_(phi.alt_i = theta_k),
-$
+//$
+//  o(Theta)_i = sum_(k=1)^n_s bb(1)_(phi.alt_i = theta_k),
+//$
 
 $
   o(Theta)_i := cases(

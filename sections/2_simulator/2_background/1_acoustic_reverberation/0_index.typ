@@ -184,7 +184,7 @@ They will be essential in the interface of our simulator as they allow specifyin
 ) <fig:simulator:background:rir_plot>
 
 The reverberation time noted $T_60$ or RT60 denotes the time before the sound pressure decreases by 60 dB after the source signal is abruptly stopped.
-It can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine @sabine_collected_1922 as
+It can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine @sabine_collected_1922 as:
 #let volume = $colMath(V, #maroon)$
 #let area = $colMath(A, #olive)$
 #let sound-speed = $colMath(c, #eastern)$
@@ -268,21 +268,21 @@ Different types of spectrograms can be defined:
 
 - The magnitude spectrogram is the modulus of the #acr("STFT"):
 $
-  "spectrogram"{x}(m, k) = mabs(X(m, k)).
+  "spectrogram"{x}[m, k] = mabs(X[m, k]).
 $
 - The power spectrogram, or power spectral density, is its squared modulus:
 $
-  X_"power" (m, k) = |X(m, k)|^2.
+  X_"power" [m, k] = |X[m, k]|^2.
 $
 - The power spectrogram can also be expressed in decibels (dB):
 $
-  X_("power", "dB") = 20 log_(10) mabs(X(m, k)).
+  X_("power", "dB") [m, k] = 20 log_(10) mabs(X[m, k]).
 $
 @fig:simulator:background:spectrogram is an example of a power spectrogram computed from a speech signal.
 
 - The phase spectrogram is its argument:
 $
-  X_"phase" (m, k) = arg(X(m, k)).
+  X_"phase" [m, k] = arg(X[m, k]).
 $
 The term spectrogram can also refer directly to the complex-valued result of the #acr("STFT").
 
@@ -323,7 +323,7 @@ Despite this theoretical result not transferring to the #acr("STFT")-based repre
 This assumption of multiplicative transfer functions is known as the narrow-band assumption.
 It is made in various domains of audio processing despite the error being often large.
 
-==== Beamforming and Binaural Cues
+==== Beamforming and Interaual Cues
 <sec:simulator:background:binaural>
 
 *Motivation*
@@ -413,8 +413,9 @@ It corresponds to the ratio between two microphones' #acrpl("ATF") @gannot_signa
 The value of the #acr("RTF") at a given time can be obtained by computing the ratio of the #acr("STFT") received by two microphones: the interaural spectrogram.
 More precisely, the #acr("RTF") of the $i$-th microphone is obtained by dividing the #acr("STFT") of the signal it receives by the one of the signals recorded by a reference microphone (the first one for instance):
 $
-  "RTF"_i [m, k] = (X_i [m, k]) / (X_1 [m, k]) in CC.
+  "RTF"_i [m, k] = (X_i [m, k]) / (X_1 [m, k]) in CC,
 $
+where $m$ and $k$ are the time and frequency indices, respectively.
 By construction, we have $"RTF"_1 [m, k] = 1$.
 
 Cohen @cohen_relative_2004 is developing a way to use speech signals to identify an acoustic system's #acr("RTF").

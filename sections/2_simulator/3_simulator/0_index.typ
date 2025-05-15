@@ -4,14 +4,14 @@
 <sec:simulator:simulator>
 #minitoc(indent: true)
 
-The motivation to build a simulator from the ground up was to benefit from a capable yet flexible virtual platform for acoustic-based #acr("HRI") tasks.
-Indeed, although audio simulation libraries offer a wide range of possibilities, they are mostly proof of concepts (see @sec:simulator:background:rir_libraries).
-Their goal is rightfully limited to the sole sound simulation, and are used as building blocks of larger software or ecosystems like video games for example.
-The conception of a custom and extensible interaction platform represents a core contribution of this work.
+The motivation to build a simulator from the ground up was to benefit from a capable yet flexible virtual platform for acoustic-based HRI tasks.
+Indeed, while existing audio simulation libraries offer a wide range of functionalities, they are generally designed as focused components dedicated to sound propagation, and are often integrated into larger ecosystems such as game engines (see @sec:simulator:background:rir_libraries).
+Their scope is understandably limited to audio rendering rather than interaction modeling.
+In contrast, the design of a custom, extensible platform for simulating diverse interaction scenarios—with support for varied audio sensors and acoustic representations—constitutes a central contribution of this work.
 Its goal is to allow the simulation of various interaction scenarios involving a diverse array of audio sensors and acoustic representations.
 
-Also, its implementation has evolved along the project and has lead to an organic development process.
-The set of features reflects the various downstream usages made for several years.
+Also, its implementation has evolved throughout the project, leading to an organic development process.
+The feature set reflects the various downstream use cases encountered across this thesis.
 The Python code for this pipeline has been published under an open-source license #footnote[#link("https://gitlab.inria.fr/robotlearn/rl-audio-nav")].
 
 In this section, we will provide an overview of our simulator's main functionalities and use-case examples.

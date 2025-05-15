@@ -13,12 +13,12 @@ All contributions are supported by original software implementations and extensi
 The first core contribution is the development of a custom acoustic simulation platform (@chap:simulator).
 We introduce a flexible and feature-rich simulation framework for acoustic robotics, developed as a foundational tool for the research conducted in this thesis.
 Modern deep learning methods—particularly in #acr("SSL") and #acr("DRL")—require large-scale data that is difficult to acquire through physical experimentation.
-To address this, we designed a modular simulator that generates realistic multi-channel audio recordings in 3D virtual rooms.
+To address this, we designed a modular simulator that generates realistic multi-channel audio recordings in virtual rooms.
 The simulator supports customizable microphone arrays, varied source types (speech, noise), and dynamic trajectories for both sources and receivers.
 It integrates two back-end RIR simulation engines: the feature-rich but slower _Pyroomacoustics_ @scheibler_pyroomacoustics_2018, and the high-performance GPU-accelerated _gpuRIR_ @diaz-guerra_gpurir_2021 library.
 Additional layers of abstraction were developed to model robot movement, generate egocentric acoustic features, and simulate realistic interaction scenarios in a step-based pipeline.
 A novel method was introduced to bootstrap reverberation across short simulation steps, allowing accurate modeling of reverberant tails during dynamic agent movement.
-This simulator, released as open-source research software, is used throughout the thesis for dataset generation, training supervision, and online policy interaction.
+This simulator, released as open-source research software, is used throughout the thesis for dataset generation, training supervision, and interactive policy evaluation.
 
 
 === Learning-Based Sound Source Localization in Static Settings

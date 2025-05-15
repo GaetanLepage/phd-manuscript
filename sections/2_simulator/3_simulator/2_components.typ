@@ -190,14 +190,12 @@ This process takes place in discrete time steps that each resemble the following
   The user may also access spatial data in convenient formats: distance from the microphone to a specific source, #acr("DoA"), absolute position and orientation of the agent and sources, etc.
 
 *Spatial domain.*
-The sound propagation libraries used for simulation model a three-dimensional scene.
-Thus we have built the rest of the pipeline to allow for full control of audio objects in the 3D space.
+The sound propagation libraries used in the simulation model three-dimensional scenes.
+Thus, we have built the rest of the pipeline to allow for full control of audio objects in the 3D space.
 Besides, as the conducted downstream task involved mostly planar problems, most implemented features focus on 2D movements and spatial measures.
-No artificial limitation prevent the use of our library for 3D problems.
+No artificial limitation prevents the use of our library for 3D problems.
 
-*Audio objects movement*
-//====== Audio objects movement
-//<sec:simulator:simulator:components:movement>
+*Sources and Microphones Movement*
 
 Audio objects are of two kinds: sound sources and microphone arrays.
 Sound sources are modeled by a point in space with an orientation.
@@ -248,11 +246,11 @@ Lastly, the agent might be moved using the exposed displacement helpers presente
   ),
   caption: flex-caption(
     short: [
-      Typical simulation workflow.
+      Typical simulator execution workflow.
     ],
     long: [
-      This figure illustrates the typical execution flow.
-      After an initialization phase, the simulator operates discrete steps between which the microphones and sources can move.
+      This figure illustrates the typical simulator execution flow.
+      After an initialization phase, the simulator proceeds in discrete steps, during which microphones and sources may move.
     ],
   ),
 )
@@ -272,7 +270,6 @@ Alternatively, the resulting audio can be trimmed to any wanted duration.
 The duration control feature gives a fine-grained control of the computational time.
 
 
-//====== Feature extraction
 *Feature Extraction*
 
 Observing the simulator's state represents an essential feature set of our library.
