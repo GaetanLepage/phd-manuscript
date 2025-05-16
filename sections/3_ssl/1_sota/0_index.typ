@@ -39,7 +39,7 @@ As in several similar application fields, the rise of deep learning has quickly 
 Modern, data-driven approaches began leveraging neural networks to model complex acoustic environments, outperforming traditional methods in robustness and accuracy.
 Recent advances focus on integrating #acr("SSL") with multimodal systems, such as robotics and autonomous vehicles, to achieve real-time localization in dynamic and complex settings.
 Nevertheless, the fundamental concepts at the base of the more classical approaches remain considerably relevant today.
-Indeed, they can help design feature extractors or pre-processing techniques to further boost the performance of deep learning-based localizers.
+Indeed, they can help design feature extractors or pre-processing techniques to further boost the performance of deep-learning-based localizers.
 
 This introduction explores the evolution of #acr("SSL"), starting with classical signal-processing approaches and their foundational principles. 
 It then transitions to deep learning methods, highlighting key advances, architectures, and datasets.
@@ -184,10 +184,10 @@ The evolution of #acr("SSL") from classical to deep learning approaches marks a 
 
 The advent of deep learning has brought transformative changes to #acr("SSL"), enabling robust performance in real-world conditions involving noise, reverberation, and multi-source scenarios.
 Unlike classical methods that rely on handcrafted features and simplified models, deep learning techniques harness large datasets and performant neural network architectures to learn complex spatial and spectral relationships directly from audio data.
-Today, the vast majority of research efforts on #acr("SSL") leverage deep learning-based solutions.
+Today, the vast majority of research efforts on #acr("SSL") leverage deep-learning-based solutions.
 
 Let us first describe the typical workflow process of such approaches.
-Deep learning-based #acr("SSL") systems typically involve three primary components.
+Deep-learning-based #acr("SSL") systems typically involve three primary components.
 // Input processing
 First, *input feature extraction* consists of computing acoustic features from the raw audio data.
 // DNN processing
@@ -262,7 +262,7 @@ It provides the datasets that all participants can use to train and evaluate the
 *Network Architecture*
 
 Grumiaux et al. @grumiaux_survey_2021 discuss the various popular choices regarding neural network architectures.
-The network topology design is a fundamental property of deep learning-based #acr("SSL") systems.
+The network topology design is a fundamental property of deep-learning-based #acr("SSL") systems.
 
 The *feed-forward neural network* is the simplest form of #acrpl("DNN")s.
 It was also the first deep neural architecture used to perform #acr("SSL") @ling_direction_2011 @youssef_learning-based_2013.
@@ -356,7 +356,7 @@ It assigns speech phases to specific speakers in multi-party indoor environments
 The authors insist that, contrary to vision-based systems, sound source localization does not necessitate any movement from the robot.
 This property helps with robot acceptance from humans.
 Argentieri et al. @argentieri_survey_2015 provide an in-depth review of the state of the art as of 2014.
-Naturally, their survey has not discussed more recent works applying modern deep learning-based techniques.
+Naturally, their survey has not discussed more recent works applying modern deep-learning-based techniques.
 For instance, Nguyen et al. @nguyen_autonomous_2018 designed a neural network to map audio features recorded by a binaural humanoid robot to the relative source direction.
 The model is trained in a supervised fashion using white noise.
 It is then tested in a realistic setup where the task is to localize speech sources.
@@ -387,7 +387,7 @@ On the other hand, array processing involves using several receivers arranged in
 They leverage the redundancy of the spatial information across the multiple recorded channels.
 
 // Deep Learning
-Deep Learning methods have also been used in robotics to perform #("SSL").
+Deep learning methods have also been used in robotics to perform #("SSL").
 Nguyen et al. @nguyen_autonomous_2018 have collected a dataset to train a #acr("CNN") for localizing and facing a sound source with a humanoid robot head.
 #acr("SSL") can also be employed to enhance the #acr("ASR") performance of a robotic system.
 Dávila-Chacón et al. @davila-chacon_enhanced_2019 designed such a system that infers the #doa to rotate a robotic head to maximize the speech recognition score.
@@ -411,7 +411,7 @@ Many limitations of the classical methods were circumvented thanks to the expres
 Current research efforts try to optimize and enhance those data-based approaches by making them more efficient, robust, and performant.
 The design of network architectures and pre-processing pipelines is an example of amelioration axes for such systems.
 Despite its utility, #acr("SSL") remains a complex problem due to real-world constraints.
-Deep learning-based #acr("SSL") methods often require large, annotated datasets and face difficulties in generalizing across unseen environments and array geometries.
+Deep-learning-based #acr("SSL") methods often require large, annotated datasets and face difficulties in generalizing across unseen environments and array geometries.
 Issues such as scalability in multi-source settings and real-time processing constraints further underline the need for ongoing innovation.
 Also, robotics is a vibrant application of #acr("SSL") systems, putting them in challenging environments.
 In conclusion, #acr("SSL") research continues to evolve, balancing the precision of classical methods with the adaptability and robustness of modern deep learning techniques.

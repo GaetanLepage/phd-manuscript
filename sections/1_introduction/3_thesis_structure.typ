@@ -24,7 +24,7 @@ It presents the custom simulation library developed for this thesis, detailing i
 This simulator supports both static and dynamic scenarios and serves as the foundation for all subsequent experiments.
 
 @chap:ssl addresses the task of #acr("SSL").
-After reviewing relevant literature, we present deep learning-based models for both single- and multi-source localization.
+After reviewing relevant literature, we present deep-learning-based models for both single- and multi-source localization.
 These models are evaluated within our simulated environment, with a focus on their robustness and limitations.
 
 @chap:active_ssl extends the #acr("SSL") problem to dynamic settings.

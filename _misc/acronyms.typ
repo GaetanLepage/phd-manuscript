@@ -40,7 +40,7 @@
     "Convolutional Recurrent Neural Network",
     "Convolutional Recurrent Neural Networks",
   ),
-  "DL": ("Deep Learning"),
+  "DL": ("deep learning"),
   "DNN": (
     "deep neural network",
     "deep neural networks"

@@ -8,14 +8,14 @@ This chapter presents a custom approach for solving an #acr("SSL") task in a dyn
 The proposed approach generally breaks the #acr("ASSL") task into several steps for which a specific solution is presented.
 Although this allows for a high degree of explainability, an end-to-end solution could be explored.
 Regarding the deep neural network trained to perform map aggregation, the target maps are defined artificially.
-One could envisage directly learning to predict the source's positions from a batch of shifted #acr("DoA") maps.
+One could envisage directly learning to predict the source's positions from a batch of shifted #doa maps.
 No clustering algorithm would thus be needed.
-Additionally, a deep learning approach could be directly fed with the #acr("DoA") spectrum instead of projecting them first as cones in 2D maps.
+Additionally, a deep learning approach could be directly fed with the #doa spectra instead of projecting them first as cones in 2D maps.
 Both tracks might allow pushing detection performance by eliminating hand-crafting middle steps.
 However, they would necessitate additional adaptations, such as the ability to localize an arbitrary number of sources.
 
 The presented solution achieves convincing performance on this task.
-Naturally, the precision of the final position estimation highly depends on the quality of the provided #acr("DoA") spectra.
+Naturally, the precision of the final position estimation highly depends on the quality of the provided #doa spectra.
 Also, the agent trajectory and the relative position of sources significantly impact the detection.
 For instance, cases where, on the one hand, the trajectory remains relatively straight and, on the other hand, the source lies on this line happen to be challenging.
 Indeed, the relative movement of the agent does not bring additional angular information.

@@ -26,7 +26,7 @@
       // INPUTS
       Cmt[
         #prev-maps:
-        $H$ previous #acr("DoA") maps
+        $H$ previous #doa maps
       ]
       Cmt[
         #prev-deltas:
@@ -42,7 +42,7 @@
       
       Cmt[Run the static #acr("SSL") model on the current received audio]
       Assign[$o_t$][#smallcaps[SSL]$("STFT"_t)$]
-      Cmt[Compute the #acr("DoA") map from the spectrum]
+      Cmt[Compute the #doa map from the spectrum]
       Assign[$M_t$][#smallcaps[DoA-map]$(o_t)$]
       State[]
       
@@ -56,7 +56,7 @@
           ][
             #smallcaps[Combine]$(delta_(t-H), dots, delta_(t' - 1))$
           ]
-          Cmt[Project the #acr("DoA") map to the current robot frame]
+          Cmt[Project the #doa map to the current robot frame]
           Assign[
             $tilde(M)_t'$
           ][

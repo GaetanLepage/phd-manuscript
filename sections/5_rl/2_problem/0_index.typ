@@ -8,7 +8,7 @@
 
 Audio perception is an essential pillar of social robotics.
 Achieving realistic human-robot interactions is conditioned by the ability to hear and understand the content of people's speech.
-#acr("ASR") techniques have significantly progressed, mainly thanks to recent advances in Deep Learning @malik_automatic_2021.
+#acr("ASR") techniques have significantly progressed, mainly thanks to recent advances in deep learning @malik_automatic_2021.
 However, some real-world settings remain challenging, and #acr("ASR") systems can struggle to extract the speech content properly.
 Most solutions are trained on a clean speech dataset.
 The literature has studied the impact of noise and reverberation on #acr("ASR") performance.

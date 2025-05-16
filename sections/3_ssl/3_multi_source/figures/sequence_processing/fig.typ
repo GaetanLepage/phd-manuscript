@@ -23,6 +23,7 @@
   caption: [
     Example of a sequence processing result.
   ],
+  align: top,
   placement: fig-placement,
   gap: grid-fig-gap,
   numbering: fig-numbering,

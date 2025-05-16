@@ -8,7 +8,7 @@
       width: 5cm,
     ),
     caption: [
-      Local #acr("DoA") map $M_t$, expressed in $cal(F)_t$.
+      Local #_doa map $M_t$, expressed in $cal(F)_t$.
     ]
   ),
   figure(

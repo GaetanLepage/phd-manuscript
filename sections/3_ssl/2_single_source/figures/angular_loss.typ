@@ -50,7 +50,7 @@
     ],
     long: [
       Angular loss plots for $colMath(hat(theta)=0, #blue)$ and $colMath(hat(theta)=(3pi) / 4, #green)$.
-      The x axis corresponds to the predicted #acr("DoA") value $hat(theta)$.
+      The x axis corresponds to the predicted #doa value $hat(theta)$.
     ],
   ),
 )

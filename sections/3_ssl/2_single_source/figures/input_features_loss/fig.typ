@@ -28,6 +28,7 @@
     ],
   ),
   placement: fig-placement,
+  align: top,
   gap: grid-fig-gap,
   numbering: fig-numbering,
   numbering-sub-ref: fig-numbering-sub-ref,

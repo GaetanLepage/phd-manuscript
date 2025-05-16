@@ -13,7 +13,7 @@ As #acrpl("MDP")s become more intricate, the memory, computation, and, more impo
 
 The first applications of artificial neural networks to #acr("RL") occurred in the 1990s.
 For instance, the popular REINFORCE algorithm by Williams @williams_simple_1992 employed a shallow network that is optimized using gradient descent.
-However, the major success awaited Deep Learning's boom of the 2010s.
+However, the major success awaited deep learning's boom of the 2010s.
 Mnih et al. @mnih_playing_2013 have famously demonstrated the capacity of those more modern models.
 They combined Watkins' Q-value algorithm @watkins_learning_1989 with a deep convolutional neural network.
 To showcase the capabilities of their method, the authors tackled seven Atari 2600 games from the Arcade Learning Environment @bellemare_arcade_2013.
