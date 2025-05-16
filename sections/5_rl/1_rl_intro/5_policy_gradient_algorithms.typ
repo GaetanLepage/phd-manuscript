@@ -197,7 +197,7 @@ $
     "clip"(
       #policy-ratio (theta),
       1 - epsilon,
-      1 + epsilon,
+      1 + epsilon
     ) hat(A)_t
   ], size: #140%),
 $

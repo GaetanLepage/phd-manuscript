@@ -260,13 +260,12 @@ This set of 2D points is fed into the DBSCAN algorithm, introduced by Ester et a
 DBSCAN takes two parameters: $epsilon$ defining the radius of a neighborhood and $m_p$ the minimum number of samples in a neighborhood for a point to be considered as a _core_ point.
 A distance compatible with the input samples also has to be specified.
 In this case, as we deal with points in the plane, we use the conventional Euclidean distance.
-DBSCAN categorizes all input points into three groups: _core_ points, reachable points, and outliers.
-The latter are considered noise and do not belong to any cluster, while the former make connected groups of samples, the clusters.
-Among its many benefits, DBSCAN does not require specifying the number of clusters a priori.
-This limitation also appears in other clustering algorithms, such as $k$-means.
+DBSCAN categorizes all input points into three groups: _core_ points, _reachable_ points, and _outliers_.
+Outliers are considered noise and do not belong to any cluster, while core points form the connected groups of samples, i.e., the clusters.
+A key advantage of DBSCAN is that it does not require the number of clusters to be specified a priori—a limitation common in other clustering algorithms such as $k$-means.
 DBSCAN itself does not define a concept of center for clusters.
 Here, we define the cluster center as the point with the highest value in the aggregated likelihood map.
 One should note that the actual values of each point in the heat map only impact the center search.
 Prior clustering happens without access to the estimated likelihood values and solely operates on the points' proximity to determine the clusters.
 Each cluster is interpreted as one source.
-One significant advantage of such a clustering formulation is that the proposed method can detect an arbitrary number of sources.
+One significant advantage of such a clustering formulation is that the proposed method can detect a variable number of sources.

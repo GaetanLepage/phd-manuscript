@@ -9,7 +9,7 @@
       width: image-width,
     ),
     caption: [
-      _Pyroomacoustics_ back end.
+      _Pyroomacoustics_ back-end.
     ]
   ),
   //<fig:simulator:simulator:mic_arrays:binaural>,
@@ -20,14 +20,14 @@
       width: image-width,
     ),
     caption: [
-      _gpuRIR_ back end.
+      _gpuRIR_ back-end.
     ]
   ),
   //<fig:simulator:simulator:mic_arrays:triangle>,
   
   columns: 1,
   caption: [
-    Profiling results for both available RIR simulation back ends.
+    Profiling results for both available RIR simulation back-ends.
   ],
   align: top,
   placement: fig-placement,

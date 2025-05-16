@@ -125,8 +125,7 @@ $
 The Q-function extends the concept of value by also conditioning on the action taken in the current state.
 This provides a more fine-grained assessment of decision quality, as it reflects not just the quality of a state but also the quality of a specific action within that state.
 Q-functions are particularly useful in algorithms that seek to learn optimal policies directly from action-value estimates, such as Q-learning @watkins_learning_1989 and many actor-critic methods @haarnoja_off-policy_2018.
-Together, the value function and Q-function offer complementary perspectives: the former evaluates states globally, while the latter provides localized guidance on action selection because we can define a policy based on it: $a^* = "argmax"_(a in cal(A)) Q(s, a)$.
-
+Together, the value function and Q-function offer complementary perspectives: the former evaluates states globally, while the latter provides localized guidance for action selection because we can define a policy based on it: $a^* = "argmax"_(a in cal(A)) Q(s, a)$.
 
 These foundational concepts — the #acr("MDP") formalism, return maximization, policies, and value functions — form the theoretical basis for modern reinforcement learning algorithms.
 The following section examines how these ideas scale through deep function approximation and lead to robust learning systems capable of solving complex, high-dimensional tasks.

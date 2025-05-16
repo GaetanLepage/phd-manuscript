@@ -119,7 +119,7 @@ Nevertheless, detecting more realistic speech sources has become the de facto fr
 Some works still use white-noise data for training deep neural networks, but their solution is evaluated using speech signals @nguyen_autonomous_2018 @deleforge_co-localization_2015.
 Similarly, assumptions about the continuity of the sources can vary across the literature.
 Dealing with intermittent sources is another difficulty that several approaches do not consider.
-In this regard, handling sources that may become inactive is linked with the capacity to localize an arbitrary number of sources.
+In this regard, handling sources that may become inactive is linked with the capacity to localize a variable number of sources.
 Naturally, assuming a pre-defined number of constantly active sources is easier and more common across the #acr("SSL") literature.
 
 *Event localization and detection*
@@ -241,7 +241,7 @@ Compared to #acr("FOA"), which are more common in the literature, the proposed f
 Most modern solutions adopt a supervised approach to the #acr("SSL") task.
 They thus require gathering numerous data samples from which they can learn.
 The two main approaches for data gathering consist of acoustic simulation and recording in real environments.
-The former naturally comes as a cheaper solution and scales significantly well with the amount of collected data.
+The former is naturally a more cost-effective solution and scales significantly better with the amount of collected data.
 As presented in @chap:simulator, a large ecosystem of acoustic simulation environments exists.
 They are constantly improved to reach higher levels of fidelity and accuracy.
 A typical data generator for #acr("SSL") is the association of a bank of #acr("RIR")s computed by simulation software and a set of clean speech signals from an existing corpus.

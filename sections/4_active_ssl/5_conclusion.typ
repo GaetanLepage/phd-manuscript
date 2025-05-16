@@ -12,7 +12,7 @@ One could envisage directly learning to predict the source's positions from a ba
 No clustering algorithm would thus be needed.
 Additionally, a deep learning approach could be directly fed with the #doa spectra instead of projecting them first as cones in 2D maps.
 Both tracks might allow pushing detection performance by eliminating hand-crafting middle steps.
-However, they would necessitate additional adaptations, such as the ability to localize an arbitrary number of sources.
+However, they would necessitate additional adaptations, such as the ability to localize a variable number of sources.
 
 The presented solution achieves convincing performance on this task.
 Naturally, the precision of the final position estimation highly depends on the quality of the provided #doa spectra.

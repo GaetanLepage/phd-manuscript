@@ -120,7 +120,7 @@ The specific pipeline that was used in this work involves three components:
   This architecture applies the successful #acr("RNN") architecture to language modeling.
   In this case, the recurrent units act on word sequences.
   It comprises an embedding layer that maps individual words to #dim-features-value;-dimensional vectors.
-  Those vectors are then fed to the #acr("RNN"), which is followed by fully connected layers.
+  These vectors are then fed to the #acr("RNN"), which is followed by fully connected layers.
   #speechbrain also provides other architectures, such as a _TransformerLM_, based on the widespread Transformer architecture @vaswani_attention_2017.
 - Finally, the *acoustic model* performs the actual task of speech recognition by mapping audio features to tokens.
   It employs a #acr("CRNN") architecture for the encoder, which maps audio features (e.g. #acr("STFT") or #acr("MFCC")) to tokens.
@@ -257,7 +257,7 @@ This choice is a tradeoff between the computational cost of #acr("WER") maps cac
 #include "figures/source_positions/fig.typ"
 
 *Implementation details and hyperparameters.*
-Although it has been successful at solving many complex #acr("RL") problems, #acr("PPO") remains highly dependent on its hyperparameter values and implementation details.
+Although #acr("PPO") has been successful at solving many complex #acr("RL") problems, it remains highly dependent on its hyperparameter values and implementation details.
 In @mahmood_benchmarking_2018, Mahmood et al. study the sensitivity of #acr("RL") algorithms to their hyperparameters.
 Mahmood et al. mention that #acr("PPO"), among other state-of-the-art algorithms, is highly sensitive to its hyperparameter values @mahmood_benchmarking_2018.
 It thus requires careful fine-tuning on each new environment where it is tested.

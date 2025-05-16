@@ -212,12 +212,12 @@ We chose to set $sigma = 5°$.
 )
 <fig:ssl:multi_source:doa_gt_encoding>
 
-The main benefit of this format, alongside with its ability to encode an arbitrary number of sources, is to frame the #acr("SSL") problem as a simple regression task.
+The main benefit of this format, alongside with its ability to encode a variable number of sources, is to frame the #acr("SSL") problem as a simple regression task.
 
 *Detection Decoding*
 
 The employed #doa encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
-Namely, thanks to its flexibility, it allows for representing an arbitrary number of sources.
+Namely, thanks to its flexibility, it allows for the representation of a variable number of sources.
 Also, it enables the formulation of the multi-source #acr("SSL") problem as a simple regression task.
 However, to extract the set of actual #doa values, one has to explicitly process the obtained spatial spectra.
 This is achieved by detecting the peaks in the network output.

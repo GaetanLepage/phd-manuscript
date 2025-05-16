@@ -18,7 +18,7 @@ This problem involves finding the classes, positions, and sizes of semantic obje
 In our formulation, only the position of the sources should be inferred.
 Bounding boxes and classes are not expected.
 Yet, object detection's precision and recall are natural metrics that can be adapted to evaluate our method's performance.
-An acceptable range of $delta$ meters defines the criteria for correct detection.
+A detection is considered correct if it falls within a $delta$-meter radius of the ground truth.
 For a detection to be considered valid, its estimated position must be closer than $delta$ meters from the ground truth.
 The following function thus characterizes a correct/incorrect detection:
 #include "detection_equation.typ"
@@ -201,7 +201,7 @@ This observation further validates the relevance of the proposed approach.
 <sec:active_ssl:results:blending_methods>
 
 Two alternatives have been compared for the map blending operation: naive averaging $Psi_"avg"$ and learned #psi-dnn (see @sec:active_ssl:methods:blending_methods).
-The former was introduced as a baseline, offering the advantage of being explainable and straightforward, while the second aims at providing the best performance.
+The former serves as a baseline, offering the advantage of being explainable and straightforward, while the latter aims to provide superior performance.
 
 #figure(
   image(

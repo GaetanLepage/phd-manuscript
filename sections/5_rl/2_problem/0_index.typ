@@ -7,7 +7,7 @@
 === Motivation
 
 Audio perception is an essential pillar of social robotics.
-Achieving realistic human-robot interactions is conditioned by the ability to hear and understand the content of people's speech.
+Achieving realistic human-robot interactions is conditioned on the ability to hear and understand the content of people's speech.
 #acr("ASR") techniques have significantly progressed, mainly thanks to recent advances in deep learning @malik_automatic_2021.
 However, some real-world settings remain challenging, and #acr("ASR") systems can struggle to extract the speech content properly.
 Most solutions are trained on a clean speech dataset.
@@ -20,7 +20,7 @@ To tackle this issue, we target the design of navigation policies.
 An agent will be placed in a reverberant environment with an active speech source.
 Its goal is to position itself optimally to maximize the #acr("ASR") performance.
 Our approach solely relies on the positioning of the robot.
-The #acr("ASR") algorithm that we use is an existing solution based on a #acr("DNN").
+The #acr("ASR") algorithm that is a pre-existing #acr("DNN")-based solution.
 Our motivation relies on the observation that the microphone's position and orientation relative to the target source in a complex acoustic environment significantly impact the #acr("ASR") performance.
 This insight results from an experimental study conducted within our simulated environment.
 Other metrics exist to quantify auditory perception and could have been alternatives to the #acr("ASR") performance.
