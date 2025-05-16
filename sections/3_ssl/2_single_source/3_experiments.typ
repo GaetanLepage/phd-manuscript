@@ -35,28 +35,24 @@ $
     ).
 $
 
-#block(breakable: false)[
-  We then compute the average $ell^1$ angular distance #d between $hat(theta)$ and $theta$.
-  The following expression for #d accounts for the periodicity of the angular interval $[-pi, pi]$:
-  //As both the predicted and ground-truth #acr("DoA") values are constrained to the $[-pi, pi]$ interval.
-  #func-def(
-    d,
-    $[-pi, pi]^2$,
-    $[0, 1]$,
-    $(theta_1, theta_2)$,
-    //$pi - abs(abs(theta_2 - theta_1) - pi)$
-    $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%).$
-  )
-  <eq:ssl:single_source:angular_dist>
-  ]
-#block(breakable: false)[
-  This distance is used to define the #acr("MAE") metric that quantifies the performance of #acr("DoA") estimation:
-  $
-    #mae-theta = 1 / n_"test" sum_(i=1) ^ n_"test" #d (hat(theta)_i, theta_i),
-  $
-  <eq:ssl:single_source:mae>
-  where $n_"test"$ counts the number of samples in the test set.
-]
+We then compute the average $ell^1$ angular distance #d between $hat(theta)$ and $theta$.
+The following expression for #d accounts for the periodicity of the angular interval $[-pi, pi]$:
+//As both the predicted and ground-truth #acr("DoA") values are constrained to the $[-pi, pi]$ interval.
+#func-def(
+  d,
+  $[-pi, pi]^2$,
+  $[0, 1]$,
+  $(theta_1, theta_2)$,
+  //$pi - abs(abs(theta_2 - theta_1) - pi)$
+  $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%).$
+)
+<eq:ssl:single_source:angular_dist>
+This distance is used to define the #acr("MAE") metric that quantifies the performance of #acr("DoA") estimation:
+$
+  #mae-theta = 1 / n_"test" sum_(i=1) ^ n_"test" #d (hat(theta)_i, theta_i),
+$
+<eq:ssl:single_source:mae>
+where $n_"test"$ counts the number of samples in the test set.
 
 
 *Source-array distance metric.*
@@ -69,7 +65,6 @@ $ <eq:ssl:single_source:dist_metric>
 
 The choice of the #acr("MAE") as performance criteria has the advantage of being expressed in length units.
 For clarity reasons, the values for this metric will be displayed in centimeters (cm).
-// TODO: check that we have indeed used cm.
 
 
 ==== Base Solution and General Methodology
@@ -125,7 +120,7 @@ We have experimented with the influence of the microphone spacing in a binaural 
 Increasing the distance between microphones appears to be detrimental to the localization accuracy.
 When microphones are further apart, the aliasing phenomenon becomes problematic and deteriorates the relationship between the recorded signal and the source positions.
 Indeed, if the spacing amounts to $d$ meters, all frequencies above $f_0 = c / (2 d)$ Hz cannot be adequately distinguished.
-For $d=2$ cm, this maximum frequency is 8.575 kHz, while most of human speech's frequencial content is below 5 kHz @hollien_phonational_1971.
+For $d=2$ cm, this maximum frequency is 8.575 kHz, while most of human speech's frequency content is below 5 kHz @hollien_phonational_1971.
 Further lowering the distance to 1cm does not appear to bring additional benefits.
 
 
@@ -136,20 +131,19 @@ Further lowering the distance to 1cm does not appear to bring additional benefit
 <sec:ssl:single_source:experiments:pre-processing>
 
 
-To measure the impact of the input representation, we run the training process with each aforementioned encoding choice (see @sec:ssl:single_source:method:pre-processing).
+To measure the impact of the input representation, we run the training process with each encoding choice (see @sec:ssl:single_source:method:pre-processing).
 The number of channels depends on the selected method and varies from 1 to 4.
-The network architecture's first convolutional layer is naturally scaled in consequence.
+The network architecture's first convolutional layer is naturally scaled accordingly.
 
 #include "tables/input_features.typ"
 
 
-// TODO: Hence, the choice of the encoding method for the acoustic data has a substantial impact on the difficulty of this task.
 @table:ssl:single_source:input_features summarizes the method's performance using different input features.
 We report the corresponding channel dimension of the resulting tensor for each set of cues.
 On the one hand, both complex-to-real #acr("STFT") polar and Cartesian mappings yield substantially different results.
 Indeed, despite having the same underlying data, those two representations do not offer the network the same performance.
 The polar projection proved to be harder to learn from.
-Also, both Cartesian and polar projections lead to more unstable training compared to the interaural features.
+Also, both Cartesian and polar projections lead to more unstable training than the interaural features.
 The Cartesian features perform the same as the interaural ones in training but lead to a less robust convergence on the validation set.
 Despite the final performance being comparable, training our neural network on interaural features is significantly more repeatable and robust.
 Hence, the #acr("ILD") #acr("IPD") combination is shown to generalize better and have stronger stability.
@@ -165,12 +159,6 @@ No additional pre-processing was applied in this study.
 Additional normalization schemes might boost the network's performance, generalization, and stability.
 Daniel Stoller @stoller_spectrogram_2017 presents two strategies for spectrogram normalization.
 
-//On the other hand, further processing the #acr("STFT") into the binaural features does not seem to improve performance.
-// Unsurprisingly, displaying phase-related information directly rather than indirectly seems to matter the most.
-// Both the polar #acr("STFT") and interaural features explicitly contain this phase:
-// The former by $arg(L)$ and $arg(R)$ on two distinct channels and the latter by the ratio $arg(L) / arg(R)$ on a single one.
-// $L$ and $R$ denote the spectrograms from the left and right microphones, respectively.
-
 #include "figures/input_features_loss/fig.typ"
 
 Furthermore, we have explored the relative importance of the individual sub-features for each category.
@@ -183,7 +171,7 @@ This observation is reasonable as #acr("IPD") is directly correlated to the #acr
 Besides, regarding the sub-features of the polar #acr("STFT") representation, we notice a low drop in performance when discarding the magnitude information.
 While the complete solar #acr("STFT") features allow for an #mae-theta of 25.7°, using the sole phase spectrogram only worsens it by 2.3°.
 
-In conclusion, we have shown that it is highly important to carefully choose a pre-processing strategy when training a deep neural network for #acr("SSL").
+In conclusion, we have shown that it is critical to carefully choose a pre-processing strategy when training a deep neural network for #acr("SSL").
 While the information content is theoretically the same across different bijective transformations of the complex #acr("STFT") performance, some can be harder to learn from.
 Our experimental results suggest that interaural features offer the best performance and stability.
 
@@ -224,14 +212,14 @@ In @chap:active_ssl, we leverage robot movement to accumulate localization infor
 As discussed in @sec:simulator:background:spectral-features, these interaural features are theoretically sufficient to infer a single sound source's #acr("DoA").
 This result does not hold in a reverberant environment where sound reflections deteriorate the direct relationship between the recorded waveform and the direction of arrival.
 Performing #acr("SSL") in reverberant environments remains a core challenge for the acoustic research community.
-We have generated datasets from different reverberation settings thanks to our simulation library.
+Thanks to our simulation library, we generated datasets from different reverberation settings.
 A neural network has been trained from scratch on these individual datasets before being evaluated on the corresponding test set.
 Experimental results are summarized in @table:ssl:single_source:reverb.
 Naturally, our method achieves very accurate localization in low-reverberation scenarios.
 These results demonstrate the challenge of operating #acr("SSL") in reverberant environments.
 Notably, there is a 10x factor between performance at $T_60=100$ms and the performance at $T_60=1$s.
 @fig:ssl:single_source:reverb illustrates the quasi-linear relation between the #mae-theta and the reverberation level $T_60$.
-Although performance certainly suffers from an increase of the reverberation time $T_60$, we noticed that the proposed method remained robust to reverberation.
+Although performance certainly suffers from an increase in the reverberation time $T_60$, we noticed that the proposed method remained robust to reverberation.
 Even in highly reverberant scenarios, the #acr("MAE") remains inferior to 30°.
 This shows that the network successfully filters out the direct path information from the recorded signal's early and late reverberation artifacts.
 Furthermore, we demonstrate that a simple #acr("CNN") architecture can perform accurate localization in challenging reverberation conditions.

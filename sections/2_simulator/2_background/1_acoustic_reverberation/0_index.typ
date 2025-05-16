@@ -110,9 +110,6 @@ Finally, the late reflections correspond to the echoes bouncing several times be
 They form the long and dense tail of the #acr("RIR").
 The boundary between early echoes and late reflections is called the _mixing time_ and depends on the room's acoustic characteristics.
 
-// TODO: remove if we agree that this is too much
-//*Model limitations*
-
 #figure(
   image("figures/reflection_types.svg", width: 100%),
   caption: flex-caption(
@@ -126,7 +123,6 @@ The boundary between early echoes and late reflections is called the _mixing tim
 )
 <fig:simulator:background:reflection_types>
 
-
 The #acr("RIR") model does not account for all the existing reflection phenomena.
 Sound will interact in various, potentially simultaneous, ways with the surface it encounters (@fig:simulator:background:reflection_types).
 It might reflect from the surface, leading to reverberation, but it can also be partly diffracted (in the presence of a small aperture), refracted, or absorbed.
@@ -137,9 +133,6 @@ On the other hand, diffuse reflections occur when the surface is imperfect or ro
 In this case, the trajectories of the reflected waves are entirely unpredictable.
 The #acr("RIR") paradigm solely accounts for specular reflections.
 
-//*Multiple sources and microphones*
-
-#block(breakable: false)[
 When several sources are active in the room, the sound received by a microphone is the sum of each source's contribution.
 This formulation is known as a mixture model (@vincent_audio_2018 - Chapter 3)
 These individual contributions are the convolution between each source signal $s_i$ and the corresponding #acr("RIR") $h_i$.
@@ -148,7 +141,6 @@ $
   x[n] = sum_(i=1)^(n_s) (h_i * s_i)[n].
 $
 <eq:simulator:rir_listened_signal_multi_source>
-]
 
 @eq:simulator:rir_listened_signal_multi_source can be straightly generalized to multiple microphones ${m_1, dots, m_(n_m)}$.
 The signal recorded by the $k$-th receiver is:
@@ -297,21 +289,16 @@ The term spectrogram can also refer directly to the complex-valued result of the
 *Motivation for Using #acr("STFT") for Reverberant Signals*
 
 The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 2.9.6) grants one of the Fourier transform's fundamental properties.
-#block(breakable: false)[
-  It states that the Fourier transform of a convolution is the product of the Fourier transforms:
-  $
-    cal(F)(f * g) = cal(F)(f) times cal(F)(g).
-  $
-  <eq:simulator:background:conv_theorem>
-]
-<eq:simulator:conv_theorem>
-#block(breakable: false)[
-  Additionally, the transform of a product is the convolution of the transforms:
-  $
-    cal(F)(f times g) = cal(F)(f) * cal(F)(g).
-  $
-  <eq:simulator:bckground:conv_theorem_bis>
-]
+It states that the Fourier transform of a convolution is the product of the Fourier transforms:
+$
+  cal(F)(f * g) = cal(F)(f) times cal(F)(g).
+$
+<eq:simulator:background:conv_theorem>
+Additionally, the transform of a product is the convolution of the transforms:
+$
+  cal(F)(f times g) = cal(F)(f) * cal(F)(g).
+$
+<eq:simulator:background:conv_theorem_bis>
 This result gives an intuitively compelling argument for using Fourier representations in problems involving reverberant environments.
 Indeed, the reverberation phenomenon can be modeled as the convolution of a source signal with the #acr("RIR") in the time domain.
 Hence, it translates into a product in the Fourier domain, making it easier to disentangle information from the raw signal from the listened one.
@@ -323,7 +310,7 @@ Despite this theoretical result not transferring to the #acr("STFT")-based repre
 This assumption of multiplicative transfer functions is known as the narrow-band assumption.
 It is made in various domains of audio processing despite the error being often large.
 
-==== Beamforming and Interaual Cues
+==== Beamforming and Interaural Cues
 <sec:simulator:background:binaural>
 
 *Motivation*

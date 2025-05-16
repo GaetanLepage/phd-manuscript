@@ -30,19 +30,17 @@ Nonetheless, the efficiency of geometrical acoustics methods has led them to be 
 ==== Numerical Simulation of Sound Propagation
 <sec:simulator:background:simulation:wave-based>
 
-#block(breakable: false)[
-  A natural approach to acoustic rendering is numerically solving the acoustic wave equation.
-  The wave equation is a second-order partial differential equation characterizing the propagation of acoustic wave in a given medium (Feynman @feynman_lectures_2010, Volume I, Chapter 47):
-  $
-    // (partial^2 p) / (partial x^2)
-    nabla^2 bold(p)
-    //(partial^2 p) / (partial x^2)
-    = 1 / (#c^2) (partial^2 bold(p)) / (partial t^2),
-  $
-  <eq:simulator:background:acoustic_wave_eq>
-  where $bold(p): RR^3 times RR_+ -> RR$ is the acoustic pressure as a function of position $bold(x) in RR^3$ and time $t in RR_+$.
-  $nabla^2 = partial / (partial x^2) + partial / (partial y^2) + partial / (partial z^2)$ denotes the Laplacian operator in 3d space.
-]
+A natural approach to acoustic rendering is numerically solving the acoustic wave equation.
+The wave equation is a second-order partial differential equation characterizing the propagation of acoustic wave in a given medium (Feynman @feynman_lectures_2010, Volume I, Chapter 47):
+$
+  // (partial^2 p) / (partial x^2)
+  nabla^2 bold(p)
+  //(partial^2 p) / (partial x^2)
+  = 1 / (#c^2) (partial^2 bold(p)) / (partial t^2),
+$
+<eq:simulator:background:acoustic_wave_eq>
+where $bold(p): RR^3 times RR_+ -> RR$ is the acoustic pressure as a function of position $bold(x) in RR^3$ and time $t in RR_+$.
+$nabla^2 = partial / (partial x^2) + partial / (partial y^2) + partial / (partial z^2)$ denotes the Laplacian operator in 3d space.
 This strategy is the most faithful to the physical reality.
 Theoretically, it accurately represents complex mechanisms such as diffraction, interference, scattering or modal resonances @cao_interactive_2016.
 However, tackling this second-order partial differential equation is challenging.
@@ -50,7 +48,7 @@ No closed-form solution is readily available, and one must fall back to approxim
 Botteldooren @botteldooren_acoustical_1994 has proposed using the #acr("FDTD") method to obtain a practical solution to the acoustic wave equation.
 In general, methods from this family discretize space and time to apply numerical integration techniques.
 Kirkup @kirkup_boundary_2007 proposed an in-depth investigation of applying the #acr("BEM") to acoustics.
-It allows solving the Helmholtz equation by reformulating it into a boundary integral equation.
+It enables the solution of the Helmholtz equation by reformulating it as a boundary integral equation.
 The #acr("BEM") method is less computationally expensive than the volume-based formulation.
 Additionally, Thompson @thompson_review_2006 provides an overview of other #acrpl("FEM") for solving the Helmholtz equation.
 
@@ -64,7 +62,7 @@ Finally, their #acr("FDTD") scheme is not adapted to moving objects.
 Rosen et al. @rosen_interactive_2020 tackle the problem of rendering acoustic scenes as efficiently as possible.
 Also, they target dynamic situations where the geometry can evolve over time.
 To achieve this, they restrict the solving to a 2D slice of the environment at the height of the listener's head.
-They use a second order #acr("FDTD") scheme, operating at a frequency of 275Hz.
+They use a second-order #acr("FDTD") scheme, operating at a frequency of 275Hz.
 This approach shows compelling results in terms of performance and supported features.
 The ability to run on a limited computing budget, such as a single CPU core, demonstrates its relevance for applications such as video games or virtual reality.
 Limiting the model to two dimensions grants a significant performance uplift.
@@ -81,11 +79,11 @@ Its main principle resides in considering that sound propagates as rays @savioja
 This is an immediate parallel of the ray-based rendering techniques used for light (ray tracing).
 Each ray travels in a straight line in the air until it hits a wall.
 It then deviates by following a simplistic specular reflection model.
-The assumption that all reflections are specular boils down to supposing the walls' surface being ideally rigid.
+The assumption that all reflections are specular boils down to supposing the walls' surface to be ideally rigid.
 This implies that all sound wave properties are neglected, and thus, diffraction effects are entirely neglected.
 There are two main categories of #acr("GA") methods: the image source techniques and the ray tracing ones.
-Rindel @rindel_computer_1995 gives a clear overview of those two families of methods along with their respective advantages and drawbacks.
-Both categories are further explained in the next two paragraphs.
+Rindel @rindel_computer_1995 gives a clear overview of those two families of methods, along with their respective advantages and drawbacks.
+Both categories are further explained in the following two paragraphs.
 // Room acoustics equation
 Siltanen et al. @siltanen_room_2007 propose a general formulation for the #acr("GA") approach to sound rendering.
 They introduce the _room acoustic rendering equation_, which aims to provide a unifying framework for the diverse #acr("GA") techniques (beam tracing, ray tracing, image source, etc.).

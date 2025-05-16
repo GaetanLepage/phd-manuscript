@@ -4,7 +4,7 @@
 <sec:rl:intro:deep_reinforcement_learning>
 
 Although #acr("RL") has existed since the 1970s, it has experienced a more recent and considerable surge in popularity @arulkumaran_deep_2017.
-As supervised learning and the machine learning field in general, #acr("RL") has benefited from the possibilities offered by Deep Neural Networks.
+As supervised learning and the machine learning field in general, #acr("RL") has benefited from the possibilities offered by deep neural networks.
 Traditionally, #acr("RL") leveraged simpler methods such as tabular methods @watkins_learning_1989 @sutton_learning_1988, linear function approximators, or shallow neural networks @barto_neuronlike_1983 @tesauro_temporal_1995.
 The main problem of those approaches for policy modeling is their limited capacity to handle larger state and action spaces.
 Hence, #acr("RL") has been mainly limited to low-dimensional problems @arulkumaran_deep_2017.
@@ -28,8 +28,8 @@ The OpenAI Five @berner_dota_2019 project consists of training an agent to play 
 In total, their agent has played for an approximate duration of 180 years.
 Similarly, when applying #acr("DRL") to autonomous driving, collecting a high amount of interactive experience is necessary to achieve decent performance.
 Bansal et al. @bansal_chauffeurnet_2018 have used a dataset of 30 million samples to train their policy.
-They stated that their initial attempts at imitation learning on this data were unsuccessful.
-Finally, it required more advanced techniques to train a working system.
+// They stated that their initial attempts at imitation learning on this data were unsuccessful.
+// Finally, it required more advanced techniques to train a working system.
 
 
 *Games.*

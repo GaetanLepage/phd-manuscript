@@ -1,8 +1,6 @@
 #import "/utils.typ": *
 #import "../_variables.typ": *
 
-// TODO (this is a copy-paste)
-
 #set text(size: 11pt)
 
 #let algo = algorithm({

@@ -95,11 +95,6 @@ $
 As an important note, those two scenarios are used to grasp the overall performance of a given model.
 The method stays the same in both cases as solely the extraction of the prediction employs either @eq:ssl:multi_source:decoding_unknown_sources or @eq:ssl:multi_source:decoding_known_sources.
 
-//TODO
-//#gaet[
-//  Again, should I go as far as explaining the GT-predictions matching algorithm ?
-//]
-
 ==== Loss and Convergence
 <sec:ssl:multi_source:experiments:loss>
 
@@ -109,17 +104,9 @@ $
   cal(L) (hat(o), o) = norm(hat(o) - o)_2^2 med.
 $
 <eq:ssl:multi_source:loss_function>
-//TODO
-//#gaet[
-//  Technically, this equation does not illustrate the _mean_ aspect of the MSE.
-//  If we want to add the $sum_(i=1)^n 1/n dots$ in front, then we should do it consistently everywhere.\
-//  I personally think that it is more readable to concentrate on the core formula for the loss between two samples. Of course it will be reduced using an average.
-//]
 
 *Sub-Optimal Convergence*
 
-//TODO
-//#gaet[This should go in the _Results_ section... maybe as well as this entire _Training strategy_ section]
 // Impact of BS and LR
 *Local minimum.*
 Several experiments were conducted to identify working hyperparameters for the proposed #acr("SSL") method.
@@ -153,12 +140,11 @@ $
 <fig:ssl:multi_source:loss_illustration>
 
 
-From this observation, the strategy of enforcing $#pred = 0$, ensures the loss will never exceed $cal(L) (#gt, 0)$.
-A careful choice of both the batch size and the learning rate were necessary to prevent this phenomenon for happening.
-To empirically illustrate this behavior, we monitor in @fig:ssl:multi_source:output_norm_plot the $ell^2$ norm $norm(o)_2^2$ of the network output, defined by 
-
+From this observation, the strategy of enforcing $#pred = 0$ ensures the loss will never exceed $cal(L) (#gt, 0)$.
+To prevent this phenomenon from occurring, both the batch size and the learning rate needed to be carefully chosen.
+To empirically illustrate this behavior, we monitor in @fig:ssl:multi_source:output_norm_plot the $ell^2$ norm $norm(o)_2^2$ of the network output, defined by:
 $
-  norm(o)_2^2 = 1 / d sum_(i=1) ^d o_i^2
+  norm(o)_2^2 = 1 / d sum_(i=1) ^d o_i^2,
 $
 along a successful training process.
 
@@ -175,7 +161,7 @@ along a successful training process.
 ) <fig:ssl:multi_source:output_norm_plot>
 
 We can distinguish two distinct phases:
-- First, the network exploits a trivial local optimum, consisting of predicting a null output.
+- First, the network exploits a trivial local optimum, which entails predicting a null output.
   Both the loss and the output norm reach stable values.
 - Subsequently, from the 50,000th step onward, the model escapes this plateau and successfully learns to solve the regression task.
 
@@ -186,12 +172,6 @@ Identifying, characterizing, and overcoming this shortcoming was essential in de
 
 ==== Performance Evaluation
 <sec:ssl:multi_source:experiments:performance_eval>
-
-// TODO: we can not really compare with the original authors as they evaluated on real data.
-
-// TODO give the value we have chosen for E_a
-
-// TODO PR-curves
 
 *Impact of the number of sources.*
 As explained in @sec:ssl:multi_source:method:dataset, the dataset allows for dynamically selecting a subset of 0 to 4 sources at runtime.
@@ -208,7 +188,7 @@ On the one hand, the two following training setups can be compared:
   - 4 sources: 5%.
 - _Scenario B_ uniformly chooses a number of sources between one and four for each sample. Thus, it is more challenging as at least one source is always present in the room, and significantly more samples present 3 or 4 sources.
 
-As no artificial noise is added to the speech sources' signals, the training dataset in _scenario A_ brings exactly 160k identical samples which observation tensor is null.
+As no artificial noise is added to the speech sources' signals, the training dataset in _scenario A_ brings exactly 160k identical samples, whose observation tensor is null.
 Once the network successfully learns that it should output a zero-vector for those trivial samples, they will not contribute to increasing or lowering the detection scores.
 
 Furthermore, the more sources are simultaneously present in the room, the more challenging it becomes to localize them properly.
@@ -226,9 +206,6 @@ We have evaluated a given network in various scenarios to understand the impact 
 The network has been trained according to the _scenario A_ presented above.
 
 #include "tables/n_sources.typ"
-
-// TODO: make a comparison between performance achieved on single-source SSL.\
-// I guess that this 2° MAE is quite close from what the single-source SSL will give.
 
 ==== $epsilon$-Loss
 
@@ -253,54 +230,36 @@ $
 The damping term #damp-term reduces the penalization of false positive peaks in the estimated spectrogram.
 In a region of the spectrum where no sources are effectively present, i.e. where $o approx 0$, the loss value will be bounded by $epsilon$.
 
-//#figure(
-//  include("figures/epsilon_loss_plot.typ"),
-//  caption: flex-caption(
-//    short: [
-//      Plot of the $epsilon$-loss for multi-source localization
-//    ],
-//    long: [
-//      Plot of the $epsilon$-loss for multi-source localization for several values of $epsilon$ (@eq:ssl:multi_source:experiments:epsilon_loss)
-//    ],
-//  ),
-//)
-//<fig:ssl:multi_source:experiments:epsilon_loss>
-
 #include "tables/epsilon_loss.typ"
 
 @table:ssl:multi_source:experiments:epsilon_loss summarizes the performance of our model after being trained with the $epsilon$-loss.
-More precisely, we compare different values of $epsilon$ to measure its influence on performance better.
+More precisely, we compare different values of $epsilon$ to better measure its influence on performance.
 A baseline corresponding to the #acr("MSE") loss is also included for comparison.
 This ablation study suggests that a value of $epsilon = 0.4$ improves the #acr("MAE") and accuracy scores at the expense of losing some precision points.
-A value closer to 0.1 slightly boosts the recall too but comes with an important dip in precision.
+A value closer to 0.1 slightly boosts the recall, too, but comes with an important dip in precision.
 Also, this choice has an impact on the training dynamics.
 The $epsilon$ loss seems to shorten the initial stagnating phase of the training process, where the validation loss sees no improvement.
-When training with the #acr("MSE"), the loss only starts improving after 50-60k steps, while this number falls to 16k steps when using the $epsilon$ loss.
+When training with the #acr("MSE"), the loss only starts improving after 50 to 60k steps, while this number falls to 16k steps when using the $epsilon$ loss.
 Unfortunately, the behavior of the $epsilon$ loss remains unclear in some aspects.
 Overall, its benefits are not satisfying enough to be included in the final method.
 Notably, its impact on precision is detrimental to the overall performance.
 
-// TODO: maybe add some training curves
-// ->  This requires to run more repetitions for each experiment so that the gaps in performance can be confirmed.
-
 
 ==== Normalization <sec:ssl:multi_source:experiments:normalization>
 
-// TODO: Convert this back to subsections if it has been moved to an upper level in the meantime (i.e. 'Background' can be a level-4 heading)
-//===== Background <sec:ssl:multi_source:experiments:normalization:background>
 *Background*
 
 Various schemes of normalization have been used in Deep Neural Networks.
 They address the phenomenon of _internal covariate shift_ which appears as architectures get deeper.
-This problem comes from the distribution of each layer's inputs changing during training.
+This problem comes from the change in the distribution of each layer's inputs during training.
 Such a drift causes the non-linear activation functions to saturate and harms the learning process.
-Normalization also attempts at reducing the effects of mismatch between the training and test dataset distributions.
+Normalization also attempts to reduce the effects of mismatch between the training and test dataset distributions.
 
 _#acr("BatchNorm")_, proposed by Ioffe et al. @ioffe_batch_2015 has gathered significant success, especially in the computer vision community.
-It consists in normalizing each mini-batch input with respect to its own statistics.
+It entails normalizing the activations within each mini-batch using that mini-batch's own mean and variance.
 Acting as a form of regularizer, this process stabilizes learning by ensuring that the values entering all layers do not deviate too significantly.
-The data will get distributed according to a standard normal distribution.
-The _Batch Normalization Transform_ algorithm expresses as such:
+The data will be distributed according to a standard normal distribution.
+The _Batch Normalization Transform_ algorithm is expressed as such:
 $
   y_i = colMath(gamma, #blue) [
     (
@@ -365,7 +324,6 @@ Furthermore, they proposed a novel addition to better handle sparsity and achiev
 Similarly, the _PowerNorm_ scheme, introduced by Shen et al. @shen_powernorm_2020, attempts to circumvent the identified weaknesses of the existing normalization schemes when applied to the transformer architecture.
 Those works further demonstrate the importance of normalization in deep neural networks.
 
-//===== Experiments
 *Experiments*
 
 Although He et al. chose to use #acr("BatchNorm") in their work, our final architecture employs the more flexible #acr("LayerNorm").
@@ -379,19 +337,17 @@ We observed that the latter yielded the same stabilization benefits during train
   caption: [
     Training and validation accuracies during training for different normalization schemes.
   ]
-) <fig:ssl:multi_source:normalization_plots>
-
-// The experiment _without normalization_ is mysterious: I am not able to reproduce it.
-// If I don't solve this, we might have to simply remove it and just compare BN to LN.
+)
+<fig:ssl:multi_source:normalization_plots>
 
 This specific metric clearly exposes the differences between those three choices but the other metrics behave similarly.
 Both normalization techniques bring additional stability and performance to the training process.
 However, significant differences arise when looking at the validation metrics.
-When ran in evaluation mode, i.e. using the running statistics gathered during training, the network trained with #acr("BatchNorm") performs poorly compared to training.
+When run in evaluation mode, i.e., using the running statistics gathered during training, the network trained with #acr("BatchNorm") performs poorly compared to training.
 This would suggest that the saved means and averages do not adequately account for the differences between the training and validation sets.
 
 Interestingly, evaluating this network's performance while forcing the batch normalization to use the training strategy avoids facing this issue.
-Indeed, using the current validation batch statistics instead of those gathered at training time provides results on par with the training performance.
+Indeed, using the current validation batch statistics instead of those gathered at training time provides results that are on par with the training performance.
 This constitutes an essential limitation of batch normalization in this case, as the evaluation thus needs to be performed in a batched manner.
 @table:ssl:multi_source:experiments:normalization displays the batch size's influence on the network's performance trained with #acr("BatchNorm").
 
@@ -399,38 +355,38 @@ This constitutes an essential limitation of batch normalization in this case, as
 #include "tables/normalization.typ"
 
 
-Those results depicts the positive role played by larger batch sizes for evaluation in _training mode_.
+Those results depict the positive role played by larger batch sizes for evaluation in _training mode_.
 Although in a purely synthetic benchmark, this does not constitute an important drawback, it will become one as soon as the model will be asked to perform one-shot inference.
-In our robotics context, the developed #acr("SSL") solution would have to be able to be used in real-world scenario where an entire batch of observation is not available at inference.
+In our robotics context, the developed #acr("SSL") solution would have to be able to be used in a real-world scenario where an entire batch of observations is not available for inference.
 
-This is what motivated enhancement of the model using other normalization schemes.
+This is what motivated the enhancement of the model using other normalization schemes.
 As explained in @sec:ssl:multi_source:experiments:normalization, #acr("LayerNorm") does not encompass this behavioral distinction between training and evaluation.
 @table:ssl:multi_source:experiments:normalization also compares the final performance of the layer normalization strategy.
 
 Overall, #acr("LayerNorm") and #acr("BatchNorm") offer comparable performance.
-However, the model trained with #acr("LayerNorm") behaves very consistently when used in evaluation.
+However, the model trained with #acr("LayerNorm") behaves consistently when used in evaluation.
 For those reasons, we have preferred this approach over the original one.
 
 
 ==== Exploring How Context Length Matters
 
 The choice of the signal duration used for training the localizer has some importance.
-A tradeoff needs to be made between the reactivity of the system and detection performance.
+A tradeoff needs to be made between the system's reactivity and detection performance.
 Naturally, disposing of longer sequences of input audio is suspected to lead to higher metrics values.
-On the other hand restricting the snippet length even further might hinder the robustness of the results.
+On the other hand, restricting the snippet length even further might hinder the robustness of the results.
 Also, when available, a pre-trained method should be able to leverage longer segments of audio to refine its prediction.
 
-To quantitatively evaluate those assumptions, we start by training our neural network on different context lengths.
-Each training dataset has been generated from audio recordings of a given fixed duration translating in #acr("STFT") tensors of #T-train frames.
+To evaluate those assumptions quantitatively, we train our neural network on different context lengths.
+Each training dataset has been generated from audio recordings of a given fixed duration, translating into #acr("STFT") tensors of #T-train frames.
 As presented in @sec:ssl:multi_source:method:dataset, the baseline duration of used recordings amounts to roughly 320ms of audio ($#T-train = 16$).
-Here, trainings on lower durations have also been attempted.
+Here, training on shorter durations has also been attempted.
 We test the models obtained from each value of #T-train on samples of equal or larger durations by performing subsequent forward passes.
-This process will be referred as _sequence processing_.
+This process will be referred to as _sequence processing_.
 
 *Sequence processing.*
-The main idea of sequence processing resides in splitting the longer input audio in $M$ chunks of #T-train frames to be processed individually by the neural network.
-$M$ output #acr("DoA") spectra are thus obtained and need to be aggregated.
-We simply average those signals to obtain a single vector:
+The main idea of sequence processing is splitting the longer input audio into $M$ chunks of #T-train frames to be processed individually by the neural network.
+$M$ output #acr("DoA") spectra are thus obtained and must be aggregated.
+We average those signals to obtain a single vector:
 $
   #averaged-spectrum = 1/M sum_(i=1)^M hat(o)_k #h(1em) in [0, 1]^d.
 $
@@ -443,7 +399,7 @@ The detection algorithm can then be applied on the average output.
 To evaluate the performance of the obtained models, a new dataset #D-full is generated.
 Instead of saving 16 frames long individual #acr("STFT") chunks, we record the features for recordings of several seconds.
 To generate each sample, each active source outputs one recorded sentence from the #librispeech @panayotov_librispeech_2015 dataset.
-#acr("STFT")s of the multi-channel signals received by the microphone array coming from each source are saved independently.
+#acr("STFT")s of the multi-channel signals received by the microphone array from each source are saved independently.
 Disposing of features corresponding to several seconds of simulation allows for performing #acr("SSL") on context windows of varying lengths.
 
 #include "figures/sequence_processing/fig.typ"
@@ -453,9 +409,9 @@ Disposing of features corresponding to several seconds of simulation allows for 
 Here, around 16 seconds of continuous speech produced by three distinct static sources get recorded by the microphone array.
 The latter also stands at a fixed position in the room.
 @fig:ssl:multi_source:sequence_processing:doa_spectrum depicts the averaged #acr("DoA") spectrum #averaged-spectrum along with the corresponding overall predictions.
-On this specific example, the averaging process successfully aggregates the angular information and allows for an accurate localization of all three sources.
+On this specific example, the averaging process successfully aggregates the angular information and allows for the accurate localization of all three sources.
 More precisely, the top part of @fig:ssl:multi_source:sequence_processing:result displays the network output at each time step.
-The gray scale patches represent the individual estimated #acr("DoA") spectra $hat(o)_k$.
+The gray-scale patches represent the individual estimated #acr("DoA") spectra $hat(o)_k$.
 The resulting predicted angles are highlighted by the red dots.
 Finally, the histogram of predictions characterizes the distribution of detections along the process.
 
@@ -469,20 +425,20 @@ This drawback gets offset by leveraging the overall consistency of the method ov
 
 In order to further characterize this behavior, we have executed an exhaustive performance evaluation of the sequence processing workflow.
 @table:ssl:multi_source:experiments:context_length summarizes the results from the conducted experiments.
-Leveraging the aforementioned generated dataset #D-full containing full audio recordings, it was possible to evaluate multiple models on different context lengths.
+Leveraging the aforementioned generated dataset #D-full, containing full audio recordings, it was possible to evaluate multiple models on different context lengths.
 
 For evaluation durations $d_"eval"$ from 21ms to 320ms, we compare models trained on different sub-factors of $T_"eval"$ frames performing _sequence processing_.
 A network trained on #acrpl("STFT") of #T-train frames gets evaluated $N_"pass" = T_"eval" / #T-train$ times using the _sequence processing_ method.
-The results unsurprisingly suggest that training a model on $T_"eval"$ frames directly will always yield better results than averaging inference results of a model trained on fewer frames.
+The results unsurprisingly suggest that directly training a model on $T_"eval"$ frames will always yield better results than averaging inference results of a model trained on fewer frames.
 
 However, _sequence processing_ still holds value by allowing a given pre-trained network to leverage lengthier recordings.
 The base model trained on $#T-train = 16$ samples has been evaluated on signals ranging from 320ms, its base context length, up to more than 10s.
 The last row of @table:ssl:multi_source:experiments:context_length comes from an experiment where the entire recordings were provided to the network.
 As many forward passes as needed were performed for each sample to exploit the complete data.
 It appears clearly that the longer the agent is able to hear, the better its localization performance becomes.
-Like so, we are able to account for the missed detections and achieve a higher robustness in the detections.
+In this way, we account for missed detections and enhance the robustness of the system.
 
-The base context window of 16 #acr("STFT") frames amounts to approximately 320ms, which is a fairly short time period.
+The base context window of 16 #acr("STFT") frames amounts to approximately 320ms, a fairly short period.
 During this interval, one or more speech sources could be inactive as the energy criteria $delta_"energy" (#tau-e)$ is not enforced on this specific data set.
 This sole difference in the data generation process explains the gap in performance between this experiment and the evaluation on the normal dataset reported in @sec:ssl:multi_source:experiments:performance_eval (see @table:ssl:multi_source:experiments:n_sources for example).
 
@@ -490,12 +446,12 @@ This sole difference in the data generation process explains the gap in performa
 
 ==== Ablation Study on Sources' Angular Proximity
 
-The decoding process, presented in @sec:ssl:multi_source:method:doa_repr, consists in extracting the local maxima of the predicted #acr("DoA") spectrum.
+The decoding process, presented in @sec:ssl:multi_source:method:doa_repr, involves extracting the local maxima of the predicted #acr("DoA") spectrum.
 The abscissas of the resulting peaks are considered as the final angle values.
-As such, samples involving sources with close #acr("DoA") values are expected to be challenging for our method.
+As such, our method is expected to be challenged by samples involving sources with close #acr("DoA") values.
 
 #let delta-t = $Delta theta_"min"$
-Let #delta-t be the angle difference between the two closest sources with respect to #acr("DoA"):
+Let #delta-t be the angle difference between the two closest sources in terms of their #acr("DoA"):
 $
   #delta-t = min_(i, j in [|1, n_s|]\ i!= j) #d (theta_i, theta_j),
 $
@@ -518,11 +474,11 @@ In the first scenario, all four sources remain active and the four corresponding
 On the other two, only two (respectively three) random sources are enabled simultaneously in every sample.
 @fig:ssl:multi_source:experiments:doa_min_dist_hist depicts the distribution of #delta-t depending on this number of active sources.
 Naturally, when only two sources are present concurrently, high values of #delta-t remain likely.
-Yet, increasing the number of sources tends to decrease their likelihood and the minimum #acr("DoA") gap more often reaches lower values.
+Yet, increasing the number of sources tends to decrease their likelihood, and the minimum #acr("DoA") gap more often reaches lower values.
 Hence, the correlation between the number of sources and the difficulty of the #acr("SSL") task highlighted in @sec:ssl:multi_source:experiments:performance_eval might be caused by two underlying reasons.
 On the one hand, the model is expected to extract each speaker's location from the mixture of speech signals that constitute its input.
-An increase in the number of inherently hardens this task.
-On the other hand, low #delta-t samples also get more frequent, which could participate to hinder proper localization by itself.
+An increase in the number of sources inherently hardens this task.
+On the other hand, low #delta-t samples also get more frequent, which could contribute to hindering proper localization by itself.
 
 To empirically study the impact of #delta-t on the #acr("SSL") performance, the model trained on a regular dataset has been evaluated on specific test cases.
 Each test dataset ensures that it respects a lower bound #tau-doa such that $#delta-t >= #tau-doa$ for all samples.
@@ -532,9 +488,9 @@ Also, the number of sources is fixed to $n_s = 4$ to best isolate the influence 
 
 @fig:ssl:multi_source:experiments:doa_min_dist_hist_2 plots the distribution of #delta-t of all four test datasets.
 
-Performances of the pre-trained model on each scenario are summarized in @table:ssl:multi_source:experiments:min_doa.
-Although #acr("MAE") and Precision show to not being meaningfully affected by #delta-t, Accuracy and Recall improve by 6.5 and 11 points respectively across this range of scenarios.
-This observation hence confirms that samples with very low #delta-t constitute harder cases.
+The pre-trained model's performance on each scenario is summarized in @table:ssl:multi_source:experiments:min_doa.
+Although #acr("MAE") and Precision do not show to be meaningfully affected by #delta-t, Accuracy and Recall improve by 6.5 and 11 points, respectively, across this range of scenarios.
+This observation confirms that samples with very low #delta-t constitute more difficult cases.
 
 #figure(
   image(

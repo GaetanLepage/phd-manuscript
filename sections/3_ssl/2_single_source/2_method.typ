@@ -4,8 +4,6 @@
 === Method
 <sec:ssl:single_source:method>
 
-#draft[Do we need an extra intro here?]
-
 
 ==== Custom Dataset for #acr("SSL")
 <sec:ssl:single_source:method:dataset>
@@ -139,16 +137,14 @@ $
 $
 Both #acr("ILD") and #acr("IPD") take real values, which does not lead to doubling the number of channels.
 When dealing with arrays having more than two microphones, we compute the interaural features for successive and overlapping microphone pairs.
-#block(breakable: false)[
-  For an array with microphones ${m_1, dots, m_k}$, the interaural features is expressed as:\
-  $quad forall i in [|1, C|]$,
-  $
-    cal(I)[i] = cases(
-      "IPD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 0,
-      "ILD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 1.
-    )
-  $
-]
+For an array with microphones ${m_1, dots, m_k}$, the interaural features is expressed as:\
+$quad forall i in [|1, C|]$,
+$
+  cal(I)[i] = cases(
+    "IPD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 0,
+    "ILD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 1.
+  )
+$
 When using a single interaural feature, and not both #acr("ILD") and #acr("IPD"), the coefficients of $cal(I)$ become:
 $
   cal(I)[i] = "IPD"(m_i, m_((i+1) equiv C)).
@@ -203,7 +199,6 @@ A naive #acr("MSE") loss would wrongly penalize estimations close to $+pi$.
 We adopt a periodic loss for the #acr("DoA") to account for this specificity.
 Also, the network does not directly predict the #acr("DoA") value $theta$, but its sine and cosine instead.
 
-#block(breakable: false)[
 Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #acr("DoA") angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
 The loss function is expressed as
 $
@@ -218,7 +213,6 @@ $
        )
     ].
 $
-]
 
 #include "figures/angular_loss.typ"
 @fig:ssl:single_source:angular_loss plots the value of $#l-doa (dot, hat(theta))$ for different values of $hat(theta)$.
@@ -235,16 +229,14 @@ $
 $ <eq:ssl:single_source:dist_loss>
 where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (hat(D)_1, dots, hat(D)_n)$ the ground truth data.
 
-#block(breakable: false)[
-  The total loss then becomes
-  $
-    cal(L)
-     =
-    #l-doa (hat(theta), theta)
-    + kappa #l-dist (hat(D), D),
-  $
-  <eq:ssl:single_source:total_loss>
-]
+The total loss then becomes
+$
+  cal(L)
+   =
+  #l-doa (hat(theta), theta)
+  + kappa #l-dist (hat(D), D),
+$
+<eq:ssl:single_source:total_loss>
 where $kappa$ balances the relative importance of the distance loss in the final result.
 
 ==== Training Strategy

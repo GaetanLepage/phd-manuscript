@@ -19,10 +19,10 @@ Speech-based interaction is a central research challenge in #acr("HRI").
 More generally, the design of embodied agents is at the core of social robotics.
 Social robots operate in complex, dynamic, and often crowded environments.
 They differ from traditional robots, such as the ones used in industrial settings to perform repetitive, narrow-scope actions.
-These social robots do not need to adapt and interact in an unpredictable environment.
+These manufacturing-oriented robots do not need to adapt and interact in an unpredictable environment.
 Their policy is often deterministic and programmed in advance.
 Also, they are not expected to interact naturally with humans.
-Bridging the gap toward capable social robots remains a significant challenge.
+Bridging the gap to capable social robots remains a significant challenge.
 As Hans Moravec observed in the 1980s @moravec_mind_1988, tasks that are easy for humans—such as perception and motor coordination—are surprisingly difficult for robots.
 This paradox highlights a central challenge of social robotics: while computers can outperform humans in abstract reasoning tasks, they still struggle with sensorimotor skills that even infants master early in life.
 His observation, from 1988, remains highly relevant today as multimodal perception and action remain key challenges in #acr("AI") and robotics.
@@ -33,7 +33,6 @@ Multimodal perception refers to a robot's ability to sense and understand its en
 Robots can be equipped with various sensors depending on their objectives, nature, and budget constraints.
 For example, LIDAR sensors allow for estimating the distance to surrounding objects and are widely used in autonomous vehicles.
 Cameras and microphones are cost-effective and let robots sense their environment like humans.
-The key challenge is to extract actionable, task-relevant information from raw sensor data.
 The goal is to derive actionable knowledge from raw sensory input.
 For instance, object detection involves localizing and classifying semantic objects in the captured frames.
 Multi-object tracking adds a temporal aspect to the task by tracking each identified object across time.

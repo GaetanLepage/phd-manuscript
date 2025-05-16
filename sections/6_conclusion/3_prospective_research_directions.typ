@@ -39,4 +39,4 @@ Studying how agents can autonomously decide what to listen to and where to go to
 Finally, future work could focus on improving the sample efficiency and generalization ability of learned policies.
 This includes investigating lightweight architectures for #acr("SSL"), training with fewer labeled samples, and exploring transfer learning across environments or source types.
 While this thesis showed that pretrained #acr("SSL") models can be reused effectively, more systematic studies are needed to understand how spatial knowledge generalizes across rooms, microphone arrays, and acoustic conditions.
-Meta-learning, continual learning, or hierarchical reinforcement learning could all contribute to more adaptable agents.
+Meta-learning, continual learning, and hierarchical reinforcement learning could all contribute to more adaptable agents.

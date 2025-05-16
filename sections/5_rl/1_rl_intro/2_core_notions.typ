@@ -37,23 +37,25 @@ An #acr("MDP") consists of a tuple $<cal(S), cal(A), P, r, gamma>$.
 - $P$ defines the one-step dynamics of the environment.
   It denotes the probability that the agent will transition to state $s'$ while in state $s$ and taking action $a$.
   $P(s_(t+1) = s' mid(|) s_t = s, a_t = a)$ denotes the _transition probabilities_.
-- $r$: The reward real-valued function $r: cal(S) times cal(A) -> RR$ maps each state-action pair to its reward $r(s, a)$.
-  When this reward is non-deterministic, we write $R_t$ for its expectation:
-  $
-    R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s'].
-  $
+- $r$: The reward real-valued function $r: cal(S) times cal(A) times cal(S) -> RR$ maps each state-action pair to its reward $r(s, a, s')$.
+  In some environments, the reward might solely depend on the next state: $r(s')$.
+  The reward may also be non-deterministic, in which case we take its expectation.
+  //When this reward is non-deterministic, we write $R_t$ for its expectation:
+  //$
+  //  R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s'].
+  //$
 - $gamma$: The discount factor in $[0, 1)$ dampens the impact of future rewards.
 
 *Expected Return Maximization.*
-To guide learning, the agent seeks to maximize the cumulative rewards it collects over time.
+The agent seeks to maximize the cumulative discounted rewards it collects over time.
 This objective is formalized as the return:
 $
-  G_t = sum_(k=0)^(+ infinity) gamma ^k r_(t+k+1)
+  G_t = sum_(k=0)^infinity gamma ^k r_(t+k+1).
 $
-Discounting models the idea that immediate rewards are more valuable or certain than distant ones, and helps prioritize short-term gains while still accounting for long-term outcomes.
+Discounting models the idea that immediate rewards are more valuable than distant ones, and helps prioritize short-term gains while still accounting for long-term outcomes.
+It also ensures that the return remains bounded as long as the reward function is bounded too.
 The agent's goal is to learn a policy $pi$ that maximizes the expected return $EE_pi [G_t]$, averaged over trajectories it generates through interaction with the environment.
 $gamma$ denotes the previously introduced #acr("MDP") discount factor.
-It ensures that the return remains bounded as long as $abs(r_(t+k+1))$ is also bounded.
 
 *Policy.*
 The policy denotes a function or algorithm that maps each state to a probability distribution over the action space.
@@ -90,7 +92,8 @@ Finding a policy amounts to learning a mapping from the state space to the distr
 A common choice in modern #acr("RL") is the Gaussian distribution, where the policy assigns a mean vector and covariance matrix to each state.
 A probabilistic policy can be used in two ways.
 During reinforcement learning algorithms' training, the action is often selected by sampling the policy #box($a tilde pi (dot | s)$).
-At test time, the most common choice is to pick the optimal action, i.e., the mode of the distribution:
+This ensures exploration during training.
+At test time, the agent picks the optimal action, i.e. the one with the highest probability:
 $
   a^* = op("argmax", limits: #true)_(a in cal(A)) pi (a | s).
 $
@@ -99,7 +102,7 @@ $
 
 *Value function.*
 The value function is a fundamental quantity in #acr("RL").
-Given a policy $pi$, it measures the _quality_ of being in a specific state.
+Given a policy $pi$, it measures the _quality_ of being in a specific state and following this policy.
 It is the expectation of future gains starting from the state $s$:
 $
   #v-pi (s) &:= EE_pi [G_t | s_t = s]\
@@ -122,7 +125,7 @@ $
 The Q-function extends the concept of value by also conditioning on the action taken in the current state.
 This provides a more fine-grained assessment of decision quality, as it reflects not just how good a state is, but how good a specific action is within that state.
 Q-functions are particularly useful in algorithms that seek to learn optimal policies directly from action-value estimates, such as Q-learning @watkins_learning_1989 and many actor-critic methods @haarnoja_off-policy_2018.
-Together, the value function and Q-function offer complementary perspectives: the former evaluates states globally, while the latter provides localized guidance on action selection.
+Together, the value function and Q-function offer complementary perspectives: the former evaluates states globally, while the latter provides localized guidance on action selection because we can define a policy based on it: $a^* = "argmax"_(a in cal(A)) Q(s, a)$.
 
 
 These foundational concepts — the #acr("MDP") formalism, return maximization, policies, and value functions — form the theoretical basis for modern reinforcement learning algorithms.

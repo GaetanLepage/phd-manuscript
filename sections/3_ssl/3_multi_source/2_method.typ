@@ -2,11 +2,11 @@
 #import "_notations.typ": *
 
 === Method
+<sec:ssl:multi_source:method>
 
 He et al. have conducted a solid line of work on the multi-source #acr("SSL") problem, focusing on the associated robotics challenges @he_deep_2018 @he_neural_2021 @he_sounddet_2021.
 Their approach shows strong performance in challenging real-world scenarios.
 For this reason, several aspects of the methodology from @he_neural_2021 inspired the work presented in this section.
-#todo
 
 ==== Dataset Generation and Pre-Processing
 <sec:ssl:multi_source:method:dataset>
@@ -78,7 +78,6 @@ This duration constitutes a tradeoff between detection latency and performance.
 The longer the method is offered to listen, the more accurate the results will be.
 However, in a dynamic robotics context, which we ultimately target, we cannot afford to use long audio sequences to infer the source positions.
 
-// TODO add the footnote
 #let tau-e = $colMath(tau_E, #orange)$
 #let global-spec = $colMath(S_k, #olive)$
 #let chunk-spec = $colMath(tilde(S)_k, #maroon)$
@@ -117,16 +116,9 @@ where $colMath(tau_E, #orange)$ has been set to 10dB in our primary dataset.
 The average energy of a given chunk can be at most 10dB lower than that of the entire signal.
 In practice, around 40% of the generated chunks are rejected.
 
-//TODO
-//#gaet[
-//  - Maybe a scheme of this process could bring additional clarity.
-//  - We might want to acknowledge that a rejection rate of 40% is quite high.
-//]
-//#xavi[In my opinion no need for a diagram. It's OK. No need to emphasize about 40% rejections, as you do it only in generation]
-
 The #acr("STFT") of each multi-channel 400ms segment provides the final training samples of the dataset.
 Besides each input sample, the relevant ground truth information gets saved for supervising the learning process and computing performance metrics.
-It comprises all the necessary geometric information about the microphone array and sources (positions, orientations, relative distance and angle of incidence).
+It comprises all the necessary geometric information about the microphone array and sources (positions, orientations, relative distance, and angle of incidence).
 One million of such sample pairs constitute the core training and test datasets (of 800k and 200k samples respectively).
 The total audio duration of the data approximates 47 hours.
 
@@ -147,7 +139,7 @@ The set of #acr("DoA") values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
 The solution in question has been introduced by He et al. @he_deep_2018 and consists in estimating the spatial spectrum.
 The latter is a real-valued function of the #acr("DoA") ($cal(o): [-pi, pi] -> RR$).
-We discretize this continuous function by encoding the spectra in a $d$ dimensional real vector $o$:
+We discretize this continuous function by encoding the spectra in a $d$-dimensional real vector $o$:
 $
   o in [0, 1]^d.
 $
@@ -168,39 +160,27 @@ We naturally have
 
 
 We choose $d = 360$, corresponding to a $1°$ resolution.
-
-Higher numerical values indicate the presence of a source at this location.
-// TODO not sure how to pluralize DoA
-Those angles, being #acrpl("DoA"), are relative to the microphone array's orientation.
+Higher spectrum numerical values indicate the presence of a source at this location.
+Those angles, being #acrpl("DoA")s, are relative to the microphone array's orientation.
 A peak at $0°$ designates the presence of a source in front of the microphones.
 
-// TODO: insert figure
-
 *Multi-Source #acr("DoA") Encoding*
-//===== Multi source #acr("DoA") encoding
-//<sec:ssl:multi_source:method:doa_repr:gt_encoding>
 
 The dataset contains the #acr("DoA") values for each sample.
 We need to convert this list of scalar angular values to our spatial spectrum encoding format so that we can use it as a regression target.
 Numerous methods could be employed to achieve this.
-A first solution to this problem could be placing a pseudo-Dirac at the exact location of the source:
-
-// TODO: introduce Theta being the vector of DOA angles
-// TODO: introduce o(i)
-
+A first solution to this problem could be placing a pseudo-Dirac at the exact location of the sources.
 //$
 //  o(Theta)_i = sum_(k=1)^n_s bb(1)_(phi.alt_i = theta_k),
 //$
-
-$
-  o(Theta)_i := cases(
-    1 #h(1cm) &"if" exists theta in Theta | phi.alt_i = theta,
-    0 &"otherwise,"
-  )
-$
-
-This approach can be enhanced to allow for a more consistent regression target.
-
+//
+//$
+//  o(Theta)_i := cases(
+//    1 #h(1cm) &"if" exists theta in Theta | phi.alt_i = theta,
+//    0 &"otherwise,"
+//  )
+//$
+This approach can be enhanced to allow for a more robust regression target:
 $
   o(Theta)_i = cases(
     //display(max_(theta in Theta))
@@ -218,20 +198,6 @@ $
 $
 <eq:ssl:multi_source:doa_encoding>
 where #d is the symmetric angular distance introduced in @sec:ssl:single_source:experiments:metrics (@eq:ssl:single_source:angular_dist)
-//#footnote[
-//  #d is a simplified version of #d, introduced for single-source localization in //@eq:ssl:single_source:angle_dist.
-//  #todo
-//  As input values always lie in the $[-pi, pi]$ interval, the outermost absolute value in #d becomes unnecessary.
-//  On this interval, they coincide rigorously.
-//],
-// #func-def(
-//   d-prime,
-//   $[-pi, pi]^2$,
-//   $[0, pi]$,
-//   $(theta_1, theta_2)$,
-//   $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%)$
-// )
-// <eq:ssl:multi_source:symmetric_angular_dist>
 
 The result is a mixture of $abs(Theta)$ Gaussians centered at the actual #acr("DoA") angles.
 We chose to set $sigma = 5°$.
@@ -249,15 +215,11 @@ We chose to set $sigma = 5°$.
 The main benefit of this format, alongside with its ability to encode an arbitrary number of sources, is to frame the #acr("SSL") problem as a simple regression task.
 
 *Detection Decoding*
-//===== Detection decoding
-//<sec:ssl:multi_source:method:detection_decoding>
 
 The employed #acr("DoA") encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
 Namely, thanks to its flexibility, it allows for representing an arbitrary number of sources.
 Also, it enables the formulation of the multi-source #acr("SSL") problem as a simple regression task.
 However, to extract of set of actual #acr("DoA") values, one has to explicitly process the obtained spatial spectra.
-//TODO
-//#gaet[Do we have to, once more, cite the Odobez paper here ?]#xavi[Nope]
 This is achieved by detecting the peaks in the network output.
 The index of local maxima higher than a threshold #xi-doa serve as the #acr("DoA") predictions:
 $
@@ -285,7 +247,6 @@ If too low, some high-frequency noise in the spatial spectrum could lead to seve
 On the other hand, a large value of $sigma_n$ might cause two close peaks to be wrongly identified as a single one, thus missing a positive detection.
 We have found $sigma_n = 8 degree$ to be a satisfying value.
 
-#block(breakable: false)[
 When the number $colMath(z, #eastern)$ of active sources is known, @eq:ssl:multi_source:decoding_unknown_sources can be adapted as:
 $
   hat(y) (hat(o); colMath(z, #eastern)) = {
@@ -310,7 +271,6 @@ $
 $
 <eq:ssl:multi_source:decoding_known_sources>
 The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
-]
 
 ==== Neural Network Architecture
 

@@ -1,4 +1,4 @@
-#import "/utils.typ": gaet, draft, reset-acronym
+#import "/utils.typ": reset-acronym
 #import "/_misc/acrostiche.typ": print-index
 
 #include "cover_page/index.typ"

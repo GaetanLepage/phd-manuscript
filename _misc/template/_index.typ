@@ -102,15 +102,12 @@
 
   /* -------------------------------------------------------------------- */
   /* URL */
-  // TODO
   show: if highlight-external-links {
     it => { show link: underline; it }
   } else {
     it => it
   }
   show link: set text(blue) if highlight-external-links
-  //show link: set text(blue)
-  //show link: underline
   
   // Show a small maroon circle next to external links.
   //show link: it => {

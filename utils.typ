@@ -114,23 +114,23 @@ $
   comment-toggle[\ *>>> #name:* #body\ ]
 }
 
-#let chris(body) = {
-  comment("Chris", body, color: red)
-}
-#let laurent(body) = {
-  comment("Laurent", body, color: green)
-}
-#let xavi(body) = {
-  comment("Xavi", body, color: orange)
-}
-#let gaet(body) = {
-  comment("Gaétan", body, color: blue)
-}
+//#let chris(body) = {
+//  comment("Chris", body, color: red)
+//}
+//#let laurent(body) = {
+//  comment("Laurent", body, color: green)
+//}
+//#let xavi(body) = {
+//  comment("Xavi", body, color: orange)
+//}
+//#let gaet(body) = {
+//  comment("Gaétan", body, color: blue)
+//}
 
 // Different figure/table caption for ToC and actual caption
 #let flex-caption(
   short: todo,
-  long: "TODO"
+  long: todo,
 ) = context {
   if in-outline.get() {
     short

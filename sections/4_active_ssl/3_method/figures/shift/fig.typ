@@ -23,10 +23,7 @@
   columns: (1fr, 1fr,),
   align: top,
 
-  // TODO: I have manually put this one at the bottom because there were 3 figures on the same page and it was not looking that good.
-  //placement: fig-placement,
-  placement: bottom,
-  
+  placement: fig-placement,
   numbering: fig-numbering,
   numbering-sub-ref: fig-numbering-sub-ref,
   caption: [

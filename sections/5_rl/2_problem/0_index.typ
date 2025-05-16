@@ -191,7 +191,7 @@ In this section, we present those characteristics and the motivations that led t
 *#acr("POMDP").*
 The original #acr("MDP") model lacks expressivity to model our environment accurately.
 Instead, we rely on the #acr("POMDP") framework where the entirety of the state cannot be observed directly.
-This choice allows the decoupling of the environment logic from the sensory observation available to the agent.
+This choice decouples the environment logic from the sensory observation available to the agent.
 A #acr("POMDP") can be described as a tuple $lr(angle.l cal(S), cal(A), P, cal(R), Omega, O, gamma angle.r)$ where:
 - $cal(S), cal(A), P$, $cal(R)$ and $gamma$ describe the underlying #acr("MDP");
 - $Omega$ is the observation space; and
@@ -224,7 +224,7 @@ $
         times {0, pi/2, pi, (3 pi) / 2}
     },
     size: #120%
-  )\
+  )","\
   &subset [0, L_x] times [0, L_y] times [0, 2pi],
 $
 <eq:rl:state_space>

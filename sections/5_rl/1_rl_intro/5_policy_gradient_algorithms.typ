@@ -49,7 +49,7 @@ $
 #include "policy_gradient_theorem_proof.typ"
 
 This result shows that policy gradients can be estimated using samples from the environment without requiring gradients through the environment's dynamics.
-In practice, $#q-pi-theta (s, a)$ is often replaced by the empirical return $G_t$​, an advantage estimate, or a critic's learned value.
+In practice, $#q-pi-theta (s, a)$ is often replaced by the empirical return $G_t$​, an advantage estimate, or a separately learned value function
 
 
 ==== Advantage Estimation

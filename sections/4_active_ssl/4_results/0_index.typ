@@ -20,19 +20,17 @@ Bounding boxes and classes are not expected.
 Yet, object detection's precision and recall are natural metrics that can be adapted to evaluate our method's performance.
 An acceptable range of $delta$ meters defines the criteria for correct detection.
 For a detection to be considered valid, its estimated position must be closer than $delta$ meters from the ground truth.
-#block(breakable: false)[
-  The following function thus characterizes a correct/incorrect detection:
-  #include "detection_equation.typ"
-  ~_Precision_ and _recall_ definitions remain the same as for the previously introduced static #acr("SSL") task:
-]
+The following function thus characterizes a correct/incorrect detection:
+#include "detection_equation.typ"
+~_Precision_ and _recall_ definitions remain the same as for the previously introduced static #acr("SSL") task:
 $
   "Precision" = (
     sum_i
     sum_(j=1)^(z_i)
     sum_(k=1)^(hat(z)_i)
     m(
-      hat(phi.alt)_(i k),
-      phi.alt_(i j)
+      hat(X)_(i, k),
+      X_(i, k)
     )
   ) / (sum_i hat(z)_i),
 $
@@ -44,8 +42,8 @@ $
     sum_(j=1)^(z_i)
     sum_(k=1)^(hat(z)_i)
     m(
-      hat(phi.alt)_(i k),
-      phi.alt_(i j)
+      hat(X)_(i, k),
+      X_(i, k)
     )
   ) / (sum_i z_i).
 $
@@ -57,7 +55,7 @@ $
 
 To design, run, and evaluate our method on the #acr("ASSL") task, we generated a synthetic dataset using the simulator presented in Chapter 2.
 Specifically, we leverage our simulator's ability to model _dynamic_ discrete-time environments (see @sec:simulator:simulator:dynamic_scenarios).
-The latter consists of a repository of independent $H$-steps trajectories.
+The latter consists of a repository of independent $H$-step trajectories.
 
 *Acoustic objects and movement policy.*
 First, a random number of speech sources $z_i$ is sampled uniformly between one and four.
@@ -85,9 +83,8 @@ Hence, exhaustive geometric and acoustic data are gathered.
 For each step, the audio signal received by the agent is fed to the #acr("SSL") network to collect the estimated #doa spectrum $hat(o)_t$.
 The oracle spectrum $o_t$ also gets saved for further comparisons.
 Also, the absolute positions of the agent and the relative source locations are saved at every step.
-Finally, the relative movements of the robot are recorded in order to later perform the map shifting operation.
-// BEFORE: Local #doa maps have not yet been generated, but all the necessary information for their creation has been made available.
-At this point, local #doa maps have not been generated, but all the necessary information for their creation is available.
+Finally, the robot's relative movements are recorded to perform the map shifting operation later.
+Local #doa maps have not been generated at this point, but all the necessary information for their creation is available.
 This choice allows for experimenting with the relevant hyperparameters, such as the #fov $L$ and pixel resolution $p$.
 
 === Performance Study
@@ -111,7 +108,7 @@ Conversely, increasing #clip-t too much will result in local peaks being wholly 
 @fig:active_ssl:results:clipping_threshold shows a given aggregated map after filtering with different values of #clip-t.
 The top row depicts the map obtained from the averaging aggregation (#psi-avg) while the bottom one exposes the neural network output (#psi-dnn).
 In this example, both blending strategies have provided a solid result that is not particularly challenging to cluster.
-While the neural network could yield distinct blobs directly, the obtained averaged map has shown to be more impacted by the thresholding.
+While the neural network could directly yield distinct blobs, the obtained averaged map has been shown to be more impacted by the thresholding.
 Indeed, values of #clip-t that are too low do not manage to disconnect the various clusters and would link to a single prediction from the detection pipeline.
 On the contrary, the network output suffers from too aggressive filtering as the blob with the lowest intensity eventually disappears for $#clip-t >= 0.8$.
 
@@ -145,7 +142,7 @@ Also, the algorithm output consists in a single cluster containing all points.
 
 @fig:active_ssl:results:n_points_cluster plots the number of points remaining after the filtering process.
 Blue lines correspond to using the naive averaging strategy to aggregate the maps and orange lines relate to the use of the neural network.
-Also, dashed plots allow to differentiate which #doa spectra have been employed from the start.
+Also, dashed plots allow differentiation of which #doa spectra have been employed from the start.
 This shows that the inferred likelihood map should be as sparse as possible with peak values approaching 1.
 Those properties allow for better separability and fewer points being fed into the clustering algorithm.
 
@@ -164,11 +161,10 @@ Those properties allow for better separability and fewer points being fed into t
 ==== Impact of the Upstream #acr("SSL") Model
 <sec:active_ssl:results:impact_of_ssl_model>
 
-The upstream static #acr("SSL") model features is a core part of the #acr("ASSL") pipeline.
+The upstream static #acr("SSL") model features are a core part of the #acr("ASSL") pipeline.
 The quality of #doa spectra it provides plays a significant role in the final performance of the method.
 Hence, two scenarios are compared to isolate the behavior of the #acr("ASSL") method itself.
 On the one hand, the neural network implemented and trained in @sec:ssl:multi_source predicts the #doa spectra $hat(o)_t$ from the listened audio.
-// PREVIOUSLY: This scenario is the most realistic as it can be used directly and unites all the developed blocks into a single end-to-end pipeline.
 This scenario is the most realistic as it can be used directly in a real-world scenario and does not rely on an oracle.
 On the other hand, the #acr("ASSL") framework is also evaluated directly using the ground truth spectra $o_t$.
 Here, the potential of our method can be explored under ideal conditions.
@@ -182,7 +178,7 @@ Here, the potential of our method can be explored under ideal conditions.
       Comparison of ground-truth and predicted #_doa spectra
     ],
     long: [
-      Comparison of ground-truth (blue) and predicted (red) #_doa spectra.
+      Comparison of ground-truth (blue) and predicted (red) #doa spectra obtained from our trained model.
     ],
   ),
 )
@@ -195,16 +191,16 @@ In those cases, the averaged maps might still include local maxima in the correc
 Samples where several sources stand particularly close with respect to #doa also represent challenging cases.
 
 From a performance point of view, @table:active_ssl:results:clipping_threshold, for instance, highlights an important gap between using ground-truth spectra and predicted ones.
-For instance, obtained recall on real data, peaking at around 55%, clearly appears to be a weakness of the proposed pipeline.
+For instance, the obtained recall on real data, peaking at around 55%, clearly appears to be a weakness of the proposed pipeline.
 The leading cause lies in the shortcomings of the angular localization method.
-Nonetheless, leveraging the static model across multiple distinct agent positions still allows to recover from partial misses and provides precise 2D localization.
+Nonetheless, leveraging the static model across multiple distinct agent positions still permits recovery from partial misses and provides precise 2D localization.
 
 
 ==== Comparison of Blending Methods
 <sec:active_ssl:results:blending_methods>
 
 Two alternatives have been compared for the map blending operation: naive averaging $Psi_"avg"$ and learned #psi-dnn (see @sec:active_ssl:methods:blending_methods).
-The former was introduced as a baseline, offering the advantage of being simple and explainable, while the second aims at providing the best performance.
+The former was introduced as a baseline, offering the advantage of being explainable and straightforward, while the second aims at providing the best performance.
 
 #figure(
   image(

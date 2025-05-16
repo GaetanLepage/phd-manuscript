@@ -18,11 +18,11 @@
     table.header(
       table.cell(rowspan: 2)[Policy],
       table.cell(rowspan: 2)[Directionality],
-      table.cell(colspan: 3)[Performance on the training environment],
-      table.cell(colspan: 2)[Performance on the #wer-cost environment],
+      table.cell(rowspan: 2)[Training cost function],
+      table.cell(colspan: 2)[Performance\ synthetic environment],
+      table.cell(colspan: 2)[Performance\ #wer-cost environment],
 
       midrule,
-      [Cost function],
       mean-cum-reward-header,
       mfc-header,
       
@@ -59,8 +59,8 @@
     table.cell(rowspan: 4)[#pi-theta],
     table.cell(rowspan: 2)[omni.],
     [#wer-cost],
-    [#exp-300-rew-wer],
-    [#exp-300-mfc-wer],
+    [-],
+    [-],
     [#exp-300-rew-wer],
     [#exp-300-mfc-wer],
     
@@ -76,8 +76,8 @@
     // exp 301
     table.cell(rowspan: 2)[dir.],
     [#wer-cost],
-    [#exp-301-rew-wer],
-    [#exp-301-mfc-wer],
+    [-],
+    [-],
     [*#exp-301-rew-wer*],
     [*#exp-301-mfc-wer*],
     

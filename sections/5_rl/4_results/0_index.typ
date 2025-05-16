@@ -4,7 +4,7 @@
 == Experiments
 <sec:rl:results>
 
-After designing and implementing the complete #acr("RL") pipeline presented in the previous section, we proceed with experimental study of its capabilities and performance.
+Following the design and implementation of the complete #acr("RL") pipeline presented in the previous section, we now conduct an experimental study of its capabilities and performance.
 
 === ASR Performance in a Reverberant Room
 
@@ -105,8 +105,7 @@ One example of the subtle instabilities encountered during our experimental stud
 Due to the significant expressivity of the feature vector extracted by the localizer backbone, it is easy to learn to move towards the source.
 Let us denote this specific policy #pi-optimal.
 Our initial experiments with the pre-trained backbone showed excellent performance, and the agent could consistently learn #pi-optimal.
-However, additional ablation studies demonstrated that the agent completely ignored the reward signal.
-Completely numbing the reward by setting it to a constant or random value did not change the learnt behavior and the policy was still converging to #pi-optimal.
+However, additional ablation studies demonstrated that setting the reward to a constant or random value did not change the learnt behavior, and the policy was still converging to #pi-optimal.
 We interpret that the loss for the value function #ppo-value-loss (@eq:rl:intro:ppo:value_loss) and the entropy bonus #ppo-entropy-bonus prevailed in the training dynamics.
 It was expected that instead of converging to #pi-optimal, the learnt policy #pi-theta would collapse to the static policy, denoted #pi-still.
 Indeed, in the absence of an informative reward signal and because of the penalties for hitting the room's walls (#reward-wall-penalty) and moving (#reward-movement-penalty), the agent would be expected to remain still.
@@ -225,20 +224,9 @@ As highlighted in previous @sec:rl:method:wer_maps:computing, computing #wer-cos
 Furthermore, the #acr("WER") cost is noisy and has some artifacts.
 The present study introduces an alternative formulation for the cost function #cost.
 This _analytical cost_ #analytical-cost is a closed-form formula that directly maps a state $s in cal(S)$ to its normalized cost.
-It was initially used to validate the concept of a navigation task parametrized by an eventually directional cost map.
-It also allows for comparing the training dynamics in this sanitized environment to those in the main #wer-cost;-based environment.
-//The adopted proxy for the #acr("WER") is defined as:
-Our previous observations of real #acr("WER") maps motivate this formulation.
+It was motivated to provide a replacement for the #acr("WER") cost maps, which are computationally heavy to create.
+We question whereas this synthetic cost could permit the training of effective policy that perform satisfyingly on the #acr("WER")-based environment.
 The analytical cost is defined over the state space $cal(S)$ as:
-// #let eta = $colMath(eta, #olive)$
-// $
-//   //c_a (s_t) = norm(bold(x)_"agent" - bold(x)_"source")_2^2 + theta\
-//   C (
-//     bold(x)_a,
-//     theta_a,
-//     bold(x)_s
-//   ) = norm(bold(x)_a - bold(x)_a)_2^2 + eta "DoA"(bold(x)_a, theta_a, bold(x)_s),
-// $
 #func-def(
   analytical-cost,
   //$quad RR^2 times [0, 2pi] times RR^2$,
@@ -268,11 +256,13 @@ As #analytical-cost has a closed-form definition, the resulting cost maps are co
 
 #include "figures/analytical_map/fig.typ"
 
-To evaluate the impact of the cost function on the learned policy, we start by training the deep neural agent on both cost variants to later evaluate them on the same final target environment.
-Indeed, the average cumulated reward (#mean-cum-reward) and the mean final cost (#mfc) are not comparable across environments, as the same navigation policy would lead to different values.
+To evaluate the impact of the cost function on the learned policy, we start by training the deep neural agent on both cost variants later to evaluate them on the same final target environment.
+//Indeed, the average cumulated reward (#mean-cum-reward) and the mean final cost (#mfc) are not comparable across environments, as the same navigation policy would lead to different values.
 Naturally, the target environment is based on the #acr("WER") cost function.
 This study aims to see the benefits of using analytical maps for training the agent.
 @table:rl:results:maps_comparison gathers the quantitative results from this experimental campaign.
+For both omnidirectional and directional settings, we train a policy on the synthetic environment, using the #analytical-cost cost, and another one on the #wer-cost;-based environment.
+We then evaluate the performance of the agent trained with the analytical cost map in the target environment, using the #wer-cost cost function.
 Besides being considerably more efficient to compute, #analytical-cost;-based cost maps appear to help with the final #acr("WER") performance in the omnidirectional case.
 Indeed, the policies trained to optimize the analytical cost yield a lower #mfc cost than those directly trained with the target cost.
 Analytical maps provide a stronger reward signal and help achieve better policies thanks to their inherent consistency and smoothness.
@@ -281,31 +271,8 @@ The performance in the training environment is inconsistent with the omnidirecti
 Although the underlying cost maps and thus optimal policies are different, the agent does not succeed in learning a robust policy.
 The analytical directional environment is more challenging as the zone yielding the lowest cost is smaller.
 Furthermore, if the agent is not facing the source, being at the proper position does not suffice.
-Besides the sub-par performance on the training environment, the obtained policy compares poorly to the one trained directly on the target environment.
-Hence, transferring a policy trained on the directional analytical cost is not worth it.
-
-
-// TODO remove
-//#draft[
-//  The results from this experiment show that we can use these maps as a proxy for the WER and still be able to learn #pi-optimal (even better)
-//
-//  The WER scores cannot be directly compared across experiments, so we use geometrical metrics:
-//  The _#acr("MFD")_ quantifies how far the agent stands from the source when the episode ends
-//  $
-//    #mfd = 1 / #n-ep sum_(i=1)^#n-ep D(s_(T, i)),
-//  $
-//  where $D(s_(T, i))$ denotes the source-array distance at the final step of the $i$-th episode.
-//
-//  Similarly, the _#acr("MFAE")_ measures how much the agent faces the source when the episode ends:
-//  $
-//    #mfae =
-//      1 / #n-ep
-//      sum_(i=1)^#n-ep 
-//      abs(
-//        "DoA"(s_(T, i))
-//      ).
-//  $
-//]
+Besides performing poorly in the training environment, the obtained policy compares unfavorably to the one trained directly on the target environment.
+Therefore, transferring a policy trained using the directional analytical cost is not advantageous.
 
 
 #include "tables/maps_comparison.typ"

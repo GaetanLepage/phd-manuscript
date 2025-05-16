@@ -8,8 +8,8 @@
   "AR": ("Augmented Reality"),
   "EM": ("expectation-maximization"),
   "GPU": (
-    "Graphic Processing Unit",
-    "Graphic Processing Units"
+    "Graphics Processing Unit",
+    "Graphics Processing Units"
   ),
   "GT": ("Ground Truth"),
   "HMM": (
