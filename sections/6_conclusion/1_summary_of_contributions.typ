@@ -22,7 +22,7 @@ Together, these contributions provide a robust baseline for learning-based #acr(
 
 // ASSL
 We then shifted from passive to *active localization*, introducing a method for aggregating directional predictions over time as a robot moves.
-By accumulating egocentric DoA maps along a trajectory, we constructed spatial heatmaps that estimate source positions without relying on external localization data or privileged information.
+By accumulating egocentric #doa maps along a trajectory, we constructed spatial heatmaps that estimate source positions without relying on external localization data or privileged information.
 This approach demonstrated how movement itself can be leveraged as a perceptual strategy, allowing the robot to disambiguate uncertain cues and improve spatial awareness over time.
 
 // RL

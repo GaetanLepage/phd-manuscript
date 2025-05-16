@@ -21,7 +21,7 @@ The acoustic simulator is composed of several blocks that interact with each oth
       Overview of the simulator architecture.
       The principal elements involved in the simulator are depicted.
       The #room wraps the #rir-lib and renders the acoustic signals.
-      The #simulator provides an additional abstraction and operates the sources and microphones movements across time.
+      The #simulator provides an additional abstraction and operates the sources and microphones' movements across time.
     ]
   )
 ) <fig:simulator:simulator:overview>

@@ -29,7 +29,7 @@ To achieve this objective, both vision and audio signals are processed to enhanc
 Also, the robot's head movement automatically adjusts to face the currently active source.
 Visual data plays an essential role in refining the #doa estimation.
 The authors use the framework of Epipolar Geometry to compute an angle from both the camera images and the spectra of the signals received by left and right external microphones.
-Thanks to this angle, a directional band-pass filter is constructed, which permits dampening noise sounds produced by the robot's motors.
+Thanks to this angle, a directional band-pass filter is constructed, which permits dampening of noise sounds produced by the robot's motors.
 This method circumvents the use of #acr("HRTF"), which is challenging to access in real-world scenarios.
 They test this pipeline within a relatively simple experimental scenario.
 Two loudspeakers play a monotone sound at a given, distinct frequency.
@@ -49,16 +49,16 @@ Finally, their system does not estimate the distance to the active source.
   // @nguyen_autonomous_2018 -> There is no movement in this work (learning to face the sound source)
   @nguyen_motion_2019
 ]
-More recently, Nguyen et al. conducted a series of works #nguyen that tackle motion planning for robot audition.
+More recently, Nguyen et al. conducted a series of works #nguyen that tackle motion planning for robot auditions.
 They designed different probabilistic algorithms that attempt to localize an eventually moving sound source from a mobile robot.
 In @nguyen_localizing_2016, the authors proposed a #acr("MKF") to model the system's evolution.
 While angular #acr("SSL") methods yield satisfying results, estimating the robot-source distance has proven significantly harder.
 Hence, this study focuses on fusing movement information with #acr("DoA") estimation to predict the distance to the source.
-The state vector consists of the absolute position of the robot, the one of the sound source, and the source's activity (whether it is active or not).
+The state vector consists of the absolute position of the robot, the sound source, and the source's activity (whether it is active or not).
 The provided theoretical derivation of the #acr("MKF") allows the estimation to be updated. 
 The experiments illustrate the importance of the robot's movements in achieving successful localization.
 Indeed, at the beginning of the trajectories, the estimation suffers from the front-back ambiguity.
-As the robot can move and accumulate information, the accuracy of the prediction increases.
+As the robot moves and accumulates information, the accuracy of the prediction increases.
 Although the proposed method outperformed some existing solutions, the robot's trajectory was not optimized.
 In @nguyen_van_long-term_2017, the authors improved their framework by proposing a long-term motion planning algorithm to localize a sound source.
 They introduced a #acr("MCTS") method to compute the optimal robot trajectory.
@@ -67,10 +67,10 @@ Shannon's entropy measures uncertainty and drives the exploration of the #acr("M
 This framework allows the motion planning algorithm to run on a predefined, limited computational budget.
 Experimental results show that the #acr("MCTS") planning successfully minimizes the entropy during the trajectory compared to greedy or random algorithms.
 Furthermore, the average estimation error also sees an improvement using this approach.
-This complete pipeline has been subsequently extended in @nguyen_motion_2019.
+This pipeline has been subsequently extended in @nguyen_motion_2019.
 First, the #acr("MKF") formulation is extended to handle intermittent sound sources better and to be more robust to erroneous measurements of sound activity and #acr("DoA").
 In addition to the entropy objective introduced in @nguyen_van_long-term_2017, the standard deviation of the estimated belief on the source location may now also be used to compute the optimal trajectory.
-Both criteria are compared in a thorough experimental study and are shown to reduce the source location estimation error successfully.
+Both criteria are compared in a thorough experimental study and are shown to successfully reduce the source location estimation error.
 
 
 
@@ -82,16 +82,16 @@ Both criteria are compared in a thorough experimental study and are shown to red
   @bustamante_multi-step-ahead_2017
 ]
 In the same period, Bustamante et al. presented a similar pipeline in a collection of articles #bustamante.
-In their foundational paper @bustamante_three-stage_2015, they introduced a three-stage strategy to combine a mobile robot control scheme and the associated source location estimator.
+In their initial paper @bustamante_three-stage_2015, they introduced a three-stage strategy to combine a mobile robot control scheme and the associated source location estimator.
 The first stage consists of the short-term detection of azimuth and activity.
 This step solely leverages the most recent binaural features.
-The #acr("DoA") estimator is a maximum likelihood estimator derived directly from the #acr("DFT") of the listened signal.
+Their #acr("DoA") estimator is a maximum likelihood estimator that directly takes the #acr("DFT") of the listened signal as input.
 Both the single-source and multi-source cases are handled.
 The latter is addressed by an #acr("EM") algorithm that iteratively performs source separation (E-step) and source localization (M-step).
-Conversely, the second stage aggregates these data over time and combines them with past motor commands.
+Conversely, the second stage aggregates the data over time and combines it with past motor commands.
 This provides a progressively finer estimate of the source's relative location.
 Finally, the third stage is computing the following control command by implementing a feedback loop.
-The first two phases were tested in an anechoic room, and the results were promising.
+The first two phases were tested in an anechoic room.
 A technical solution for the third stage is provided in @bustamante_towards_2016.
 They model the source localization's posterior distribution as a Gaussian mixture and use a Kalman filter to predict the next state posterior pdf.
 The control commands are computed by solving an optimization problem that maximizes the mutual information between the predicted sensor position and the sound source's measurement.
@@ -101,7 +101,7 @@ The complete pipeline is further detailed and tested in @bustamante_information_
 To enhance their three-staged approach, Bustamante et al. @bustamante_multi-step-ahead_2017 extended the control command optimization to a multi-step ahead process.
 The optimization problem now consists of determining the sequence of controls that minimizes a cost function at each iteration.
 This objective directly incorporates the expected uncertainty on the source's position over multiple future steps.
-Overall, Bustamante's work demonstrates another principled, complete, and performing approach to #acr("ASSL").
+Overall, Bustamante's work demonstrates another approach to #acr("ASSL").
 On the one hand, it aggregates #acr("DoA") estimations and robot movement over time to localize a sound source in 2D relative to the agent.
 On the other hand, it provides a controlling scheme for the agent that optimizes the location performance in the long term.
 

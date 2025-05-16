@@ -37,6 +37,6 @@ The #acr("PPO") algorithm, while widely adopted, is known to be sensitive to hyp
 Extensive empirical tuning was required to obtain stable training and meaningful policies.
 This sensitivity introduces reproducibility challenges and increases the barrier to broader adoption.
 
-The design of the reward function—based on #acr("ASR") performance using precomputed WER maps—provided a task-relevant optimization signal but also imposed practical limitations.
+The design of the reward function, based on #acr("ASR") performance using precomputed WER maps, provided a task-relevant optimization signal but also imposed practical limitations.
 Generating accurate WER maps for multiple source positions is computationally expensive and scales poorly with the number of concurrent speakers or room configurations.
 As a result, the learning environment was deliberately simplified, and the agent was trained with a frozen feature extractor rather than in an end-to-end fashion.

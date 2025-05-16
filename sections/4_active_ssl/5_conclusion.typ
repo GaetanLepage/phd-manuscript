@@ -3,24 +3,24 @@
 == Conclusion and Discussion
 <sec:active_ssl:conclusion>
 
-This chapter presents a custom approach for performing a simple #acr("SSL") task in a dynamic multi-source context.
+This chapter presents a custom approach for solving an #acr("SSL") task in a dynamic multi-source context.
 
 The proposed approach generally breaks the #acr("ASSL") task into several steps for which a specific solution is presented.
 Although this allows for a high degree of explainability, an end-to-end solution could be explored.
 Regarding the deep neural network trained to perform map aggregation, the target maps are defined artificially.
 One could envisage directly learning to predict the source's positions from a batch of shifted #acr("DoA") maps.
 No clustering algorithm would thus be needed.
-Additionally, a deep learning approach could directly be fed with the #acr("DoA") spectrum instead of projecting them first as cones in 2D maps.
+Additionally, a deep learning approach could be directly fed with the #acr("DoA") spectrum instead of projecting them first as cones in 2D maps.
 Both tracks might allow pushing detection performance by eliminating hand-crafting middle steps.
 However, they would necessitate additional adaptations, such as the ability to localize an arbitrary number of sources.
 
 The presented solution achieves convincing performance on this task.
 Naturally, the precision of the final position estimation highly depends on the quality of the provided #acr("DoA") spectra.
 Also, the agent trajectory and the relative position of sources significantly impact the detection.
-For instance, cases where, on the one hand, the trajectory remains relatively straight and, on the other hand, the source lies on this line, happen to be challenging.
+For instance, cases where, on the one hand, the trajectory remains relatively straight and, on the other hand, the source lies on this line happen to be challenging.
 Indeed, the relative movement of the agent does not bring additional angular information.
 This makes the implicit triangulation process fail almost certainly.
-Also, when sources are very close to the agent, the produced aggregated map is difficult to cluster properly.
+Also, when sources are very close to the agent, the produced aggregated map is difficult to cluster correctly.
 
 More generally, the chosen formulation for the #acr("ASSL") problem remains simplistic.
 Several works have addressed more complex variations of this task.

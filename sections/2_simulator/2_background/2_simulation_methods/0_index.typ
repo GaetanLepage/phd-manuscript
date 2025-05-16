@@ -42,9 +42,9 @@ $
 where $bold(p): RR^3 times RR_+ -> RR$ is the acoustic pressure as a function of position $bold(x) in RR^3$ and time $t in RR_+$.
 $nabla^2 = partial / (partial x^2) + partial / (partial y^2) + partial / (partial z^2)$ denotes the Laplacian operator in 3d space.
 This strategy is the most faithful to the physical reality.
-Theoretically, it accurately represents complex mechanisms such as diffraction, interference, scattering or modal resonances @cao_interactive_2016.
+Theoretically, it accurately represents complex mechanisms such as diffraction, interference, scattering, or modal resonances @cao_interactive_2016.
 However, tackling this second-order partial differential equation is challenging.
-No closed-form solution is readily available, and one must fall back to approximating a numerical solution.
+No closed-form solution is readily available, and one must fall back on approximating a numerical solution.
 Botteldooren @botteldooren_acoustical_1994 has proposed using the #acr("FDTD") method to obtain a practical solution to the acoustic wave equation.
 In general, methods from this family discretize space and time to apply numerical integration techniques.
 Kirkup @kirkup_boundary_2007 proposed an in-depth investigation of applying the #acr("BEM") to acoustics.
@@ -56,7 +56,7 @@ More recently, Raghuvanshi et al. @raghuvanshi_efficient_2016 developed a new me
 They introduce an adaptive rectangular description of 3D scenes, unlocking 100-fold speedups compared to traditional techniques.
 This approach allows for rendering complex acoustic 3D scenes without requiring more than commodity hardware.
 They can model large and challenging environments such as a cathedral.
-However, high-frequency support is limited as they simulate only up to 1-2kHz.
+However, high-frequency support is limited as they simulate only up to 1 to 2 kHz.
 Finally, their #acr("FDTD") scheme is not adapted to moving objects.
 
 Rosen et al. @rosen_interactive_2020 tackle the problem of rendering acoustic scenes as efficiently as possible.

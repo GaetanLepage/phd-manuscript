@@ -24,7 +24,7 @@ A key distinction from the static #acr("SSL") formulation lies in the temporal d
 In #acr("ASSL"), the agent gathers multiple observations over time as it moves through the environment, rather than relying on a single auditory snapshot.
 While the movement policy itself is externally defined and not optimized, the agent's relative displacements are available to the localization module.
 This sequential structure enables the model to accumulate spatial cues and refine its estimate of source positions.
-The number of steps over these observations are integrated is referred to as the horizon $H$.
+The number of steps over which these observations are integrated is referred to as the horizon $H$.
 Notably, only relative movement information may be leveraged to perform the task, as the absolute agent position remains unknown.
 This formulation is simpler than active control schemes that explicitly optimize motion to reduce localization uncertainty, such as those developed by Bustamante et al. @bustamante_towards_2016 @bustamante_information_2017, but it retains the key benefit of leveraging egocentric movement for improved perception.
 In our setup, sound sources represent human speakers positioned arbitrarily within the room.

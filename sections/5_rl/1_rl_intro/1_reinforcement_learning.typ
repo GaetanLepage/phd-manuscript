@@ -1,6 +1,6 @@
 #import "/utils.typ": *
 
-=== Reinforcement Learning
+=== History
 <sec:rl:intro:rl>
 
 #acr("RL") originates from two formerly distinct fields.
@@ -30,7 +30,7 @@ Dynamic programming is the most general and feasible solution to optimal control
 For instance, when the number of dimensions of the involved control spaces grows too large, they suffer from the curse of dimensionality, which Bellman himself describes.
 #reset-acronym("MDP")
 He is also at the origin of the discrete stochastic version of the optimal control problem, called #acr("MDP") @bellman_markovian_1957.
-Those concepts served as foundations of modern reinforcement learning theory and algorithms.
+Those concepts served as the foundations of modern reinforcement learning theory and algorithms.
 
 #acr("TD") learning can be seen as another building block of the #acr("RL") field.
 #acr("TD") learning methods involve leveraging the difference between successive estimates of a given quantity.
@@ -45,10 +45,9 @@ This algorithm constitutes a simple solution to the optimization of an #acr("MDP
 Its tabular approach consists of learning the expected future rewards for taking a particular action in a given state.
 The definitive proof for the Q-learning algorithm @watkins_q-learning_1992 ensures its almost certain convergence to the optimal action-values.
 
-Although this short introduction is far from being exhaustive, it helps to put more recent advances in context.
-Reinforcement Learning has indeed significantly evolved since its infancy.
-Both new ideas and computational advances have allowed its use in more and more contexts and applications.
-The book _Reinforcement Learning: An Introduction_ @sutton_reinforcement_2018 by Sutton and Barto is one of the most complete and recognized resources about the field.
+Although this short introduction is far from exhaustive, it helps place more recent advances in context.
+#acr("RL") has evolved significantly since its early days, driven by both conceptual innovations and computational advances, which have enabled its application in an increasing range of domains.
+The book _Reinforcement Learning: An Introduction_ @sutton_reinforcement_2018 by Sutton and Barto is one of the field's most recognized resources.
 It provides both a deep look at the theoretical grounds of #acr("RL") and a wide overview of modern algorithms.
 The original 1998 edition was revisited in 2018 to reflect the important progress made during this period.
 The present section draws substantial inspiration from this resource.

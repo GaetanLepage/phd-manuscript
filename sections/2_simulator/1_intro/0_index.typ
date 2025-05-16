@@ -69,7 +69,7 @@ In addition to the underlying physics, a simulator should also model the behavio
 Indeed, in the natural world, robots use sensors to build a faithful representation of their surroundings.
 The accuracy of simulators in this regard conditions the algorithm's performance in practical use cases.
 Furthermore, performance is a crucial metric when developing a robotics simulator.
-Solving complex equations modeling multi-physics phenomena is often computationally expensive.
+Solving complex equations that model multi-physics phenomena is often computationally expensive.
 Keeping runtime low enough requires simulator designers to make tradeoffs in their implementation choices.
 In their study on opportunities and challenges of robotics simulation @choi_use_2021, Choi et al. notably highlight the difficulty of gauging the right level of model complexity.
 They also suggest that the speed limitations of current solutions are an obstacle to the broader adoption of simulation in this field.
@@ -78,7 +78,7 @@ They also suggest that the speed limitations of current solutions are an obstacl
 *Simulation for dataset collection.*
 Most #acr("DRL") research projects directly learn from a robotics simulator by running their policy within it to train.
 Simulators have also been leveraged to gather substantial synthetic datasets for offline training.
-The branch of #acr("RL") that operates on fixed interaction data collected apriori is offline reinforcement learning @levine_offline_2020.
+The branch of #acr("RL") that operates on fixed interaction data collected a priori is known as offline reinforcement learning.
 Despite its formulation deviating from the traditional, interaction-based framework of #acr("RL"), offline #acr("RL") offers sensible advantages.
 Gathering data remains a costly operation in any #acr("RL") training process, so delegating this task allows one to focus exclusively on algorithm development.
 It separates the expensive effort of gathering data and lets diverse research actors attempt to solve the underlying decision problem.
@@ -95,12 +95,12 @@ The Kubric @greff_kubric_2022 dataset generator leverages the _PyBullet_ @noauth
 
 *Human-robot interactions.*
 Human-robot interactions are another dynamic field of study @robinson_robotic_2023.
-This broad field encompasses all the tasks that require robots to operate nearby or directly with humans.
+This broad field encompasses all the tasks that require robots to operate near or directly with humans.
 Such scenarios bring additional difficulties, such as safety implications or social acceptance.
 Zachari et al. @zacharaki_safety_2020 conducted an extensive survey on the multiple facets of safety in #acr("HRI").
 They enumerate the numerous remaining open problems in this field.
 For instance, adding machine learning techniques in social robotics introduces new possibilities and safety difficulties.
-Simulation is therefore compelling to researchers working in #acr("HRI").
+Simulation is, therefore, compelling to researchers working in #acr("HRI").
 Abeyruwan et al. @abeyruwan_i-sim2real_2023 propose a framework to train #acr("RL") policies for human-interaction tasks.
 Specifically, they train a robot arm to play table tennis against a human adversary.
 The learning process iteratively switches from a simulated environment to a physical system involving a human player.
@@ -119,7 +119,7 @@ The performance of policies learned in simulated environments is not guaranteed 
 Hence, an entire segment of the robotics #acr("DRL") community targets the problem of sim-to-real @zhao_sim--real_2021 @peng_sim--real_2018 @tan_sim--real_2018.
 This area encompasses the challenge of leveraging simulation while ensuring appropriate behavior and performance of the target physical system.
 These discrepancies are primarily due to differences between the simulator and the real-world environment.
-They can be modeling limitations, numerical imprecisions, unrealistic assumptions, etc.
+They can be modeling limitations, numerical imprecision, unrealistic assumptions, etc.
 In conclusion, simulation's many benefits come at some cost, which must be carefully accounted for when deploying #acr("RL") policies in the real world.
 
 
@@ -139,10 +139,9 @@ Srivastava's doctoral thesis @srivastava_how_2023 investigates the functioning o
 It provides a precise overview of the functioning of #acr("RIR") estimation techniques and related concepts.
 Srivastava's main contribution is training a deep neural network to estimate the room acoustic parameters.
 The acoustic pipeline has been developed explicitly for this project and is built around the _Bidirectional Sound Transport_ algorithm by Cao et al. @cao_interactive_2016.
-This chapter will detail the literature on acoustic reverberation simulators and overview existing software solutions.
+This chapter will detail the literature on acoustic reverberation simulators and provide an overview of existing software solutions.
 
 
-*Conclusion.*
 In conclusion, simulation is a key component in many scientific domains, especially in robotics and deep reinforcement learning.
 It allows for scaling experiments and iterating rapidly on research ideas without relying on costly and time-consuming physical infrastructure.
 However, simulation has trade-offs that should be carefully considered when developing software platforms.
@@ -152,5 +151,5 @@ For those reasons, we contributed an original implementation of a flexible and f
 Its goal is to provide a practical and convenient sandbox for machine learning and robotics scientists to experiment with various sound-related problems.
 The obtained software ecosystem has been the core framework for the experimental work conducted in the present thesis.
 This chapter will introduce the fundamental notions of sound propagation and audio processing to understand the phenomenon of acoustic reverberation.
-Also, various state-of-the-art methods for acoustic simulation will be presented along with existing implementation.
+Also, various state-of-the-art methods for acoustic simulation will be presented along with existing implementations.
 Finally, we will detail the core design of our simulator and highlight its several features.

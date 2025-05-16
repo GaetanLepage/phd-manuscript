@@ -4,10 +4,10 @@
 <sec:simulator:simulator>
 #minitoc(indent: true)
 
-The motivation to build a simulator from the ground up was to benefit from a capable yet flexible virtual platform for acoustic-based HRI tasks.
+The motivation to build a simulator from the ground up was to benefit from a capable yet flexible virtual platform for acoustic-based #acr("HRI") tasks.
 Indeed, while existing audio simulation libraries offer a wide range of functionalities, they are generally designed as focused components dedicated to sound propagation, and are often integrated into larger ecosystems such as game engines (see @sec:simulator:background:rir_libraries).
 Their scope is understandably limited to audio rendering rather than interaction modeling.
-In contrast, the design of a custom, extensible platform for simulating diverse interaction scenarios—with support for varied audio sensors and acoustic representations—constitutes a central contribution of this work.
+In contrast, the design of a custom, extensible platform for simulating diverse interaction scenarios, with support for varied audio sensors and acoustic representations, constitutes a central contribution of this work.
 Its goal is to allow the simulation of various interaction scenarios involving a diverse array of audio sensors and acoustic representations.
 
 Also, its implementation has evolved throughout the project, leading to an organic development process.
@@ -42,5 +42,5 @@ Furthermore, the handling of dynamic scenes follows a simple step-based approach
 The addition of modern dynamic simulation techniques (@rosen_interactive_2020, @cao_interactive_2016, @schissler_interactive_2017) could make this pipeline even more relevant to robotics.
 Finally, the simulator's scope has been delimited to auditory cues and sound processing.
 The incorporation of a 3D visual rendering engine could transform the existing platform into a true multi-modal platform for a more complete simulation.
-Such an endeavor would however require an significant additional engineering effort.
+Such an endeavor would, however, require a significant additional engineering effort.
 The entire code base of our simulator is freely available under the GPLv3 license #footnote[#link("https://gitlab.inria.fr/robotlearn/rl-audio-nav")].

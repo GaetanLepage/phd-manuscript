@@ -11,7 +11,7 @@ For this reason, several aspects of the methodology from @he_neural_2021 inspire
 ==== Dataset Generation and Pre-Processing
 <sec:ssl:multi_source:method:dataset>
 
-The dataset generation process remains largely identical to that presented in @sec:ssl:single_source:method:dataset.
+The dataset generation process remains essentially identical to that presented in @sec:ssl:single_source:method:dataset.
 All samples remain fully independent.
 The positions of both the microphone array and the sources are randomly sampled.
 This section will focus on the necessary additions to support the multi-source setting.
@@ -23,11 +23,11 @@ The $n_m = 4$ omnidirectional sensors are arranged in a 2cm wide square.
 
 
 Audio processing has been kept the same, except for the sample duration.
-The latter now amounts to approximately 360ms as 16 #acr("STFT") frames participate to each input of the model.
+The latter now amounts to approximately 360ms as 16 #acr("STFT") frames participate in each input of the model.
 
 
 The microphone array and $n_s$ speech sources get randomly positioned in the room.
-Such a choice has led to challenging samples where multiple targets share very similar #acr("DoA") angles from the agent's point of view.
+Such a choice has led to challenging samples where multiple targets share very similar #doa angles from the agent's point of view.
 The resulting #acr("RIR")s are computed to account for the room's reverberation properties.
 Then, each source outputs a clean speech signal randomly chosen from the #librispeech @panayotov_librispeech_2015 dataset.
 The simulator computes the resulting listened signals at each microphone of the array.
@@ -59,7 +59,7 @@ The impact of the number of active sources is further studied in @sec:ssl:multi_
 
 *Sampling frequency.*
 The method was designed to operate with audio signals sampled at 48 kHz, which does not match the 16 kHz sample rate of the LibriSpeech @panayotov_librispeech_2015 dataset, which provides the simulator with clean speech utterances.
-To account for this, the simulation of the audio signale listened by each microphone of the array is operated at the native 16kHz frequency.
+To account for this, the simulation of the audio signals received by each microphone in the array is performed at the native 16 kHz sampling rate.
 The generated signals are then up-sampled to 48 kHz.
 
 
@@ -73,7 +73,7 @@ We also apply band-pass filtering, removing frequencies below 100Hz and above 8k
 The consequent #acr("STFT") counts 337 frequency bins.
 
 *Audio chunking.*
-We finally extract at most five short chunks of 320ms (i.e. 16 frames) from the global #acr("STFT")s.
+We finally extract at most five short chunks of 320ms (i.e., 16 frames) from the global #acr("STFT")s.
 This duration constitutes a tradeoff between detection latency and performance.
 The longer the method is offered to listen, the more accurate the results will be.
 However, in a dynamic robotics context, which we ultimately target, we cannot afford to use long audio sequences to infer the source positions.
@@ -82,11 +82,11 @@ However, in a dynamic robotics context, which we ultimately target, we cannot af
 #let global-spec = $colMath(S_k, #olive)$
 #let chunk-spec = $colMath(tilde(S)_k, #maroon)$
 *Minimal energy criteria.*
-We aim at preventing the inclusion of samples were one of the target sources is not active enough for the duration of the recording.\
+We aim to prevent the inclusion of samples where one of the target sources is not active enough for the recording duration.\
 Given its #acr("STFT") $S in CC^(T times F)$, the average energy
 #footnote[
   Strictly speaking, this quantity is dimensionally equivalent to a spectral energy density.
-  We will further refer to it as _energy_ for clarity.
+  For clarity, we will further refer to it as _energy_.
 ]
 of a real-valued signal, expressed in decibels (dB), is defined as
 $
@@ -100,7 +100,7 @@ $
 We reject the chunks of the simulated samples where, for at least one microphone, the energy of the selected fragment is too low compared to the average energy of the entire simulated signal.
 Let
 - #global-spec the #acr("STFT") of the signal received by microphone $k$.
-- #chunk-spec the #acr("STFT") of the considered chunk, i.e. a slice of #global-spec.
+- #chunk-spec the #acr("STFT") of the considered chunk, i.e., a slice of #global-spec.
 The energy criteria $delta_"energy"$ defining a valid sample expresses as
 $
   delta_"energy" (
@@ -116,29 +116,29 @@ where $colMath(tau_E, #orange)$ has been set to 10dB in our primary dataset.
 The average energy of a given chunk can be at most 10dB lower than that of the entire signal.
 In practice, around 40% of the generated chunks are rejected.
 
-The #acr("STFT") of each multi-channel 400ms segment provides the final training samples of the dataset.
+The #acr("STFT") of each multi-channel 400ms segment provides the dataset's final training samples.
 Besides each input sample, the relevant ground truth information gets saved for supervising the learning process and computing performance metrics.
 It comprises all the necessary geometric information about the microphone array and sources (positions, orientations, relative distance, and angle of incidence).
-One million of such sample pairs constitute the core training and test datasets (of 800k and 200k samples respectively).
+One million of such sample pairs constitute the core training and test datasets (800k and 200k samples, respectively).
 The total audio duration of the data approximates 47 hours.
 
 
 ==== Direction of Arrival Representation
 <sec:ssl:multi_source:method:doa_repr>
 
-The objective of the #acr("SSL") task is to predict the #acr("DoA") of the sound sources.
+The objective of the #acr("SSL") task is to predict the #doa of the sound sources.
 Hence, the number of predictions outputted by an #acr("SSL") method can differ from situation to situation.
 We therefore decided to use a representation of this information that is agnostic to the number of sources.
 Such a property is of great interest when training a deep neural network.
 The latter can then have a fixed output while still being able to handle a varying number of sources.
 The latter will be further denoted $n_s$.
-The set of #acr("DoA") values will noted $Theta = (theta_1, ..., theta_n_s)$.
+The set of #doa values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
 
 *Spatial Spectrum*
 
-The solution in question has been introduced by He et al. @he_deep_2018 and consists in estimating the spatial spectrum.
-The latter is a real-valued function of the #acr("DoA") ($cal(o): [-pi, pi] -> RR$).
+The solution in question has been introduced by He et al. @he_deep_2018 and entails estimating the spatial spectrum.
+The latter is a real-valued function of the #doa ($cal(o): [-pi, pi] -> RR$).
 We discretize this continuous function by encoding the spectra in a $d$-dimensional real vector $o$:
 $
   o in [0, 1]^d.
@@ -161,12 +161,12 @@ We naturally have
 
 We choose $d = 360$, corresponding to a $1°$ resolution.
 Higher spectrum numerical values indicate the presence of a source at this location.
-Those angles, being #acrpl("DoA")s, are relative to the microphone array's orientation.
+Those angles, being #doa;s, are relative to the microphone array's orientation.
 A peak at $0°$ designates the presence of a source in front of the microphones.
 
-*Multi-Source #acr("DoA") Encoding*
+*Multi-Source #doa Encoding*
 
-The dataset contains the #acr("DoA") values for each sample.
+The dataset contains the #doa values for each sample.
 We need to convert this list of scalar angular values to our spatial spectrum encoding format so that we can use it as a regression target.
 Numerous methods could be employed to achieve this.
 A first solution to this problem could be placing a pseudo-Dirac at the exact location of the sources.
@@ -199,7 +199,7 @@ $
 <eq:ssl:multi_source:doa_encoding>
 where #d is the symmetric angular distance introduced in @sec:ssl:single_source:experiments:metrics (@eq:ssl:single_source:angular_dist)
 
-The result is a mixture of $abs(Theta)$ Gaussians centered at the actual #acr("DoA") angles.
+The result is a mixture of $abs(Theta)$ Gaussians centered at the actual #doa angles.
 We chose to set $sigma = 5°$.
 @fig:ssl:multi_source:doa_gt_encoding shows an example of the DOA encoding scheme for a situation with two sources.
 
@@ -216,12 +216,12 @@ The main benefit of this format, alongside with its ability to encode an arbitra
 
 *Detection Decoding*
 
-The employed #acr("DoA") encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
+The employed #doa encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
 Namely, thanks to its flexibility, it allows for representing an arbitrary number of sources.
 Also, it enables the formulation of the multi-source #acr("SSL") problem as a simple regression task.
-However, to extract of set of actual #acr("DoA") values, one has to explicitly process the obtained spatial spectra.
+However, to extract the set of actual #doa values, one has to explicitly process the obtained spatial spectra.
 This is achieved by detecting the peaks in the network output.
-The index of local maxima higher than a threshold #xi-doa serve as the #acr("DoA") predictions:
+The index of local maxima higher than a threshold #xi-doa serve as the #doa predictions:
 $
   hat(y) (hat(o), #xi-doa) = {
     phi.alt_i:

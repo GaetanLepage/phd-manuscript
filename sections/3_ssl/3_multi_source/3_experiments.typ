@@ -49,9 +49,9 @@ $
 <eq:ssl:multi_source:acc>
 
 *Unknown number of sources.*
-The second task also evaluates the model's ability to accurately predict an unknown number of #acr("DoA") values.
+The second task also evaluates the model's ability to accurately predict an unknown number of #doa values.
 Such a setup resembles a conventional single-class detection problem in the computer vision literature.
-In this case, the matching between ground truth #acr("DoA") angles $y_i = {phi.alt_(i j): j = 1, dots, z_i}$ and the predictions $hat(y)_i = {phi.alt_(i k): k = 1, dots, hat(z)_i}$ extracted by applying @eq:ssl:multi_source:decoding_unknown_sources might be incomplete, i.e. $hat(z)_i != z_i$.
+In this case, the matching between ground truth #doa angles $y_i = {phi.alt_(i j): j = 1, dots, z_i}$ and the predictions $hat(y)_i = {phi.alt_(i k): k = 1, dots, hat(z)_i}$ extracted by applying @eq:ssl:multi_source:decoding_unknown_sources might be incomplete, i.e. $hat(z)_i != z_i$.
 
 The following function denotes a positive match:
 $
@@ -99,7 +99,7 @@ The method stays the same in both cases as solely the extraction of the predicti
 <sec:ssl:multi_source:experiments:loss>
 
 *Loss function.*
-The objective used by He et al. in @he_deep_2018 along their #acr("DoA") encoding is a simple #acr("MSE") loss between the ground truth #acr("DoA") representation and the output vector provided by the neural network:
+The objective used by He et al. in @he_deep_2018 along their #doa encoding is a simple #acr("MSE") loss between the ground truth #doa representation and the output vector provided by the neural network:
 $
   cal(L) (hat(o), o) = norm(hat(o) - o)_2^2 med.
 $
@@ -110,12 +110,12 @@ $
 // Impact of BS and LR
 *Local minimum.*
 Several experiments were conducted to identify working hyperparameters for the proposed #acr("SSL") method.
-An interesting observation has been the impact of the learning rate batch size combination.
+An interesting observation has been the impact of the learning rate and batch size combination.
 Theoretically, a larger batch size leads to more accurate gradients and thus, more sensible parameter updates.
 This also allows for an increase in the learning rate and a reduction in overall training steps.
 In most cases, the acceleration hardware and its inherently finite memory capacity dictate the limit for the maximum usable batch size.
 However, in our situation, a different restraining factor has been observed.
-There exists a trivial local optimum for the #acr("SSL") task defined as a #acr("DoA") spatial spectrum regression.
+There exists a trivial local optimum for the #acr("SSL") task defined as a #doa spatial spectrum regression.
 Indeed, because of the relative sparsity of the ground truth encoding, a method outputting a plain zero spectrum achieves a comparatively low loss.
 More precisely, the loss for the samples would approximately equal the area under $n_s$ distinct Gaussians.
 Some limited mass placed randomly on the $[-pi, pi]$ interval would likely not overlap with the ground-truth Gaussians.
@@ -210,7 +210,7 @@ The network has been trained according to the _scenario A_ presented above.
 ==== $epsilon$-Loss
 
 We propose an original modification of the loss function.
-The motivation comes from the observation that the target #acr("DoA") spatial spectrum is sparse (see @fig:ssl:multi_source:doa_gt_encoding for instance).
+The motivation comes from the observation that the target #doa spatial spectrum is sparse (see @fig:ssl:multi_source:doa_gt_encoding for instance).
 This causes the active part of the spectrum to have a limited impact on the gradients.
 As seen previously, we use a simple #acr("MSE") loss for the cost function.
 Hence, predicting high activation will be heavily penalized as it will statistically correspond to false positives.
@@ -228,7 +228,7 @@ $
 $
 <eq:ssl:multi_source:experiments:epsilon_loss>
 The damping term #damp-term reduces the penalization of false positive peaks in the estimated spectrogram.
-In a region of the spectrum where no sources are effectively present, i.e. where $o approx 0$, the loss value will be bounded by $epsilon$.
+In a region of the spectrum where no sources are effectively present, i.e., where $o approx 0$, the loss value will be bounded by $epsilon$.
 
 #include "tables/epsilon_loss.typ"
 
@@ -250,12 +250,12 @@ Notably, its impact on precision is detrimental to the overall performance.
 *Background*
 
 Various schemes of normalization have been used in Deep Neural Networks.
-They address the phenomenon of _internal covariate shift_ which appears as architectures get deeper.
+They address the phenomenon of _internal covariate shift_, which appears as architectures deepen.
 This problem comes from the change in the distribution of each layer's inputs during training.
 Such a drift causes the non-linear activation functions to saturate and harms the learning process.
 Normalization also attempts to reduce the effects of mismatch between the training and test dataset distributions.
 
-_#acr("BatchNorm")_, proposed by Ioffe et al. @ioffe_batch_2015 has gathered significant success, especially in the computer vision community.
+_#acr("BatchNorm")_, proposed by Ioffe et al. @ioffe_batch_2015, has gathered significant success, especially in the computer vision community.
 It entails normalizing the activations within each mini-batch using that mini-batch's own mean and variance.
 Acting as a form of regularizer, this process stabilizes learning by ensuring that the values entering all layers do not deviate too significantly.
 The data will be distributed according to a standard normal distribution.
@@ -279,11 +279,11 @@ where
 - $epsilon$ is a constant ensuring numerical stability,
 - $colMath(gamma, #blue)$ and $colMath(beta, #blue)$ are learnable parameters.
 
-To be able to perform inference on single samples, i.e. without disposing of an entire mini-batch, substitution statistics are used in place of $colMath(mu_cal(B), #maroon)$ and $colMath(sigma_cal(B)^2, #olive)$.
+To be able to perform inference on single samples, i.e., without disposing of an entire mini-batch, substitution statistics are used in place of $colMath(mu_cal(B), #maroon)$ and $colMath(sigma_cal(B)^2, #olive)$.
 Indeed, during training, the #acr("BatchNorm") layer will keep updating a running mean and variance to be used at evaluation time.
 
 _#acr("LayerNorm")_ (Ba et al. @ba_layer_2016) follows the same principle but chooses to normalize each sample individually by computing statistics across the features' dimensions.
-@fig:ssl:multi_source:normalization displays the differences of both schemes.
+@fig:ssl:multi_source:normalization displays the differences between both schemes.
 Historically, #acr("LayerNorm") has been most commonly employed in Natural Language Processing.
 
 $
@@ -385,13 +385,13 @@ This process will be referred to as _sequence processing_.
 
 *Sequence processing.*
 The main idea of sequence processing is splitting the longer input audio into $M$ chunks of #T-train frames to be processed individually by the neural network.
-$M$ output #acr("DoA") spectra are thus obtained and must be aggregated.
+$M$ output #doa spectra are thus obtained and must be aggregated.
 We average those signals to obtain a single vector:
 $
   #averaged-spectrum = 1/M sum_(i=1)^M hat(o)_k #h(1em) in [0, 1]^d.
 $
 <eq:ssl:multi_source:sequence_averaging>
-The flexibility of the #acr("DoA") spatial spectrum encoding permits the former combination without the need of additional steps.
+The flexibility of the #doa spatial spectrum encoding permits the former combination without the need of additional steps.
 The detection algorithm can then be applied on the average output.
 
 *Sequence dataset generation.*
@@ -408,15 +408,15 @@ Disposing of features corresponding to several seconds of simulation allows for 
 @fig:ssl:multi_source:sequence_processing illustrates the sequence processing workflow on a single example.
 Here, around 16 seconds of continuous speech produced by three distinct static sources get recorded by the microphone array.
 The latter also stands at a fixed position in the room.
-@fig:ssl:multi_source:sequence_processing:doa_spectrum depicts the averaged #acr("DoA") spectrum #averaged-spectrum along with the corresponding overall predictions.
+@fig:ssl:multi_source:sequence_processing:doa_spectrum depicts the averaged #doa spectrum #averaged-spectrum along with the corresponding overall predictions.
 On this specific example, the averaging process successfully aggregates the angular information and allows for the accurate localization of all three sources.
 More precisely, the top part of @fig:ssl:multi_source:sequence_processing:result displays the network output at each time step.
-The gray-scale patches represent the individual estimated #acr("DoA") spectra $hat(o)_k$.
+The gray-scale patches represent the individual estimated #doa spectra $hat(o)_k$.
 The resulting predicted angles are highlighted by the red dots.
 Finally, the histogram of predictions characterizes the distribution of detections along the process.
 
 Presenting the #acr("SSL") results as such highlights the strengths and weaknesses of the proposed approach.
-Even for a single frame, the estimated #acr("DoA") spectrum allows for precise predictions.
+Even for a single frame, the estimated #doa spectrum allows for precise predictions.
 Very few false positives are observed, as confirmed by the several quantitative experiments conducted.
 However, individual sources are sometimes missed, maybe because they were not active enough at this specific time.
 This drawback gets offset by leveraging the overall consistency of the method over a longer time.
@@ -446,16 +446,16 @@ This sole difference in the data generation process explains the gap in performa
 
 ==== Ablation Study on Sources' Angular Proximity
 
-The decoding process, presented in @sec:ssl:multi_source:method:doa_repr, involves extracting the local maxima of the predicted #acr("DoA") spectrum.
+The decoding process, presented in @sec:ssl:multi_source:method:doa_repr, involves extracting the local maxima of the predicted #doa spectrum.
 The abscissas of the resulting peaks are considered as the final angle values.
-As such, our method is expected to be challenged by samples involving sources with close #acr("DoA") values.
+As such, our method is expected to be challenged by samples involving sources with close #doa values.
 
 #let delta-t = $Delta theta_"min"$
-Let #delta-t be the angle difference between the two closest sources in terms of their #acr("DoA"):
+Let #delta-t be the angle difference between the two closest sources in terms of their #doa:
 $
   #delta-t = min_(i, j in [|1, n_s|]\ i!= j) #d (theta_i, theta_j),
 $
-where $(theta_i)_(i=1dots n_s)$ are the real #acr("DoA") values for this sample and #d is the angle distance introduced in @eq:ssl:single_source:angular_dist.
+where $(theta_i)_(i=1dots n_s)$ are the real #doa values for this sample and #d is the angle distance introduced in @eq:ssl:single_source:angular_dist.
 It should be noted that this quantity can only be defined for samples encompassing at least two sources.
 
 #figure(
@@ -470,15 +470,15 @@ It should be noted that this quantity can only be defined for samples encompassi
 <fig:ssl:multi_source:experiments:doa_min_dist_hist>
 
 From a single original dataset, generated with $n_s = 4$ sources active in each of the 8000 samples, #delta-t is evaluated in three cases.
-In the first scenario, all four sources remain active and the four corresponding #acr("DoA") values are used to compute #delta-t.
+In the first scenario, all four sources remain active, and the four corresponding #doa values are used to compute #delta-t.
 On the other two, only two (respectively three) random sources are enabled simultaneously in every sample.
 @fig:ssl:multi_source:experiments:doa_min_dist_hist depicts the distribution of #delta-t depending on this number of active sources.
 Naturally, when only two sources are present concurrently, high values of #delta-t remain likely.
-Yet, increasing the number of sources tends to decrease their likelihood, and the minimum #acr("DoA") gap more often reaches lower values.
+Yet, increasing the number of sources tends to decrease their likelihood, and the minimum #doa gap more often reaches lower values.
 Hence, the correlation between the number of sources and the difficulty of the #acr("SSL") task highlighted in @sec:ssl:multi_source:experiments:performance_eval might be caused by two underlying reasons.
 On the one hand, the model is expected to extract each speaker's location from the mixture of speech signals that constitute its input.
 An increase in the number of sources inherently hardens this task.
-On the other hand, low #delta-t samples also get more frequent, which could contribute to hindering proper localization by itself.
+On the other hand, low #delta-t samples also become more frequent, which could contribute to hindering proper localization by itself.
 
 To empirically study the impact of #delta-t on the #acr("SSL") performance, the model trained on a regular dataset has been evaluated on specific test cases.
 Each test dataset ensures that it respects a lower bound #tau-doa such that $#delta-t >= #tau-doa$ for all samples.

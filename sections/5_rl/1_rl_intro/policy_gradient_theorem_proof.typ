@@ -20,7 +20,7 @@ $
     pi_theta (a_t | s_t) P(s_(t+1) | s_t, a_t),
 $
 where $rho(s_0)$ is the initial state distribution, and $P(s_(t+1) | s_t, a_t)$ are the #acr("MDP")'s transition dynamics.
-As they are both independent from $theta$, the log of the trajectory probability simplifies to:
+As they are both independent of $theta$, the log of the trajectory probability simplifies to:
 $
   log p(tau; theta) =
     sum_(t=0)^(T-1) log pi_theta (a_t | s_t) + "const".

@@ -8,10 +8,10 @@
 
 We first explore leveraging the previously developed multi-source static localizer to tackle the #acr("ASSL") problem.
 The method's central concept is building and refining a 2D egocentric map that encodes the relative positions of each source.
-This map is built to model the likelihood of the sources' presence in the robot's surroundings.
+This map is built to model a heatmap of the sources' presence in the robot's surroundings.
 
 To build such a map, we start by running the #acr("SSL") model (@sec:ssl:multi_source), which provides an estimated #doa spectrum.
-This detection is then transformed into a _#doa map_ ,projecting the one-dimensional localization result to an egocentric 2D map containing the same information.
+This detection is then transformed into a _#doa map_, projecting the one-dimensional localization result to an egocentric 2D map containing the same information.
 Then, this map is combined with the ones from previous steps after having been transposed to the current robot frame.
 Different ways of operating this aggregation are  proposed.
 Finally, the 2D relative positions of the sources are extracted from this estimated egocentric map.
@@ -35,7 +35,7 @@ The individual steps of the process will be detailed in the following sections.
 === Egocentric #acr("SSL") Maps
 
 At each step, a #doa map  $M_t$ is built from the #doa spectrum for the corresponding audio recording (line 9 in @algo:active_ssl:algo).
-The latter solely provides angular information.
+This spectrum solely provides angular information.
 At this stage, no distance knowledge has been gathered yet.
 The choice was made not explicitly to extract a set of detections from the spectrum but to preserve the raw 360-long vector.
 Generating the #doa map $M_t$ involves projecting this spectrum on the egocentric 2D space. All maps have a resolution of $p$ pixels and are thus represented by $p times p$ matrices.
@@ -122,9 +122,9 @@ The performance of this blending approach is discussed further in @sec:active_ss
 
 *Motivation*
 
-Although averaging #doa maps is a simple and explainable method for blending, we have developed a more advanced technique involving a Deep Neural Network.
-Indeed, an oracle knowing the absolute positions of each source could be used to generate an ideal version of the 2D likelihood estimate #AM-targ,
-Such an oracle can easily be implemented as we use simulated data.
+Although averaging #doa maps is an explainable and straightforward method for blending, we have developed a more advanced technique involving a deep neural network.
+Indeed, an oracle knowing the absolute positions of each source could be used to generate an ideal version of the estimated 2D heatmap #AM-targ.
+As we use simulated data, such an oracle can easily be implemented.
 This statement leads to the definition of the blending process as a regression task where a neural network $Psi^("DNN"(theta))$ is trained to blend real #doa maps in the ideal estimate #AM-targ.
 
 *Ground Truth Encoding*
@@ -166,7 +166,7 @@ This continuous function is discretized in the final $p times p$ matrix #AM-targ
 )
 <fig:active_ssl:methods:gt_encoding>
 
-Hence, we expect to achieve a finer filtering result by using a more advanced blending method such as a #acr("DNN").
+Hence, we expect to achieve a finer filtering result using a more advanced blending method such as a #acr("DNN").
 The network should remove all noise in the input maps and underline the regions where sources are expected.
 
 
@@ -176,7 +176,7 @@ The network should remove all noise in the input maps and underline the regions 
 The neural network #psi-dnn takes the $H$ shifted #doa maps $(tilde(M)_(t-H+1), dots, tilde(M)_(t))$ as a single $H$-channel image $bold(tilde(M))_t$.
 It outputs a single-channel image #AM, which is expected to approximate the target map #AM-targ.
 
-Conventional architectures from the computer vision literature are considered as the model targets image-like information.
+Conventional architectures from the computer vision literature are considered because the model targets image-like information.
 Although several solutions could successfully solve this problem, one must pay attention to the network's receptive field.
 Indeed, designs purely based on small convolutional kernels would not be able to capture global information.
 In this specific task, the intersecting rays present in each #doa map must be considered from a sufficiently large scale.
@@ -245,7 +245,7 @@ The training process uses mini-batches of 100 samples and lasts for 20 epochs.
 
 The detection process occurs once the aggregation function $Psi$ has been used to generate a single-channel 2D map.
 The core principle of this step lies in extracting a set of source positions from the heatmap.
-Naturally, the detection performance is highly correlated to the quality of the provided maps.
+Naturally, the detection performance is highly correlated with the quality of the provided maps.
 This task resembles the #doa spectrum post-processing performed for multi-source #acr("SSL") (@sec:ssl:multi_source:method:doa_repr).
 Indeed, local maxima in the likelihood 2D maps are expected to encode potential sources' positions.
 However, the simple algorithm implemented there remains impractical as it is limited to one-dimensional data (#doa spectra).

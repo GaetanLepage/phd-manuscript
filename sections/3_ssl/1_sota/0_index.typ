@@ -39,7 +39,7 @@ As in several similar application fields, the rise of deep learning has quickly 
 Modern, data-driven approaches began leveraging neural networks to model complex acoustic environments, outperforming traditional methods in robustness and accuracy.
 Recent advances focus on integrating #acr("SSL") with multimodal systems, such as robotics and autonomous vehicles, to achieve real-time localization in dynamic and complex settings.
 Nevertheless, the fundamental concepts at the base of the more classical approaches remain considerably relevant today.
-Indeed, they can help design feature extractors or pre-processing techniques to boost the performance of deep learning-based localizers further.
+Indeed, they can help design feature extractors or pre-processing techniques to further boost the performance of deep learning-based localizers.
 
 This introduction explores the evolution of #acr("SSL"), starting with classical signal-processing approaches and their foundational principles. 
 It then transitions to deep learning methods, highlighting key advances, architectures, and datasets.
@@ -96,29 +96,29 @@ This chapter will study both single-source and multi-source techniques for #acr(
 
 *Angular or absolute localization*
 The actual result of an #acr("SSL") method is another example of variations of this task.
-Indeed, while specific techniques estimate the relative position of each source from the microphone array, some focus on the sole #acr("DoA") value.
+Indeed, while specific techniques estimate the relative position of each source from the microphone array, some focus on the sole #doa value.
 In their survey @grumiaux_survey_2021, Grumiaux et al. exhaustively illustrate the variety of choices regarding the end result of the localization pipeline.
 This distinction originates in the significant difficulty gap implied by predicting the source-microphone distance.
 The time, phase, or intensity differences can be exploited when several microphones are used to perform localization.
-They allow for the deduction of angular information on source localization as they are closely related to the #acr("DoA").
+They allow for the deduction of angular information on source localization as they are closely related to the #doa.
 Conversely, distance information is considerably more complex to gather.
 It is not directly correlated to a single cue.
 It heavily depends on the acoustic properties of the environment, such as noise, reverberation, or even temperature.
 Also, acoustic cues such as amplitude have a non-linear relationship with the distance and are thus harder to exploit.
 Distance estimation may furthermore need to rely on calibration, which hinders the flexibility and relevance of the #acr("SSL") system.
-Moreover, when considering angular-only #acr("SSL") systems, it is necessary to distinguish planar detectors, which predict the sole #acr("DoA") value, from 3D ones, which also estimate the elevation angle.
-Although the #acr("DoA") is the most informative angle, elevation becomes relevant in more complex scenes or when there is a significant height difference between the microphone array and the sources.
+Moreover, when considering angular-only #acr("SSL") systems, it is necessary to distinguish planar detectors, which predict the sole #doa value, from 3D ones, which also estimate the elevation angle.
+Although the #doa is the most informative angle, elevation becomes relevant in more complex scenes or when there is a significant height difference between the microphone array and the sources.
 The detection format also varies across the literature, with methods producing Cartesian coordinates and others expressing the positions in polar or spherical coordinates.
 
 *Intermittency and nature of the sources*
-#acr("SSL") solutions make different assumptions on the target sources.
+#acr("SSL") solutions make different assumptions about the target sources.
 First, the source signals' content significantly affects the difficulty of the task.
 Initially, several approaches were restricted to localizing white-noise sources.
 Those have the particularity of having the same energy at each time and each frequency.
 Nevertheless, detecting more realistic speech sources has become the de facto framework for #acr("SSL").
-Some works still use white-noise data for training deep neural networks, but evaluate their solution using speech signals @nguyen_autonomous_2018 @deleforge_co-localization_2015.
+Some works still use white-noise data for training deep neural networks, but their solution is evaluated using speech signals @nguyen_autonomous_2018 @deleforge_co-localization_2015.
 Similarly, assumptions about the continuity of the sources can vary across the literature.
-Dealing with intermittent sources is an additional difficulty that several approaches do not consider.
+Dealing with intermittent sources is another difficulty that several approaches do not consider.
 In this regard, handling sources that may become inactive is linked with the capacity to localize an arbitrary number of sources.
 Naturally, assuming a pre-defined number of constantly active sources is easier and more common across the #acr("SSL") literature.
 
@@ -153,7 +153,7 @@ However, reverberation and closely spaced microphones often degrade #acr("TDoA")
 Also, a well-known issue of binaural systems is the front-back ambiguity @wightman_resolution_1999.
 It directly comes from the symmetry of such setups in the sagittal plane.
 A sound arriving from a direction in front of the listener produces similar #acr("ITD")s and #acr("ILD")s as a sound from behind the listener.
-For sounds coming from the front and back, the paths to the left and right microphones (or ears) differ by the same amount of time but from opposite directions.
+For sounds coming from the front and back, the paths to the left and right microphones (or ears) differ by the same amount of time, but from opposite directions.
 This symmetry means that the #acr("TDoA") measurement alone cannot distinguish whether the source is in front or behind.
 
 Beamforming approaches focus on spatial filtering by steering the microphone array to maximize the energy from a specific direction.
@@ -198,7 +198,7 @@ After training, the model is supposed to be able to predict the sound source loc
 The third and final aspect of the workflow consists of choosing the right *output strategy*.
 Grumiaux et al. @grumiaux_survey_2021 highlight the wide variety of possible choices in this matter.
 As noted previously, not all methods share the same capacities (@sec:ssl:background:variations).
-Some can handle the detection of multiple sources @he_joint_2018, @bross_multiple_2021 @woodruff_binaural_2012 while others are limited to single-source scenarios @perotin_crnn-based_2018 @hirvonen_classification_2015 @chakrabarty_broadband_2017.
+Some can handle the detection of multiple sources @he_joint_2018, @bross_multiple_2021 @woodruff_binaural_2012, while others are limited to single-source scenarios @perotin_crnn-based_2018 @hirvonen_classification_2015 @chakrabarty_broadband_2017.
 
 *Input Data*
 
@@ -210,7 +210,7 @@ A few works have trained #acr("DNN")s to perform #acr("SSL") from the waveform d
 @vecchiotti_end--end_2019
 @he_sounddet_2021
 @jenrungrot_cone_2020.
-Although aesthetically appealing, such raw-audio-based approaches remain scarce in the literature.
+Although conceptually elegant, such raw-audio-based approaches remain scarce in the literature.
 Spectral representations are significantly more popular.
 Most notably, the #acr("STFT") is used to compute acoustic signals' magnitude, power, and phase spectra.
 For example, Chakrabarty et al. @chakrabarty_broadband_2017 have used the phase spectrogram to localize multiple speakers.
@@ -231,7 +231,7 @@ Perotin et al. have conducted a series of works on ambisonics and its applicatio
 @perotin_crnn-based_2018
 @perotin_crnn-based_2019
 @perotin_localisation_2019.
-In @varanasi_deep_2020, Varanasi et al. derive novel spherical harmonic magnitude and phase features for #acr("DoA") estimation.
+In @varanasi_deep_2020, Varanasi et al. derive novel spherical harmonic magnitude and phase features for #doa estimation.
 These features allow for the separate estimation of the elevation and azimuth, lowering the method's computational cost.
 Compared to #acr("FOA"), which are more common in the literature, the proposed format uses higher-order spherical harmonics (up to the third order), granting an enhanced spatial resolution.
 
@@ -245,7 +245,7 @@ The former naturally comes as a cheaper solution and scales significantly well w
 As presented in @chap:simulator, a large ecosystem of acoustic simulation environments exists.
 They are constantly improved to reach higher levels of fidelity and accuracy.
 A typical data generator for #acr("SSL") is the association of a bank of #acr("RIR")s computed by simulation software and a set of clean speech signals from an existing corpus.
-Speech signals are then convoluted with the clean recordings to obtain simulated listened signals.
+Speech signals are then convoluted with the clean recordings to obtain simulated listened-to signals.
 The ground-truth source and microphone positions are known from the start, and no further labeling work is required.
 Generating a dataset from an acoustic simulator does not require recording equipment and allows for collecting arbitrarily large amounts of data @srivastava_how_2023.
 Nonetheless, the real-world performance of networks trained on such datasets is generally lower than in simulation.
@@ -266,7 +266,7 @@ The network topology design is a fundamental property of deep learning-based #ac
 
 The *feed-forward neural network* is the simplest form of #acrpl("DNN")s.
 It was also the first deep neural architecture used to perform #acr("SSL") @ling_direction_2011 @youssef_learning-based_2013.
-These networks typically map preprocessed spatial audio features, such as #acr("IPD"), #acr("ILD"), or #acr("GCC") @xiao_learning-based_2015, to the #acr("DoA") of a sound source.
+These networks typically map preprocessed spatial audio features, such as #acr("IPD"), #acr("ILD"), or #acr("GCC") @xiao_learning-based_2015, to the #doa of a sound source.
 In @xiao_learning-based_2015, a single-hidden-layer #acr("MLP") is trained on #acr("GCC-PHAT")-based features.
 Takeda et al. @takeda_sound_2016 use a #acr("DNN") to learn from the eigenvectors of the recorded signal interchannel correlation matrix.
 The feed-forward networks' simplicity and efficiency make them suitable for single-source localization in controlled environments.
@@ -283,7 +283,7 @@ The convolutional kernels are responsible for combining this information.
 Hirvonen et al. @hirvonen_classification_2015 are among the first to apply a #acr("CNN") to #acr("SSL").
 Multiple works have followed, adopting a similar approach and trying to learn from different types of input features @chakrabarty_broadband_2017 @chakrabarty_multi-speaker_2019 @adavanne_sound_2019 @tan_sound_2021.
 In @chakrabarty_multi-speaker_2019, Chakrabarty et al. empirically show that the optimal number of convolutional layers for a microphone array with $M$ microphones is $M-1$.
-Diaz-Guerra et al. @diaz-guerra_direction_2022 demonstrate the relevance of icosahedral #acrpl("CNN")s for #acr("DoA") estimation.
+Diaz-Guerra et al. @diaz-guerra_direction_2022 demonstrate the relevance of icosahedral #acrpl("CNN")s for #doa estimation.
 This architecture has the advantage of being equivariant to the 60 rotational symmetries of the icosahedron.
 The method achieves state-of-the-art results, even in highly reverberant environments.
 The authors attribute this success to using a model that encodes the properties of the problem in its architecture.
@@ -312,12 +312,12 @@ Variational auto-encoders @bianco_semi-supervised_2020 and U-net architectures @
 
 As previously explained in @sec:ssl:background:variations, the output formats of #acr("SSL") detectors vary considerably across methods.
 On the one hand, not all solutions estimate the same values.
-Some systems are limited to #acr("DoA") estimation, while others can additionally predict the distance.
+Some systems are limited to #doa estimation, while others can additionally predict the distance.
 On the other hand, the coordinate system used to express the detections is not always the same.
 The vast majority of works compute the source's position with respect to the microphone array.
 Computing an absolute position would require additional knowledge about the environment, the microphones' positions, and choosing a global frame for reference.
 Nonetheless, different relative coordinate systems are used.
-Choosing spherical or polar systems consists of predicting a #acr("DoA") value and, optionally, the elevation angle and/or the distance to the source.
+Choosing spherical or polar systems consists of predicting a #doa value and, optionally, the elevation angle and/or the distance to the source.
 Alternatively, other works choose to write the estimated detections in Cartesian coordinates.
 The latter choice can involve predicting the distance, too.
 Adavanne et al. @adavanne_localization_2019, @adavanne_sound_2019 instead normalize their network's outputs so that estimated coordinates are restricted to the unit sphere.
@@ -390,7 +390,7 @@ They leverage the redundancy of the spatial information across the multiple reco
 Deep Learning methods have also been used in robotics to perform #("SSL").
 Nguyen et al. @nguyen_autonomous_2018 have collected a dataset to train a #acr("CNN") for localizing and facing a sound source with a humanoid robot head.
 #acr("SSL") can also be employed to enhance the #acr("ASR") performance of a robotic system.
-Dávila-Chacón et al. @davila-chacon_enhanced_2019 designed such a system that infers the #acr("DoA") to rotate a robotic head to maximize the speech recognition score.
+Dávila-Chacón et al. @davila-chacon_enhanced_2019 designed such a system that infers the #doa to rotate a robotic head to maximize the speech recognition score.
 After adjusting the head orientation, their algorithm selects the most appropriate channel to provide to the #acr("ASR") system.
 They measure a 50% improvement in the recognition performance thanks to ideally orienting the humanoid head with respect to the speech source.
 Interestingly, the optimal angle does not correspond to the sound entering one of the robot's microphones perpendicularly.

@@ -11,7 +11,7 @@ Besides simply hearing, a robot needs to be able to localize the  active speaker
 #acr("SSL") is a central challenge in speech processing.
 Although several formulations of this problem coexist, its essence consists in inferring the position of one or more active sources solely from the audio signal received by a microphone.
 Our interest in exploring #acr("SSL") is two-fold.
-First, we aim at studying how robots achieve this spatial aspect of auditory perception.
+First, we aim to study how robots achieve this spatial aspect of auditory perception.
 Our second motivation was to design effective models to investigate more specific tasks later.
 Hence, along with @chap:simulator, this chapter will form the foundation for our following contributions.
 

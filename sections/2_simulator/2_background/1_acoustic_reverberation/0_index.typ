@@ -6,21 +6,18 @@
 
 #minitoc(indent: true)
 
-This section lays out a selection of acoustic and audio-processing core concepts.
-Such notions are central to the scientific development of the rest of the manuscript.
-More precisely, the physical modeling of acoustic signals will be recalled at first.
-A description of the phenomenon of reverberation is provided next.
-This phenomenon is a common theme in the different robotics problems explored in this thesis.
-Our simulator explicitly models reverberant environments.
-Finally, the spectral representations of audio signals are discussed in the last section.
+This section introduces key concepts in acoustics and audio signal processing that underpin the scientific developments presented throughout the thesis.
+It begins with a review of the physical modeling of acoustic signals, followed by a discussion of reverberation, a recurring theme in the robotic scenarios explored in this work.
+Since our simulator explicitly accounts for reverberant environments, understanding this phenomenon is essential.
+The section concludes with an overview of spectral representations, which form the basis for many of the audio features used in subsequent chapters.
 
 
 ==== Fundamentals of Sound Propagation
 
 Sound is a mechanical wave phenomenon.
-Sound waves propagate in various mediums, such as air, water, and solids.
+Sound waves propagate in various media, such as air, water, and solids.
 Naturally, sound is represented as a real-valued temporal signal $x(t)$.
-While physical recording devices are analogic and capture a continuous signal, this representation is often quantized and sampled to obtain a discrete signal $x[n]$.
+Physical recording devices operate in the analog domain and capture continuous signals, which are typically quantized and sampled to produce a discrete signal $x[n]$.
 Discrete representations allow the numerical processing and saving of sound signals.
 
 While many modern algorithms, especially #acr("DNN")-based solutions, process sound as purely statistical data, the physical reality of acoustic phenomena is a central aspect of this thesis.
@@ -61,8 +58,8 @@ where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c #freq]$ characterizes the ac
 <sec:simulator:reverb:background:reverb>
 
 Most realistic scenarios do not behave so simply, and other physical phenomena must be modeled.
-In a closed environment, such as an indoor room, sound will reflect on walls and cause reverberation.
-A reverberant room can be modeled as a #acr("LTI") causal system by neglecting secondary effects such as temperature and pressure changes.
+In a closed environment, such as an indoor room, sound will reflect off the walls and cause reverberation.
+A reverberant room can be modeled as an #acr("LTI") causal system by neglecting secondary effects such as temperature and pressure changes.
 Hence, expressing the listened signal as a convolution remains possible, similarly to @eq:simulator:background:single_mic_signal_freefield:
 $
   x[n] = (#rir * s)[n],
@@ -182,9 +179,9 @@ It can be estimated from the room's dimensions and has been empirically expresse
 #let sound-speed = $colMath(c, #eastern)$
 $
   T_60 = (24 ln(10))/#sound-speed #volume/#area
-    approx 0.16 #volume/#area.
-$ <eq:simulator:background:sabine>
-
+    approx 0.16 #volume/#area,
+$
+<eq:simulator:background:sabine>
 where #sound-speed is the speed of sound in the air at 20°C, #volume is the volume of the room (in $m^3$), and #area is the _equivalent absorption surface_ (in sabins).
 The latter can be obtained by summing the weighted surface area of each wall (including floor and ceiling):
 $
@@ -234,7 +231,7 @@ where
   While, in theory, any function with compact support can be employed, it significantly impacts the result.
   Popular choices include the rectangular, Hamming, and Hann window functions.
 - #H is an increment, also called hop size.
-  It should remain lower than $N$ to ensure a non-zero overlap $N - H$ between successive frames;
+  It should remain lower than $N$ to ensure a non-zero overlap $N-H$ between successive frames;
 The support of the #acr("STFT") frame $x[n]$ is also $[|0, N-1|]$.
 The discrete #acr("STFT") of the signal $x$ is defined as the set of #acrpl("DFT")s of the frames $x_m$, $m in ZZ$:
 $
@@ -254,7 +251,7 @@ On the contrary, high values of $N$ will give narrow-band spectrograms with a lo
 
 The spectrogram of a signal is a 2D real-valued representation of its #acr("STFT").
 It displays the magnitude, phase, or power of the complex #acr("STFT").
-The spectrogram allows visualizing a signal as a form of image.
+The spectrogram allows for visualizing a signal as an image.
 In addition to this practical property, it quantifies the intensity of the signal at each time frame and frequency bin.
 Different types of spectrograms can be defined:
 
@@ -300,10 +297,10 @@ $
 $
 <eq:simulator:background:conv_theorem_bis>
 This result gives an intuitively compelling argument for using Fourier representations in problems involving reverberant environments.
-Indeed, the reverberation phenomenon can be modeled as the convolution of a source signal with the #acr("RIR") in the time domain.
-Hence, it translates into a product in the Fourier domain, making it easier to disentangle information from the raw signal from the listened one.
+Indeed, the reverberation phenomenon can be modeled in the time domain as the convolution of a source signal with the #acr("RIR").
+In the Fourier domain, this operation becomes a multiplication, which simplifies the analysis and processing of reverberant signals by separating the effects of the environment from the original source.
 However, it must be noted that the convolution theorem does not hold for the #acr("STFT").
-It can be verified for the general #acr("DFT") under certain conditions but is wrong when using short-term frames.
+It can be verified for the general #acr("DFT") under certain conditions, but it is wrong when using short-term frames.
 In practice, the length of the #acr("STFT") window function is often significantly shorter than the length of the convolution.
 
 Despite this theoretical result not transferring to the #acr("STFT")-based representations, they are still widely used in the literature when dealing with reverberating phenomena @gannot_signal_2001 @li_reverberant_2016 @cohen_relative_2004.
@@ -332,7 +329,7 @@ Two families of arrays have emerged in the community.
 On the one hand, researchers have increased the number of receivers in a single array to capture as much geometric information as possible.
 The ambisonic format is an example of an approach that leverages high microphone-count arrays @perotin_localisation_2019 @zaunschirm_binaural_2018.
 On the other hand, the binaural setup is one of the most studied configurations because it attempts to model human hearing.
-In this case, specific signal representations have been proposed to ease extracting relevant information.
+In this case, specific signal representations have been proposed to ease the extraction of relevant information.
 Some data representations have been introduced for the specific case of binaural devices.
 This section focuses on motivating and deriving those representations.
 
@@ -362,7 +359,7 @@ $
 <eq:simulator:background:propagation_multi_mic>
 where $d_i$ is the distance from the the source $i$ to the source (see @fig:simulator:background:multi_mic_schema)
 
-One can write signal $x_2$ recorded by microphone $2$ as a function of the one recorded by microphone $1$ by combining their expressions:
+One can write the signal $x_2$, recorded by microphone $2$, as a function of the one recorded by microphone $1$ by combining their expressions:
 $
   x_2[n] = d_1 / d_2 x_1 [n - (d_2 - d_1)/(#c) #freq].
 $
@@ -379,7 +376,7 @@ $
   d_1 / d_2 approx 1.
 $
 <eq:simulator:background:multi_mic_far_field_level_ratio>
-Also, the far-field assumption implies that the #acr("TDoA") is fully determined by the #acr("DoA") and its corresponding angle $theta$:
+Also, the far-field assumption implies that the #acr("TDoA") is fully determined by the #doa and its corresponding angle $theta$:
 $
   (d_2 - d_1) / #c = l/#c cos(theta).
 $
@@ -398,7 +395,7 @@ In practice, the aforementioned geometrical observations are leveraged by comput
 Then, one computes the #acr("RTF") to express the interchannel information.
 It corresponds to the ratio between two microphones' #acrpl("ATF") @gannot_signal_2001.
 The value of the #acr("RTF") at a given time can be obtained by computing the ratio of the #acr("STFT") received by two microphones: the interaural spectrogram.
-More precisely, the #acr("RTF") of the $i$-th microphone is obtained by dividing the #acr("STFT") of the signal it receives by the one of the signals recorded by a reference microphone (the first one for instance):
+More precisely, the #acr("RTF") of the $i$-th microphone is obtained by dividing the #acr("STFT") of its received signal by that of a reference microphone (e.g., the first one):
 $
   "RTF"_i [m, k] = (X_i [m, k]) / (X_1 [m, k]) in CC,
 $
@@ -451,7 +448,7 @@ $
 $
 <eq:simulator:background:def_ipd>
 
-Interaural features, especially #acr("IPD"), have been successfully used in #acr("SSL") as they directly relate to the #acr("DoA").
+Interaural features, especially #acr("IPD"), have been successfully used in #acr("SSL") as they directly relate to the #doa.
 As @eq:simulator:background:propagation_multi_mic_relative illustrates, the times at which each microphone of the array receives the signal differ by some short delay $tau = (d_2 - d_1) / #c$.
 Under ideal circumstances, meaning in the absence of reverberation and perturbations such as noise, the phase of the interaural spectrogram is an explicit and deterministic function of the #acr("TDoA") $tau$.
 Mandel et al. @mandel_probability_2006 derived a probability model to estimate the #acr("IPD") from binaural recordings.
@@ -466,7 +463,7 @@ This highlights the biological motivation of interaural features and confirms it
 #include "figures/spectral_features/fig.typ"
 
 
-@fig:ssl:sota:tf_representations provides example of each aforementioned spectral representations.
+@fig:ssl:sota:tf_representations provides an example of each aforementioned spectral representation.
 A binaural array and a speech source have been placed in a simulated room.
 The omnidirectional source plays a 1-second section of speech recording sampled from the _LibriSpeech_ @panayotov_librispeech_2015 corpus.
 The features were then extracted from the inferred microphone signal:

@@ -3,7 +3,7 @@
 === Discussion
 <sec:ssl:multi_source:discussion>
 
-Overall, we have bootstrapped a complete multi-source #acr("SSL") pipeline by drawing crucial inspiration from the work of He et al. in @he_deep_2018, @he_joint_2018 and @he_neural_2021.
+Overall, we have bootstrapped a complete multi-source #acr("SSL") pipeline by drawing crucial inspiration from the work of He et al. in @he_deep_2018, @he_joint_2018, and @he_neural_2021.
 This method was adapted and partly enhanced to provide convincing localization results on challenging datasets collected thanks to the simulator presented in @chap:simulator.
 
 The motivation for operating this large implementation effort was not to compete with state-of-the-art #acr("SSL") solutions.
@@ -25,18 +25,3 @@ Such a shortcoming motivated our investigation of sequence processing, in which 
 Adding adversarial noise sources in the room, employing white noise and, more realistically, sound from musical instruments or television would constitute an interesting extension of this work.
 //The presence of noise had an appreciable effect on the performance of our single source #acr("SSL") study (see @sec:ssl:single_source:experiments:noise).
 It would thus be interesting to study the impact of noise on this approach.
-
-// #gaet[
-//   To which extent should I detail _how hard_ it was ?
-//   Is there some room to expose how tough it turned out to be, or should I stick to a more factual analysis ?
-// ]
-// 
-// #draft[
-//   - [x] Performance is far from being perfect (SotA)
-//   - [x] No noise handling
-//   - [x] 2D environment (i.e. no 3D, no elevation). However, our simulator does support it
-// 
-//   Limitations:
-//   - Energy criteria (@sec:ssl:multi_source:method:dataset)
-// ]
-

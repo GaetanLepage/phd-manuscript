@@ -39,5 +39,5 @@ We describe the task design, learning setup, and policy evaluation.
 @chap:conclusion concludes the thesis by summarizing the main contributions, highlighting limitations, and proposing future research directions.
 
 
-This structure reflects a gradual progression—from simulation tools (Chapter 2), to perception (Chapters 3 and 4), and finally to learned control and behavior (Chapter 5).
+This structure reflects a gradual progression: from simulation tools (@chap:simulator) to perception (@chap:ssl and @chap:active_ssl) and finally, learned control and behavior (@chap:rl).
 Each stage builds upon the previous one to address the overarching challenge of embodied auditory intelligence in robotics.

@@ -5,7 +5,7 @@
   figure(
     image("doa_spectrum.svg", width: 80%),
     caption: [
-      Averaged #acr("DoA") spectrum #averaged-spectrum.
+      Averaged #_doa spectrum #averaged-spectrum.
     ]
   ),
   <fig:ssl:multi_source:sequence_processing:doa_spectrum>,

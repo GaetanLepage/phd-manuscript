@@ -7,10 +7,10 @@
 #reset-acronym("ASSL")
 
 @chap:ssl addressed the challenge of #acr("SSL") in static environments, where both the robot and the sources remained fixed.
-While this formulation is useful for controlled experimentation, it falls short of representing real-world scenarios encountered in social robotics.
+While this formulation is useful for controlled experimentation, it does not adequately represent real-world scenarios encountered in social robotics.
 In such contexts, robots operate in dynamic spaces and must leverage movement to refine their perception of surrounding sound sources.
 
-This chapter introduces the problem of #acr("ASSL"), where the agent actively moves through the environment and uses its accumulated observations to localize sound sources—without actively controlling its trajectories.
+This chapter introduces the problem of #acr("ASSL"), in which the agent actively moves through the environment and uses its accumulated observations to localize sound sources—without actively controlling its trajectories.
 Unlike passive #acr("SSL"), #acr("ASSL") benefits from temporal and spatial integration, allowing the robot to resolve ambiguities and gather more informative observations over time.
 This dynamic setup is more representative of practical robotic applications, including speaker tracking and human-robot interaction.
 

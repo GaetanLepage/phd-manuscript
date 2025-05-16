@@ -46,7 +46,7 @@
       Assign[$M_t$][#smallcaps[DoA-map]$(o_t)$]
       State[]
       
-      Cmt[Transpose all maps to current frame]
+      Cmt[Transpose all maps to the current frame]
       For(
         cond: [$t'$ in $[|t-H, t|]$],
         {

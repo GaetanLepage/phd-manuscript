@@ -49,7 +49,7 @@ The following experiments investigate the agent's performance when trained with 
 <sec:rl:results:reward_design>
 
 Reward design is critical to training #acr("DRL") models.
-Contrary to supervised learning, where clear ground truth labels are available for all training samples, the #acr("RL") training process relies almost exclusively on the reward signal.
+Contrary to supervised learning, where clear ground truth labels are available for all training samples, the #acr("RL") training process relies only on the reward signal.
 It is responsible for conveying information on the quality of the action sampled from the policy.
 More specifically, framing a novel #acr("RL") task from scratch and developing an appropriate method for solving it necessitates meticulously adjusting the reward shape.
 The following explains the key design decisions regarding our reward.
@@ -57,7 +57,7 @@ The following explains the key design decisions regarding our reward.
 #include "figures/reward_function.typ"
 
 *Exponential scaling.*
-The base cost value is a scalar value between 0 and 1.
+The base cost value is a scalar value between 0 and 1 (see @sec:rl:problem:formulation:environment).
 For example, most experiments use the #acr("WER") maps values #wer-cost.
 A custom function #f-reward is designed to derive a reward signal from the underlying cost.
 Most importantly, #f-reward must be a decreasing function of #cost-t.
@@ -248,7 +248,7 @@ where:
 - $#agent-source-dist = #agent-source-dist-expr$ is the source-array distance;
 - $"DoA"(#agent-pos, theta_a, #source-pos)$ is the direction of arrival for this source-microphone positioning;
 - $eta$ is a scaling factor, set to 1 in the conducted experiments.
-Naturally, this definition is inspired by the shape of the #acr("WER") maps (see @fig:rl:results:directional_map for an example).
+This definition is naturally inspired by the shape of the #acr("WER") maps (see @fig:rl:results:directional_map for an example).
 The obtained map is normalized to constrain its range in the $[0, 1]$ interval.
 Setting $eta$ to 0 gives the omnidirectional formulation of the analytical cost.
 @fig:rl:results:analytical_map plots the analytical cost $C$ for the east orientation, i.e., where the agent is facing right in this figure's frame.

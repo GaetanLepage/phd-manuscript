@@ -48,14 +48,14 @@ The key idea is to construct and refine an egocentric 2D likelihood map of sourc
 Two aggregation strategies are explored: a naive averaging approach and a learned blending network based on a U-Net architecture.
 The final source positions are extracted via a spatial clustering algorithm (DBSCAN), enabling the system to handle an arbitrary number of concurrent speakers.
 Experiments reveal the critical role of trajectory length (horizon), feature resolution, and the quality of the upstream #acr("SSL") model in determining localization accuracy.
-While the method is constrained to static sources, it demonstrates that spatial reasoning can be significantly improved by leveraging motion—even in the absence of ground-truth robot positions or multimodal sensing.
+While the method is constrained to static sources, it demonstrates that spatial reasoning can be significantly improved by leveraging motion, even in the absence of ground-truth robot positions or multimodal sensing.
 
 
 === Perceptually Guided Navigation via Deep Reinforcement Learning
 
 @chap:rl shifts focus from passive perception to active decision-making, exploring how #acr("DRL") can be used to optimize robotic behavior in acoustically complex environments.
 The chapter begins with a comprehensive introduction to reinforcement learning, outlining its conceptual foundations, historical development, and mathematical formulation.
-It provides detailed explanations of policy gradient methods, and focuses on the #acr("PPO") algorithm used throughout the work.
+It provides detailed explanations of policy gradient methods and focuses on the #acr("PPO") algorithm used throughout the work.
 This overview is designed to make the chapter self-contained and accessible to readers with varying levels of prior experience in #acr("RL").
 
 Building on this theoretical grounding, we introduce a novel sound-driven navigation task in which a robot must reposition itself in a reverberant environment to optimize #acr("ASR") performance.

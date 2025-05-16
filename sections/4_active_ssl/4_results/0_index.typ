@@ -75,7 +75,7 @@ In practice, we use a value of $0.1$ radians ($approx 5.7°$) for $sigma_theta$.
 The agent then moves forward in this new direction by a distance of 50cm.
 
 A special case occurs when the robot is less than 50cm from a wall.
-In this case, its orientation is instead sampled according to the initialization process to turn its back to this wall.
+Instead, its orientation is sampled according to the initialization process to turn its back to this wall.
 
 *Data gathering.*
 The collected datasets will be used for two distinct purposes: evaluating the global #acr("ASSL") pipeline and training the #psi-dnn combination operator.
@@ -123,7 +123,7 @@ On the contrary, the network output suffers from too aggressive filtering as the
 <fig:active_ssl:results:clipping_threshold>
 
 @table:active_ssl:results:clipping_threshold gathers the result of an experimental campaign on the impact of #clip-t on the final #acr("ASSL") performance.
-All four combinations of blending methods and #doa spectrum provider have been tested to ensure completeness.
+All four combinations of blending methods and #doa spectrum providers have been tested to ensure completeness.
 It shows that a single optimal value for #clip-t does not exist.
 As both the aggregation process and the source #doa data significantly impact #AM, the threshold needs to be chosen accordingly.
 Thus, for each scenario, we identify the best precision-recall tradeoff and select the corresponding #clip-t value.
@@ -136,14 +136,14 @@ Finally, another factor might be brought into consideration: computational cost.
 DBSCAN's time complexity is $O(n log n)$ when the data layout is favorable and $O(n^2)$ in the worst-case @ester_density-based_1996 ($n$ denotes the number of points).
 In the use made of this algorithm here, the number of provided points is highly impacted by the choice of #clip-t.
 For instance, the value of 0 is not tested.
-This case indeed often translates in none of the pixels getting filtered.
+This case indeed often translates to none of the pixels getting filtered.
 For a resolution of $p=256$, the number of points forwarded to DBSCAN amounts to $p^2 = 65,536$.
-Also, the algorithm output consists in a single cluster containing all points.
+Also, the algorithm output is a single cluster containing all points.
 
 @fig:active_ssl:results:n_points_cluster plots the number of points remaining after the filtering process.
 Blue lines correspond to using the naive averaging strategy to aggregate the maps and orange lines relate to the use of the neural network.
 Also, dashed plots allow differentiation of which #doa spectra have been employed from the start.
-This shows that the inferred likelihood map should be as sparse as possible with peak values approaching 1.
+This shows that the inferred likelihood map should be as sparse as possible, with peak values approaching 1.
 Those properties allow for better separability and fewer points being fed into the clustering algorithm.
 
 #figure(
@@ -194,6 +194,7 @@ From a performance point of view, @table:active_ssl:results:clipping_threshold, 
 For instance, the obtained recall on real data, peaking at around 55%, clearly appears to be a weakness of the proposed pipeline.
 The leading cause lies in the shortcomings of the angular localization method.
 Nonetheless, leveraging the static model across multiple distinct agent positions still permits recovery from partial misses and provides precise 2D localization.
+This observation further validates the relevance of the proposed approach.
 
 
 ==== Comparison of Blending Methods
@@ -222,7 +223,7 @@ The former was introduced as a baseline, offering the advantage of being explain
 @fig:active_ssl:results:blending_comparison discloses a selection of 2D heatmaps produced by the two proposed methods.
 Naturally, when significantly precise #doa spectra are extracted at each step, even the naive averaging method suffices for accurately estimating the 2D heatmap.
 However, when more imperfect and challenging #doa maps are considered, the neural network shows a greater capacity to ignore the noise and provide a sharp likelihood estimation.
-Also, as #psi-dnn has been trained with localized 2D Gaussian blobs as targets, it has learned to filter the unnecessary parts of the original cones properly.
+Also, as #psi-dnn has been trained with localized 2D Gaussian blobs as targets, it has learned to properly filter the unnecessary parts of the original cones.
 Its output successfully concentrates on the actual position of the sources.
 The network facilitates clustering by precisely separating and isolating the different local peaks in the map.
 This decreases the sensitivity to the hyperparameters of DBSCAN.
@@ -231,7 +232,7 @@ This decreases the sensitivity to the hyperparameters of DBSCAN.
 
 @table:active_ssl:results:blending_methods summarizes the best performance achieved by each aggregation strategy.
 In particular, the most efficient value of the #clip-t parameter has been used.
-Unsurprisingly, employing the neural network offers a tangible advantage compared to simply averaging the #doa maps.
+Unsurprisingly, employing the neural network offers a tangible advantage over simply averaging the #doa maps.
 Those results confirm the qualitative observations made above.
 When provided with the ground-truth #doa spectra, #psi-dnn achieves an almost perfect precision.
 However, the recall score slightly lags, with a value of 90.54%.
@@ -287,10 +288,11 @@ Our experiments show that #doa spectrum thresholding fails to bring tangible ben
 Our #psi-dnn network has been retrained on a dataset of maps corresponding to each #doa-t value to obtain those results.
 The #psi-avg technique, however, does not require any form of training.
 Performance is often best for $#doa-t = 1$.
-Employing this process when using the ground-truth #doa spectra was not expected to bring any additional performance as all peaks precisely maximize at $1.0$ and thus do not need to be any further amplified. In contrast, when using the #doa spectra estimated by the #acr("SSL") model combined with the neural network for map blending, #doa thresholding slightly boosts the overall performance.
-Conversely, the naive averaging approach does not appear to benefit from more saturated spectra.
+Employing this process when using the ground-truth #doa spectra was not expected to bring any additional performance, as all peaks precisely maximize at $1.0$ and thus do not need to be any further amplified.
+In contrast, when using the #doa spectra estimated by the #acr("SSL") model combined with the neural network for map blending, #doa amplification slightly boosts the overall performance.
+Conversely, the naive averaging approach does not benefit from more saturated spectra.
 
-Finally, the marginal and situational advantages provided by clipping #doa spectra are not sufficient to justify including them in the final method.
+Finally, the marginal and situational advantages of clipping #doa spectra are insufficient to justify including them in the final method.
 However, this tentative result further illustrates the pipeline's sensitivity to the quality and processing of the input #doa information.
 
 ==== Horizon
@@ -307,20 +309,20 @@ The final frame remains the same across all the experiments.
 
 @table:active_ssl:results:horizon shows the final performance of the pipeline for different horizons.
 The neural network #psi-dnn is retrained for each horizon to get the best possible performance.
-As anticipated, the highest detection scores are achieved when using all 8 steps.
+As anticipated, the highest detection scores are achieved when using all eight steps.
 Besides granting better absolute performance, the neural network demonstrates a greater robustness to lower horizons.
-The performance drop shows to be less pronounced than for the averaging approach.
+The performance drop is less pronounced than for the averaging approach.
 
 
 
 ==== Visual Encoding
 
-The choice to model the 2D localization problem with heatmaps involves exploring hyperparameters related to this visual encoding.
-As #doa maps are generated from the projection of #doa spectra, we are free to define the output domain without prior constraints.
+The choice to model the 2D localization problem with heatmaps involves exploring hyperparameters related to this 2D representation.
+As #doa maps are generated from the projection of #doa spectra, we can define the output domain without prior constraints.
 Two parameters influence the synthesized maps: the #fov $L$ and the pixel resolution $p$.
 
 *Field of View.*
-The #fov ($L$) determines the size of the range covered by the egocentric map which is an $L times L$ square centered around the robot agent.
+The #fov ($L$) determines the size of the range covered by the egocentric map, which is an $L times L$ square centered around the robot agent.
 
 Its value must be chosen diligently as it bounds the information available once the shifting and aggregation have occurred at the final position.
 One has to consider the maximum distance $d_"max"$ traveled by the robot at each step and the horizon $H$.
@@ -336,13 +338,13 @@ The value of 16 meters is used in the rest of our experiments as it provides the
 *Pixel resolution.*
 As opposed to the #fov, pixel resolution stands solely as a representation hyperparameter and does not fundamentally change the maps' informative content.
 Naturally, a higher resolution would limit any loss caused by the spatial discretization process.
-During our experiments, we noticed that imprecisions would arise within the map-shifting process when using a too-low resolution.
-The latter is performed directly on the discrete heatmap thanks to the OpenCV @opencv_library software library.
+During our experiments, we noticed that imprecision would arise within the map-shifting process when using a too-low resolution.
+The latter is performed directly on the discrete heatmap thanks to the _OpenCV_ @opencv_library software library.
 On the other hand, increasing the resolution induces a larger image fed into the neural network.
-As our U-net architecture is fully convolutional, the number of parameters remains identical when input size changes.
+As our U-net architecture is fully convolutional, the number of parameters remains identical when the input size changes.
 However, the computational cost is still impacted by such modifications.
 We have once more trained the neural network on maps of different resolutions between 64 and 256 pixels.
-The results, presented in @table:active_ssl:results:pixel_res, suggest that a finer resolution indeed helps with the localization process.
+The results, presented in @table:active_ssl:results:pixel_res, suggest that a finer resolution helps with the localization process.
 Although this parameter does not strongly impact precision, the recall is shown to be sensitive to pixel resolution.
 Training time grows from 5 minutes when using $p=64$ to 30 minutes for $p=256$.
 Inference time scales similarly, ranging from 30s to 2min 15s for the largest maps.

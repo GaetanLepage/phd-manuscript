@@ -1,6 +1,5 @@
 #import "/utils.typ": *
 #import "/_misc/notations.typ": *
-//#import "../../_notations.typ": *
 
 #set text(size: 10pt)
 

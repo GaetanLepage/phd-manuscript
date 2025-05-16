@@ -85,7 +85,7 @@ where:
   Given a recorded signal, it outputs a prediction for the transcript $hat(t)$.
 - $"WER"(hat(t), t)$ is the #acr("WER") (in %) between predicted transcript $hat(t)$ and ground truth transcript $t$.
 
-Although the array might include several microphones, the #acr("ASR") measurements only employ a single microphone.
+Although the array may comprise multiple microphones, #acr("ASR") measurements rely solely on a single one — namely, the microphone that is aligned with the agent's forward-facing direction.
 Eventual techniques to combine the signal from multiple microphones are out of the scope of this work.
 The following paragraphs discuss the #wer-cost's computing and caching implementation.
 
@@ -99,7 +99,7 @@ It includes feature extraction mechanisms, decoding algorithms, seq2seq models f
 PyKaldi @can_pykaldi_2018 offers a Python wrapper that allows users to interact with the Kaldi library easily.
 
 Vosk @noauthor_vosk_nodate is another open-source, popular speech recognition toolkit.
-It aims to be a user-friendly product, employed in real-world use cases.
+It aims to be a user-friendly product that can be employed in real-world use cases.
 Bindings for several programming languages (Rust, Java, Go...).
 Besides its open-source programs, professional licenses for Vosk can be purchased and provide additional features.
 
@@ -150,7 +150,7 @@ As the absolute #acr("ASR") performance is not particularly relevant for this pr
 *ASR setup.*
 We compute the #acr("WER") score using the _jiwer_ @vaessen_jitsijiwer_2024 library.
 To compute the minimum edit distance, it wraps the fast C++ matching library _RapidFuzz_ @max_bachmann_2024_10938887.
-The calculation of the metric has negligible impact on runtime performance.
+The calculation of the metric has a negligible impact on runtime performance.
 However, running the #speechbrain #acr("ASR") model is highly computationally expensive.
 When the model is run in inference mode to evaluate its performance on 100 samples from the #librispeech dataset, approximately 96% of the total runtime is spent on the speech recognition process.
 On the contrary, less than 1% is used for computing the #acr("WER").
@@ -214,8 +214,8 @@ The architectures and the pre-trained weights are directly transferred to build 
 @fig:ssl:single_source:nn_architecture provides a more detailed representation of the feature extractor's architecture.
 Its final regression layer is removed.
 The obtained model outputs #dim-features-value;-dimensional feature vectors fed into the actor and critic heads.
-The feature extractor's weights are kept frozen for during the entire #acr("PPO") training process.
-@sec:rl:results:backbone_init discusses different strategies regarding backbone initialization strategies.
+The feature extractor's weights are kept frozen during the entire #acr("PPO") training process.
+@sec:rl:results:backbone_init discusses different strategies regarding backbone initialization.
 
 #figure(
   image(

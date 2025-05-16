@@ -17,9 +17,9 @@ The actual experimental results, including quantitative results, will follow.
 
 In this first formulation of the #acr("SSL") problem, each situation includes exactly one source to localize.
 
-*#acr("DoA") metric.*
-Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lies from the real #acr("DoA") value $theta$.
-As the network predicts the sine and cosine of $theta$, the #acr("DoA") value is first computed following:
+*#doa metric.*
+Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lies from the real #doa value $theta$.
+As the network predicts the sine and cosine of $theta$, the #doa value is first computed following:
 $
   hat(theta) &= op("atan2")
     lr(
@@ -37,7 +37,7 @@ $
 
 We then compute the average $ell^1$ angular distance #d between $hat(theta)$ and $theta$.
 The following expression for #d accounts for the periodicity of the angular interval $[-pi, pi]$:
-//As both the predicted and ground-truth #acr("DoA") values are constrained to the $[-pi, pi]$ interval.
+//As both the predicted and ground-truth #doa values are constrained to the $[-pi, pi]$ interval.
 #func-def(
   d,
   $[-pi, pi]^2$,
@@ -47,7 +47,7 @@ The following expression for #d accounts for the periodicity of the angular inte
   $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%).$
 )
 <eq:ssl:single_source:angular_dist>
-This distance is used to define the #acr("MAE") metric that quantifies the performance of #acr("DoA") estimation:
+This distance is used to define the #acr("MAE") metric that quantifies the performance of #doa estimation:
 $
   #mae-theta = 1 / n_"test" sum_(i=1) ^ n_"test" #d (hat(theta)_i, theta_i),
 $
@@ -75,7 +75,7 @@ The starting setting involves a binaural array with two cardioid microphones for
 Microphones are two centimeters apart.
 The room's reverberation level ($T_60$) is set to 500ms.
 Interaural features (#acr("ILD") + #acr("IPD")) have been chosen for this baseline.
-By default, only the #acr("DoA") is predicted, not the distance.
+By default, only the #doa is predicted, not the distance.
 The default number of epochs is set to 100.
 This setup is not the best-performing combination, but it provides a credible formulation to start with.
 These parameters will be individually changed across the following study.
@@ -83,8 +83,8 @@ These parameters will be individually changed across the following study.
 Furthermore, the following settings are kept fixed across the experiments.
 We use a single $4 times 7$ meter room.
 Learning parameters, such as the batch size, the learning rate, and the number of epochs, remain constant across most experiments.
-Also, the network architecture is common in all runs.
-Naturally, the number of input channel is adapted to the shape of the input data.
+Also, the network architecture is the same for each run.
+Naturally, the number of input channels is adapted to the shape of the input data.
 The number of epochs has been exceptionally increased to reach proper convergence when necessary.
 Finally, the network training for each individual configuration was repeated several times to ensure that the obtained results were repeatable.
 The reported performance scores correspond to the most successful training run.
@@ -119,7 +119,7 @@ We have experimented with the influence of the microphone spacing in a binaural 
 @table:ssl:single_source:mic_dist displays the results of this study.
 Increasing the distance between microphones appears to be detrimental to the localization accuracy.
 When microphones are further apart, the aliasing phenomenon becomes problematic and deteriorates the relationship between the recorded signal and the source positions.
-Indeed, if the spacing amounts to $d$ meters, all frequencies above $f_0 = c / (2 d)$ Hz cannot be adequately distinguished.
+Indeed, if the spacing amounts to $d$ meters, all frequencies above $f_0 = c / (2d)$ Hz cannot be adequately distinguished.
 For $d=2$ cm, this maximum frequency is 8.575 kHz, while most of human speech's frequency content is below 5 kHz @hollien_phonational_1971.
 Further lowering the distance to 1cm does not appear to bring additional benefits.
 
@@ -167,7 +167,7 @@ The results are presented in the bottom half of @table:ssl:single_source:input_f
 Regarding interaural features, neither #acr("ILD") nor #acr("IPD") appears to be fully redundant.
 Each sub-feature performs worse than the #acr("ILD")-#acr("IPD") combo referred to as _Interaural features_ above.
 Yet, #acr("IPD") allows for a lower #mae-theta compared to using #acr("IPD") only.
-This observation is reasonable as #acr("IPD") is directly correlated to the #acr("TDoA") and thus the #acr("DoA").
+This observation is reasonable as #acr("IPD") is directly correlated to the #acr("TDoA") and thus the #doa.
 Besides, regarding the sub-features of the polar #acr("STFT") representation, we notice a low drop in performance when discarding the magnitude information.
 While the complete solar #acr("STFT") features allow for an #mae-theta of 25.7°, using the sole phase spectrogram only worsens it by 2.3°.
 
@@ -177,14 +177,14 @@ Our experimental results suggest that interaural features offer the best perform
 
 ==== Distance Estimation
 
-#acr("DoA") estimation has historically been the focus of the #acr("SSL") literature.
+#doa estimation has historically been the focus of the #acr("SSL") literature.
 Indeed, predicting the distance to a sound source is known to be a significantly more challenging problem @grumiaux_survey_2021.
 As the proposed architecture and methodology also support distance estimation, some experimental attempts were made with the combined objective (@eq:ssl:single_source:total_loss).
 
 Our results have confirmed that predicting the distance was less accessible for our neural network.
 @table:ssl:single_source:distance_estimation shows the combined localization performance for two microphone arrays (binaural and triangle).
 The obtained results are not satisfying, as the mean absolute error in distance estimation (#mae-dist) is over 70cm in the best-case scenario.
-Also, control experiments were included in @table:ssl:single_source:distance_estimation to highlight the negative influence of distance estimation on the #acr("DoA") error.
+Also, control experiments were included in @table:ssl:single_source:distance_estimation to highlight the negative influence of distance estimation on the #doa error.
 
 #include "tables/distance_estimation.typ"
 
@@ -209,7 +209,7 @@ In @chap:active_ssl, we leverage robot movement to accumulate localization infor
 ==== Reverberation
 
 #acr("SSL") methods leverage the inter-channel differences in the time-frequency input data to infer the source position.
-As discussed in @sec:simulator:background:spectral-features, these interaural features are theoretically sufficient to infer a single sound source's #acr("DoA").
+As discussed in @sec:simulator:background:spectral-features, these interaural features are theoretically sufficient to infer a single sound source's #doa.
 This result does not hold in a reverberant environment where sound reflections deteriorate the direct relationship between the recorded waveform and the direction of arrival.
 Performing #acr("SSL") in reverberant environments remains a core challenge for the acoustic research community.
 Thanks to our simulation library, we generated datasets from different reverberation settings.

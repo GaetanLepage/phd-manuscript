@@ -10,7 +10,7 @@ This feedback loop constitutes the reinforcement aspect and permits the agent to
 At each time step $t$, the agent observes the current state $s_t$ of the environment.
 It then has to select an action so as to maximize the future accumulated rewards.
 In response to this action, the environment communicates the reward signal $r_t$ to the agent and transitions to a new state $s_(t+1)$ (@fig:rl:rl_intro:rl_schema).
-This section briefly introduces the main concepts and notations required to further formalize this process and the relevant #acr("RL") algorithms.
+This section briefly introduces the main concepts and notations required to formalize this process further and the relevant #acr("RL") algorithms.
 
 #figure(
   image(
@@ -75,7 +75,7 @@ The policy denotes a function or algorithm that maps each state to a probability
 )
 
 As a distribution over the action space, the policy can take various forms.
-For finite #acrpl("MDP")s, i.e. when both the action and state spaces are finite, the policy is a $abs(cal(S)) times abs(cal(A))$ matrix:
+For finite #acrpl("MDP")s, i.e., when both the action and state spaces are finite, the policy is a $abs(cal(S)) times abs(cal(A))$ matrix:
 $
   lr(
     (
@@ -93,7 +93,7 @@ A common choice in modern #acr("RL") is the Gaussian distribution, where the pol
 A probabilistic policy can be used in two ways.
 During reinforcement learning algorithms' training, the action is often selected by sampling the policy #box($a tilde pi (dot | s)$).
 This ensures exploration during training.
-At test time, the agent picks the optimal action, i.e. the one with the highest probability:
+At test time, the agent picks the optimal action, i.e., the one with the highest probability:
 $
   a^* = op("argmax", limits: #true)_(a in cal(A)) pi (a | s).
 $
@@ -110,8 +110,8 @@ $
 $
 <eq:rl:intro:value_function>
 Naturally, this quantity depends on the considered policy $pi$.
-The value function plays a central role in #acr("RL").
-It quantifies the long-term desirability of being in a particular state, under a given policy.
+The value function is central to #acr("RL").
+It quantifies the long-term desirability of being in a particular state under a given policy.
 A state with high value is one from which the agent expects to collect large cumulative rewards in the future.
 This notion underlies many #acr("RL") algorithms, especially those that evaluate and improve policies by estimating how good it is to visit certain states.
 
@@ -123,10 +123,10 @@ $
 $
 <eq:rl:intro:q_function>
 The Q-function extends the concept of value by also conditioning on the action taken in the current state.
-This provides a more fine-grained assessment of decision quality, as it reflects not just how good a state is, but how good a specific action is within that state.
+This provides a more fine-grained assessment of decision quality, as it reflects not just the quality of a state but also the quality of a specific action within that state.
 Q-functions are particularly useful in algorithms that seek to learn optimal policies directly from action-value estimates, such as Q-learning @watkins_learning_1989 and many actor-critic methods @haarnoja_off-policy_2018.
 Together, the value function and Q-function offer complementary perspectives: the former evaluates states globally, while the latter provides localized guidance on action selection because we can define a policy based on it: $a^* = "argmax"_(a in cal(A)) Q(s, a)$.
 
 
 These foundational concepts — the #acr("MDP") formalism, return maximization, policies, and value functions — form the theoretical basis for modern reinforcement learning algorithms.
-The following section examines how these ideas scale through deep function approximation and lead to powerful learning systems capable of solving complex, high-dimensional tasks.
+The following section examines how these ideas scale through deep function approximation and lead to robust learning systems capable of solving complex, high-dimensional tasks.

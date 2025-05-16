@@ -57,7 +57,7 @@
               ],
               {
                 State[
-                  Update the actor's and critic's parameters by maximizing the #acr("PPO") objective $#ppo-loss (theta)$ using a stochastic optimizer (e.g. Adam, #acr("SGD")).
+                  Update the actor's and critic's parameters by maximizing the #acr("PPO") objective $#ppo-loss (theta)$ using a stochastic optimizer (e.g., Adam, #acr("SGD")).
                 ]
               }
             )

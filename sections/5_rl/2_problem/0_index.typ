@@ -26,7 +26,7 @@ This insight results from an experimental study conducted within our simulated e
 Other metrics exist to quantify auditory perception and could have been alternatives to the #acr("ASR") performance.
 For instance, the #acr("PESQ") score, introduced by Rix et al. @rix_perceptual_2001, predicts the perceived audio quality of speech.
 It primarily targets human perception by measuring how a degraded signal compares to its original counterpart.
-#acr("ASR") performance is likely correlated to the #acr("PESQ") score but directly quantifies how well the robot understands human speech.
+#acr("ASR") performance is likely correlated to the #acr("PESQ") score, but directly quantifies how well the robot understands human speech.
 In this sense, #acr("PESQ") would have been a more indirect proxy for robotic auditory perception.
 
 // Why we use RL over MPCs
@@ -55,7 +55,7 @@ Their contribution is a theoretical scheme for commanding a robot using auditory
 Those tasks include automatic gaze adjustment to face the active speaker and a navigation task based on #acr("ILD").
 The latter comprises following a sound source indoors, solely relying on audio perception.
 Regarding the proposed methodology, the process involves computing relevant auditory features such as the #acr("ILD") and #acr("IPD").
-These quantities are then interpreted geometrically to be linked to the task objective, thus defining an interaction matrix $bold(J_s)$ satisfying
+These quantities are then interpreted geometrically to be linked to the task objective, thus defining an interaction matrix $bold(J_s)$ satisfying:
 $
   bold(dot(s)) = bold(J_s) bold(u),
 $
@@ -68,14 +68,14 @@ The paper provides a detailed theoretical derivation of the auditory features, i
 This work thus adopts a feedback loop strategy to control the robot and does not involve any learning algorithm.
 Finally, _AuralServo_ provides an interesting formulation for active robotic navigation problems and an analytical solution that could be demonstrated in real-world experiments.
 
-Furthermore, a research group from UT Austin, led by Kirsten Grauman, has conducted pioneer work in perceptually-motivated robotic navigation and achieved impressive results.
+Furthermore, a research group from UT Austin, led by Kirsten Grauman, has conducted pioneering work in perceptually-motivated robotic navigation and achieved impressive results.
 In their paper _SoundSpaces_ @chen_soundspaces_2020, Chen et al. define and solve the task of audio-visual navigation towards a sound source in complex environments.
 Their contribution is twofold.
 On the one hand, they introduce _SoundSpaces_, a dataset that extends existing realistic 3D environments with simulated audio renderings.
 The environment uses the _Habitat_ simulator @savva_habitat_2019 alongside the _Matterport3D_ @chang_matterport3d_2017 and _Replica_ @straub_replica_2019 datasets that it includes.
 This simulator provides only visual cues from its 3D representation of indoor spaces.
 Chen et al. leveraged a geometrical acoustic method for room acoustic simulations consisting of bidirectional path tracing @cao_interactive_2016 to add auditory information to the simulator.
-On the other hand, they designed a #acr("DRL") agent that can navigate in these challenging environments.
+On the other hand, they designed a #acr("DRL") agent that can navigate these challenging environments.
 Its neural network architecture receives the RGB and depth frames from the virtual camera, the #acr("STFT") of the listened signal, and the relative displacement vector pointing from the agent to the goal.
 Following feature-specific, then shared layers are two heads modelling the actor and the critic, respectively.
 The authors trained the system to navigate to a source in previously unknown environments.
@@ -107,6 +107,8 @@ Here, it has to adjust its position to optimize for the separation score.
 In the _far-target_ setting, the agent is initially placed further from the source of interest and has to navigate the environment to eventually get close to it.
 This task variant targets leveraging audio-visual information to plan the shortest possible trajectory.
 Overall, the _Move2Hear_ framework successfully applies #acr("DRL") to a robotic navigation problem where the objective is motivated by audio perception.
+This work does not specifically optimize for the #acr("ASR") performance.
+Also, the proposed method makes use of visual information.
 
 
 
@@ -116,8 +118,8 @@ Overall, the _Move2Hear_ framework successfully applies #acr("DRL") to a robotic
 We adopt a #acr("DRL") approach to design such a navigation policy.
 This policy will be modeled by a deep neural network trained in a simulated environment.
 We develop a complete pipeline for solving the perceptually motivated audio-based navigation task.
-The problem is framed as a sequential decision process, which suits #acr("RL") well.
-This work's original contribution includes implementing the #acr("RL") environment, agents, algorithm, and testing setup.
+The problem is cast as a sequential decision process, aligning naturally with the #acr("RL") framework.
+This work's original contribution includes implementing the #acr("RL") environment, agents, algorithm, and evaluation setup.
 
 // Sound only
 Also, our solution tackles a challenging framework where only audio data can be used to perceive the environment.
@@ -139,8 +141,8 @@ It is computed as follows:
 $
   "WER" = (s + d + i) / n,
 $
-where $s$ is the number of substitutions, $d$ of deletions, and $i$ of insertions needed to transform the true sentence into the predicted text.
-$n$ counts the total number of words of the ground truth transcript.
+where $s$ is the number of substitutions, $d$ is the number of deletions, and $i$ is the number of insertions needed to transform the true sentence into the predicted text.
+$n$ counts the total number of words in the ground truth transcript.
 The #acr("WER") quantifies the difference between the original and transcribed text.
 The total number of errors $s + d + i$ is also called the Levenshtein or edit distance, which Vladimir Levenshtein proposed in 1965 @levenshtein_binary_1965.
 Its default formulation considers comparing two strings at the character level.
@@ -169,7 +171,7 @@ The #acr("WER") score uses words instead of characters as the fundamental tokens
 
 *Running of an episode.*
 An episode starts with the agent and one or several sources randomly placed in the room.
-One source is considered as the target.
+One source is considered the target.
 This means that the #acr("ASR") output will be evaluated against the actual transcript pronounced by this source.
 Other sources might also be added and can act as adversarial sources.
 The process is sequential and discrete.
@@ -190,7 +192,8 @@ In this section, we present those characteristics and the motivations that led t
 
 *#acr("POMDP").*
 The original #acr("MDP") model lacks expressivity to model our environment accurately.
-Instead, we rely on the #acr("POMDP") framework where the entirety of the state cannot be observed directly.
+Instead, we rely on the #acr("POMDP") framework, which does not allow direct observation of the state.
+The agent can probe its environment through observations distinct from the underlying states.
 This choice decouples the environment logic from the sensory observation available to the agent.
 A #acr("POMDP") can be described as a tuple $lr(angle.l cal(S), cal(A), P, cal(R), Omega, O, gamma angle.r)$ where:
 - $cal(S), cal(A), P$, $cal(R)$ and $gamma$ describe the underlying #acr("MDP");
@@ -198,7 +201,7 @@ A #acr("POMDP") can be described as a tuple $lr(angle.l cal(S), cal(A), P, cal(R
 - $O: cal(S) times cal(A) -> Pi (Omega)$ is the _observability function_ which maps all state-action pairs to a probability distribution over the observation space $Omega$.
   $O(s' | a, o)$ denotes the probability of making observation $o$ given that the agent took action $a$ and landed in state $s'$.
 This definition and its notations have been borrowed from Leslie Kaelbling et al. @kaelbling_planning_1998.
-She, along with her research group, has conducted groundbreaking work related to the comprehension and use of #acr("POMDP")s, in particular in robotics.
+She and her research group have conducted groundbreaking work related to the comprehension and use of #acr("POMDP")s, particularly in robotics.
 From her original work on this topic, _Acting Optimally in Partially Observable Stochastic Domains_ @cassandra_acting_1994 in 1994 Kaelbling has published several papers exploring how to efficiently solve partially observable environments problems
 @cassandra_acting_1996
 @theocharous_approximate_2003
@@ -211,10 +214,10 @@ More recently, Azizzadenesheli et al. @azizzadenesheli_policy_2020 investigated 
 *State and action spaces.*
 We chose a spatially discrete setting for modeling the environment.
 The agent evolves along a virtual $n_x times n_y$ grid spanning the entire room.
-Also, its orientation is restricted to be aligned with the grid, i.e. being either _up_, _down_, _left_, or _right_.
+Also, its orientation is restricted to be aligned with the grid, i.e., being either _up_, _down_, _left_, or _right_.
 The discrete state space $cal(S)$ can then be expressed as follows:
 $
-  cal(S) &= lr(
+  cal(S) = lr(
     {
       (x_i, y_j, alpha)
       #h(1em) mid(|) #h(1em)
@@ -224,8 +227,7 @@ $
         times {0, pi/2, pi, (3 pi) / 2}
     },
     size: #120%
-  )","\
-  &subset [0, L_x] times [0, L_y] times [0, 2pi],
+  )","
 $
 <eq:rl:state_space>
 where $x_i$ and $y_j$ denote the 2D position of the agent and $alpha$ its orientation with respect to the room global frame.
@@ -273,7 +275,7 @@ The agent should be trained to navigate to the optimal location regarding the #a
 Naturally, the reward function should be a decreasing function, $f: [0, 1] -> RR$, of the #acr("WER") metric so that the highest reward would correspond to the lowest possible #acr("WER").
 For now, we assume having access to an oracle cost function $C: cal(S) -> [0, 1]$ that maps each possible state to a penalty that should be minimized.
 It quantifies how undesirable it is to be in this specific state.
-Although we experiment with extra formulation for $C$, the original task's cost is #wer-cost, the estimated average #acr("WER") that the #acr("ASR") would yield if the agent were standing at this position.
+Although we explored alternative formulations for the cost function $C$, the primary cost used in the task is #wer-cost, which represents the estimated average Word Error Rate (WER) that the #acr("ASR") system would produce if the agent were located at that specific position.
 The practical implementation of this mapping will be discussed later in @sec:rl:method:wer_maps.
 The reward function can then be written as follows:
 $

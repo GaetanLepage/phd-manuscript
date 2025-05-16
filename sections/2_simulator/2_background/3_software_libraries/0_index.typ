@@ -26,7 +26,7 @@ Yet, they also provide a user-friendly Python API to make the library easy to le
 In addition to its primary #acr("RIR") computation capability, this project ships various additional features such as beamforming algorithms, direction finding, and adaptive filtering.
 Rathnayake et al. @rathnayake_image_2019 proposed a 3D room simulation library with an additional _OpenGL_ visualization feature.
 It allows observing all the reflection paths from the source to the receiver.
-Also, the library permits to plot the #acr("RIR") graph, similar to @fig:simulator:background:rir_schema and @fig:simulator:background:rir_plot.
+Also, the library permits plotting the #acr("RIR") graph, similar to @fig:simulator:background:rir_schema and @fig:simulator:background:rir_plot.
 
 The community has also explored using #acrpl("GPU") to speed up the computation of the #acr("RIR")s.
 In their 2011 paper, Savioja et al. @savioja_audio_2011 explored the potential of #acrpl("GPU")s for performing several audio signal processing tasks.
@@ -51,13 +51,13 @@ Their approach has been described previously in more detail (see @sec:simulator:
 They relaxed the 3D simulation problem to a planar 2D domain, allowing for significant performance gains.
 This method indeed targets real-time applications and is, therefore, implemented in C++.
 The authors demonstrate the software's capabilities in challenging, static, and dynamic scenes.
-They highlight an eventual porting of the code to #acr("GPU") accelerators as an interesting direction for future works.
+They highlight an eventual porting of the code to #acr("GPU") accelerators as an interesting direction for future work.
 The #acr("BST") algorithm @cao_interactive_2016 by Cao et al. illustrates how ray tracing #acr("GA") techniques can also achieve good real-world performance.
-The exhaustive testing of their library seem to demonstrate fast and accurate rendering of complex acoustic scenes.
-It is also capable of handling dynamic scenes as well as geometries more complex than limited rectangular rooms.
+The exhaustive testing of their library seems to demonstrate fast and accurate rendering of complex acoustic scenes.
+It can also handle dynamic scenes and geometries that are more complex than limited rectangular rooms.
 Unfortunately, the implementation is not open-source.
 
-Finally, the ecosystem of room acoustic simulation libraries is rich and vibrant.
+Finally, the ecosystem of room acoustic simulation libraries is vibrant.
 Several alternatives coexist and provide various tradeoffs.
 Some solutions target the research community and attempt to provide easy-to-use software tools for conducting experiments.
 Others focus on more integrated scenarios where performance is crucial.

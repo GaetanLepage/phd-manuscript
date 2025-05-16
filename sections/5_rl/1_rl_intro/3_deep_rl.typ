@@ -28,6 +28,7 @@ The OpenAI Five @berner_dota_2019 project consists of training an agent to play 
 In total, their agent has played for an approximate duration of 180 years.
 Similarly, when applying #acr("DRL") to autonomous driving, collecting a high amount of interactive experience is necessary to achieve decent performance.
 Bansal et al. @bansal_chauffeurnet_2018 have used a dataset of 30 million samples to train their policy.
+The following paragraphs explore two successful application domains of #acr("DRL").
 // They stated that their initial attempts at imitation learning on this data were unsuccessful.
 // Finally, it required more advanced techniques to train a working system.
 

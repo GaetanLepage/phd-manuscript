@@ -14,8 +14,6 @@ First, the acoustic simulation aspect of the library will be explored.
 This constitutes the starting point of the library and is responsible for its central feature: computing listened signals in a reverberant environment.
 
 *#acr("RIR") Simulation*
-//===== #acr("RIR") simulation
-//<sec:simulator:simulator:components:low_level:rir_sim>
 
 The core component around which the simulation pipeline revolves is the #acr("RIR") simulation library.
 We have chosen the #acr("RIR") framework for its simplicity and prevalence in the scientific literature.
@@ -46,8 +44,8 @@ Its design has inspired the architecture of our pipeline, most specifically its 
 _Pyroomacoustics_ is the original back-end library that we have been using for sound propagation simulation.
 As we envisioned more intensive workloads where processing time could limit the simulator's usability, the recent _gpuRIR_ implementation by Diaz-Guerra et al. @diaz-guerra_gpurir_2021 has been integrated.
 As seen in @sec:simulator:background:rir_libraries, the authors of this library have focused on achieving the best performance in #acr("RIR") estimation.
-Our solution offers its users to choose between those two libraries for the backbone of the simulation.
-Allowing this flexibility has required to architect the `Room` module in an abstract manner.
+Our solution offers its users the choice between those two libraries for the backbone of the simulation.
+Allowing this flexibility has required designing the `Room` module in an abstract manner.
 This would allow for using other #acr("RIR") simulators while keeping the rest of the pipeline working accordingly.
 
 To operate those libraries, the positions, patterns and orientations (when appropriate) of each source and microphone are provided.
@@ -55,7 +53,7 @@ Also, the room's dimensions and acoustic properties belong to the necessary para
 Both libraries offer a way to compute the wall's reflection coefficients from a target $T_60$ value by leveraging the inverse-Sabine estimator for the reverberation time (see @eq:simulator:background:sabine_inv).
 The image source order in the $i$-th axis $N_i$ counts the number of virtual rooms that must be considered in this direction.
 Those reflected rooms, stacked up, form a diamond with the real room in its center.
-One way to approximate $N_i$ measure the distance that sound can travel in $T_60$ seconds:
+One way to approximate $N_i$ is to measure the distance that sound can travel in $T_60$ seconds:
 $
   N_i = ceil(
     (2 T_60 times c)
@@ -90,19 +88,18 @@ The higher the image source order, the more detailed the simulation will be.
 Finally, a sampling frequency must be  provided.
 This parameter affects the computed #acr("RIR") 's time resolution and, thus, its ability to capture high-frequency phenomena.
 A higher sampling frequency will increase the computational cost of the simulation.
-In most cases, using the same frequency as the one of the audio signals involved is a safe and practical choice.
+In most cases, using the same frequency as that of the audio signals involved is a safe and practical choice.
 
 
-//===== Room, static acoustic simulation
 *Room, Static Acoustic Simulation*
 
 The _Room_ module is a wrapper around the #acr("RIR") simulation library.
-It brings some additional features among which is the computation of listened signals.
+It brings some additional features, among which is the computation of listened signals.
 Although originally inspired from _Pyroomacoustics_ @scheibler_pyroomacoustics_2018, our _Room_ module has been grown for improved interoperability with the rest of our pipeline.
 
 We consider a _shoebox_ room defined by its dimensions ($L_x$, $L_y$ and $L_z$) as well as the desired reflection time $T_60$ and sampling frequency $f_s$.
 Individual point-wise sources and microphones can then be positioned in the 3D space.
-Each change in the audio objects localization leads to a new simulation that updates the ($n_m times n_s times L_"RIR"$) #acr("RIR") tensor.
+Each change in the audio objects' localization leads to a new simulation that updates the ($n_m times n_s times L_"RIR"$) #acr("RIR") tensor.
 Our implementation ensures the caching of the #acr("RIR") and solely re-computes it when necessary.
 As stated in the previous @sec:simulator:simulator:components:low_level, the Room can use both the _Pyroomacoustics_ and _gpuRIR_ back ends interchangeably.
 
@@ -112,7 +109,7 @@ Then, the listened signals are estimated by convolving the sources' signals with
 Additionally, the _Room_ module provides a convenient interface for dynamically adding and positioning both sources and microphones.
 It ensures the validity of all locations at any time.
 The different audio objects have the ability to be pinned to a grid of arbitrary resolution.
-Such a feature permits, for instance, to effortlessly compute the listened signal at all possible positions in the room.
+Such a feature permits, for instance, the ability to effortlessly compute the listened signal at all possible positions in the room.
 Contrarily, one could fix the microphone position and collect the received audio for evenly distributed source localizations.
 
 Lastly, a plotting helper has been implemented to handily visualize the state of the room and its content.
@@ -124,35 +121,31 @@ Although our _room_ abstraction extends the capabilities of the core #acr("RIR")
 Providing this user experience required introducing more powerful objects.
 
 *Sound Sources*
-//===== Sound sources
-//<sec:simulator:simulator:components:sound_sources>
 
 The core motivation for developing this acoustic pipeline was experimenting with #acr("HRI") scenarios.
 In this sense, the most important type of sound source to consider was speech sources, mimicking humans speaking in the room.
 However, other kinds of sources have also been implemented, such as music sources or white noise sources.
 
 All sources have a position in the room, a polar pattern (see @fig:ssl:single_source:polar_patterns) that affect their directivity and most importantly the ability to generate an audio signal.
-This latter property is what differs across source types.
+This latter property differs across source types.
 
 For white noise sources, the waveform is randomly generated from a standard normal distribution.
 To adjust the gain relevantly, some speech signal as well as a target #acr("SNR") value can be provided.
 This allowed for conducting experiments in the presence of adversarial noise sources and controlling precisely the #acr("SNR") parameter.
 
 Speech sources pull their signal from the _LibriSpeech_ @panayotov_librispeech_2015 dataset.
-The latter is an #acr("ASR") corpus of 1000 hours worth of audiobooks, sampled at 16kHz.
+The latter is an #acr("ASR") corpus of 1000 hours worth of audiobooks, sampled at 16 kHz.
 Each time a speech source is required to produce a signal, a random sample is pulled from _LibriSpeech_ and outputted.
 
 
 *Microphone Arrays*
-//===== Microphone arrays
-//<sec:simulator:simulator:components:mic_arrays>
 
 // Support for various arrays
 Microphone arrays provide a convenient abstraction to use pre-defined multiple microphone arrays in the environment as well as defining custom ones.
 
-They offer an upgrade from the limited `Room` #acr("API") which only consider individual microphones independently.
-Each array variation defines its geometry and the properties of each of its microphone.
-Grouping microphones as such makes the process of experimenting different array configurations fast and convenient for the user.
+They offer an upgrade from the limited `Room` #acr("API"), which only considers individual microphones independently.
+Each array variation defines its geometry and the properties of each of its microphones.
+Grouping microphones as such makes the process of experimenting with different array configurations fast and convenient for the user.
 The simulator can access the array's position, orientation and footprint, but more importantly can move it as a single entity, without the need for considering each of its microphones.
 The array maintains its own geometrical consistency when being translated or rotated.
 
@@ -167,14 +160,12 @@ The arrows depict each microphone's orientation.
 The position of the array, although virtual, is represented by a diamond ($colMath(diamond.filled, #rgb(128, 0, 128))$).
 Naturally, a single-microphone array is also provided.
 
-A user of this library could easily implement a microphone array of its own and benefit from all the simulator's features.
+A user of this library could easily implement a microphone array of their own and benefit from all the simulator's features.
 
 
-
-//===== The simulator interface
 *The Simulator Interface*
 
-The simulator constitutes the center piece of the interactive pipeline.
+The simulator constitutes the centerpiece of the interactive pipeline.
 It serves as an engine coordinating all the components mentioned above.
 
 At a high level, it serves as an orchestrator of the overall simulation process.
@@ -187,12 +178,12 @@ This process takes place in discrete time steps that each resemble the following
 - The acoustic simulation is then performed by the `Room` module, itself using the #acr("RIR") simulation library.
   The simulator ensures to propagate the positions and orientations of all elements as well as setting the right input signal of each source.
 - Finally, acoustic features can be collected in multiple representations: raw multi-channel waveforms, #acr("STFT") or #acr("ILD")/#acr("IPD").
-  The user may also access spatial data in convenient formats: distance from the microphone to a specific source, #acr("DoA"), absolute position and orientation of the agent and sources, etc.
+  The user may also access spatial data in convenient formats: distance from the microphone to a specific source, #doa, absolute position and orientation of the agent and sources, etc.
 
 *Spatial domain.*
 The sound propagation libraries used in the simulation model three-dimensional scenes.
 Thus, we have built the rest of the pipeline to allow for full control of audio objects in the 3D space.
-Besides, as the conducted downstream task involved mostly planar problems, most implemented features focus on 2D movements and spatial measures.
+Besides, as this thesis's downstream tasks predominantly involved planar problems, most implemented features focus on 2D movements and spatial measures.
 No artificial limitation prevents the use of our library for 3D problems.
 
 *Sources and Microphones Movement*
@@ -208,8 +199,8 @@ To allow for modeling flexible interactive scenarios, the simulator provides a s
 The positions of all objects might be randomized to start from an arbitrary setup.
 Everything is placed so that all sources and microphones are within the borders of the room.
 
-Apart from the random positioning of objects, the interface permits relative motions of the agent.
-Basic movements, such as moving forward by a given distance or rotating left or right by 90° are relevant in the context of #acr("RL") environments with a discrete action space.
+Apart from the random positioning of objects, the interface permits the agent to perform relative motions.
+Basic movements, such as moving forward by a given distance or rotating left or right by 90°, are relevant in the context of #acr("RL") environments with a discrete action space.
 Besides, the ```python move_agent_polar(angle, distance)``` method gives more control to perform relative movements.
 Finally, the user can place the microphone array and the sources at any arbitrary position.
 
@@ -224,7 +215,7 @@ This facilitates the flexible implementation of numerous acoustic #acr("HRI") us
 //====== Simulation process
 //<sec:simulator:simulator:components:sim_process>
 
-Most downstream tasks leveraging the simulator involved some type of iteration through discrete time step simulation.
+Most downstream tasks leveraging the simulator involved some iteration through a discrete time step simulation.
 More precisely, the typical workflow when using the simulator includes an initialization phase, during which the _Room_, microphone array, and _AudioSimulator_ are created.
 @code:simulator:simulator:basic_usage gives an overview of the corresponding code snippet.
 
@@ -234,8 +225,8 @@ This can be done directly by the simulator in a random fashion.
 Subsequently, each source is individually asked to provide a new sound sample (see @sec:simulator:simulator:components:sim_scenarios).
 The actual sound propagation simulation can then happen and the embedded _Room_ module returns the multi-channel audio signal received.
 Either the raw waveform or further processed time-frequency features can be produced.
-The user also has the ability to listen to the produced signal directly.
-In practice, those steps are abstracted and automatized by the `step()` method.
+The user can also listen to the produced signal directly.
+In practice, those steps are abstracted and automated by the `step()` method.
 Lastly, the agent might be moved using the exposed displacement helpers presented in @sec:simulator:simulator:components:sim_scenarios.
 @fig:simulator:simulator:simulator_workflow illustrates this routine.
 
@@ -264,9 +255,9 @@ $
 $
 seconds.
 After #d-rec seconds, the energy of the received signal becomes negligible.
-In practice, the simulator allows to artificially reduce the time of the simulation.
+In practice, the simulator allows for artificially reducing the time of the simulation.
 This may happen by first shortening the input signals to a given duration $d_s^"lim"$, thus leading to having $#d-rec = d_s^"lim" + T_60$.
-Alternatively, the resulting audio can be trimmed to any wanted duration.
+Alternatively, the resulting audio can be trimmed to any desired duration.
 The duration control feature gives a fine-grained control of the computational time.
 
 
@@ -278,15 +269,15 @@ Potential downstream usages may require different kinds of monitoring.
 *Spatial information.*
 First, because the user does not always dictate the absolute position of each element, gathering information about the current layout can be useful.
 Manifestly, the raw positions of both the agent and the sources are conveniently accessible.
-Also, relative data such as the #acr("DoA") or the distance from the agent to a given source can be extracted.
+Also, relative data such as the #doa or the distance from the agent to a given source can be extracted.
 This egocentric information can be used in multiple situations, such as training an #acr("RL") agent or collecting a #acr("SSL") dataset.
 
 *Audio data.*
 Recording acoustic information is the main purpose of the simulator.
-Following the same principles of flexibility and convenience, audio data has been made accessible in various formats, at the different stages of the simulation.
+Following the same principles of flexibility and convenience, audio data has been made accessible in various formats at different stages of the simulation.
 @fig:simulator:simulator:audio_pipeline outlines those steps visually.
 First and foremost, each source exposes its current raw signal.
-This is how the simulator fetches the audio from the different sources before forwarding them to the #acr("RIR") simulation library.
+This is how the simulator fetches the audio signals from the different sources before forwarding them to the #acr("RIR") simulation library.
 Once the simulation has been conducted, both the #acr("RIR")s and the audio signal received at each microphone become accessible.
 In addition to the raw multi-channel listened audio provided by the `Room` module, the simulator proposes further audio processing tools.
 Thus, the received acoustic data's #acr("STFT") can be computed and recovered for direct use in a neural network or any method operating in the time-frequency plane.

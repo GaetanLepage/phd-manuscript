@@ -9,6 +9,7 @@ A notable example is Q-learning @watkins_learning_1989, which iteratively approx
 
 In contrast, policy gradient methods aim to optimize the policy directly by maximizing a differentiable objective function with respect to the policy parameters.
 Rather than relying on value estimates to induce a policy, these methods treat the policy itself as a parameterized function $pi_theta$​ and compute gradients of the expected return with respect to $theta$.
+This policy often takes the form of a deep neural network whose weights are $theta$.
 The objective is typically to maximize the expected return $J(theta)$, defined as:
 $
   J(theta)
@@ -180,7 +181,6 @@ In practice, #acr("TRPO") approximates the #acr("KL") constraint with its second
 This requires computing the Fisher Information Matrix, translating into a quadratic optimization problem.
 Because it is a constrained problem, first-order optimizers like Adam or #acr("SGD") cannot be used, and the objective is thus optimized using conjugate gradient optimization.
 These practical limitations make #acr("TRPO") training computationally expensive.
-
 
 
 *#acr("PPO").*

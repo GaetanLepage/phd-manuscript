@@ -18,6 +18,7 @@ For instance, KyutAI’s Moshi @defossez_moshi_2024 can engage in real-time two-
 Speech-based interaction is a central research challenge in #acr("HRI").
 More generally, the design of embodied agents is at the core of social robotics.
 Social robots operate in complex, dynamic, and often crowded environments.
+An example of such an embodied social agent is shown in @fig:intro:ari.
 They differ from traditional robots, such as the ones used in industrial settings to perform repetitive, narrow-scope actions.
 These manufacturing-oriented robots do not need to adapt and interact in an unpredictable environment.
 Their policy is often deterministic and programmed in advance.
@@ -90,7 +91,7 @@ However, it still faces key limitations, including poor generalization, sample i
 
 === Acoustic Localization and Navigation to Enhance Perception
 
-Perceptually-motivated navigation is a canonical example of a complex multimodal robotics tasks.
+Perceptually-motivated navigation is a canonical example of a complex multimodal robotics task.
 It can be framed in various ways, depending on the context and the targeted application.
 Robots must often perform complex tasks that require gathering information and planning actions with foresight.
 Moreover, robots rarely have full observability.

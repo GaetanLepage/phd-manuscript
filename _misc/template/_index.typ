@@ -11,6 +11,9 @@
 #let in-outline = state("in-outline", false)
 
 #let orange-uga = rgb(232, 78, 15)
+//#let dark-orange-uga = orange-uga
+#let dark-orange-uga = rgb(185, 62, 12)
+//#let dark-orange-uga = rgb(162, 54, 10)
 
 // This function gets your whole document as its `body` and formats it
 #let template(
@@ -65,27 +68,33 @@
   /* -------------------------------------------------------------------- */
   /* REFERENCES */
   // Color boxes around ref links
-  let enable-boxed-refs = boxed-refs not in (none, false)
-  let box-color = if type(boxed-refs) == color {
-    boxed-refs
-  }
-  else {
-    green
-  }
+  //let enable-boxed-refs = boxed-refs not in (none, false)
+  //let box-color = if type(boxed-refs) == color {
+  //  boxed-refs
+  //}
+  //else {
+  //  green
+  //}
   show ref: it => {
-    if not enable-boxed-refs {
-      return it
-    }
+    // if not enable-boxed-refs {
+    //   return it
+    // }
+    
     // Skip bibliography citations.
     if it.element == none {
       return it
     }
-    box(
-      stroke: 1pt + box-color,
-      outset: (bottom: 1.5pt, rest: .5pt),
-      it
+    // box(
+    //   stroke: 1pt + box-color,
+    //   outset: (bottom: 1.5pt, rest: .5pt),
+    //   it
+    // )
+    text(
+      it,
+      fill: dark-orange-uga,
     )
   }
+  //show ref: set text(blue)
 
   /* -------------------------------------------------------------------- */
   /* PARAGRAPHS */
@@ -107,7 +116,7 @@
   } else {
     it => it
   }
-  show link: set text(blue) if highlight-external-links
+  show link: set text(dark-orange-uga) if highlight-external-links
   
   // Show a small maroon circle next to external links.
   //show link: it => {

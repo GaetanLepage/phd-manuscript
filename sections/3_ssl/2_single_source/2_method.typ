@@ -30,7 +30,7 @@ An arbitrary 1s chunk is extracted from the speech recording and set as the sour
 By convolving this input signal with the #acr("RIR"), we obtain the simulated signal recorded by each microphone.
 Finally, the multi-channel complex #acr("STFT") is computed from the waveform and saved on disk.
 For each sample, we save the localization ground-truth information, additional metadata, and the acoustic observation.
-Most notably, the #acr("DoA") value $theta$ and the source-array distance $D$ are included.
+Most notably, the #doa value $theta$ and the source-array distance $D$ are included.
 This process is repeated to obtain 100,000 distinct samples, which will later be split between training, validation, and testing.
 The final datasets weigh from 26 to 50GB, depending on the number of microphones in the array.
 @fig:ssl:single_source:dataset_statistics outlines the repartition of the generated samples regarding source-array relative positions.
@@ -58,7 +58,7 @@ We present the following microphone array configurations that have been tested.
 Their implementation has been integrated into our simulator (see @sec:simulator:simulator:components:sim_scenarios).
 
 The number of microphones plays an essential role in the #("SSL") performance.
-As an illustrative example, when having a binaural microphone in the free field, i.e. where the effects of reverberation can be neglected, there exists a fundamental limit:
+As an illustrative example, when having a binaural microphone in the free field, i.e., where the effects of reverberation can be neglected, there exists a fundamental limit:
 It is theoretically impossible to distinguish between two possible locations for the source.
 This phenomenon is known as front-back ambiguity and was presented earlier in this chapter @sec:ssl:background:classical_approaches.
 The front-back ambiguity can be cleared by introducing relative movement or an additional microphone in the array.
@@ -159,7 +159,7 @@ An ablation study was conducted to measure the impact of pre-processing methods 
 
 As demonstrated in @sec:ssl:background:deep_learning, deep neural networks are flexible and effective building blocks for an #acr("SSL") solution.
 We focused in this work on a simple architecture that takes some representation of the listened audio signal as its only input.
-At the other end, this network is trained to infer the #acr("DoA") value $theta$ and optionally the distance $D$ from the single speech source in the room.
+At the other end, this network is trained to infer the #doa value $theta$ and optionally the distance $D$ from the single speech source in the room.
 Our model is trained in a supervised fashion using some custom datasets presented in @sec:ssl:single_source:method:dataset.
 
 The architecture, depicted in @fig:ssl:single_source:nn_architecture, consists of five convolutional blocks.
@@ -170,7 +170,7 @@ The convolutional feature extractor ends with an adaptive max-pooling operation,
 At this stage of the network, the spatial dimensions $F$ and $T$ have been reduced to 30 and 6, respectively, while the number of channels $C$ has increased to 256.
 The convolutional backbone is followed by a 3-layer #acr("MLP") in charge of regressing the computed features to the final expected values.
 Each fully-connected hidden layer is followed by a #acr("ReLU") and a dropout operation.
-The output neurons are trained to predict the sine and cosine of the #acr("DoA") and, optionally, the distance to the source $D$.
+The output neurons are trained to predict the sine and cosine of the #doa and, optionally, the distance to the source $D$.
 
 
 #figure(
@@ -189,17 +189,17 @@ The output neurons are trained to predict the sine and cosine of the #acr("DoA")
 <sec:ssl:single_source:method:loss>
 
 This single-source #acr("SSL") task boils down to a low-dimensional regression problem.
-The network is designed to eventually predict a scalar value for the #acr("DoA") and optionally an extra value for the source-microphone distance.
+The network is designed to eventually predict a scalar value for the #doa and optionally an extra value for the source-microphone distance.
 G
 *Angular loss.*
-While the distance case is straightforward, the #acr("DoA") estimation should be cautiously handled.
-Indeed, the #acr("DoA") lies in the $[-pi, pi]$ periodic interval.
+While the distance case is straightforward, the #doa estimation should be cautiously handled.
+Indeed, the #doa lies in the $[-pi, pi]$ periodic interval.
 For instance, if the ground truth is $-3.1$ radians, then values close to either $-pi$ or $pi$ would be accurate predictions.
 A naive #acr("MSE") loss would wrongly penalize estimations close to $+pi$.
-We adopt a periodic loss for the #acr("DoA") to account for this specificity.
-Also, the network does not directly predict the #acr("DoA") value $theta$, but its sine and cosine instead.
+We adopt a periodic loss for the #doa to account for this specificity.
+Also, the network does not directly predict the #doa value $theta$, but its sine and cosine instead.
 
-Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #acr("DoA") angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
+Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #doa angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
 The loss function is expressed as
 $
   #l-doa (
@@ -216,7 +216,7 @@ $
 
 #include "figures/angular_loss.typ"
 @fig:ssl:single_source:angular_loss plots the value of $#l-doa (dot, hat(theta))$ for different values of $hat(theta)$.
-We use this loss function to train the neural network to output accurate #acr("DoA") values without suffering from boundary effects.
+We use this loss function to train the neural network to output accurate #doa values without suffering from boundary effects.
 
 *Distance loss.*
 When the model additionally estimates the distance to the source, the natural #acr("MSE") loss is used to supervise the relevant output neuron:
