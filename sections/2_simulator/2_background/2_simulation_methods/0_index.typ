@@ -40,7 +40,7 @@ $
 $
 <eq:simulator:background:acoustic_wave_eq>
 where $bold(p): RR^3 times RR_+ -> RR$ is the acoustic pressure as a function of position $bold(x) in RR^3$ and time $t in RR_+$.
-$nabla^2 = partial / (partial x^2) + partial / (partial y^2) + partial / (partial z^2)$ denotes the Laplacian operator in 3d space.
+$nabla^2 = partial / (partial x^2) + partial / (partial y^2) + partial / (partial z^2)$ denotes the Laplacian operator in 3D space.
 This strategy is the most faithful to the physical reality.
 Theoretically, it accurately represents complex mechanisms such as diffraction, interference, scattering, or modal resonances @cao_interactive_2016.
 However, tackling this second-order partial differential equation is challenging.
