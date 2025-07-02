@@ -142,7 +142,7 @@ $
 @eq:simulator:rir_listened_signal_multi_source can be straightly generalized to multiple microphones ${m_1, dots, m_(n_m)}$.
 The signal recorded by the $k$-th receiver is:
 $
-  m_j [t] = sum_(i=1)^(n_s) (h_(i, j) * s_i)[t]  #h(2em) forall j in [|1, n_m|],
+  m_j [n] = sum_(i=1)^(n_s) (h_(i, j) * s_i)[n]  #h(2em) forall j in [|1, n_m|],
 $
 <eq:simulator:rir_listened_signal_multi_source_multi_mic>
 where $h_(i, j)$ is the #acr("RIR") corresponding to the pair of positions of source $s_i$ and microphone $m_j$.

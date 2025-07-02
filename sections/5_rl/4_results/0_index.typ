@@ -153,7 +153,7 @@ This selection technique differs from the training phase, where the action is sa
 We define the primary performance metric for an episode as the cost value obtained at the final step.
 The obtained final costs are averaged over the #n-ep episodes and give the _#acr("MFC")_:
 $
-  #mfc = 100 / #n-ep sum_(i=1)^#n-ep C(s_(i, T)),
+  #mfc = 100 / #n-ep sum_(i=1)^#n-ep C(s_(i, #env-horizon)),
 $
 where #env-horizon is the environment horizon and $s_T^i$ is the final state of the $i$-th test episode.
 When using the #acr("WER") cost, it corresponds to the #acr("ASR") performance after the agent is done moving.

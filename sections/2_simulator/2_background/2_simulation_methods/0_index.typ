@@ -67,7 +67,7 @@ This approach shows compelling results in terms of performance and supported fea
 The ability to run on a limited computing budget, such as a single CPU core, demonstrates its relevance for applications such as video games or virtual reality.
 Limiting the model to two dimensions grants a significant performance uplift.
 It must be noted that this approximation can affect the reproduction accuracy of certain phenomena, such as reflections and reverberations.
-The C++ implementation is available as the _Planeverb_ open-source library @rosen_themattrosenplaneverb_2024.
+The #box[C++] implementation is available as the _Planeverb_ open-source library @rosen_themattrosenplaneverb_2024.
 
 
 ==== Geometrical Acoustics
