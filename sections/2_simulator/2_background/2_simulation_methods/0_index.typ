@@ -52,7 +52,7 @@ It enables the solution of the Helmholtz equation by reformulating it as a bound
 The #acr("BEM") method is less computationally expensive than the volume-based formulation.
 Additionally, Thompson @thompson_review_2006 provides an overview of other #acrpl("FEM") for solving the Helmholtz equation.
 
-More recently, Raghuvanshi et al. @raghuvanshi_efficient_2016 developed a new method to lower the computing cost of numerical simulation.
+Raghuvanshi et al. @raghuvanshi_efficient_2009 developed a new method to lower the computing cost of numerical simulation.
 They introduce an adaptive rectangular description of 3D scenes, unlocking 100-fold speedups compared to traditional techniques.
 This approach allows for rendering complex acoustic 3D scenes without requiring more than commodity hardware.
 They can model large and challenging environments such as a cathedral.

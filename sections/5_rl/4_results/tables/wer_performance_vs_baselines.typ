@@ -28,12 +28,6 @@
     // Omnidirection: exp300
     // Directional: exp301
 
-    [#pi-still],
-    [#pi-still-rew-wer-omni],
-    [#pi-still-mfc-wer-omni],
-    [#pi-still-rew-wer-dir],
-    [#pi-still-mfc-wer-dir],
-    
     [#pi-random],
     [#pi-random-rew-wer-omni],
     [#pi-random-mfc-wer-omni],
@@ -46,11 +40,17 @@
     [#pi-safe-random-rew-wer-dir],
     [#pi-safe-random-mfc-wer-dir],
     
-    [#pi-orient],
-    [#pi-orient-rew-wer-omni],
-    [#pi-orient-mfc-wer-omni],
-    [#pi-orient-rew-wer-dir],
-    [#pi-orient-mfc-wer-dir],
+    [#pi-still],
+    [#pi-still-rew-wer-omni],
+    [#pi-still-mfc-wer-omni],
+    [#pi-still-rew-wer-dir],
+    [#pi-still-mfc-wer-dir],
+    
+    [#pi-still-orient],
+    [#pi-still-orient-rew-wer-omni],
+    [#pi-still-orient-mfc-wer-omni],
+    [#pi-still-orient-rew-wer-dir],
+    [#pi-still-orient-mfc-wer-dir],
     
     [#pi-theta],
     [*#exp-300-rew-wer*],
@@ -69,10 +69,10 @@
     long: [
       Benchmark of various policies' performance on the navigation task.
       Both omnidirectional and directional WER cost environments have been tested.
-      #pi-still has the robot remaining immobile;
       #pi-random samples actions randomly;
       #pi-safe-random does the same, but never hits the room's walls;
-      #pi-orient never has the agent moving but ensures it faces the source;
+      #pi-still has the robot remaining immobile;
+      #pi-still-orient never has the agent moving but ensures it faces the source;
       and #pi-theta is our deep neural agent policy trained with PPO.
     ],
   ),

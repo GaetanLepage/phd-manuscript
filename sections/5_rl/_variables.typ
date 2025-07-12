@@ -93,7 +93,7 @@
 #let pi-theta = $pi_theta$
 #let pi-optimal = $pi^*$
 #let pi-still = $pi_"still"$
-#let pi-orient = $pi_"orient"$
+#let pi-still-orient = $pi_"still orient"$
 #let pi-random = $pi_"random"$
 #let pi-safe-random = $pi_"safe random"$
 

@@ -290,7 +290,7 @@ where:
 //- $#cost-t = (#cost (s_t)) / (max_(s in cal(S)) C(s)) $ is the normalized cost value of the state $s_t$;
 - #reward-wall-penalty is a positive scalar that can be adjusted according to #f-reward's magnitude;
   It allows penalizing movements that would lead the robot to collide with a wall.
-  When the policy samples such an impossible action, the environment ignores it, the agent remains immobile for this step, and a fixed reward of #reward-wall-penalty is returned.
+  When the policy samples such an impossible action, the environment ignores it, the agent remains immobile for this step, and a fixed reward of $-#reward-wall-penalty$ is returned.
   This can only occur for the forward action.
 - #reward-movement-penalty is a movement penalty that disincentivizes the agent from moving uselessly.
   It encourages the policy to remain static when it can, while solely moving when it serves a meaningful purpose.

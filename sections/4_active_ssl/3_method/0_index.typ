@@ -229,9 +229,9 @@ $
   cal(L) (
     #AM,
     #AM-targ,
-  ) = norm(
+  ) = 1/p^2 norm(
     #AM - #AM-targ,
-  )_2 ^2,
+  )_F ^2,
 $
 where $#AM = Psi^("DNN"(theta))(bold(tilde(M))_t)$ is the output of the network and #AM-targ is the target map.
 

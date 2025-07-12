@@ -23,10 +23,10 @@
 #let pi-safe-random-mfc-wer-dir = 22.38
 #let pi-safe-random-rew-wer-dir = 1408
 
-#let pi-orient-mfc-wer-omni = 20.87
-#let pi-orient-rew-wer-omni = 1495
-#let pi-orient-mfc-wer-dir = 16.56
-#let pi-orient-rew-wer-dir = 1789
+#let pi-still-orient-mfc-wer-omni = 20.87
+#let pi-still-orient-rew-wer-omni = 1495
+#let pi-still-orient-mfc-wer-dir = 16.56
+#let pi-still-orient-rew-wer-dir = 1789
 
 #let exp-300-mfc-wer = 4.18 // omni
 #let exp-300-rew-wer = 2432 // omni

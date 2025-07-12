@@ -82,7 +82,7 @@ More precisely, we introduce two scaling parameters #reward-exp-alpha and #rewar
 The final reward, introduced in @eq:rl:problem:reward, becomes:
 $
   r_t = cases(
-    #reward-wall-penalty &quad "if the agent tries to hit a wall",
+    -#reward-wall-penalty &quad "if the agent tries to hit a wall",
     #f-reward-exp
       - #reward-movement-penalty bb(1) (a_t = #a-forward) &quad "otherwise,"
   )
@@ -164,10 +164,10 @@ $
 $
 where $r_(i, t)$ is the reward the agent received when transiting to state $s_t$ during episode $i$.
 The performance of the trained policy (denoted #pi-theta) is compared to a selection of baseline deterministic policies:
-- *#pi-still*, where the agent remains static and always chooses the #a-stay action;
 - *#pi-random*, where the agent acts randomly, also disregarding the state value;
 - *#pi-safe-random*, which additionally avoids hitting the walls;
-- *#pi-orient* where the agent never moves, but orients itself to face the source.
+- *#pi-still*, where the agent remains static and always chooses the #a-stay action;
+- *#pi-still-orient* where the agent never moves, but orients itself to face the source.
 Furthermore, we test both our directional and omnidirectional formulations of the #acr("WER") cost #wer-cost.
 //The first group of columns display the policies' performance when tested on the environment with 
 #pi-theta is trained and evaluated on both environments separately.
@@ -175,8 +175,8 @@ We use the reward function defined in @eq:rl:results:reward.
 Results are reported in @table:rl:results:wer_performance_vs_baselines.
 The number of test episodes is set to $#n-ep = 1000$ to ensure statistical significance.
 Also, #pi-theta is trained $#n-rep = 8$ times from scratch on each environment, and the evaluation metrics are averaged across these #n-rep runs.
-#pi-still and #pi-orient have the same performance on the omnidirectional environment, where the agent's orientation does not affect the cost value.
-In contrast, the #acr("MFC") of #pi-orient is lower than that of #pi-still, with the directional cost as facing the source contributes to reducing the #acr("WER") on average.
+#pi-still and #pi-still-orient have the same performance on the omnidirectional environment, where the agent's orientation does not affect the cost value.
+In contrast, the #acr("MFC") of #pi-still-orient is lower than that of #pi-still, with the directional cost as facing the source contributes to reducing the #acr("WER") on average.
 The low cumulated reward achieved by #pi-random is caused by the agent repeatedly hitting the room walls and being penalized by the #reward-wall-penalty penalty.
 By contrast, #pi-safe-random achieves a similar mean final cost, but does not see its reward impacted by the wall hit penalty.
 The trained deep neural policy #pi-theta outperforms all baselines on the two environments.
