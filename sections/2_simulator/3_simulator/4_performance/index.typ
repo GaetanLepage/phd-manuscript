@@ -35,7 +35,7 @@ By contrast, the total complexity of the #acr("FFT")-convolution approach is $O(
 
 We experiment with a binaural array and four sources randomly placed in a room.
 The reverberation time $T_60$ is set to 500ms.
-The simulator is tasked to render the multichannel audio signal received by each microphone.
+The simulator renders the multichannel audio signal received by each microphone.
 These signals result from the sound emitted by the four sources and the reverberation effects encoded in the #acr("RIR").
 For 100 steps, the sources will load a new speech sample from the _LibriSpeech_ corpus @panayotov_librispeech_2015.
 Each sentence is trimmed to last 6 seconds to enhance reproducibility.

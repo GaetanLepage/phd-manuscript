@@ -209,7 +209,7 @@ The main difficulty of the sound-driven navigation problem lies in the agent's a
 The partial observability aspect of the environment prevents the agent from directly and transparently observing either its own or the source's position.
 Therefore, we hypothesize that the agent will implicitly acquire localization capabilities while learning the #acr("RL") navigation task.
 We propose to leverage a pre-trained deep sound-source localizer to bootstrap this capability in the agent's initial weights.
-Specifically, we use the model introduced in the second chapter, trained to localize a single speech source randomly located in a reverberant room.
+Specifically, we use the model introduced in the third chapter, trained to localize a single speech source randomly located in a reverberant room.
 The architectures and the pre-trained weights are directly transferred to build the deep neural agent.
 @fig:ssl:single_source:nn_architecture provides a more detailed representation of the feature extractor's architecture.
 Its final regression layer is removed.

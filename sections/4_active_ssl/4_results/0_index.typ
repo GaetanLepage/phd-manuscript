@@ -84,7 +84,7 @@ For each step, the audio signal received by the agent is fed to the #acr("SSL") 
 The oracle spectrum $o_t$ also gets saved for further comparisons.
 Also, the absolute positions of the agent and the relative source locations are saved at every step.
 Finally, the robot's relative movements are recorded to perform the map shifting operation later.
-Local #doa maps have not been generated at this point, but all the necessary information for their creation is available.
+Local #doa maps have not been generated at this point, but all the necessary information for their synthesis is available.
 This choice allows for experimenting with the relevant hyperparameters, such as the #fov $L$ and pixel resolution $p$.
 
 === Performance Study

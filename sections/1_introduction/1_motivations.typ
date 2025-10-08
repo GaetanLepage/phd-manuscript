@@ -77,7 +77,7 @@ Such fundamental progress clearly impacted robotics, which is well suited to #ac
 Indeed, relevant robot behaviors are complex and cannot be modeled explicitly, especially in social robotics.
 This limits the applicability of traditional rule-based approaches, which require explicit behavior modeling.
 #acr("RL") proposes an alternative solution to the problem of robot policy design.
-It relies on defining a reward function that gives the agent feedback on the quality of its action @akalin_reinforcement_2021.
+It relies on a reward function that provides feedback to the agent about the effectiveness of its actions @akalin_reinforcement_2021.
 The agent will then progressively optimize its policy by interacting with the environment to maximize the collected reward.
 Therefore, it is not required to model the environment explicitly; it is implicitly learned during training.
 #acr("DRL") allows learning from high-dimensional sensory inputs, such as camera frames or recorded audio signals.

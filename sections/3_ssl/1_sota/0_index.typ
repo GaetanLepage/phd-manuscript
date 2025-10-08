@@ -52,7 +52,7 @@ Notably, the active localization techniques dealing with moving sources and/or m
 
 Before providing details on the various methods proposed to address SSL, we devote the following section to describing the variability in problem formulation and experimental settings. 
 Chronologically, the first steps were developed in simple settings, and as progress was made, scenarios of increasing complexity were proposed.
-However, the next section is not structured chronologically but by properties (simulated vs. real data, single vs. multi-source) for clarity.
+However, the next section is not structured chronologically but by properties (simulated _vs_ real data, single _vs_ multi-source) for clarity.
 
 === Variations in the Sound Source Localization Task
 <sec:ssl:background:variations>

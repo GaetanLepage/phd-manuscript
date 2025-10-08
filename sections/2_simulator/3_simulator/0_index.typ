@@ -24,7 +24,7 @@ In this section, we will provide an overview of our simulator's main functionali
 
 === Conclusion
 
-This section presents our custom implementation of a complex acoustic pipeline.
+This section has presented our custom implementation of a complex acoustic pipeline.
 The solution has been architected from scratch while naturally employing existing open-source building blocks.
 This significant engineering effort is a central contribution of this thesis.
 It aims to allow researchers to test algorithms in diverse acoustic scenarios.

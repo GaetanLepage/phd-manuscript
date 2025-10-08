@@ -130,7 +130,7 @@
   "ILD": ("Interaural Level Difference"),
   "IPD": ("Interaural Phase Difference"),
   "ITD": ("Interaural Time Difference"),
-  "ISM": ("Image Source Model"),
+  "ISM": ("Image Source Method"),
   "MFCC": ("Mel-Frequency Cepstral Coefficients"),
   "PHAT": ("Phase Transform"),
   "RIR": ("Room Impulse Response"),

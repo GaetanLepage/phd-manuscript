@@ -237,7 +237,7 @@ The discrete #acr("STFT") of the signal $x$ is defined as the set of #acrpl("DFT
 $
   X[m, k] = 1/sqrt(N) sum_(n=0)^(N-1) x_m [n] e^(-2i pi (k n) / N),
 $ <eq:ssl:sota:stft_inf>
-where $k$ denotes the frequency index in $[|-N/2 + 1, N/2|]$.
+where $k$ denotes the frequency index in $[|-N/2, N/2 - 1|]$.
 In this definition, both the time and frequency indices are integers.
 In practice, the signal has a finite length $L >> N$, leading to approximately $M = ceil(L / H)$ total #acr("STFT") frames.
 Hence, a finite-length signal's #acr("STFT") is a complex-valued matrix of size $M times N$.
@@ -307,7 +307,7 @@ Despite this theoretical result not transferring to the #acr("STFT")-based repre
 This assumption of multiplicative transfer functions is known as the narrow-band assumption.
 It is made in various domains of audio processing despite the error being often large.
 
-==== Beamforming and Interaural Cues
+==== Multi-Microphones and Interaural Cues
 <sec:simulator:background:binaural>
 
 *Motivation*
@@ -371,7 +371,7 @@ Those quantities encode relative information on the source position.
 
 The situation is described as far-field when the source is significantly far from the microphone array @girin_fundamentals_nodate.
 The far-field situation is when the source-to-microphone distances $d_i$ are large compared to the inter-receiver distance $l$.
-In this case, the level ratio is almost equal to 1:
+In this case, and assuming there is no reverberation, the level ratio is almost equal to 1:
 $
   d_1 / d_2 approx 1.
 $
@@ -455,9 +455,9 @@ Mandel et al. @mandel_probability_2006 derived a probability model to estimate t
 They test their framework on an #acr("SSL") task and compare it against an approach based on the #acr("GCC-PHAT") @knapp_generalized_1976 estimator.
 #acr("GCC-PHAT") provides an estimator of the #acr("TDoA").
 The proposed approach achieves better results than the baseline and shows robustness to noise and reverberation.
-By monitoring rats' brain activity, Uragun et al. @uragun_discrimination_2013 studied how animal brains were sensitive to #acr("ILD") functions.
-They discovered that the rat uses the #acr("ILD") as a critical cue to localize sounds in space.
-This highlights the biological motivation of interaural features and confirms its relevance.
+By monitoring brain activity in rats, Uragun et al. @uragun_discrimination_2013 studied how neurons are sensitive to #acr("ILD") functions.
+They discovered that rats use #acr("ILD") as a critical cue to localize sounds in space,
+highlighting the biological motivation of interaural features and confirming their relevance.
 
 
 #include "figures/spectral_features/fig.typ"

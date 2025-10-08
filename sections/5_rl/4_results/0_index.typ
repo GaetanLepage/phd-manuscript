@@ -205,7 +205,7 @@ First, training the backbone from scratch does not succeed.
 The end-to-end agent cannot learn directly from the raw acoustic observations.
 Pre-training the feature extractor on a supervised localization task appears to be crucial to solving the present navigation problem.
 Training the proposed architecture from scratch might be achievable, but would probably require more #acr("PPO") iterations and a slower learning rate.
-Secondly, and more surprisingly, our attempt at fine-tuning the localizer's backbone has failed too.
+Secondly, and more surprisingly, our attempt at fine-tuning the localizer's backbone failed too.
 Even though the backbone's weights were initialized from the pre-trained checkpoint, #acr("PPO") could not learn a satisfying navigation policy.
 We hypothesize that the training hyperparameters that have been tuned for working with the frozen backbone cannot fine-tune the backbone stably.
 More precisely, the learning rate of $10^-3$, coupled with #acr("PPO")'s highly chaotic early training regime, is probably altering the pre-trained backbone weights before learning a working policy.
@@ -219,13 +219,13 @@ It permits rapid learning of a navigation policy by employing minimal #acr("MLP"
 
 === Alternative Cost Maps
 
-Before using #acr("WER") cost maps to compute the reward, we have conducted experiments with alternative cost maps.
-As highlighted in previous @sec:rl:method:wer_maps:computing, computing #wer-cost is very compute-intensive.
+Before using #acr("WER") cost maps to compute the reward, we conducted experiments with alternative cost maps.
+As highlighted in previous @sec:rl:method:wer_maps:computing, computing #wer-cost is very computationally intensive.
 Furthermore, the #acr("WER") cost is noisy and has some artifacts.
 The present study introduces an alternative formulation for the cost function #cost.
 This _analytical cost_ #analytical-cost is a closed-form formula that directly maps a state $s in cal(S)$ to its normalized cost.
 It was motivated to provide a replacement for the #acr("WER") cost maps, which are computationally heavy to create.
-We question whereas this synthetic cost could permit the training of effective policy that perform satisfyingly on the #acr("WER")-based environment.
+We questioned whether this synthetic cost could permit the training of an effective policy that perform on the #acr("WER")-based environment.
 The analytical cost is defined over the state space $cal(S)$ as:
 #func-def(
   analytical-cost,

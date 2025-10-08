@@ -17,7 +17,7 @@ Since its first operation in the late 1940s, the Monte Carlo algorithm has been 
 In 1950, a team led by John von Neumann and Jule Charney used the ENIAC computer to produce the first weather forecast by an electronic computer @charney_numerical_1950.
 Although their results carried important numerical errors, this work led to the foundation of modern meteorology.
 This is an example of numerically replicating a physical phenomenon by implementing and solving the corresponding equations.
-NASA has also used simulations early in its space programs, such as Apollo.
+NASA also used simulations early in its space programs, such as Apollo.
 The primary goal of their enterprise was to build a training setup for astronauts to practice specific skills.
 Indeed, in high-stakes enterprises, the crew's accommodation to their environment and tools is essential for the mission's success.
 Between 1963 and 1972, the Apollo flight crew trained for 30,000 hours on different simulation devices.
@@ -120,7 +120,7 @@ Hence, an entire segment of the robotics #acr("DRL") community targets the probl
 This area encompasses the challenge of leveraging simulation while ensuring appropriate behavior and performance of the target physical system.
 These discrepancies are primarily due to differences between the simulator and the real-world environment.
 They can be modeling limitations, numerical imprecision, unrealistic assumptions, etc.
-In conclusion, simulation's many benefits come at some cost, which must be carefully accounted for when deploying #acr("RL") policies in the real world.
+In conclusion, the many benefits of simulation come at some cost, which must be carefully accounted for when deploying #acr("RL") policies in the real world.
 
 
 *Acoustic simulation.*

@@ -12,7 +12,7 @@ Theoretically, though, aggregating solely angular information accumulated over t
 
 More precisely, a robotic agent moves in a room with one or several human speakers.
 We adopt a step-based representation in which the robot performs movements at discrete time steps.
-Each movement consists of a rotation of angle $theta_t$ and a translation of distance $d_t$ in the new direction.
+Each movement consists of a rotation of angle $theta_t$ followed by a translation of distance $d_t$ in the new direction.
 The robot's movement at time step $t$ is thus written as $delta_t = (d_t, theta_t)$.
 Its trajectory is assumed to be determined by an external policy that should not be affected.
 Thus, the developed method aims to localize each source’s relative position over short time windows.

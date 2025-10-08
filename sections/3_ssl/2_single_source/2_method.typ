@@ -197,21 +197,36 @@ Indeed, the #doa lies in the $[-pi, pi]$ periodic interval.
 For instance, if the ground truth is $-3.1$ radians, then values close to either $-pi$ or $pi$ would be accurate predictions.
 A naive #acr("MSE") loss would wrongly penalize estimations close to $+pi$.
 We adopt a periodic loss for the #doa to account for this specificity.
-Also, the network does not directly predict the #doa value $theta$, but its sine and cosine instead.
+Also, the network does not directly predict the #doa value $theta$, but its sine #text(green)[$S$] and cosine #text(blue)[$C$] instead.
+// TODO
 
+#let S_i = $colMath(S_i, #green)$
+#let S_i_hat = $colMath(hat(S)_i, #olive)$
+#let C_i= $colMath(C_i, #blue)$
+#let C_i_hat = $colMath(hat(C)_i, #navy)$
 Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #doa angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
 The loss function is expressed as
 $
   #l-doa (
     hat(theta), theta
-  ) = 1 / n
+  ) &= 1 / n
     sum_(i=1)^n
     [
        1 - (
          sin(theta_i) sin(hat(theta)_i)
          +  cos(theta_i) cos(hat(theta)_i)
        )
-    ].
+    ].\
+    &= 1 / n
+    sum_(i=1)^n
+      [1 - cos(theta_i - hat(theta)_i)]\
+    & =  1/n sum_(i=1)^n
+    [
+       1 - (
+         #S_i #S_i_hat
+         + #C_i #C_i_hat
+       )
+    ]
 $
 
 #include "figures/angular_loss.typ"

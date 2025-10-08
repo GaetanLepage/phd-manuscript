@@ -22,7 +22,7 @@ Empirical results, both qualitative and quantitative, demonstrated that the lear
 // Limitations
 While the proposed agent successfully solves the initial formulation of the task, several limitations remain.
 First, the current environment setup implicitly favors policies that navigate directly to the sound source.
-If an external source localizer is available, this behavior could be replicated deterministically, reducing the need for reinforcement learning.
+If an external source localizer were available, then this behavior could be replicated deterministically, reducing the need for reinforcement learning.
 However, this chapter provides the groundwork for tackling more complex and realistic scenarios where such shortcuts are no longer feasible.
 For instance, introducing occlusions or non-convex environments would challenge the agent to explore and reason over partial observations.
 The _Move2Hear_ framework @majumder_move2hear_2021 exemplifies such complexity by coupling audio-visual perception with source separation and navigation.
