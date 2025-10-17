@@ -37,7 +37,7 @@ The individual steps of the process will be detailed in the following sections.
 At each step, a #doa map  $M_t$ is built from the #doa spectrum for the corresponding audio recording (line 9 in @algo:active_ssl:algo).
 This spectrum solely provides angular information.
 At this stage, no distance knowledge has been gathered yet.
-The choice was made not explicitly to extract a set of detections from the spectrum but to preserve the raw 360-long vector.
+The choice was made to not explicitly extract a set of detections from the spectrum, but to preserve the raw 360-long vector.
 Generating the #doa map $M_t$ involves projecting this spectrum on the egocentric 2D space. All maps have a resolution of $p$ pixels and are thus represented by $p times p$ matrices.
 They represent a $L times L$ square area around the robot.
 

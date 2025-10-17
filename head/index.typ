@@ -11,8 +11,7 @@
 
 #include "abstracts.typ"
 
-// TODO: Add back in the final version
-// #include "acknowledgements.typ"
+#include "acknowledgements.typ"
 
 #outline(
   title: "Contents",

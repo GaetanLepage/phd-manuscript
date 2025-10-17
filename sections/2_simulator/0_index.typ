@@ -11,7 +11,7 @@
 == Conclusion
 <sec:simulator:conclusion>
 
-This chapter laid the foundation of the acoustics paradigm leveraged in this thesis.
+This chapter lays the foundation of the acoustics paradigm leveraged in this thesis.
 It introduced key theoretical notions in acoustics, signal processing, and simulation.
 This framework is essential to the experimental scientific work conducted in the rest of this project.
 After presenting the relevant background for understanding how sound propagates in reverberant environments, we gave an overview of the existing techniques used to model this paradigm.

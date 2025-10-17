@@ -52,6 +52,7 @@ This objective is formalized as the return:
 $
   G_t = sum_(k=0)^infinity gamma ^k r_(t+k+1).
 $
+Here, $r_(t+k+1)$ is the reward obtained after taking action $a_(t+k)$ in state $s_(t+k)$, leading to state $s_(t+k+1)$.
 Discounting models the idea that immediate rewards are more valuable than distant ones, and helps prioritize short-term gains while still accounting for long-term outcomes.
 It also ensures that the return remains bounded as long as the reward function is bounded too.
 The agent's goal is to learn a policy $pi$ that maximizes the expected return $EE_pi [G_t]$, averaged over trajectories it generates through interaction with the environment.

@@ -59,7 +59,7 @@ It provides detailed explanations of policy gradient methods and focuses on the 
 This overview is designed to make the chapter self-contained and accessible to readers with varying levels of prior experience in #acr("RL").
 
 Building on this theoretical grounding, we introduce a novel sound-driven navigation task in which a robot must reposition itself in a reverberant environment to optimize #acr("ASR") performance.
-The task is formalized as a #acr("POMDP"), where the agent receives only multi-channel audio input and is rewarded based on the Word Error Rate (WER) achieved by a downstream #acr("ASR") model.
+The task is formalized as a #acr("POMDP"), where the agent receives only multi-channel audio input and is rewarded based on the #acr("WER") achieved by a downstream #acr("ASR") model.
 A full training pipeline is implemented using the PPO algorithm, with a custom neural architecture and an environment built on our simulator.
 The agent’s perception module reuses a convolutional feature extractor pretrained in a supervised setting on the single-source localization task introduced in @chap:ssl.
 This enables it to ground its navigation policy in spatial auditory cues.

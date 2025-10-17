@@ -6,7 +6,6 @@
 
 #clorem(50)
 
-#parbreak()
+TODO
 
-// TODO
-#fill-line([_Grenoble, 31 \<MONTH\> 2025_], [G. L.])
+#parbreak()

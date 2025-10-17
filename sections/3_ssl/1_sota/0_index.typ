@@ -164,7 +164,7 @@ While effective in simple environments, beamforming techniques struggle with rea
 
 Subspace methods such as #acr("MUSIC") @schmidt_multiple_1986 and #acr("ESPRIT") @roy_esprit-estimation_1989 rely on the decomposition of the microphone covariance matrix to estimate signal and noise subspaces.
 #acr("MUSIC"), in particular, identifies source directions by projecting steering vectors onto the noise subspace and detecting peaks in the resulting pseudo-spectrum.
-These methods are computationally intensive and sensitive to reverberation, but they provide high localization accuracy under controlled conditions.
+These methods are computationally intensive and can be sensitive to reverberation, but they provide high localization accuracy under controlled conditions.
 
 Probabilistic methods model the spatial distribution of sound sources using generative frameworks like #acrpl("GMM") @flam_gaussian_2011 @bross_multiple_2021.
 These approaches combine statistical inference with signal sparsity in the time-frequency domain, providing robust #acr("SSL") performance in scenarios with multiple sources.
@@ -245,7 +245,7 @@ The former is naturally a more cost-effective solution and scales significantly 
 As presented in @chap:simulator, a large ecosystem of acoustic simulation environments exists.
 They are constantly improved to reach higher levels of fidelity and accuracy.
 A typical data generator for #acr("SSL") is the association of a bank of #acr("RIR")s computed by simulation software and a set of clean speech signals from an existing corpus.
-Speech signals are then convoluted with the clean recordings to obtain simulated listened-to signals.
+Speech signals are then convolved with the clean recordings to obtain simulated listened-to signals.
 The ground-truth source and microphone positions are known from the start, and no further labeling work is required.
 Generating a dataset from an acoustic simulator does not require recording equipment and allows for collecting arbitrarily large amounts of data @srivastava_how_2023.
 Nonetheless, the real-world performance of networks trained on such datasets is generally lower than in simulation.

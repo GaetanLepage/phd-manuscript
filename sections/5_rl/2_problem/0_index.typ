@@ -1,6 +1,8 @@
 #import "/utils.typ": *
 #import "../_variables.typ": *
 
+#reset-acronym("WER")
+
 == Sound-Driven Robot Navigation: Problem Statement
 <sec:rl:problem>
 
@@ -20,7 +22,7 @@ To tackle this issue, we target the design of navigation policies.
 An agent will be placed in a reverberant environment with an active speech source.
 Its goal is to position itself optimally to maximize the #acr("ASR") performance.
 Our approach solely relies on the positioning of the robot.
-The #acr("ASR") algorithm that is a pre-existing #acr("DNN")-based solution.
+The #acr("ASR") algorithm that we use is a pre-existing #acr("DNN")-based solution.
 Our motivation relies on the observation that the microphone's position and orientation relative to the target source in a complex acoustic environment significantly impact the #acr("ASR") performance.
 This insight results from an experimental study conducted within our simulated environment.
 Other metrics exist to quantify auditory perception and could have been alternatives to the #acr("ASR") performance.
@@ -132,7 +134,6 @@ First, we will introduce the relevant metric and its relation to speech recognit
 Second, we will present the #acr("RL") environment and the justification for our different choices.
 
 
-#reset-acronym("WER")
 *#acr("WER") metric for #acr("ASR").*
 The #acr("ASR") task involves transcribing the speech content from an audio recording.
 It can be done using pre-recorded samples or in real-time from an audio stream.

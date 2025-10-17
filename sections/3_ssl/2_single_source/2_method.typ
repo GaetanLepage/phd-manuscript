@@ -60,7 +60,7 @@ Their implementation has been integrated into our simulator (see @sec:simulator:
 The number of microphones plays an essential role in the #("SSL") performance.
 As an illustrative example, when having a binaural microphone in the free field, i.e., where the effects of reverberation can be neglected, there exists a fundamental limit:
 It is theoretically impossible to distinguish between two possible locations for the source.
-This phenomenon is known as front-back ambiguity and was presented earlier in this chapter @sec:ssl:background:classical_approaches.
+This phenomenon, known as front-back ambiguity, was presented earlier in this chapter @sec:ssl:background:classical_approaches.
 The front-back ambiguity can be cleared by introducing relative movement or an additional microphone in the array.
 
 Importantly, all our microphone arrays are deprived of any physical incarnation.
@@ -70,7 +70,7 @@ In a more realistic setup, the presence of a robotic head between two microphone
 // Number of microphones
 // Directionality / Pattern
 Each microphone's _polar pattern_ also stands out as an essential characteristic of the array.
-This property describes which incoming capture directions will be amplified or dampened by the sensor.
+This property describes which incoming capture directions are amplified or dampened by the sensor.
 Each use of a microphone can benefit from appropriate directionality.
 For instance, when recording a singer or speaker's voice, one can afford to point the receiver towards the source and have it ignore the unwanted sounds coming from other directions.
 
@@ -81,7 +81,7 @@ In contrast, the cardioid and its variants (super-cardioid, hyper-cardioid, ultr
 
 #include "figures/polar_patterns/fig.typ"
 
-In the context of #acr("SSL"), a non-homogeneous pattern brings extra angular information that a neural network might be able to exploit.
+In the context of #acr("SSL"), a non-homogeneous pattern brings extra angular information that a neural network may be able to exploit.
 We have thus tested different configurations in our experiments.
 
 
@@ -128,7 +128,7 @@ Binaural representations have been explicitly designed to highlight geometric in
 Hence, and for the sake of exhaustivity, those cues have also been tested.
 This comparison employs a binaural array which allows for trivial computation of the #acr("ILD") and #acr("IPD") from the two #acr("STFT") arrays.
 Notably, the number of resulting channels in the processed data remains two.
-The interaural tensor $cal(I) in RR^(C times F times T)$ amounts to:
+The interaural tensor $cal(I) in RR^(C times F times T)$, with $C=2$, amounts to:
 $
   cal(I) = mat(
       "ILD"(m_1, m_2);
@@ -136,13 +136,13 @@ $
   ).
 $
 Both #acr("ILD") and #acr("IPD") take real values, which does not lead to doubling the number of channels.
-When dealing with arrays having more than two microphones, we compute the interaural features for successive and overlapping microphone pairs.
+When dealing with arrays having $C > 2$ microphones, we compute the interaural features for successive and overlapping microphone pairs.
 For an array with microphones ${m_1, dots, m_k}$, the interaural features is expressed as:\
 $quad forall i in [|1, C|]$,
 $
   cal(I)[i] = cases(
-    "IPD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 0,
-    "ILD"(m_i, m_((i+1) equiv C))\, space "if" i equiv 2 = 1.
+    "IPD"(m_i, m_((i+1) equiv C)) space "if "i" even;",
+    "ILD"(m_i, m_((i+1) equiv C)) space "if" i" odd."
   )
 $
 When using a single interaural feature, and not both #acr("ILD") and #acr("IPD"), the coefficients of $cal(I)$ become:
@@ -158,7 +158,7 @@ An ablation study was conducted to measure the impact of pre-processing methods 
 
 
 As demonstrated in @sec:ssl:background:deep_learning, deep neural networks are flexible and effective building blocks for an #acr("SSL") solution.
-We focused in this work on a simple architecture that takes some representation of the listened audio signal as its only input.
+We focused in this work on a simple architecture that takes some representation of the listened audio signal as its single input.
 At the other end, this network is trained to infer the #doa value $theta$ and optionally the distance $D$ from the single speech source in the room.
 Our model is trained in a supervised fashion using some custom datasets presented in @sec:ssl:single_source:method:dataset.
 
@@ -190,7 +190,7 @@ The output neurons are trained to predict the sine and cosine of the #doa and, o
 
 This single-source #acr("SSL") task boils down to a low-dimensional regression problem.
 The network is designed to eventually predict a scalar value for the #doa and optionally an extra value for the source-microphone distance.
-G
+
 *Angular loss.*
 While the distance case is straightforward, the #doa estimation should be cautiously handled.
 Indeed, the #doa lies in the $[-pi, pi]$ periodic interval.

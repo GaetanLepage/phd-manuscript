@@ -177,7 +177,6 @@ Identifying, characterizing, and overcoming this shortcoming was essential in de
 As explained in @sec:ssl:multi_source:method:dataset, the dataset allows for dynamically selecting a subset of 0 to 4 sources at runtime.
 This feature has allowed us to experiment with the impact of how many sources are present in the room simultaneously.
 
-//#draft[
 *Training frameworks.*
 On the one hand, the two following training setups can be compared:
 - _Scenario A_ is the setup proposed in @he_neural_2021 with the following repartition of samples:
@@ -198,12 +197,16 @@ Furthermore, the more sources are simultaneously present in the room, the more c
 
 One should note that both training and test datasets are different.
 The goal of this experiment is to highlight the consequential impact that the problem formulation can have on performance.
+Notably, it compares both aforementioned scenarios
 The rest of the experiments have been conducted with respect to _Scenario A_, following the same distribution of source numbers as He et al. used in @he_neural_2021.
-//]
 
 *Evaluation frameworks.*
 We have evaluated a given network in various scenarios to understand the impact of the number of concurrent sources in the room on performance.
 The network has been trained according to the _scenario A_ presented above.
+@table:ssl:multi_source:experiments:n_sources summarizes the performance on the aforementioned model in different evaluation scenarios.
+We observe that the fewer the number of active sources, the higher the performance.
+Even when evaluating the model in the hardest scenario, where four sources are always active at the same time, #acr("MAE") remains lower than 22°.
+However, accuracy and recall suffer in those challenging situations.
 
 #include "tables/n_sources.typ"
 
