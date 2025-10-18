@@ -180,10 +180,11 @@ This process takes place in discrete time steps that each resemble the following
 - Finally, acoustic features can be collected in multiple representations: raw multi-channel waveforms, #acr("STFT") or #acr("ILD")/#acr("IPD").
   The user can also access spatial data in convenient formats: distance from the microphone to a specific source, #doa, absolute position and orientation of the agent and sources, etc.
 
-*Spatial domain.*
+*Spatial domain*
+
 The sound propagation libraries used in the simulation model three-dimensional scenes.
 Thus, we have built the rest of the pipeline to allow for full control of audio objects in the 3D space.
-Besides, as this thesis's downstream tasks predominantly involved planar problems, most of the implemented features focus on 2D movements and spatial measures.
+Besides, as this thesis's downstream tasks predominantly involves planar problems, most of the implemented features focus on 2D movements and spatial measures.
 No artificial limitation prevents the use of our library for 3D problems.
 
 *Sources and Microphones Movement*

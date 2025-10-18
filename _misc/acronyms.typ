@@ -142,6 +142,7 @@
     "Short-Term Fourier Transforms"
   ),
   "TDoA": ("time difference of arrival"),
+  "ULA": ("Uniform Linear Array"),
   
   // -----------------------------------------------------------------------------
   // RL

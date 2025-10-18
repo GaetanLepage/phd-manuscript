@@ -38,7 +38,7 @@ Most notably, more visualization features could be added.
 For instance, the current plotting features are based on the _Matplotlib_ library @hunter_matplotlib_2007 and remain limited.
 They only offer a rudimentary step-by-step preview of the room.
 Ultimately, the simulator could offer a more pleasant dynamic visualization of the movement of sources and sensors.
-Furthermore, the handling of dynamic scenes follows a simple step-based approach that discretizes the movement of objects in time.
+Furthermore, the handling of dynamic scenes follows a simple step-based approach that discretizes the movement of objects over time.
 The addition of modern dynamic simulation techniques (@rosen_interactive_2020, @cao_interactive_2016, @schissler_interactive_2017) could make this pipeline even more relevant to robotics.
 Finally, the simulator's scope has been delimited to auditory cues and sound processing.
 The incorporation of a 3D visual rendering engine could transform the existing platform into a true multi-modal platform for a more complete simulation.

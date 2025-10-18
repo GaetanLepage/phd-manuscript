@@ -13,6 +13,7 @@ The section concludes with an overview of spectral representations, which form t
 
 
 ==== Fundamentals of Sound Propagation
+<sec:simulator:reverb:fundamentals_of_sound_propagation>
 
 Sound is a mechanical wave phenomenon.
 Sound waves propagate in various media, such as air, water, and solids.
@@ -352,12 +353,13 @@ This section focuses on motivating and deriving those representations.
 )
 <fig:simulator:background:multi_mic_schema>
 
+For simplicity, the following section maintains the free-field assumption introduced in @sec:simulator:reverb:fundamentals_of_sound_propagation.
 By adapting the single-microphone case (@eq:simulator:background:single_mic_discrete), the signal received by microphone $i$ can be expressed as (Vincent et al. @vincent_audio_2018 Chapter 3 or Gustafsson et al. @gustafsson_source_2003):
 $
   x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq].
 $
 <eq:simulator:background:propagation_multi_mic>
-where $d_i$ is the distance from the the source $i$ to the source (see @fig:simulator:background:multi_mic_schema)
+where $d_i$ is the distance from the the source $i$ to the source (see @fig:simulator:background:multi_mic_schema).
 
 One can write the signal $x_2$, recorded by microphone $2$, as a function of the one recorded by microphone $1$ by combining their expressions:
 $

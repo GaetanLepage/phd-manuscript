@@ -53,7 +53,8 @@ We present the following microphone array configurations that have been tested.
  This setup constitutes the most studied robotic #acr("SSL") framework in the literature.
  This layout was primarily considered because of a humanoid robotic head equipped with two microphones on each side.
 - We have also proposed a *three-microphone* design in a V-shaped arrangement.
-- Finally, a *square* array of four microphones has been implemented too.
+- A *square* array of four microphones has been implemented too.
+- Finally, the *#acr("ULA")* configuration is available, supporting a configurable number of microphones.
 
 Their implementation has been integrated into our simulator (see @sec:simulator:simulator:components:sim_scenarios).
 

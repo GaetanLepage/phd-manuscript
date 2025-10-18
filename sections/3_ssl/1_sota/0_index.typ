@@ -46,7 +46,7 @@ It then transitions to deep learning methods, highlighting key advances, archite
 Finally, the focus shifts to #acr("SSL") in robotics, where unique challenges and application-specific solutions are discussed, demonstrating the technology's real-world impact.
 Notably, numerous dedicated researchers have explored this research area over several years, publishing thousands of academic articles.
 Hence, this introduction does not aim to provide an exhaustive survey of the many methods and approaches addressing #acr("SSL").
-Conversely, our objective here is to give an overall overview of the field and share its significant trends.
+Conversely, our objective here is to give an overview of the field and share its significant trends.
 Alongside the multiple references cited in the following paragraphs, one may refer to Grumiaux et al. @grumiaux_survey_2021 for a more detailed picture of #acr("SSL") at the age of deep learning.
 Notably, the active localization techniques dealing with moving sources and/or microphones will be presented in @chap:active_ssl in addition to our contribution to the topic.
 
@@ -273,7 +273,7 @@ The feed-forward networks' simplicity and efficiency make them suitable for sing
 However, their lack of temporal modeling capabilities limits their performance in dynamic scenarios or multi-source settings.
 
 *Convolutional neural networks* have also been employed widely for #acr("SSL").
-As seen previously, it is typical for the recorded signal to first be forwarded to the time-frequency domain.
+As seen previously, it is typical for the recorded signal to first be transformed into the time-frequency domain.
 The Fourier representations of temporal signals share several properties with images.
 Most notably, they are often represented as multi-channel images expressed in the time-frequency plane.
 As such, the acoustic community has leveraged the vast computer vision literature that has designed numerous deep neural networks for processing images.
