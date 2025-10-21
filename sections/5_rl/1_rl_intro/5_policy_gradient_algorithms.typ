@@ -244,11 +244,18 @@ These are treated as hyperparameters.
 This formulation is the most common in the literature and software implementations of #acr("PPO").
 Although often denoted as the #acr("PPO") _loss_, this function quantifies the objective and should thus be maximized.
 
+*Actor and Critic Networks.*
+As in other actor-critic #acr("DRL") algorithms, #acr("PPO") leverages two neural networks during training.
+- The *critic* estimates the value function. It is trained in a supervised manner during the #acr("PPO") optimization step.
+- The *actor*, given an observation from the environment, outputs a probability distribution over the action space.
+  Its role is to implement the actual policy dictating the agent's behavior.
+In practice, these networks may share some weights.
+
+
 *Algorithm.*
 To optimize the #acr("PPO") objective, the algorithm involves iteratively sampling training data by running the policy in the environment and training the actor and critic networks.
-While
 Each iteration starts by freezing the neural network parameters $theta$ and collecting a set of trajectories #ppo-traj-buffer by running the current policy $pi_theta$ in the environment.
-This sampling phase ends with the computation of the advantages $hat(A)_t$ with the #acr("GAE") process presented in @sec:rl:intro:policy_gradient_algos:gae, and the returns $R_t$.
+This sampling phase ends with the computation of the advantages $hat(A)_t$ with the #acr("GAE") method presented in @sec:rl:intro:policy_gradient_algos:gae, and the returns $R_t$.
 The second part of the iteration is where the learning occurs.
 The actor and critic networks are optimized by maximizing the overall #acr("PPO") objective #ppo-loss (@eq:rl:ppo_loss).
 This is most often done with a stochastic gradient optimizer such as Adam @kingma_adam_2017 or #acr("SGD"). @algo:rl:ppo gives the pseudo-code for the #acr("PPO") algorithm.

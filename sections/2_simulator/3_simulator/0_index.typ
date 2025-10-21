@@ -43,4 +43,4 @@ The addition of modern dynamic simulation techniques (@rosen_interactive_2020, @
 Finally, the simulator's scope has been delimited to auditory cues and sound processing.
 The incorporation of a 3D visual rendering engine could transform the existing platform into a true multi-modal platform for a more complete simulation.
 Such an endeavor would, however, require a significant additional engineering effort.
-The entire code base of our simulator is freely available under the GPLv3 license #footnote[#link("https://gitlab.inria.fr/robotlearn/rl-audio-nav")].
+The entire code base of our simulator is freely available under the GPLv3 license #footnote[#link("https://github.com/GaetanLepage/acoustix")].
