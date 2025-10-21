@@ -4,6 +4,7 @@
 pkgs.mkShellNoCC {
   packages = with pkgs; [
     typst
+    typstyle
     liberation-sans-narrow
   ];
 
