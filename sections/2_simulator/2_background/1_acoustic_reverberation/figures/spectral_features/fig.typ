@@ -10,8 +10,9 @@
     ),
     caption: [
       Spectrogram.
-    ]
-  ), <fig:ssl:sota:tf_representations:spectrogram>,
+    ],
+  ),
+  <fig:ssl:sota:tf_representations:spectrogram>,
   figure(
     image(
       "ild.png",
@@ -20,8 +21,10 @@
     caption: [
       #reset-acronym("ILD")
       #acr("ILD").
-    ]
-  ), <fig:ssl:sota:tf_representations:ild>,
+    ],
+  ),
+
+  <fig:ssl:sota:tf_representations:ild>,
   figure(
     image(
       "ipd.png",
@@ -31,8 +34,10 @@
     caption: [
       #reset-acronym("IPD")
       #acr("IPD").
-    ]
-  ), <fig:ssl:sota:tf_representations:ipd>,
+    ],
+  ),
+  <fig:ssl:sota:tf_representations:ipd>,
+
   columns: (1fr, 1fr, 1fr),
   align: top,
   placement: fig-placement,

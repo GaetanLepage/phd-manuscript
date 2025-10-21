@@ -20,12 +20,12 @@ This process ensures that the number of detections matches the number of ground-
 - The _#acr("MAE")_ gives an idea about the angular distance between detected and correct angles:
 $
   "MAE" = (
-    sum_i
-    sum_(j=1)^(z_i)
-    #d (
-      hat(phi.alt)_(i j),
-      phi.alt_(i j)
-    )
+  sum_i
+  sum_(j=1)^(z_i)
+  #d (
+    hat(phi.alt)_(i j),
+    phi.alt_(i j)
+  )
   ) / (sum_i z_i),
 $
 <eq:ssl:multi_source:mae>
@@ -36,14 +36,14 @@ The #acr("MAE") will most often be expressed in degrees for convenience.
 The _#acr("ACC")_ constitutes the second metric for this framework and, given an error threshold #angle-error-threshold, provides the proportion of correctly localized sources:
 $
   "ACC" = (
-    sum_i
-    sum_(j=1)^(z_i)
-    bb(1)_(
-      #d (
-        hat(phi.alt)_(i j),
-        phi.alt_(i j)
-      ) < #angle-error-threshold
-    )
+  sum_i
+  sum_(j=1)^(z_i)
+  bb(1)_(
+  #d (
+    hat(phi.alt)_(i j),
+    phi.alt_(i j)
+  ) < #angle-error-threshold
+  )
   ) / (sum_i z_i).
 $
 <eq:ssl:multi_source:acc>
@@ -60,34 +60,34 @@ $
     phi.alt_(i j)
   ) = cases(
     1
-      "if"
-        d(hat(phi.alt)_(i k), phi.alt_(i j)) < E_a "and" k = limits("argmin")_(k' in {1, dots, hat(z_i)})  d(hat(phi.alt)_(i k'), phi.alt_(i j)),
+    "if"
+    d(hat(phi.alt)_(i k), phi.alt_(i j)) < E_a "and" k = limits("argmin")_(k' in {1, dots, hat(z_i)}) d(hat(phi.alt)_(i k'), phi.alt_(i j)),
     0 "otherwise,"
   )
 $
 We can then introduce the two metrics used in this framework, _Precision_ and _Recall_:
 $
   "Precision" = (
-    sum_i
-    sum_(j=1)^(z_i)
-    sum_(k=1)^(hat(z)_i)
-    m(
-      hat(phi.alt)_(i k),
-      phi.alt_(i j)
-    )
+  sum_i
+  sum_(j=1)^(z_i)
+  sum_(k=1)^(hat(z)_i)
+  m(
+    hat(phi.alt)_(i k),
+    phi.alt_(i j)
+  )
   ) / (sum_i hat(z)_i),
 $
 <eq:ssl:multi_source:prec>
 
 $
   "Recall" = (
-    sum_i
-    sum_(j=1)^(z_i)
-    sum_(k=1)^(hat(z)_i)
-    m(
-      hat(phi.alt)_(i k),
-      phi.alt_(i j)
-    )
+  sum_i
+  sum_(j=1)^(z_i)
+  sum_(k=1)^(hat(z)_i)
+  m(
+    hat(phi.alt)_(i k),
+    phi.alt_(i j)
+  )
   ) / (sum_i z_i).
 $
 <eq:ssl:multi_source:recall>
@@ -127,15 +127,15 @@ $
 $
 
 #figure(
-  include("figures/loss_illustration.typ"),
+  include "figures/loss_illustration.typ",
   caption: flex-caption(
-      short: [
-        Illustrative example of a poor network prediction and the corresponding ground truth spectrum.
-      ],
-      long: [
-        Illustrative example of a poor network prediction (in red) and the corresponding ground truth spectrum (in violet).
-      ],
-    ),
+    short: [
+      Illustrative example of a poor network prediction and the corresponding ground truth spectrum.
+    ],
+    long: [
+      Illustrative example of a poor network prediction (in red) and the corresponding ground truth spectrum (in violet).
+    ],
+  ),
 )
 <fig:ssl:multi_source:loss_illustration>
 
@@ -144,7 +144,7 @@ From this observation, the strategy of enforcing $#pred = 0$ ensures the loss wi
 To prevent this phenomenon from occurring, both the batch size and the learning rate needed to be carefully chosen.
 To empirically illustrate this behavior, we monitor in @fig:ssl:multi_source:output_norm_plot the $ell^2$ norm $norm(o)_2^2$ of the network output, defined by:
 $
-  norm(o)_2^2 = 1 / d sum_(i=1) ^d o_i^2,
+  norm(o)_2^2 = 1 / d sum_(i=1)^d o_i^2,
 $
 along a successful training process.
 
@@ -225,9 +225,9 @@ To circumvent this phenomenon, we introduce the following $epsilon$-loss:
 #let damp-term = $colMath((o_i + epsilon), #maroon)$
 $
   cal(L)_epsilon (hat(o)_i, o_i) =
-    1/d sum_(i=1)^d
-    #damp-term
-    (hat(o)_i - o_i)^2.
+  1/d sum_(i=1)^d
+  #damp-term
+  (hat(o)_i - o_i)^2.
 $
 <eq:ssl:multi_source:experiments:epsilon_loss>
 The damping term #damp-term reduces the penalization of false positive peaks in the estimated spectrogram.
@@ -266,12 +266,10 @@ The _Batch Normalization Transform_ algorithm is expressed as such:
 $
   y_i = colMath(gamma, #blue) [
     (
-      x_i
-      - colMath(mu_cal(B), #maroon)
+    x_i
+    - colMath(mu_cal(B), #maroon)
     )
-    /sqrt(
-      colMath(sigma_cal(B)^2, #olive) + epsilon
-    )
+    /sqrt(colMath(sigma_cal(B)^2, #olive) + epsilon)
   ] + colMath(beta, #blue),
 $
 <eq:ssl:multi_source:batch_norm>
@@ -292,12 +290,10 @@ Historically, #acr("LayerNorm") has been most commonly employed in Natural Langu
 $
   y_(l, i) = colMath(gamma, #blue) [
     (
-      x_(l, i)
-      - colMath(mu_l, #maroon)
+    x_(l, i)
+    - colMath(mu_l, #maroon)
     )
-    /sqrt(
-      colMath(sigma_l^2, #olive) + epsilon
-    )
+    /sqrt(colMath(sigma_l^2, #olive) + epsilon)
   ] + colMath(beta, #blue),
 $
 <eq:ssl:multi_source:batch_norm>
@@ -339,7 +335,7 @@ We observed that the latter yielded the same stabilization benefits during train
   image("./figures/normalization_exp.svg"),
   caption: [
     Training and validation accuracies during training for different normalization schemes.
-  ]
+  ],
 )
 <fig:ssl:multi_source:normalization_plots>
 
@@ -468,7 +464,7 @@ It should be noted that this quantity can only be defined for samples encompassi
   ),
   caption: [
     Distribution of #delta-t for different numbers of active sources.
-  ]
+  ],
 )
 <fig:ssl:multi_source:experiments:doa_min_dist_hist>
 
@@ -502,6 +498,6 @@ This observation confirms that samples with very low #delta-t constitute more di
   ),
   caption: [
     Distribution of #delta-t for different values of #tau-doa.
-  ]
+  ],
 )
 <fig:ssl:multi_source:experiments:doa_min_dist_hist_2>

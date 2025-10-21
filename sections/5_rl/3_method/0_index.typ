@@ -43,7 +43,7 @@ The obtained #acr("WER") cost function is given by:
   $(
     #agent-pos,
     #agent-ori
-    //bold(x)_s
+     //bold(x)_s
   )$,
   $
     EE_((v, t) in cal(D))
@@ -53,19 +53,19 @@ The obtained #acr("WER") cost function is given by:
         "WER"lr(
           (
             underbrace(
-            #asr-net
-            lr(
-              [
-                "listened"(
-                  v,
-                  #agent-pos,
-                  #agent-ori,
-                  #source-pos
-                )
-              ],
-              size: #120%,
-            ),
-            "predicted transcript" hat(t) 
+              #asr-net
+              lr(
+                [
+                  "listened"(
+                    v,
+                    #agent-pos,
+                    #agent-ori,
+                    #source-pos
+                  )
+                ],
+                size: #120%,
+              ),
+              "predicted transcript" hat(t)
             ),
             thick t
           ),
@@ -74,7 +74,7 @@ The obtained #acr("WER") cost function is given by:
       ],
       size: #100%,
     ),
-  $
+  $,
 )
 <eq:rl:method:wer_cost>
 where:
@@ -219,7 +219,7 @@ The feature extractor's weights are kept frozen during the entire #acr("PPO") tr
 
 #figure(
   image(
-    "figures/rl_agent_architecture.svg"
+    "figures/rl_agent_architecture.svg",
   ),
   caption: flex-caption(
     short: [
@@ -288,13 +288,13 @@ $
 where $V^"clipped" (s_t))$ is the clipped value prediction:
 $
   V^"clipped" (s_t) =
-    V_theta_"old" (s_t)
-    + "clip"[
-      V_theta (s_t)
-      - V_theta_"old" (s_t),
-      - #ppo-value-loss-epsilon,
-      #ppo-value-loss-epsilon
-    ].
+  V_theta_"old" (s_t)
+  + "clip"[
+    V_theta (s_t)
+    - V_theta_"old" (s_t),
+    - #ppo-value-loss-epsilon,
+    #ppo-value-loss-epsilon
+  ].
 $
 Here, $V_theta_"old"$ is the value network from the previous iteration, and #ppo-value-loss-epsilon controls the clipping range of the value update.
 This new loss is inspired by the clipped loss #_ppo-clipped-loss used to optimize the actor network.

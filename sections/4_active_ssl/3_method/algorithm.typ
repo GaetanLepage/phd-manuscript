@@ -20,7 +20,7 @@
     args: (
       prev-maps,
       prev-deltas,
-      $"STFT"_t$
+      $"STFT"_t$,
     ),
     {
       // INPUTS
@@ -39,13 +39,13 @@
       ]
       State[]
 
-      
+
       Cmt[Run the static #acr("SSL") model on the current received audio]
       Assign[$o_t$][#smallcaps[SSL]$("STFT"_t)$]
       Cmt[Compute the #doa map from the spectrum]
       Assign[$M_t$][#smallcaps[DoA-map]$(o_t)$]
       State[]
-      
+
       Cmt[Transpose all maps to the current frame]
       For(
         cond: [$t'$ in $[|t-H, t|]$],
@@ -62,7 +62,7 @@
           ][
             #smallcaps[Shift]$(M_t', Delta_(t' -> t))$
           ]
-        }
+        },
       )
 
       State[]
@@ -72,7 +72,7 @@
       ][
         $Psi(tilde(M)_(t-H), dots, tilde(M)_(t-1))$
       ]
-      
+
       State[]
       Cmt[Extract detections]
       Assign[
@@ -90,7 +90,7 @@
 
       State[]
       Return[#predictions]
-    }
+    },
   )
 })
 
@@ -99,6 +99,6 @@
   kind: raw,
   caption: [
     Active-SSL algorithm.
-  ]
+  ],
 )
 <algo:active_ssl:algo>

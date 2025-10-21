@@ -20,11 +20,11 @@
 )
 #outline(
   title: "List of Figures",
-  target: figure.where(kind: image)
+  target: figure.where(kind: image),
 )
 #outline(
   title: "List of Tables",
-  target: figure.where(kind: table)
+  target: figure.where(kind: table),
 )
 //#outline(
 //  title: "List of Equations",

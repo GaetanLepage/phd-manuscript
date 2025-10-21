@@ -8,7 +8,7 @@ Following the design and implementation of the complete #acr("RL") pipeline pres
 
 === ASR Performance in a Reverberant Room
 
-First and foremost, we investigate how #acr("ASR") performance is impacted by reverberation. 
+First and foremost, we investigate how #acr("ASR") performance is impacted by reverberation.
 This study also explores the importance of the agent's position relative to the source, especially in highly reverberant environments.
 
 *#acr("ASR") performance and reverberation.*
@@ -82,9 +82,9 @@ More precisely, we introduce two scaling parameters #reward-exp-alpha and #rewar
 The final reward, introduced in @eq:rl:problem:reward, becomes:
 $
   r_t = cases(
-    -#reward-wall-penalty &quad "if the agent tries to hit a wall",
+    -#reward-wall-penalty & quad "if the agent tries to hit a wall",
     #f-reward-exp
-      - #reward-movement-penalty bb(1) (a_t = #a-forward) &quad "otherwise,"
+    - #reward-movement-penalty bb(1) (a_t = #a-forward) & quad "otherwise,"
   )
 $
 <eq:rl:results:reward>
@@ -169,7 +169,7 @@ The performance of the trained policy (denoted #pi-theta) is compared to a selec
 - *#pi-still*, where the agent remains static and always chooses the #a-stay action;
 - *#pi-still-orient* where the agent never moves, but orients itself to face the source.
 Furthermore, we test both our directional and omnidirectional formulations of the #acr("WER") cost #wer-cost.
-//The first group of columns display the policies' performance when tested on the environment with 
+//The first group of columns display the policies' performance when tested on the environment with
 #pi-theta is trained and evaluated on both environments separately.
 We use the reward function defined in @eq:rl:results:reward.
 Results are reported in @table:rl:results:wer_performance_vs_baselines.
@@ -235,11 +235,11 @@ The analytical cost is defined over the state space $cal(S)$ as:
   $(
     #agent-pos,
     #agent-ori
-    //bold(x)_s
+     //bold(x)_s
   )$,
   $
-  #agent-source-dist + eta #agent-source-doa
-  $
+    #agent-source-dist + eta #agent-source-doa
+  $,
 )
 <eq:rl:results:analytical_cost>
 where:

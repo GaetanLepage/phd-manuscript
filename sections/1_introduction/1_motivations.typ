@@ -49,7 +49,7 @@ While not sufficient on its own, #acr("SSL") enhances a robot's ability to inter
 #figure(
   image(
     "./figures/ari.png",
-    width: 6cm
+    width: 6cm,
   ),
   caption: flex-caption(
     short: [

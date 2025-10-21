@@ -4,7 +4,7 @@
     "generated_cover_page.svg",
     width: 100%,
     height: 100%,
-    fit: "stretch"
+    fit: "stretch",
   ),
   numbering: none,
 )[]

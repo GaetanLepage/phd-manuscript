@@ -6,16 +6,16 @@
     image("doa_map_spectrum.svg", height: 3cm),
     caption: [
       #_doa spectrum $o_t$.
-    ]
+    ],
   ),
   <fig:active_ssl:methods:doa_map_spectrum>,
-  
+
   figure(
     image("doa_map.svg", height: 5cm),
     //image("/assets/mountains.jpg"),
     caption: [
       Corresponding #_doa map $M_t$.
-    ]
+    ],
   ),
   //<fig:ssl:multi_source:sequence_processing:result>,
   columns: 1,

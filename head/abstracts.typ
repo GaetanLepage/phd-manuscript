@@ -1,4 +1,4 @@
-#import "/utils.typ": clorem, acr, reset-acronym
+#import "/utils.typ": acr, clorem, reset-acronym
 
 // English abstract
 = Abstract
@@ -18,7 +18,7 @@ Since deep learning has enabled major advances in robotics but requires large vo
 // SSL
 Within this simulated framework, we focus on auditory perception as a foundational capability.
 Among its various facets, #acr("SSL") is especially critical for social robots.
-#acr("SSL") involves identifying the location of one or more active speakers and is grounded in a long-standing body of research. 
+#acr("SSL") involves identifying the location of one or more active speakers and is grounded in a long-standing body of research.
 We examine this problem from multiple perspectives and introduce a series of deep-learning-based methods to address its main challenges.
 After presenting a solution for the single-source case, we propose a more advanced multi-source localizer.
 Both models are thoroughly evaluated through extensive experiments conducted under varied conditions.

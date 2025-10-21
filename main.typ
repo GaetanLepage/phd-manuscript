@@ -1,4 +1,4 @@
-#import "_misc/template/_index.typ": template, front-matter, main-matter, back-matter
+#import "_misc/template/_index.typ": back-matter, front-matter, main-matter, template
 #import "/utils.typ": *
 
 #show: template.with(

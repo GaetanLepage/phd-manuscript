@@ -40,7 +40,7 @@
       // ----------------------------------------------------------------------
       // Positions
       // ----------------------------------------------------------------------
-      
+
       Cmt[Initialize the agent positions]
       // X
       Assign[$cal(X)$][${i #delta-grid mid(|) i in [|0, #n-x-exp|]}$]
@@ -59,28 +59,28 @@
         // Z <- X x Y
         Assign[$Z$][$cal(X) times cal(Y)$]
       })
-      
+
       State[]
       //Assign[#wer-map][$bold(0)_(cal(M)_(abs(cal(Z)))(RR))$]
       Cmt[Initialize the 2D/3D #acr("WER") map tensor]
       Assign[#wer-map][
         $bold(0)_(
-          RR^(
-            abs(cal(X)) times abs(cal(Y)) colMath(times abs(#angle-space), #maroon)
-          )
+        RR^(
+        abs(cal(X)) times abs(cal(Y)) colMath(times abs(#angle-space), #maroon)
+        )
         )$
       ]
       State[]
-      
+
       // ----------------------------------------------------------------------
       // Loop
       // ----------------------------------------------------------------------
-      
+
       Cmt[Loop through positions]
       For(cond: $z in cal(Z)$, {
         State[#smallcaps[Move-Microphone]$(z)$]
         State[]
-        
+
         Cmt[Loop through speech samples]
         For(cond: $(x_i, t) in cal(D)$, {
           State[]
@@ -95,10 +95,10 @@
       })
 
       State[]
-      
+
       Assign[$#wer-map$][$1/abs(cal(D)) #wer-map$]
       Return[#wer-map]
-    }
+    },
   )
 })
 
@@ -107,6 +107,6 @@
   kind: raw,
   caption: [
     WER map computation algorithm.
-  ]
+  ],
 )
 <algo:rl:wer_map>

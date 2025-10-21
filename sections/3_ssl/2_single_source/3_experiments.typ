@@ -21,18 +21,18 @@ In this first formulation of the #acr("SSL") problem, each situation includes ex
 Naturally, the performance of the method is characterized by how far the estimate $hat(theta)$ lies from the real #doa value $theta$.
 As the network predicts the sine and cosine of $theta$, the #doa value is first computed following:
 $
-  hat(theta) &= op("atan2")
-    lr(
-      (sin(hat(theta)), cos(hat(theta)))
-      , size: #150%
-    )\
-  &= arg lr(
-      (
-        cos(hat(theta))
-        + i sin(hat(theta))
-      ),
-      size: #150%
-    ).
+  hat(theta) & = op("atan2")
+               lr(
+                 (sin(hat(theta)), cos(hat(theta)))
+                 , size: #150%
+               ) \
+             & = arg lr(
+                 (
+                   cos(hat(theta))
+                   + i sin(hat(theta))
+                 ),
+                 size: #150%
+               ).
 $
 
 We then compute the average $ell^1$ angular distance #d between $hat(theta)$ and $theta$.
@@ -44,12 +44,12 @@ The following expression for #d accounts for the periodicity of the angular inte
   $[0, 1]$,
   $(theta_1, theta_2)$,
   //$pi - abs(abs(theta_2 - theta_1) - pi)$
-  $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%).$
+  $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%).$,
 )
 <eq:ssl:single_source:angular_dist>
 This distance is used to define the #acr("MAE") metric that quantifies the performance of #doa estimation:
 $
-  #mae-theta = 1 / n_"test" sum_(i=1) ^ n_"test" #d (hat(theta)_i, theta_i),
+  #mae-theta = 1 / n_"test" sum_(i=1)^n_"test" #d (hat(theta)_i, theta_i),
 $
 <eq:ssl:single_source:mae>
 where $n_"test"$ counts the number of samples in the test set.
@@ -58,7 +58,7 @@ where $n_"test"$ counts the number of samples in the test set.
 *Source-array distance metric.*
 When predicting the source-array distance, the #acr("MAE") is also used, here between predicted $hat(D)$ values and ground truth $D$:
 $
-  #mae-dist = 1 / n_"test" sum_(i=1) ^ n_"test"
+  #mae-dist = 1 / n_"test" sum_(i=1)^n_"test"
   abs(hat(D)_i - D_i).
 $ <eq:ssl:single_source:dist_metric>
 
@@ -198,7 +198,7 @@ In @chap:active_ssl, we leverage robot movement to accumulate localization infor
 #figure(
   image(
     "figures/dist_error.svg",
-    width: 80%
+    width: 80%,
   ),
   caption: [
     Evolution of the mean absolute error on the distance estimation #mae-dist during training.
@@ -228,7 +228,7 @@ Furthermore, we demonstrate that a simple #acr("CNN") architecture can perform a
   image("figures/ssl_reverb.svg", width: 80%),
   caption: [
     Reverberation impact on SSL performance.
-  ]
+  ],
 )
 <fig:ssl:single_source:reverb>
 

@@ -10,7 +10,7 @@
     ),
     caption: [
       Source position $(6, 3)$.
-    ]
+    ],
   ),
   <fig:rl:results:trajectories:1>,
 
@@ -25,7 +25,7 @@
     ],
   ),
   <fig:rl:results:trajectories:2>,
-  
+
   columns: 1,
   caption: flex-caption(
     short: [

@@ -18,7 +18,7 @@ It thus permits a decision policy to act based on the localization results.
 
 ==== Limitations
 Our framework still suffers from shortcomings.
-On the one hand, the obtained metric values, even though respectable, do not line up 
+On the one hand, the obtained metric values, even though respectable, do not line up
 with other works.
 Indeed, although precise, as it reached more than 83% precision scores, the network sometimes misses some sources.
 Such a shortcoming motivated our investigation of sequence processing, in which we leverage multiple consecutive observations to enhance the method's performance.

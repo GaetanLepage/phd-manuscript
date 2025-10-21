@@ -50,15 +50,15 @@ The resulting patterns in the collected data are thus heavily affected by these 
 
 We present the following microphone array configurations that have been tested:
 - A *binaural* array comprises two microphones placed a few centimeters apart.
- This setup constitutes the most studied robotic #acr("SSL") framework in the literature.
- This layout was primarily considered because of a humanoid robotic head equipped with two microphones on each side.
+  This setup constitutes the most studied robotic #acr("SSL") framework in the literature.
+  This layout was primarily considered because of a humanoid robotic head equipped with two microphones on each side.
 - We have also proposed a *three-microphone* design in a V-shaped arrangement.
 - A *square* array of four microphones has been implemented too.
 - Finally, the *#acr("ULA")* configuration is available, supporting a configurable number of microphones.
 
 Their implementation has been integrated into our simulator (see @sec:simulator:simulator:components:sim_scenarios).
 
-The number of microphones plays an essential role in the #("SSL") performance.
+The number of microphones plays an essential role in the #"SSL" performance.
 As an illustrative example, when having a binaural microphone in an anechoic environment, i.e., where the effects of reverberation can be neglected, there exists a fundamental limit:
 It is theoretically impossible to distinguish between two possible locations for the source.
 This phenomenon, known as front-back ambiguity, was presented earlier in this chapter @sec:ssl:background:classical_approaches.
@@ -122,7 +122,7 @@ To achieve this, two schemes were compared:
     $lr((abs(Z), arg(Z)), size: #140%).$,
   )
 
-In both cases, a $C$-channel #acr("STFT") #shape("C","F","T") complex tensor translates to a to #shape("2C", "F", "T") real one.
+In both cases, a $C$-channel #acr("STFT") #shape("C", "F", "T") complex tensor translates to a to #shape("2C", "F", "T") real one.
 
 Besides raw #acr("STFT") values, interaural features, presented in @sec:simulator:background:spectral-features, have been widely used in the #acr("SSL") literature @nguyen_autonomous_2018, @sivasankaran_keyword_2018 @youssef_learning-based_2013.
 Binaural representations have been explicitly designed to highlight geometric information relevant to localization.
@@ -132,8 +132,8 @@ Notably, the number of resulting channels in the processed data remains two.
 The interaural tensor $cal(I) in RR^(C times F times T)$, with $C=2$, amounts to:
 $
   cal(I) = mat(
-      "ILD"(m_1, m_2);
-      "IPD"(m_1, m_2)
+    "ILD"(m_1, m_2);
+    "IPD"(m_1, m_2)
   ).
 $
 Both #acr("ILD") and #acr("IPD") take real values, which does not lead to doubling the number of channels.
@@ -177,7 +177,7 @@ The output neurons are trained to predict the sine and cosine of the #doa and, o
 #figure(
   image(
     "figures/ssl_singlesource_nn_architecture.svg",
-    height: 70%
+    height: 70%,
   ),
   caption: [
     Deep convolutional network architecture for SSL.
@@ -202,21 +202,21 @@ Also, the network does not directly predict the #doa value $theta$, but its sine
 
 #let S_i = $colMath(S_i, #green)$
 #let S_i_hat = $colMath(hat(S)_i, #olive)$
-#let C_i= $colMath(C_i, #blue)$
+#let C_i = $colMath(C_i, #blue)$
 #let C_i_hat = $colMath(hat(C)_i, #navy)$
 Let $hat(theta) = (hat(theta)_1, dots, hat(theta)_n)$ be the set of #doa angles predicted by the network and $theta = (theta_1, dots, theta_n)$ the corresponding ground truth values.
 The loss function is expressed as
 $
   #l-doa (
     hat(theta), theta
-  ) &= 1 / n
-    sum_(i=1)^n
-    [
-       1 - (
-         sin(theta_i) sin(hat(theta)_i)
-         +  cos(theta_i) cos(hat(theta)_i)
-       )
-    ].
+  ) & = 1 / n
+      sum_(i=1)^n
+      [
+        1 - (
+          sin(theta_i) sin(hat(theta)_i)
+          + cos(theta_i) cos(hat(theta)_i)
+        )
+      ].
 $
 <eq:ssl:single_source:doa_loss>
 #include "figures/angular_loss.typ"
@@ -229,9 +229,9 @@ We use this loss function to train the neural network to output accurate #doa va
 When the model additionally estimates the distance to the source, the natural #acr("MSE") loss is used to supervise the relevant output neuron:
 #let l-dist = $colMath(cal(L)_"dist", #maroon)$
 $
-   #l-dist (hat(d), d) =
-    1 / n
-    sum_(i=1)^n
+  #l-dist (hat(d), d) =
+  1 / n
+  sum_(i=1)^n
   norm(hat(D)_i - D_i)_2^2 thick,
 $ <eq:ssl:single_source:dist_loss>
 where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (hat(D)_1, dots, hat(D)_n)$ the ground truth data.
@@ -239,7 +239,7 @@ where $D = (D_1, dots, D_n)$ is the set of predicted distances and $hat(D) = (ha
 The total loss then becomes
 $
   cal(L)
-   =
+  =
   #l-doa (hat(theta), theta)
   + kappa #l-dist (hat(D), D),
 $
@@ -254,7 +254,7 @@ The network architecture plays a crucial role and has already been discussed in 
 Similarly, the rest of the parameters have been set empirically, leveraging their impact on the final performance.
 
 The model is trained in a supervised fashion on the synthetic datasets generated by the audio simulator (see @sec:ssl:single_source:method:dataset).
-The training set consists of 80k samples. 
+The training set consists of 80k samples.
 72k elements are used for training, while 8k are reserved for validation.
 Besides, the remaining 20k samples constitute a test dataset and serve to evaluate the model's performance.
 
@@ -262,7 +262,7 @@ The training employs a batch size of 250 items for $T_"max" = 100$ epochs.
 A learning rate scheduler helps stabilize the training and further improve the final results.
 Cosine annealing, proposed by Loshchilov and Hutter @loshchilov_sgdr_2017, decays the learning rate according to the following scheme:
 $
-  eta_t = eta_min + (eta_0 - eta_min) / 2  (1 + cos(T_"cur" / T_"max" pi)),
+  eta_t = eta_min + (eta_0 - eta_min) / 2 (1 + cos(T_"cur" / T_"max" pi)),
 $
 where $eta_t$ is the learning rate at epoch $t$, $eta_0$ is the initial learning rate, $T_"cur"$ is the current epoch.
 The minimum learning rate $eta_min$ has been set to $10^(-5)$ and is reached at the very end of the training.

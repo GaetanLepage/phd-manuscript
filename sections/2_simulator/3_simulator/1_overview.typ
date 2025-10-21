@@ -22,8 +22,8 @@ The acoustic simulator is composed of several blocks that interact with each oth
       The principal elements involved in the simulator are depicted.
       The #room wraps the #rir-lib and renders the acoustic signals.
       The #simulator provides an additional abstraction and operates the sources and microphones' movements across time.
-    ]
-  )
+    ],
+  ),
 ) <fig:simulator:simulator:overview>
 
 The core of the platform resides in the #rir-lib.
@@ -47,7 +47,7 @@ The following section will present the software blocks required to run this type
 #figure(
   ```python
   from rl_audio_nav.audio_simulator import GpuRirRoom, SquareArray, AudioSimilator
-  
+
   # Initialization
   room = GpuRirRoom(size_x=4, size_y=7, rt_60=0.3)
   mic_array = SquareArray(
@@ -58,15 +58,15 @@ The following section will present the software blocks required to run this type
 
   # Load speech signals and perform simulation
   audio_simulator.step()
-  
+
   # (4, F, T) complex tensor
   stft = audio_simulator.get_agent_stft()
-  
+
   # Compute the DoA with respect to the "speech_1" source
   doa_source_1 = audio_simulator.get_doa("speech_1")
   ```,
   caption: [
     Example of basic usage of the simulator.
-  ]
+  ],
 )
 <code:simulator:simulator:basic_usage>

@@ -26,7 +26,7 @@ The role of the #acr("RIR") simulation library consists in inferring, given the 
 
 #figure(
   image("figures/audio_pipeline.svg"),
-  caption:  [
+  caption: [
     Schematic view of the audio processing pipeline.
   ],
 )
@@ -68,7 +68,7 @@ On the other hand, _Pyroomacoustics_ settles for a single maximum order $N_max$:
 $
   N_"max" = ceil(
     (T_60 times c)
-    / 
+    /
     (R_"min")
     - 1
   ),
@@ -76,11 +76,10 @@ $
 where
 $
   R_"min" =
-    min_(i, j in [|1, 3|]\ i != j)
-    
-    (L_i times L_j)
-    /
-    sqrt(L_i^2 + L_j^2)
+  min_(i, j in [|1, 3|]\ i != j)
+  (L_i times L_j)
+  /
+  sqrt(L_i^2 + L_j^2)
 $
 is the radius of the largest sphere fitting in the diamond of virtual rooms.
 The higher the image source order, the more detailed the simulation will be.

@@ -16,6 +16,6 @@
       Agent at the start and intermediary positions for a generated trajectory.
       The initial orientation is sampled in the cone delimited by dotted lines.
     ],
-  )
+  ),
 )
 <fig:active_ssl:results:dataset_init>

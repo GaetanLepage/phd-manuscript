@@ -3,15 +3,15 @@
   target: heading.where(outlined: true),
   depth: none,
   indent: none,
-  fill: repeat([.])
+  fill: repeat([.]),
 ) = {
   if depth == none { depth = calc.inf }
   context {
     let loc = here()
     let pre = query(
       selector(
-        heading.where(outlined: true)
-      ).before(loc)
+        heading.where(outlined: true),
+      ).before(loc),
     )
     if pre == () {
       // No previous heading: output full outline from current location
@@ -21,8 +21,8 @@
       let min_level = after.level
       let elems = query(
         selector(
-          heading.where(outlined: true)
-        ).after(loc)
+          heading.where(outlined: true),
+        ).after(loc),
       )
       let last_elem = none
 
@@ -39,8 +39,7 @@
 
       if last_elem == none {
         outline(
-          target: selector(target)
-            .after(after.location()),
+          target: selector(target).after(after.location()),
           title: title,
           fill: fill,
           indent: indent,
@@ -51,8 +50,8 @@
           target: selector(target)
             .after(after.location())
             .before(
-              last_elem.location()
-          ),
+              last_elem.location(),
+            ),
           title: title,
           //fill: fill,
           indent: auto,

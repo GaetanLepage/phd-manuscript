@@ -6,18 +6,18 @@
     image("train.svg", width: 120%),
     caption: [
       Training loss.
-    ]
+    ],
   ),
   <fig:ssl:single_source:input_features:train>,
-  
+
   figure(
     image("validation.svg", width: 120%),
     caption: [
       Validation loss.
-    ]
+    ],
   ),
   <fig:ssl:single_source:input_features:validation>,
-  
+
   columns: 2,
   caption: flex-caption(
     short: [

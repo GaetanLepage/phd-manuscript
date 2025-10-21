@@ -9,7 +9,7 @@
     columns: 5 * (1fr,),
     align: left + horizon,
     stroke: none,
-    
+
     // HEADER
     toprule,
 
@@ -33,30 +33,22 @@
     [#pi-random-mfc-wer-omni],
     [#pi-random-rew-wer-dir],
     [#pi-random-mfc-wer-dir],
-    
+
     [#pi-safe-random],
     [#pi-safe-random-rew-wer-omni],
     [#pi-safe-random-mfc-wer-omni],
     [#pi-safe-random-rew-wer-dir],
     [#pi-safe-random-mfc-wer-dir],
-    
-    [#pi-still],
-    [#pi-still-rew-wer-omni],
-    [#pi-still-mfc-wer-omni],
-    [#pi-still-rew-wer-dir],
-    [#pi-still-mfc-wer-dir],
-    
+
+    [#pi-still], [#pi-still-rew-wer-omni], [#pi-still-mfc-wer-omni], [#pi-still-rew-wer-dir], [#pi-still-mfc-wer-dir],
+
     [#pi-still-orient],
     [#pi-still-orient-rew-wer-omni],
     [#pi-still-orient-mfc-wer-omni],
     [#pi-still-orient-rew-wer-dir],
     [#pi-still-orient-mfc-wer-dir],
-    
-    [#pi-theta],
-    [*#exp-300-rew-wer*],
-    [*#exp-300-mfc-wer*],
-    [*#exp-301-rew-wer*],
-    [*#exp-301-mfc-wer*],
+
+    [#pi-theta], [*#exp-300-rew-wer*], [*#exp-300-mfc-wer*], [*#exp-301-rew-wer*], [*#exp-301-mfc-wer*],
 
     bottomrule,
   ),

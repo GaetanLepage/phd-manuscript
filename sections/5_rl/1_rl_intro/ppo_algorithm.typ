@@ -29,7 +29,6 @@
       State[]
 
       For(cond: $i "in" 1 dots #n-ppo-iter$, {
-
         State[
           Initialize the network parameters $theta$ randomly.
         ]
@@ -59,16 +58,16 @@
                 State[
                   Update the actor's and critic's parameters by maximizing the #acr("PPO") objective $#ppo-loss (theta)$ using a stochastic optimizer (e.g., Adam, #acr("SGD")).
                 ]
-              }
+              },
             )
-          }
+          },
         )
       })
 
       State[]
-      
+
       Return[#pi-theta]
-    }
+    },
   )
 })
 

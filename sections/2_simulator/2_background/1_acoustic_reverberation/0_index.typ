@@ -52,7 +52,7 @@ $
   x[n] = (h * s)[n]
 $
 <eq:simulator:background:single_mic_signal_freefield>
-where $h[n] =  1 / (sqrt(4 pi) #d) delta [n - #d/#c #freq]$ characterizes the acoustic path from the source to the microphone. $delta$ denotes the Dirac delta function.
+where $h[n] = 1 / (sqrt(4 pi) #d) delta [n - #d/#c #freq]$ characterizes the acoustic path from the source to the microphone. $delta$ denotes the Dirac delta function.
 
 
 ==== Acoustic Reverberation
@@ -89,10 +89,10 @@ Each path has a specific delay and attenuation factor.
     long: [
       Schematic representation of an RIR.
       It can be decomposed in three sections:
-        #text(fill: rgb("#cc0000"))[direct path],
-        #text(fill: rgb("#7f00ff"))[early reflections]
-        and #text(fill: rgb("#006633"))[late reverberation].
-    ]
+      #text(fill: rgb("#cc0000"))[direct path],
+      #text(fill: rgb("#7f00ff"))[early reflections]
+      and #text(fill: rgb("#006633"))[late reverberation].
+    ],
   ),
 ) <fig:simulator:background:rir_schema>
 
@@ -143,7 +143,7 @@ $
 @eq:simulator:rir_listened_signal_multi_source can be straightly generalized to multiple microphones ${m_1, dots, m_(n_m)}$.
 The signal recorded by the $k$-th receiver is:
 $
-  m_j [n] = sum_(i=1)^(n_s) (h_(i, j) * s_i)[n]  #h(2em) forall j in [|1, n_m|],
+  m_j [n] = sum_(i=1)^(n_s) (h_(i, j) * s_i)[n] #h(2em) forall j in [|1, n_m|],
 $
 <eq:simulator:rir_listened_signal_multi_source_multi_mic>
 where $h_(i, j)$ is the #acr("RIR") corresponding to the pair of positions of source $s_i$ and microphone $m_j$.
@@ -180,7 +180,7 @@ It can be estimated from the room's dimensions and has been empirically expresse
 #let sound-speed = $colMath(c, #eastern)$
 $
   T_60 = (24 ln(10))/#sound-speed #volume/#area
-    approx 0.16 #volume/#area,
+  approx 0.16 #volume/#area,
 $
 <eq:simulator:background:sabine>
 where #sound-speed is the speed of sound in the air at 20°C, #volume is the volume of the room (in $m^3$), and #area is the _equivalent absorption surface_ (in sabins).
@@ -192,9 +192,9 @@ where $e_("abs", i)$ and $s_i$ are each surface's absorption coefficient and are
 The Sabine equation can be inverted to infer the overall absorption coefficient $e_"abs"$ of the room from a reverberation time $T_60$:
 $
   e_"abs" = (
-    24 ln(10) times #volume
+  24 ln(10) times #volume
   ) / (
-    #sound-speed times S times T_60
+  #sound-speed times S times T_60
   ).
 $ <eq:simulator:background:sabine_inv>
 Here, all surfaces are assumed to behave the same, and the _equivalent absorption surface_ #area may then be written as $#area = S times e_"abs"$, with $S$ being the total surface area.
@@ -283,7 +283,7 @@ The term spectrogram can also refer directly to the complex-valued result of the
   ],
 ) <fig:simulator:background:spectrogram>
 
-  
+
 *Motivation for Using #acr("STFT") for Reverberant Signals*
 
 The convolution theorem (Oppenheim et al. @oppenheim_discrete-time_1989 Section 2.9.6) grants one of the Fourier transform's fundamental properties.
@@ -438,15 +438,15 @@ Let us consider a binaural array with microphones $m_1$ and $m_2$.
 - The modulus of the #acr("RTF"), expressed in decibels, is called the #acr("ILD")
 $
   "ILD"[m, k]
-    = 20 log_(10) mabs("RTF"[m, k])
-    = 20 log_(10) mabs((X_2 [m, k]) / (X_1 [m, k])).
+  = 20 log_(10) mabs("RTF"[m, k])
+  = 20 log_(10) mabs((X_2 [m, k]) / (X_1 [m, k])).
 $
 <eq:simulator:background:def_ild>
 - The phase is called the #acr("IPD"):
 $
   "IPD"[m, k]
-    = arg("RTF"[m, k])
-    = arg((X_2 [m, k]) / (X_1 [m, k])).
+  = arg("RTF"[m, k])
+  = arg((X_2 [m, k]) / (X_1 [m, k])).
 $
 <eq:simulator:background:def_ipd>
 

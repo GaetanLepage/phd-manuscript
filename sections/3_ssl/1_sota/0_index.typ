@@ -41,7 +41,7 @@ Recent advances focus on integrating #acr("SSL") with multimodal systems, such a
 Nevertheless, the fundamental concepts at the base of the more classical approaches remain considerably relevant today.
 Indeed, they can help design feature extractors or pre-processing techniques to further boost the performance of deep-learning-based localizers.
 
-This introduction explores the evolution of #acr("SSL"), starting with classical signal-processing approaches and their foundational principles. 
+This introduction explores the evolution of #acr("SSL"), starting with classical signal-processing approaches and their foundational principles.
 It then transitions to deep learning methods, highlighting key advances, architectures, and datasets.
 Finally, the focus shifts to #acr("SSL") in robotics, where unique challenges and application-specific solutions are discussed, demonstrating the technology's real-world impact.
 Notably, numerous dedicated researchers have explored this research area over several years, publishing thousands of academic articles.
@@ -50,7 +50,7 @@ Conversely, our objective here is to give an overview of the field and share its
 Alongside the multiple references cited in the following paragraphs, one may refer to Grumiaux et al. @grumiaux_survey_2021 for a more detailed picture of #acr("SSL") at the age of deep learning.
 Notably, the active localization techniques dealing with moving sources and/or microphones will be presented in @chap:active_ssl in addition to our contribution to the topic.
 
-Before providing details on the various methods proposed to address SSL, we devote the following section to describing the variability in problem formulation and experimental settings. 
+Before providing details on the various methods proposed to address SSL, we devote the following section to describing the variability in problem formulation and experimental settings.
 Chronologically, the first steps were developed in simple settings, and as progress was made, scenarios of increasing complexity were proposed.
 However, the next section is not structured chronologically but by properties (simulated _vs_ real data, single _vs_ multi-source) for clarity.
 
@@ -367,7 +367,7 @@ They evaluate the proposed method by having a TurtleBot3 mobile robot carrying a
 // Constraint related to robotics
 Robotics often brings additional challenges to the #acr("SSL") task.
 Indeed, a robotic platform implies dealing with several constraints, mainly caused by interacting with the real world.
-Realistic environments are dynamic, reverberant, and noisy. 
+Realistic environments are dynamic, reverberant, and noisy.
 They involve intermittent, moving, and concurrent sources.
 Furthermore, to be relevant, a robotic system must operate in real-time.
 Contrary to some offline techniques, which can rely on computationally expensive techniques, #acr("SSL") methods are considerably constrained.
@@ -387,7 +387,7 @@ On the other hand, array processing involves using several receivers arranged in
 They leverage the redundancy of the spatial information across the multiple recorded channels.
 
 // Deep Learning
-Deep learning methods have also been used in robotics to perform #("SSL").
+Deep learning methods have also been used in robotics to perform #"SSL".
 Nguyen et al. @nguyen_autonomous_2018 have collected a dataset to train a #acr("CNN") for localizing and facing a sound source with a humanoid robot head.
 #acr("SSL") can also be employed to enhance the #acr("ASR") performance of a robotic system.
 Dávila-Chacón et al. @davila-chacon_enhanced_2019 designed such a system that infers the #doa to rotate a robotic head to maximize the speech recognition score.
@@ -402,7 +402,7 @@ Instead, the angle maximizing the reverberation of the sound wave on the artific
 As depicted in this condensed overview, multiple and diverse research efforts have been focused on solving the #acr("SSL") task.
 Although this challenge has been explored extensively for decades, the ecosystem remains vibrant, and new solutions are constantly proposed.
 The field's evolution demonstrates valuable progress as methods handle more and more complex variations of the problem.
-Classical methods like #acr("TDoA"), beamforming, and subspace algorithms have provided foundational approaches, particularly in controlled settings. 
+Classical methods like #acr("TDoA"), beamforming, and subspace algorithms have provided foundational approaches, particularly in controlled settings.
 They also leveraged foundational physical and statistical characteristics of the recorded signals.
 Researchers have gained a deep understanding of the underlying mechanism that could be used to infer sources' positions.
 Then, as in most information-processing fields, deep learning methods have permitted significant advances.

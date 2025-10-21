@@ -24,8 +24,8 @@ The time complexity of each convolution depends on the length of the #acr("RIR")
 To speed up this step, we perform the convolution in the Fourier domain instead of in the time domain (Section 8.7 of Oppenheim et al. @oppenheim_discrete-time_1989).
 This leverages the aforementioned convolution theorem (@eq:simulator:background:conv_theorem) and adapts #text[@eq:simulator:background:reverb_convolution] as follows:
 $
-  x[n] &= (#rir * s)[n]\
-  &= cal(F)^(-1) [cal(F)(#rir) times cal(F)(s)].
+  x[n] & = (#rir * s)[n] \
+       & = cal(F)^(-1) [cal(F)(#rir) times cal(F)(s)].
 $
 In the Fourier domain, the convolution turns into a simple product and is thus less computationally expensive.
 The cost of computing the forward and inverse Fourier transforms is worth it overall, especially for longer signals.

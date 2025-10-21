@@ -1,5 +1,5 @@
-#import "matter_functions.typ": front-matter, main-matter, back-matter
-#import "@preview/one-liner:0.2.0": fit-to-width 
+#import "matter_functions.typ": back-matter, front-matter, main-matter
+#import "@preview/one-liner:0.2.0": fit-to-width
 
 #let fill-line(left-text, right-text) = [#left-text #h(1fr) #right-text]
 
@@ -79,7 +79,7 @@
     // if not enable-boxed-refs {
     //   return it
     // }
-    
+
     // Skip bibliography citations.
     if it.element == none {
       return it
@@ -98,13 +98,13 @@
 
   /* -------------------------------------------------------------------- */
   /* PARAGRAPHS */
-  
+
   // Configure paragraph properties.
   // Default leading is 0.65em.
   set par(
     //leading: 0.7em,
     justify: true,
-    linebreaks: "optimized"
+    linebreaks: "optimized",
   )
   // Default spacing is 1.2em.
   set par(spacing: 1.35em)
@@ -112,12 +112,15 @@
   /* -------------------------------------------------------------------- */
   /* URL */
   show: if highlight-external-links {
-    it => { show link: underline; it }
+    it => {
+      show link: underline
+      it
+    }
   } else {
     it => it
   }
   show link: set text(dark-orange-uga) if highlight-external-links
-  
+
   // Show a small maroon circle next to external links.
   //show link: it => {
   //  // Workaround for ctheorems package so that its labels keep the default link styling.
@@ -139,13 +142,13 @@
 
   // Style chapter headings.
   show heading.where(level: 1): set heading(
-    supplement: [Chapter]
+    supplement: [Chapter],
   )
   show heading.where(level: 2): set text(18pt)
   show heading.where(level: 1): it => {
     let is-chapter = heading.numbering != none
     //set text(size: 22pt)
-    
+
     //let black_rectangle = place(
     //  //dx: -page.margin.outside,
     //  dx: -outside-margin,
@@ -190,11 +193,11 @@
         heading_number,
         fill: accent-color,
         size: 58pt,
-        weight: "bold"
+        weight: "bold",
       )
       h(0.5em)
     }
-  
+
     v(0em)
     //let title-text = fit-to-width(
     //  it.body,
@@ -220,7 +223,7 @@
     //  black_rectangle + white_heading_number + it.body,
     //  //[ \ #it.body ],
     //)
-    
+
     // Has no effect, still shows "Section"
     //set heading(supplement: [Chapter])
   }
@@ -233,7 +236,8 @@
 
   // Set page header
   set page(
-    header-ascent: 30%, header: context{
+    header-ascent: 30%,
+    header: context {
       // Get current page number.
       let page-number = here().page()
 
@@ -268,7 +272,7 @@
       }
     },
   )
-  
+
   /* -------------------------------------------------------------------- */
   /* OUTLINES */
 
@@ -277,12 +281,12 @@
   show outline: it => {
     in-outline.update(true)
     // Show table of contents, list of figures, list of tables, etc. in the table of contents
-    
+
     set heading(outlined: include-outlines-in-contents)
-    
+
     // This hides the citation in outlines (mostly for the table of figures)
     show cite: none
-    
+
     it
     in-outline.update(false)
   }
@@ -291,7 +295,7 @@
   // show outline.entry.where(level: 1): set outline.entry(fill: none)
   show outline.where(target: selector(heading)): it => {
     show outline.entry.where(level: 1): set outline.entry(fill: none)
-    
+
     it
   }
 
@@ -301,7 +305,7 @@
       if it.level == 1 {
         v(2em, weak: true)
         strong(
-          text(size: 14pt,  it)
+          text(size: 14pt, it),
         )
       } else {
         it
@@ -324,16 +328,16 @@
 
   // Prevent inline equations from being split
   show math.equation.where(block: false): box
-  
+
   set math.equation(
     numbering: eq_num => {
-      let chap_num =  counter(heading).get().first()
+      let chap_num = counter(heading).get().first()
       numbering(
         "(1.1)",
         chap_num,
-        eq_num
+        eq_num,
       )
-    }
+    },
   )
 
   /* @GL: Do not align equations to the left
@@ -346,20 +350,20 @@
 
   // FIXME: Has no effect?
   set place(clearance: 2em)
-  
+
   /* -------------------------------------------------------------------- */
   /* FIGURES */
 
   set figure(
     numbering: fig_num => {
-      let chap_num =  counter(heading).get().first()
+      let chap_num = counter(heading).get().first()
       numbering(
         "1.1",
         chap_num,
-        fig_num
+        fig_num,
       )
     },
-    gap: 1.5em
+    gap: 1.5em,
   )
 
   set figure.caption(
@@ -383,17 +387,17 @@
   // @GL: prevent figures from being split accross several pages
   show figure: set block(breakable: false)
   set figure(placement: fig-placement)
-  
+
   // @GL: Do not remove strokes from table
   //set table(stroke: none)
 
   /* -------------------------------------------------------------------- */
   /* RAW (code) */
-  
+
   // Set raw text font.
   show raw: set text(
     font: ("Iosevka", "Fira Mono"),
-    size: 9pt
+    size: 9pt,
   )
 
   // Display inline code in a small box that retains the correct baseline.

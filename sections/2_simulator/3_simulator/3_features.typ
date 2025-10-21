@@ -4,7 +4,7 @@
 === Simulation of Dynamic Scenarios
 <sec:simulator:simulator:dynamic_scenarios>
 
-The regular `step()` method of the simulator, presented in 
+The regular `step()` method of the simulator, presented in
 @sec:simulator:simulator:components allows to update the simulator and to generate new received signals.
 At each call of this function, each audio source reloads an entirely new signal and the simulation is performed subsequently.
 When asked to refresh their signal, regular speech sources draw a distinct sample from the clean speech corpus and output the corresponding signal.

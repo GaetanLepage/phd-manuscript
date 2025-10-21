@@ -10,10 +10,10 @@
     ),
     caption: [
       _Pyroomacoustics_ back-end.
-    ]
+    ],
   ),
   //<fig:simulator:simulator:mic_arrays:binaural>,
-  
+
   figure(
     image(
       "flamegraph_gpurir.png",
@@ -21,10 +21,10 @@
     ),
     caption: [
       _gpuRIR_ back-end.
-    ]
+    ],
   ),
   //<fig:simulator:simulator:mic_arrays:triangle>,
-  
+
   columns: 1,
   caption: [
     Profiling results for both available RIR simulation back-ends.

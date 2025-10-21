@@ -223,9 +223,9 @@ $
       (x_i, y_j, alpha)
       #h(1em) mid(|) #h(1em)
       (i, j, alpha) in
-        [|1, n_x|]
-        times [|1, n_y|]
-        times {0, pi/2, pi, (3 pi) / 2}
+      [|1, n_x|]
+      times [|1, n_y|]
+      times {0, pi/2, pi, (3 pi) / 2}
     },
     size: #120%
   )","
@@ -254,7 +254,7 @@ Zhu et al. @zhu_overview_2021 survey the role of action spaces in #acr("RL") and
 They notably explore the differences between continuous, discrete, and discrete-continuous hybrid action spaces.
 
 *Observation space.*
-The agent's perception of its environment is limited to the audio signal received by its microphones. 
+The agent's perception of its environment is limited to the audio signal received by its microphones.
 It does not know its current position.
 This acoustic information consists of a one-second-long recorded signal mapped to the time-frequency domain.
 Practically, the observations are #shape("C", "F", "T") real tensors where $C$ is the number of output channels, $F$ is the number of frequency bins, and $T$ is the number of temporal indices.
@@ -281,8 +281,8 @@ The practical implementation of this mapping will be discussed later in @sec:rl:
 The reward function can then be written as follows:
 $
   r_t = cases(
-    -#reward-wall-penalty  &quad "if the movement is invalid",
-    #f-reward (#cost-t) - #reward-movement-penalty bb(1) (a_t = #a-forward) &quad "otherwise,"
+    -#reward-wall-penalty & quad "if the movement is invalid",
+    #f-reward (#cost-t) - #reward-movement-penalty bb(1) (a_t = #a-forward) & quad "otherwise,"
   )
 $
 <eq:rl:problem:reward>
@@ -320,17 +320,14 @@ The transition dynamics can be expressed as the following deterministic function
   $
     cases(
       (#x(content: $x_a + d cos(#agent-ori)$), #y(content: $y_a + d sin(#agent-ori)$), #agent-ori-colored())
-        quad & "if" a=#a-forward,
-        
+      quad & "if" a=#a-forward,
       (#x(), #y(), #agent-ori-colored(content: $(#agent-ori + pi/2 )[2pi]$))
-        quad & "if" a=#a-left,
-        
+      quad & "if" a=#a-left,
       (#x(), #y(), #agent-ori-colored(content: $(#agent-ori - pi/2 )[2pi]$))
-        quad & "if" a=#a-right,
-        
+      quad & "if" a=#a-right,
       (#x(), #y(), #agent-ori-colored())
-        quad &  "if" a = #a-stay \
-               & quad| (a = #a-forward and a "is invalid").
+      quad & "if" a = #a-stay \
+           & quad| (a = #a-forward and a "is invalid").
     )
   $,
 )

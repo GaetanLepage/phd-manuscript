@@ -3,172 +3,166 @@
 #init-acronyms((
   // -----------------------------------------------------------------------------
   // Misc
-  "AI": ("Artificial Intelligence"),
-  "API": ("Application Programming Interface"),
-  "AR": ("Augmented Reality"),
-  "EM": ("expectation-maximization"),
+  "AI": "Artificial Intelligence",
+  "API": "Application Programming Interface",
+  "AR": "Augmented Reality",
+  "EM": "expectation-maximization",
   "GPU": (
     "Graphics Processing Unit",
-    "Graphics Processing Units"
+    "Graphics Processing Units",
   ),
-  "GT": ("Ground Truth"),
+  "GT": "Ground Truth",
   "HMM": (
     "Hidden Markov Model",
-    "Hidden Markov Models"
+    "Hidden Markov Models",
   ),
-  "HRI": ("Human-Robot Interaction"),
-  "LIDAR": ("light detection and ranging"),
-  "LTI": ("linear time-invariant"),
+  "HRI": "Human-Robot Interaction",
+  "LIDAR": "light detection and ranging",
+  "LTI": "linear time-invariant",
   "LUT": (
     "Look Up Table",
-    "Look Up Tables"
+    "Look Up Tables",
   ),
-  "MCTS": ("Monte Carlo tree search"),
-  "MKF": ("mixture Kalman filter"),
-  "NLP": ("Natural Language Processing"),
-  "RMSE": ("Root Mean Square Error"),
-  "SLAM": ("Simultaneous Localization And Mapping"),
-  
+  "MCTS": "Monte Carlo tree search",
+  "MKF": "mixture Kalman filter",
+  "NLP": "Natural Language Processing",
+  "RMSE": "Root Mean Square Error",
+  "SLAM": "Simultaneous Localization And Mapping",
   // -----------------------------------------------------------------------------
   // Deep Learning
-  "BatchNorm": ("Batch Normalization"),
+  "BatchNorm": "Batch Normalization",
   "CNN": (
     "Convolutional Neural Network",
-    "Convolutional Neural Networks"
+    "Convolutional Neural Networks",
   ),
   "CRNN": (
     "Convolutional Recurrent Neural Network",
     "Convolutional Recurrent Neural Networks",
   ),
-  "DL": ("deep learning"),
+  "DL": "deep learning",
   "DNN": (
     "deep neural network",
-    "deep neural networks"
+    "deep neural networks",
   ),
   "GRU": (
     "Gated Recurrent Unit",
-    "Gated Recurrent Units"
+    "Gated Recurrent Units",
   ),
   "LLM": (
     "Large Language Model",
-    "Large Language Models"
+    "Large Language Models",
   ),
-  "LayerNorm": ("Layer Normalization"),
-  "LSTM": ("Long-Short Term Memory"),
-  "RNNLM": ("Recurrent Neural Network Language Model"),
-  "MSE": ("Mean Squared Error"),
-  "MLP": ("Multi-Layer Perceptron"),
-  "ReLU": ("Rectified Linear Unit"),
+  "LayerNorm": "Layer Normalization",
+  "LSTM": "Long-Short Term Memory",
+  "RNNLM": "Recurrent Neural Network Language Model",
+  "MSE": "Mean Squared Error",
+  "MLP": "Multi-Layer Perceptron",
+  "ReLU": "Rectified Linear Unit",
   "RNN": (
     "Recurrent Neural Network",
-    "Recurrent Neural Networks"
+    "Recurrent Neural Networks",
   ),
-  "SGD": ("stochastic gradient descent"),
-  
+  "SGD": "stochastic gradient descent",
   // -----------------------------------------------------------------------------
   // ASR
-  "ASR": ("Automatic Speech Recognition"),
-  "LM": ("Language Model"),
-  "CTC": ("Connectionist Temporal Classification"),
-  "WER": ("Word Error Rate"),
-
+  "ASR": "Automatic Speech Recognition",
+  "LM": "Language Model",
+  "CTC": "Connectionist Temporal Classification",
+  "WER": "Word Error Rate",
   // -----------------------------------------------------------------------------
   // SSL
-  "DCASE": ("Detection and Classification of Acoustic Scenes and Events"),
-  "DoA": ("Direction of Arrival"),
-  "SSL": ("Sound Source Localization"),
-  "SELD": ("Sound Event Localization and Detection"),
-  "SSLR": ("Sound Source Localization for Robots"), // dataset by He et al.
-  "SRP-PHAT": ("Steered Response Power with Phase Transform"),
+  "DCASE": "Detection and Classification of Acoustic Scenes and Events",
+  "DoA": "Direction of Arrival",
+  "SSL": "Sound Source Localization",
+  "SELD": "Sound Event Localization and Detection",
+  "SSLR": "Sound Source Localization for Robots", // dataset by He et al.
+  "SRP-PHAT": "Steered Response Power with Phase Transform",
   // Metrics
-  "ACC": ("Accuracy"),
-  "MAE": ("Mean Absolute Error"),
-  "MUSIC": ("Multiple emitter location and signal parameter estimation"),
-  "ESPRIT": ("Estimation of Signal Parameters via Rotational Invariance Technique"),
+  "ACC": "Accuracy",
+  "MAE": "Mean Absolute Error",
+  "MUSIC": "Multiple emitter location and signal parameter estimation",
+  "ESPRIT": "Estimation of Signal Parameters via Rotational Invariance Technique",
   "GMM": (
     "Gaussian Mixture Model",
     "Gaussian Mixture Models",
   ),
-  "VAD": ("Voice Activity Detector"),
-
+  "VAD": "Voice Activity Detector",
   // -----------------------------------------------------------------------------
   // Active SSL
-  "ASSL": ("Active Sound Source Localization"),
-  "FoV": ("Field of View"),
-
+  "ASSL": "Active Sound Source Localization",
+  "FoV": "Field of View",
   // -----------------------------------------------------------------------------
   // Audio
   "ATF": (
     "Acoustic Transfer Function",
-    "Acoustic Transfer Functions"
+    "Acoustic Transfer Functions",
   ),
-  "BEM": ("Boundary Element Method"),
-  "BINAAHR": ("BINaural Active Audition for Humanoid Robots"),
-  "BST": ("Bidirectional Sound Transport"),
+  "BEM": "Boundary Element Method",
+  "BINAAHR": "BINaural Active Audition for Humanoid Robots",
+  "BST": "Bidirectional Sound Transport",
   "DFT": (
     "Discrete Fourier Transform",
-    "Discrete Fourier Transforms"
+    "Discrete Fourier Transforms",
   ),
-  "FDTD": ("Finite-Difference Time-Domain"),
+  "FDTD": "Finite-Difference Time-Domain",
   "FEM": (
     "Finite-Element Method",
     "Finite-Element Methods",
   ),
-  "FFT": ("Fast Fourier Transform"),
+  "FFT": "Fast Fourier Transform",
   "FIR": (
     "finite impulse response",
     "finite impulse responses",
   ),
-  "FOA": ("first-order Ambisonics"),
-  "GA": ("Geometrical Acoustics"),
-  "GCC": ("Generalized Cross-Correlation"),
-  "GCC-PHAT": ("Generalized Cross-Correlation with Phase Transform"),
+  "FOA": "first-order Ambisonics",
+  "GA": "Geometrical Acoustics",
+  "GCC": "Generalized Cross-Correlation",
+  "GCC-PHAT": "Generalized Cross-Correlation with Phase Transform",
   "HRTF": (
     "head-related transfer function",
-    "head-related transfer functions"
+    "head-related transfer functions",
   ),
-  "ILD": ("Interaural Level Difference"),
-  "IPD": ("Interaural Phase Difference"),
-  "ITD": ("Interaural Time Difference"),
-  "ISM": ("Image Source Method"),
-  "MFCC": ("Mel-Frequency Cepstral Coefficients"),
-  "PHAT": ("Phase Transform"),
-  "RIR": ("Room Impulse Response"),
-  "RTF": ("Related Transfer Function"),
-  "SED": ("Sound Event Detection"),
-  "SNR": ("Signal to Noise Ratio"),
+  "ILD": "Interaural Level Difference",
+  "IPD": "Interaural Phase Difference",
+  "ITD": "Interaural Time Difference",
+  "ISM": "Image Source Method",
+  "MFCC": "Mel-Frequency Cepstral Coefficients",
+  "PHAT": "Phase Transform",
+  "RIR": "Room Impulse Response",
+  "RTF": "Related Transfer Function",
+  "SED": "Sound Event Detection",
+  "SNR": "Signal to Noise Ratio",
   "STFT": (
     "Short-Term Fourier Transform",
-    "Short-Term Fourier Transforms"
+    "Short-Term Fourier Transforms",
   ),
-  "TDoA": ("time difference of arrival"),
-  "ULA": ("Uniform Linear Array"),
-  
+  "TDoA": "time difference of arrival",
+  "ULA": "Uniform Linear Array",
   // -----------------------------------------------------------------------------
   // RL
-  "CASP": ("Critical Assessment of protein Structure Prediction"),
-  "DDPG": ("deep deterministic policy gradient"),
-  "DQN": ("Deep Q Learning"),
-  "DRL": ("Deep Reinforcement Learning"),
-  "GAE": ("Generalized Advantage Estimation"),
-  "KL": ("Kullback-Leibler"),
-  "LQR": ("Linear–quadratic regulator"),
+  "CASP": "Critical Assessment of protein Structure Prediction",
+  "DDPG": "deep deterministic policy gradient",
+  "DQN": "Deep Q Learning",
+  "DRL": "Deep Reinforcement Learning",
+  "GAE": "Generalized Advantage Estimation",
+  "KL": "Kullback-Leibler",
+  "LQR": "Linear–quadratic regulator",
   "MDP": (
     "Markov Decision Process",
-    "Markov Decision Processes"
+    "Markov Decision Processes",
   ),
-  "MFAE": ("mean final angle error"),
-  "MFD": ("mean final distance"),
-  "MFC": ("mean final cost"),
-  "MPC": ("Model Predictive Control"),
-  "PESQ": ("Perceptual Evaluation of Speech Quality"),
-  "PG": ("Policy Gradient"),
-  "POMDP": ("partially observable Markov Decision Process"),
-  "PID": ("Proportional-Integral-Derivative"),
-  "PPO": ("Proximal Policy Optimization"),
-  "RL": ("Reinforcement Learning"),
-  "RLHF": ("Reinforcement Learning from Human Feedback"),
-  "SAC": ("soft actor-critic"),
-  "TD": ("Temporal-difference"),
-  "TRPO": ("Trust Region Policy Optimization")
+  "MFAE": "mean final angle error",
+  "MFD": "mean final distance",
+  "MFC": "mean final cost",
+  "MPC": "Model Predictive Control",
+  "PESQ": "Perceptual Evaluation of Speech Quality",
+  "PG": "Policy Gradient",
+  "POMDP": "partially observable Markov Decision Process",
+  "PID": "Proportional-Integral-Derivative",
+  "PPO": "Proximal Policy Optimization",
+  "RL": "Reinforcement Learning",
+  "RLHF": "Reinforcement Learning from Human Feedback",
+  "SAC": "soft actor-critic",
+  "TD": "Temporal-difference",
+  "TRPO": "Trust Region Policy Optimization",
 ))

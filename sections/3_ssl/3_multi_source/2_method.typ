@@ -93,11 +93,11 @@ Given its #acr("STFT") $S in CC^(T times F)$, the average energy
 of a real-valued signal, expressed in decibels (dB), is defined as
 $
   E(S)_"dB" =
-    1 / (T F)
-    sum_(t=1)^T
-    sum_(f=1)^F
-    20 log_10
-    lr(abs(S[t, f]), size: #150%).
+  1 / (T F)
+  sum_(t=1)^T
+  sum_(f=1)^F
+  20 log_10
+  lr(abs(S[t, f]), size: #150%).
 $
 We reject the chunks of the simulated samples where, for at least one microphone, the energy of the selected fragment is too low compared to the average energy of the entire simulated signal.
 Let
@@ -109,9 +109,9 @@ $
     #tau-e
   ) = limits(and)_(k=1)^4
   [
-    E(#chunk-spec)_"dB" 
+    E(#chunk-spec)_"dB"
     > E(#global-spec)_"dB"
-      - #tau-e
+    - #tau-e
   ].
 $
 where $colMath(tau_E, #orange)$ has been set to 10dB in our primary dataset.
@@ -152,10 +152,10 @@ We denote $phi.alt_i$ the angle value corresponding to the $i$-th index of $o$:
   $bracket.l.double 1, d bracket.r.double$,
   $[-pi, pi]$,
   $i$,
-  $phi.alt_i.$
+  $phi.alt_i.$,
 )
 <eq:ssl:multi_source:phi_def>
-We naturally have 
+We naturally have
 - $phi.alt_1 = - pi$,
 - $phi.alt_(floor(d/2)) tilde.eq 0$,
 - $phi.alt_d = pi$.
@@ -178,25 +178,25 @@ A first solution to this problem could be placing a pseudo-Dirac at the exact lo
 
 $
   o(Theta)_i := cases(
-    1 #h(1cm) &"if" exists theta in Theta | phi.alt_i = theta,
-    0 &"otherwise,"
+    1 #h(1cm) & "if" exists theta in Theta | phi.alt_i = theta,
+    0 & "otherwise,"
   )
 $
 Instead, a more robust regression target is introduced.
 It consists in combining $n_s$ unnormalized Gaussians centered at each #doa angles:
 $
   o(Theta)_i := cases(
-      display(max_(theta in Theta))
-      {
-        e^(
-          -(#d (
-            phi.alt_i,
-            theta
-          )^2)
-          / sigma^2
-        )
-      } &"if" n_s > 0,
-    0 &"otherwise,"
+    display(max_(theta in Theta))
+    {
+      e^(
+      -(#d (
+        phi.alt_i,
+        theta
+      )^2)
+      / sigma^2
+      )
+    } & "if" n_s > 0,
+    0 & "otherwise,"
   )
 $
 <eq:ssl:multi_source:doa_encoding>
@@ -209,7 +209,7 @@ We chose to set $sigma = 5°$.
   image("figures/doa_encoding.svg"),
   caption: [
     #_doa spectrum encoding of three sources.
-  ]
+  ],
 )
 <fig:ssl:multi_source:doa_gt_encoding>
 
@@ -224,21 +224,21 @@ The index of local maxima higher than a threshold #xi-doa serve as the #doa pred
 $
   hat(y) (hat(o), #xi-doa) = {
     phi.alt_i:
-      // heat threshold
-      colMath(hat(o)_i > xi, #maroon)
-      "and"
-      // Local maximum
-      colMath(
-        hat(o)_i = max_(
-          j in [|1, d|],\
-          d(
-            phi.alt_i, phi.alt_j
-          ) < sigma_n
-        ) hat(o)_j,
-        #olive
-      ),
-      #h(2em)
-      i in [|1, d|]
+    // heat threshold
+    colMath(hat(o)_i > xi, #maroon)
+    "and"
+    // Local maximum
+    colMath(
+      hat(o)_i = max_(
+      j in [|1, d|],\
+      d(
+        phi.alt_i, phi.alt_j
+      ) < sigma_n
+      ) hat(o)_j,
+      #olive
+    ),
+    #h(2em)
+    i in [|1, d|]
   }.
 $ <eq:ssl:multi_source:decoding_unknown_sources>
 For this process to succeed, the neighborhood threshold $colMath(sigma_n, #olive)$ must be defined carefully.
@@ -250,22 +250,21 @@ When the number $colMath(z, #eastern)$ of active sources is known, @eq:ssl:multi
 $
   hat(y) (hat(o); colMath(z, #eastern)) = {
     phi.alt_i:
-
-      "among the" colMath(z, #eastern) "greatest"
-      colMath(
-        hat(o)_i = max_(
-          j in [|1, d|],\
-          d(
-            phi.alt_i, phi.alt_j
-          ) < sigma_n
-        )
-        hat(o)_j,
-        #olive
+    "among the" colMath(z, #eastern) "greatest"
+    colMath(
+      hat(o)_i = max_(
+      j in [|1, d|],\
+      d(
+        phi.alt_i, phi.alt_j
+      ) < sigma_n
       )
-      // heat threshold
-      ,
-      #h(2em)
-      i in [|1, d|]
+      hat(o)_j,
+      #olive
+    )
+    // heat threshold
+    ,
+    #h(2em)
+    i in [|1, d|]
   }.
 $
 <eq:ssl:multi_source:decoding_known_sources>
@@ -288,7 +287,7 @@ As discussed in @sec:ssl:background:deep_learning, using the image-like time-fre
 #figure(
   image(
     "figures/ssl_multisource_nn_architecture.svg",
-    height: 80%
+    height: 80%,
   ),
   caption: [
     Deep neural network architecture for multi-source SSL.

@@ -15,6 +15,6 @@
       The average #acr("WER") was computed from recordings at each position and cardinal orientation of a cardioid microphone.
       Hence, the obtained cost depends on both the agent's position and orientation.
     ],
-  )
+  ),
 )
 <fig:rl:results:directional_map>

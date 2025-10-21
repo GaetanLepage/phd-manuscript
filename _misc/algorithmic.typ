@@ -8,51 +8,51 @@
  */
 
 #let ast_to_content_list(indent, ast) = {
-    if type(ast) == array {
-        ast.map(d => ast_to_content_list(indent, d))
-    } else if type(ast) == content {
-        (pad(left: indent * 0.5em, ast),)
-    } else if type(ast) == dictionary {
-        let new_indent = ast.at("change_indent", default: 0) + indent
-        ast_to_content_list(new_indent, ast.body)
-    }
+  if type(ast) == array {
+    ast.map(d => ast_to_content_list(indent, d))
+  } else if type(ast) == content {
+    (pad(left: indent * 0.5em, ast),)
+  } else if type(ast) == dictionary {
+    let new_indent = ast.at("change_indent", default: 0) + indent
+    ast_to_content_list(new_indent, ast.body)
+  }
 }
 
 #let algorithm(..bits) = {
-    let content = bits.pos().map(b => ast_to_content_list(0, b)).flatten()
-    let table_bits = ()
-    let lineno = 1
+  let content = bits.pos().map(b => ast_to_content_list(0, b)).flatten()
+  let table_bits = ()
+  let lineno = 1
 
-    while lineno <= content.len() {
-        table_bits.push([#lineno:])
-        table_bits.push(content.at(lineno - 1))
-        lineno = lineno + 1
-    }
-    table(
-        columns: (18pt, 100%),
-        // line spacing
-        inset: 0.3em,
-        stroke: none,
-        ..table_bits
-    )
+  while lineno <= content.len() {
+    table_bits.push([#lineno:])
+    table_bits.push(content.at(lineno - 1))
+    lineno = lineno + 1
+  }
+  table(
+    columns: (18pt, 100%),
+    // line spacing
+    inset: 0.3em,
+    stroke: none,
+    ..table_bits
+  )
 }
 
 #let iflike_block(kw1: "", kw2: "", cond: "", ..body) = (
-    (strong(kw1) + " " + cond + " " + strong(kw2)),
-    // XXX: .pos annoys me here
-    (change_indent: 4, body: body.pos())
+  (strong(kw1) + " " + cond + " " + strong(kw2)),
+  // XXX: .pos annoys me here
+  (change_indent: 4, body: body.pos()),
 )
 
 #let function_like(name, kw: "function", args: (), ..body) = (
-    iflike_block(kw1: kw, cond: (smallcaps(name) + "(" + args.join(", ") + ")"), ..body)
+  iflike_block(kw1: kw, cond: (smallcaps(name) + "(" + args.join(", ") + ")"), ..body)
 )
 
 #let listify(v) = {
-    if type(v) == "list" {
-        v
-    } else {
-        (v,)
-    }
+  if type(v) == "list" {
+    v
+  } else {
+    (v,)
+  }
 }
 
 #let Function = function_like.with(kw: "function")

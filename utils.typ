@@ -1,9 +1,9 @@
 //#import "@preview/minitoc:0.1.0": minitoc as _minitoc
 #import "@preview/subpar:0.1.1"
-#import "@preview/one-liner:0.2.0": fit-to-width 
+#import "@preview/one-liner:0.2.0": fit-to-width
 
 #import "_misc/acrostiche.typ": acr, acrpl, reset-acronym
-#import "_misc/template/_index.typ": in-outline, fill-line, fig-placement
+#import "_misc/template/_index.typ": fig-placement, fill-line, in-outline
 #import "_misc/notations.typ": *
 #import "_misc/minitoc.typ": minitoc as _minitoc
 
@@ -41,11 +41,12 @@
   to,
   input,
   output,
-) = $
-   #symbol: && from & --> #to\
-     
-   && input & arrow.r.long.bar  output
-$
+) = {
+  $
+    #symbol: &&  from & --> #to \
+             && input & arrow.r.long.bar output
+  $
+}
 
 #let proof(body) = block(
   inset: (x: 1em, y: 1em),
@@ -58,28 +59,28 @@ $
     sym.wj
     sym.space.nobreak
     $qed$
-  }
+  },
 )
 
 /* FIGURES */
 // Numbering
 #let fig-numbering = fig_num => {
-  let chap_num =  counter(heading).get().first()
-  
+  let chap_num = counter(heading).get().first()
+
   numbering(
     "1.1",
     chap_num,
-    fig_num
+    fig_num,
   )
 }
 #let fig-numbering-sub-ref = (super_num, sub_num) => {
-  let chap_num =  counter(heading).get().first()
-  
+  let chap_num = counter(heading).get().first()
+
   numbering(
     "1.1a",
     chap_num,
     super_num,
-    sub_num
+    sub_num,
   )
 }
 // Grid figures
@@ -90,7 +91,7 @@ $
 
 /* COMMENTING */
 
-#let minitoc(indent: true) = { 
+#let minitoc(indent: true) = {
   if show-chapter-tocs {
     _minitoc(indent: indent)
   } else {
@@ -103,9 +104,8 @@ $
 }
 #let draft(body) = {
   set text(fill: maroon)
-  
-  if show-drafts { [_#body _] }
-  else { "" }
+
+  if show-drafts { [_#body _] } else { "" }
 }
 #let todo = draft[TODO]
 
@@ -134,8 +134,7 @@ $
 ) = context {
   if in-outline.get() {
     short
-  }
-  else {
+  } else {
     long
   }
 }

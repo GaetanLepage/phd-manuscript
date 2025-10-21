@@ -6,7 +6,7 @@
       "dataset_statistics.svg",
       height: 10cm,
     ),
-    dx: 33pt
+    dx: 33pt,
   ),
   caption: flex-caption(
     short: [
@@ -17,6 +17,6 @@
       Microphone and source positions are randomly sampled within a rectangular room, resulting in a uniform distribution of #doa values.
       Source-to-array distances range from 0 to 7 meters, with values around 2-3 meters being the most frequent.
     ],
-  )
+  ),
 )
 <fig:ssl:single_source:dataset_statistics>

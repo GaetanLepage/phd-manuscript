@@ -11,7 +11,7 @@ Although the focus will be directed towards methods that predict solely the #doa
   image("figures/ssl_task.svg", height: 20em),
   caption: [
     Schema of the SSL task.
-  ]
+  ],
 )
 <fig:ssl:single_source:task>
 

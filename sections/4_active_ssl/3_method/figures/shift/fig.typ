@@ -9,7 +9,7 @@
     ),
     caption: [
       Local #_doa map $M_t$, expressed in $cal(F)_t$.
-    ]
+    ],
   ),
   figure(
     image(
@@ -18,9 +18,10 @@
     ),
     caption: [
       Same map shifted to $cal(F)_t'$.
-    ]
+    ],
   ),
-  columns: (1fr, 1fr,),
+
+  columns: (1fr, 1fr),
   align: top,
 
   placement: fig-placement,

@@ -22,7 +22,7 @@ Also, we discuss the relevance of the #acr("SSL") task for the robotics research
 We then present our methodological and experimental work on this topic.
 Single-source and multi-source statements of the localization problem have been explored in distinct ways.
 The proposed solutions have been tested and implemented in the simulator introduced in the previous chapter.
-  
+
 #include "1_sota/0_index.typ"
 #include "2_single_source/0_index.typ"
 #include "3_multi_source/0_index.typ"

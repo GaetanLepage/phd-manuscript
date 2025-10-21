@@ -12,10 +12,9 @@ Rather than relying on value estimates to induce a policy, these methods treat t
 This policy often takes the form of a deep neural network whose weights are $theta$.
 The objective is typically to maximize the expected return $J(theta)$, defined as:
 $
-  J(theta)
-  &= EE_(tau ~ pi_theta) [R(tau)]\
-  &= sum_(s in cal(S)) d_(pi_theta) (s) V_pi (s)\
-  &= sum_(s in cal(S)) d_(pi_theta) (s) pi_theta (a  | s) Q_(pi_theta) (s, a),
+  J(theta) & = EE_(tau ~ pi_theta) [R(tau)] \
+           & = sum_(s in cal(S)) d_(pi_theta) (s) V_pi (s) \
+           & = sum_(s in cal(S)) d_(pi_theta) (s) pi_theta (a | s) Q_(pi_theta) (s, a),
 $
 <eq:rl:intro:pg_algorithms:expected_return>
 This decomposition expresses the expected return as a weighted sum over states and actions, where $d_pi_theta (s)$ is the stationary state distribution under policy $pi_theta$​.
@@ -41,9 +40,9 @@ Let $pi_theta (a | s)$ be a differentiable policy and $J(theta)$ the expected re
 Then:
 $
   nabla_theta J(theta) =
-    EE_(s~ d_(pi_theta), a~pi_theta) [
-      nabla_theta log pi_theta (a | s) Q_(pi_theta)(s, a)
-    ]
+  EE_(s~ d_(pi_theta), a~pi_theta) [
+    nabla_theta log pi_theta (a | s) Q_(pi_theta)(s, a)
+  ]
 $
 <eq:rl:intro:policy_gradient_theorem>
 
@@ -73,17 +72,14 @@ The estimation of the advantage function was addressed by Schulman et al. @schul
 To estimate the advantage function, we may consider the following class of estimators $hat(A)_t^((k))$:
 $
   &hat(A)_t^((1))
-    &&:= delta_t^V
-    &&= r_t + gamma   V(s_(t+1)) - V(s_t)\
-  
+  &&:= delta_t^V
+  &&= r_t + gamma V(s_(t+1)) - V(s_t)\
   &hat(A)_t^((2))
-    &&:= delta_t^V + gamma delta_(t+1)^V
-    &&= r_t + gamma r_(t+1) + gamma^2 V(s_(t+2)) - V(s_t)\
-  
+  &&:= delta_t^V + gamma delta_(t+1)^V
+  &&= r_t + gamma r_(t+1) + gamma^2 V(s_(t+2)) - V(s_t)\
   & dots
-    &&:= dots
-    &&= dots\
-  
+  &&:= dots
+  &&= dots\
   &hat(A)_t^((infinity)) &&:= sum_(l=0)^(infinity) gamma^l delta_(t+l)^V &&= r_t + gamma r_(t+1) + gamma^2 r_(t+2) + dots - V(s_t),
 $
 where $delta_t^V$ estimates the #acr("TD") error.
@@ -115,8 +111,8 @@ By tuning $lambda$, one can interpolate between these extremes, making #acr("GAE
 It can be shown that @eq:rl:intro:gae_def simplifies to:
 $
   hat(A)_t^("GAE"(gamma, lambda))
-    = sum_(k=0)^(infinity)
-    (lambda gamma)^k delta_(t + k) ^V.
+  = sum_(k=0)^(infinity)
+  (lambda gamma)^k delta_(t + k)^V.
 $
 Therefore, the #acr("GAE") estimator is the exponentially-decayed sum of rewards.
 In practice, it has become a standard component in modern actor-critic methods, such as #acr("PPO") @schulman_proximal_2017 and A3C @mnih_asynchronous_2016.
@@ -139,10 +135,9 @@ The #acr("TRPO") objective is to maximize the expected advantage while keeping t
 This translates to maximizing:
 $
   L^"TRPO" (theta) = hat(EE)_t [
-      (pi_theta (a_t | s_t))
-      /
-      (pi_theta_"old" (a_t | s_t))
-    
+    (pi_theta (a_t | s_t))
+    /
+    (pi_theta_"old" (a_t | s_t))
     hat(A)_t
   ]
 $
@@ -168,7 +163,6 @@ $
     /
     (pi_theta_"old" (a_t | s_t))
     hat(A)_t
-
     - beta "KL" [
       pi_theta_"old" (dot | s_t),
       pi_theta (dot | s_t)
@@ -192,14 +186,16 @@ Bick @bick_towards_2021 offers a comprehensive and accessible dissection of #acr
 The #acr("PPO") objective combines three components: a clipped policy loss, a value function loss, and an optional entropy bonus.
 The clipped policy loss is defined as:
 $
-  #ppo-clipped-loss-theta = min lr([
-    #policy-ratio (theta) hat(A)_t,
-    "clip"(
-      #policy-ratio (theta),
-      1 - epsilon,
-      1 + epsilon
-    ) hat(A)_t
-  ], size: #140%),
+  #ppo-clipped-loss-theta = min lr(
+    [
+      #policy-ratio (theta) hat(A)_t,
+      "clip"(
+        #policy-ratio (theta),
+        1 - epsilon,
+        1 + epsilon
+      ) hat(A)_t
+    ], size: #140%
+  ),
 $
 <eq:rl:intro:ppo:policy_loss>
 where $#policy-ratio (theta)$ is the ratio between the old and new policy for the state $s_t$:
@@ -229,7 +225,7 @@ $
 
 The final #acr("PPO") loss can finally be expressed as:
 $
-  #ppo-loss _t (theta) = 
+  #ppo-loss _t (theta) =
   hat(EE)_t lr(
     [
       #ppo-clipped-loss-theta

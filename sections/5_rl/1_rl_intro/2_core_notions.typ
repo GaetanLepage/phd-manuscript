@@ -19,7 +19,7 @@ This section briefly introduces the main concepts and notations required to form
   ),
   caption: [
     Reinforcement Learning framework.
-  ]
+  ],
 )
 <fig:rl:rl_intro:rl_schema>
 
@@ -40,17 +40,17 @@ An #acr("MDP") consists of a tuple $<cal(S), cal(A), P, r, gamma>$.
 - $r$: The reward real-valued function $r: cal(S) times cal(A) times cal(S) -> RR$ maps each state-action pair to its reward $r(s, a, s')$.
   In some environments, the reward might solely depend on the next state: $r(s')$.
   The reward may also be non-deterministic, in which case we take its expectation.
-  //When this reward is non-deterministic, we write $R_t$ for its expectation:
-  //$
-  //  R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s'].
-  //$
+//When this reward is non-deterministic, we write $R_t$ for its expectation:
+//$
+//  R_t = EE[r_(t+1) mid(|) s_t = s, a_t = a, s_(t+1) = s'].
+//$
 - $gamma$: The discount factor in $[0, 1)$ dampens the impact of future rewards.
 
 *Expected Return Maximization.*
 The agent seeks to maximize the cumulative discounted rewards it collects over time.
 This objective is formalized as the return:
 $
-  G_t = sum_(k=0)^infinity gamma ^k r_(t+k+1).
+  G_t = sum_(k=0)^infinity gamma^k r_(t+k+1).
 $
 Here, $r_(t+k+1)$ is the reward obtained after taking action $a_(t+k)$ in state $s_(t+k)$, leading to state $s_(t+k+1)$.
 Discounting models the idea that immediate rewards are more valuable than distant ones, and helps prioritize short-term gains while still accounting for long-term outcomes.
@@ -84,8 +84,8 @@ $
     ),
     size: #150%
   )_(
-    1 <= i <= abs(cal(A)),\
-    1 <= j <= abs(cal(S))
+  1 <= i <= abs(cal(A)),\
+  1 <= j <= abs(cal(S))
   ).
 $
 When dealing with continuous action spaces, most methods use classical probability distributions for which they learn the parameters.
@@ -106,8 +106,8 @@ The value function is a fundamental quantity in #acr("RL").
 Given a policy $pi$, it measures the _quality_ of being in a specific state and following this policy.
 It is the expectation of future gains starting from the state $s$:
 $
-  #v-pi (s) &:= EE_pi [G_t | s_t = s]\
-    &= EE_pi [sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s].
+  #v-pi (s) & := EE_pi [G_t | s_t = s] \
+            & = EE_pi [sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s].
 $
 <eq:rl:intro:value_function>
 Naturally, this quantity depends on the considered policy $pi$.
@@ -119,8 +119,8 @@ This notion underlies many #acr("RL") algorithms, especially those that evaluate
 *Q-function.*
 The action-value function or Q-function quantifies the expected return for taking action $a$ in state $s$, and thereafter following policy $pi$:
 $
-  #q-pi (s, a) &:= EE_pi [G_t | s_t = s, a_t = a]\
-    &= EE_pi [sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s, a_t = a].
+  #q-pi (s, a) & := EE_pi [G_t | s_t = s, a_t = a] \
+               & = EE_pi [sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s, a_t = a].
 $
 <eq:rl:intro:q_function>
 The Q-function extends the concept of value by also conditioning on the action taken in the current state.

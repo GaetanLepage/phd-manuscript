@@ -10,5 +10,5 @@
       Illustration of the most common microphone polar patterns @stoddart_beginners_2016.
     ],
   ),
-) 
+)
 <fig:ssl:single_source:polar_patterns>

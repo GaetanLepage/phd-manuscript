@@ -25,26 +25,26 @@ The following function thus characterizes a correct/incorrect detection:
 ~_Precision_ and _recall_ definitions remain the same as for the previously introduced static #acr("SSL") task:
 $
   "Precision" = (
-    sum_i
-    sum_(j=1)^(z_i)
-    sum_(k=1)^(hat(z)_i)
-    m(
-      hat(X)_(i, k),
-      X_(i, k)
-    )
+  sum_i
+  sum_(j=1)^(z_i)
+  sum_(k=1)^(hat(z)_i)
+  m(
+    hat(X)_(i, k),
+    X_(i, k)
+  )
   ) / (sum_i hat(z)_i),
 $
 <eq:ssl:multi_source:prec>
 
 $
   "Recall" = (
-    sum_i
-    sum_(j=1)^(z_i)
-    sum_(k=1)^(hat(z)_i)
-    m(
-      hat(X)_(i, k),
-      X_(i, k)
-    )
+  sum_i
+  sum_(j=1)^(z_i)
+  sum_(k=1)^(hat(z)_i)
+  m(
+    hat(X)_(i, k),
+    X_(i, k)
+  )
   ) / (sum_i z_i).
 $
 <eq:ssl:multi_source:recall>
@@ -153,7 +153,7 @@ Those properties allow for better separability and fewer points being fed into t
   ),
   caption: [
     Number of points remaining after the filtering operation with respect to #clip-t.
-  ]
+  ],
 )
 <fig:active_ssl:results:n_points_cluster>
 

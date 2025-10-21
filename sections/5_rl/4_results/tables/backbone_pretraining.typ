@@ -11,36 +11,24 @@
     columns: 3,
     align: left + horizon,
     stroke: none,
-    
+
     // HEADER
     toprule,
 
-    table.header(
-      [Feature extractor training strategy],
-      mean-cum-reward-header,
-      mfc-header,
-    ),
+    table.header([Feature extractor training strategy], mean-cum-reward-header, mfc-header),
 
     midrule,
 
-    [#pi-safe-random],
-    [#pi-safe-random-rew-wer-dir],
-    [#pi-safe-random-mfc-wer-dir],
-    
+    [#pi-safe-random], [#pi-safe-random-rew-wer-dir], [#pi-safe-random-mfc-wer-dir],
+
     // exp 302
-    [No pretraining],
-    [1473],
-    [22.78],
-    
+    [No pretraining], [1473], [22.78],
+
     // exp 303
-    [Pretraining + fine-tuning],
-    [1480],
-    [22.36],
-    
+    [Pretraining + fine-tuning], [1480], [22.36],
+
     // exp 304
-    [Pretraining + frozen],
-    [*#exp-301-rew-wer*],
-    [*#exp-301-mfc-wer*],
+    [Pretraining + frozen], [*#exp-301-rew-wer*], [*#exp-301-mfc-wer*],
 
     bottomrule,
   ),

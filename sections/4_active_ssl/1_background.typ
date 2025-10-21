@@ -55,7 +55,7 @@ In @nguyen_localizing_2016, the authors proposed a #acr("MKF") to model the syst
 While angular #acr("SSL") methods yield satisfying results, estimating the robot-source distance has proven significantly harder.
 Hence, this study focuses on fusing movement information with #doa estimation to predict the distance to the source.
 The state vector consists of the absolute position of the robot, the sound source, and the source's activity (whether it is active or not).
-The provided theoretical derivation of the #acr("MKF") allows the estimation to be updated. 
+The provided theoretical derivation of the #acr("MKF") allows the estimation to be updated.
 The experiments illustrate the importance of the robot's movements in achieving successful localization.
 Indeed, at the beginning of the trajectories, the estimation suffers from the front-back ambiguity.
 As the robot moves and accumulates information, the accuracy of the prediction increases.

@@ -29,7 +29,7 @@
 #let ppo-value-loss-clipped = $L_t^"VF, CLIPPED"$
 #let ppo-value-loss-clipped-theta = $#ppo-value-loss-clipped (theta)$
 #let v-theta
-#let ppo-entropy-bonus = $colMath(S[pi_theta](s_t) , #eastern)$
+#let ppo-entropy-bonus = $colMath(S[pi_theta](s_t), #eastern)$
 //#let ppo-loss = $L_t ^("CLIP" + "VF" + "S")$
 #let ppo-loss = $L^"PPO"$
 #let ppo-loss-epsilon = $epsilon$

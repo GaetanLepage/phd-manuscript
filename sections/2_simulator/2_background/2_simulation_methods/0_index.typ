@@ -121,7 +121,7 @@ The significant popularity of the #acr("ISM") is partly due to its simplicity an
       The black arrow represents the direct path from the source to the receiver.
       The grey arrows depict the paths corresponding to the first-order reflections.
     ],
-  )
+  ),
 )
 <fig:simulator:background:image_source>
 

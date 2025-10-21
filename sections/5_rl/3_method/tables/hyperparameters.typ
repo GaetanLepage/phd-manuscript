@@ -9,17 +9,12 @@
     columns: 4,
     align: left + horizon,
     stroke: none,
-    
+
     // HEADER
     toprule,
 
-    table.header(
-      [Type],
-      [Name],
-      [Description],
-      [Value],
-    ),
-    
+    table.header([Type], [Name], [Description], [Value]),
+
     midrule,
 
     table.cell(rowspan: 4)[Environment],
@@ -29,7 +24,7 @@
     [#delta-grid], [Grid spatial resolution], [0.5m],
 
     midrule,
-    
+
     table.cell(rowspan: 2)[General],
     [#n-ppo-iter], [Number of #acr("PPO") iterations], [#n-ppo-iter-value],
     [#n-ppo-steps], [Number of transitions per batch], [2000],
@@ -42,9 +37,9 @@
     [#ppo-value-loss-epsilon], [Clipping threshold for the clipped value loss #ppo-value-loss-clipped], [0.1],
     [#coef-value], [Loss value coefficient], [0.5],
     [#coef-entropy], [Entropy coefficient], [$10^(-2)$],
-    
+
     midrule,
-    
+
     table.cell(rowspan: 4)[Learning],
     [mini-batch size], [Number of samples (transitions) in each mini-batch], [500],
     [#n-ppo-epochs], [Number of training epochs per iteration], [64],
@@ -58,6 +53,6 @@
   kind: table,
   caption: text(size: 12pt)[
     Final hyperparameter values used to train the PPO algorithm.
-  ]
+  ],
 )
 <table:rl:method:hyperparameters>

@@ -11,7 +11,7 @@
     columns: 7,
     stroke: none,
     align: left + horizon,
-    
+
     // HEADER
     toprule,
 
@@ -25,11 +25,11 @@
       midrule,
       mean-cum-reward-header,
       mfc-header,
-      
+
       mean-cum-reward-header,
       mfc-header,
     ),
-    
+
     midrule,
 
     // ROWS
@@ -52,9 +52,9 @@
     //[dir.], [-], [-], [-], [#pi-orient-rew-wer-dir], [#pi-orient-mfc-wer-dir],
     //
     //midrule,
-    
+
     // LEARNED POLICIES ----------------------------------------
-    
+
     // exp 300
     table.cell(rowspan: 4)[#pi-theta],
     table.cell(rowspan: 2)[omni.],
@@ -63,16 +63,16 @@
     [-],
     [#exp-300-rew-wer],
     [#exp-300-mfc-wer],
-    
+
     // exp 310
     [#analytical-cost],
     [#exp-310-rew-analytical],
     [#exp-310-mfc-analytical],
     [*#exp-310-rew-wer*],
     [*#exp-310-mfc-wer*],
-    
+
     midrule,
-    
+
     // exp 301
     table.cell(rowspan: 2)[dir.],
     [#wer-cost],
@@ -80,14 +80,14 @@
     [-],
     [*#exp-301-rew-wer*],
     [*#exp-301-mfc-wer*],
-    
+
     // exp 311
     [#analytical-cost],
     [#exp-311-rew-analytical],
     [#exp-311-mfc-analytical],
     [#exp-311-rew-wer],
     [#exp-311-mfc-wer],
-    
+
     bottomrule,
   ),
   placement: top,

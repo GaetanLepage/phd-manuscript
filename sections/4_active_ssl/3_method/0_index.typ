@@ -28,7 +28,7 @@ The individual steps of the process will be detailed in the following sections.
   ),
   caption: [
     Active-#acr("SSL") pipeline.
-  ]
+  ],
 )
 <fig:active_ssl:method:pipeline>
 
@@ -83,8 +83,7 @@ Such a mapping is defined as:
   $Psi$,
   $RR^(H times p times p)$,
   $RR^(p times p)$,
-  $
-  bold(tilde(M))_t = (
+  $bold(tilde(M))_t = (
     tilde(M)_(t-H+1),
     dots,
     tilde(M)_t
@@ -141,15 +140,15 @@ The envelope of those Gaussians leads to the continuous target map:
   $X = (x, y)$,
   $display(
     max_(
-      X_s = (x_s, y_s)
-      in cal(X)_s)
+    X_s = (x_s, y_s)
+    in cal(X)_s)
+  )
+  {
+    e^(
+    -(norm(X - X_s)^2)
+    / sigma^2
     )
-      {
-        e^(
-          -(norm(X - X_s)^2)
-          / sigma^2
-        )
-      },$
+  },$,
 )
 where $sigma$ affects the spread of each blob and has been set to 0.5m.
 This continuous function is discretized in the final $p times p$ matrix #AM-targ.
@@ -158,11 +157,11 @@ This continuous function is discretized in the final $p times p$ matrix #AM-targ
 #figure(
   image(
     "figures/gt_encoding.svg",
-    height: 7cm
+    height: 7cm,
   ),
   caption: [
     Ground truth encoding #AM-targ of the localization map.
-  ]
+  ],
 )
 <fig:active_ssl:methods:gt_encoding>
 
@@ -206,7 +205,7 @@ The process is repeated until the original dimension of the image is recovered.
   ),
   caption: [
     Deep neural network architecture for 2D localization map aggregation.
-  ]
+  ],
 )
 <fig:active_ssl:methods:nn_architecture>
 
@@ -229,9 +228,7 @@ $
   cal(L) (
     #AM,
     #AM-targ,
-  ) = 1/p^2 norm(
-    #AM - #AM-targ,
-  )_F ^2,
+  ) = 1/p^2 norm(#AM - #AM-targ,)_F^2,
 $
 where $#AM = Psi^("DNN"(theta))(bold(tilde(M))_t)$ is the output of the network and #AM-targ is the target map.
 
