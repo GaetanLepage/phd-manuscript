@@ -464,7 +464,6 @@ highlighting the biological motivation of interaural features and confirming the
 
 #include "figures/spectral_features/fig.typ"
 
-
 @fig:ssl:sota:tf_representations provides an example of each aforementioned spectral representation.
 A binaural array and a speech source have been placed in a simulated room.
 The omnidirectional source plays a 1-second section of speech recording sampled from the _LibriSpeech_ @panayotov_librispeech_2015 corpus.

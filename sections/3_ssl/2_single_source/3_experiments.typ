@@ -157,7 +157,7 @@ This contrasts with the interaural features experiments, where strong accuracy i
 Normalization could be a potential explanation for these inconsistencies.
 No additional pre-processing was applied in this study.
 Additional normalization schemes might boost the network's performance, generalization, and stability.
-Daniel Stoller @stoller_spectrogram_2017 presents two strategies for spectrogram normalization.
+Stoller @stoller_spectrogram_2017 presents two strategies for spectrogram normalization.
 
 #include "figures/input_features_loss/fig.typ"
 
@@ -166,10 +166,10 @@ The network was retrained with more granular features.
 The results are presented in the bottom half of @table:ssl:single_source:input_features.
 Regarding interaural features, neither #acr("ILD") nor #acr("IPD") appears to be fully redundant.
 Each sub-feature performs worse than the #acr("ILD")-#acr("IPD") combo referred to as _Interaural features_ above.
-Yet, #acr("IPD") allows for a lower #mae-theta compared to using #acr("IPD") only.
+Yet, #acr("IPD") allows for a lower #mae-theta compared to using #acr("ILD") only.
 This observation is reasonable as #acr("IPD") is directly correlated to the #acr("TDoA") and thus the #doa.
 Besides, regarding the sub-features of the polar #acr("STFT") representation, we notice a low drop in performance when discarding the magnitude information.
-While the complete solar #acr("STFT") features allow for an #mae-theta of 25.7°, using the sole phase spectrogram only worsens it by 2.3°.
+While the complete polar #acr("STFT") features allow for an #mae-theta of 25.7°, using the sole phase spectrogram only worsens it by 2.3°.
 
 In conclusion, we have shown that it is critical to carefully choose a pre-processing strategy when training a deep neural network for #acr("SSL").
 While the information content is theoretically the same across different bijective transformations of the complex #acr("STFT") performance, some can be harder to learn from.
@@ -213,7 +213,7 @@ As discussed in @sec:simulator:background:spectral-features, these interaural fe
 This result does not hold in a reverberant environment where sound reflections deteriorate the direct relationship between the recorded waveform and the direction of arrival.
 Performing #acr("SSL") in reverberant environments remains a core challenge for the acoustic research community.
 Thanks to our simulation library, we generated datasets from different reverberation settings.
-A neural network has been trained from scratch on these individual datasets before being evaluated on the corresponding test set.
+A neural network was trained from scratch on these individual datasets before being evaluated on the corresponding test set.
 Experimental results are summarized in @table:ssl:single_source:reverb.
 Naturally, our method achieves very accurate localization in low-reverberation scenarios.
 These results demonstrate the challenge of operating #acr("SSL") in reverberant environments.

@@ -14,6 +14,7 @@ Real acoustic environments involve a broader range of phenomena—such as non-un
 
 This reliance on simulation limits the empirical validation of the proposed models and policies.
 In particular, the active localization and reinforcement learning experiments assume perfect control over the agent's movement and audio capture, and do not account for hardware-specific delays, sensor calibration errors, or ambient variability.
+Additionally, the presence of extra adversarial noise sources was not investigated in this thesis.
 While the simulation-based approach was essential for controlled experimentation and large-scale training, future work will need to address the sim-to-real transfer gap to confirm the applicability of these methods in physical robotic systems.
 
 *Task and Agent Constraints*

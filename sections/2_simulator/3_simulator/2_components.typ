@@ -147,6 +147,7 @@ They offer an upgrade from the limited `Room` #acr("API"), which only considers 
 Each array variation defines its geometry and the properties of each of its microphones.
 Grouping microphones as such makes the process of experimenting with different array configurations fast and convenient for the user.
 The simulator can access the array's position, orientation and footprint, but more importantly can move it as a single entity, without the need for considering each of its microphones.
+The array's position and orientation are expressed in the room's reference frame.
 The array maintains its own geometrical consistency when being translated or rotated.
 
 @fig:simulator:simulator:mic_arrays illustrates some currently included arrays.

@@ -264,7 +264,7 @@ This represents the essence of the audio-based navigation task: learning to deci
 The observability function translates the listening process.
 Sound sources speak continuously.
 At each step, the robot listens for $tau_"step"$ seconds while remaining immobile.
-The random nature of the speech content delivered by each source accounts for the position-agnostic stochasticity of the observability function.
+The random nature of the speech content delivered by each source accounts for the position-agnostic stochasticity of the observation function.
 The rest of the process consists of the sound propagation and reverberation simulation.
 By nature, there is no analytical closed-form expression of $O$.
 It is directly embedded in the environment implementation.

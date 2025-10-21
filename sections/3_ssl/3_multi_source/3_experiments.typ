@@ -15,7 +15,7 @@ Each pair of metrics targets a different task.
 *Known number of sources.*
 In this first task, the number of active sources is assumed to be known.
 @eq:ssl:multi_source:decoding_known_sources is then used to perform the decoding of the neural network output.
-This process ensures that the number of detections matches the number of ground-truth sources and allows the computation of the following two metrics.
+This process ensures that the number of detections matches the number of ground-truth sources and allows for the computation of the following two metrics.
 
 - The _#acr("MAE")_ gives an idea about the angular distance between detected and correct angles:
 $
@@ -30,7 +30,7 @@ $
 $
 <eq:ssl:multi_source:mae>
 
-where #d refers to the symmetric angular distance defined in @eq:ssl:single_source:angular_dist.
+where $z_i$ is the known number of active sources in sample $i$ and #d refers to the symmetric angular distance defined in @eq:ssl:single_source:angular_dist.
 The #acr("MAE") will most often be expressed in degrees for convenience.
 
 The _#acr("ACC")_ constitutes the second metric for this framework and, given an error threshold #angle-error-threshold, provides the proportion of correctly localized sources:
@@ -49,7 +49,7 @@ $
 <eq:ssl:multi_source:acc>
 
 *Unknown number of sources.*
-The second task also evaluates the model's ability to accurately predict an unknown number of #doa values.
+The second task also evaluates the model's ability to accurately predict an unknown number  of #doa values.
 Such a setup resembles a conventional single-class detection problem in the computer vision literature.
 In this case, the matching between ground truth #doa angles $y_i = {phi.alt_(i j): j = 1, dots, z_i}$ and the predictions $hat(y)_i = {phi.alt_(i k): k = 1, dots, hat(z)_i}$ extracted by applying @eq:ssl:multi_source:decoding_unknown_sources might be incomplete, i.e. $hat(z)_i != z_i$.
 
@@ -61,11 +61,11 @@ $
   ) = cases(
     1
       "if"
-        d(hat(phi.alt)_(i k), phi.alt_(i j)) < E_a "and" k = limits("argmin")_(k in {1, dots, hat(z_i)})  d(hat(phi.alt)_(i k), phi.alt_(i j)),
+        d(hat(phi.alt)_(i k), phi.alt_(i j)) < E_a "and" k = limits("argmin")_(k' in {1, dots, hat(z_i)})  d(hat(phi.alt)_(i k'), phi.alt_(i j)),
     0 "otherwise,"
   )
 $
-We may then introduce the two metrics used in this framework: _Precision_ and _Recall_:
+We can then introduce the two metrics used in this framework, _Precision_ and _Recall_:
 $
   "Precision" = (
     sum_i

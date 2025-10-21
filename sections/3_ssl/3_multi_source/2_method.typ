@@ -4,7 +4,7 @@
 === Method
 <sec:ssl:multi_source:method>
 
-He et al. have conducted a solid line of work on the multi-source #acr("SSL") problem, focusing on the associated robotics challenges @he_deep_2018 @he_neural_2021 @he_sounddet_2021.
+He et al. conducted a solid line of work on the multi-source #acr("SSL") problem, focusing on the associated robotics challenges @he_deep_2018 @he_neural_2021 @he_sounddet_2021.
 Their approach shows strong performance in challenging real-world scenarios.
 For this reason, several aspects of the methodology from @he_neural_2021 inspired the work presented in this section.
 
@@ -12,7 +12,7 @@ For this reason, several aspects of the methodology from @he_neural_2021 inspire
 <sec:ssl:multi_source:method:dataset>
 
 The dataset generation process remains essentially identical to that presented in @sec:ssl:single_source:method:dataset.
-All samples remain fully independent.
+All samples are independent and identically distributed.
 The positions of both the microphone array and the sources are randomly sampled.
 This section will focus on the necessary additions to support the multi-source setting.
 Also, most choices have been made to follow the methodology from He et al. @he_neural_2021.
@@ -60,7 +60,9 @@ The impact of the number of active sources is further studied in @sec:ssl:multi_
 *Sampling frequency.*
 The method was designed to operate with audio signals sampled at 48 kHz, which does not match the 16 kHz sample rate of the LibriSpeech @panayotov_librispeech_2015 dataset, which provides the simulator with clean speech utterances.
 To account for this, the simulation of the audio signals received by each microphone in the array is performed at the native 16 kHz sampling rate.
-The generated signals are then up-sampled to 48 kHz.
+The generated signals are then up-sampled to 48 kHz using the Fourier method.
+More specifically, the signal's #acr("FFT") is zero-padded.
+This provides an ideal antialiasing filter at the cost of assuming the signal to be periodic.
 
 
 *#acr("STFT") representation of audio signals.*
@@ -116,7 +118,7 @@ where $colMath(tau_E, #orange)$ has been set to 10dB in our primary dataset.
 The average energy of a given chunk can be at most 10dB lower than that of the entire signal.
 In practice, around 40% of the generated chunks are rejected.
 
-The #acr("STFT") of each multi-channel 400ms segment provides the dataset's final training samples.
+The #acr("STFT") of each multi-channel 360ms segment provides the dataset's final training samples.
 Besides each input sample, the relevant ground truth information gets saved for supervising the learning process and computing performance metrics.
 It comprises all the necessary geometric information about the microphone array and sources (positions, orientations, relative distance, and angle of incidence).
 One million of such sample pairs constitute the core training and test datasets (800k and 200k samples, respectively).
@@ -130,7 +132,7 @@ The objective of the #acr("SSL") task is to predict the #doa of the sound source
 Hence, the number of predictions outputted by an #acr("SSL") method can differ from situation to situation.
 We therefore decided to use a representation of this information that is agnostic to the number of sources.
 Such a property is of great interest when training a deep neural network.
-The latter can then have a fixed output while still being able to handle a varying number of sources.
+The model can then have a fixed output while still being able to handle a varying number of sources.
 The latter will be further denoted $n_s$.
 The set of #doa values will noted $Theta = (theta_1, ..., theta_n_s)$.
 
@@ -138,7 +140,7 @@ The set of #doa values will noted $Theta = (theta_1, ..., theta_n_s)$.
 *Spatial Spectrum*
 
 The solution in question has been introduced by He et al. @he_deep_2018 and entails estimating the spatial spectrum.
-The latter is a real-valued function of the #doa ($cal(o): [-pi, pi] -> RR$).
+The spatial spectrum is a real-valued function of the #doa ($cal(o): [-pi, pi] -> RR$).
 We discretize this continuous function by encoding the spectra in a $d$-dimensional real vector $o$:
 $
   o in [0, 1]^d.
@@ -173,17 +175,18 @@ A first solution to this problem could be placing a pseudo-Dirac at the exact lo
 //$
 //  o(Theta)_i = sum_(k=1)^n_s bb(1)_(phi.alt_i = theta_k),
 //$
-//
-//$
-//  o(Theta)_i := cases(
-//    1 #h(1cm) &"if" exists theta in Theta | phi.alt_i = theta,
-//    0 &"otherwise,"
-//  )
-//$
-This approach can be enhanced to allow for a more robust regression target:
+
 $
-  o(Theta)_i = cases(
-    //display(max_(theta in Theta))
+  o(Theta)_i := cases(
+    1 #h(1cm) &"if" exists theta in Theta | phi.alt_i = theta,
+    0 &"otherwise,"
+  )
+$
+Instead, a more robust regression target is introduced.
+It consists in combining $n_s$ unnormalized Gaussians centered at each #doa angles:
+$
+  o(Theta)_i := cases(
+      display(max_(theta in Theta))
       {
         e^(
           -(#d (
@@ -192,17 +195,15 @@ $
           )^2)
           / sigma^2
         )
-      } &"if" abs(Theta) > 0,
+      } &"if" n_s > 0,
     0 &"otherwise,"
   )
 $
 <eq:ssl:multi_source:doa_encoding>
-where #d is the symmetric angular distance introduced in @sec:ssl:single_source:experiments:metrics (@eq:ssl:single_source:angular_dist)
-
-The result is a mixture of $abs(Theta)$ Gaussians centered at the actual #doa angles.
+where #d is the symmetric angular distance introduced in @sec:ssl:single_source:experiments:metrics (@eq:ssl:single_source:angular_dist).
+//The result is a mixture of $n_s$ unnormalized Gaussians centered at the actual #doa angles.
 We chose to set $sigma = 5°$.
 @fig:ssl:multi_source:doa_gt_encoding shows an example of the DOA encoding scheme for a situation with two sources.
-
 
 #figure(
   image("figures/doa_encoding.svg"),
@@ -212,13 +213,11 @@ We chose to set $sigma = 5°$.
 )
 <fig:ssl:multi_source:doa_gt_encoding>
 
-The main benefit of this format, alongside with its ability to encode a variable number of sources, is to frame the #acr("SSL") problem as a simple regression task.
-
 *Detection Decoding*
 
 The employed #doa encoding presented in @sec:ssl:multi_source:method:doa_repr presents several advantages.
 Namely, thanks to its flexibility, it allows for the representation of a variable number of sources.
-Also, it enables the formulation of the multi-source #acr("SSL") problem as a simple regression task.
+Also, it enables the framing of the multi-source #acr("SSL") problem as a simple regression task.
 However, to extract the set of actual #doa values, one has to explicitly process the obtained spatial spectra.
 This is achieved by detecting the peaks in the network output.
 The index of local maxima higher than a threshold #xi-doa serve as the #doa predictions:
@@ -239,7 +238,7 @@ $
         #olive
       ),
       #h(2em)
-      i in [|1, n|]
+      i in [|1, d|]
   }.
 $ <eq:ssl:multi_source:decoding_unknown_sources>
 For this process to succeed, the neighborhood threshold $colMath(sigma_n, #olive)$ must be defined carefully.
@@ -266,7 +265,7 @@ $
       // heat threshold
       ,
       #h(2em)
-      i in [|1, n|]
+      i in [|1, d|]
   }.
 $
 <eq:ssl:multi_source:decoding_known_sources>
@@ -274,9 +273,8 @@ The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
 
 ==== Neural Network Architecture
 
-The implemented neural network is inspired by the one proposed by He et al. @he_neural_2021.
-
-The neural network aims to process multi-channel audio data and extract the angular positions of the speech sources.
+The implemented neural network for multi-source localization is inspired by the one proposed by He et al. @he_neural_2021.
+It aims to process multi-channel audio data and extract the angular positions of the speech sources.
 The model's input is the multi-channel signal's #acr("STFT") representation.
 The #acr("STFT") of a signal is a complex-valued matrix of size $F times T$.
 We then split the real and imaginary values to form two distinct matrices.
@@ -285,6 +283,7 @@ Its shape is noted #shape("C", "F", "T"), where $C$ is the number of channels, i
 
 The architecture draws inspiration from vision models by employing 2D convolution.
 As discussed in @sec:ssl:background:deep_learning, using the image-like time-frequency representation of audio signals allows applying techniques proven to perform well on conventional image data.
+@fig:ssl:multi_source:network_architecture depicts the proposed network architecture and details the inner layout of the convolutional and residual building blocks.
 
 #figure(
   image(

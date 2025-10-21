@@ -45,10 +45,10 @@ The final datasets weigh from 26 to 50GB, depending on the number of microphones
 Several microphone arrays have been experimented with in this study.
 Leveraging multiple microphones to form an array is essential.
 Geometric information is extracted from the differences between the signals each sensor receives.
-Acoustic reverberation and the spatial configuration of the array lead to the appearance of exploitable patterns in the overall collected data.
+The room's acoustic properties and the array's layout significantly impact the characteristics of the generated audio signals.
+The resulting patterns in the collected data are thus heavily affected by these choices.
 
-We present the following microphone array configurations that have been tested.
-
+We present the following microphone array configurations that have been tested:
 - A *binaural* array comprises two microphones placed a few centimeters apart.
  This setup constitutes the most studied robotic #acr("SSL") framework in the literature.
  This layout was primarily considered because of a humanoid robotic head equipped with two microphones on each side.
@@ -59,7 +59,7 @@ We present the following microphone array configurations that have been tested.
 Their implementation has been integrated into our simulator (see @sec:simulator:simulator:components:sim_scenarios).
 
 The number of microphones plays an essential role in the #("SSL") performance.
-As an illustrative example, when having a binaural microphone in the free field, i.e., where the effects of reverberation can be neglected, there exists a fundamental limit:
+As an illustrative example, when having a binaural microphone in an anechoic environment, i.e., where the effects of reverberation can be neglected, there exists a fundamental limit:
 It is theoretically impossible to distinguish between two possible locations for the source.
 This phenomenon, known as front-back ambiguity, was presented earlier in this chapter @sec:ssl:background:classical_approaches.
 The front-back ambiguity can be cleared by introducing relative movement or an additional microphone in the array.
@@ -142,13 +142,13 @@ For an array with microphones ${m_1, dots, m_k}$, the interaural features is exp
 $quad forall i in [|1, C|]$,
 $
   cal(I)[i] = cases(
-    "IPD"(m_i, m_((i+1) equiv C)) space "if "i" even;",
-    "ILD"(m_i, m_((i+1) equiv C)) space "if" i" odd."
+    "IPD"(m_i, m_((i+1) mod C)) space "if "i" even;",
+    "ILD"(m_i, m_((i+1) mod C)) space "if" i" odd."
   )
 $
 When using a single interaural feature, and not both #acr("ILD") and #acr("IPD"), the coefficients of $cal(I)$ become:
 $
-  cal(I)[i] = "IPD"(m_i, m_((i+1) equiv C)).
+  cal(I)[i] = "IPD"(m_i, m_((i+1) mod C)).
 $
 
 An ablation study was conducted to measure the impact of pre-processing methods on #acr("SSL") performance (@sec:ssl:single_source:experiments:pre-processing).
@@ -198,8 +198,7 @@ Indeed, the #doa lies in the $[-pi, pi]$ periodic interval.
 For instance, if the ground truth is $-3.1$ radians, then values close to either $-pi$ or $pi$ would be accurate predictions.
 A naive #acr("MSE") loss would wrongly penalize estimations close to $+pi$.
 We adopt a periodic loss for the #doa to account for this specificity.
-Also, the network does not directly predict the #doa value $theta$, but its sine #text(green)[$S$] and cosine #text(blue)[$C$] instead.
-// TODO
+Also, the network does not directly predict the #doa value $theta$, but its sine and cosine instead.
 
 #let S_i = $colMath(S_i, #green)$
 #let S_i_hat = $colMath(hat(S)_i, #olive)$
@@ -217,20 +216,12 @@ $
          sin(theta_i) sin(hat(theta)_i)
          +  cos(theta_i) cos(hat(theta)_i)
        )
-    ].\
-    &= 1 / n
-    sum_(i=1)^n
-      [1 - cos(theta_i - hat(theta)_i)]\
-    & =  1/n sum_(i=1)^n
-    [
-       1 - (
-         #S_i #S_i_hat
-         + #C_i #C_i_hat
-       )
-    ]
+    ].
 $
-
+<eq:ssl:single_source:doa_loss>
 #include "figures/angular_loss.typ"
+
+Mathematically, we can write $#l-doa (hat(theta), theta) = 1/n sum_(i=1)^n [1 - cos(theta_i - hat(theta)_i)]$, but the implementation specifically uses @eq:ssl:single_source:doa_loss as the network's output neurons ($cos hat(theta)_i$ and $sin hat(theta)_i$) need to appear explicitly.
 @fig:ssl:single_source:angular_loss plots the value of $#l-doa (dot, hat(theta))$ for different values of $hat(theta)$.
 We use this loss function to train the neural network to output accurate #doa values without suffering from boundary effects.
 

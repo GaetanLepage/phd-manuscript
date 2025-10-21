@@ -12,7 +12,7 @@ Its goal is to allow the simulation of various interaction scenarios involving a
 
 Also, its implementation has evolved throughout the project, leading to an organic development process.
 The feature set reflects the various downstream use cases encountered across this thesis.
-The Python code for this pipeline has been published under an open-source license #footnote[#link("https://gitlab.inria.fr/robotlearn/rl-audio-nav")].
+The Python code for this pipeline has been published under an open-source license.
 
 In this section, we will provide an overview of our simulator's main functionalities and use-case examples.
 

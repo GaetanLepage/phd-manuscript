@@ -69,7 +69,7 @@ This formulation provides a more targeted signal for learning: instead of reinfo
 The use of advantage estimates has become standard in modern actor-critic algorithms.
 
 *Estimation.*
-Estimation of the advantage function was discussed by Schulman et al. @schulman_high-dimensional_2018.
+The estimation of the advantage function was addressed by Schulman et al. @schulman_high-dimensional_2018.
 To estimate the advantage function, we may consider the following class of estimators $hat(A)_t^((k))$:
 $
   &hat(A)_t^((1))

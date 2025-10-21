@@ -7,7 +7,7 @@
 On the one hand, psychology researchers have attempted to understand how humans and animals could learn.
 The American psychologist Edward Lee Thorndike laid out foundational work on animal learning and behavior.
 In his 1911 book _Animal Intelligence: Experimental studies_ @thorndike_animal_1911, Thorndike presented a collection of experiments involving animals solving different tasks.
-He wanted to understand the core principles and mechanisms allowing the subjects to adapt and finally adapt to the problem they were facing.
+He wanted to understand the core principles and mechanisms allowing the subjects to adapt to the problem they were facing.
 Observing animal reactions and abilities, he inferred the fundamentals of behaviorism and the trial-and-error theory.
 For instance, he put hungry cats in cages, and to escape and reach food placed outside, they had to solve a puzzle.
 He noticed that the animals did not overcome the difficulties through insight or understanding but through repeated trial and error.
