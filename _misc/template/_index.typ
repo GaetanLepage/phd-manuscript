@@ -1,5 +1,4 @@
 #import "matter_functions.typ": back-matter, front-matter, main-matter
-#import "@preview/one-liner:0.2.0": fit-to-width
 
 #let fill-line(left-text, right-text) = [#left-text #h(1fr) #right-text]
 
@@ -199,10 +198,6 @@
     }
 
     v(0em)
-    //let title-text = fit-to-width(
-    //  it.body,
-    //  max-text-size: 36pt,
-    //)
     let title-text = it.body
     text(
       title-text,
