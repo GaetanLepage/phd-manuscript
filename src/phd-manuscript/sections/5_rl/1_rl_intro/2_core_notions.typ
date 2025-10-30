@@ -120,7 +120,7 @@ This notion underlies many #acr("RL") algorithms, especially those that evaluate
 The action-value function or Q-function quantifies the expected return for taking action $a$ in state $s$, and thereafter following policy $pi$:
 $
   #q-pi (s, a) & := EE_pi [G_t | s_t = s, a_t = a] \
-               & = EE_pi [sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s, a_t = a].
+  & = EE_pi [sum_(k=0)^infinity gamma^k r_(t+k+1) mid(|) s_t = s, a_t = a].
 $
 <eq:rl:intro:q_function>
 The Q-function extends the concept of value by also conditioning on the action taken in the current state.

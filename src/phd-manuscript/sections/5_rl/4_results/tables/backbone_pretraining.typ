@@ -15,11 +15,15 @@
     // HEADER
     toprule,
 
-    table.header([Feature extractor training strategy], mean-cum-reward-header, mfc-header),
+    table.header(
+      [Feature extractor training strategy], mean-cum-reward-header, mfc-header
+    ),
 
     midrule,
 
-    [#pi-safe-random], [#pi-safe-random-rew-wer-dir], [#pi-safe-random-mfc-wer-dir],
+    [#pi-safe-random],
+    [#pi-safe-random-rew-wer-dir],
+    [#pi-safe-random-mfc-wer-dir],
 
     // exp 302
     [No pretraining], [1473], [22.78],

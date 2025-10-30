@@ -12,7 +12,9 @@
     // HEADER
     toprule,
 
-    table.header([$tau_"DoA"$ (°)], header-mae, header-acc, header-prec, header-recall),
+    table.header(
+      [$tau_"DoA"$ (°)], header-mae, header-acc, header-prec, header-recall
+    ),
 
     midrule,
 

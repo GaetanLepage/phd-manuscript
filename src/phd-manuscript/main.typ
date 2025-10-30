@@ -1,8 +1,10 @@
-#import "_misc/template/_index.typ": back-matter, front-matter, main-matter, template
+#import "_misc/template/_index.typ": (
+  back-matter, front-matter, main-matter, template,
+)
 #import "utils.typ": *
 
 #set document(
-  date: none
+  date: none,
 )
 
 #show: template.with(

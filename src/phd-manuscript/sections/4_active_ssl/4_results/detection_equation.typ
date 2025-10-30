@@ -15,9 +15,9 @@ $
     X^i_j
   ) = cases(
     1
-    #h(2em) &&                                                   "if" #dist($k$) < delta \
+    #h(2em) && "if" #dist($k$) < delta \
     // estimation is "close enough"
-            && #h(1em)"and" k = limits("argmin")_(k' in {1, dots, hat(z_i)}) #dist($k'$), // it is the closest of all
+    && #h(1em)"and" k = limits("argmin")_(k' in {1, dots, hat(z_i)}) #dist($k'$), // it is the closest of all
     0 && "otherwise,"
   )
 $

@@ -10,7 +10,7 @@
   Using the log-derivative trick, we write:
   $
     nabla_theta J(theta) & = nabla_theta EE_(tau~pi_theta) [R(tau)] \
-                         & = EE_(tau~pi_theta) [R(tau) nabla_theta log p(tau; theta)].
+    & = EE_(tau~pi_theta) [R(tau) nabla_theta log p(tau; theta)].
   $
   The trajectory probability under policy $pi_theta$ is:
   $

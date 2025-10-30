@@ -40,7 +40,11 @@
     [#pi-safe-random-rew-wer-dir],
     [#pi-safe-random-mfc-wer-dir],
 
-    [#pi-still], [#pi-still-rew-wer-omni], [#pi-still-mfc-wer-omni], [#pi-still-rew-wer-dir], [#pi-still-mfc-wer-dir],
+    [#pi-still],
+    [#pi-still-rew-wer-omni],
+    [#pi-still-mfc-wer-omni],
+    [#pi-still-rew-wer-dir],
+    [#pi-still-mfc-wer-dir],
 
     [#pi-still-orient],
     [#pi-still-orient-rew-wer-omni],
@@ -48,7 +52,11 @@
     [#pi-still-orient-rew-wer-dir],
     [#pi-still-orient-mfc-wer-dir],
 
-    [#pi-theta], [*#exp-300-rew-wer*], [*#exp-300-mfc-wer*], [*#exp-301-rew-wer*], [*#exp-301-mfc-wer*],
+    [#pi-theta],
+    [*#exp-300-rew-wer*],
+    [*#exp-300-mfc-wer*],
+    [*#exp-301-rew-wer*],
+    [*#exp-301-mfc-wer*],
 
     bottomrule,
   ),

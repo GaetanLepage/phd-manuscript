@@ -13,8 +13,8 @@ This policy often takes the form of a deep neural network whose weights are $the
 The objective is typically to maximize the expected return $J(theta)$, defined as:
 $
   J(theta) & = EE_(tau ~ pi_theta) [R(tau)] \
-           & = sum_(s in cal(S)) d_(pi_theta) (s) V_pi (s) \
-           & = sum_(s in cal(S)) d_(pi_theta) (s) pi_theta (a | s) Q_(pi_theta) (s, a),
+  & = sum_(s in cal(S)) d_(pi_theta) (s) V_pi (s) \
+  & = sum_(s in cal(S)) d_(pi_theta) (s) pi_theta (a | s) Q_(pi_theta) (s, a),
 $
 <eq:rl:intro:pg_algorithms:expected_return>
 This decomposition expresses the expected return as a weighted sum over states and actions, where $d_pi_theta (s)$ is the stationary state distribution under policy $pi_theta$​.

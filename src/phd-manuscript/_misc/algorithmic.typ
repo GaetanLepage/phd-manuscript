@@ -44,7 +44,11 @@
 )
 
 #let function_like(name, kw: "function", args: (), ..body) = (
-  iflike_block(kw1: kw, cond: (smallcaps(name) + "(" + args.join(", ") + ")"), ..body)
+  iflike_block(
+    kw1: kw,
+    cond: (smallcaps(name) + "(" + args.join(", ") + ")"),
+    ..body,
+  )
 )
 
 #let listify(v) = {

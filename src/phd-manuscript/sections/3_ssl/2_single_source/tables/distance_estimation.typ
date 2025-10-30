@@ -10,7 +10,12 @@
 
     // HEADER
     toprule,
-    table.header([Mic. array], [Distance prediction], [#mae-theta-header], [#mae-dist-header]),
+    table.header(
+      [Mic. array],
+      [Distance prediction],
+      [#mae-theta-header],
+      [#mae-dist-header],
+    ),
 
     midrule,
 

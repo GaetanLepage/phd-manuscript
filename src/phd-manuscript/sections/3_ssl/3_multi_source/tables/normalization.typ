@@ -12,7 +12,14 @@
     toprule,
 
     table.header(
-      [Normalization layer], [`eval` mode], [Batch size], [], header-mae, header-acc, header-prec, header-recall
+      [Normalization layer],
+      [`eval` mode],
+      [Batch size],
+      [],
+      header-mae,
+      header-acc,
+      header-prec,
+      header-recall,
     ),
 
     midrule,

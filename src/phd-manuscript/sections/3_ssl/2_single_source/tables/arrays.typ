@@ -18,7 +18,11 @@
     midrule,
 
     // ROWS
-    table.cell(rowspan: 2)[Binaural], [2], [omnidirectional], [#h(1em)], [46.13],
+    table.cell(rowspan: 2)[Binaural],
+    [2],
+    [omnidirectional],
+    [#h(1em)],
+    [46.13],
     [2], [cardioid], [], [17.32],
     dashedrule,
     table.cell(rowspan: 2)[Triangle], [3], [omnidirectional], [], [5.07],

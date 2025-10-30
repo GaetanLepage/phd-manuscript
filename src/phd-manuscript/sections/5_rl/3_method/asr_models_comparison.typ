@@ -31,8 +31,19 @@
     // ROWS
     // MODEL
     [`asr-crdnn-rnnlm`], [#acr("RNNLM")], [#acr("CRNN")], [], [2.84], [1.82],
-    [`asr-crdnn-transformerlm`], [Transformer #acr("LM")], [#acr("CRNN")], [], [0.24], [1.16],
-    [`asr-transformer-transformerlm`], [Transformer #acr("LM")], [Transformer], [], [0.75], [0.05],
+    [`asr-crdnn-transformerlm`],
+    [Transformer #acr("LM")],
+    [#acr("CRNN")],
+    [],
+    [0.24],
+    [1.16],
+
+    [`asr-transformer-transformerlm`],
+    [Transformer #acr("LM")],
+    [Transformer],
+    [],
+    [0.75],
+    [0.05],
 
     bottomrule,
   ),
