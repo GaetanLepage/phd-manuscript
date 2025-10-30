@@ -3,6 +3,7 @@
 version = "0.1.0-beta0"
 
 [[document]]
+font-paths = ["file:../../../../nix/store/qy5fndq4viwrvv6lkraf0aq7f2srmkyc-typst-fonts/share/fonts"]
 id = "file:main.typ"
 inputs = []
 main = "file:main.typ"
