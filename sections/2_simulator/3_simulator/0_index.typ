@@ -2,7 +2,6 @@
 
 == Custom Acoustic Simulation Pipeline
 <sec:simulator:simulator>
-#minitoc(indent: true)
 
 The motivation to build a simulator from the ground up was to benefit from a capable yet flexible virtual platform for acoustic-based #acr("HRI") tasks.
 Indeed, while existing audio simulation libraries offer a wide range of functionalities, they are generally designed as focused components dedicated to sound propagation, and are often integrated into larger ecosystems such as game engines (see @sec:simulator:background:rir_libraries).

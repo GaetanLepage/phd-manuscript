@@ -30,7 +30,6 @@ This precaution ensures compatibility with the rest of the #acr("RL") ecosystem 
 
 === WER as a Reward Signal
 <sec:rl:method:wer_maps>
-#minitoc(indent: true)
 
 This section presents the design and implementation details of the #acr("WER") cost function (#wer-cost).
 The reward signal introduced previously expects an oracle to provide an estimate of the #acr("WER") score for each possible state.

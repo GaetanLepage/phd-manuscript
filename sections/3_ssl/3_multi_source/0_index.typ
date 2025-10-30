@@ -2,7 +2,6 @@
 
 == Multi-Source Localization
 <sec:ssl:multi_source>
-#minitoc(indent: true)
 
 #include "1_intro.typ"
 #include "2_method.typ"

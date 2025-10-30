@@ -2,7 +2,6 @@
 
 == Single-source localization
 <sec:ssl:single_source>
-#minitoc(indent: true)
 
 As a first experiment, we investigate the single-source localization problem.
 The goal is to design and train a deep learning model that can precisely localize a source in a reverberant environment.

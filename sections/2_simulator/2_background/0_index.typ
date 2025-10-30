@@ -2,7 +2,6 @@
 
 == Acoustic Simulation of Reverberant Environments
 <sec:simulator:reverb>
-#minitoc(indent: true)
 
 This section explains the core concepts of acoustic reverberation and the relevant notions in audio processing.
 The key principles of acoustic reverberation are outlined in the following paragraphs to establish a foundation.

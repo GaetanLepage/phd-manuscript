@@ -2,7 +2,6 @@
 
 = Active Sound Source Localization
 <chap:active_ssl>
-#minitoc(indent: true)
 
 #reset-acronym("ASSL")
 

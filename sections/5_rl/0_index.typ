@@ -2,7 +2,6 @@
 
 = Deep Reinforcement Learning for Sound-Driven Navigation
 <chap:rl>
-#minitoc(indent: true)
 
 #reset-acronym("RL")
 #reset-acronym("DRL")

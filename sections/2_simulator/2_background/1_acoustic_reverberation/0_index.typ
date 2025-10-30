@@ -4,8 +4,6 @@
 === Background
 <sec:simulator:reverb:background>
 
-#minitoc(indent: true)
-
 This section introduces key concepts in acoustics and audio signal processing that underpin the scientific developments presented throughout the thesis.
 It begins with a review of the physical modeling of acoustic signals, followed by a discussion of reverberation, a recurring theme in the robotic scenarios explored in this work.
 Since our simulator explicitly accounts for reverberant environments, understanding this phenomenon is essential.
