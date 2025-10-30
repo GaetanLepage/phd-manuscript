@@ -1,1 +1,1 @@
-#import "@preview/acrostiche:0.3.4": *
+#import "@preview/acrostiche:0.7.0": *

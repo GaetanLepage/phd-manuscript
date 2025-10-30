@@ -39,4 +39,6 @@
 #print-index(
   title: "List of Acronyms",
   outlined: false,
+  row-gutter: 1em,
+  clickable: false,
 )
