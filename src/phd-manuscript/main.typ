@@ -1,6 +1,10 @@
 #import "_misc/template/_index.typ": back-matter, front-matter, main-matter, template
 #import "utils.typ": *
 
+#set document(
+  date: none
+)
+
 #show: template.with(
   title: "From Sound to Action: Deep Learning for Audio-Based Localization and Navigation in Robotics",
   author: "Gaétan Lepage",
