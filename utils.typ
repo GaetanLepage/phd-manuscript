@@ -1,7 +1,5 @@
-#import "@preview/subpar:0.2.2"
-#import "@preview/one-liner:0.2.0": fit-to-width
-
-#import "_misc/acrostiche.typ": acr, acrpl, reset-acronym
+#import "_misc/deps.typ"
+#import deps.acrostiche: acr, acrpl, print-index, reset-acronym
 #import "_misc/template/_index.typ": fig-placement, fill-line, in-outline
 #import "_misc/notations.typ": *
 
@@ -26,7 +24,7 @@
 #let header-recall = [Recall (%) #sym.arrow.t]
 
 /* ALGORITHMS */
-//#import "@preview/algorithmic:0.1.0"
+//#import "@preview/algorithmic:1.0.0"
 #import "/_misc/algorithmic.typ"
 #import algorithmic: algorithm
 

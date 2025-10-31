@@ -1,5 +1,6 @@
 #import "../3_ssl/3_multi_source/_notations.typ": header-prec, header-recall
-#import "/_misc/acrostiche.typ": acr, acrpl
+#import "/_misc/deps.typ"
+#import deps.acrostiche: acr, acrpl
 
 #let fov = acr("FoV")
 #let fovs = acrpl("FoV")

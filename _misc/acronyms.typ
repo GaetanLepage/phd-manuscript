@@ -1,4 +1,5 @@
-#import "acrostiche.typ": init-acronyms
+#import "deps.typ"
+#import deps.acrostiche: init-acronyms
 
 #init-acronyms((
   // -----------------------------------------------------------------------------

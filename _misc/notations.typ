@@ -1,4 +1,5 @@
-#import "acrostiche.typ": acr, acrpl
+#import "deps.typ"
+#import deps.acrostiche: acr, acrpl
 
 #let _doa = "DoA"
 #let doa = acr(_doa)

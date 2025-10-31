@@ -1,5 +1,5 @@
-#import "/utils.typ": reset-acronym
-#import "/_misc/acrostiche.typ": print-index
+#import "/_misc/deps.typ"
+#import deps.acrostiche: print-index, reset-acronym
 
 #include "cover_page/index.typ"
 
