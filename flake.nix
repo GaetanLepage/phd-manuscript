@@ -9,6 +9,11 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -21,9 +26,25 @@
         "aarch64-darwin"
       ];
 
+      imports = [
+        inputs.treefmt-nix.flakeModule
+      ];
+
       perSystem =
         { pkgs, ... }:
         {
+          treefmt.config = {
+            projectRootFile = "flake.nix";
+            flakeCheck = true;
+            programs = {
+              nixfmt.enable = true;
+              typstyle = {
+                enable = true;
+                lineWidth = 120;
+              };
+            };
+          };
+
           devShells.default = import ./shell.nix { inherit pkgs; };
         };
     };
