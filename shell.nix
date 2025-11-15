@@ -3,6 +3,7 @@
 }:
 pkgs.mkShellNoCC {
   packages = with pkgs; [
+    tinymist
     typst
     typstyle
   ];
