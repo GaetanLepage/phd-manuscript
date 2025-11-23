@@ -147,7 +147,7 @@ It allows for scaling experiments and iterating rapidly on research ideas withou
 However, simulation has trade-offs that should be carefully considered when developing software platforms.
 For instance, #acr("RL") policies learned in simulated environments do not always translate to performing convincingly in real-world scenarios.
 Also, no satisfying simulation solution exists for sound-based robot navigation.
-For those reasons, we contributed an original implementation of a flexible and feature-rich acoustic simulator for robotics.
+For those reasons, we contributed an original implementation of a flexible and feature-rich acoustic simulator for robotics, _Acoustix_.
 Its goal is to provide a practical and convenient sandbox for machine learning and robotics scientists to experiment with various sound-related problems.
 The obtained software ecosystem has been the core framework for the experimental work conducted in the present thesis.
 This chapter will introduce the fundamental notions of sound propagation and audio processing to understand the phenomenon of acoustic reverberation.

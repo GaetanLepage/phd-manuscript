@@ -13,7 +13,7 @@ Also, its implementation has evolved throughout the project, leading to an organ
 The feature set reflects the various downstream use cases encountered across this thesis.
 The Python code for this pipeline has been published under an open-source license.
 
-In this section, we will provide an overview of our simulator's main functionalities and use-case examples.
+In this section, we provide an overview of our simulator _Acoustix_, its main functionalities, and several use-case examples.
 
 
 #include "1_overview.typ"
@@ -24,7 +24,7 @@ In this section, we will provide an overview of our simulator's main functionali
 === Conclusion
 
 This section has presented our custom implementation of a complex acoustic pipeline.
-The solution has been architected from scratch while naturally employing existing open-source building blocks.
+The solution has been designed from scratch while naturally incorporating existing open-source building blocks.
 This significant engineering effort is a central contribution of this thesis.
 It aims to allow researchers to test algorithms in diverse acoustic scenarios.
 The #acr("API") has been optimized to be as complete as possible while remaining user-friendly.
@@ -42,4 +42,4 @@ The addition of modern dynamic simulation techniques (@rosen_interactive_2020, @
 Finally, the simulator's scope has been delimited to auditory cues and sound processing.
 The incorporation of a 3D visual rendering engine could transform the existing platform into a true multi-modal platform for a more complete simulation.
 Such an endeavor would, however, require a significant additional engineering effort.
-The entire code base of our simulator is freely available under the GPLv3 license #footnote[#link("https://github.com/GaetanLepage/acoustix")].
+The entire code base of _Acoustix_ is freely available under the GPLv3 license #footnote[#link("https://github.com/GaetanLepage/acoustix")].
