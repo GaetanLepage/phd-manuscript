@@ -390,10 +390,10 @@
   /* RAW (code) */
 
   // Set raw text font.
-  show raw: set text(
-    font: ("Iosevka", "Fira Mono"),
-    size: 9pt,
-  )
+  // show raw: set text(
+  //   font: ("Iosevka", "Fira Mono"),
+  //   size: 9pt,
+  // )
 
   // Display inline code in a small box that retains the correct baseline.
   // show raw.where(block: false): box.with(
