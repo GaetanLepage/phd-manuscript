@@ -46,7 +46,9 @@ The following section will present the software blocks required to run this type
 
 #figure(
   ```python
-  from rl_audio_nav.audio_simulator import GpuRirRoom, SquareArray, AudioSimilator
+  from acoustix.audio_simulator import AudioSimulator
+  from acoustix.room import GpuRirRoom
+  from acoustix.microphone_arrays import SquareArray
 
   # Initialization
   room = GpuRirRoom(size_x=4, size_y=7, rt_60=0.3)
