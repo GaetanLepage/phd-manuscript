@@ -21,7 +21,7 @@ Experiencing the rapid progress of AI together over these five years was deeply 
 Our reading group sessions offered great opportunities to explore cutting-edge research.
 Everyone was encouraged to ask questions and share their views, creating a supportive and enriching atmosphere.
 I was grateful to share my successes, failures, and doubts with my teammates, who were always keen to offer their support.
-Some of my fondest memories come from our daily meals at the "Champ de l'Étoile", enjoying Patrick's desserts, our coffee breaks, and many excursions.
+Some of my fondest memories come from our daily meals at the _"Champ de l'Étoile"_ enjoying Patrick's desserts, our coffee breaks, and many excursions.
 
 Xiaoyu Lin started her PhD at the same time as I did.
 I have rarely known someone as exceptionally hard-working and dedicated.
@@ -63,6 +63,6 @@ I would like to express my sincere gratitude to the jury members, Prof. Didier S
 Their insightful and challenging questions made the discussion both stimulating and enriching.
 Patrick and Didier went through a careful and thorough review of my manuscript and provided thoughtful and precise feedback.
 
-Last but not least, thank you to all the people who attended my defense.
+Last but not least, I want to thank all the people who attended my defense.
 I was delighted to be surrounded by so many friendly faces on such an important day.
 Sharing this success with all of them was the best celebration I could have hoped for.
