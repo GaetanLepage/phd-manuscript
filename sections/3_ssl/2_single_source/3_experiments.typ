@@ -35,18 +35,20 @@ $
                ).
 $
 
-We then compute the average $ell^1$ angular distance #d between $hat(theta)$ and $theta$.
-The following expression for #d accounts for the periodicity of the angular interval $[-pi, pi]$:
-//As both the predicted and ground-truth #doa values are constrained to the $[-pi, pi]$ interval.
-#func-def(
-  d,
-  $[-pi, pi]^2$,
-  $[0, 1]$,
-  $(theta_1, theta_2)$,
-  //$pi - abs(abs(theta_2 - theta_1) - pi)$
-  $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%).$,
-)
-<eq:ssl:single_source:angular_dist>
+#block(breakable: false)[
+  We then compute the average $ell^1$ angular distance #d between $hat(theta)$ and $theta$.
+  The following expression for #d accounts for the periodicity of the angular interval $[-pi, pi]$:
+  //As both the predicted and ground-truth #doa values are constrained to the $[-pi, pi]$ interval.
+  #func-def(
+    d,
+    $[-pi, pi]^2$,
+    $[0, 1]$,
+    $(theta_1, theta_2)$,
+    //$pi - abs(abs(theta_2 - theta_1) - pi)$
+    $pi - lr(abs(abs(theta_2 - theta_1) - pi), size: #150%).$,
+  )
+  <eq:ssl:single_source:angular_dist>
+]
 This distance is used to define the #acr("MAE") metric that quantifies the performance of #doa estimation:
 $
   #mae-theta = 1 / n_"test" sum_(i=1)^n_"test" #d (hat(theta)_i, theta_i),

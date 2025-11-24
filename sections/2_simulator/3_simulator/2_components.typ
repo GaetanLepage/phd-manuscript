@@ -212,6 +212,7 @@ In conclusion, the simulator furnishes a convenient and safe interface for movin
 This facilitates the flexible implementation of numerous acoustic #acr("HRI") use cases.
 
 
+#v(5em)
 *Simulation Process*
 //====== Simulation process
 //<sec:simulator:simulator:components:sim_process>
@@ -248,6 +249,7 @@ Lastly, the agent can be moved using the exposed displacement helpers presented 
 )
 <fig:simulator:simulator:simulator_workflow>
 
+#v(1em)
 *Duration control.*
 By default, given $n_s$ input signals of durations $(d_s^1, dots, d_s^(n_s))$, the received signal at each microphone will last
 #let d-rec = $d_"rec"$
@@ -261,7 +263,7 @@ This may happen by first shortening the input signals to a given duration $d_s^"
 Alternatively, the resulting audio can be trimmed to any desired duration.
 The duration control feature gives a fine-grained control of the computational time.
 
-
+#v(2em)
 *Feature Extraction*
 
 Observing the simulator's state represents an essential feature set of our library.
@@ -292,7 +294,6 @@ For development purposes, it may come in handy to graphically render the simulat
 The pipeline includes a basic yet efficient way of visualizing the different objects in the room.
 Each available microphone array can be shown in the room, according to its geometry.
 The orientation of microphones and directional sources is also displayed.
-
 @fig:simulator:simulator:components:simulator_plot provides a demonstration of the renderer.
 
 #figure(

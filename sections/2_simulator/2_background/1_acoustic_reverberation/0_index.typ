@@ -27,11 +27,12 @@ Let us first consider the ideal case of a single receiver in the free field.
 Free field denotes an idealized environment that can be considered anechoic.
 Hence, no sound reflections are considered; thus, the reverberation phenomenon is ignored.
 
-The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation (@vincent_audio_2018 - Chapter 3, @leglaive_multichannel_2016):
-
-$
-  x(t) = 1 / (sqrt(4 pi) #d) s (t - #d/#c),
-$ <eq:simulator:background:single_mic_continuous>
+#block(breakable: false)[
+  The signal $x$ received by the microphone can be expressed as a function of the source signal $s$ by the following equation (@vincent_audio_2018 - Chapter 3, @leglaive_multichannel_2016):
+  $
+    x(t) = 1 / (sqrt(4 pi) #d) s (t - #d/#c),
+  $ <eq:simulator:background:single_mic_continuous>
+]
 
 where
 - #d is the source-to-microphone distance (in m)
@@ -171,16 +172,18 @@ They will be essential in the interface of our simulator as they allow specifyin
   ),
 ) <fig:simulator:background:rir_plot>
 
-The reverberation time noted $T_60$ or RT60 denotes the time before the sound pressure decreases by 60 dB after the source signal is abruptly stopped.
-It can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine @sabine_collected_1922 as:
 #let volume = $colMath(V, #maroon)$
 #let area = $colMath(A, #olive)$
 #let sound-speed = $colMath(c, #eastern)$
-$
-  T_60 = (24 ln(10))/#sound-speed #volume/#area
-  approx 0.16 #volume/#area,
-$
-<eq:simulator:background:sabine>
+The reverberation time noted $T_60$ or RT60 denotes the time before the sound pressure decreases by 60 dB after the source signal is abruptly stopped.
+#block(breakable: false)[
+  It can be estimated from the room's dimensions and has been empirically expressed by Wallace Clement Sabine @sabine_collected_1922 as:
+  $
+    T_60 = (24 ln(10))/#sound-speed #volume/#area
+    approx 0.16 #volume/#area,
+  $
+  <eq:simulator:background:sabine>
+]
 where #sound-speed is the speed of sound in the air at 20°C, #volume is the volume of the room (in $m^3$), and #area is the _equivalent absorption surface_ (in sabins).
 The latter can be obtained by summing the weighted surface area of each wall (including floor and ceiling):
 $
@@ -268,10 +271,12 @@ $
 $
 @fig:simulator:background:spectrogram is an example of a power spectrogram computed from a speech signal.
 
-- The phase spectrogram is its argument:
-$
-  X_"phase" [m, k] = arg(X[m, k]).
-$
+#block(breakable: false)[
+  - The phase spectrogram is its argument:
+  $
+    X_"phase" [m, k] = arg(X[m, k]).
+  $
+]
 The term spectrogram can also refer directly to the complex-valued result of the #acr("STFT").
 
 #figure(
@@ -332,7 +337,6 @@ In this case, specific signal representations have been proposed to ease the ext
 Some data representations have been introduced for the specific case of binaural devices.
 This section focuses on motivating and deriving those representations.
 
-*Sound Propagation within the Multi-Microphone Setting*
 
 #figure(
   image(
@@ -351,12 +355,16 @@ This section focuses on motivating and deriving those representations.
 )
 <fig:simulator:background:multi_mic_schema>
 
-For simplicity, the following section maintains the free-field assumption introduced in @sec:simulator:reverb:fundamentals_of_sound_propagation.
-By adapting the single-microphone case (@eq:simulator:background:single_mic_discrete), the signal received by microphone $i$ can be expressed as (Vincent et al. @vincent_audio_2018 Chapter 3 or Gustafsson et al. @gustafsson_source_2003):
-$
-  x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq].
-$
-<eq:simulator:background:propagation_multi_mic>
+#block(breakable: false)[
+  *Sound Propagation within the Multi-Microphone Setting*
+
+  For simplicity, the following section maintains the free-field assumption introduced in @sec:simulator:reverb:fundamentals_of_sound_propagation.
+  By adapting the single-microphone case (@eq:simulator:background:single_mic_discrete), the signal received by microphone $i$ can be expressed as (Vincent et al. @vincent_audio_2018 Chapter 3 or Gustafsson et al. @gustafsson_source_2003):
+  $
+    x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq].
+  $
+  <eq:simulator:background:propagation_multi_mic>
+]
 where $d_i$ is the distance from microphone $i$ to the source (see @fig:simulator:background:multi_mic_schema).
 
 One can write the signal $x_2$, recorded by microphone $2$, as a function of the one recorded by microphone $1$ by combining their expressions:

@@ -78,19 +78,21 @@ Its impact will be studied in more detail in a later section.
 Once the collection of $H-1$ previous #doa maps has been correctly shifted to $cal(F)_t$, they will be _combined_, along with the current map $M_t$.
 The intuition behind this approach for #acr("ASSL") lies in combining those step-maps into a single aggregate 2D heatmap that estimates the positions of each source around the robot.
 
-Such a mapping is defined as:
-#func-def(
-  $Psi$,
-  $RR^(H times p times p)$,
-  $RR^(p times p)$,
-  $bold(tilde(M))_t = (
-    tilde(M)_(t-H+1),
-    dots,
-    tilde(M)_t
-  )$,
-  AM + ",",
-)
-where #AM denotes the obtained estimate for the likelihood.
+#block(breakable: false)[
+  Such a mapping is defined as:
+  #func-def(
+    $Psi$,
+    $RR^(H times p times p)$,
+    $RR^(p times p)$,
+    $bold(tilde(M))_t = (
+      tilde(M)_(t-H+1),
+      dots,
+      tilde(M)_t
+    )$,
+    AM + ",",
+  )
+  where #AM denotes the obtained estimate for the likelihood.
+]
 
 Designing a reliable process to aggregate the maps is crucial.
 Indeed, the resulting #AM likelihood will be used to extract the positions of each source.
@@ -116,6 +118,8 @@ The idea of averaging #doa maps means that each time step provides equal informa
 Thus, the intersection of the different cones will have the highest scores, which appears reasonable.
 However, in some trajectories, averaging leads to artifacts that harden the clustering task performed to extract the final detection results.
 The performance of this blending approach is discussed further in @sec:active_ssl:results:blending_methods.
+
+#v(4em)
 
 ==== Deep Neural Network
 

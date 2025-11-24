@@ -156,12 +156,14 @@ $
   #mfc = 100 / #n-ep sum_(i=1)^#n-ep C(s_(i, #env-horizon)),
 $
 where #env-horizon is the environment horizon and $s_T^i$ is the final state of the $i$-th test episode.
-When using the #acr("WER") cost, it corresponds to the #acr("ASR") performance after the agent is done moving.
-We convert the normalized cost to a percentage for more intuitive interpretation, especially in the case of #wer-cost.
-In addition to #acr("MFC"), we report the undiscounted cumulated reward #mean-cum-reward:
-$
-  #mean-cum-reward = 1 / #n-ep sum_(i=1)^#n-ep sum_(t=1)^#env-horizon r_(i, t),
-$
+#block(breakable: false)[
+  When using the #acr("WER") cost, it corresponds to the #acr("ASR") performance after the agent is done moving.
+  We convert the normalized cost to a percentage for more intuitive interpretation, especially in the case of #wer-cost.
+  In addition to #acr("MFC"), we report the undiscounted cumulated reward #mean-cum-reward:
+  $
+    #mean-cum-reward = 1 / #n-ep sum_(i=1)^#n-ep sum_(t=1)^#env-horizon r_(i, t),
+  $
+]
 where $r_(i, t)$ is the reward the agent received when transiting to state $s_t$ during episode $i$.
 The performance of the trained policy (denoted #pi-theta) is compared to a selection of baseline deterministic policies:
 - *#pi-random*, where the agent acts randomly, also disregarding the state value;

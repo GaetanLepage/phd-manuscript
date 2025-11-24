@@ -274,16 +274,18 @@ Huang et al. have also contributed to this practical investigation by publishing
 We incorporate several of these optimizations in our custom #acr("PPO") implementation.
 While the employed implementation details are not exhaustively listed here, the following are notable examples.
 Most notably, value loss clipping effectively helped stabilize the critic's optimization.
-The unclipped value loss function, introduced in @eq:rl:intro:ppo:value_loss is replaced by:
-$
-  L_t^"VF, clipped" (theta) := max[
-    underbrace(
-      (V_theta (s_t) - R_t)^2,
-      "unclipped loss"
-    ),
-    (V^"clipped" (s_t) - R_t)^2
-  ],
-$
+#block(breakable: false)[
+  The unclipped value loss function, introduced in @eq:rl:intro:ppo:value_loss is replaced by:
+  $
+    L_t^"VF, clipped" (theta) := max[
+      underbrace(
+        (V_theta (s_t) - R_t)^2,
+        "unclipped loss"
+      ),
+      (V^"clipped" (s_t) - R_t)^2
+    ],
+  $
+]
 where $V^"clipped" (s_t))$ is the clipped value prediction:
 $
   V^"clipped" (s_t) =

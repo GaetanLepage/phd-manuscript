@@ -166,22 +166,25 @@ Higher spectrum numerical values indicate the presence of a source at this locat
 Those angles, being #doa;s, are relative to the microphone array's orientation.
 A peak at $0°$ designates the presence of a source in front of the microphones.
 
-*Multi-Source #doa Encoding*
 
-The dataset contains the #doa values for each sample.
-We need to convert this list of scalar angular values to our spatial spectrum encoding format so that we can use it as a regression target.
-Numerous methods could be employed to achieve this.
-A first solution to this problem could be placing a pseudo-Dirac at the exact location of the sources.
-//$
-//  o(Theta)_i = sum_(k=1)^n_s bb(1)_(phi.alt_i = theta_k),
-//$
+#block(breakable: false)[
+  *Multi-Source #doa Encoding*
 
-$
-  o(Theta)_i := cases(
-    1 #h(1cm) & "if" exists theta in Theta | phi.alt_i = theta,
-    0 & "otherwise,"
-  )
-$
+  The dataset contains the #doa values for each sample.
+  We need to convert this list of scalar angular values to our spatial spectrum encoding format so that we can use it as a regression target.
+  Numerous methods could be employed to achieve this.
+  A first solution to this problem could be placing a pseudo-Dirac at the exact location of the sources.
+  //$
+  //  o(Theta)_i = sum_(k=1)^n_s bb(1)_(phi.alt_i = theta_k),
+  //$
+
+  $
+    o(Theta)_i := cases(
+      1 #h(1cm) & "if" exists theta in Theta | phi.alt_i = theta,
+      0 & "otherwise,"
+    )
+  $
+]
 Instead, a more robust regression target is introduced.
 It consists in combining $n_s$ unnormalized Gaussians centered at each #doa angles:
 $
@@ -246,29 +249,31 @@ If too low, some high-frequency noise in the spatial spectrum could lead to seve
 On the other hand, a large value of $sigma_n$ might cause two close peaks to be wrongly identified as a single one, thus missing a positive detection.
 We have found $sigma_n = 8 degree$ to be a satisfying value.
 
-When the number $colMath(z, #eastern)$ of active sources is known, @eq:ssl:multi_source:decoding_unknown_sources can be adapted as:
-$
-  hat(y) (hat(o); colMath(z, #eastern)) = {
-    phi.alt_i:
-    "among the" colMath(z, #eastern) "greatest"
-    colMath(
-      hat(o)_i = max_(
-      j in [|1, d|],\
-      d(
-        phi.alt_i, phi.alt_j
-      ) < sigma_n
+#block(breakable: false)[
+  When the number $colMath(z, #eastern)$ of active sources is known, @eq:ssl:multi_source:decoding_unknown_sources can be adapted as:
+  $
+    hat(y) (hat(o); colMath(z, #eastern)) = {
+      phi.alt_i:
+      "among the" colMath(z, #eastern) "greatest"
+      colMath(
+        hat(o)_i = max_(
+        j in [|1, d|],\
+        d(
+          phi.alt_i, phi.alt_j
+        ) < sigma_n
+        )
+        hat(o)_j,
+        #olive
       )
-      hat(o)_j,
-      #olive
-    )
-    // heat threshold
-    ,
-    #h(2em)
-    i in [|1, d|]
-  }.
-$
-<eq:ssl:multi_source:decoding_known_sources>
-The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
+      // heat threshold
+      ,
+      #h(2em)
+      i in [|1, d|]
+    }.
+  $
+  <eq:ssl:multi_source:decoding_known_sources>
+  The $colMath(z, #eastern)$ highest peaks are used as the predicted angles.
+]
 
 ==== Neural Network Architecture
 
@@ -287,7 +292,7 @@ As discussed in @sec:ssl:background:deep_learning, using the image-like time-fre
 #figure(
   image(
     "figures/ssl_multisource_nn_architecture.svg",
-    height: 80%,
+    height: 100%,
   ),
   caption: [
     Deep neural network architecture for multi-source SSL.

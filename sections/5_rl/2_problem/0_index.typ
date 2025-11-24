@@ -148,19 +148,21 @@ The #acr("WER") quantifies the difference between the original and transcribed t
 The total number of errors $s + d + i$ is also called the Levenshtein or edit distance, which Vladimir Levenshtein proposed in 1965 @levenshtein_binary_1965.
 Its default formulation considers comparing two strings at the character level.
 Lets consider two strings $a$ and $b$ (of length $abs(a) = n + 1$ and $abs(b) = m + 1$ respectively).
-The Levenshtein distance between $a$ and $b$ is computed as:
-$
-  "lev"(a, b) = cases(
-    abs(a) & "if" m = 0,
-    abs(b) & "if" n = 0,
-    "lev"(a_(1..n), b_(1..m)) & "if" a_0 = b_0,
-    1 + min cases(
-      "lev"(a_(1..n), b),
-      "lev"(a, b_(1..m)),
-      "lev"(a_(1..n), b_(1..m))
-    ) & "otherwise,"
-  )
-$
+#block(breakable: false)[
+  The Levenshtein distance between $a$ and $b$ is computed as:
+  $
+    "lev"(a, b) = cases(
+      abs(a) & "if" m = 0,
+      abs(b) & "if" n = 0,
+      "lev"(a_(1..n), b_(1..m)) & "if" a_0 = b_0,
+      1 + min cases(
+        "lev"(a_(1..n), b),
+        "lev"(a, b_(1..m)),
+        "lev"(a_(1..n), b_(1..m))
+      ) & "otherwise,"
+    )
+  $
+]
 where $a_0$ is the first character of $a$ and $a_(1..n)$ is the string $a$ without its first character.
 It counts the number of edits to turn string $a$ into string $b$.
 As such, it is bounded by the length of the longest string:

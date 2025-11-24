@@ -48,14 +48,15 @@ Geometric information is extracted from the differences between the signals each
 The room's acoustic properties and the array's layout significantly impact the characteristics of the generated audio signals.
 The resulting patterns in the collected data are thus heavily affected by these choices.
 
-We present the following microphone array configurations that have been tested:
-- A *binaural* array comprises two microphones placed a few centimeters apart.
-  This setup constitutes the most studied robotic #acr("SSL") framework in the literature.
-  This layout was primarily considered because of a humanoid robotic head equipped with two microphones on each side.
-- We have also proposed a *three-microphone* design in a V-shaped arrangement.
-- A *square* array of four microphones has been implemented too.
-- Finally, the *#acr("ULA")* configuration is available, supporting a configurable number of microphones.
-
+#block(breakable: false)[
+  We present the following microphone array configurations that have been tested:
+  - A *binaural* array comprises two microphones placed a few centimeters apart.
+    This setup constitutes the most studied robotic #acr("SSL") framework in the literature.
+    This layout was primarily considered because of a humanoid robotic head equipped with two microphones on each side.
+  - We have also proposed a *three-microphone* design in a V-shaped arrangement.
+  - A *square* array of four microphones has been implemented too.
+  - Finally, the *#acr("ULA")* configuration is available, supporting a configurable number of microphones.
+]
 Their implementation has been integrated into our simulator (see @sec:simulator:simulator:components:sim_scenarios).
 
 The number of microphones plays an essential role in the #"SSL" performance.

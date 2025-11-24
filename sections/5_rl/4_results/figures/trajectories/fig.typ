@@ -2,7 +2,7 @@
 #import deps.subpar
 #import "/utils.typ": *
 
-#let fig-width = 90%
+#let fig-width = 95%
 #subpar.grid(
   // Source at the center
   figure(
