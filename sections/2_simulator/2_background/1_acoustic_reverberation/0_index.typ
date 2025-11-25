@@ -357,7 +357,7 @@ $
   x_i [n] = 1 / (sqrt(4 pi) d_i) s[n - d_i/#c #freq].
 $
 <eq:simulator:background:propagation_multi_mic>
-where $d_i$ is the distance from the the source $i$ to the source (see @fig:simulator:background:multi_mic_schema).
+where $d_i$ is the distance from microphone $i$ to the source (see @fig:simulator:background:multi_mic_schema).
 
 One can write the signal $x_2$, recorded by microphone $2$, as a function of the one recorded by microphone $1$ by combining their expressions:
 $
