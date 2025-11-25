@@ -15,3 +15,7 @@ To compile the document, simply do:
 ```bash
 typst compile main.typ
 ```
+
+## License
+
+This work is licensed under the [Creative Commons BY 4.0](https://creativecommons.org/licenses/by/4.0/).
